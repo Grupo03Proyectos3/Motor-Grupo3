@@ -48,7 +48,8 @@ Tendrán la siguiente estructura:
 
 	#include <...>
 	#inlcude "..."
-
+	
+	// This class does X thing --> comentario explicativo
 	class MyClass
 	{
 	public:
@@ -61,6 +62,9 @@ Tendrán la siguiente estructura:
   		{
     			return m_data;
   		}
+
+	protected:
+		...
 
 	private:
   		int m_data;
@@ -80,7 +84,7 @@ Tendrán la siguiente estructura:
   		unsigned m_value_2{-1}; 
 		MyClass m_referencia_clase{nullptr};
 
-5- Comentarios:
+4- Comentarios:
 	- Se debe comentar usando // y no /**/
 	- Usaremos /**/ cuando, mientras programamos, queremos dejar comentada una determinada función o parte del código,
 	pero sólo momentaneamente.
@@ -91,6 +95,22 @@ Tendrán la siguiente estructura:
 	{
 	}
 	*/
+
+5- Documentación: Usaremos comentarios "Doxygen-style" para documentar el código.
+	Es IMPORTANTE que comience con /** y acabe con */
+/**
+ * @brief Brief description of the function
+ *
+ * Detailed description of the function, including the purpose and any
+ * relevant information.
+ *
+ * @param[in] param_name Description of the first parameter
+ * @param[in] param_name Description of the second parameter
+ * @return Description of the return value
+ */
+return_type function_name(param_type param_name, param_type param_name) {
+    // ...
+}
 
 - Otros (IMPORTANTE):
 
