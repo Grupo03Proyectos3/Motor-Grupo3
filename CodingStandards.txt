@@ -1,0 +1,123 @@
+REGLAS DE CÓDIGO PARA PROYECTOS 3:
+	Reglas sacadas de : https://lefticus.gitbooks.io/cpp-best-practices/content/03-Style.html
+	Consultar la web en caso de duda o conflicto.
+
+1- Nombramientos de variables/métodos/clases/etc:
+
+	* Clases : comienzan con mayúscula y llevan mayúscula en cada palabra nueva. Si hubiese tílde se omite
+	 MyClass  Jugador EnemigoAzul Obstaculo ObstaculoPlatano  etc.
+Esto se llama Pascal case: (InputIterator, PascalCase, HelloWorld...)
+
+	* Funciones : comienzan con minúscula, pero ponemos mayúscula en el cambio de palabra.
+	myMethod() jump() chase() followPlayer() addHighScore()
+Esto se llama camel case: (myMethod, camelCase, helloWorld...)	
+
+	* Variables : (AQUÍ SE CAMBIA RESPECTO A LA WEB PARA DISTINGUIR MEJOR ENTRE FUNCIONES Y VARIABLES)
+	Se escribirán todas en minúscula, separándo con guión bajo el cambio de palabra.
+	int high_score; int n_enemies; int gravity; 
+Esto se llama snake case: (unordered_map, snake_case, hello_world...)	
+
+	* Constantes : Todo en mayúscula. (Intentar que sea una sóla palabra, pero en caso de que sean más separar con _)
+	const double PI=3.14159265358979323; const double NUM_PI=...
+
+	* Macros : Todo en mayúscula, guión bajo si es necesario separar palabras. 	
+	INT_MAX
+
+	--> En todos los casos anteriores los nombres deben ser descriptivos y precisos. Evitar redundancias.
+	n_enemies_left --> enemies_left (Intentar reducir lo posible, aquí sobra decir "n" porque si la variable es un int, ya sabemos que es el nº de enemigos)
+	aux / temp --> evitar salvo casos muy concretos en los que se vea muy claro su uso
+
+	--> Podemos nombrar variables como i,j,k,n cuando vayan a ser contadores o similar en un momento concreto.
+		Si son variables que se van a utilizar más no se puede hacer esto.	
+	
+	--> Si es una palabra en inglés (o español...) y no estamos seguros de cómo se escribe, comprobarlo primero y evitar erratas.
+	HEIGHT (ojo con esa que la solemos escribir mal siempre) 
+
+	--> NUNCA DEFINIR NADA QUE EMPIECE POR "_" GUIÓN BAJO. (you risk colliding with names reserved for compiler and standard library implementation use)
+
+2- Nombramientos de variables "especiales":
+
+	* Variables privadas : se distinguirán de las públicas añadiendo m_ delante: "member" data
+	m_player; m_patatas; m_hello_world;
+	
+	* Parámetros : llevarán delante un prefijo t_ (se refiere a "the_") SUJETO A DISCUSIÓN DEL GRUPO POR UN PREFIJO MEJOR
+	t_width; t_height; t_hello_world;
+
+3- Clases:
+Tendrán la siguiente estructura:
+
+	#include <...>
+	#inlcude "..."
+
+	class MyClass
+	{
+	public:
+  		MyClass(int t_data)
+    		 : m_data(t_data)
+  		{
+  		}
+
+  		int getData() const
+  		{
+    			return m_data;
+  		}
+
+	private:
+  		int m_data;
+	};
+
+	* Inicializaremos las variables de clase con el "member initializer list", tal y como se ve en el ejemplo de arriba.
+	(Usando los dos puntos despúes del nombre de la clase y antes de los corchetes)
+	Es decir: 
+  MyClass(int t_value)  
+  {
+    m_value = t_value; --> NO
+  }
+
+	* También inicializaremos todos los objetos de las clases, y lo haremos usando {}:
+	private:
+		int m_value{0};
+  		unsigned m_value_2{-1}; 
+		MyClass m_referencia_clase{nullptr};
+
+5- Comentarios:
+	- Se debe comentar usando // y no /**/
+	- Usaremos /**/ cuando, mientras programamos, queremos dejar comentada una determinada función o parte del código,
+	pero sólo momentaneamente.
+
+	/*
+	// this function does something
+	int myFunc()
+	{
+	}
+	*/
+
+- Otros (IMPORTANTE):
+
+	* Uso de nullptr en lugar de 0 o NULL.
+	* NUNCA poner un using en un .h!! Causa que se implemente dicho namespace en todos los ficheros que incluyan dicho .h
+	* Siempre poner #pragma-once al principio de un .h
+	* Siempre usar "---" para incluir archivos propios (como siempre hemos hecho).
+	* Usar espacios de nombres:
+
+namespace my_namespace {
+    int x = 5;
+    int y = 10;
+}
+
+int main() {
+    std::cout << my_namespace::x << std::endl;
+    std::cout << my_namespace::y << std::endl;
+    return 0;
+}
+
+	* Cuando declaremos variables que inicializamos mediante llamadas a métodos de las librerías, usaremos AUTO para evitar cambiar el tipo.
+	Si no usamos auto, comprobar qué devuelve exactamente ese método para evitar confusión (size_t en lugar de int, para llamadas a vector.size()).
+
+- Otros (secundario):
+
+	* SIEMPRE poner {} para los bucles. Aunque sea un for de una línea, no cuesta nada poner los corchetes y servirá de ayuda más adelante
+	además de ayudar a la legibilidad del código.
+	* Si una línea se está alargando mucho (eg: un if con varias condiciones anidadas) inserta un salto de línea en una posición adecuada.
+	* NUNCA hacer overload del operador "," (la coma).
+	* Antes de sobrecargar un operador, comprobar si es realmente necesario y si la sintaxis es clara.
