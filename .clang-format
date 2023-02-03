@@ -1,0 +1,39 @@
+---
+Language: Cpp
+# Other supported languages include C, ObjC, and JavaScript.
+
+# Naming Conventions
+NamedTagRegex: '[A-Z][a-zA-Z0-9]+'
+NamedDeclarationRegex: '[a-z]+[a-zA-Z0-9]*'
+NamedFunctionRegex: '[a-z]+[a-zA-Z0-9]*'
+ParamDeclarationRegex: 't_[a-z]+[a-zA-Z0-9]*'
+MemberDeclarationRegex: 'm_[a-z]+[a-zA-Z0-9]*'
+
+# Indentation
+IndentWidth: 4
+UseTab: Never
+
+# Alignment
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+
+# Padding
+PadOperators: true
+PadMethodColon: true
+PadReturnType: false
+
+# Wrapping
+ColumnLimit: 80
+BreakBeforeBraces: Allman
+
+# Braces
+BreakBeforeBraces: Allman
+BraceWrapping:
+  AfterControlStatement: true
+  AfterFunction: true
+  AfterType: true
+
+# Control statements
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
