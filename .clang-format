@@ -10,3 +10,4 @@ UseTab: Never
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: true
 AlignConsecutiveDeclarations: true
+
