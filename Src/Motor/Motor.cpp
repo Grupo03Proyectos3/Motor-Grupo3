@@ -3,8 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-int main()
-{
+int main(){
 	Ogre::Root* root;
 	root = new Ogre::Root();
 	saluda("XD");
