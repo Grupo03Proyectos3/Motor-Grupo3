@@ -1,5 +1,6 @@
 #include "Biblioteca/Biblioteca.h"
 #include <OgreRoot.h>
+#include <btBulletCollisionCommon.h>
 #include <fstream>
 #include <iostream>
 
