@@ -112,14 +112,18 @@ int main()
 
     auto start_time = std::chrono::high_resolution_clock::now();
     auto previous_time = std::chrono::duration_cast<std::chrono::milliseconds>(start_time - start_time);
+
+    std::chrono::steady_clock::time_point now = std::chrono::high_resolution_clock::now();
+    std::chrono::milliseconds actual_time;
+    std::chrono::milliseconds delta_time;
     while (game_playing)
     {
         // leer entrada
 
         // actualizar con delta_time
-        auto now = std::chrono::high_resolution_clock::now();
-        auto actual_time = std::chrono::duration_cast<std::chrono::milliseconds>(now - start_time);
-        unsigned long long int delta_time = (actual_time - previous_time).count();
+        now = std::chrono::high_resolution_clock::now();
+        actual_time = std::chrono::duration_cast<std::chrono::milliseconds>(now - start_time);
+        delta_time = actual_time - previous_time;
         previous_time = actual_time;
 
         // renderizar
