@@ -3,8 +3,7 @@
 #ifndef __SYSTEM_H__
 #define __SYSTEM_H__
 
-#include "Manager.h"
-
+class Manager;
 namespace ecs
 {
     /**
@@ -22,7 +21,7 @@ namespace ecs
         virtual void recieve(/*const Message&*/);
 
       protected:
-        Manager* mngr_;
+        Manager* m_mngr;
     };
 }
 

@@ -3,7 +3,8 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 
-#include "Manager.h"
+class Manager;
+//class Component;
 
 namespace ecs
 {
@@ -16,14 +17,17 @@ namespace ecs
       public:
         Entity();
         virtual ~Entity();
+        bool m_alive;
+
+      protected:
+        Manager* m_mngr;
 
       private:
-        friend Manager;
+        //friend Manager;
 
         std::vector<Component*> m_current_cmps;
-        // std::array<Component*, maxComponentId> cmps_;
-        bool m_alive;
-        // ecs::grpId_type gId_;
+        // std::array<Component*, maxComponentId> m_cmps;
+        // ecs::grpId_type m_gId;
     };
 }
 
