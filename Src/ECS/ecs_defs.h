@@ -15,12 +15,12 @@
 
 // Lista de Handlers
 //
-#define _HANDLERS_LIST_ \
+#define HANDLERS_LIST \
     HANDLER_EXAMPLE
 
 // Lista de sistemas
 //
-#define _SYSTEMS_LIST_     \
+#define SYSTEMS_LIST     \
     SYSTEM_EXAMPLE
 
 #endif // !__ECS_DEFS__

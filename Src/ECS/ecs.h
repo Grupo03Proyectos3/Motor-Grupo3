@@ -5,18 +5,9 @@
 
 #include <cstdint>
 
-// You should define a file ../game/ecs_defs.h with the list of your
-// components, groups, and handlers. See ecs_defs_example.h for an
-// example file
-//
-#if __has_include("../game/ecs_defs.h")
-#include "../game/ecs_defs.h"
-#else
-#define _CMPS_LIST_ _CMP_1
-#define _GRPS_LIST_ _GRP_2
-#define _HDLRS_LIST_ _HDLR_1
-#define _SYS_LIST_ _SYS_1
-#endif
+
+#include "ecs_defs.h"
+
 
 namespace ecs
 {
@@ -26,71 +17,63 @@ namespace ecs
     class Manager;
     class System;
 
-    // We define type for the identifiers so we can change them easily.
-    // For example, if we have less than 256 components we can use one
-    // byte, i.e. uint8_t, if we have up to 512 we can use uint16_t,
-    // and so on ...
-    //
-    using cmpId_type = uint8_t;
-    using grpId_type = uint8_t;
-    using hdlrId_type = uint8_t;
-    using sysId_type = uint8_t;
+    using compId_type = uint8_t;
+    using groupId_type = uint8_t;
+    using handlerId_type = uint8_t;
+    using systemId_type = uint8_t;
 
     // list of component identifiers
-    enum cmpId : cmpId_type
+    enum compId : compId_type
     {
-        _CMPS_LIST_, /* taken from ../game/ecs_defs */
+        COMPS_LIST,
 
         // do not remove this
-        _LAST_CMP_ID
+        LAST_COMP_ID
     };
 
     // list of group identifiers
-    enum grpId : cmpId_type
+    enum groupId : compId_type
     {
         _grp_GENERAL,
-        _GRPS_LIST_, /* taken from ../game/ecs_defs */
+        GROUPS_LIST, /* taken from ../game/ecs_defs */
 
         // do not remove this
-        _LAST_GRP_ID
+        LAST_GROUP_ID
     };
 
     // list of handler identifiers
-    enum hdlrId : hdlrId_type
+    enum handlerId : handlerId_type
     {
-        _HDLRS_LIST_, /* taken from ../game/ecs_defs */
+        HANDLERS_LIST,
 
         // do not remove this
-        _LAST_HDLR_ID
+        LAST_HANDLER_ID
     };
 
     // list of system identifiers
-    enum sysId : hdlrId_type
+    enum systemId : systemId_type
     {
-        _SYS_LIST_, /* taken from ../game/ecs_defs */
+        SYSTEMS_LIST,
 
         // do not remove this
-        _LAST_SYS_ID
+        LAST_SYSTEM_ID
     };
 
-    constexpr cmpId_type maxComponentId = cmpId::_LAST_CMP_ID;
-    constexpr cmpId_type maxGroupId = grpId::_LAST_GRP_ID;
-    constexpr hdlrId_type maxHandlerId = hdlrId::_LAST_HDLR_ID;
-    constexpr sysId_type maxSystemId = sysId::_LAST_SYS_ID;
+    constexpr compId_type maxComponentId = compId::LAST_COMP_ID;
+    constexpr groupId_type maxGroupId = groupId::LAST_GROUP_ID;
+    constexpr handlerId_type maxHandlerId = handlerId::LAST_HANDLER_ID;
+    constexpr systemId_type maxSystemId = systemId::LAST_SYSTEM_ID;
 
-// a macro for component identifier declaration, e.g., __CMPID_DECL__(ecs::_TRANSFORM)
-// expands to:
+
 //
-//   constexpr static ecs::cmpId_type id = ecs::_TRANSFORM;
-//
-#define __CMPID_DECL__(cId) constexpr static ecs::cmpId_type id = cId;
+#define __COMP_ID_DECL__(cId) constexpr static ecs::compId_type id = cId;
 
 // a macro for system identifier declaration, e.g., __SYSID_DECL__(ecs::_sys_ASTEROIDS)
 // expands to:
 //
 //   constexpr static ecs::sysId_type id = ecs::_sys_ASTEROIDS;
 //
-#define __SYSID_DECL__(cId) constexpr static ecs::sysId_type id = cId;
+#define __SYSTEM_ID_DECL__(cId) constexpr static ecs::systemId_type id = cId;
 
 } // namespace ecs
 
