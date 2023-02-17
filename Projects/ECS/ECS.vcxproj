@@ -27,6 +27,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Src\ECS\Component.h" />
     <ClInclude Include="..\..\Src\ECS\ecs.h" />
+    <ClInclude Include="..\..\Src\ECS\ecs_defs.h" />
     <ClInclude Include="..\..\Src\ECS\Entity.h" />
     <ClInclude Include="..\..\Src\ECS\Manager.h" />
     <ClInclude Include="..\..\Src\ECS\System.h" />
