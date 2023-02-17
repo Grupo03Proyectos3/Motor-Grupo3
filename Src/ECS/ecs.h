@@ -5,10 +5,10 @@
 
 #include <cstdint>
 
-
+#if __has_include("ecs_defs.h")
 #include "ecs_defs.h"
 
-
+#endif
 namespace ecs
 {
 

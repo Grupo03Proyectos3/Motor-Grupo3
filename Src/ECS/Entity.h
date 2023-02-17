@@ -5,7 +5,9 @@
 
 //class Manager;
 //class Component;
+#include <cassert>
 #include <vector>
+#include "Component.h"
 #include "ecs.h"
 
 namespace ecs
@@ -20,9 +22,6 @@ namespace ecs
         Entity();
         virtual ~Entity();
         bool m_alive;
-
-      protected:
-        Manager* m_mngr;
 
       private:
         friend Manager;
