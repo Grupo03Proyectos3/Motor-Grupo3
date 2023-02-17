@@ -15,6 +15,7 @@
 #include <OgreSceneNode.h>
 #include <OgreLight.h>
 
+
 void loadResources()
 {
     Ogre::ConfigFile cf;
