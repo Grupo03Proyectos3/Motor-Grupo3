@@ -15,6 +15,7 @@
 #include <OgreSceneNode.h>
 #include <OgreLight.h>
 
+#include <fmod.h>
 
 void loadResources()
 {
