@@ -30,6 +30,7 @@
     <ClInclude Include="..\..\Src\ECS\ecs_defs.h" />
     <ClInclude Include="..\..\Src\ECS\Entity.h" />
     <ClInclude Include="..\..\Src\ECS\Manager.h" />
+    <ClInclude Include="..\..\Src\ECS\messages_defs.h" />
     <ClInclude Include="..\..\Src\ECS\System.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

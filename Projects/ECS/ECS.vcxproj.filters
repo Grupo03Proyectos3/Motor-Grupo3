@@ -47,5 +47,8 @@
     <ClInclude Include="..\..\Src\ECS\ecs_defs.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\ECS\messages_defs.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
