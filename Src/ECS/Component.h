@@ -3,8 +3,7 @@
 #ifndef __COMPONENT_H__
 #define __COMPONENT_H__
 
-class Manager;
-class Entity;
+#include "ecs.h"
 
 namespace ecs
 {

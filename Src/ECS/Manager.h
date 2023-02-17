@@ -10,7 +10,7 @@
 #include "Component.h"
 #include "Entity.h"
 #include "System.h"
-//#include "ecs.h"
+#include "ecs.h"
 //#include "messages.h"
 
 namespace ecs
