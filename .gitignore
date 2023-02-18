@@ -22,3 +22,4 @@ Dependencias/Bullet/Build
 *.lib.recipe
 *.lastbuildstate
 desktop.ini
+*.exp

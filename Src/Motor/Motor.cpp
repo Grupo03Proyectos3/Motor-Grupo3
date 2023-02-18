@@ -1,4 +1,6 @@
 #include "Biblioteca/Biblioteca.h"
+#include "IMGUI/imgui.h"
+
 #include <OgreRoot.h>
 #include <btBulletCollisionCommon.h>
 #include <chrono>
@@ -16,8 +18,9 @@
 #include <OgreLight.h>
 
 #include <fmod.h>
-#include "IMGUI/imgui.h"
 
+#include "WindowEventUtilities.h"
+#include "MyWindowEventListener.h"
 
 void loadResources()
 {
@@ -99,13 +102,14 @@ int main()
         std::cerr << "Se produjo un error: " << excepcion.what() << '\n';
         exit(1);
     }
-
     Ogre::SceneManager* sceneMgr = root->createSceneManager();
 
     demoLoadFirstMesh(sceneMgr);
 
     // Mostrar la ventana
     window->setVisible(true);
+    // MyWindowEventListener* myWindowListener=new MyWindowEventListener();
+    // WindowEvents::WindowEventUtilities::addWindowEventListener(window,myWindowListener);
    
 
     /* std::fstream f("Assets\\mapa.txt");
@@ -129,6 +133,12 @@ int main()
     std::chrono::milliseconds delta_time;
     while (game_playing)
     {
+        if (window->isClosed())
+        {
+            game_playing = false;
+            break;
+        }
+        WindowEvents::WindowEventUtilities::messagePump();
         // leer entrada
 
         // actualizar con delta_time
@@ -137,10 +147,14 @@ int main()
         delta_time = actual_time - previous_time;
         previous_time = actual_time;
 
-        // renderizar
+        // renderizar la escena y actualizar la ventana
+         
+        std::cout << window->isClosed() << "\n";
+        
+            
         root->renderOneFrame();
         window->update();
-        //std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
 

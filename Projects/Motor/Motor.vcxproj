@@ -28,6 +28,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Motor\Motor.cpp" />
+    <ClCompile Include="..\..\Src\Motor\MyWindowEventListener.cpp" />
+    <ClCompile Include="..\..\Src\Motor\WindowEventUtilities.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Src\Motor\MyWindowEventListener.h" />
+    <ClInclude Include="..\..\Src\Motor\WindowEventUtilities.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
