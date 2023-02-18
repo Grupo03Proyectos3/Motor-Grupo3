@@ -16,6 +16,8 @@
 #include <OgreLight.h>
 
 #include <fmod.h>
+#include "IMGUI/imgui.h"
+
 
 void loadResources()
 {
@@ -70,6 +72,13 @@ int main()
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
      Ogre::Root* root = new Ogre::Root();
+
+     IMGUI_CHECKVERSION();
+     ImGui::CreateContext();
+     ImGuiIO& io = ImGui::GetIO();
+     (void)io;
+    
+
 
     // Configurar el render system
     Ogre::RenderSystem* rs = root->getRenderSystemByName("Direct3D11 Rendering Subsystem");
