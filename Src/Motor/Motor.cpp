@@ -9,24 +9,24 @@
 #include <iostream>
 
 #include <Ogre.h>
+#include <OgreCamera.h>
+#include <OgreEntity.h>
+#include <OgreLight.h>
 #include <OgreRenderSystem.h>
 #include <OgreRenderWindow.h>
 #include <OgreSceneManager.h>
-#include <OgreEntity.h>
-#include <OgreCamera.h>
 #include <OgreSceneNode.h>
-#include <OgreLight.h>
 
 #include <fmod.h>
 
-#include "WindowEventUtilities.h"
 #include "MyWindowEventListener.h"
+#include "WindowEventUtilities.h"
+
 
 void loadResources()
 {
     Ogre::ConfigFile cf;
     cf.load("resources.cfg");
-
 
     Ogre::String secName, typeName, archName;
     Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
@@ -47,15 +47,17 @@ void loadResources()
     }
 }
 
-void demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
+Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
 {
-    Ogre::Entity* entity = t_sceneMgr->createEntity("myEntity", "cube.mesh");
-    Ogre::SceneNode* node = t_sceneMgr->getRootSceneNode()->createChildSceneNode();
+    Ogre::SceneNode* rootSceneNode = t_sceneMgr->getRootSceneNode();
 
-    node->attachObject(entity);
+   /* Ogre::Entity* entity = t_sceneMgr->createEntity("myEntity", "cube.mesh");
+    Ogre::SceneNode* node = rootSceneNode->createChildSceneNode();
+    node->attachObject(entity);*/
+    //node->setPosition(Ogre::Vector3(0, 0, 50));
 
     Ogre::Light* light = t_sceneMgr->createLight("myLight");
-    Ogre::SceneNode* lightNode = t_sceneMgr->getRootSceneNode()->createChildSceneNode();
+    Ogre::SceneNode* lightNode = rootSceneNode->createChildSceneNode();
     light->setType(Ogre::Light::LT_DIRECTIONAL);
     lightNode->setDirection(Ogre::Vector3(0, -1, 0));
     light->setDiffuseColour(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
@@ -64,24 +66,26 @@ void demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
 
     // Crear una cámara y ubicarla en una posición adecuada
     Ogre::Camera* camera = t_sceneMgr->createCamera("myCamera");
-    Ogre::SceneNode* camNode = t_sceneMgr->getRootSceneNode()->createChildSceneNode();
-    camNode->setPosition(0, 0, -30);
+    Ogre::SceneNode* camNode = rootSceneNode->createChildSceneNode();
+    camNode->translate(0, 0, -10);
     camNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TransformSpace::TS_WORLD);
     camNode->attachObject(camera);
+    camera->setNearClipDistance(0.1);
+    camera->setFarClipDistance(50);
+   
+    return camera;
 }
 
 int main()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-     Ogre::Root* root = new Ogre::Root();
+    Ogre::Root* root = new Ogre::Root();
 
-     IMGUI_CHECKVERSION();
-     ImGui::CreateContext();
-     ImGuiIO& io = ImGui::GetIO();
-     (void)io;
-    
-
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    (void)io;
 
     // Configurar el render system
     Ogre::RenderSystem* rs = root->getRenderSystemByName("Direct3D11 Rendering Subsystem");
@@ -93,34 +97,33 @@ int main()
 
     Ogre::RenderWindow* window = root->initialise(true, "Motor");
 
+    if (!window)
+    {
+        Ogre::LogManager::getSingleton().logError("Error al crear la ventana!");
+        return 1;
+    }
+
     try
     {
         loadResources();
     }
-    catch (Ogre::FileNotFoundException &excepcion)
+    catch (Ogre::FileNotFoundException& excepcion)
     {
         std::cerr << "Se produjo un error: " << excepcion.what() << '\n';
         exit(1);
     }
     Ogre::SceneManager* sceneMgr = root->createSceneManager();
 
-    demoLoadFirstMesh(sceneMgr);
+    Ogre::Camera* cam=demoLoadFirstMesh(sceneMgr);
 
+    Ogre::Viewport* viewport = window->addViewport(cam);
+    viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
+    viewport->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
     // Mostrar la ventana
     window->setVisible(true);
+
     // MyWindowEventListener* myWindowListener=new MyWindowEventListener();
     // WindowEvents::WindowEventUtilities::addWindowEventListener(window,myWindowListener);
-   
-
-    /* std::fstream f("Assets\\mapa.txt");
-    if (f.is_open()) {
-        std::cout << "FICHERO ABIERTO\n";
-        f.close();
-    }
-    else {
-        std::cerr << "FICHERO NO ABIERTO";
-        return 1;
-    }*/
 
     // Game-loop
     bool game_playing = true;
@@ -133,12 +136,13 @@ int main()
     std::chrono::milliseconds delta_time;
     while (game_playing)
     {
-        if (window->isClosed())
+        WindowEvents::WindowEventUtilities::messagePump();
+        if (window->isClosed() || window->isHidden())
         {
             game_playing = false;
             break;
         }
-        WindowEvents::WindowEventUtilities::messagePump();
+
         // leer entrada
 
         // actualizar con delta_time
@@ -148,15 +152,11 @@ int main()
         previous_time = actual_time;
 
         // renderizar la escena y actualizar la ventana
-         
-        std::cout << window->isClosed() << "\n";
-        
-            
         root->renderOneFrame();
         window->update();
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
-
+    window->destroy();
 
     if (root)
     {
@@ -165,9 +165,18 @@ int main()
         delete window;
         window = nullptr;
         delete root;
-        root = nullptr;
+        root = nullptr;    
     }
 
     _CrtDumpMemoryLeaks();
     return 0;
 }
+/* std::fstream f("Assets\\mapa.txt");
+    if (f.is_open()) {
+        std::cout << "FICHERO ABIERTO\n";
+        f.close();
+    }
+    else {
+        std::cerr << "FICHERO NO ABIERTO";
+        return 1;
+    }*/
