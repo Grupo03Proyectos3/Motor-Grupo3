@@ -7,6 +7,9 @@
 #include <crtdbg.h>
 #include <fstream>
 #include <iostream>
+#include <filesystem>
+#include <string>
+#include <vector>
 
 #include <Ogre.h>
 #include <OgreCamera.h>
@@ -16,12 +19,56 @@
 #include <OgreRenderWindow.h>
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
+#include <OgreViewport.h>
+
 
 #include <fmod.h>
 
 #include "MyWindowEventListener.h"
 #include "WindowEventUtilities.h"
 
+
+void loadDirectories() {
+    std::string directory = "./Assets";    //Directorio donde estan todos los recursos que buscar
+    std::ifstream infile("resources.cfg"); //Archivo de input
+    std::string line;                      //Linea donde se guarda cada linea leida
+    std::vector<std::string> text;         //Vector donde me guardo todo el texto leido. Cada componente del vector es una linea
+
+    while (line != "FileSystem=./Assets")  //Leo hasta "FileSystem=./Assets" que es lo que no quiero sobreescribir
+    {
+        getline(infile, line);
+        text.push_back(line);
+    }
+    infile.close(); //Cierro el archivo
+
+    std::ofstream output("resources.cfg" /*, std::ios::app | std::ios::ate*/); //Archivo para output
+    for (int i = 0; i < text.size(); i++) //Escribo en el archivo todas las lineas anteriores que quiero conservar
+    {
+        line = text[i];
+        output << line << '\n';
+    }
+
+    for (const auto& entry : std::filesystem::directory_iterator(directory)) //Burco los directorios dentro de "directory"
+    {
+        if (entry.is_directory()) //Si es un fichero tipo directorio
+        {
+            std::string path = entry.path().string(); //Me guardo su ruta en "path"
+            std::string newPath = path;               //Creo otro string del mimo tamaño que "path"
+            for (int i = 0; i < path.size(); i++)     //En "newPath" me guardo la ruta pero con el formato adecuado
+            {
+                if (path[i] == '\\')
+                {
+                    newPath[i] = '/';
+                }
+                else
+                    newPath[i] = path[i];
+            }
+            // Escribe en el archivo todas las rutas que encuentro
+            output << "FileSystem=" << newPath;
+        }
+    }
+    output.close(); //Cierro el archivo ¡¡¡IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
+}
 
 void loadResources()
 {
@@ -87,6 +134,7 @@ int main()
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
 
+    
     // Configurar el render system
     Ogre::RenderSystem* rs = root->getRenderSystemByName("Direct3D11 Rendering Subsystem");
     root->setRenderSystem(rs);
@@ -96,15 +144,15 @@ int main()
     rs->setConfigOption("Full Screen", "No");
 
     Ogre::RenderWindow* window = root->initialise(true, "Motor");
+    //Ogre::RenderWindow* window = Ogre::Root::getSingleton().getAutoCreatedWindow();
 
     if (!window)
     {
         Ogre::LogManager::getSingleton().logError("Error al crear la ventana!");
         return 1;
     }
-
-    try
-    {
+   
+    try {
         loadResources();
     }
     catch (Ogre::FileNotFoundException& excepcion)
@@ -142,7 +190,6 @@ int main()
             game_playing = false;
             break;
         }
-
         // leer entrada
 
         // actualizar con delta_time
@@ -151,7 +198,6 @@ int main()
         delta_time = actual_time - previous_time;
         previous_time = actual_time;
 
-        // renderizar la escena y actualizar la ventana
         root->renderOneFrame();
         window->update();
         std::this_thread::sleep_for(std::chrono::milliseconds(10));

@@ -147,6 +147,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Bullet\Build\src;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
