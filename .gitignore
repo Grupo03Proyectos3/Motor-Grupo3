@@ -21,5 +21,5 @@ Dependencias/Bullet/Build
 *.exe.recipe
 *.lib.recipe
 *.lastbuildstate
-desktop.ini
 *.exp
+desktop.ini
