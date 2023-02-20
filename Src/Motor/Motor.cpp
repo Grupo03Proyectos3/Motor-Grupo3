@@ -34,6 +34,20 @@ void loadDirectories() {
     std::ifstream infile("resources.cfg"); //Archivo de input
     std::string line;                      //Linea donde se guarda cada linea leida
     std::vector<std::string> text;         //Vector donde me guardo todo el texto leido. Cada componente del vector es una linea
+    
+    //si no puede abrir resources.cfg ERROR
+    try
+    {
+        if (!infile)
+        {
+            throw std::ifstream::failure("resources.cfg dont found");
+        }
+    }
+    catch (std::ifstream::failure& excepcion)
+    {
+        std::cerr << "Error: " << excepcion.what() << '\n';
+        exit(1);
+    }
 
     while (line != "FileSystem=./Assets")  //Leo hasta "FileSystem=./Assets" que es lo que no quiero sobreescribir
     {
@@ -48,9 +62,20 @@ void loadDirectories() {
         line = text[i];
         output << line << '\n';
     }
+    std::filesystem::directory_iterator dir;
 
+    //abrimos el directorio y si lanza excepcion la capturamos
+    try
+    {
+        dir = std::filesystem::directory_iterator(directory); //si no existe la carpeta de Assets lanzamos excepcion
+    }
+    catch (std::filesystem::filesystem_error& e)
+    {
+        std::cerr << "ERROR: " << e.what() << "\n";
+        exit(1);
+    }
 
-    for (const auto& entry : std::filesystem::directory_iterator(directory)) //Burco los directorios dentro de "directory"
+    for (const auto& entry : dir) //Burco los directorios dentro de "directory"
     {
         if (entry.is_directory()) //Si es un fichero tipo directorio
         {
@@ -100,10 +125,10 @@ Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
 {
     Ogre::SceneNode* rootSceneNode = t_sceneMgr->getRootSceneNode();
 
-   /* Ogre::Entity* entity = t_sceneMgr->createEntity("myEntity", "cube.mesh");
+  /*  Ogre::Entity* entity = t_sceneMgr->createEntity("myEntity", "cube.mesh");
     Ogre::SceneNode* node = rootSceneNode->createChildSceneNode();
-    node->attachObject(entity);*/
-    //node->setPosition(Ogre::Vector3(0, 0, 50));
+    node->attachObject(entity);
+    node->setPosition(Ogre::Vector3(0, 0, 50));*/
 
     Ogre::Light* light = t_sceneMgr->createLight("myLight");
     Ogre::SceneNode* lightNode = rootSceneNode->createChildSceneNode();
@@ -121,14 +146,14 @@ Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
     camNode->attachObject(camera);
     camera->setNearClipDistance(0.1);
     camera->setFarClipDistance(50);
-   
+    
     return camera;
 }
 
 int main()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
+   
     Ogre::Root* root = new Ogre::Root();
 
     IMGUI_CHECKVERSION();
@@ -144,33 +169,22 @@ int main()
     // Configurar las opciones de la ventana
     rs->setConfigOption("Video Mode", "800 x 600 @ 32-bit colour");
     rs->setConfigOption("Full Screen", "No");
-
+  
+    loadDirectories();   
+    loadResources();
+    
+    //creamos la ventana
     Ogre::RenderWindow* window = root->initialise(true, "Motor");
-    //Ogre::RenderWindow* window = Ogre::Root::getSingleton().getAutoCreatedWindow();
-
-    if (!window)
-    {
-        Ogre::LogManager::getSingleton().logError("Error al crear la ventana!");
-        return 1;
-    }
-   
-    try {
-        loadResources();
-    }
-    catch (Ogre::FileNotFoundException& excepcion)
-    {
-        std::cerr << "Se produjo un error: " << excepcion.what() << '\n';
-        exit(1);
-    }
+    window->setVisible(true); // Mostrar la ventana
+    //creamos sceneManager
     Ogre::SceneManager* sceneMgr = root->createSceneManager();
 
     Ogre::Camera* cam=demoLoadFirstMesh(sceneMgr);
 
+    //creamos viewport
     Ogre::Viewport* viewport = window->addViewport(cam);
     viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
-    viewport->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
-    // Mostrar la ventana
-    window->setVisible(true);
+    viewport->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana  
 
     // MyWindowEventListener* myWindowListener=new MyWindowEventListener();
     // WindowEvents::WindowEventUtilities::addWindowEventListener(window,myWindowListener);
@@ -184,6 +198,9 @@ int main()
     std::chrono::steady_clock::time_point now = std::chrono::high_resolution_clock::now();
     std::chrono::milliseconds actual_time;
     std::chrono::milliseconds delta_time;
+
+    //root->startRendering();
+
     while (game_playing)
     {
         WindowEvents::WindowEventUtilities::messagePump();
@@ -202,7 +219,7 @@ int main()
 
         root->renderOneFrame();
         window->update();
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
     window->destroy();
 
