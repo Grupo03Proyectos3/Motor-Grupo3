@@ -11,7 +11,7 @@
 #include "Entity.h"
 #include "System.h"
 #include "ecs.h"
-//#include "messages.h"
+#include "messages_defs.h"
 
 namespace ecs
 {
@@ -36,7 +36,7 @@ namespace ecs
         // Adding an entity simply creates an instance of Entity, adds
         // it to the list of the given group and returns it to the caller.
         //
-        Entity* addEntity(/*grpId gId = t_grp_GENERAL*/);
+        Entity* addEntity(groupId gId = _grp_GENERAL);
 
         // Setting the state of entity 't_e' (alive or dead)
         //
@@ -84,7 +84,7 @@ namespace ecs
 
         // associates the entity 't_e' to the handler 't_hId'
         //
-        void setHandler(/*hdlrId_type t_hId, Entity* t_e*/);
+        void setHandler(handlerId_type t_hId, Entity* t_e);
 
         // returns the entity associated to the handler 't_hId'
         //
@@ -113,7 +113,7 @@ namespace ecs
         template <typename T>
         T* getSystem();
 
-        void send(/*const Message& t_m, bool t_delay = false*/);
+        void send(const Message& t_m, bool t_delay = false);
         // this method should be called in the main loop to send queued
         // messages, i.e., those were sent using send(m,true)
         //

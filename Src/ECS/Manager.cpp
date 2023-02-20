@@ -8,7 +8,7 @@ ecs::Manager::~Manager()
 {
 }
 
-ecs::Entity* ecs::Manager::addEntity(/*grpId t_gId*/)
+ecs::Entity* ecs::Manager::addEntity(groupId t_gId)
 {
     // create and initialise the entity
     // auto e = new Entity(t_gId);
@@ -51,13 +51,13 @@ bool ecs::Manager::isAlive(Entity* t_e)
     return t_e->m_alive;
 }
 
-void ecs::Manager::setHandler(/*hdlrId_type t_hId, Entity* t_e*/)
+void ecs::Manager::setHandler(handlerId_type t_hId, Entity* t_e)
 {
-    /*assert(t_hId < maxHandlerId);
-    hdlrs_[t_hId] = t_e;*/
+    assert(t_hId < maxHandlerId);
+    //handlers_[t_hId] = t_e;
 }
 
-void ecs::Manager::send(/*const Message& t_m, bool t_delay*/)
+void ecs::Manager::send(const Message& t_m, bool t_delay)
 {
     // if (!t_delay)
     //{
