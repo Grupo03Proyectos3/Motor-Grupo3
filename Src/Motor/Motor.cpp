@@ -2,7 +2,6 @@
 #include "IMGUI/imgui.h"
 
 #include <OgreRoot.h>
-#include <btBulletCollisionCommon.h>
 #include <chrono>
 #include <crtdbg.h>
 #include <fstream>
@@ -21,11 +20,13 @@
 #include <OgreSceneNode.h>
 #include <OgreViewport.h>
 
-
 #include <fmod.h>
+#include <OgreBullet.h>
 
 #include "MyWindowEventListener.h"
 #include "WindowEventUtilities.h"
+
+
 
 
 void loadDirectories() {
@@ -47,6 +48,7 @@ void loadDirectories() {
         line = text[i];
         output << line << '\n';
     }
+
 
     for (const auto& entry : std::filesystem::directory_iterator(directory)) //Burco los directorios dentro de "directory"
     {

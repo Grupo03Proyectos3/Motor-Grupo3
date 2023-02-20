@@ -118,8 +118,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\FMOD\api\studio\libs\x86;$(SolutionDir)Dependencias\FMOD\api\core\libs\x86;$(SolutionDir)Dependencias\Bullet\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain_d.lib;fmodL_vc.lib;fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\FMOD\api\studio\libs\x86;$(SolutionDir)Dependencias\FMOD\api\core\libs\x86;$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain_d.lib;fmodL_vc.lib;fmodstudioL_vc.lib;OgreBullet_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -138,8 +138,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\FMOD\api\studio\libs\x86;$(SolutionDir)Dependencias\FMOD\api\core\libs\x86;$(SolutionDir)Dependencias\Bullet\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain.lib;fmod_vc.lib;fmodstudio_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\FMOD\api\studio\libs\x86;$(SolutionDir)Dependencias\FMOD\api\core\libs\x86;$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain.lib;fmod_vc.lib;fmodstudio_vc.lib;OgreBullet.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -154,8 +154,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\FMOD\api\studio\libs\x64;$(SolutionDir)Dependencias\FMOD\api\core\libs\x64;$(SolutionDir)Dependencias\Bullet\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain_d.lib;fmodL_vc.lib;fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\FMOD\api\studio\libs\x64;$(SolutionDir)Dependencias\FMOD\api\core\libs\x64;$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain_d.lib;fmodL_vc.lib;fmodstudioL_vc.lib;OgreBullet_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -174,8 +174,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\FMOD\api\studio\libs\x64;$(SolutionDir)Dependencias\FMOD\api\core\libs\x64;$(SolutionDir)Dependencias\Bullet\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain.lib;fmod_vc.lib;fmodstudio_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\FMOD\api\studio\libs\x64;$(SolutionDir)Dependencias\FMOD\api\core\libs\x64;$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain.lib;fmod_vc.lib;fmodstudio_vc.lib;OgreBullet.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
