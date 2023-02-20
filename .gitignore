@@ -23,3 +23,5 @@ Dependencias/Bullet/Build
 *.lastbuildstate
 *.exp
 desktop.ini
+Exes/Motor_d.lib
+Exes/Motor.lib
