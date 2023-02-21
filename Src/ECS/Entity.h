@@ -22,12 +22,12 @@ namespace ecs
       public:
         Entity(ecs::groupId_type t_gId);
         virtual ~Entity();
-        bool m_alive;
 
       private:
         friend Manager;
 
-        std::vector<Component*> m_current_cmps;
+        bool m_alive;
+        std::vector<Component*> m_current_comps;
         std::array<Component*, maxComponentId> m_comps;
         ecs::groupId_type m_gId;
     };

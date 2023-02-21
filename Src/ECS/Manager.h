@@ -73,14 +73,11 @@ namespace ecs
 
         // returns the group 't_gId' of entity 't_e'
         //
-        /*inline grpId_type groupId(Entity* t_e)
-        {
-            return e->gId_;
-        }*/
+        groupId_type groupId(Entity* t_e);
 
         // returns the vector of all entities of a given group
         //
-        // inline const auto& getEntities(/*grpId_type t_gId = _grp_GENERAL*/);
+        const auto& getEntities(groupId_type t_gId = _grp_GENERAL);
 
         // associates the entity 't_e' to the handler 't_hId'
         //
@@ -88,11 +85,7 @@ namespace ecs
 
         // returns the entity associated to the handler 't_hId'
         //
-        /*inline Entity* getHandler(hdlrId_type t_hId)
-        {
-            assert(t_hId < maxHandlerId);
-            return hdlrs_[t_hId];
-        }*/
+        Entity* getHandler(handlerId_type t_hId);
 
         // Adds a System to the manager. It receives the type
         // T of the system (to be created), and the list of
@@ -127,13 +120,14 @@ namespace ecs
         void flushMessagesWithSwap();
         void refresh();
 
+
       private:
         std::array<Entity*, maxHandlerId> m_handlers;
-        std::array<std::vector<Entity*>, maxGroupId> m_ents_by_group_;
+        std::array<std::vector<Entity*>, maxGroupId> m_ents_by_group;
         std::array<System*, maxSystemId> m_systems;
 
         std::vector<Message> m_msgs;
-        // std::vector<Message> msgs_aux_;
+        std::vector<Message> m_msgs_aux;
     };
 
 } // namespace ecs
