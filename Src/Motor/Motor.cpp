@@ -26,8 +26,37 @@
 #include "MyWindowEventListener.h"
 #include "WindowEventUtilities.h"
 
+//Convierte la ruta obtenida al formato de resources.cfg
+std::string parsePath(std::string path)
+{
+    std::string newPath = path;           // Creo otro string del mimo tamaño que "path"
+    for (int i = 0; i < path.size(); i++) // En "newPath" me guardo la ruta pero con el formato adecuado
+    {
+        if (path[i] == '\\')
+        {
+            newPath[i] = '/';
+        }
+        else
+            newPath[i] = path[i];
+    }
+    return newPath;
+}
 
-
+void findDir(std::filesystem::directory_iterator dir, std::ofstream& output)
+{
+    for (const auto& entry : dir) // Burco los directorios dentro de "directory"
+    {
+        if (entry.is_directory()) // Si es un fichero tipo directorio
+        {
+            std::string path = entry.path().string(); // Me guardo su ruta en "path"
+            std::string newPath = parsePath(path);
+            // Escribe en el archivo todas las rutas que encuentro
+            output << "FileSystem=" << newPath << '\n';
+            std::filesystem::directory_iterator d(newPath);
+            findDir(d, output);
+        }
+    }
+}
 
 void loadDirectories() {
     std::string directory = "./Assets";    //Directorio donde estan todos los recursos que buscar
@@ -36,10 +65,8 @@ void loadDirectories() {
     std::vector<std::string> text;         //Vector donde me guardo todo el texto leido. Cada componente del vector es una linea
     
     //si no puede abrir resources.cfg ERROR
-    try
-    {
-        if (!infile)
-        {
+    try {
+        if (!infile) {
             throw std::ifstream::failure("resources.cfg dont found");
         }
     }
@@ -64,36 +91,19 @@ void loadDirectories() {
     }
     std::filesystem::directory_iterator dir;
 
-    //abrimos el directorio y si lanza excepcion la capturamos
+    // abrimos el directorio y si lanza excepcion la capturamos
     try
     {
-        dir = std::filesystem::directory_iterator(directory); //si no existe la carpeta de Assets lanzamos excepcion
+        dir = std::filesystem::directory_iterator(directory); // si no existe la carpeta de Assets lanzamos excepcion
     }
     catch (std::filesystem::filesystem_error& e)
     {
         std::cerr << "ERROR: " << e.what() << "\n";
         exit(1);
     }
+    //Metod recursivo para buscar todos los directorios
+    findDir(dir, output);
 
-    for (const auto& entry : dir) //Burco los directorios dentro de "directory"
-    {
-        if (entry.is_directory()) //Si es un fichero tipo directorio
-        {
-            std::string path = entry.path().string(); //Me guardo su ruta en "path"
-            std::string newPath = path;               //Creo otro string del mimo tamaño que "path"
-            for (int i = 0; i < path.size(); i++)     //En "newPath" me guardo la ruta pero con el formato adecuado
-            {
-                if (path[i] == '\\')
-                {
-                    newPath[i] = '/';
-                }
-                else
-                    newPath[i] = path[i];
-            }
-            // Escribe en el archivo todas las rutas que encuentro
-            output << "FileSystem=" << newPath;
-        }
-    }
     output.close(); //Cierro el archivo ¡¡¡IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
 }
 
