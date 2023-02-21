@@ -27,38 +27,39 @@
 #include "WindowEventUtilities.h"
 
 //Convierte la ruta obtenida al formato de resources.cfg
-std::string parsePath(std::string path)
+std::string parsePath(std::string t_path)
 {
-    std::string newPath = path;           // Creo otro string del mimo tamaño que "path"
-    for (int i = 0; i < path.size(); i++) // En "newPath" me guardo la ruta pero con el formato adecuado
+    std::string new_Path = t_path;           // Creo otro string del mimo tamaño que "path"
+    for (int i = 0; i < t_path.size(); i++) // En "newPath" me guardo la ruta pero con el formato adecuado
     {
-        if (path[i] == '\\')
+        if (t_path[i] == '\\')
         {
-            newPath[i] = '/';
+            new_Path[i] = '/';
         }
         else
-            newPath[i] = path[i];
+            new_Path[i] = t_path[i];
     }
-    return newPath;
+    return new_Path;
 }
 
-void findDir(std::filesystem::directory_iterator dir, std::ofstream& output)
+void findDir(std::filesystem::directory_iterator t_dir, std::ofstream& t_output)
 {
-    for (const auto& entry : dir) // Burco los directorios dentro de "directory"
+    for (const auto& entry : t_dir) // Burco los directorios dentro de "directory"
     {
         if (entry.is_directory()) // Si es un fichero tipo directorio
         {
             std::string path = entry.path().string(); // Me guardo su ruta en "path"
-            std::string newPath = parsePath(path);
+            std::string new_Path = parsePath(path);
             // Escribe en el archivo todas las rutas que encuentro
-            output << "FileSystem=" << newPath << '\n';
-            std::filesystem::directory_iterator d(newPath);
-            findDir(d, output);
+            t_output << "FileSystem=" << new_Path << '\n';
+            std::filesystem::directory_iterator d(new_Path);
+            findDir(d, t_output);
         }
     }
 }
 
-void loadDirectories() {
+void loadDirectories() 
+{
     std::string directory = "./Assets";    //Directorio donde estan todos los recursos que buscar
     std::ifstream infile("resources.cfg"); //Archivo de input
     std::string line;                      //Linea donde se guarda cada linea leida
@@ -112,28 +113,28 @@ void loadResources()
     Ogre::ConfigFile cf;
     cf.load("resources.cfg");
 
-    Ogre::String secName, typeName, archName;
+    Ogre::String sec_name, type_name, arch_name;
     Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
 
     while (seci.hasMoreElements())
     {
-        secName = seci.peekNextKey();
+        sec_name = seci.peekNextKey();
         Ogre::ConfigFile::SettingsMultiMap* settings = seci.getNext();
         Ogre::ConfigFile::SettingsMultiMap::iterator i;
 
         for (i = settings->begin(); i != settings->end(); ++i)
         {
-            typeName = i->first;
-            archName = i->second;
+            type_name = i->first;
+            arch_name = i->second;
             Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
-                archName, typeName, secName);
+                arch_name, type_name, sec_name);
         }
     }
 }
 
 Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
 {
-    Ogre::SceneNode* rootSceneNode = t_sceneMgr->getRootSceneNode();
+    Ogre::SceneNode* root_scene_node = t_sceneMgr->getRootSceneNode();
 
   /*  Ogre::Entity* entity = t_sceneMgr->createEntity("myEntity", "cube.mesh");
     Ogre::SceneNode* node = rootSceneNode->createChildSceneNode();
@@ -141,23 +142,23 @@ Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
     node->setPosition(Ogre::Vector3(0, 0, 50));*/
 
     Ogre::Light* light = t_sceneMgr->createLight("myLight");
-    Ogre::SceneNode* lightNode = rootSceneNode->createChildSceneNode();
+    Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
     light->setType(Ogre::Light::LT_DIRECTIONAL);
-    lightNode->setDirection(Ogre::Vector3(0, -1, 0));
+    light_node->setDirection(Ogre::Vector3(0, -1, 0));
     light->setDiffuseColour(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
     light->setSpecularColour(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
-    lightNode->attachObject(light);
+    light_node->attachObject(light);
 
     // Crear una cámara y ubicarla en una posición adecuada
-    Ogre::Camera* camera = t_sceneMgr->createCamera("myCamera");
-    Ogre::SceneNode* camNode = rootSceneNode->createChildSceneNode();
-    camNode->translate(0, 0, -10);
-    camNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TransformSpace::TS_WORLD);
-    camNode->attachObject(camera);
-    camera->setNearClipDistance(0.1);
-    camera->setFarClipDistance(50);
+    Ogre::Camera* cam = t_sceneMgr->createCamera("myCamera");
+    Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
+    cam_node->translate(0, 0, -10);
+    cam_node->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TransformSpace::TS_WORLD);
+    cam_node->attachObject(cam);
+    cam->setNearClipDistance(0.1);
+    cam->setFarClipDistance(50);
     
-    return camera;
+    return cam;
 }
 
 int main()
@@ -187,9 +188,9 @@ int main()
     Ogre::RenderWindow* window = root->initialise(true, "Motor");
     window->setVisible(true); // Mostrar la ventana
     //creamos sceneManager
-    Ogre::SceneManager* sceneMgr = root->createSceneManager();
+    Ogre::SceneManager* scene_mgr = root->createSceneManager();
 
-    Ogre::Camera* cam=demoLoadFirstMesh(sceneMgr);
+    Ogre::Camera* cam=demoLoadFirstMesh(scene_mgr);
 
     //creamos viewport
     Ogre::Viewport* viewport = window->addViewport(cam);
@@ -235,8 +236,8 @@ int main()
 
     if (root)
     {
-        delete sceneMgr;
-        sceneMgr = nullptr;
+        delete scene_mgr;
+        scene_mgr = nullptr;
         delete window;
         window = nullptr;
         delete root;
