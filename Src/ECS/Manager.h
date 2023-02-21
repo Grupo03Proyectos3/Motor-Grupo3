@@ -128,11 +128,11 @@ namespace ecs
         void refresh();
 
       private:
-        // std::array<Entity*, maxHandlerId> hdlrs_;
-        // std::array<std::vector<Entity*>, maxGroupId> entsByGroup_;
-        // std::array<System*, maxSystemId> sys_;
+        std::array<Entity*, maxHandlerId> m_handlers;
+        std::array<std::vector<Entity*>, maxGroupId> m_ents_by_group_;
+        std::array<System*, maxSystemId> m_systems;
 
-        // std::vector<Message> msgs_;
+        std::vector<Message> m_msgs;
         // std::vector<Message> msgs_aux_;
     };
 

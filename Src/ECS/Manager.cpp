@@ -11,34 +11,12 @@ ecs::Manager::~Manager()
 ecs::Entity* ecs::Manager::addEntity(groupId t_gId)
 {
     // create and initialise the entity
-    // auto e = new Entity(t_gId);
-    // e->m_alive = true;
+    auto e = new Entity(t_gId);
+    e->m_alive = true;
+   
+    m_ents_by_group_[t_gId].push_back(e);
 
-    // add the entity 't_e' to list of entities if the given group
-    //
-    // IMPORTANT NOTE:
-    //
-    // Currently we immediately add the entity to the list of entities,
-    // so we will actually see them in this 'frame' if we traverse the list of
-    // entities afterwards!
-    //
-    // A better solution would be to add them to an auxiliary list, and
-    // define a method 'flush()' that moves them from the auxiliary list
-    // to the corresponding list of entities.
-    //
-    // We will have to call 'flush()' in each iteration of the
-    // main loop. This way we guarantee that entities that are added in one
-    // 'frame' they will appear only in the next 'frame' -- I leave it as an
-    // exercise for you ...
-    //
-    // entsByGroup_[gId].push_back(e);
-
-    // return it to the caller
-    //
-    // return e;
-
-    // provisional
-    return new Entity();
+    return e;
 }
 
 void ecs::Manager::setAlive(Entity* t_e, bool t_alive)
@@ -54,25 +32,23 @@ bool ecs::Manager::isAlive(Entity* t_e)
 void ecs::Manager::setHandler(handlerId_type t_hId, Entity* t_e)
 {
     assert(t_hId < maxHandlerId);
-    //handlers_[t_hId] = t_e;
+    m_handlers[t_hId] = t_e;
 }
 
 void ecs::Manager::send(const Message& t_m, bool t_delay)
 {
-    // if (!t_delay)
-    //{
-    //     for (System* s : sys_)
-    //     {
-    //         if (s != nullptr)
-    //             s->recieve(t_m);
-    //     }
-    // }
-    // else
-    //{
-    //     // will make a copy of m, we could use std::move to move it
-    //     // but then we will have to remove const from above
-    //     msgs_.emplace_back(t_m);
-    // }
+    if (!t_delay)
+    {
+        for (System* s : m_systems)
+        {
+            if (s != nullptr)
+                s->recieve(t_m);
+        }
+    }
+    else
+    {
+        m_msgs.emplace_back(t_m);
+    }
 }
 
 void ecs::Manager::flushMessages()
@@ -130,37 +106,37 @@ void ecs::Manager::refresh()
 template <typename T, typename... Ts>
 T* ecs::Manager::addComponent(ecs::Entity* t_e, Ts&&... t_args)
 {
-//    constexpr cmpId_type cId = T::id;
-//    assert(cId < maxComponentId);
-//
-//    // delete the current component, if any
-//    //
-//    removeComponent<T>(t_e);
-//
-//    // create, initialise and install the new component
-//    //
-//    Component* c = new T(std::forward<Ts>(t_args)...);
-//    c->setContext(t_e, this);
-//    c->initComponent();
-//    t_e->cmps_[cId] = c;
-//    t_e->currCmps_.push_back(c);
-//
-//    // return it to the user so i can be initialised if needed
-//    return static_cast<T*>(c);
+    //    constexpr cmpId_type cId = T::id;
+    //    assert(cId < maxComponentId);
+    //
+    //    // delete the current component, if any
+    //    //
+    //    removeComponent<T>(t_e);
+    //
+    //    // create, initialise and install the new component
+    //    //
+    //    Component* c = new T(std::forward<Ts>(t_args)...);
+    //    c->setContext(t_e, this);
+    //    c->initComponent();
+    //    t_e->cmps_[cId] = c;
+    //    t_e->currCmps_.push_back(c);
+    //
+    //    // return it to the user so i can be initialised if needed
+    //    return static_cast<T*>(c);
 }
 
 template <typename T>
 void ecs::Manager::removeComponent(Entity* t_e)
 {
-    //constexpr cmpId_type cId = T::id;
-    //assert(cId < maxComponentId);
+    // constexpr cmpId_type cId = T::id;
+    // assert(cId < maxComponentId);
 
-    //if (t_e->cmps_[cId] != nullptr)
+    // if (t_e->cmps_[cId] != nullptr)
     //{
-    //    // find the element that is equal to e->cmps_[cId] (returns an iterator)
-    //    //
-    //    auto iter = std::find(t_e->currCmps_.begin(), t_e->currCmps_.end(),
-    //                          t_e->cmps_[cId]);
+    //     // find the element that is equal to e->cmps_[cId] (returns an iterator)
+    //     //
+    //     auto iter = std::find(t_e->currCmps_.begin(), t_e->currCmps_.end(),
+    //                           t_e->cmps_[cId]);
 
     //    // must have such a component
     //    assert(iter != t_e->currCmps_.end());
@@ -180,10 +156,10 @@ void ecs::Manager::removeComponent(Entity* t_e)
 template <typename T>
 T* ecs::Manager::getComponent(Entity* t_e)
 {
-   /* constexpr cmpId_type cId = T::id;
-    assert(cId < maxComponentId);
+    /* constexpr cmpId_type cId = T::id;
+     assert(cId < maxComponentId);
 
-    return static_cast<T*>(t_e->cmps_[cId]);*/
+     return static_cast<T*>(t_e->cmps_[cId]);*/
 }
 
 template <typename T>
@@ -198,33 +174,33 @@ bool ecs::Manager::hasComponent(Entity* t_e)
 template <typename T, typename... Ts>
 T* ecs::Manager::addSystem(Ts&&... t_args)
 {
-    //constexpr sysId_type sId = T::id;
-    //assert(sId < maxSystemId);
+    // constexpr sysId_type sId = T::id;
+    // assert(sId < maxSystemId);
 
-    //removeSystem<T>();
+    // removeSystem<T>();
 
     //// create, initialise and install the new component
     ////
-    //System* s = new T(std::forward<Ts>(t_args)...);
-    //s->setContext(this);
-    //s->initSystem();
-    //sys_[sId] = s;
+    // System* s = new T(std::forward<Ts>(t_args)...);
+    // s->setContext(this);
+    // s->initSystem();
+    // sys_[sId] = s;
 
     //// return it to the user so it can be initialised if needed
-    //return static_cast<T*>(s);
+    // return static_cast<T*>(s);
 }
 
 template <typename T>
 void ecs::Manager::removeSystem()
 {
-    //constexpr sysId_type sId = T::id;
-    //assert(sId < maxSystemId);
+    // constexpr sysId_type sId = T::id;
+    // assert(sId < maxSystemId);
 
-    //if (sys_[sId] != nullptr)
+    // if (sys_[sId] != nullptr)
     //{
-    //    // destroy it
-    //    //
-    //    delete sys_[sId];
+    //     // destroy it
+    //     //
+    //     delete sys_[sId];
 
     //    // remove the pointer
     //    //

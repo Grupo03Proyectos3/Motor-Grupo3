@@ -22,6 +22,6 @@ void ecs::System::update()
 {
 }
 
-void ecs::System::recieve(/*const Message&*/)
+void ecs::System::recieve(const Message&)
 {
 }
