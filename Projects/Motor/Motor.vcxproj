@@ -22,6 +22,9 @@
     <ProjectReference Include="..\Biblioteca\Biblioteca.vcxproj">
       <Project>{2001fab5-f161-4889-94fd-42c6cc3e0c98}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\ECS\ECS.vcxproj">
+      <Project>{f67d33c8-8ac3-4ca7-a629-1310d4529998}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\IMGUI\IMGUI.vcxproj">
       <Project>{d7af60dd-bdcf-4eff-8450-803b80eb7a8e}</Project>
     </ProjectReference>

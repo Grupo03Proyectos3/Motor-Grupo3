@@ -1,12 +1,14 @@
 #include "Biblioteca/Biblioteca.h"
+#include "ECS/Manager.h"
+
 #include "IMGUI/imgui.h"
 
 #include <OgreRoot.h>
 #include <chrono>
 #include <crtdbg.h>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
-#include <filesystem>
 #include <string>
 #include <vector>
 
@@ -20,16 +22,16 @@
 #include <OgreSceneNode.h>
 #include <OgreViewport.h>
 
-#include <fmod.h>
 #include <OgreBullet.h>
+#include <fmod.h>
 
 #include "MyWindowEventListener.h"
 #include "WindowEventUtilities.h"
 
-//Convierte la ruta obtenida al formato de resources.cfg
+// Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
 {
-    std::string new_Path = t_path;           // Creo otro string del mimo tamaño que "path"
+    std::string new_Path = t_path;          // Creo otro string del mimo tamaño que "path"
     for (int i = 0; i < t_path.size(); i++) // En "newPath" me guardo la ruta pero con el formato adecuado
     {
         if (t_path[i] == '\\')
@@ -58,16 +60,18 @@ void findDir(std::filesystem::directory_iterator t_dir, std::ofstream& t_output)
     }
 }
 
-void loadDirectories() 
+void loadDirectories()
 {
-    std::string directory = "./Assets";    //Directorio donde estan todos los recursos que buscar
-    std::ifstream infile("resources.cfg"); //Archivo de input
-    std::string line;                      //Linea donde se guarda cada linea leida
-    std::vector<std::string> text;         //Vector donde me guardo todo el texto leido. Cada componente del vector es una linea
-    
-    //si no puede abrir resources.cfg ERROR
-    try {
-        if (!infile) {
+    std::string directory = "./Assets";    // Directorio donde estan todos los recursos que buscar
+    std::ifstream infile("resources.cfg"); // Archivo de input
+    std::string line;                      // Linea donde se guarda cada linea leida
+    std::vector<std::string> text;         // Vector donde me guardo todo el texto leido. Cada componente del vector es una linea
+
+    // si no puede abrir resources.cfg ERROR
+    try
+    {
+        if (!infile)
+        {
             throw std::ifstream::failure("resources.cfg dont found");
         }
     }
@@ -77,15 +81,15 @@ void loadDirectories()
         exit(1);
     }
 
-    while (line != "FileSystem=./Assets")  //Leo hasta "FileSystem=./Assets" que es lo que no quiero sobreescribir
+    while (line != "FileSystem=./Assets") // Leo hasta "FileSystem=./Assets" que es lo que no quiero sobreescribir
     {
         getline(infile, line);
         text.push_back(line);
     }
-    infile.close(); //Cierro el archivo
+    infile.close(); // Cierro el archivo
 
-    std::ofstream output("resources.cfg" /*, std::ios::app | std::ios::ate*/); //Archivo para output
-    for (int i = 0; i < text.size(); i++) //Escribo en el archivo todas las lineas anteriores que quiero conservar
+    std::ofstream output("resources.cfg" /*, std::ios::app | std::ios::ate*/); // Archivo para output
+    for (int i = 0; i < text.size(); i++)                                      // Escribo en el archivo todas las lineas anteriores que quiero conservar
     {
         line = text[i];
         output << line << '\n';
@@ -102,10 +106,10 @@ void loadDirectories()
         std::cerr << "ERROR: " << e.what() << "\n";
         exit(1);
     }
-    //Metod recursivo para buscar todos los directorios
+    // Metod recursivo para buscar todos los directorios
     findDir(dir, output);
 
-    output.close(); //Cierro el archivo ¡¡¡IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
+    output.close(); // Cierro el archivo ¡¡¡IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
 }
 
 void loadResources()
@@ -136,10 +140,10 @@ Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
 {
     Ogre::SceneNode* root_scene_node = t_sceneMgr->getRootSceneNode();
 
-  /*  Ogre::Entity* entity = t_sceneMgr->createEntity("myEntity", "cube.mesh");
-    Ogre::SceneNode* node = rootSceneNode->createChildSceneNode();
-    node->attachObject(entity);
-    node->setPosition(Ogre::Vector3(0, 0, 50));*/
+    /*  Ogre::Entity* entity = t_sceneMgr->createEntity("myEntity", "cube.mesh");
+      Ogre::SceneNode* node = rootSceneNode->createChildSceneNode();
+      node->attachObject(entity);
+      node->setPosition(Ogre::Vector3(0, 0, 50));*/
 
     Ogre::Light* light = t_sceneMgr->createLight("myLight");
     Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
@@ -157,14 +161,14 @@ Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
     cam_node->attachObject(cam);
     cam->setNearClipDistance(0.1);
     cam->setFarClipDistance(50);
-    
+
     return cam;
 }
 
 int main()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-   
+
     Ogre::Root* root = new Ogre::Root();
 
     IMGUI_CHECKVERSION();
@@ -172,7 +176,6 @@ int main()
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
 
-    
     // Configurar el render system
     Ogre::RenderSystem* rs = root->getRenderSystemByName("Direct3D11 Rendering Subsystem");
     root->setRenderSystem(rs);
@@ -180,22 +183,22 @@ int main()
     // Configurar las opciones de la ventana
     rs->setConfigOption("Video Mode", "800 x 600 @ 32-bit colour");
     rs->setConfigOption("Full Screen", "No");
-  
-    loadDirectories();   
+
+    loadDirectories();
     loadResources();
-    
-    //creamos la ventana
+
+    // creamos la ventana
     Ogre::RenderWindow* window = root->initialise(true, "Motor");
     window->setVisible(true); // Mostrar la ventana
-    //creamos sceneManager
+    // creamos sceneManager
     Ogre::SceneManager* scene_mgr = root->createSceneManager();
 
-    Ogre::Camera* cam=demoLoadFirstMesh(scene_mgr);
+    Ogre::Camera* cam = demoLoadFirstMesh(scene_mgr);
 
-    //creamos viewport
+    // creamos viewport
     Ogre::Viewport* viewport = window->addViewport(cam);
     viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
-    viewport->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana  
+    viewport->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
 
     // MyWindowEventListener* myWindowListener=new MyWindowEventListener();
     // WindowEvents::WindowEventUtilities::addWindowEventListener(window,myWindowListener);
@@ -210,7 +213,25 @@ int main()
     std::chrono::milliseconds actual_time;
     std::chrono::milliseconds delta_time;
 
-    //root->startRendering();
+    // root->startRendering();
+
+    ecs::Manager* manager = new ecs::Manager();
+
+    /*
+        InputSystem* input_system = new InputSystem();
+        RenderSystem* render_system = new RenderSystem();
+        PhysicsSystem* physics_system = new PhysicsSystem();
+        AudioSystem* audio_system = new AudioSystem();
+        UISystem* ui_system = new UISystem();
+        ScriptingSystem* scripting_system = new ScriptingSystem();
+
+        input_system = manager->addSystem<InputSystem>();
+        render_system = manager->addSystem<RenderSystem>();
+        physics_system = manager->addSystem<PhysicsSystem>();
+        audio_system = manager->addSystem<AudioSystem>();
+        ui_system = manager->addSystem<UISystem>();
+        scripting_system = manager->addSystem<ScriptingSystem>();
+    */
 
     while (game_playing)
     {
@@ -230,7 +251,21 @@ int main()
 
         root->renderOneFrame();
         window->update();
-        //std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+        /*
+            input_system->update();
+            render_system->update();
+            physics_system->update();
+            audio_system->update();
+            ui_system->update();
+            scripting_system->update();
+        */
+
+
+        manager->refresh();
+        manager->flushMessages();
+
+        // std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
     window->destroy();
 
@@ -241,7 +276,7 @@ int main()
         delete window;
         window = nullptr;
         delete root;
-        root = nullptr;    
+        root = nullptr;
     }
 
     _CrtDumpMemoryLeaks();
