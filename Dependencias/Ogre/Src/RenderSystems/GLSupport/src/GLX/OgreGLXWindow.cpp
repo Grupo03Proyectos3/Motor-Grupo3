@@ -155,9 +155,7 @@ namespace Ogre
 #if OGRE_NO_QUAD_BUFFER_STEREO == 0
 			if ((opt = miscParams->find("stereoMode")) != end)
 			{
-				StereoModeType stereoMode = StringConverter::parseStereoMode(opt->second);
-				if (SMT_NONE != stereoMode)
-					mStereoEnabled = true;
+				mStereoEnabled = StringConverter::parseBool(opt->second);
 			}
 #endif
 
@@ -499,12 +497,7 @@ namespace Ogre
     //-------------------------------------------------------------------------------------------------//
     void GLXWindow::getCustomAttribute( const String& name, void* pData )
     {
-        if( name == "DISPLAY NAME" )
-        {
-            *static_cast<String*>(pData) = mGLSupport->getDisplayName();
-            return;
-        }
-        else if( name == "DISPLAY" )
+        if( name == "DISPLAY" )
         {
             *static_cast<Display**>(pData) = mGLSupport->getGLDisplay();
             return;

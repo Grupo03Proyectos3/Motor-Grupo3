@@ -32,8 +32,8 @@ THE SOFTWARE.
 namespace Ogre {
 
     //-----------------------------------------------------------------------------
-    HardwareVertexBuffer::HardwareVertexBuffer(HardwareBufferManagerBase* mgr, size_t vertexSize,  
-        size_t numVertices, HardwareBuffer::Usage usage, 
+    HardwareVertexBuffer::HardwareVertexBuffer(HardwareBufferManagerBase* mgr, size_t vertexSize,
+        size_t numVertices, HardwareBuffer::Usage usage,
         bool useSystemMemory, bool useShadowBuffer) 
         : HardwareBuffer(usage, useSystemMemory, useShadowBuffer),
           mIsInstanceData(false),
@@ -68,30 +68,17 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool HardwareVertexBuffer::checkIfVertexInstanceDataIsSupported()
-    {
-        // Use the current render system
-        RenderSystem* rs = Root::getSingleton().getRenderSystem();
-
-        // Check if the supported  
-        return rs->getCapabilities()->hasCapability(RSC_VERTEX_BUFFER_INSTANCE_DATA);
-    }
-    //-----------------------------------------------------------------------------
     void HardwareVertexBuffer::setIsInstanceData( const bool val )
     {
-        if (val && !checkIfVertexInstanceDataIsSupported())
-        {
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, 
-                "vertex instance data is not supported by the render system.", 
-                "HardwareVertexBuffer::checkIfInstanceDataSupported");
-        }
-        else
-        {
-            mIsInstanceData = val;  
-        }
+        RenderSystem* rs = Root::getSingleton().getRenderSystem();
+
+        OgreAssert(!val || rs->getCapabilities()->hasCapability(RSC_VERTEX_BUFFER_INSTANCE_DATA),
+                   "unsupported by rendersystem");
+
+        mIsInstanceData = val;
     }
     //-----------------------------------------------------------------------------
-    size_t HardwareVertexBuffer::getInstanceDataStepRate() const
+    uint32 HardwareVertexBuffer::getInstanceDataStepRate() const
     {
         return mInstanceDataStepRate;
     }

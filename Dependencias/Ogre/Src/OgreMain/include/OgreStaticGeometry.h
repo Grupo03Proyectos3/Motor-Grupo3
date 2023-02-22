@@ -225,7 +225,7 @@ namespace Ogre {
             /// Build
             void build(bool stencilShadows);
             /// Dump contents for diagnostics
-            void dump(std::ofstream& of) const;
+            _OgreExport friend std::ostream& operator<<(std::ostream& o, const GeometryBucket& b);
         };
         /** A MaterialBucket is a collection of smaller buckets with the same 
             Material (and implicitly the same LOD). */
@@ -274,7 +274,7 @@ namespace Ogre {
             /// Get the current Technique
             Technique* getCurrentTechnique(void) const { return mTechnique; }
             /// Dump contents for diagnostics
-            void dump(std::ofstream& of) const;
+            _OgreExport friend std::ostream& operator<<(std::ostream& o, const MaterialBucket& b);
             void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables);
         };
         /** A LODBucket is a collection of smaller buckets with the same LOD. 
@@ -326,7 +326,7 @@ namespace Ogre {
             /// @deprecated use getMaterialBuckets()
             OGRE_DEPRECATED MaterialIterator getMaterialIterator(void);
             /// Dump contents for diagnostics
-            void dump(std::ofstream& of) const;
+            _OgreExport friend std::ostream& operator<<(std::ostream& o, const LODBucket& b);
             void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables);
             EdgeData* getEdgeList() const { return mEdgeList; }
             ShadowCaster::ShadowRenderableList& getShadowRenderableList() { return mShadowRenderables; }
@@ -419,7 +419,7 @@ namespace Ogre {
             void _restoreManualHardwareResources() override;
 
             /// Dump contents for diagnostics
-            void dump(std::ofstream& of) const;
+            _OgreExport friend std::ostream& operator<<(std::ostream& o, const Region& r);
             
         };
         /** Indexed region map based on packed x/y/z region index, 10 bits for
@@ -715,25 +715,10 @@ namespace Ogre {
         /// @deprecated use getRegions()
         OGRE_DEPRECATED RegionIterator getRegionIterator(void);
 
-        /** Dump the contents of this StaticGeometry to a file for diagnostic
+        /** Dump the contents of this StaticGeometry for diagnostic
             purposes.
         */
-        virtual void dump(const String& filename) const;
-
-
-    };
-
-    /** Dummy factory to let Regions adhere to MovableObject protocol */
-    class _OgreExport StaticGeometryFactory : public MovableObjectFactory
-    {
-        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) override { return NULL; }
-    public:
-        StaticGeometryFactory() {}
-        ~StaticGeometryFactory() {}
-
-        static String FACTORY_TYPE_NAME;
-
-        const String& getType(void) const override { return FACTORY_TYPE_NAME; }
+        _OgreExport friend std::ostream& operator<<(std::ostream& o, const StaticGeometry& g);
     };
     /** @} */
     /** @} */

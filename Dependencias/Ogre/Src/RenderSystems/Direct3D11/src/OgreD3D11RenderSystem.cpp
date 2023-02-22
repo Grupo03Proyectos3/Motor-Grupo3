@@ -649,7 +649,7 @@ namespace Ogre
 
 #if OGRE_NO_QUAD_BUFFER_STEREO == 0
         // Stereo driver must be created before device is created
-        StereoModeType stereoMode = StringConverter::parseStereoMode(mOptions["Stereo Mode"].currentValue);
+        auto stereoMode = StringConverter::parseBool(mOptions["Frame Sequential Stereo"].currentValue);
         D3D11StereoDriverBridge* stereoBridge = OGRE_NEW D3D11StereoDriverBridge(stereoMode);
 #endif
 
@@ -908,13 +908,6 @@ namespace Ogre
     void D3D11RenderSystem::initialiseFromRenderSystemCapabilities(
         RenderSystemCapabilities* caps, RenderTarget* primary)
     {
-        if(caps->getRenderSystemName() != getName())
-        {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                "Trying to initialize D3D11RenderSystem from RenderSystemCapabilities that do not support Direct3D11",
-                "D3D11RenderSystem::initialiseFromRenderSystemCapabilities");
-        }
-        
         // add hlsl
         HighLevelGpuProgramManager::getSingleton().addFactory(mHLSLProgramFactory);
     }
@@ -1472,7 +1465,8 @@ namespace Ogre
     {
         mCullingMode = mode;
 
-		mRasterizerDesc.CullMode = D3D11Mappings::get(mode, flipFrontFace());
+		mRasterizerDesc.CullMode = D3D11Mappings::get(mode);
+        mRasterizerDesc.FrontCounterClockwise = !flipFrontFace();
         mRasterizerDescChanged = true;
     }
     void D3D11RenderSystem::_setDepthClamp(bool enable)
@@ -1581,7 +1575,7 @@ namespace Ogre
     void D3D11RenderSystem::setStencilState(const StencilState& state)
     {
 		// We honor user intent in case of one sided operation, and carefully tweak it in case of two sided operations.
-		bool flipFront = state.twoSidedOperation && flipFrontFace();
+		bool flipFront = state.twoSidedOperation;
 		bool flipBack = state.twoSidedOperation && !flipFront;
 
         mDepthStencilDesc.StencilEnable = state.enabled;
@@ -2100,9 +2094,6 @@ namespace Ogre
         {
             //rendering without tessellation.   
             int operationType = op.operationType;
-            if(mGeometryProgramBound && mBoundGeometryProgram && mBoundGeometryProgram->isAdjacencyInfoRequired())
-                operationType |= RenderOperation::OT_DETAIL_ADJACENCY_BIT;
-
             if(mPolygonMode == PM_POINTS)
                 operationType = RenderOperation::OT_POINT_LIST;
 
@@ -2305,12 +2296,11 @@ namespace Ogre
     //---------------------------------------------------------------------
     void D3D11RenderSystem::unbindGpuProgram(GpuProgramType gptype)
     {
-
+        mActiveParameters[gptype].reset();
         switch(gptype)
         {
         case GPT_VERTEX_PROGRAM:
             {
-                mActiveVertexGpuProgramParameters.reset();
                 mBoundVertexProgram = NULL;
                 //mDevice->VSSetShader(NULL);
                 mDevice.GetImmediateContext()->VSSetShader(NULL, NULL, 0);
@@ -2318,7 +2308,6 @@ namespace Ogre
             break;
         case GPT_FRAGMENT_PROGRAM:
             {
-                mActiveFragmentGpuProgramParameters.reset();
                 mBoundFragmentProgram = NULL;
                 //mDevice->PSSetShader(NULL);
                 mDevice.GetImmediateContext()->PSSetShader(NULL, NULL, 0);
@@ -2327,28 +2316,24 @@ namespace Ogre
             break;
         case GPT_GEOMETRY_PROGRAM:
             {
-                mActiveGeometryGpuProgramParameters.reset();
                 mBoundGeometryProgram = NULL;
                 mDevice.GetImmediateContext()->GSSetShader( NULL, NULL, 0 );
             }
             break;
         case GPT_HULL_PROGRAM:
             {
-                mActiveTessellationHullGpuProgramParameters.reset();
                 mBoundTessellationHullProgram = NULL;
                 mDevice.GetImmediateContext()->HSSetShader( NULL, NULL, 0 );
             }
             break;
         case GPT_DOMAIN_PROGRAM:
             {
-                mActiveTessellationDomainGpuProgramParameters.reset();
                 mBoundTessellationDomainProgram = NULL;
                 mDevice.GetImmediateContext()->DSSetShader( NULL, NULL, 0 );
             }
             break;
         case GPT_COMPUTE_PROGRAM:
             {
-                mActiveComputeGpuProgramParameters.reset();
                 mBoundComputeProgram = NULL;
                 mDevice.GetImmediateContext()->CSSetShader( NULL, NULL, 0 );
             }

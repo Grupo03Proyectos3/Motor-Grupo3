@@ -1348,13 +1348,6 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void D3D9RenderSystem::initialiseFromRenderSystemCapabilities(RenderSystemCapabilities* caps, RenderTarget* primary)
     {
-        if (caps->getRenderSystemName() != getName())
-        {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-                "Trying to initialize D3D9RenderSystem from RenderSystemCapabilities that do not support Direct3D9",
-                "D3D9RenderSystem::initialiseFromRenderSystemCapabilities");
-        }
-
         for(const auto& lang : caps->getSupportedShaderProfiles())
         {
             if (lang == "hlsl")
@@ -1785,14 +1778,14 @@ namespace Ogre
     void D3D9RenderSystem::_setTextureCoordSet( size_t stage, size_t index )
     {
         // if vertex shader is being used, stage and index must match
-        if (mVertexProgramBound)
+        if (mProgramBound[GPT_VERTEX_PROGRAM])
             index = stage;
 
         HRESULT hr;
         // Record settings
         mTexStageDesc[stage].coordIndex = index;
 
-        if (mVertexProgramBound)
+        if (mProgramBound[GPT_VERTEX_PROGRAM])
             hr = __SetTextureStageState( static_cast<DWORD>(stage), D3DTSS_TEXCOORDINDEX, index );
         else
             hr = __SetTextureStageState( static_cast<DWORD>(stage), D3DTSS_TEXCOORDINDEX, D3D9Mappings::get(mTexStageDesc[stage].autoTexCoordType, mDeviceManager->getActiveDevice()->getD3D9DeviceCaps()) | index );
@@ -1808,7 +1801,7 @@ namespace Ogre
         mTexStageDesc[stage].autoTexCoordType = m;
         mTexStageDesc[stage].frustum = frustum;
 
-        if (mVertexProgramBound)
+        if (mProgramBound[GPT_VERTEX_PROGRAM])
             hr = __SetTextureStageState( static_cast<DWORD>(stage), D3DTSS_TEXCOORDINDEX, mTexStageDesc[stage].coordIndex );
         else
             hr = __SetTextureStageState( static_cast<DWORD>(stage), D3DTSS_TEXCOORDINDEX, D3D9Mappings::get(m, mDeviceManager->getActiveDevice()->getD3D9DeviceCaps()) | mTexStageDesc[stage].coordIndex );
@@ -1824,7 +1817,7 @@ namespace Ogre
         TexCoordCalcMethod autoTexCoordType = mTexStageDesc[stage].autoTexCoordType;
 
         // if a vertex program is bound, we mustn't set texture transforms
-        if (mVertexProgramBound)
+        if (mProgramBound[GPT_VERTEX_PROGRAM])
         {
             hr = __SetTextureStageState( static_cast<DWORD>(stage), D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE );
             if( FAILED( hr ) )
@@ -2018,18 +2011,6 @@ namespace Ogre
 
             // Needless to sets texture transform here, it's never used at all
         }
-    }
-    //---------------------------------------------------------------------
-    void D3D9RenderSystem::_setTextureAddressingMode( size_t stage, 
-        const Sampler::UVWAddressingMode& uvw )
-    {
-        HRESULT hr;
-        if( FAILED( hr = __SetSamplerState( getSamplerId(stage), D3DSAMP_ADDRESSU, D3D9Mappings::get(uvw.u, mDeviceManager->getActiveDevice()->getD3D9DeviceCaps()) ) ) )
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Failed to set texture addressing mode for U", "D3D9RenderSystem::_setTextureAddressingMode" );
-        if( FAILED( hr = __SetSamplerState( getSamplerId(stage), D3DSAMP_ADDRESSV, D3D9Mappings::get(uvw.v, mDeviceManager->getActiveDevice()->getD3D9DeviceCaps()) ) ) )
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Failed to set texture addressing mode for V", "D3D9RenderSystem::_setTextureAddressingMode" );
-        if( FAILED( hr = __SetSamplerState( getSamplerId(stage), D3DSAMP_ADDRESSW, D3D9Mappings::get(uvw.w, mDeviceManager->getActiveDevice()->getD3D9DeviceCaps()) ) ) )
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Failed to set texture addressing mode for W", "D3D9RenderSystem::_setTextureAddressingMode" );
     }
     //---------------------------------------------------------------------
     void D3D9RenderSystem::_setTextureBlendMode( size_t stage, const LayerBlendModeEx& bm )
@@ -2477,17 +2458,6 @@ namespace Ogre
             "D3D9RenderSystem::setStencilBufferParams");
     }
     //---------------------------------------------------------------------
-    void D3D9RenderSystem::_setTextureUnitFiltering(size_t unit, FilterType ftype, 
-        FilterOptions filter)
-    {
-        HRESULT hr;
-        D3D9Mappings::eD3DTexType texType = mTexStageDesc[unit].texType;
-        hr = __SetSamplerState( getSamplerId(unit), D3D9Mappings::get(ftype), 
-            D3D9Mappings::get(ftype, filter, mDeviceManager->getActiveDevice()->getD3D9DeviceCaps(), texType));
-        if (FAILED(hr))
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Failed to set texture filter ", "D3D9RenderSystem::_setTextureUnitFiltering");
-    }
-    //---------------------------------------------------------------------
     DWORD D3D9RenderSystem::_getCurrentAnisotropy(size_t unit)
     {
         DWORD oldVal;
@@ -2909,32 +2879,6 @@ namespace Ogre
 
         mDeviceManager->destroyInactiveRenderDevices();
     }
-    //---------------------------------------------------------------------
-    struct D3D9RenderContext : public RenderSystem::RenderSystemContext
-    {
-        RenderTarget* target;
-    };
-    //---------------------------------------------------------------------
-    RenderSystem::RenderSystemContext* D3D9RenderSystem::_pauseFrame(void)
-    {
-        //Stop rendering
-        _endFrame();
-
-        D3D9RenderContext* context = OGRE_ALLOC_T(D3D9RenderContext, 1, MEMCATEGORY_RENDERSYS);
-        context->target = mActiveRenderTarget;
-        
-        
-        return context;
-    }
-    //---------------------------------------------------------------------
-    void D3D9RenderSystem::_resumeFrame(RenderSystemContext* context)
-    {
-        //Resume rendering
-        _beginFrame();
-        D3D9RenderContext* d3dContext = static_cast<D3D9RenderContext*>(context);
-
-        OGRE_FREE(context, MEMCATEGORY_RENDERSYS);
-    }
     void D3D9RenderSystem::setVertexDeclaration(VertexDeclaration* decl)
     {
         HRESULT hr;
@@ -3064,8 +3008,8 @@ namespace Ogre
         if ( !mEnableFixedPipeline && !mRealCapabilities->hasCapability(RSC_FIXED_FUNCTION)
              && 
              (
-                ( !mVertexProgramBound ) ||
-                (!mFragmentProgramBound && op.operationType != RenderOperation::OT_POINT_LIST)        
+                ( !mProgramBound[GPT_VERTEX_PROGRAM] ) ||
+                (!mProgramBound[GPT_FRAGMENT_PROGRAM] && op.operationType != RenderOperation::OT_POINT_LIST)
               )
            ) 
         {
@@ -3221,12 +3165,11 @@ namespace Ogre
                 "Null program bound.",
                 "D3D9RenderSystem::bindGpuProgram");
         }*/
-
+        mActiveParameters[gptype].reset();
         HRESULT hr;
         switch(gptype)
         {
         case GPT_VERTEX_PROGRAM:
-            mActiveVertexGpuProgramParameters.reset();
             hr = getActiveD3D9Device()->SetVertexShader(NULL);
             if (FAILED(hr))
             {
@@ -3235,7 +3178,6 @@ namespace Ogre
             }
             break;
         case GPT_FRAGMENT_PROGRAM:
-            mActiveFragmentGpuProgramParameters.reset();
             hr = getActiveD3D9Device()->SetPixelShader(NULL);
             if (FAILED(hr))
             {
@@ -3259,10 +3201,10 @@ namespace Ogre
         HRESULT hr;
         GpuLogicalBufferStructPtr floatLogical = params->getLogicalBufferStruct();
 
+        mActiveParameters[gptype] = params;
         switch(gptype)
         {
         case GPT_VERTEX_PROGRAM:
-            mActiveVertexGpuProgramParameters = params;
             {
                     OGRE_LOCK_MUTEX(floatLogical->mutex);
 
@@ -3300,7 +3242,6 @@ namespace Ogre
             }
             break;
         case GPT_FRAGMENT_PROGRAM:
-            mActiveFragmentGpuProgramParameters = params;
             {
                             OGRE_LOCK_MUTEX(floatLogical->mutex);
 
@@ -3358,7 +3299,7 @@ namespace Ogre
             dx9ClipPlane.c = plane.normal.z;
             dx9ClipPlane.d = plane.d;
 
-            if (mVertexProgramBound)
+            if (mProgramBound[GPT_VERTEX_PROGRAM])
             {
                 // programmable clips in clip space (ugh)
                 // must transform worldspace planes by view/proj
@@ -3670,11 +3611,6 @@ namespace Ogre
 		return D3D9RenderSystem::getDeviceManager()->getActiveDevice()->isDeviceLost();
 	}
 
-    unsigned int D3D9RenderSystem::getDisplayMonitorCount() const
-    {
-        return mD3D->GetAdapterCount();
-    }
-
     //---------------------------------------------------------------------
     void D3D9RenderSystem::beginProfileEvent( const String &eventName )
     {
@@ -3719,8 +3655,8 @@ namespace Ogre
     void D3D9RenderSystem::notifyOnDeviceReset(D3D9Device* device)
     {       
         // Reset state attributes.  
-        mVertexProgramBound = false;
-        mFragmentProgramBound = false;
+        mProgramBound[GPT_VERTEX_PROGRAM] = false;
+        mProgramBound[GPT_FRAGMENT_PROGRAM] = false;
         mLastVertexSourceCount = 0;
 
         
@@ -3863,12 +3799,12 @@ namespace Ogre
     void D3D9RenderSystem::createStereoDriver(const NameValuePairList* miscParams)
     {
         // Get the value used to create the render system.  If none, get the parameter value used to create the window.
-        StereoModeType stereoMode = StringConverter::parseStereoMode(mOptions["Stereo Mode"].currentValue);
-        if (stereoMode == SMT_NONE)
+        bool stereoMode = StringConverter::parseBool(mOptions["Frame Sequential Stereo"].currentValue);
+        if (!stereoMode)
         {
             NameValuePairList::const_iterator iter = miscParams->find("stereoMode");
             if (iter != miscParams->end())
-              stereoMode = StringConverter::parseStereoMode((*iter).second);
+              stereoMode = StringConverter::parseBool((*iter).second);
         }
 
         // Always create the stereo bridge regardless of the mode

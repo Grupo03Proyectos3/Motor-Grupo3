@@ -204,7 +204,7 @@ namespace Ogre {
         /// Delta width of the ribbon
         RealList mDeltaWidth;
         /// controller used to hook up frame time to fader
-        ControllerReal* mFadeController;
+        ControllerFloat* mFadeController;
         /// controller value for hooking up frame time to fader
         ControllerValueRealPtr mTimeControllerValue;
 
@@ -217,21 +217,6 @@ namespace Ogre {
         /// Reset all tracked chains to initial state
         virtual void resetAllTrails(void);
 
-    };
-
-
-    /** Factory object for creating RibbonTrail instances */
-    class _OgreExport RibbonTrailFactory : public MovableObjectFactory
-    {
-    protected:
-        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) override;
-    public:
-        RibbonTrailFactory() {}
-        ~RibbonTrailFactory() {}
-
-        static String FACTORY_TYPE_NAME;
-
-        const String& getType(void) const override;
     };
     /** @} */
     /** @} */

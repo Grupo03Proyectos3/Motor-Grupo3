@@ -72,8 +72,6 @@ OGRE_THREAD_PROVIDER = 1
     Boost libraries provide threading functionality.
 OGRE_THREAD_PROVIDER = 2
     Poco libraries provide threading functionality.
-OGRE_THREAD_PROVIDER = 3
-    TBB library provides threading functionality.
 OGRE_THREAD_PROVIDER = 4
     Standard library provides threading functionality. (requires compiler support)
 */
@@ -96,8 +94,6 @@ OGRE_THREAD_PROVIDER = 4
 WARNING: Disabling this will make the samples unusable.
 */
 #cmakedefine01 OGRE_NO_ZIP_ARCHIVE
-
-#cmakedefine01 OGRE_NO_VIEWPORT_ORIENTATIONMODE
 
 #cmakedefine01 OGRE_NO_TBB_SCHEDULER
 

@@ -1,10 +1,11 @@
-/*-------------------------------------------------------------------------
-This source file is a part of OGRE
+/*
+-----------------------------------------------------------------------------
+This source file is part of OGRE
 (Object-oriented Graphics Rendering Engine)
-
 For the latest info, see http://www.ogre3d.org/
 
 Copyright (c) 2000-2014 Torus Knot Software Ltd
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -21,24 +22,41 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE
--------------------------------------------------------------------------*/
-#ifndef __OgreDefaultWorkQueue_H__
-#define __OgreDefaultWorkQueue_H__
+THE SOFTWARE.
+-----------------------------------------------------------------------------
+*/
 
-#if OGRE_THREAD_PROVIDER == 0
-    #include "OgreDefaultWorkQueueStandard.h"
-#elif OGRE_THREAD_PROVIDER == 1
-    #include "OgreDefaultWorkQueueStandard.h"
-#elif OGRE_THREAD_PROVIDER == 2
-    #include "OgreDefaultWorkQueueStandard.h"
-#elif OGRE_THREAD_PROVIDER == 3
-    #include "OgreDefaultWorkQueueTBB.h"
-#elif OGRE_THREAD_PROVIDER == 4
-	#include "OgreDefaultWorkQueueStandard.h"
+#ifndef __NumericSolvers_H__
+#define __NumericSolvers_H__
+
+#include "OgrePrerequisites.h"
+
+
+namespace Ogre {
+
+    /** \addtogroup Core
+    *  @{
+    */
+    /** \addtogroup Math
+    *  @{
+    */
+    /** Provides numeric solvers for Ogre
+
+            Handles linear algebra numerics.
+    */
+    class NumericSolver
+    {
+    public:
+        /** Solves a full rank NxN linear system of equations 
+
+               This implements a naive Gaussian elimination algorithm.
+               The algorithm is destructive, so there are side effects in coeff and col.
+        */
+        static bool solveNxNLinearSysDestr(int n, double **coeff, double *col);
+    };
+    /** @} */
+    /** @} */
+
+}
+
 #endif
-
-#endif
-
-
-

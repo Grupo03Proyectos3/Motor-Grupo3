@@ -56,7 +56,7 @@ class _OgreSampleClassExport Sample_Grass : public SdkSample
     /*=============================================================================
     // This class will be used to pulsate the light and billboard.
     =============================================================================*/
-    class LightPulse : public ControllerValue<Real>
+    class LightPulse : public ControllerValue<float>
  {
  public:
 
@@ -68,12 +68,12 @@ class _OgreSampleClassExport Sample_Grass : public SdkSample
          mMaxSize = maxSize;
      }
 
-     Real getValue () const override
+     float getValue () const override
      {
          return mIntensity;
      }
 
-     void setValue (Real value) override
+     void setValue (float value) override
      {
          mIntensity = value;
 
@@ -83,7 +83,7 @@ class _OgreSampleClassExport Sample_Grass : public SdkSample
          mBillboard->setColour(newColour);
 
          // calculate new billboard size and apply it
-         Real newSize = mMaxSize * mIntensity;
+         float newSize = mMaxSize * mIntensity;
          mBillboard->setDimensions(newSize, newSize);
      }
 
@@ -142,9 +142,7 @@ class _OgreSampleClassExport Sample_Grass : public SdkSample
 
      // build tangent vectors for the ogre head mesh
      MeshPtr headMesh = MeshManager::getSingleton().load("ogrehead.mesh", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-     unsigned short src, dest;
-     if (!headMesh->suggestTangentVectorBuildParams(VES_TANGENT, src, dest))
-         headMesh->buildTangentVectors(VES_TANGENT, src, dest);
+     headMesh->buildTangentVectors();
 
      // put an ogre head in the middle of the field
      Entity* head = mSceneMgr->createEntity("Head", "ogrehead.mesh");
@@ -315,7 +313,7 @@ class _OgreSampleClassExport Sample_Grass : public SdkSample
 
  StaticGeometry* mField;
  AnimationState* mLightAnimState;
- ControllerReal* mLightController;
+ ControllerFloat* mLightController;
 };
 
 #endif

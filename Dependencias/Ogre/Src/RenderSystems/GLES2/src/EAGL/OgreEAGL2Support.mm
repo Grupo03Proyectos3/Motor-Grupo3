@@ -81,25 +81,9 @@ namespace Ogre {
         mFSAALevels.push_back(8);
 
         mOptions[optContentScalingFactor.name] = optContentScalingFactor;
-        
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
-        ConfigOption optOrientation;
-        optOrientation.name = "Orientation";
-        optOrientation.possibleValues.push_back("Portrait");
-        optOrientation.possibleValues.push_back("Landscape Left");
-        optOrientation.possibleValues.push_back("Landscape Right");
-        optOrientation.currentValue = "Portrait";
-        optOrientation.immutable = false;
-        mOptions[optOrientation.name] = optOrientation;
-#endif
 
         return mOptions;
     }
-
-    String EAGL2Support::getDisplayName(void)
-    {
-        return "todo";
-	}
 
     CFDictionaryRef EAGL2Support::chooseGLConfig(const GLint *attribList, GLint *nElements)
     {
@@ -118,15 +102,6 @@ namespace Ogre {
     }
 
     CFDictionaryRef EAGL2Support::getGLConfigFromContext(EAGLES2Context context)
-    {
-        // TODO: DJR - implement
-        CFDictionaryRef glConfig = 0;
-
-        return glConfig;
-    }
-
-    CFDictionaryRef EAGL2Support::getGLConfigFromDrawable(CAEAGLLayer *drawable,
-                                                    unsigned int *w, unsigned int *h)
     {
         // TODO: DJR - implement
         CFDictionaryRef glConfig = 0;

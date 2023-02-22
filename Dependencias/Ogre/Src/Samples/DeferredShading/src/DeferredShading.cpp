@@ -35,14 +35,10 @@ same license as the rest of the engine.
 #include "DeferredLightCP.h"
 #include "SSAOLogic.h"
 #include "GBufferSchemeHandler.h"
-#include "NullSchemeHandler.h"
-
-#include "OgreShaderExGBuffer.h"
 
 using namespace Ogre;
 
-const Ogre::uint8 DeferredShadingSystem::PRE_GBUFFER_RENDER_QUEUE = Ogre::RENDER_QUEUE_1;
-const Ogre::uint8 DeferredShadingSystem::POST_GBUFFER_RENDER_QUEUE = Ogre::RENDER_QUEUE_8;
+const Ogre::uint8 DeferredShadingSystem::POST_GBUFFER_RENDER_QUEUE = Ogre::RENDER_QUEUE_TRANSPARENTS;
 
 DeferredShadingSystem::DeferredShadingSystem(
         Viewport *vp, SceneManager *sm,  Camera *cam
@@ -166,7 +162,6 @@ void DeferredShadingSystem::createResources(void)
     if (firstTime)
     {
         MaterialManager::getSingleton().addListener(new GBufferSchemeHandler, "GBuffer");
-        MaterialManager::getSingleton().addListener(new NullSchemeHandler, "NoGBuffer");
 
         compMan.registerCustomCompositionPass("DeferredLight", new DeferredLightCompositionPass);
 
@@ -178,8 +173,8 @@ void DeferredShadingSystem::createResources(void)
 
     RTShader::RenderState* schemRenderState = rtShaderGen.getRenderState("GBuffer");
     schemRenderState->setLightCountAutoUpdate(false); // does not use lights
-    RTShader::GBuffer* subRenderState = rtShaderGen.createSubRenderState<RTShader::GBuffer>();
-    subRenderState->setOutBuffers({RTShader::GBuffer::TL_DIFFUSE_SPECULAR, RTShader::GBuffer::TL_NORMAL_VIEWDEPTH});
+    auto subRenderState = rtShaderGen.createSubRenderState(RTShader::SRS_GBUFFER);
+    subRenderState->setParameter("target_buffers", StringVector{"diffuse_specular", "normal_viewdepth"});
     schemRenderState->addTemplateSubRenderState(subRenderState);
 
     mCompositorLogics["SSAOLogic"] = new SSAOLogic;
@@ -187,6 +182,12 @@ void DeferredShadingSystem::createResources(void)
 
     // Create the main GBuffer compositor
     mGBufferInstance = compMan.addCompositor(mViewport, "DeferredShading/GBuffer");
+
+    if(!GpuProgramManager::getSingleton().isSyntaxSupported("hlsl"))
+    {
+        // need to clear depth to 1.0 for GL
+        mGBufferInstance->getTechnique()->getTargetPass(0)->getPass(0)->setClearColour(ColourValue(0.0, 0.0, 0.0, 1.0));
+    }
     
     // Create filters
     mInstance[DSM_SHOWLIT] = compMan.addCompositor(mViewport, "DeferredShading/ShowLit");

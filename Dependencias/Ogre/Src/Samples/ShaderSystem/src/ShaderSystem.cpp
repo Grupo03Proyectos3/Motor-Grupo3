@@ -259,12 +259,7 @@ void Sample_ShaderSystem::setupContent()
             true, true); //so we can still read it
 
         // Build tangent vectors, all our meshes use only 1 texture coordset 
-        // Note we can build into VES_TANGENT now (SM2+)
-        unsigned short src, dest;
-        if (!pMesh->suggestTangentVectorBuildParams(VES_TANGENT, src, dest))
-        {
-            pMesh->buildTangentVectors(VES_TANGENT, src, dest);     
-        }
+        pMesh->buildTangentVectors();
     }
     
 
@@ -937,9 +932,9 @@ void Sample_ShaderSystem::applyShadowType(int menuIndex)
         mSceneMgr->setShadowCameraSetup(ShadowCameraSetupPtr(pssmSetup));
 
     
-        auto subRenderState = mShaderGenerator->createSubRenderState<RTShader::IntegratedPSSM3>();
-        subRenderState->setSplitPoints(pssmSetup->getSplitPoints());
-        subRenderState->setDebug(menuIndex > 1);
+        auto subRenderState = mShaderGenerator->createSubRenderState(SRS_INTEGRATED_PSSM3);
+        subRenderState->setParameter("split_points", pssmSetup->getSplitPoints());
+        subRenderState->setParameter("debug", menuIndex > 1);
         schemRenderState->addTemplateSubRenderState(subRenderState);        
     }
 #endif

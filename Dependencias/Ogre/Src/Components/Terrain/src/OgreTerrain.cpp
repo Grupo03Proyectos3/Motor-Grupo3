@@ -73,9 +73,6 @@ namespace Ogre
     const uint16 Terrain::TERRAINDERIVEDDATA_CHUNK_VERSION = 1;
     // since 129^2 is the greatest power we can address in 16-bit index
     const uint16 Terrain::TERRAIN_MAX_BATCH_SIZE = 129; 
-    const uint16 Terrain::WORKQUEUE_DERIVED_DATA_REQUEST = 1;
-    const uint64 Terrain::TERRAIN_GENERATE_MATERIAL_INTERVAL_MS = 400;
-    const uint16 Terrain::WORKQUEUE_GENERATE_MATERIAL_REQUEST = 2;
     const uint32 Terrain::LOD_MORPH_CUSTOM_PARAM = 1001;
     const uint8 Terrain::DERIVED_DATA_DELTAS = 1;
     const uint8 Terrain::DERIVED_DATA_NORMALS = 2;
@@ -198,11 +195,6 @@ namespace Ogre
         mRootNode = sm->getRootSceneNode()->createChildSceneNode();
         sm->addListener(this);
 
-        WorkQueue* wq = Root::getSingleton().getWorkQueue();
-        mWorkQueueChannel = wq->getChannel("Ogre/Terrain");
-        wq->addRequestHandler(mWorkQueueChannel, this);
-        wq->addResponseHandler(mWorkQueueChannel, this);
-
         // generate a material name, it's important for the terrain material
         // name to be consistent & unique no matter what generator is being used
         // so use our own pointer as identifier, use FashHash rather than just casting
@@ -217,10 +209,6 @@ namespace Ogre
     {
         mDerivedUpdatePendingMask = 0;
         waitForDerivedProcesses();
-        WorkQueue* wq = Root::getSingleton().getWorkQueue();
-        wq->removeRequestHandler(mWorkQueueChannel, this);
-        wq->removeResponseHandler(mWorkQueueChannel, this); 
-
         removeFromNeighbours();
 
         freeLodData();
@@ -489,9 +477,9 @@ namespace Ogre
         // Layer declaration
         stream.writeChunkBegin(TERRAINLAYERDECLARATION_CHUNK_ID, TERRAINLAYERDECLARATION_CHUNK_VERSION);
         //  samplers
-        uint8 numSamplers = (uint8)decl.samplers.size();
+        uint8 numSamplers = (uint8)decl.size();
         stream.write(&numSamplers);
-        for (const auto & sampler : decl.samplers)
+        for (const auto & sampler : decl)
         {
             stream.writeChunkBegin(TERRAINLAYERSAMPLER_CHUNK_ID, TERRAINLAYERSAMPLER_CHUNK_VERSION);
             stream.write(&sampler.alias);
@@ -512,16 +500,16 @@ namespace Ogre
         //  samplers
         uint8 numSamplers;
         stream.read(&numSamplers);
-        targetdecl.samplers.resize(numSamplers);
+        targetdecl.resize(numSamplers);
         for (uint8 s = 0; s < numSamplers; ++s)
         {
             if (!stream.readChunkBegin(TERRAINLAYERSAMPLER_CHUNK_ID, TERRAINLAYERSAMPLER_CHUNK_VERSION))
                 return false;
 
-            stream.read(&(targetdecl.samplers[s].alias));
+            stream.read(&(targetdecl[s].alias));
             uint8 pixFmt;
             stream.read(&pixFmt);
-            targetdecl.samplers[s].format = (PixelFormat)pixFmt;
+            targetdecl[s].format = (PixelFormat)pixFmt;
             stream.readChunkEnd(TERRAINLAYERSAMPLER_CHUNK_ID);
         }
         //  elements are gone, keeping for backward compatibility
@@ -672,7 +660,7 @@ namespace Ogre
 
 
         // Layers
-        if (!readLayerInstanceList(stream, mLayerDecl.samplers.size(), mLayers))
+        if (!readLayerInstanceList(stream, mLayerDecl.size(), mLayers))
             return false;
         deriveUVMultipliers();
 
@@ -1105,9 +1093,13 @@ namespace Ogre
 
         mGenerateMaterialInProgress = true;
 
-        Root::getSingleton().getWorkQueue()->addRequest(
-            mWorkQueueChannel, WORKQUEUE_GENERATE_MATERIAL_REQUEST, 
-            this, 0, synchronous);
+        if(synchronous)
+        {
+            generateMaterial();
+            return;
+        }
+
+        Root::getSingleton().getWorkQueue()->addMainThreadTask([this]() { generateMaterial(); });
     }
     //---------------------------------------------------------------------
     void Terrain::unload()
@@ -1758,7 +1750,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     const String& Terrain::getLayerTextureName(uint8 layerIndex, uint8 samplerIndex) const
     {
-        if (layerIndex < mLayers.size() && samplerIndex < mLayerDecl.samplers.size())
+        if (layerIndex < mLayers.size() && samplerIndex < mLayerDecl.size())
         {
             return mLayers[layerIndex].textureNames[samplerIndex];
         }
@@ -1771,7 +1763,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void Terrain::setLayerTextureName(uint8 layerIndex, uint8 samplerIndex, const String& textureName)
     {
-        if (layerIndex < mLayers.size() && samplerIndex < mLayerDecl.samplers.size())
+        if (layerIndex < mLayers.size() && samplerIndex < mLayerDecl.size())
         {
             if (mLayers[layerIndex].textureNames[samplerIndex] != textureName)
             {
@@ -1916,10 +1908,25 @@ namespace Ogre
         if (!mLightMapRequired)
             req.typeMask = req.typeMask & ~DERIVED_DATA_LIGHTMAP;
 
-        Root::getSingleton().getWorkQueue()->addRequest(
-            mWorkQueueChannel, WORKQUEUE_DERIVED_DATA_REQUEST, 
-            req, 0, synchronous);
+        if(synchronous)
+        {
+            auto r = new WorkQueue::Request(0, 0, req, 0, 0);
+            auto res = handleRequest(r, NULL);
+            handleResponse(res, NULL);
+            delete res;
+            return;
+        }
 
+        Root::getSingleton().getWorkQueue()->addTask(
+            [this, req]()
+            {
+                auto r = new WorkQueue::Request(0, 0, req, 0, 0);
+                auto res = handleRequest(r, NULL);
+                Root::getSingleton().getWorkQueue()->addMainThreadTask([this, res](){
+                    handleResponse(res, NULL);
+                    delete res;
+                });
+            });
     }
     //---------------------------------------------------------------------
     void Terrain::waitForDerivedProcesses()
@@ -1928,7 +1935,7 @@ namespace Ogre
         {
             // we need to wait for this to finish
             OGRE_THREAD_SLEEP(50);
-            Root::getSingleton().getWorkQueue()->processResponses();
+            Root::getSingleton().getWorkQueue()->processMainThreadTasks();
         }
 
     }
@@ -2456,15 +2463,7 @@ namespace Ogre
             mMaterialGenerator->getChangeCount() != mMaterialGenerationCount ||
             mMaterialDirty)
         {
-            mMaterial = mMaterialGenerator->generate(this);
-            mMaterial->load();
-            if (mCompositeMapRequired)
-            {
-                mCompositeMapMaterial = mMaterialGenerator->generateForCompositeMap(this);
-                mCompositeMapMaterial->load();
-            }
-            mMaterialGenerationCount = mMaterialGenerator->getChangeCount();
-            mMaterialDirty = false;
+            const_cast<Terrain*>(this)->generateMaterial();
         }
         if (mMaterialParamsDirty)
         {
@@ -2490,7 +2489,7 @@ namespace Ogre
         for (auto & layer : mLayers)
         {
             // adjust number of textureNames to number declared samplers
-            layer.textureNames.resize(mLayerDecl.samplers.size());
+            layer.textureNames.resize(mLayerDecl.size());
         }
 
         if (includeGPUResources)
@@ -2508,7 +2507,7 @@ namespace Ogre
             mMaterialGenerator = TerrainGlobalOptions::getSingleton().getDefaultMaterialGenerator();
         }
 
-        if (mLayerDecl.samplers.empty())
+        if (mLayerDecl.empty())
         {
             // default the declaration
             mLayerDecl = mMaterialGenerator->getLayerDeclaration();
@@ -2997,55 +2996,9 @@ namespace Ogre
             TerrainGlobalOptions::getSingleton().getUseVertexCompressionWhenAvailable();
     }
     //---------------------------------------------------------------------
-    bool Terrain::canHandleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ)
-    {
-        if(req->getType()==WORKQUEUE_DERIVED_DATA_REQUEST)
-        {
-        DerivedDataRequest ddr = any_cast<DerivedDataRequest>(req->getData());
-        // only deal with own requests
-        // we do this because if we delete a terrain we want any pending tasks to be discarded
-        if (ddr.terrain != this)
-            return false;
-        }
-        else if(req->getType()==WORKQUEUE_GENERATE_MATERIAL_REQUEST)
-        {
-            auto terrain = any_cast<Terrain*>(req->getData());
-            if (terrain != this)
-                return false;
-        }
-
-            return RequestHandler::canHandleRequest(req, srcQ);
-
-    }
-    //---------------------------------------------------------------------
-    bool Terrain::canHandleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ)
-    {
-        const WorkQueue::Request* req = res->getRequest();
-        if(req->getType()==WORKQUEUE_DERIVED_DATA_REQUEST)
-        {
-            DerivedDataRequest ddreq = any_cast<DerivedDataRequest>(req->getData());
-        // only deal with own requests
-        // we do this because if we delete a terrain we want any pending tasks to be discarded
-        if (ddreq.terrain != this)
-            return false;
-        }
-        else if(req->getType()==WORKQUEUE_GENERATE_MATERIAL_REQUEST)
-        {
-            auto terrain = any_cast<Terrain*>(req->getData());
-            if (terrain != this)
-                return false;
-        }
-            return true;
-    }
-    //---------------------------------------------------------------------
     WorkQueue::Response* Terrain::handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ)
     {
         // Background thread (maybe)
-        if(req->getType()==WORKQUEUE_GENERATE_MATERIAL_REQUEST)
-        {
-            return OGRE_NEW WorkQueue::Response(req, true, Any());
-        }
-
         DerivedDataRequest ddr = any_cast<DerivedDataRequest>(req->getData());
         DerivedDataResponse ddres;
         ddres.remainingTypeMask = ddr.typeMask & DERIVED_DATA_ALL;
@@ -3078,18 +3031,8 @@ namespace Ogre
     void Terrain::handleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ)
     {
         // Main thread
-        if(res->getRequest()->getType()==WORKQUEUE_GENERATE_MATERIAL_REQUEST)
-        {
-            handleGenerateMaterialResponse(res,srcQ);
-            return;
-        }
-
         DerivedDataResponse ddres = any_cast<DerivedDataResponse>(res->getData());
         DerivedDataRequest ddreq = any_cast<DerivedDataRequest>(res->getRequest()->getData());
-
-        // only deal with own requests
-        if (ddreq.terrain != this)
-            return;
 
         if ((ddreq.typeMask & DERIVED_DATA_DELTAS) && 
             !(ddres.remainingTypeMask & DERIVED_DATA_DELTAS))
@@ -3144,7 +3087,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    void Terrain::handleGenerateMaterialResponse(const WorkQueue::Response* res, const WorkQueue* srcQ)
+    void Terrain::generateMaterial()
     {
         mMaterial = mMaterialGenerator->generate(this);
         mMaterial->load();

@@ -109,6 +109,9 @@ namespace Ogre
             IDirect3DBaseTexture9 *pTex;
         } mTexStageDesc[OGRE_MAX_TEXTURE_LAYERS];
 
+        /// Saved manual colour blends
+        ColourValue mManualBlendColours[OGRE_MAX_TEXTURE_LAYERS][2];
+
         // Array of up to 8 lights, indexed as per API
         // Note that a null value indicates a free slot
         Light* mLights[MAX_LIGHTS];     
@@ -281,13 +284,10 @@ namespace Ogre
         void _setTextureCoordCalculation(size_t unit, TexCoordCalcMethod m, 
             const Frustum* frustum = 0);
         void _setTextureBlendMode( size_t unit, const LayerBlendModeEx& bm );
-        void _setTextureAddressingMode(size_t stage, const Sampler::UVWAddressingMode& uvw);
         void _setTextureMatrix( size_t unit, const Matrix4 &xform );
         void _setAlphaRejectSettings( CompareFunction func, unsigned char value, bool alphaToCoverage );
         void _setViewport( Viewport *vp );      
         void _beginFrame();
-        virtual RenderSystemContext* _pauseFrame(void);
-        virtual void _resumeFrame(RenderSystemContext* context);
         void _endFrame();       
         void _setCullingMode( CullingMode mode );
         void _setDepthBufferParams( bool depthTest = true, bool depthWrite = true, CompareFunction depthFunction = CMPF_LESS_EQUAL );
@@ -300,7 +300,6 @@ namespace Ogre
         void _convertProjectionMatrix(const Matrix4& matrix,
             Matrix4& dest, bool forGpuProgram = false);
         void _setPolygonMode(PolygonMode level);
-        void _setTextureUnitFiltering(size_t unit, FilterType ftype, FilterOptions filter);
         void setVertexDeclaration(VertexDeclaration* decl);
         void setVertexBufferBinding(VertexBufferBinding* binding, int numberOfInstances, bool indexesUsed);
         void _render(const RenderOperation& op);
@@ -353,9 +352,6 @@ namespace Ogre
         /// Take in some requested FSAA settings and output supported D3D settings
         void determineFSAASettings(IDirect3DDevice9* d3d9Device, size_t fsaa, const String& fsaaHint, D3DFORMAT d3dPixelFormat, 
             bool fullScreen, D3DMULTISAMPLE_TYPE *outMultisampleType, DWORD *outMultisampleQuality);
-
-        /// @copydoc RenderSystem::getDisplayMonitorCount
-        unsigned int getDisplayMonitorCount() const;
 
         /// @copydoc RenderSystem::beginProfileEvent
         virtual void beginProfileEvent( const String &eventName );

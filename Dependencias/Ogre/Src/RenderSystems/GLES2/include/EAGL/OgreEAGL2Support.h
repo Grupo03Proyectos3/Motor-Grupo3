@@ -52,7 +52,6 @@ namespace Ogre {
             void start(void);
             void stop(void);
             ConfigOptionMap getConfigOptions();
-            virtual String getDisplayName(void);
             CFDictionaryRef chooseGLConfig(const GLint *attribList, GLint *nElements);
             GLint getGLConfigAttrib(CFDictionaryRef fbConfig, GLint attribute, GLint *value);
             void * getProcAddress(const char* name) const;
@@ -68,7 +67,6 @@ namespace Ogre {
 
             EAGLES2Context * createNewContext(CAEAGLLayer *drawable, EAGLSharegroup *group) const;
             CFDictionaryRef getGLConfigFromContext(EAGLES2Context context);
-            CFDictionaryRef getGLConfigFromDrawable(CAEAGLLayer *drawable, unsigned int *w, unsigned int *h);
 #endif
             CFDictionaryRef selectGLConfig(const int* minAttribs, const int *maxAttribs);
     };

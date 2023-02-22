@@ -18,20 +18,20 @@
 #include <OgreLight.h>
 #include <OgreRenderSystem.h>
 #include <OgreRenderWindow.h>
-#include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
 #include <OgreViewport.h>
-
 #include <OgreBullet.h>
+#include <OgreRTShaderSystem.h>
 #include <fmod.h>
 
 #include "MyWindowEventListener.h"
 #include "WindowEventUtilities.h"
 
+
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
 {
-    std::string new_Path = t_path;          // Creo otro string del mimo tamaño que "path"
+    std::string new_Path = t_path;          // Creo otro string del mimo tamaï¿½o que "path"
     for (int i = 0; i < t_path.size(); i++) // En "newPath" me guardo la ruta pero con el formato adecuado
     {
         if (t_path[i] == '\\')
@@ -109,7 +109,7 @@ void loadDirectories()
     // Metod recursivo para buscar todos los directorios
     findDir(dir, output);
 
-    output.close(); // Cierro el archivo ¡¡¡IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
+    output.close(); // Cierro el archivo ï¿½ï¿½ï¿½IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
 }
 
 void loadResources()
@@ -118,18 +118,16 @@ void loadResources()
     cf.load("resources.cfg");
 
     Ogre::String sec_name, type_name, arch_name;
-    Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
-
-    while (seci.hasMoreElements())
-    {
-        sec_name = seci.peekNextKey();
-        Ogre::ConfigFile::SettingsMultiMap* settings = seci.getNext();
-        Ogre::ConfigFile::SettingsMultiMap::iterator i;
-
-        for (i = settings->begin(); i != settings->end(); ++i)
+    //Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
+    Ogre::ConfigFile::SettingsBySection_ seci = cf.getSettingsBySection();
+    for (auto i = seci.begin(); i != seci.end(); i++){
+        sec_name =i->first;
+        Ogre::ConfigFile::SettingsMultiMap settings = i->second;
+        Ogre::ConfigFile::SettingsMultiMap::iterator mmi;
+        for (mmi = settings.begin(); mmi != settings.end(); ++mmi)
         {
-            type_name = i->first;
-            arch_name = i->second;
+            type_name = mmi->first;
+            arch_name = mmi->second;
             Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
                 arch_name, type_name, sec_name);
         }
@@ -140,10 +138,10 @@ Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
 {
     Ogre::SceneNode* root_scene_node = t_sceneMgr->getRootSceneNode();
 
-    /*  Ogre::Entity* entity = t_sceneMgr->createEntity("myEntity", "cube.mesh");
-      Ogre::SceneNode* node = rootSceneNode->createChildSceneNode();
-      node->attachObject(entity);
-      node->setPosition(Ogre::Vector3(0, 0, 50));*/
+   /* Ogre::Entity* entity = t_sceneMgr->createEntity("myEntity", "cube.mesh");
+    Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
+    node->attachObject(entity);
+    node->setPosition(Ogre::Vector3(0, 0, 50));*/
 
     Ogre::Light* light = t_sceneMgr->createLight("myLight");
     Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
@@ -153,14 +151,13 @@ Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
     light->setSpecularColour(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
     light_node->attachObject(light);
 
-    // Crear una cámara y ubicarla en una posición adecuada
+    // Crear una cï¿½mara y ubicarla en una posiciï¿½n adecuada
     Ogre::Camera* cam = t_sceneMgr->createCamera("myCamera");
     Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
     cam_node->translate(0, 0, -10);
     cam_node->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TransformSpace::TS_WORLD);
     cam_node->attachObject(cam);
-    cam->setNearClipDistance(0.1);
-    cam->setFarClipDistance(50);
+ 
 
     return cam;
 }
@@ -180,16 +177,12 @@ int main()
     Ogre::RenderSystem* rs = root->getRenderSystemByName("Direct3D11 Rendering Subsystem");
     root->setRenderSystem(rs);
 
-    // Configurar las opciones de la ventana
-    rs->setConfigOption("Video Mode", "800 x 600 @ 32-bit colour");
-    rs->setConfigOption("Full Screen", "No");
-
     loadDirectories();
     loadResources();
 
     // creamos la ventana
     Ogre::RenderWindow* window = root->initialise(true, "Motor");
-    window->setVisible(true); // Mostrar la ventana
+    
     // creamos sceneManager
     Ogre::SceneManager* scene_mgr = root->createSceneManager();
 
@@ -198,7 +191,7 @@ int main()
     // creamos viewport
     Ogre::Viewport* viewport = window->addViewport(cam);
     viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
-    viewport->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
+    viewport->setDimensions(0, 0, 1, 1); // TamaÃ±o completo de la ventana
 
     // MyWindowEventListener* myWindowListener=new MyWindowEventListener();
     // WindowEvents::WindowEventUtilities::addWindowEventListener(window,myWindowListener);
@@ -249,8 +242,7 @@ int main()
         delta_time = actual_time - previous_time;
         previous_time = actual_time;
 
-        root->renderOneFrame();
-        window->update();
+        root->renderOneFrame();       
 
         /*
             input_system->update();

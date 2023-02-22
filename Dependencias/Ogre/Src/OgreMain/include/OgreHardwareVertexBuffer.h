@@ -45,15 +45,13 @@ namespace Ogre {
     *  @{
     */
     /** Specialisation of HardwareBuffer for a vertex buffer. */
-    class _OgreExport HardwareVertexBuffer : public HardwareBuffer
+    class _OgreExport HardwareVertexBuffer final : public HardwareBuffer
     {
             bool mIsInstanceData;
             HardwareBufferManagerBase* mMgr;
-            size_t mNumVertices;
-            size_t mVertexSize;
-            size_t mInstanceDataStepRate;           
-            /// Checks if vertex instance data is supported by the render system
-            virtual bool checkIfVertexInstanceDataIsSupported();
+            uint32 mNumVertices;
+            uint32 mVertexSize;
+            uint32 mInstanceDataStepRate;
 
         public:
             /// Should be called by HardwareBufferManager
@@ -65,15 +63,15 @@ namespace Ogre {
             /// Return the manager of this buffer, if any
             HardwareBufferManagerBase* getManager() const { return mMgr; }
             /// Gets the size in bytes of a single vertex in this buffer
-            size_t getVertexSize(void) const { return mVertexSize; }
+            uint32 getVertexSize(void) const { return mVertexSize; }
             /// Get the number of vertices in this buffer
-            size_t getNumVertices(void) const { return mNumVertices; }
+            uint32 getNumVertices(void) const { return mNumVertices; }
             /// Get if this vertex buffer is an "instance data" buffer (per instance)
             bool isInstanceData() const { return mIsInstanceData; }
             /// Set if this vertex buffer is an "instance data" buffer (per instance)
             void setIsInstanceData(const bool val);
             /// Get the number of instances to draw using the same per-instance data before advancing in the buffer by one element.
-            size_t getInstanceDataStepRate() const;
+            uint32 getInstanceDataStepRate() const;
             /// Set the number of instances to draw using the same per-instance data before advancing in the buffer by one element.
             void setInstanceDataStepRate(const size_t val);
 
@@ -86,7 +84,8 @@ namespace Ogre {
     OGRE_DEPRECATED typedef HardwareBufferLockGuard HardwareVertexBufferLockGuard;
 
     /// Vertex element semantics, used to identify the meaning of vertex buffer contents
-    enum VertexElementSemantic {
+    enum VertexElementSemantic : uint8
+    {
         /// Position, typically VET_FLOAT3
         VES_POSITION = 1,
         /// Blending weights
@@ -120,7 +119,7 @@ namespace Ogre {
      * because they aren't supported on any known hardware - they are unaligned as their size
      * is not a multiple of 4 bytes. Therefore drivers usually must add padding on upload.
      */
-    enum VertexElementType
+    enum VertexElementType : uint8
     {
         VET_FLOAT1 = 0,
         VET_FLOAT2 = 1,
