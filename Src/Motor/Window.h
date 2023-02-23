@@ -4,6 +4,8 @@
 #pragma once
 #include <Ogre.h>
 #include <OgreFileSystemLayer.h>
+#include <OgreRTShaderSystem.h>
+#include <OgreSGTechniqueResolverListener.h>
 namespace OgreWindow{
     struct NativeWindowPair
     {
@@ -19,12 +21,28 @@ namespace OgreWindow{
         void createRoot();
         bool config();
         void setUp();
-        void createWindow(Ogre::String& appName);
+        NativeWindowPair createWindow(Ogre::String& appName);
+        bool initialiseRTShaderSystem();
+        void destroyRTShaderSystem();
+        void loadResources();
+        void locateResources();
+        void pollEvents();
+        Ogre::Root* getRoot() { return mRoot; };
+        Ogre::RenderWindow* getRenderWindow() { return mWindow.render; };
+        Ogre::SceneManager* getSceneManger() { return mSceneManager; };
       protected:
         Ogre::Root* mRoot;               // OGRE root
-        NativeWindowPair mWindow;        // the window
-        Ogre::FileSystemLayer* mFSLayer; // File system abstraction layer
-        Ogre::String mAppName;
+        Ogre::RenderSystem* mRenderSystem; //OGRE renderSystem;
+        Ogre::SceneManager* mSceneManager;  //OGRE sceneManager de la escena que gestiona
+        NativeWindowPair mWindow;        // La venatna
+        Ogre::FileSystemLayer* mFSLayer; // 
+        Ogre::String mAppName;           //Nombre de la app
+
+        //Pipeline
+        Ogre::String mRTShaderLibPath;
+        Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The Shader generator instance.
+        OgreBites::SGTechniqueResolverListener* mMaterialMgrListener; // Shader generator material manager listener.
+        
     };
 } // namespace OgreWindow
 #endif
