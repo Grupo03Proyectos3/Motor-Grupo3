@@ -1,4 +1,4 @@
-#DIRECTORIOS
+# DIRECTORIOS
 .vs/
 
 Temp/
@@ -7,9 +7,15 @@ Lib/
 Dependencias/Ogre/Build
 Dependencias/Bullet/Build
 
+Exes/*
+!Exes/Assets/
 
-#TIPOS DE ARCHIVOS
+# ARCHIVOS
+desktop.ini
+Exes/Motor_d.lib
+Exes/Motor.lib
 
+# TIPOS DE ARCHIVOS
 *.vcxproj.user
 
 *.pdb
@@ -22,9 +28,7 @@ Dependencias/Bullet/Build
 *.lib.recipe
 *.lastbuildstate
 *.exp
-desktop.ini
-Exes/Motor_d.lib
-Exes/Motor.lib
+
 
 # Ignore CLion project directory and iml files
 .idea/
