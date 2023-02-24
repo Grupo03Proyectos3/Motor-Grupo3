@@ -1,13 +1,16 @@
 cd Dependencias
 cd Ogre
 
+IF EXIST .\Build RMDIR /S /Q .\Build
+
 mkdir Build
 cd Build
 
-cmake -G "Visual Studio 17 2022" -A x64 -S ../Src -DOGRE_BUILD_COMPONENT_BITES=ON -DOGRE_BUILD_RENDERSYSTEM_D3D9=OFF
+cmake -G "Visual Studio 17 2022" -A x64 -S ../Src -DOGRE_BUILD_COMPONENT_BITES=ON -DOGRE_BUILD_RENDERSYSTEM_D3D9=OFF -DOGRE_BIULD_PLUGIN_DOT_SCENE=OFF 
 msbuild  Ogre.sln /p:Configuration=Debug
 msbuild  Ogre.sln /p:Configuration=Release
 
+:: Copia de DLLs a Exes 
 copy .\bin\release\OgreBites.dll .\..\..\..\Exes
 copy .\bin\debug\OgreBites_d.dll .\..\..\..\Exes
 
