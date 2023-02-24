@@ -1,1 +1,0 @@
-fichero para probar el gitignore 👍

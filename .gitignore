@@ -50,3 +50,6 @@ cmake-build-*/
 
 # Ignore vim files
 *.swp
+
+# NO IGNORAR
+!Dependencias/CMake/bin/cmake.exe
