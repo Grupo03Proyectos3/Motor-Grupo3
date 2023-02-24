@@ -30,12 +30,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\Motor\GameObject.cpp" />
     <ClCompile Include="..\..\Src\Motor\Motor.cpp" />
     <ClCompile Include="..\..\Src\Motor\MyWindowEventListener.cpp" />
     <ClCompile Include="..\..\Src\Motor\Window.cpp" />
     <ClCompile Include="..\..\Src\Motor\WindowEventUtilities.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\Motor\GameObject.h" />
     <ClInclude Include="..\..\Src\Motor\MyWindowEventListener.h" />
     <ClInclude Include="..\..\Src\Motor\Window.h" />
     <ClInclude Include="..\..\Src\Motor\WindowEventUtilities.h" />
