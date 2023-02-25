@@ -5,7 +5,6 @@
 #ifndef __WindowEventUtils_H__
 #define __WindowEventUtils_H__
 
-#include "OgreBitesPrerequisites.h"
 #include "OgreCommon.h"
 #include "OgreHeaderPrefix.h"
 #include "OgrePlatform.h"
@@ -26,7 +25,7 @@ namespace WindowEvents
     /**
         Callback class used to send out window events to client app
     */
-    class _OgreBitesExport WindowEventListener
+    class WindowEventListener
     {
       public:
         virtual ~WindowEventListener() {}
@@ -83,7 +82,7 @@ namespace WindowEvents
         @note For input handling and proper platform integration rather use SDL2/ Qt/ whatever.
         @see ApplicationContext
     */
-    class _OgreBitesExport WindowEventUtilities
+    class WindowEventUtilities
     {
       public:
         /**

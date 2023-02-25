@@ -34,6 +34,7 @@ namespace OgreWindow{
         Ogre::Root* getRoot() { return mRoot; };
         Ogre::RenderWindow* getRenderWindow() { return mWindow.render; };
         Ogre::SceneManager* getSceneManger() { return mSceneManager; };
+        Ogre::RenderSystem* getRenderSystem() { return mRenderSystem; };
       protected:
         Ogre::Root* mRoot;               // OGRE root
         Ogre::RenderSystem* mRenderSystem; //OGRE renderSystem;

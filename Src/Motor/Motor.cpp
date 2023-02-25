@@ -4,7 +4,6 @@
 
 #include "IMGUI/imgui.h"
 
-#include <OgreRoot.h>
 #include <crtdbg.h>
 #include <filesystem>
 #include <fstream>
@@ -12,23 +11,16 @@
 #include <string>
 #include <vector>
 
-#include <Ogre.h>
-
 #include <OgreEntity.h>
 #include <OgreLight.h>
-#include <OgreRenderSystem.h>
-#include <OgreRenderWindow.h>
 #include <OgreSceneNode.h>
 
 #include <OgreBullet.h>
 #include <OgreRTShaderSystem.h>
 #include <fmod.h>
 
-#include "MyWindowEventListener.h"
-#include "WindowEventUtilities.h"
-#include "Window.h"
-
-#include "Motor/GameObject.h"
+#include "Render/Window.h"
+#include "GameObject.h"
 
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
@@ -220,7 +212,7 @@ int main()
         manager->refresh();
         manager->flushMessages();
     }
-    myWindow->shutdown();
+    if(myWindow->getRenderSystem()!=nullptr) myWindow->shutdown();
     delete myWindow;
     myWindow = nullptr;
 
