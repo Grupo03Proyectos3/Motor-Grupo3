@@ -80,7 +80,7 @@ namespace OgreWindow
             mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
 
             if (!mMaterialMgrListener){
-                mMaterialMgrListener = new OgreBites::SGTechniqueResolverListener(mShaderGenerator);
+                mMaterialMgrListener = new OgreSGTechique::SGTechniqueResolverListener(mShaderGenerator);
                 Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
                 mShaderGenerator->addSceneManager(mSceneManager);
             }
@@ -118,26 +118,16 @@ namespace OgreWindow
     }
 
     void Window::locateResources() {
-        Ogre::ConfigFile cf;
-        cf.load("resources.cfg");
-
         Ogre::String sec_name, type_name, arch_name;
 
-        Ogre::ConfigFile::SettingsBySection_ seci = cf.getSettingsBySection();
-        for (auto i = seci.begin(); i != seci.end(); i++){
-            sec_name = i->first;
-            Ogre::ConfigFile::SettingsMultiMap settings = i->second;
-            Ogre::ConfigFile::SettingsMultiMap::iterator mmi;
-            for (mmi = settings.begin(); mmi != settings.end(); ++mmi){
-                type_name = mmi->first;
-                arch_name = mmi->second;
-                Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
-                    arch_name, type_name, sec_name);
-            }
-        }
+        sec_name = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME; // miro a ver si ya se han cargado los recursos en el resourceManager
+        const Ogre::ResourceGroupManager::LocationList genLocs2 = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec_name);
+
+        if (genLocs2.empty())// si no estan cargados los cargo
+            bringResources(sec_name, type_name, arch_name);
 
         sec_name = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
-        const Ogre::ResourceGroupManager::LocationList genLocs = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec_name);
+        auto genLocs = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec_name);
 
         arch_name = genLocs.front().archive->getName();
         type_name = genLocs.front().archive->getType();
@@ -160,7 +150,24 @@ namespace OgreWindow
             mSceneManager = nullptr;
             delete mRoot;
             mRoot = nullptr;
+        }     
+    }
+
+    void Window::bringResources(Ogre::String& sec_name, Ogre::String& type_name, Ogre::String& arch_name){
+        Ogre::ConfigFile cf;
+        cf.load("resources.cfg");
+
+        Ogre::ConfigFile::SettingsBySection_ seci = cf.getSettingsBySection();
+        for (auto i = seci.begin(); i != seci.end(); i++){
+            sec_name = i->first;
+            Ogre::ConfigFile::SettingsMultiMap settings = i->second;
+            Ogre::ConfigFile::SettingsMultiMap::iterator mmi;
+            for (mmi = settings.begin(); mmi != settings.end(); ++mmi){
+                type_name = mmi->first;
+                arch_name = mmi->second;
+                Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
+                    arch_name, type_name, sec_name);
+            }
         }
-        
     }
 } // namespace OgreWindow

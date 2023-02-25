@@ -21,7 +21,6 @@
 #include <OgreViewport.h>
 #include <OgreBullet.h>
 #include <OgreRTShaderSystem.h>
-#include <OgreSGTechniqueResolverListener.h>
 #include <fmod.h>
 
 #include "MyWindowEventListener.h"

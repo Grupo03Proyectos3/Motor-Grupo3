@@ -5,8 +5,10 @@
 #include <Ogre.h>
 #include <OgreFileSystemLayer.h>
 #include <OgreRTShaderSystem.h>
-#include <OgreSGTechniqueResolverListener.h>
+#include "SGTechniqueResolverListener.h"
+
 namespace OgreWindow{
+
     struct NativeWindowPair
     {
         Ogre::RenderWindow* render = nullptr;
@@ -28,6 +30,7 @@ namespace OgreWindow{
         void locateResources();
         void pollEvents();
         void shutdown();
+        void bringResources(Ogre::String& sec_name, Ogre::String& type_name, Ogre::String& arch_name);
         Ogre::Root* getRoot() { return mRoot; };
         Ogre::RenderWindow* getRenderWindow() { return mWindow.render; };
         Ogre::SceneManager* getSceneManger() { return mSceneManager; };
@@ -42,7 +45,8 @@ namespace OgreWindow{
         //Pipeline
         Ogre::String mRTShaderLibPath;
         Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The Shader generator instance.
-        OgreBites::SGTechniqueResolverListener* mMaterialMgrListener; // Shader generator material manager listener.
+        OgreSGTechique::SGTechniqueResolverListener* mMaterialMgrListener;
+           
         
     };
 } // namespace OgreWindow
