@@ -6,7 +6,8 @@
 //
 #define COMPS_LIST \
     COMP_EXAMPLE,  \
-        _cmp_RIGID_BODY
+        _cmp_RIGID_BODY, \
+        _cpm_CAMERA
 
 // Lista de grupos
 //
