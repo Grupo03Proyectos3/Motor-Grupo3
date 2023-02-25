@@ -4,26 +4,21 @@
 
 #include "../ECS/System.h"
 
-class btRigidBody;
+//class btRigidBody;
 
-namespace Physics
+class PhysicsSystem : public ecs::System
 {
-    class PhysicsSystem : public ecs::System
-    {
-      public:
-        __SYSTEM_ID_DECL__(ecs::_sys_PHYSICS)
+  public:
+    __SYSTEM_ID_DECL__(ecs::_sys_PHYSICS)
 
-        PhysicsSystem();
-        virtual ~PhysicsSystem();
+    PhysicsSystem();
+    virtual ~PhysicsSystem();
 
-        void recieve(const Message&) override;
-        void initSystem() override;
-        void update(float t_delta_time) override;
+    void recieve(const Message&) override;
+    void initSystem() override;
+    void update(float t_delta_time) override;
 
-      private:
-
-    };
-
-} // namespace Physics
+  private:
+};
 
 #endif

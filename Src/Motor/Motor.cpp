@@ -1,10 +1,11 @@
-#include "Render/Render.h"
+#include <crtdbg.h>
 
 #include "ECS/Manager.h"
+#include "Physics/PhysicsSystem.h"
+#include "Render/Render.h"
 
 #include "IMGUI/imgui.h"
-
-#include <crtdbg.h>
+#include <OgreRoot.h>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -19,8 +20,8 @@
 #include <OgreRTShaderSystem.h>
 #include <fmod.h>
 
-#include "Render/Window.h"
 #include "GameObject.h"
+#include "Render/Window.h"
 
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
@@ -129,14 +130,13 @@ Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
     cam_node->translate(0, 1000, -10);
     cam_node->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TransformSpace::TS_WORLD);
     cam_node->attachObject(cam);
- 
 
     return cam;
 }
 
 int main()
 {
-    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);      
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -147,16 +147,16 @@ int main()
 
     OgreWindow::Window* myWindow = new OgreWindow::Window("Motor");
     loadDirectories();
-    myWindow->initApp();    
-    Ogre::SceneManager* scene_mgr = myWindow->getSceneManger();   
+    myWindow->initApp();
+    Ogre::SceneManager* scene_mgr = myWindow->getSceneManger();
 
-    //QUITAR
+    // QUITAR
     Ogre::Camera* cam = demoLoadFirstMesh(scene_mgr);
     // creamos viewport
     Ogre::Viewport* viewport = myWindow->getRenderWindow()->addViewport(cam);
     viewport->setBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
     viewport->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
-    //QUITAR
+    // QUITAR
 
     // Game-loop
     bool game_playing = true;
@@ -185,9 +185,10 @@ int main()
         ui_system = manager->addSystem<UISystem>();
         scripting_system = manager->addSystem<ScriptingSystem>();
     */
+  // PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
 
     while (game_playing)
-    {             
+    {
         // leer entrada
         myWindow->pollEvents();
 
@@ -198,7 +199,7 @@ int main()
         std::cout << delta_time.count() << std::endl;
         previous_time = actual_time;*/
 
-        myWindow->getRoot()->renderOneFrame();       
+        myWindow->getRoot()->renderOneFrame();
 
         /*
             input_system->update();
@@ -212,9 +213,15 @@ int main()
         manager->refresh();
         manager->flushMessages();
     }
-    if(myWindow->getRenderSystem()!=nullptr) myWindow->shutdown();
+    // myWindow->shutdown();
+    if (myWindow->getRenderSystem() != nullptr)
+        myWindow->shutdown();
     delete myWindow;
     myWindow = nullptr;
+    delete cam;
+    delete viewport;
+    delete manager;
+    delete physics_system;
 
     _CrtDumpMemoryLeaks();
     return 0;

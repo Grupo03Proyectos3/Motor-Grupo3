@@ -25,6 +25,9 @@
     <ProjectReference Include="..\IMGUI\IMGUI.vcxproj">
       <Project>{d7af60dd-bdcf-4eff-8450-803b80eb7a8e}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Physics\Physics.vcxproj">
+      <Project>{eb0ca8e0-fcff-4ad1-9332-d479240af24e}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Render\Render.vcxproj">
       <Project>{46a15e88-5016-42e0-a5c2-5f29c4897f55}</Project>
     </ProjectReference>

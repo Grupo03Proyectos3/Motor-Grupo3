@@ -1,6 +1,14 @@
 #include "PhysicsSystem.h"
 
-void Physics::PhysicsSystem::recieve(const Message& t_message)
+PhysicsSystem::PhysicsSystem()
+{
+}
+
+PhysicsSystem::~PhysicsSystem()
+{
+}
+
+void PhysicsSystem::recieve(const Message& t_message)
 {
     switch (t_message.id)
     {
@@ -10,10 +18,10 @@ void Physics::PhysicsSystem::recieve(const Message& t_message)
     }
 }
 
-void Physics::PhysicsSystem::initSystem()
+void PhysicsSystem::initSystem()
 {
 }
 
-void Physics::PhysicsSystem::update(float t_delta_time)
+void PhysicsSystem::update(float t_delta_time)
 {
 }

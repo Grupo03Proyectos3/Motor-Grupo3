@@ -216,10 +216,15 @@ T* ecs::Manager::addSystem(Ts&&... t_args)
     System* s = new T(std::forward<Ts>(t_args)...);
     s->setContext(this);
     s->initSystem();
-    m_systems[sId] = s;
+    m_systems[sId] = s; 
 
     // return it to the user so it can be initialised if needed
     return static_cast<T*>(s);
+}
+
+PhysicsSystem* ecs::Manager::addSystem()
+{
+    return nullptr;
 }
 
 template <typename T>

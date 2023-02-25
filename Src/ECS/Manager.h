@@ -13,6 +13,8 @@
 #include "ecs.h"
 #include "messages_defs.h"
 
+class PhysicsSystem;
+
 namespace ecs
 {
 
@@ -94,6 +96,8 @@ namespace ecs
         //
         template <typename T, typename... Ts>
         T* addSystem(Ts&&... t_args);
+
+        PhysicsSystem* addSystem();
 
         // Removes the system at position T::id.
         //
