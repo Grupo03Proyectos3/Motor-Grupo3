@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IMGUI", "Projects\IMGUI\IMG
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Physics", "Projects\Physics\Physics.vcxproj", "{EB0CA8E0-FCFF-4AD1-9332-D479240AF24E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Render", "Projects\Render\Render.vcxproj", "{46A15E88-5016-42E0-A5C2-5F29C4897F55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{EB0CA8E0-FCFF-4AD1-9332-D479240AF24E}.Release|x64.Build.0 = Release|x64
 		{EB0CA8E0-FCFF-4AD1-9332-D479240AF24E}.Release|x86.ActiveCfg = Release|Win32
 		{EB0CA8E0-FCFF-4AD1-9332-D479240AF24E}.Release|x86.Build.0 = Release|Win32
+		{46A15E88-5016-42E0-A5C2-5F29C4897F55}.Debug|x64.ActiveCfg = Debug|x64
+		{46A15E88-5016-42E0-A5C2-5F29C4897F55}.Debug|x64.Build.0 = Debug|x64
+		{46A15E88-5016-42E0-A5C2-5F29C4897F55}.Debug|x86.ActiveCfg = Debug|Win32
+		{46A15E88-5016-42E0-A5C2-5F29C4897F55}.Debug|x86.Build.0 = Debug|Win32
+		{46A15E88-5016-42E0-A5C2-5F29C4897F55}.Release|x64.ActiveCfg = Release|x64
+		{46A15E88-5016-42E0-A5C2-5F29C4897F55}.Release|x64.Build.0 = Release|x64
+		{46A15E88-5016-42E0-A5C2-5F29C4897F55}.Release|x86.ActiveCfg = Release|Win32
+		{46A15E88-5016-42E0-A5C2-5F29C4897F55}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

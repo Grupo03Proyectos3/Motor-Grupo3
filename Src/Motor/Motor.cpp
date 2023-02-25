@@ -1,4 +1,6 @@
-#include "Biblioteca/Biblioteca.h"
+//#include "Biblioteca/Biblioteca.h"
+#include "Render/Render.h"
+
 #include "ECS/Manager.h"
 
 #include "IMGUI/imgui.h"
@@ -149,6 +151,8 @@ int main()
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
+
+    saluda("MARAVILLOSOS DESARROLLADORES");
 
     OgreWindow::Window* myWindow = new OgreWindow::Window("Motor");
     loadDirectories();
