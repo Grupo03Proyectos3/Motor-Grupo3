@@ -27,6 +27,7 @@ namespace OgreWindow{
         void loadResources();
         void locateResources();
         void pollEvents();
+        void shutdown();
         Ogre::Root* getRoot() { return mRoot; };
         Ogre::RenderWindow* getRenderWindow() { return mWindow.render; };
         Ogre::SceneManager* getSceneManger() { return mSceneManager; };

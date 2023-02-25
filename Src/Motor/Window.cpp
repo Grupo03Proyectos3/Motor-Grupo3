@@ -18,8 +18,8 @@ namespace OgreWindow
     void Window::initApp(){
         createRoot();
 
-        //if (config())
-        setUp();
+        if (config())
+            setUp();
     }
 
     void Window::createRoot(){
@@ -32,10 +32,10 @@ namespace OgreWindow
 
         mRoot = new Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogre.cfg"), mFSLayer->getWritablePath("ogre.log"));
         mSceneManager = mRoot->createSceneManager();
-        //SI NO LO PONGO NO PILLA NINGUN RENDER ACTIVO 
-        mRenderSystem = mRoot->getRenderSystemByName("Direct3D11 Rendering Subsystem");
-        mRoot->setRenderSystem(mRenderSystem);
 
+        //SI NO LO PONGO NO PILLA NINGUN RENDER ACTIVO **NO NECESARIO CON config(), ya lo hace auto **
+        //mRenderSystem = mRoot->getRenderSystemByName("Direct3D11 Rendering Subsystem");
+        //mRoot->setRenderSystem(mRenderSystem);
     }
 
     bool Window::config(){
@@ -44,16 +44,18 @@ namespace OgreWindow
         }
         return true;
     }
+
     void Window::setUp(){
         mRoot->initialise(false);
         createWindow(mAppName);
 
-      /*  locateResources();
+        locateResources();      
         initialiseRTShaderSystem();
-        loadResources();*/
+        loadResources();
        
         //VENTOS DE VENTANA 
     }
+
     NativeWindowPair Window::createWindow(Ogre::String& appName)
     {
         uint32_t w, h;
@@ -72,14 +74,15 @@ namespace OgreWindow
         mWindow.render = mRoot->createRenderWindow(appName, w, h, false, &miscParams);
         return mWindow;
     }
+
     bool Window::initialiseRTShaderSystem() {
         if (Ogre::RTShader::ShaderGenerator::initialize()){
             mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-            if (mRTShaderLibPath.empty())
-                return false;
+
             if (!mMaterialMgrListener){
                 mMaterialMgrListener = new OgreBites::SGTechniqueResolverListener(mShaderGenerator);
                 Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
+                mShaderGenerator->addSceneManager(mSceneManager);
             }
             return true;
         }
@@ -104,15 +107,34 @@ namespace OgreWindow
             mShaderGenerator = nullptr;
         }
     }
+
     void Window::pollEvents() {
         // just avoid "window not responding"
         WindowEvents::WindowEventUtilities::messagePump();
     }
+
     void Window::loadResources(){
         Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
     }
+
     void Window::locateResources() {
+        Ogre::ConfigFile cf;
+        cf.load("resources.cfg");
+
         Ogre::String sec_name, type_name, arch_name;
+
+        Ogre::ConfigFile::SettingsBySection_ seci = cf.getSettingsBySection();
+        for (auto i = seci.begin(); i != seci.end(); i++){
+            sec_name = i->first;
+            Ogre::ConfigFile::SettingsMultiMap settings = i->second;
+            Ogre::ConfigFile::SettingsMultiMap::iterator mmi;
+            for (mmi = settings.begin(); mmi != settings.end(); ++mmi){
+                type_name = mmi->first;
+                arch_name = mmi->second;
+                Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
+                    arch_name, type_name, sec_name);
+            }
+        }
 
         sec_name = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
         const Ogre::ResourceGroupManager::LocationList genLocs = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec_name);
@@ -120,44 +142,25 @@ namespace OgreWindow
         arch_name = genLocs.front().archive->getName();
         type_name = genLocs.front().archive->getType();
 
-        // Add locations for supported shader languages
-        /*  if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles"))
-          {
-              Ogre::ResourceGroupManager::getSingleton().addResourceLocation("Media/materials/programs/GLSLES", type_name, sec_name);
-          }
-          else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl"))
-          {
-              Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name +"/materials/programs/GLSL120", type_name, sec_name);
-
-              if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl150"))
-              {
-                  Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name +"/materials/programs/GLSL150", type_name, sec_name);
-              }
-              else
-              {
-                  Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name +"/materials/programs/GLSL", type_name, sec_name);
-              }
-
-              if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl400"))
-              {
-                  Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name +"/materials/programs/GLSL400", type_name, sec_name);
-              }
-          }*/
+        // AÑADIR LOS LENGUAJES DE PROGRAMACION DE LOS SHADERS
 
         Ogre::String mRTShaderLibPath = arch_name + "/RTShaderLib";
         Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/materials", type_name, sec_name);
-        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type_name, sec_name); // CARGO GLSL
+        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type_name, sec_name); // CARGO GLSL     
+    }
 
-       /* if (Ogre::RTShader::ShaderGenerator::initialize())
-        {
-            Ogre::RTShader::ShaderGenerator* mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-            if (mRTShaderLibPath.empty())
-                exit(1);
-            OgreBites::SGTechniqueResolverListener* mMaterialMgrListener;
-
-            mMaterialMgrListener = new OgreBites::SGTechniqueResolverListener(mShaderGenerator);
-            Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
-            mShaderGenerator->addSceneManager(mSceneManager);
-        }*/
+    void Window::shutdown(){
+        destroyRTShaderSystem();
+        if (mWindow.render != nullptr){
+            mRoot->destroyRenderTarget(mWindow.render);
+            mWindow.render = nullptr;
+        }
+        if (mRoot != nullptr){
+            delete mSceneManager;
+            mSceneManager = nullptr;
+            delete mRoot;
+            mRoot = nullptr;
+        }
+        
     }
 } // namespace OgreWindow
