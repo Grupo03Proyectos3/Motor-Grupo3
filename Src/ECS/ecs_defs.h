@@ -2,11 +2,11 @@
 #ifndef __ECS_DEFS_H__
 #define __ECS_DEFS_H__
 
-
 // Lista de componentes
 //
-#define COMPS_LIST       \
-   COMP_EXAMPLE
+#define COMPS_LIST \
+    COMP_EXAMPLE,  \
+        _cmp_RIGID_BODY
 
 // Lista de grupos
 //
@@ -20,7 +20,8 @@
 
 // Lista de sistemas
 //
-#define SYSTEMS_LIST     \
-    SYSTEM_EXAMPLE
+#define SYSTEMS_LIST \
+    SYSTEM_EXAMPLE,  \
+        _sys_PHYSICS
 
 #endif // !__ECS_DEFS__

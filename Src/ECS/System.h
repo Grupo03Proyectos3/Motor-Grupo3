@@ -19,7 +19,7 @@ namespace ecs
         virtual ~System();
         void setContext(Manager* t_mngr);
         virtual void initSystem();
-        virtual void update();
+        virtual void update(float t_delta_time);
         virtual void recieve(const Message&);
 
       protected:

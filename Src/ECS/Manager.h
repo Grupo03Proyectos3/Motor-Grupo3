@@ -17,7 +17,7 @@ namespace ecs
 {
 
     /*
-     * A class fir managing the list of entities, groups, etc.
+     * A class for managing the list of entities, groups, etc.
      *
      * In this version the manager is responsible on several things
      * that used to be done by the class Entity (like addComponent), just

@@ -4,7 +4,6 @@
 #include "IMGUI/imgui.h"
 
 #include <OgreRoot.h>
-#include <chrono>
 #include <crtdbg.h>
 #include <filesystem>
 #include <fstream>
@@ -168,12 +167,12 @@ int main()
     // Game-loop
     bool game_playing = true;
 
-    auto start_time = std::chrono::high_resolution_clock::now();
+    /*auto start_time = std::chrono::high_resolution_clock::now();
     auto previous_time = std::chrono::duration_cast<std::chrono::milliseconds>(start_time - start_time);
 
     std::chrono::steady_clock::time_point now = std::chrono::high_resolution_clock::now();
     std::chrono::milliseconds actual_time;
-    std::chrono::milliseconds delta_time;
+    std::chrono::milliseconds delta_time;*/
 
     ecs::Manager* manager = new ecs::Manager();
 
@@ -199,10 +198,11 @@ int main()
         myWindow->pollEvents();
 
         // actualizar con delta_time
-        now = std::chrono::high_resolution_clock::now();
+        /*now = std::chrono::high_resolution_clock::now();
         actual_time = std::chrono::duration_cast<std::chrono::milliseconds>(now - start_time);
         delta_time = actual_time - previous_time;
-        previous_time = actual_time;
+        std::cout << delta_time.count() << std::endl;
+        previous_time = actual_time;*/
 
         myWindow->getRoot()->renderOneFrame();       
 
@@ -214,7 +214,6 @@ int main()
             ui_system->update();
             scripting_system->update();
         */
-
 
         manager->refresh();
         manager->flushMessages();

@@ -18,7 +18,7 @@ void ecs::System::initSystem()
 {
 }
 
-void ecs::System::update()
+void ecs::System::update(float t_delta_time)
 {
 }
 
