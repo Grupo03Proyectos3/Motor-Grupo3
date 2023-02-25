@@ -9,20 +9,23 @@
 #include <OgreCamera.h>
 #include <OgreViewport.h>
 
+#include "Window.h"
+
 struct Camera : public ecs::Component
 {
   public:
     __SYSTEM_ID_DECL__(ecs::_cpm_CAMERA)
 
-    Camera();
-    virtual ~Camera();
+    Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node);
+    virtual ~Camera(){};
 
-    virtual void initComponent();
+    virtual void initComponent(OgreWindow::Window* t_window);
 
   private:
     Ogre::Camera* m_cam = nullptr;
     Ogre::Viewport* m_vp = nullptr;
-
+    Ogre::SceneManager* m_sceneMgr = nullptr;
+    Ogre::SceneNode* m_scene_node = nullptr;
 };
 
 #endif

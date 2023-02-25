@@ -1,4 +1,3 @@
-
 #include <crtdbg.h>
 
 #include "ECS/Manager.h"
@@ -19,8 +18,10 @@
 #include <OgreBullet.h>
 #include <fmod.h>
 
-#include "GameObject.h"
 #include "Render/Window.h"
+#include "Render/Camera.h"
+
+#include "GameObject.h"
 
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
@@ -147,6 +148,7 @@ int main()
     myWindow->initApp();
     Ogre::SceneManager* scene_mgr = myWindow->getSceneManger();
 
+
     // QUITAR
     Ogre::Camera* cam = demoLoadFirstMesh(scene_mgr);
     // creamos viewport
@@ -155,6 +157,15 @@ int main()
     viewport->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
     // QUITAR
 
+    ecs::Manager* manager = new ecs::Manager();
+   /* Ogre::SceneNode* root_scene_node = scene_mgr->getRootSceneNode();
+   
+    GameObject* m_cam = new GameObject(SVector3(0, 1000, -10));
+    Camera cmp_cam = Camera(scene_mgr, root_scene_node);
+    cmp_cam.initComponent(myWindow);*/
+   // m_cam->addComponent(cmp_cam);
+    //Ogre::Camera* cam = demoLoadFirstMesh(scene_mgr);
+    
     // Game-loop
     bool game_playing = true;
 
@@ -164,8 +175,6 @@ int main()
     std::chrono::steady_clock::time_point now = std::chrono::high_resolution_clock::now();
     std::chrono::milliseconds actual_time;
     std::chrono::milliseconds delta_time;*/
-
-    ecs::Manager* manager = new ecs::Manager();
 
     /*
         InputSystem* input_system = new InputSystem();
