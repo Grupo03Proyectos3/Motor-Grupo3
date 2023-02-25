@@ -115,52 +115,6 @@ void loadDirectories()
     output.close(); // Cierro el archivo ���IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
 }
 
-void loadResources(Ogre::SceneManager* mng)
-{
-    Ogre::ConfigFile cf;
-    cf.load("resources.cfg");
-
-    Ogre::String sec_name, type_name, arch_name;
-   
-    Ogre::ConfigFile::SettingsBySection_ seci = cf.getSettingsBySection();
-    for (auto i = seci.begin(); i != seci.end(); i++){
-        sec_name =i->first;
-        Ogre::ConfigFile::SettingsMultiMap settings = i->second;
-        Ogre::ConfigFile::SettingsMultiMap::iterator mmi;
-        for (mmi = settings.begin(); mmi != settings.end(); ++mmi){
-            type_name = mmi->first;
-            arch_name = mmi->second;
-            Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
-                arch_name, type_name, sec_name);
-        }
-    }
-
-    
-	sec_name = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
-    const Ogre::ResourceGroupManager::LocationList genLocs = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec_name);
-
-    arch_name = genLocs.front().archive->getName();
-    type_name = genLocs.front().archive->getType();
-
-    Ogre::String mRTShaderLibPath = arch_name + "/RTShaderLib";
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/materials", type_name, sec_name);   
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type_name, sec_name);//CARGO GLSL   
-
-    if (Ogre::RTShader::ShaderGenerator::initialize()){
-        Ogre::RTShader::ShaderGenerator* mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-        if (mRTShaderLibPath.empty())
-            exit(1);
-        OgreBites::SGTechniqueResolverListener* mMaterialMgrListener;
-       
-        mMaterialMgrListener = new OgreBites::SGTechniqueResolverListener(mShaderGenerator);
-        Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
-        mShaderGenerator->addSceneManager(mng);
-    }
-
-
-    Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
-}
-
 Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
 {
     Ogre::SceneNode* root_scene_node = t_sceneMgr->getRootSceneNode();
@@ -191,42 +145,25 @@ Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
 
 int main()
 {
-    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);   
-    //Ogre::Root* root = new Ogre::Root();
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);      
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
 
-    //// Configurar el render system
-    //Ogre::RenderSystem* rs = root->getRenderSystemByName("Direct3D11 Rendering Subsystem");
-    //////Ogre::RenderSystem* rs = root->getRenderSystem;
-    //root->setRenderSystem(rs);
-
-    // creamos la ventana
-  /*  Ogre::RenderWindow* window = root->initialise(true, "Motor");*/
     OgreWindow::Window* myWindow = new OgreWindow::Window("Motor");
     loadDirectories();
-    
-    myWindow->initApp();
-    Ogre::SceneManager* scene_mgr = myWindow->getSceneManger();
-    loadResources(scene_mgr);
-    //loadDirectories(); //icializar recursos despues de haber creado la ventana
-    //loadResources(scene_mgr);
+    myWindow->initApp();    
+    Ogre::SceneManager* scene_mgr = myWindow->getSceneManger();   
 
-    // creamos sceneManager
-    
-
+    //QUITAR
     Ogre::Camera* cam = demoLoadFirstMesh(scene_mgr);
-
     // creamos viewport
     Ogre::Viewport* viewport = myWindow->getRenderWindow()->addViewport(cam);
     viewport->setBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
     viewport->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
-
-    // MyWindowEventListener* myWindowListener=new MyWindowEventListener();
-    // WindowEvents::WindowEventUtilities::addWindowEventListener(window,myWindowListener);
+    //QUITAR
 
     // Game-loop
     bool game_playing = true;
@@ -237,8 +174,6 @@ int main()
     std::chrono::steady_clock::time_point now = std::chrono::high_resolution_clock::now();
     std::chrono::milliseconds actual_time;
     std::chrono::milliseconds delta_time;
-
-    // root->startRendering();
 
     ecs::Manager* manager = new ecs::Manager();
 
@@ -259,9 +194,9 @@ int main()
     */
 
     while (game_playing)
-    {
-        myWindow->pollEvents();       
+    {             
         // leer entrada
+        myWindow->pollEvents();
 
         // actualizar con delta_time
         now = std::chrono::high_resolution_clock::now();
@@ -283,20 +218,10 @@ int main()
 
         manager->refresh();
         manager->flushMessages();
-
-        // std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
- /*   window->destroy();
-
-    if (root)
-    {
-        delete scene_mgr;
-        scene_mgr = nullptr;
-        delete window;
-        window = nullptr;
-        delete root;
-        root = nullptr;
-    }*/
+    myWindow->shutdown();
+    delete myWindow;
+    myWindow = nullptr;
 
     _CrtDumpMemoryLeaks();
     return 0;
