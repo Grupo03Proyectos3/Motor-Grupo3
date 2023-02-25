@@ -107,32 +107,32 @@ void loadDirectories()
     output.close(); // Cierro el archivo ���IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
 }
 
-Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
-{
-    Ogre::SceneNode* root_scene_node = t_sceneMgr->getRootSceneNode();
-
-    Ogre::Entity* entity = t_sceneMgr->createEntity("myEntity", "cube.mesh");
-    Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
-    node->attachObject(entity);
-    node->setPosition(Ogre::Vector3(0, 0, 0));
-
-    Ogre::Light* light = t_sceneMgr->createLight("myLight");
-    Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
-    light->setType(Ogre::Light::LT_DIRECTIONAL);
-    light_node->setDirection(Ogre::Vector3(0, -1, 0));
-    light->setDiffuseColour(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
-    light->setSpecularColour(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
-    light_node->attachObject(light);
-
-    // Crear una c�mara y ubicarla en una posici�n adecuada
-    Ogre::Camera* cam = t_sceneMgr->createCamera("myCamera");
-    Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
-    cam_node->translate(0, 1000, -10);
-    cam_node->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TransformSpace::TS_WORLD);
-    cam_node->attachObject(cam);
-
-    return cam;
-}
+//Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
+//{
+//    Ogre::SceneNode* root_scene_node = t_sceneMgr->getRootSceneNode();
+//
+//    Ogre::Entity* entity = t_sceneMgr->createEntity("myEntity", "cube.mesh");
+//    Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
+//    node->attachObject(entity);
+//    node->setPosition(Ogre::Vector3(0, 0, 0));
+//
+//    Ogre::Light* light = t_sceneMgr->createLight("myLight");
+//    Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
+//    light->setType(Ogre::Light::LT_DIRECTIONAL);
+//    light_node->setDirection(Ogre::Vector3(0, -1, 0));
+//    light->setDiffuseColour(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
+//    light->setSpecularColour(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
+//    light_node->attachObject(light);
+//
+//    // Crear una c�mara y ubicarla en una posici�n adecuada
+//    Ogre::Camera* cam = t_sceneMgr->createCamera("myCamera");
+//    Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
+//    cam_node->translate(0, 1000, -10);
+//    cam_node->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TransformSpace::TS_WORLD);
+//    cam_node->attachObject(cam);
+//
+//    return cam;
+//}
 
 int main(int argc, char* argv[])
 {
@@ -146,25 +146,28 @@ int main(int argc, char* argv[])
     OgreWindow::Window* myWindow = new OgreWindow::Window("Motor");
     loadDirectories();
     myWindow->initApp();
+
     Ogre::SceneManager* scene_mgr = myWindow->getSceneManger();
-
-
-    // QUITAR
-    Ogre::Camera* cam = demoLoadFirstMesh(scene_mgr);
-    // creamos viewport
-    Ogre::Viewport* viewport = myWindow->getRenderWindow()->addViewport(cam);
-    viewport->setBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
-    viewport->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
-    // QUITAR
-
+    Ogre::SceneNode* root_scene_node = scene_mgr->getRootSceneNode();
     ecs::Manager* manager = new ecs::Manager();
-   /* Ogre::SceneNode* root_scene_node = scene_mgr->getRootSceneNode();
-   
-    GameObject* m_cam = new GameObject(SVector3(0, 1000, -10));
+    //Cubo
+    Ogre::Entity* entity = scene_mgr->createEntity("myEntity", "cube.mesh");
+    Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
+    node->attachObject(entity);
+    node->setPosition(Ogre::Vector3(0, 0, 0));
+    //Luz
+    Ogre::Light* light = scene_mgr->createLight("myLight");
+    Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
+    light->setType(Ogre::Light::LT_DIRECTIONAL);
+    light_node->setDirection(Ogre::Vector3(0, -1, 0));
+    light->setDiffuseColour(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
+    light->setSpecularColour(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
+    light_node->attachObject(light);
+    //Camara
+    GameObject* m_cam = new GameObject(manager, SVector3(0, 1000, -10));
     Camera cmp_cam = Camera(scene_mgr, root_scene_node);
-    cmp_cam.initComponent(myWindow);*/
-   // m_cam->addComponent(cmp_cam);
-    //Ogre::Camera* cam = demoLoadFirstMesh(scene_mgr);
+    cmp_cam.initComponent(myWindow);
+    //m_cam->addComponent(cmp_cam);  //DA ERROR DE LINKADO POR EL TEMPLATE
     
     // Game-loop
     bool game_playing = true;
@@ -224,8 +227,8 @@ int main(int argc, char* argv[])
         myWindow->shutdown();
     delete myWindow;
     myWindow = nullptr;
-    delete cam;
-    delete viewport;
+    /*delete cam;
+    delete viewport;*/
     delete manager;
     delete physics_system;
 

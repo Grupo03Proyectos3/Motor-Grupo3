@@ -65,12 +65,15 @@ class GameObject
 {
   public:
     GameObject();
-    GameObject(SVector3 t_position);
-    GameObject(SVector3 t_position, SQuaternion t_rotation);
-    GameObject(SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale);
-    GameObject(std::string t_name, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale);
-    GameObject(ecs::groupId t_group, std::string t_name, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale);
+    GameObject(ecs::Manager* t_mgr);
+    GameObject(ecs::Manager* t_mgr, SVector3 t_position);
+    GameObject(ecs::Manager* t_mgr, SVector3 t_position, SQuaternion t_rotation);
+    GameObject(ecs::Manager* t_mgr, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale);
+    GameObject(ecs::Manager* t_mgr, std::string t_name, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale);
+    GameObject(ecs::Manager* t_mgr, ecs::groupId t_group, std::string t_name, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale);
     ~GameObject();
+
+    void setContext(ecs::Manager* mngr);
 
     bool isAlive();
     bool isActive();
