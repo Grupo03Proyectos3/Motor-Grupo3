@@ -1,7 +1,4 @@
-#include "Render/Render.h"
-
 #include "ECS/Manager.h"
-
 #include "IMGUI/imgui.h"
 
 #include <crtdbg.h>
@@ -16,7 +13,6 @@
 #include <OgreSceneNode.h>
 
 #include <OgreBullet.h>
-#include <OgreRTShaderSystem.h>
 #include <fmod.h>
 
 #include "Render/Window.h"
@@ -142,8 +138,6 @@ int main()
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
-
-    saluda("MARAVILLOSOS DESARROLLADORES");
 
     OgreWindow::Window* myWindow = new OgreWindow::Window("Motor");
     loadDirectories();

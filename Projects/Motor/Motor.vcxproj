@@ -131,7 +131,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Ogre\Build\bullet3-3.24\src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\Components\Bullet\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Ogre\Build\bullet3-3.24\src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\Components\Bullet\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -167,7 +167,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Ogre\Build\bullet3-3.24\src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\Components\Bullet\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Ogre\Build\bullet3-3.24\src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\Components\Bullet\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <SupportJustMyCode>false</SupportJustMyCode>
