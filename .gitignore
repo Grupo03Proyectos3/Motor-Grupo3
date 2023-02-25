@@ -29,6 +29,12 @@ Exes/Motor.lib
 *.lastbuildstate
 *.exp
 
+# NO IGNORAR
+!Dependencias/CMake/bin/cmake.exe
+!Dependencias/Bullet/Src
+!Dependencias/Ogre/Src
+
+# # #
 
 # Ignore CLion project directory and iml files
 .idea/
@@ -50,6 +56,3 @@ cmake-build-*/
 
 # Ignore vim files
 *.swp
-
-# NO IGNORAR
-!Dependencias/CMake/bin/cmake.exe

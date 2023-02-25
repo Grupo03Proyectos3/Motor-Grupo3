@@ -4,6 +4,8 @@
 
 #include "../ECS/System.h"
 
+class btRigidBody;
+
 namespace Physics
 {
     class PhysicsSystem : public ecs::System
