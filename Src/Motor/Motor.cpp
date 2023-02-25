@@ -1,4 +1,3 @@
-//#include "Biblioteca/Biblioteca.h"
 #include "Render/Render.h"
 
 #include "ECS/Manager.h"
