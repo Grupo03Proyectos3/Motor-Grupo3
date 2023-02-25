@@ -221,7 +221,7 @@ int main()
     delete cam;
     delete viewport;
     delete manager;
-    delete physics_system;
+    //delete physics_system;
 
     _CrtDumpMemoryLeaks();
     return 0;
