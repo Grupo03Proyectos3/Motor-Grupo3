@@ -6,7 +6,7 @@ GameObject::GameObject()
     , scale()
     , m_active(true)
 {
-    m_entity = manager->addEntity();
+    m_entity = m_manager->addEntity();
 }
 GameObject::GameObject(SVector3 t_position)
     : name("")
@@ -15,7 +15,7 @@ GameObject::GameObject(SVector3 t_position)
     , scale()
     , m_active(true)
 {
-    m_entity = manager->addEntity();
+    m_entity = m_manager->addEntity();
 }
 GameObject::GameObject(SVector3 t_position, SQuaternion t_rotation)
     : name("")
@@ -24,7 +24,7 @@ GameObject::GameObject(SVector3 t_position, SQuaternion t_rotation)
     , scale()
     , m_active(true)
 {
-    m_entity = manager->addEntity();
+    m_entity = m_manager->addEntity();
 }
 GameObject::GameObject(SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale)
     : name("")
@@ -33,7 +33,7 @@ GameObject::GameObject(SVector3 t_position, SQuaternion t_rotation, SVector3 t_s
     , scale(t_scale)
     , m_active(true)
 {
-    m_entity = manager->addEntity();
+    m_entity = m_manager->addEntity();
 }
 GameObject::GameObject(std::string t_name, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale)
     : name(t_name)
@@ -42,7 +42,7 @@ GameObject::GameObject(std::string t_name, SVector3 t_position, SQuaternion t_ro
     , scale(t_scale)
     , m_active(true)
 {
-    m_entity = manager->addEntity();
+    m_entity = m_manager->addEntity();
 }
 GameObject::GameObject(ecs::groupId t_group, std::string t_name, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale)
     : name(t_name)
@@ -51,18 +51,18 @@ GameObject::GameObject(ecs::groupId t_group, std::string t_name, SVector3 t_posi
     , scale(t_scale)
     , m_active(true)
 {
-    m_entity = manager->addEntity(t_group);
+    m_entity = m_manager->addEntity(t_group);
 }
 GameObject::~GameObject()
 {
-    manager->setAlive(m_entity, false);
+    m_manager->setAlive(m_entity, false);
     //no se si hay que borrar la entidad aqui o se encarga el manager, diría que lo segundo
     m_entity = nullptr;
 }
 
 bool GameObject::isAlive()
 {
-    return manager->isAlive(m_entity);
+    return m_manager->isAlive(m_entity);
 }
 
 bool GameObject::isActive()
@@ -72,7 +72,7 @@ bool GameObject::isActive()
 
 void GameObject::setAlive(bool to)
 {
-    manager->setAlive(m_entity, to);
+   m_manager->setAlive(m_entity, to);
 }
 
 void GameObject::setActive(bool to)
@@ -82,7 +82,7 @@ void GameObject::setActive(bool to)
 
 void GameObject::setManager(ecs::Manager* t_manager)
 {
-    GameObject::manager = t_manager;
+    m_manager = t_manager;
 }
 
 SVector3::SVector3()

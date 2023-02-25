@@ -29,7 +29,8 @@
 #include "WindowEventUtilities.h"
 #include "Window.h"
 
-#include "GameObject.h"
+#include "Motor/GameObject.h"
+
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
 {

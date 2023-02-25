@@ -3,8 +3,8 @@
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
-#include <ECS/entity.h>
-#include <ECS/manager.h>
+#include "ECS/Entity.h"
+#include "ECS/Manager.h"
 #include <OgreQuaternion.h>
 #include <OgreVector3.h>
 #include <string>
@@ -80,7 +80,7 @@ class GameObject
     void removeComponent();
     void getComponent();
 
-    static void setManager(ecs::Manager* t_manager);
+    void setManager(ecs::Manager* t_manager);
 
     SVector3 position;
     SQuaternion rotation;
@@ -91,7 +91,7 @@ class GameObject
     ecs::Entity* m_entity = nullptr;
     bool m_active;
 
-    static ecs::Manager* manager;
+    ecs::Manager* m_manager;
 };
 
 #endif
