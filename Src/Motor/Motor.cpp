@@ -3,7 +3,6 @@
 
 #include "ECS/Manager.h"
 #include "Physics/PhysicsSystem.h"
-#include "Render/Render.h"
 
 #include "IMGUI/imgui.h"
 #include <OgreRoot.h>
@@ -184,7 +183,7 @@ int main()
         scripting_system = manager->addSystem<ScriptingSystem>();
     */
   // PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
-
+    PhysicsSystem* physics_system = new PhysicsSystem();
     while (game_playing)
     {
         // leer entrada
@@ -219,7 +218,7 @@ int main()
     delete cam;
     delete viewport;
     delete manager;
-    //delete physics_system;
+    delete physics_system;
 
     _CrtDumpMemoryLeaks();
     return 0;
