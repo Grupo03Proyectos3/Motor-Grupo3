@@ -63,6 +63,7 @@ class SQuaternion
  */
 class GameObject
 {
+  public:
     GameObject();
     GameObject(SVector3 t_position);
     GameObject(SVector3 t_position, SQuaternion t_rotation);
@@ -75,12 +76,20 @@ class GameObject
     bool isActive();
     void setAlive(bool to);
     void setActive(bool to);
-    //no funcionales aun
-    void addComponent();
-    void removeComponent();
-    void getComponent();
 
-    void setManager(ecs::Manager* t_manager);
+
+
+    // no funcionales aun, d
+    template <typename T>
+    void addComponent(T t_component);
+    template <typename T>
+    void removeComponent(T t_component);
+    template <typename T>
+    T* getComponent(T t_component);
+    template <typename T>
+    bool hasComponent(T t_component);
+
+    static void setManager(ecs::Manager* t_manager);
 
     SVector3 position;
     SQuaternion rotation;
@@ -91,7 +100,6 @@ class GameObject
     ecs::Entity* m_entity = nullptr;
     bool m_active;
 
-    ecs::Manager* m_manager;
+    static ecs::Manager* m_manager;
 };
-
 #endif
