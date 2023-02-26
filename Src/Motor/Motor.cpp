@@ -12,13 +12,13 @@
 #include <vector>
 
 #include <OgreEntity.h>
-#include <OgreLight.h>
 #include <OgreSceneNode.h>
 
 #include <OgreBullet.h>
 #include <fmod.h>
 
 #include "Render/Camera.h"
+#include "Render/Light.h"
 #include "Render/Window.h"
 
 #include "GameObject.h"
@@ -156,18 +156,16 @@ int main(int argc, char* argv[])
     node->attachObject(entity);
     node->setPosition(Ogre::Vector3(0, 0, 0));
     // Luz
-    Ogre::Light* light = scene_mgr->createLight("myLight");
-    Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
-    light->setType(Ogre::Light::LT_DIRECTIONAL);
-    light_node->setDirection(Ogre::Vector3(0, -1, 0));
-    light->setDiffuseColour(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
-    light->setSpecularColour(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
-    light_node->attachObject(light);
+    GameObject* light_go = new GameObject(manager);
+    Light cmp_light = Light(scene_mgr, root_scene_node);
+    cmp_light.initComponent();
+    //light_go->addComponent(cmp_light);
+    
     // Camara
-    GameObject* m_cam = new GameObject(manager, SVector3(0, 1000, -10));
+    GameObject* cam_go = new GameObject(manager, SVector3(0, 1000, -10));
     Camera cmp_cam = Camera(scene_mgr, root_scene_node);
     cmp_cam.initComponent(myWindow);
-   // m_cam->addComponent(cmp_cam);
+    //cam_go->addComponent(cmp_cam);
 
     // Game-loop
     bool game_playing = true;

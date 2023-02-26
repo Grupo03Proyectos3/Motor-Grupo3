@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Render\Camera.cpp" />
+    <ClCompile Include="..\..\Src\Render\Light.cpp" />
     <ClCompile Include="..\..\Src\Render\MyWindowEventListener.cpp" />
     <ClCompile Include="..\..\Src\Render\SGTechniqueResolverListener.cpp" />
     <ClCompile Include="..\..\Src\Render\Window.cpp" />
@@ -27,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Render\Camera.h" />
+    <ClInclude Include="..\..\Src\Render\Light.h" />
     <ClInclude Include="..\..\Src\Render\MyWindowEventListener.h" />
     <ClInclude Include="..\..\Src\Render\SGTechniqueResolverListener.h" />
     <ClInclude Include="..\..\Src\Render\Window.h" />
