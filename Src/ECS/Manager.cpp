@@ -135,121 +135,121 @@ const auto& ecs::Manager::getEntities(ecs::groupId_type t_gId)
     ;
 }
 
-template <typename T, typename... Ts>
-T* ecs::Manager::addComponent(ecs::Entity* t_e, Ts&&... t_args)
-{
-    constexpr compId_type cId = T::id;
-    assert(cId < maxComponentId);
+//template <typename T, typename... Ts>
+//T* ecs::Manager::addComponent(ecs::Entity* t_e, Ts&&... t_args)
+//{
+//    constexpr compId_type cId = T::id;
+//    assert(cId < maxComponentId);
+//
+//    // delete the current component, if any
+//    //
+//    removeComponent<T>(t_e);
+//
+//    // create, initialise and install the new component
+//    //
+//    Component* c = new T(std::forward<Ts>(t_args)...);
+//    c->setContext(t_e, this);
+//    c->initComponent();
+//    t_e->m_comps[cId] = c;
+//    t_e->m_current_comps.push_back(c);
+//
+//    // return it to the user so i can be initialised if needed
+//    return static_cast<T*>(c);
+//}
 
-    // delete the current component, if any
-    //
-    removeComponent<T>(t_e);
+//template <typename T>
+//void ecs::Manager::removeComponent(Entity* t_e)
+//{
+//    constexpr compId_type cId = T::id;
+//    assert(cId < maxComponentId);
+//
+//    if (t_e->m_comps[cId] != nullptr)
+//    {
+//        // find the element that is equal to e->cmps_[cId] (returns an iterator)
+//        //
+//        auto iter = std::find(t_e->m_current_comps.begin(), t_e->m_current_comps.end(),
+//                              t_e->m_comps[cId]);
+//
+//        // must have such a component
+//        assert(iter != t_e->m_current_comps.end());
+//
+//        // and then remove it
+//        t_e->m_current_comps.erase(iter);
+//        // destroy it
+//        //
+//        delete t_e->m_comps[cId];
+//
+//        // remove the pointer
+//        //
+//        t_e->m_comps[cId] = nullptr;
+//    }
+//}
 
-    // create, initialise and install the new component
-    //
-    Component* c = new T(std::forward<Ts>(t_args)...);
-    c->setContext(t_e, this);
-    c->initComponent();
-    t_e->m_comps[cId] = c;
-    t_e->m_current_comps.push_back(c);
+//template <typename T>
+//T* ecs::Manager::getComponent(Entity* t_e)
+//{
+//    constexpr compId_type cId = T::id;
+//    assert(cId < maxComponentId);
+//
+//    return static_cast<T*>(t_e->m_comps[cId]);
+//}
 
-    // return it to the user so i can be initialised if needed
-    return static_cast<T*>(c);
-}
+//template <typename T>
+//bool ecs::Manager::hasComponent(Entity* t_e)
+//{
+//    constexpr compId_type cId = T::id;
+//    assert(cId < maxComponentId);
+//
+//    return t_e->m_comps[cId] != nullptr;
+//}
 
-template <typename T>
-void ecs::Manager::removeComponent(Entity* t_e)
-{
-    constexpr compId_type cId = T::id;
-    assert(cId < maxComponentId);
-
-    if (t_e->m_comps[cId] != nullptr)
-    {
-        // find the element that is equal to e->cmps_[cId] (returns an iterator)
-        //
-        auto iter = std::find(t_e->m_current_comps.begin(), t_e->m_current_comps.end(),
-                              t_e->m_comps[cId]);
-
-        // must have such a component
-        assert(iter != t_e->m_current_comps.end());
-
-        // and then remove it
-        t_e->m_current_comps.erase(iter);
-        // destroy it
-        //
-        delete t_e->m_comps[cId];
-
-        // remove the pointer
-        //
-        t_e->m_comps[cId] = nullptr;
-    }
-}
-
-template <typename T>
-T* ecs::Manager::getComponent(Entity* t_e)
-{
-    constexpr compId_type cId = T::id;
-    assert(cId < maxComponentId);
-
-    return static_cast<T*>(t_e->m_comps[cId]);
-}
-
-template <typename T>
-bool ecs::Manager::hasComponent(Entity* t_e)
-{
-    constexpr compId_type cId = T::id;
-    assert(cId < maxComponentId);
-
-    return t_e->m_comps[cId] != nullptr;
-}
-
-template <typename T, typename... Ts>
-T* ecs::Manager::addSystem(Ts&&... t_args)
-{
-    constexpr systemId_type sId = T::id;
-    assert(sId < maxSystemId);
-
-    removeSystem<T>();
-
-    // create, initialise and install the new component
-    //
-    System* s = new T(std::forward<Ts>(t_args)...);
-    s->setContext(this);
-    s->initSystem();
-    m_systems[sId] = s; 
-
-    // return it to the user so it can be initialised if needed
-    return static_cast<T*>(s);
-}
+//template <typename T, typename... Ts>
+//T* ecs::Manager::addSystem(Ts&&... t_args)
+//{
+//    constexpr systemId_type sId = T::id;
+//    assert(sId < maxSystemId);
+//
+//    removeSystem<T>();
+//
+//    // create, initialise and install the new component
+//    //
+//    System* s = new T(std::forward<Ts>(t_args)...);
+//    s->setContext(this);
+//    s->initSystem();
+//    m_systems[sId] = s; 
+//
+//    // return it to the user so it can be initialised if needed
+//    return static_cast<T*>(s);
+//}
 
 PhysicsSystem* ecs::Manager::addSystem()
 {
     return nullptr;
 }
 
-template <typename T>
-void ecs::Manager::removeSystem()
-{
-    constexpr systemId_type sId = T::id;
-    assert(sId < maxSystemId);
+//template <typename T>
+//void ecs::Manager::removeSystem()
+//{
+//    constexpr systemId_type sId = T::id;
+//    assert(sId < maxSystemId);
+//
+//    if (m_systems[sId] != nullptr)
+//    {
+//        // destroy it
+//        //
+//        delete m_systems[sId];
+//
+//        // remove the pointer
+//        //
+//        m_systems[sId] = nullptr;
+//    }
+//}
 
-    if (m_systems[sId] != nullptr)
-    {
-        // destroy it
-        //
-        delete m_systems[sId];
-
-        // remove the pointer
-        //
-        m_systems[sId] = nullptr;
-    }
-}
-
-template <typename T>
-T* ecs::Manager::getSystem()
-{
-    constexpr systemId_type sId = T::id;
-    assert(sId < maxSystemId);
-
-    return static_cast<T*>(m_systems[sId]);
-}
+//template <typename T>
+//T* ecs::Manager::getSystem()
+//{
+//    constexpr systemId_type sId = T::id;
+//    assert(sId < maxSystemId);
+//
+//    return static_cast<T*>(m_systems[sId]);
+//}

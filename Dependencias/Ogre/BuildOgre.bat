@@ -35,6 +35,16 @@ XCOPY /y /s .\bin\debug\RenderSystem_Direct3D11_d.dll %EXES%
 XCOPY /y /s .\bin\release\OgreBullet.dll %EXES%
 
 XCOPY /y /s .\bin\release\zlib.dll %EXES%
-XCOPY /y /s .\bin\release\SDL2.dll %EXES%
+:: XCOPY /y /s .\bin\release\SDL2.dll %EXES%
 
+:: BUILD SDL2
+
+cd .\SDL2-build
+msbuild  SDL2.sln /p:Configuration=Debug
+msbuild  SDL2.sln /p:Configuration=Release
+
+XCOPY /y /s .\Release\SDL2.dll %EXES%
+XCOPY /y /s .\Debug\SDL2d.dll %EXES%
+
+cd ..
 cd ..

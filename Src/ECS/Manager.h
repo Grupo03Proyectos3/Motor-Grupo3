@@ -54,24 +54,81 @@ namespace ecs
         // 'cId' is taken from T::id.
         //
         template <typename T, typename... Ts>
-        T* addComponent(Entity* t_e, Ts&&... t_args);
+        inline T* addComponent(Entity* t_e, Ts&&... t_args)
+        {
+            constexpr compId_type cId = T::id;
+            assert(cId < maxComponentId);
+
+            // delete the current component, if any
+            //
+            removeComponent<T>(t_e);
+
+            // create, initialise and install the new component
+            //
+            Component* c = new T(std::forward<Ts>(t_args)...);
+            c->setContext(t_e, this);
+            c->initComponent();
+            t_e->m_comps[cId] = c;
+            t_e->m_current_comps.push_back(c);
+
+            // return it to the user so i can be initialised if needed
+            return static_cast<T*>(c);
+        }
+
         // Removes the component of Entity 't_e' at position T::id.
         //
         template <typename T>
-        void removeComponent(Entity* t_e);
+        inline void removeComponent(Entity* t_e)
+        {
+            constexpr compId_type cId = T::id;
+            assert(cId < maxComponentId);
+
+            if (t_e->m_comps[cId] != nullptr)
+            {
+                // find the element that is equal to e->cmps_[cId] (returns an iterator)
+                //
+                auto iter = std::find(t_e->m_current_comps.begin(), t_e->m_current_comps.end(),
+                                      t_e->m_comps[cId]);
+
+                // must have such a component
+                assert(iter != t_e->m_current_comps.end());
+
+                // and then remove it
+                t_e->m_current_comps.erase(iter);
+                // destroy it
+                //
+                delete t_e->m_comps[cId];
+
+                // remove the pointer
+                //
+                t_e->m_comps[cId] = nullptr;
+            }
+        }
 
         // Returns the component that corresponds to position T::id, casting it
         // to T*. The casting is done just for ease of use, to avoid casting
         // outside.
         //
         template <typename T>
-        T* getComponent(Entity* t_e);
+        inline T* getComponent(Entity* t_e)
+        {
+            constexpr compId_type cId = T::id;
+            assert(cId < maxComponentId);
+
+            return static_cast<T*>(t_e->m_comps[cId]);
+        }
 
         // returns true if there is a component with identifier T::id
         // in the entity 't_e'
         //
         template <typename T>
-        bool hasComponent(Entity* t_e);
+        inline bool hasComponent(Entity* t_e)
+        {
+            constexpr compId_type cId = T::id;
+            assert(cId < maxComponentId);
+
+            return t_e->m_comps[cId] != nullptr;
+        }
 
         // returns the group 't_gId' of entity 't_e'
         //
@@ -95,20 +152,58 @@ namespace ecs
         // system's identifier 'cId' is taken from T::id.
         //
         template <typename T, typename... Ts>
-        T* addSystem(Ts&&... t_args);
+        inline T* addSystem(Ts&&... t_args)
+        {
+            constexpr systemId_type sId = T::id;
+            assert(sId < maxSystemId);
+
+            removeSystem<T>();
+
+            // create, initialise and install the new component
+            //
+            System* s = new T(std::forward<Ts>(t_args)...);
+            s->setContext(this);
+            s->initSystem();
+            m_systems[sId] = s;
+
+            // return it to the user so it can be initialised if needed
+            return static_cast<T*>(s);
+        }
 
         PhysicsSystem* addSystem();
 
         // Removes the system at position T::id.
         //
         template <typename T>
-        void removeSystem();
+        inline void removeSystem()
+        {
+            constexpr systemId_type sId = T::id;
+            assert(sId < maxSystemId);
+
+            if (m_systems[sId] != nullptr)
+            {
+                // destroy it
+                //
+                delete m_systems[sId];
+
+                // remove the pointer
+                //
+                m_systems[sId] = nullptr;
+            }
+        }
+
         // Returns the system that corresponds to position T::id, casting it
         // to T*. The casting is done just for ease of use, to avoid casting
         // outside.
         //
         template <typename T>
-        T* getSystem();
+        inline T* getSystem()
+        {
+            constexpr systemId_type sId = T::id;
+            assert(sId < maxSystemId);
+
+            return static_cast<T*>(m_systems[sId]);
+        }
 
         void send(const Message& t_m, bool t_delay = false);
         // this method should be called in the main loop to send queued
@@ -134,6 +229,6 @@ namespace ecs
         std::vector<Message> m_msgs_aux;
     };
 
-} // namespace ecs
 
+} // namespace ecs
 #endif

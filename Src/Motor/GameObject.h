@@ -84,13 +84,28 @@ class GameObject
 
     // no funcionales aun, d
     template <typename T>
-    void addComponent(T t_component);
+    inline void addComponent(T t_component)
+    {
+        return m_manager->addComponent<t_component>(m_entity);
+    }
+
     template <typename T>
-    void removeComponent(T t_component);
+    inline void removeComponent(T t_component)
+    {
+        return m_manager->removeComponent<t_component>(m_entity);
+    }
+
     template <typename T>
-    T* getComponent(T t_component);
+    inline T* getComponent(T t_component)
+    {
+        return m_manager->getComponent<t_component>(m_entity);
+    }
+
     template <typename T>
-    bool hasComponent(T t_component);
+    inline bool hasComponent(T t_component)
+    {
+        return m_manager->hasComponent<t_component>(m_entity);
+    }
 
     static void setManager(ecs::Manager* t_manager);
 
