@@ -5,7 +5,7 @@
 #include <SDL_syswm.h>
 #include <OgreConfigFile.h>
 #include <OgreRenderWindow.h>
-
+#include <OgreGpuProgramManager.h>
 namespace OgreWindow
 {
     Window::Window(const Ogre::String& appName){
@@ -179,18 +179,6 @@ namespace OgreWindow
 
         if (genLocs2.empty())// si no estan cargados los cargo
             bringResources(sec_name, type_name, arch_name);
-
-        sec_name = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
-        auto genLocs = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec_name);
-
-        arch_name = genLocs.front().archive->getName();
-        type_name = genLocs.front().archive->getType();
-
-        // AÑADIR LOS LENGUAJES DE PROGRAMACION DE LOS SHADERS
-
-        Ogre::String mRTShaderLibPath = arch_name + "/RTShaderLib";
-        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/materials", type_name, sec_name);
-        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type_name, sec_name); // CARGO GLSL     
     }
 
     void Window::shutdown(){
@@ -239,6 +227,38 @@ namespace OgreWindow
                     arch_name, type_name, sec_name);
             }
         }
+        sec_name = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
+        auto genLocs = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec_name);
+
+        arch_name = genLocs.front().archive->getName();
+        type_name = genLocs.front().archive->getType();
+
+        // AÑADIR LOS LENGUAJES DE PROGRAMACION DE LOS SHADERS
+        // Add locations for supported shader languages
+        /*if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles")){
+            Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/GLSLES", type_name, sec_name);
+        }*/
+        if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl")){
+            Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/GLSL120", type_name, sec_name);
+
+            if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl150")){
+                Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/GLSL150", type_name, sec_name);
+            }
+            else{
+                Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/GLSL", type_name, sec_name);
+            }
+
+            if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl400")){
+                Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/GLSL400", type_name, sec_name);
+            }
+        }
+       /* else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("hlsl")){
+            Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/HLSL", type_name, sec_name);
+        }*/
+
+        Ogre::String mRTShaderLibPath = arch_name + "/RTShaderLib";
+        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/materials", type_name, sec_name);
+        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type_name, sec_name); // CARGO GLSL 
     }
 
 } // namespace OgreWindow
