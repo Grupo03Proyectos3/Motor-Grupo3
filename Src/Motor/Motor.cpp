@@ -196,7 +196,7 @@ int main(int argc, char* argv[])
     // PhysicsSystem* physics_system = new PhysicsSystem();
     PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
 
-    while (game_playing)
+    while (game_playing&&!myWindow->isWindowClosed())
     {
         // leer entrada
         myWindow->pollEvents();
@@ -222,15 +222,14 @@ int main(int argc, char* argv[])
         manager->refresh();
         manager->flushMessages();
     }
-    // myWindow->shutdown();
-    if (myWindow->getRenderSystem() != nullptr)
-        myWindow->shutdown();
+
+    myWindow->closeWindow();
     delete myWindow;
     myWindow = nullptr;
-    /*delete cam;
-    delete viewport;*/
+
+    //delete physics_system; los sistemas los elimina el manager cuando este muismo se elimina
     delete manager;
-    delete physics_system;
+   
 
     _CrtDumpMemoryLeaks();
     return 0;

@@ -1,5 +1,10 @@
 #include "Window.h"
 #include "WindowEventUtilities.h"
+#include <OgreRoot.h>
+#include <SDL_video.h>
+#include <SDL_syswm.h>
+#include <OgreConfigFile.h>
+#include <OgreRenderWindow.h>
 
 namespace OgreWindow
 {
@@ -7,7 +12,8 @@ namespace OgreWindow
         mRoot = nullptr;
         mAppName = appName;
         mFSLayer = new Ogre::FileSystemLayer(mAppName);
-
+        mWindow.native = nullptr;
+        mWindow.render = nullptr;
         mShaderGenerator = nullptr;
     }
 
@@ -17,7 +23,6 @@ namespace OgreWindow
 
     void Window::initApp(){
         createRoot();
-
         if (config())
             setUp();
     }
@@ -54,6 +59,7 @@ namespace OgreWindow
         loadResources();
        
         //VENTOS DE VENTANA 
+        //mRoot->addFrameListener(this);
     }
 
     NativeWindowPair Window::createWindow(Ogre::String& appName)
@@ -70,6 +76,22 @@ namespace OgreWindow
         miscParams["FSAA"] = ropts["FSAA"].currentValue;
         miscParams["vsync"] = ropts["VSync"].currentValue;
         miscParams["gamma"] = ropts["sRGB Gamma Conversion"].currentValue;
+
+        if (!SDL_WasInit(SDL_INIT_VIDEO))
+            SDL_InitSubSystem(SDL_INIT_VIDEO);
+
+        Uint32 flags = SDL_WINDOW_RESIZABLE;
+
+        if (ropts["Full Screen"].currentValue == "Yes")flags = SDL_WINDOW_FULLSCREEN;
+        // else  flags = SDL_WINDOW_RESIZABLE;
+
+        mWindow.native = SDL_CreateWindow(appName.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, flags);
+
+        SDL_SysWMinfo wmInfo;
+        SDL_VERSION(&wmInfo.version);
+        SDL_GetWindowWMInfo(mWindow.native, &wmInfo);
+
+        miscParams["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
 
         mWindow.render = mRoot->createRenderWindow(appName, w, h, false, &miscParams);
         return mWindow;
@@ -109,6 +131,38 @@ namespace OgreWindow
     }
 
     void Window::pollEvents() {
+
+        if (mWindow.native == nullptr)
+            return; // SDL events not initialized
+
+        SDL_Event event;
+        while (SDL_PollEvent(&event))
+        {
+            switch (event.type)
+            {
+                case SDL_QUIT:
+                    mRoot->queueEndRendering();
+                    break;
+                case SDL_WINDOWEVENT:
+                    if (event.window.windowID == SDL_GetWindowID(mWindow.native))
+                    {
+                        if (event.window.event == SDL_WINDOWEVENT_RESIZED)
+                        {
+                            Ogre::RenderWindow* win = mWindow.render;
+                            // win->resize(event.window.data1, event.window.data2);  // IG2: ERROR
+                            win->windowMovedOrResized();
+                        }
+                        // Agregar el caso SDL_WINDOWEVENT_CLOSE
+                        else if (event.window.event == SDL_WINDOWEVENT_CLOSE){
+                            mRoot->queueEndRendering();
+                            isClosed = true;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
         // just avoid "window not responding"
         WindowEvents::WindowEventUtilities::messagePump();
     }
@@ -145,12 +199,28 @@ namespace OgreWindow
             mRoot->destroyRenderTarget(mWindow.render);
             mWindow.render = nullptr;
         }
+        if (mWindow.native != nullptr)
+        {
+            SDL_DestroyWindow(mWindow.native);
+            SDL_QuitSubSystem(SDL_INIT_VIDEO);
+            mWindow.native = nullptr;
+        }
         if (mRoot != nullptr){
             delete mSceneManager;
             mSceneManager = nullptr;
             delete mRoot;
             mRoot = nullptr;
-        }     
+        }   
+    }
+
+    void Window::closeWindow(){
+        if (mRoot != nullptr){
+            mRoot->saveConfig();
+        }
+        if (getRenderSystem() != nullptr)
+            shutdown();       
+        delete mRoot;
+        mRoot = nullptr;
     }
 
     void Window::bringResources(Ogre::String& sec_name, Ogre::String& type_name, Ogre::String& arch_name){
@@ -170,4 +240,5 @@ namespace OgreWindow
             }
         }
     }
+
 } // namespace OgreWindow

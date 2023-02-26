@@ -1,6 +1,7 @@
 #include "Camera.h"
 
 #include <OgreSceneManager.h>
+#include <OgreRenderWindow.h>
 #include <OgreSceneNode.h>
 
 Camera::Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node)
