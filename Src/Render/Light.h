@@ -7,6 +7,7 @@
 #include "../ECS/Manager.h"
 
 #include <OgreLight.h>
+#include <string>
 
 struct Light : public ecs::Component
 {
@@ -16,7 +17,7 @@ struct Light : public ecs::Component
     Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode*t_scene_node);
     virtual ~Light(){};
 
-    virtual void initComponent();
+    virtual void initComponent(std::string t_name);
 
   private:
     Ogre::Light* m_light = nullptr;

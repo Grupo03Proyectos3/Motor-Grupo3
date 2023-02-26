@@ -9,9 +9,9 @@ Light::Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node)
 {
 }
 
-void Light::initComponent()
+void Light::initComponent(std::string t_name)
 {
-    m_light = m_sceneMgr->createLight("myLight");
+    m_light = m_sceneMgr->createLight(t_name);
     Ogre::SceneNode* light_node = m_scene_node->createChildSceneNode();
     m_light->setType(Ogre::Light::LT_DIRECTIONAL);
     light_node->setDirection(Ogre::Vector3(0, -1, 0));

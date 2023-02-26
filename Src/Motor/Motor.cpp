@@ -158,13 +158,13 @@ int main(int argc, char* argv[])
     // Luz
     GameObject* light_go = new GameObject(manager);
     Light cmp_light = Light(scene_mgr, root_scene_node);
-    cmp_light.initComponent();
+    cmp_light.initComponent("myLight");
     //light_go->addComponent(cmp_light);
     
     // Camara
     GameObject* cam_go = new GameObject(manager, SVector3(0, 1000, -10));
-    Camera cmp_cam = Camera(scene_mgr, root_scene_node);
-    cmp_cam.initComponent(myWindow);
+    Camera cmp_cam = Camera(scene_mgr, root_scene_node, Ogre::ColourValue(0.3, 0.2, 0.6));
+    cmp_cam.initComponent(myWindow, "myCamera");
     //cam_go->addComponent(cmp_cam);
 
     // Game-loop
