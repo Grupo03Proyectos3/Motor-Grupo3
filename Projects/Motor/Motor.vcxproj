@@ -35,9 +35,13 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\Motor\GameObject.cpp" />
     <ClCompile Include="..\..\Src\Motor\Motor.cpp" />
+    <ClCompile Include="..\..\Src\Motor\Scene.cpp" />
+    <ClCompile Include="..\..\Src\Motor\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Motor\GameObject.h" />
+    <ClInclude Include="..\..\Src\Motor\Scene.h" />
+    <ClInclude Include="..\..\Src\Motor\SceneManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

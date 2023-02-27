@@ -106,6 +106,8 @@ class GameObject
         return m_manager->hasComponent<T>(m_entity);
     }
 
+    inline std::string getName() { return name; };
+
     static void setManager(ecs::Manager* t_manager);
 
     SVector3 position;

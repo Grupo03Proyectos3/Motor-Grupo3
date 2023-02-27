@@ -6,6 +6,7 @@
 #include <OgreConfigFile.h>
 #include <OgreRenderWindow.h>
 #include <OgreGpuProgramManager.h>
+
 namespace OgreWindow
 {
     Window::Window(const Ogre::String& appName){
@@ -15,10 +16,12 @@ namespace OgreWindow
         mWindow.native = nullptr;
         mWindow.render = nullptr;
         mShaderGenerator = nullptr;
+        //sceneManager = nullptr;
     }
 
     Window::~Window(){
         delete mFSLayer;
+        //delete mSceneManager;
     }
 
     void Window::initApp(){
@@ -36,8 +39,12 @@ namespace OgreWindow
         }
 
         mRoot = new Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogre.cfg"), mFSLayer->getWritablePath("ogre.log"));
-        mSceneManager = mRoot->createSceneManager();
+              
+        //sceneManager = new OgreScene::SceneManager(mAppName + "-SceneManager");
 
+        mSceneManager = mRoot->createSceneManager();
+        //mSceneManager = mRoot->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, mAppName);
+        
         //SI NO LO PONGO NO PILLA NINGUN RENDER ACTIVO **NO NECESARIO CON config(), ya lo hace auto **
         //mRenderSystem = mRoot->getRenderSystemByName("Direct3D11 Rendering Subsystem");
         //mRoot->setRenderSystem(mRenderSystem);
@@ -52,6 +59,7 @@ namespace OgreWindow
 
     void Window::setUp(){
         mRoot->initialise(false);
+        //sceneManager->initScene(mRoot);
         createWindow(mAppName);
 
         locateResources();      
