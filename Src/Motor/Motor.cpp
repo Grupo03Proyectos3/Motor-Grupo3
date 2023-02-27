@@ -159,19 +159,18 @@ int main(int argc, char* argv[])
     // Luz
     GameObject* light_go = new GameObject(manager);
     Light cmp_light = Light(scene_mgr, root_scene_node);
-    //cmp_light.setType(Light::DIRECTIONAL);
-    //cmp_light.setSpecularColour();
-    //cmp_light.setDiffuseColour();
     cmp_light.initComponent("myLight");
+    cmp_light.setType(Light::DIRECTIONAL);
+    cmp_light.setSpecularColour();
+    cmp_light.setDiffuseColour();
     //light_go->addComponent(cmp_light);
     
     // Camara
     GameObject* cam_go = new GameObject(manager, SVector3(0, 500, -10));
     Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, root_scene_node, Ogre::ColourValue(0.3, 0.2, 0.6));
     cmp_cam->initComponent(myWindow, "myCamera");
-  
+    //cam_go->addComponent(cmp_cam);
     
-
     // Game-loop
     bool game_playing = true;
 
