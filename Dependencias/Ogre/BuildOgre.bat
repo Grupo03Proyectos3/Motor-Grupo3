@@ -43,8 +43,8 @@ cd .\SDL2-build
 msbuild  SDL2.sln /p:Configuration=Debug
 msbuild  SDL2.sln /p:Configuration=Release
 
-XCOPY /y /s .\Release\SDL2.dll %EXES%
-XCOPY /y /s .\Debug\SDL2d.dll %EXES%
+XCOPY /y /s .\Release\SDL2.dll .\..\..\..\..\Exes
+XCOPY /y /s .\Debug\SDL2d.dll .\..\..\..\..\Exes
 
 cd ..
 cd ..
