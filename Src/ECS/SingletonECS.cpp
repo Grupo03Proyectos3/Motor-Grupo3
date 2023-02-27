@@ -13,7 +13,7 @@ SingletonECS<T>::~SingletonECS()
 template <typename T>
 void SingletonECS<T>::close()
 {
-    instance_.reset();
+    m_instance.reset();
 }
 
 template <typename T>
@@ -22,9 +22,9 @@ T* SingletonECS<T>::instance()
     // you can replace the "if" by assert(instance_.get() != nullptr)
     // to force initialisation at the beginning
     //
-    if (instance_.get() == nullptr)
+    if (m_instance.get() == nullptr)
     {
         init();
     }
-    return instance_.get();
+    return m_instance.get();
 }
