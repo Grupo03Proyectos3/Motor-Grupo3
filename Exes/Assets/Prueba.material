@@ -1,0 +1,11 @@
+material Prueba/españa { 
+	technique {	
+		pass {  
+			diffuse 0.5 0.5 0.5 
+			texture_unit{
+				texture esp.png
+				colour_op add				
+			}
+		} 
+	} 
+}

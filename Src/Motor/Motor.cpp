@@ -152,6 +152,7 @@ int main(int argc, char* argv[])
     ecs::Manager* manager = new ecs::Manager();
     // Cubo
     Ogre::Entity* entity = scene_mgr->createEntity("myEntity", "cube.mesh");
+    entity->setMaterialName("Prueba/españa");
     Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
     node->attachObject(entity);
     node->setPosition(Ogre::Vector3(0, 0, 0));
@@ -165,7 +166,7 @@ int main(int argc, char* argv[])
     //light_go->addComponent(cmp_light);
     
     // Camara
-    GameObject* cam_go = new GameObject(manager, SVector3(0, 1000, -10));
+    GameObject* cam_go = new GameObject(manager, SVector3(0, 500, -10));
     Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, root_scene_node, Ogre::ColourValue(0.3, 0.2, 0.6));
     cmp_cam->initComponent(myWindow, "myCamera");
   
