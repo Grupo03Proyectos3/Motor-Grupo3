@@ -17,9 +17,11 @@ struct Camera : public ecs::Component
   public:
     __SYSTEM_ID_DECL__(ecs::_cpm_CAMERA)
 
-    enum polygon
+    enum polygonMode
     {
-        POINTS,SOLID, WIREFRAME
+        POINTS,
+        SOLID, 
+        WIREFRAME
     };
 
     Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, Ogre::ColourValue t_vp_color = Ogre::ColourValue::Black);
@@ -31,7 +33,7 @@ struct Camera : public ecs::Component
     void yaw(float t_d);
     void pitch(float t_d);
 
-    void setPolygonMode(polygon t_p);
+    void setPolygonMode(polygonMode t_p);
     void setAutoAspectRatio(bool t_b);
     void setNearClipDistance(float t_clip);
     void setFarClipDistance(float t_clip);

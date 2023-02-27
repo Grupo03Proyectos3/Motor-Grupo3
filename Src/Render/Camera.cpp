@@ -39,7 +39,7 @@ void Camera::pitch(float t_d)
     m_cam_node->pitch(Ogre::Degree(t_d));
 }
 
-void Camera::setPolygonMode(polygon t_p)
+void Camera::setPolygonMode(polygonMode t_p)
 {
     switch (t_p)
     {

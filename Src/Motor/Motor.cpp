@@ -158,6 +158,9 @@ int main(int argc, char* argv[])
     // Luz
     GameObject* light_go = new GameObject(manager);
     Light cmp_light = Light(scene_mgr, root_scene_node);
+    cmp_light.setType(Light::DIRECTIONAL);
+    cmp_light.setSpecularColour();
+    cmp_light.setDiffuseColour();
     cmp_light.initComponent("myLight");
     //light_go->addComponent(cmp_light);
     
