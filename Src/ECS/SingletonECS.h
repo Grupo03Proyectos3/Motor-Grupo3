@@ -45,8 +45,8 @@ class SingletonECS
 
   public:
     // no se pueden copiar objetos de este tipo
-    SingletonECS<T>& operator=(const SingletonECS<T>& o) = delete;
-    SingletonECS(const SingletonECS<T>& o) = delete;
+    SingletonECS<T>& operator=(const SingletonECS<T>& t_o) = delete;
+    SingletonECS(const SingletonECS<T>& t_o) = delete;
 
     virtual ~SingletonECS();
 
@@ -56,9 +56,9 @@ class SingletonECS
     template <typename... Targs>
     inline static T* init(Targs&&... args)
     {
-        assert(instance_.get() == nullptr);
-        instance_.reset(new T(std::forward<Targs>(args)...));
-        return instance_.get();
+        assert(m_instance.get() == nullptr);
+        m_instance.reset(new T(std::forward<Targs>(args)...));
+        return m_instance.get();
     }
 
     // in some cases, when singletons depend on each other, you have
@@ -70,9 +70,9 @@ class SingletonECS
     static T* instance();
 
   private:
-    static std::unique_ptr<T> instance_;
+    static std::unique_ptr<T> m_instance;
 };
 
 template <typename T>
-std::unique_ptr<T> SingletonECS<T>::instance_;
+std::unique_ptr<T> SingletonECS<T>::m_instance;
 #endif
