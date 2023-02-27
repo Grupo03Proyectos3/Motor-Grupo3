@@ -2,6 +2,9 @@
 
 #pragma once
 
+#ifndef __INPUT_HANDLER_H__
+#define __INPUT_HANDLER_H__
+
 #include "SingletonECS.h"
 #include <SDL.h>
 #include <array>
@@ -25,171 +28,62 @@ class InputHandler : public SingletonECS<InputHandler>
     void clearState();
 
     // update the state with a new event
-    inline void update(const SDL_Event& event)
-    {
-        int whichOne;
-        switch (event.type)
-        {
-            case SDL_KEYDOWN:
-                onKeyDown(event);
-                break;
-            case SDL_KEYUP:
-                onKeyUp(event);
-                break;
-            case SDL_MOUSEMOTION:
-                onMouseMotion(event);
-                break;
-            case SDL_MOUSEBUTTONDOWN:
-                onMouseButtonChange(event, true);
-                break;
-            case SDL_MOUSEBUTTONUP:
-                onMouseButtonChange(event, false);
-                break;
-            case SDL_WINDOWEVENT:
-                handleWindowEvent(event);
-                break;
-            default:
-                break;
-        }
-    }
+    void update(const SDL_Event& t_event);
 
     // refresh
-    inline void refresh()
-    {
-        SDL_Event event;
-
-        clearState();
-        while (SDL_PollEvent(&event))
-            update(event);
-    }
+    void refresh();
 
     // close window event
-    inline bool closeWindowEvent()
-    {
-        return isCloseWindoEvent_;
-    }
+    bool closeWindowEvent();
 
     // keyboard
-    inline bool keyDownEvent()
-    {
-        return isKeyDownEvent_;
-    }
+    bool keyDownEvent();
 
-    inline bool keyUpEvent()
-    {
-        return isKeyUpEvent_;
-    }
+    bool keyUpEvent();
 
-    inline bool isKeyDown(SDL_Scancode key)
-    {
-        return keyDownEvent() && kbState_[key] == 1;
-    }
+    bool isKeyDown(SDL_Scancode t_key);
 
-    inline bool isKeyDown(SDL_Keycode key)
-    {
-        return isKeyDown(SDL_GetScancodeFromKey(key));
-    }
+    bool isKeyDown(SDL_Keycode t_key);
 
-    inline bool isKeyUp(SDL_Scancode key)
-    {
-        return keyUpEvent() && kbState_[key] == 0;
-    }
+    bool isKeyUp(SDL_Scancode t_key);
 
-    inline bool isKeyUp(SDL_Keycode key)
-    {
-        return isKeyUp(SDL_GetScancodeFromKey(key));
-    }
+    bool isKeyUp(SDL_Keycode t_key);
 
     // mouse
-    inline bool mouseMotionEvent()
-    {
-        return isMouseMotionEvent_;
-    }
+    bool mouseMotionEvent();
 
-    inline bool mouseButtonEvent()
-    {
-        return isMouseButtonEvent_;
-    }
+    bool mouseButtonEvent();
 
-    inline const std::pair<Sint32, Sint32>& getMousePos()
-    {
-        return mousePos_;
-    }
+    const std::pair<Sint32, Sint32>& getMousePos();
 
-    inline int getMouseButtonState(MOUSEBUTTON b)
-    {
-        return mbState_[b];
-    }
+    int getMouseButtonState(MOUSEBUTTON t_b);
 
   private:
-    InputHandler()
-    {
-        kbState_ = SDL_GetKeyboardState(0);
-        clearState();
-    }
+    InputHandler();
 
-    inline void onKeyDown(const SDL_Event&)
-    {
-        isKeyDownEvent_ = true;
-    }
+    void onKeyDown(const SDL_Event&);
 
-    inline void onKeyUp(const SDL_Event&)
-    {
-        isKeyUpEvent_ = true;
-    }
+    void onKeyUp(const SDL_Event&);
 
-    inline void onMouseMotion(const SDL_Event& event)
-    {
-        isMouseMotionEvent_ = true;
-        mousePos_.first = event.motion.x;
-        mousePos_.second = event.motion.y;
-    }
+    void onMouseMotion(const SDL_Event& t_event);
 
-    inline void onMouseButtonChange(const SDL_Event& event, bool isDown)
-    {
-        isMouseButtonEvent_ = true;
-        switch (event.button.button)
-        {
-            case SDL_BUTTON_LEFT:
-                mbState_[LEFT] = isDown;
-                break;
-            case SDL_BUTTON_MIDDLE:
-                mbState_[MIDDLE] = isDown;
-                break;
-            case SDL_BUTTON_RIGHT:
-                mbState_[RIGHT] = isDown;
-                break;
-            default:
-                break;
-        }
-    }
+    void onMouseButtonChange(const SDL_Event& t_event, bool t_is_down);
 
-    inline void handleWindowEvent(const SDL_Event& event)
-    {
-        switch (event.window.event)
-        {
-            case SDL_WINDOWEVENT_CLOSE:
-                isCloseWindoEvent_ = true;
-                break;
-            default:
-                break;
-        }
-    }
+    void handleWindowEvent(const SDL_Event& t_event);
 
-    bool isCloseWindoEvent_;
-    bool isKeyUpEvent_;
-    bool isKeyDownEvent_;
-    bool isMouseMotionEvent_;
-    bool isMouseButtonEvent_;
-    std::pair<Sint32, Sint32> mousePos_;
-    std::array<bool, 3> mbState_;
-    const Uint8* kbState_;
+    bool m_is_close_window;
+    bool m_is_key_up;
+    bool m_is_key_down;
+    bool m_is_mouse_motion;
+    bool m_is_mouse_button;
+    std::pair<Sint32, Sint32> m_mouse_pos;
+    std::array<bool, 3> m_mB_state;
+    const Uint8* m_kB_state;
 };
 
 // This macro defines a compact way for using the singleton InputHandler, instead of
 // writing InputHandler::instance()->method() we write ih().method()
 //
-inline InputHandler& ih()
-{
-    return *InputHandler::instance();
-}
+InputHandler& ih();
+
+#endif
