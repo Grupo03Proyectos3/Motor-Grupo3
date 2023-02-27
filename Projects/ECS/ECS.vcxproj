@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\Src\ECS\Component.cpp" />
     <ClCompile Include="..\..\Src\ECS\Entity.cpp" />
     <ClCompile Include="..\..\Src\ECS\Manager.cpp" />
+    <ClCompile Include="..\..\Src\ECS\SingletonECS.cpp" />
     <ClCompile Include="..\..\Src\ECS\System.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -31,6 +32,7 @@
     <ClInclude Include="..\..\Src\ECS\Entity.h" />
     <ClInclude Include="..\..\Src\ECS\Manager.h" />
     <ClInclude Include="..\..\Src\ECS\messages_defs.h" />
+    <ClInclude Include="..\..\Src\ECS\SingletonECS.h" />
     <ClInclude Include="..\..\Src\ECS\System.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

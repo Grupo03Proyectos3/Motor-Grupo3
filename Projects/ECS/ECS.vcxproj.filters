@@ -27,6 +27,9 @@
     <ClCompile Include="..\..\Src\ECS\Entity.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\ECS\SingletonECS.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\ECS\Component.h">
@@ -48,6 +51,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\ECS\messages_defs.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ECS\SingletonECS.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
