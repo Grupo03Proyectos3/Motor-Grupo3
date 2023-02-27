@@ -166,9 +166,10 @@ int main(int argc, char* argv[])
     
     // Camara
     GameObject* cam_go = new GameObject(manager, SVector3(0, 1000, -10));
-    Camera cmp_cam = Camera(scene_mgr, root_scene_node, Ogre::ColourValue(0.3, 0.2, 0.6));
-    cmp_cam.initComponent(myWindow, "myCamera");
-    //cam_go->addComponent(cmp_cam);
+    Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, root_scene_node, Ogre::ColourValue(0.3, 0.2, 0.6));
+    cmp_cam->initComponent(myWindow, "myCamera");
+  
+    
 
     // Game-loop
     bool game_playing = true;

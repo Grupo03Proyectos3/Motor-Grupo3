@@ -9,6 +9,8 @@
 #include <OgreVector3.h>
 #include <string>
 
+#include "Render/Camera.h"
+
 /**
  * Clase de ejemplo SVector3 a falta de definir que Vector3 usaremos como base para el proyecto.
  * De momento solo almacena los datos básicos propios de un Quaternion similar al de Unity y actualiza el Ogre::Vector3 que contiene si se cambia su valor.
@@ -79,32 +81,29 @@ class GameObject
     bool isActive();
     void setAlive(bool to);
     void setActive(bool to);
-
-
-
-    // no funcionales aun, d
-    template <typename T>
-    inline void addComponent(T t_component)
+   
+    template <typename T, typename... Ts>
+    inline T* addComponent(Ts&&... args)
     {
-        return m_manager->addComponent<t_component>(m_entity);
+        return m_manager->addComponent<T>(m_entity, args...);
     }
 
     template <typename T>
-    inline void removeComponent(T t_component)
+    inline void removeComponent()
     {
-        return m_manager->removeComponent<t_component>(m_entity);
+        m_manager->removeComponent<T>(m_entity);
     }
 
     template <typename T>
-    inline T* getComponent(T t_component)
+    inline T* getComponent()
     {
-        return m_manager->getComponent<t_component>(m_entity);
+        return m_manager->getComponent<T>(m_entity);
     }
 
     template <typename T>
-    inline bool hasComponent(T t_component)
+    inline bool hasComponent()
     {
-        return m_manager->hasComponent<t_component>(m_entity);
+        return m_manager->hasComponent<T>(m_entity);
     }
 
     static void setManager(ecs::Manager* t_manager);
