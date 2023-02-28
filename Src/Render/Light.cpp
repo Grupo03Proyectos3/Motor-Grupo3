@@ -12,11 +12,16 @@ Light::Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node)
 void Light::initComponent(std::string t_name)
 {
     m_light = m_sceneMgr->createLight(t_name);
-    Ogre::SceneNode* light_node = m_scene_node->createChildSceneNode();
+    m_light_node = m_scene_node->createChildSceneNode();
     //m_sceneMgr->setAmbientLight(Ogre::ColourValue::White);
-    light_node->setDirection(Ogre::Vector3(0, -1, 0));
-    light_node->attachObject(m_light);
+    m_light_node->setDirection(Ogre::Vector3(0, -1, 0));
+    m_light_node->attachObject(m_light);
 }
+
+//void Light::setDirection(Ogre::Vector3 t_direction)
+//{
+//    m_light_node->setDirection(Ogre::Vector3(0, -1, 0));
+//}
 
 void Light::setType(lightType t_l)
 {

@@ -75,8 +75,6 @@ class GameObject
     GameObject(ecs::Manager* t_mgr, ecs::groupId t_group, std::string t_name, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale);
     ~GameObject();
 
-    void setContext(ecs::Manager* mngr);
-
     bool isAlive();
     bool isActive();
     void setAlive(bool to);
@@ -107,6 +105,8 @@ class GameObject
     }
 
     inline std::string getName() { return name; };
+
+    inline SVector3 getPosition() { return position; };
 
     static void setManager(ecs::Manager* t_manager);
 

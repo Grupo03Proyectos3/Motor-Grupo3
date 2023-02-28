@@ -24,10 +24,20 @@ struct Camera : public ecs::Component
         WIREFRAME
     };
 
-    Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, Ogre::ColourValue t_vp_color = Ogre::ColourValue::Black);
+    enum transformSpace
+    {
+        WORLD,
+        LOCAL,
+        PARENT
+    };
+
+    Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node/*, Ogre::ColourValue t_vp_color = Ogre::ColourValue::Black*/);
     virtual ~Camera(){};
 
     virtual void initComponent(OgreWindow::Window* t_window, std::string t_name);
+
+    void lookAt(float t_x, float t_y, float t_z, transformSpace t_trs = WORLD);
+    void translate(float t_x, float t_y, float t_z);
 
     void roll(float t_d);
     void yaw(float t_d);
@@ -38,6 +48,8 @@ struct Camera : public ecs::Component
     void setNearClipDistance(float t_clip);
     void setFarClipDistance(float t_clip);
 
+    void setViewPortBackgroundColour(Ogre::ColourValue t_vp_color);
+
   private:
     Ogre::Camera* m_cam = nullptr;
     Ogre::Viewport* m_vp = nullptr;
@@ -45,7 +57,7 @@ struct Camera : public ecs::Component
     Ogre::SceneNode* m_scene_node = nullptr;
     Ogre::SceneNode* m_cam_node = nullptr;
 
-    Ogre::ColourValue m_vp_color;
+    //Ogre::ColourValue m_vp_color;
 };
 
 #endif

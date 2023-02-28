@@ -25,6 +25,8 @@ struct Light : public ecs::Component
     virtual ~Light(){};
 
     virtual void initComponent(std::string t_name);
+
+    //void setDirection(Ogre::Vector3 t_direction);
     //Tipo de luz
     void setType(lightType t_l);
     //Colores
@@ -50,6 +52,7 @@ struct Light : public ecs::Component
     Ogre::Light* m_light = nullptr;
     Ogre::SceneManager* m_sceneMgr = nullptr;
     Ogre::SceneNode* m_scene_node = nullptr;
+    Ogre::SceneNode* m_light_node = nullptr;
 };
 
 #endif
