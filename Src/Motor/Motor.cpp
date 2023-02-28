@@ -4,7 +4,7 @@
 #include "Physics/PhysicsSystem.h"
 
 #include "IMGUI/imgui.h"
-#include <OgreRoot.h>
+#include <OgreRoot.h> // MEMORY LEAK
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -14,7 +14,6 @@
 #include <OgreEntity.h>
 #include <OgreSceneNode.h>
 
-#include <OgreBullet.h>
 #include <fmod.h>
 
 #include "Render/Camera.h"
@@ -172,7 +171,6 @@ int main(int argc, char* argv[])
     cmp_cam->translate(0, 1000, -10);
     cmp_cam->lookAt(0, 0, 0, Camera::WORLD);
     
-    
     // Game-loop
     bool game_playing = true;
 
@@ -233,19 +231,15 @@ int main(int argc, char* argv[])
     delete myWindow;
     myWindow = nullptr;
 
+
     //delete physics_system; los sistemas los elimina el manager cuando este muismo se elimina
     delete manager;
+
+    delete cam_go;
+    delete light_go;
    
+    ImGui::DestroyContext();
 
     _CrtDumpMemoryLeaks();
     return 0;
 }
-/* std::fstream f("Assets\\mapa.txt");
-    if (f.is_open()) {
-        std::cout << "FICHERO ABIERTO\n";
-        f.close();
-    }
-    else {
-        std::cerr << "FICHERO NO ABIERTO";
-        return 1;
-    }*/

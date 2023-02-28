@@ -6,9 +6,7 @@
 #include <OgreFrameListener.h>
 #include <SDL.h>
 
-
 #include "SGTechniqueResolverListener.h"
-
 
 namespace OgreWindow{
     typedef SDL_Window NativeWindowType;
