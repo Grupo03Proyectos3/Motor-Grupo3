@@ -15,16 +15,18 @@ class SQuaternion
     SQuaternion(double t_x, double t_y, double t_z, double t_w);
     ~SQuaternion() = default;
     void setQuaternion(double t_x, double t_y, double t_z, double t_w);
+
     double getX();
     double getY();
     double getZ();
     double getW();
+
+     operator Ogre::Quaternion() const;
 
   private:
     double m_x;
     double m_y;
     double m_z;
     double m_w;
-    Ogre::Quaternion m_quaternion;
 };
 #endif

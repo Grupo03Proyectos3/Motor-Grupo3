@@ -6,7 +6,6 @@ SQuaternion::SQuaternion()
     , m_z(0)
     , m_w(1)
 {
-    m_quaternion = Ogre::Quaternion(m_x, m_y, m_z, m_w);
 }
 
 SQuaternion::SQuaternion(double t_x, double t_y, double t_z, double t_w)
@@ -15,7 +14,6 @@ SQuaternion::SQuaternion(double t_x, double t_y, double t_z, double t_w)
     , m_z(t_z)
     , m_w(t_w)
 {
-    m_quaternion = Ogre::Quaternion(m_x, m_y, m_z, m_w);
 }
 
 void SQuaternion::setQuaternion(double t_x, double t_y, double t_z, double t_w)
@@ -24,8 +22,6 @@ void SQuaternion::setQuaternion(double t_x, double t_y, double t_z, double t_w)
     m_y = t_y;
     m_z = t_z;
     m_w = t_w;
-
-    m_quaternion = Ogre::Quaternion(m_x, m_y, m_z, m_w);
 }
 
 double SQuaternion::getX()
@@ -46,4 +42,9 @@ double SQuaternion::getZ()
 double SQuaternion::getW()
 {
     return m_w;
+}
+
+SQuaternion::operator Ogre::Quaternion() const
+{
+    return Ogre::Quaternion(m_x, m_y, m_z, m_w);
 }
