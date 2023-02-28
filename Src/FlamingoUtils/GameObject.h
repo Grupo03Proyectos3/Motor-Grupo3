@@ -5,57 +5,8 @@
 
 #include "ECS/Entity.h"
 #include "ECS/Manager.h"
-#include <OgreQuaternion.h>
-#include <OgreVector3.h>
-#include <string>
-
-
-/**
- * Clase de ejemplo SVector3 a falta de definir que Vector3 usaremos como base para el proyecto.
- * De momento solo almacena los datos básicos propios de un Quaternion similar al de Unity y actualiza el Ogre::Vector3 que contiene si se cambia su valor.
- */
-
-class SVector3
-{
-  public:
-    SVector3();
-    SVector3(double t_x, double t_y, double t_z);
-    ~SVector3() = default;
-    void setVector3(double t_x, double t_y, double t_z);
-    double getX();
-    double getY();
-    double getZ();
-
-  private:
-    double m_x;
-    double m_y;
-    double m_z;
-    Ogre::Vector3 m_vector3;
-};
-
-/**
- * Clase de ejemplo SQuaternion a falta de definir que Quaternion usaremos como base para el proyecto.
- * De momento solo almacena los datos básicos propios de un Quaternion similar al de Unity y actualiza el Ogre::Vector3 que contiene si se cambia su valor.
- */
-class SQuaternion
-{
-  public:
-    SQuaternion();
-    SQuaternion(double t_x, double t_y, double t_z, double t_w);
-    ~SQuaternion() = default;
-    void setQuaternion(double t_x, double t_y, double t_z, double t_w);
-    double getX();
-    double getY();
-    double getZ();
-    double getW();
-
-  private:
-    double m_x;
-    double m_y;
-    double m_z;
-    double m_w;
-    Ogre::Quaternion m_quaternion;
-};
+#include "SVector3.h"
+#include "SQuaternion.h"
 
 /**
  *  Clase base para todas las instancias que se encuentren en el juego.
