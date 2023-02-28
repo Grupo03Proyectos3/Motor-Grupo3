@@ -4,10 +4,9 @@
 #include <OgreRenderWindow.h>
 #include <OgreSceneNode.h>
 
-Camera::Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node/*, Ogre::ColourValue t_vp_color*/)
+Camera::Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node)
     : m_scene_node(t_scene_node)
     , m_sceneMgr(t_sceneMgr)
-    /*, m_vp_color(t_vp_color)*/
 {
 }
 
@@ -16,9 +15,9 @@ void Camera::initComponent(OgreWindow::Window* t_window, std::string t_name)
     m_cam = m_sceneMgr->createCamera(t_name);
     m_cam_node = m_scene_node->createChildSceneNode();
     m_cam_node->attachObject(m_cam);
+    m_cam_node->setPosition(500, 500, 1000);
    
     m_vp = t_window->getRenderWindow()->addViewport(m_cam);
-    //m_vp->setBackgroundColour(m_vp_color);
     m_vp->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
 }
 

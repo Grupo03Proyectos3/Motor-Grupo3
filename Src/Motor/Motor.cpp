@@ -19,6 +19,7 @@
 #include "Render/Camera.h"
 #include "Render/Light.h"
 #include "Render/Window.h"
+#include "Render/RenderSystem.h"
 
 #include "FlamingoUtils/GameObject.h"
 
@@ -106,33 +107,6 @@ void loadDirectories()
     output.close(); // Cierro el archivo ���IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
 }
 
-// Ogre::Camera* demoLoadFirstMesh(Ogre::SceneManager* t_sceneMgr)
-//{
-//     Ogre::SceneNode* root_scene_node = t_sceneMgr->getRootSceneNode();
-//
-//     Ogre::Entity* entity = t_sceneMgr->createEntity("myEntity", "cube.mesh");
-//     Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
-//     node->attachObject(entity);
-//     node->setPosition(Ogre::Vector3(0, 0, 0));
-//
-//     Ogre::Light* light = t_sceneMgr->createLight("myLight");
-//     Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
-//     light->setType(Ogre::Light::LT_DIRECTIONAL);
-//     light_node->setDirection(Ogre::Vector3(0, -1, 0));
-//     light->setDiffuseColour(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
-//     light->setSpecularColour(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
-//     light_node->attachObject(light);
-//
-//     // Crear una c�mara y ubicarla en una posici�n adecuada
-//     Ogre::Camera* cam = t_sceneMgr->createCamera("myCamera");
-//     Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
-//     cam_node->translate(0, 1000, -10);
-//     cam_node->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TransformSpace::TS_WORLD);
-//     cam_node->attachObject(cam);
-//
-//     return cam;
-// }
-
 int main(int argc, char* argv[])
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -168,16 +142,17 @@ int main(int argc, char* argv[])
     sceneActive->addObjects(light_go);
 
     // Camara
-    GameObject* cam_go = new GameObject(manager, SVector3(0, 500, -10));
-    Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, root_scene_node/*, Ogre::ColourValue(0.3, 0.2, 0.6)*/);
+    GameObject* cam_go = new GameObject(manager, SVector3(500, 200, 1000));
+    Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, root_scene_node);
     cmp_cam->initComponent(myWindow, "myCamera");
     cmp_cam->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
-    cmp_cam->translate(0, 1000, -10);
     cmp_cam->lookAt(0, 0, 0, Camera::WORLD);
+    cmp_cam->setNearClipDistance(1);
+    cmp_cam->setFarClipDistance(10000);
     sceneActive->addObjects(cam_go);
 
-    myWindow->getSceneManager()->createScene("NUEVA1", true);
-    myWindow->addRTShaderSystem(myWindow->getSceneManager()->getSceneActive()->getSceneManger());
+   /* myWindow->getSceneManager()->createScene("NUEVA1", true);
+    myWindow->addRTShaderSystem(myWindow->getSceneManager()->getSceneActive()->getSceneManger());*/
 
     // Game-loop
     bool game_playing = true;

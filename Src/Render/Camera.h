@@ -31,7 +31,7 @@ struct Camera : public ecs::Component
         PARENT
     };
 
-    Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node/*, Ogre::ColourValue t_vp_color = Ogre::ColourValue::Black*/);
+    Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node);
     virtual ~Camera(){};
 
     virtual void initComponent(OgreWindow::Window* t_window, std::string t_name);
@@ -57,8 +57,6 @@ struct Camera : public ecs::Component
     Ogre::SceneManager* m_sceneMgr = nullptr;
     Ogre::SceneNode* m_scene_node = nullptr;
     Ogre::SceneNode* m_cam_node = nullptr;
-
-    //Ogre::ColourValue m_vp_color;
 };
 
 #endif
