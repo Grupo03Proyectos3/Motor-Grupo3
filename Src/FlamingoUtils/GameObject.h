@@ -16,11 +16,7 @@
 class GameObject
 {
   public:
-    GameObject();
-    GameObject(ecs::Manager* t_mgr);
-    GameObject(ecs::Manager* t_mgr, SVector3 t_position);
-    GameObject(ecs::Manager* t_mgr, SVector3 t_position, SQuaternion t_rotation);
-    GameObject(ecs::Manager* t_mgr, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale);
+    GameObject(ecs::Manager* t_mgr = nullptr, SVector3 t_position = SVector3(), SQuaternion t_rotation = SQuaternion(), SVector3 t_scale=SVector3(1.0,1.0,1.0));
     GameObject(ecs::Manager* t_mgr, std::string t_name, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale);
     GameObject(ecs::Manager* t_mgr, ecs::groupId t_group, std::string t_name, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale);
     ~GameObject();
@@ -58,13 +54,12 @@ class GameObject
 
     inline std::string getName() { return name; };
 
-    inline SVector3 getPosition() { return position; };
+    SVector3 getPosition();
+    SQuaternion getRotation();
+    SVector3 getScale();
 
     static void setManager(ecs::Manager* t_manager);
 
-    SVector3 position;
-    SQuaternion rotation;
-    SVector3 scale;
     std::string name;
 
   private:

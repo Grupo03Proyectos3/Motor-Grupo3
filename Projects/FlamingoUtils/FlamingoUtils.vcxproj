@@ -184,6 +184,7 @@
     <ClCompile Include="..\..\Src\FlamingoUtils\SceneManager.cpp" />
     <ClCompile Include="..\..\Src\FlamingoUtils\SQuaternion.cpp" />
     <ClCompile Include="..\..\Src\FlamingoUtils\SVector3.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoUtils\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\FlamingoUtils\GameObject.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="..\..\Src\FlamingoUtils\SceneManager.h" />
     <ClInclude Include="..\..\Src\FlamingoUtils\SQuaternion.h" />
     <ClInclude Include="..\..\Src\FlamingoUtils\SVector3.h" />
+    <ClInclude Include="..\..\Src\FlamingoUtils\Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,7 +8,9 @@
     COMP_EXAMPLE,  \
         _cmp_RIGID_BODY, \
         _cpm_CAMERA, \
-        _cmp_LIGHT
+        _cmp_LIGHT, \
+        _cpm_RENDER, \
+        _cpm_TRANSFORM
 
 // Lista de grupos
 //
