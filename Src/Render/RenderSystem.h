@@ -4,15 +4,7 @@
 
 #include "../ECS/System.h"
 
-#include <OgreEntity.h>
-
-#include <OgreRenderWindow.h>
-#include <OgreSceneNode.h>
-#include <OgreFileSystemLayer.h>
-#include <OgreConfigFile.h>
-
 #include "Window.h"
-#include "FlamingoUtils/SceneManager.h"
 
 class RenderSystem : public ecs::System
 {

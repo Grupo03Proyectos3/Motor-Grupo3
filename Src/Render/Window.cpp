@@ -21,8 +21,6 @@ namespace OgreWindow
     }
 
     Window::~Window(){
-        delete m_fs_layer;
-       
     }
 
     NativeWindowPair Window::createWindow(Ogre::String& appName)
@@ -147,12 +145,6 @@ namespace OgreWindow
             SDL_QuitSubSystem(SDL_INIT_VIDEO);
             m_window.native = nullptr;
         }
-        if (m_root != nullptr){
-            delete m_scene_mngr;
-            m_scene_mngr = nullptr;
-            delete m_root;
-            m_root = nullptr;
-        }   
     }
 
     void Window::closeWindow(){

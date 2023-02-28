@@ -2,10 +2,14 @@
 
 #include "Camera.h"
 #include "Light.h"
+#include "FlamingoUtils/GameObject.h"
+#include "FlamingoUtils/SceneManager.h"
 
 #include <OgreRoot.h>
+#include <OgreEntity.h>
 #include <OgreGpuProgramManager.h>
-#include "FlamingoUtils/GameObject.h"
+#include <OgreFileSystemLayer.h>
+#include <OgreConfigFile.h>
 
 RenderSystem::RenderSystem(Ogre::String& t_app_name)
     : m_app_name(t_app_name)
@@ -181,8 +185,8 @@ RenderSystem::~RenderSystem()
 {
     delete m_window;
     m_window = nullptr;
-    delete m_ogre_scene_mngr;
-    m_ogre_scene_mngr = nullptr;
+    /*delete m_ogre_scene_mngr;
+    m_ogre_scene_mngr = nullptr;*/
     delete m_fs_layer;
     m_fs_layer = nullptr;
 }

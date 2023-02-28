@@ -5,12 +5,9 @@
 #include "../ECS/Component.h"
 #include "../ECS/Entity.h"
 #include "../ECS/Manager.h"
-
-#include <OgreCamera.h>
-#include <OgreViewport.h>
-#include <string>
-
 #include "Window.h"
+
+#include <string>
 
 struct Camera : public ecs::Component
 {
