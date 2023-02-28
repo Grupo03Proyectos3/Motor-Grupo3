@@ -145,9 +145,12 @@ int main(int argc, char* argv[])
     OgreWindow::Window* myWindow = new OgreWindow::Window("Motor");
     loadDirectories();
     myWindow->initApp();
+   
+    OgreScene::SceneManager* mySceneManager = myWindow->getSceneManager();
+    OgreScene::Scene* sceneActive = mySceneManager->getSceneActive();
+    Ogre::SceneManager* scene_mgr = sceneActive->getSceneManger();
+    Ogre::SceneNode* root_scene_node = sceneActive->getSceneRoot();
 
-    Ogre::SceneManager* scene_mgr = myWindow->getSceneManger();
-    Ogre::SceneNode* root_scene_node = scene_mgr->getRootSceneNode();
     ecs::Manager* manager = new ecs::Manager();
     // Cubo
     Ogre::Entity* entity = scene_mgr->createEntity("myEntity", "cube.mesh");
@@ -162,7 +165,8 @@ int main(int argc, char* argv[])
     cmp_light->setType(Light::DIRECTIONAL);
     cmp_light->setSpecularColour();
     cmp_light->setDiffuseColour();
-    
+    sceneActive->addObjects(light_go);
+
     // Camara
     GameObject* cam_go = new GameObject(manager, SVector3(0, 500, -10));
     Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, root_scene_node/*, Ogre::ColourValue(0.3, 0.2, 0.6)*/);
@@ -170,7 +174,11 @@ int main(int argc, char* argv[])
     cmp_cam->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
     cmp_cam->translate(0, 1000, -10);
     cmp_cam->lookAt(0, 0, 0, Camera::WORLD);
-    
+    sceneActive->addObjects(cam_go);
+
+    myWindow->getSceneManager()->createScene("NUEVA1", true);
+    myWindow->addRTShaderSystem(myWindow->getSceneManager()->getSceneActive()->getSceneManger());
+
     // Game-loop
     bool game_playing = true;
 
@@ -234,9 +242,6 @@ int main(int argc, char* argv[])
 
     //delete physics_system; los sistemas los elimina el manager cuando este muismo se elimina
     delete manager;
-
-    delete cam_go;
-    delete light_go;
    
     ImGui::DestroyContext();
 

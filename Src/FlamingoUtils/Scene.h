@@ -9,6 +9,7 @@ namespace OgreScene{
     class Scene{
       public:
         Scene();
+        ~Scene();
         void initScene(Ogre::SceneManager* t_SceneManager);
         void addObjects(GameObject* t_GameObject);
         void delObject(std::string t_nameObject);
@@ -19,6 +20,7 @@ namespace OgreScene{
 
         inline Ogre::String getName() { return mSceneManager->getName(); };
         inline Ogre::SceneManager* getSceneManger() { return mSceneManager; };
+        inline Ogre::SceneNode* getSceneRoot() { return mRootNode; };      
 
       private:
         Ogre::SceneNode* mRootNode;

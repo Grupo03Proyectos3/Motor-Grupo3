@@ -96,3 +96,9 @@ void Camera::setFarClipDistance(float t_clip)
 void Camera::setViewPortBackgroundColour(Ogre::ColourValue t_vp_color) {
     m_vp->setBackgroundColour(t_vp_color);
 }
+void Camera::desactiveViewport() {
+    m_vp->setVisibilityMask(0.0);
+}
+void Camera::activeViewport() {
+    m_vp->setVisibilityMask(1.0);
+}

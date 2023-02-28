@@ -8,18 +8,18 @@ namespace OgreScene{
     class SceneManager{
       public:
         SceneManager(Ogre::String t_Name);
-        void initScene(Ogre::Root* t_root);
+        ~SceneManager();
+        void init(Ogre::Root* t_root);
+        Scene* createScene(Ogre::String t_SceneName,bool setActive=false);
         void addScene(Scene* t_Scene);
         void delScene(Ogre::String t_SceneName);
-        void setDebug(bool t_active);
         void setSceneActive(Ogre::String t_SceneName);
         Scene* getSceneActive();
 
       private:
         Ogre::Root* mRoot;
         std::unordered_map<Ogre::String, Scene*> mScenes;
-        bool mDebug;
-        Ogre::String mNameSceneActive;
+        Ogre::String mNameSceneActive = "";
         Ogre::String mName;
     };
 } // namespace OgreScene

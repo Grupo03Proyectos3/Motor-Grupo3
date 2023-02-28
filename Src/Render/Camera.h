@@ -49,7 +49,8 @@ struct Camera : public ecs::Component
     void setFarClipDistance(float t_clip);
 
     void setViewPortBackgroundColour(Ogre::ColourValue t_vp_color);
-
+    void desactiveViewport();
+    void activeViewport();
   private:
     Ogre::Camera* m_cam = nullptr;
     Ogre::Viewport* m_vp = nullptr;

@@ -16,12 +16,12 @@ namespace OgreWindow
         mWindow.native = nullptr;
         mWindow.render = nullptr;
         mShaderGenerator = nullptr;
-        //sceneManager = nullptr;
+        mSceneManager = nullptr;
     }
 
     Window::~Window(){
         delete mFSLayer;
-        //delete mSceneManager;
+       
     }
 
     void Window::initApp(){
@@ -40,9 +40,8 @@ namespace OgreWindow
 
         mRoot = new Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogre.cfg"), mFSLayer->getWritablePath("ogre.log"));
               
-        //sceneManager = new OgreScene::SceneManager(mAppName + "-SceneManager");
-
-        mSceneManager = mRoot->createSceneManager();
+        mSceneManager = new OgreScene::SceneManager(mAppName + " - SceneManager");
+       
         //mSceneManager = mRoot->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, mAppName);
         
         //SI NO LO PONGO NO PILLA NINGUN RENDER ACTIVO **NO NECESARIO CON config(), ya lo hace auto **
@@ -59,7 +58,7 @@ namespace OgreWindow
 
     void Window::setUp(){
         mRoot->initialise(false);
-        //sceneManager->initScene(mRoot);
+        mSceneManager->init(mRoot);
         createWindow(mAppName);
 
         locateResources();      
@@ -105,14 +104,19 @@ namespace OgreWindow
         return mWindow;
     }
 
-    bool Window::initialiseRTShaderSystem() {
+    void Window::addRTShaderSystem(Ogre::SceneManager* t_mng){
+        Ogre::RTShader::ShaderGenerator::getSingletonPtr()->addSceneManager(t_mng);
+    }
+
+    bool Window::initialiseRTShaderSystem()
+    {
         if (Ogre::RTShader::ShaderGenerator::initialize()){
             mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
 
             if (!mMaterialMgrListener){
                 mMaterialMgrListener = new OgreSGTechique::SGTechniqueResolverListener(mShaderGenerator);
                 Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
-                mShaderGenerator->addSceneManager(mSceneManager);
+                mShaderGenerator->addSceneManager(mSceneManager->getSceneActive()->getSceneManger());
             }
             return true;
         }
@@ -214,7 +218,8 @@ namespace OgreWindow
             mRoot->saveConfig();
         }
         if (getRenderSystem() != nullptr)
-            shutdown();       
+            shutdown(); 
+        delete mSceneManager;
         delete mRoot;
         mRoot = nullptr;
     }

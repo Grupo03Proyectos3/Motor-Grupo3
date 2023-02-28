@@ -7,6 +7,7 @@
 #include <SDL.h>
 
 #include "SGTechniqueResolverListener.h"
+#include "FlamingoUtils/SceneManager.h"
 
 namespace OgreWindow{
     typedef SDL_Window NativeWindowType;
@@ -25,6 +26,7 @@ namespace OgreWindow{
         void setUp();
         NativeWindowPair createWindow(Ogre::String& appName);
 
+        void addRTShaderSystem(Ogre::SceneManager* t_mng);
         bool initialiseRTShaderSystem();
         void destroyRTShaderSystem();
         void loadResources();
@@ -34,18 +36,17 @@ namespace OgreWindow{
         void pollEvents();
 
         void shutdown();
-        void closeWindow();
-       
-        inline Ogre::SceneManager* getSceneManger() { return mSceneManager; };
+        void closeWindow();     
 
         Ogre::Root* getRoot() { return mRoot; };
         inline Ogre::RenderWindow* getRenderWindow() { return mWindow.render; };
-        inline Ogre::RenderSystem* getRenderSystem() { return mRenderSystem; };       
+        inline Ogre::RenderSystem* getRenderSystem() { return mRenderSystem; };
+        inline OgreScene::SceneManager* getSceneManager() { return mSceneManager; };
         bool isWindowClosed() { return isClosed; };
       protected:
         Ogre::Root* mRoot;                  // OGRE root
         Ogre::RenderSystem* mRenderSystem;  //OGRE renderSystem;
-        Ogre::SceneManager* mSceneManager;  //OGRE sceneManager de la escena que gestiona
+        OgreScene::SceneManager* mSceneManager; // Scenes Manager
         NativeWindowPair mWindow;           // La venatna
         Ogre::FileSystemLayer* mFSLayer;    //Fichero de recursos
         Ogre::String mAppName;              //Nombre de la app
@@ -55,9 +56,6 @@ namespace OgreWindow{
         Ogre::String mRTShaderLibPath;
         Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The Shader generator instance.
         OgreSGTechique::SGTechniqueResolverListener* mMaterialMgrListener;
-           
-        //crearSitemaDeGention de Escenas
-        //OgreScene::SceneManager* sceneManager;
     };
 } // namespace OgreWindow
 #endif

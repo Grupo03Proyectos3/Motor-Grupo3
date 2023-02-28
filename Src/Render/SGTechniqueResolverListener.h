@@ -2,7 +2,7 @@
 #define __SGTechniqueResolverListener_H__
 #pragma once
 #include "OgreMaterialManager.h"
-#include "OgreRTShaderSystem.h"
+#include <OgreRTShaderSystem.h>
 
 
 /** Default implementation of a Listener to use with the Ogre::RTShader system.

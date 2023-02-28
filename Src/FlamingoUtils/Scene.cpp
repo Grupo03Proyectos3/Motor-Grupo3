@@ -1,11 +1,21 @@
 #include "Scene.h"
 #include <iostream>
+
+
 namespace OgreScene{
 
     Scene::Scene(){
         mSceneManager = nullptr;
         mSceneGameObjects = std::unordered_map<Ogre::String, GameObject*>();
         mDebug = false;
+    }
+
+    Scene::~Scene(){
+        for (auto it : mSceneGameObjects){
+            delete it.second;
+        }
+        mSceneGameObjects.clear();
+        std::cout << "Scene " << mSceneManager->getName() << " deleted\n";
     }
 
     void Scene::initScene(Ogre::SceneManager* t_SceneManager){
@@ -33,13 +43,23 @@ namespace OgreScene{
         mDebug = t_active;
     }
 
-    void Scene::desactive(){
+    void Scene::desactive(){       
         mRootNode->setVisible(false);
+        for (auto it : mSceneGameObjects){
+            //if (it.second->hasComponent<Camera>()){
+            //    //it.second->getComponent<Camera>()->desactiveViewport();
+            //}
+        }
         std::cout << "SCENE NAME: " << mSceneManager->getName() << " DESACTIVATED\n";
     }
 
     void Scene::active(){
         mRootNode->setVisible(true);
+        for (auto it : mSceneGameObjects){
+            //if (it.second->hasComponent<Camera>()){
+            //    //it.second->getComponent<Camera>()->desactiveViewport();
+            //}
+        }
         std::cout << "SCENE NAME: " << mSceneManager->getName() << " ACTIVATED\n";
     }   
 
