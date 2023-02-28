@@ -181,7 +181,7 @@ int main(int argc, char* argv[])
     */
 
     // PhysicsSystem* physics_system = new PhysicsSystem();
-    PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
+    //PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
 
     while (game_playing&&!myWindow->isWindowClosed())
     {
