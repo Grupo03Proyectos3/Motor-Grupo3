@@ -1,4 +1,4 @@
-material Prueba/españa { 
+material Prueba/espana { 
 	technique {	
 		pass {  
 			diffuse 0.5 0.5 0.5 
@@ -6,6 +6,13 @@ material Prueba/españa {
 				texture esp.png
 				colour_op add				
 			}
+		} 
+	} 
+}
+material Prueba/rojo { 
+	technique {	
+		pass {  
+			diffuse 1.0 0.0 0.0 
 		} 
 	} 
 }

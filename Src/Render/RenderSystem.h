@@ -5,31 +5,45 @@
 #include "../ECS/System.h"
 
 #include <OgreEntity.h>
-#include <OgreSceneManager.h>
+
 #include <OgreRenderWindow.h>
 #include <OgreSceneNode.h>
+#include <OgreFileSystemLayer.h>
+#include <OgreConfigFile.h>
 
 #include "Window.h"
+#include "FlamingoUtils/SceneManager.h"
 
 class RenderSystem : public ecs::System
 {
   public:
     __SYSTEM_ID_DECL__(ecs::_sys_RENDER)
 
-    RenderSystem(){};
+    RenderSystem(Ogre::String& t_app_name);
     virtual ~RenderSystem();
 
     void recieve(const Message&) override;
     void initSystem() override;
     void update(float t_delta_time) override;
 
-    inline Ogre::SceneManager* getSceneMngr() { return m_scene_mgr; }
+    void createRoot();
+    void setUp();
+    void locateResources();
+    void loadResources();
+    void bringResources(Ogre::String& sec_name, Ogre::String& type_name, Ogre::String& arch_name);
+   
+    bool config();
+
     inline OgreWindow::Window* getWindow() { return m_window; }
+    inline Ogre::Root* getOgreRoot() { return m_root; }
+    inline OgreScene::SceneManager* getSceneManager() { return m_ogre_scene_mngr; }
 
   private:
+    Ogre::Root* m_root; // OGRE root
+    Ogre::FileSystemLayer* m_fs_layer; // Fichero de recursos
     OgreWindow::Window* m_window = nullptr;
-    Ogre::SceneManager* m_scene_mgr = nullptr;
-    Ogre::SceneNode* m_scene_node = nullptr;
+    OgreScene::SceneManager* m_ogre_scene_mngr = nullptr;
+    Ogre::String m_app_name; // Nombre de la app
 };
 
 #endif

@@ -17,40 +17,34 @@ namespace OgreWindow{
     };
     class Window {
       public:
-        Window(const Ogre::String& appName);
+        Window(const Ogre::String& appName, Ogre::Root* t_root);
         ~Window();
 
-        void initApp();
-        void createRoot();
-        bool config();
-        void setUp();
         NativeWindowPair createWindow(Ogre::String& appName);
 
         void addRTShaderSystem(Ogre::SceneManager* t_mng);
         bool initialiseRTShaderSystem();
         void destroyRTShaderSystem();
-        void loadResources();
-        void locateResources();
-        void bringResources(Ogre::String& sec_name, Ogre::String& type_name, Ogre::String& arch_name);
-
+       
         void pollEvents();
 
         void shutdown();
-        void closeWindow();     
+        void closeWindow();
+       
+        inline Ogre::RenderWindow* getRenderWindow() { return m_window.render; }
+        inline Ogre::RenderSystem* getRenderSystem() { return m_render_system; }
+        inline void setSceneManager(OgreScene::SceneManager* t_sm) { m_scene_mngr = t_sm; }
+        
+        bool isWindowClosed() { return isClosed; }
 
-        Ogre::Root* getRoot() { return mRoot; };
-        inline Ogre::RenderWindow* getRenderWindow() { return mWindow.render; };
-        inline Ogre::RenderSystem* getRenderSystem() { return mRenderSystem; };
-        inline OgreScene::SceneManager* getSceneManager() { return mSceneManager; };
-        bool isWindowClosed() { return isClosed; };
       protected:
-        Ogre::Root* mRoot;                  // OGRE root
-        Ogre::RenderSystem* mRenderSystem;  //OGRE renderSystem;
-        OgreScene::SceneManager* mSceneManager; // Scenes Manager
-        NativeWindowPair mWindow;           // La venatna
-        Ogre::FileSystemLayer* mFSLayer;    //Fichero de recursos
-        Ogre::String mAppName;              //Nombre de la app
-        bool isClosed= false;
+        Ogre::Root* m_root;                  // OGRE root
+        Ogre::RenderSystem* m_render_system;  //OGRE renderSystem
+        OgreScene::SceneManager* m_scene_mngr; // Scenes Manager
+        NativeWindowPair m_window;           // La venatna
+        Ogre::FileSystemLayer* m_fs_layer;    //Fichero de recursos
+        Ogre::String m_app_name;              //Nombre de la app
+        bool isClosed;
 
         //Pipeline
         Ogre::String mRTShaderLibPath;
