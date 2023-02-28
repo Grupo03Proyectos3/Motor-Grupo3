@@ -183,9 +183,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\FlamingoUtils\GameObject.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoUtils\Scene.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoUtils\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\FlamingoUtils\GameObject.h" />
+    <ClInclude Include="..\..\Src\FlamingoUtils\Scene.h" />
+    <ClInclude Include="..\..\Src\FlamingoUtils\SceneManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
