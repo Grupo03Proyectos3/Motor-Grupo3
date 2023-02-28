@@ -96,6 +96,12 @@ void GameObject::setActive(bool to)
     m_active = to;
 }
 
+GameObject::operator Ogre::String() const
+{
+    return Ogre::String(name);
+
+}
+
 ecs::Manager* GameObject::m_manager;
 
 

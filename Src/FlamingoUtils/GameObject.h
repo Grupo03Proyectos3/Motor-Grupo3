@@ -29,6 +29,8 @@ class GameObject
     bool isActive();
     void setAlive(bool to);
     void setActive(bool to);
+
+     operator Ogre::String() const;
    
     template <typename T, typename... Ts>
     inline T* addComponent(Ts&&... args)
