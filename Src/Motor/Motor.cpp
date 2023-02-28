@@ -16,12 +16,12 @@
 
 #include <fmod.h>
 
-#include "Render/Camera.h"
-#include "Render/Light.h"
-#include "Render/Window.h"
+//#include "Render/Camera.h"
+//#include "Render/Light.h"
+//#include "Render/Window.h"
 #include "Render/RenderSystem.h"
 
-#include "FlamingoUtils/GameObject.h"
+//#include "FlamingoUtils/GameObject.h"
 
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
@@ -116,40 +116,42 @@ int main(int argc, char* argv[])
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
 
-    OgreWindow::Window* myWindow = new OgreWindow::Window("Motor");
-    loadDirectories();
-    myWindow->initApp();
-   
-    OgreScene::SceneManager* mySceneManager = myWindow->getSceneManager();
-    OgreScene::Scene* sceneActive = mySceneManager->getSceneActive();
-    Ogre::SceneManager* scene_mgr = sceneActive->getSceneManger();
-    Ogre::SceneNode* root_scene_node = sceneActive->getSceneRoot();
-
     ecs::Manager* manager = new ecs::Manager();
-    // Cubo
-    Ogre::Entity* entity = scene_mgr->createEntity("myEntity", "cube.mesh");
-    entity->setMaterialName("Prueba/españa");
-    Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
-    node->attachObject(entity);
-    node->setPosition(Ogre::Vector3(0, 0, 0));
-    // Luz
-    GameObject* light_go = new GameObject(manager);
-    Light* cmp_light = light_go->addComponent<Light>(scene_mgr, root_scene_node);
-    cmp_light->initComponent("myLight");
-    cmp_light->setType(Light::DIRECTIONAL);
-    cmp_light->setSpecularColour();
-    cmp_light->setDiffuseColour();
-    sceneActive->addObjects(light_go);
 
-    // Camara
-    GameObject* cam_go = new GameObject(manager, SVector3(500, 200, 1000));
-    Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, root_scene_node);
-    cmp_cam->initComponent(myWindow, "myCamera");
-    cmp_cam->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
-    cmp_cam->lookAt(0, 0, 0, Camera::WORLD);
-    cmp_cam->setNearClipDistance(1);
-    cmp_cam->setFarClipDistance(10000);
-    sceneActive->addObjects(cam_go);
+    Ogre::String s = "Motor";
+    RenderSystem* render_sys = manager->addSystem<RenderSystem>(s);
+
+    //OgreWindow::Window* myWindow = new OgreWindow::Window("Motor");
+    loadDirectories();
+    //render_sys->initSystem();
+    //myWindow->initApp();
+   
+    
+    //
+    //// Cubo
+    //Ogre::Entity* entity = scene_mgr->createEntity("myEntity", "cube.mesh");
+    //entity->setMaterialName("Prueba/españa");
+    //Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
+    //node->attachObject(entity);
+    //node->setPosition(Ogre::Vector3(0, 0, 0));
+    //// Luz
+    //GameObject* light_go = new GameObject(manager);
+    //Light* cmp_light = light_go->addComponent<Light>(scene_mgr, root_scene_node);
+    //cmp_light->initComponent("myLight");
+    //cmp_light->setType(Light::DIRECTIONAL);
+    //cmp_light->setSpecularColour();
+    //cmp_light->setDiffuseColour();
+    //sceneActive->addObjects(light_go);
+
+    //// Camara
+    //GameObject* cam_go = new GameObject(manager, SVector3(500, 200, 1000));
+    //Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, root_scene_node);
+    //cmp_cam->initComponent(myWindow, "myCamera");
+    //cmp_cam->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
+    //cmp_cam->lookAt(0, 0, 0, Camera::WORLD);
+    //cmp_cam->setNearClipDistance(1);
+    //cmp_cam->setFarClipDistance(10000);
+    //sceneActive->addObjects(cam_go);
 
    /* myWindow->getSceneManager()->createScene("NUEVA1", true);
     myWindow->addRTShaderSystem(myWindow->getSceneManager()->getSceneActive()->getSceneManger());*/
@@ -183,10 +185,11 @@ int main(int argc, char* argv[])
     // PhysicsSystem* physics_system = new PhysicsSystem();
     //PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
 
-    while (game_playing&&!myWindow->isWindowClosed())
+    while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
         // leer entrada
-        myWindow->pollEvents();
+        render_sys->getWindow()->pollEvents();
+        //myWindow->pollEvents();
 
         // actualizar con delta_time
         /*now = std::chrono::high_resolution_clock::now();
@@ -195,7 +198,8 @@ int main(int argc, char* argv[])
         std::cout << delta_time.count() << std::endl;
         previous_time = actual_time;*/
 
-        myWindow->getRoot()->renderOneFrame();
+        render_sys->getOgreRoot()->renderOneFrame();
+        //myWindow->getRoot()->renderOneFrame();
 
         /*
             input_system->update();
@@ -209,10 +213,10 @@ int main(int argc, char* argv[])
         manager->refresh();
         manager->flushMessages();
     }
-
-    myWindow->closeWindow();
-    delete myWindow;
-    myWindow = nullptr;
+    render_sys->getWindow()->closeWindow();
+    //myWindow->closeWindow();
+    delete render_sys;
+    render_sys = nullptr;
 
 
     //delete physics_system; los sistemas los elimina el manager cuando este muismo se elimina
