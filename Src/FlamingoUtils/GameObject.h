@@ -9,7 +9,6 @@
 #include <OgreVector3.h>
 #include <string>
 
-#include "Render/Camera.h"
 
 /**
  * Clase de ejemplo SVector3 a falta de definir que Vector3 usaremos como base para el proyecto.

@@ -32,6 +32,11 @@
     <ClInclude Include="..\..\Src\Render\Window.h" />
     <ClInclude Include="..\..\Src\Render\WindowEventUtilities.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FlamingoUtils\FlamingoUtils.vcxproj">
+      <Project>{9b1a365d-e452-46c9-a29d-d0f41dd50afc}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

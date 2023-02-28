@@ -98,31 +98,6 @@ void GameObject::setActive(bool to)
 
 ecs::Manager* GameObject::m_manager;
 
-/// DEFINICIONES DE LOS MÉTODOS INLINE: SE HAN MOVIDO AL .H
-//template <typename T>
-//void GameObject::addComponent(T t_component)
-//{
-//    return m_manager->addComponent<t_component>(m_entity);
-//}
-//
-//template <typename T>
-//void GameObject::removeComponent(T t_component)
-//{
-//    return m_manager->removeComponent<t_component>(m_entity);
-//}
-//
-//template <typename T>
-//T* GameObject::getComponent(T t_component)
-//{
-//    return m_manager->getComponent<t_component>(m_entity);
-//}
-//
-//template <typename T>
-//bool GameObject::hasComponent(T t_component)
-//{
-//    return m_manager->hasComponent<t_component>(m_entity);
-//}
-
 
 void GameObject::setManager(ecs::Manager* t_manager)
 {

@@ -3,7 +3,7 @@
 #pragma once
 #include <OgreSceneManager.h>
 #include <unordered_map>
-#include "../Motor/GameObject.h"
+#include "FlamingoUtils/GameObject.h"
 
 namespace OgreScene{
     class Scene{

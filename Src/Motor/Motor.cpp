@@ -21,7 +21,7 @@
 #include "Render/Light.h"
 #include "Render/Window.h"
 
-#include "GameObject.h"
+#include "FlamingoUtils/GameObject.h"
 
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
