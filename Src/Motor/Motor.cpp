@@ -163,15 +163,16 @@ int main(int argc, char* argv[])
     cmp_light->setType(Light::DIRECTIONAL);
     cmp_light->setSpecularColour();
     cmp_light->setDiffuseColour();
-
+    
     // Camara
     GameObject* cam_go = new GameObject(manager, SVector3(0, 500, -10));
-    Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, root_scene_node /*, Ogre::ColourValue(0.3, 0.2, 0.6)*/);
+    Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, root_scene_node/*, Ogre::ColourValue(0.3, 0.2, 0.6)*/);
     cmp_cam->initComponent(myWindow, "myCamera");
     cmp_cam->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
     cmp_cam->translate(0, 1000, -10);
     cmp_cam->lookAt(0, 0, 0, Camera::WORLD);
-
+    
+    
     // Game-loop
     bool game_playing = true;
 
@@ -201,7 +202,7 @@ int main(int argc, char* argv[])
     // PhysicsSystem* physics_system = new PhysicsSystem();
     PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
 
-    while (game_playing && !myWindow->isWindowClosed())
+    while (game_playing&&!myWindow->isWindowClosed())
     {
         // leer entrada
         myWindow->pollEvents();
@@ -232,8 +233,9 @@ int main(int argc, char* argv[])
     delete myWindow;
     myWindow = nullptr;
 
-    // delete physics_system; los sistemas los elimina el manager cuando este muismo se elimina
+    //delete physics_system; los sistemas los elimina el manager cuando este muismo se elimina
     delete manager;
+   
 
     _CrtDumpMemoryLeaks();
     return 0;

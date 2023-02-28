@@ -24,7 +24,6 @@
 //
 #define SYSTEMS_LIST \
     SYSTEM_EXAMPLE,  \
-        _sys_PHYSICS, \
-        _sys_RENDER 
+        _sys_PHYSICS
 
 #endif // !__ECS_DEFS__
