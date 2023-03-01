@@ -44,6 +44,7 @@ void RenderSystem::initSystem()
         Light* cmp_light = light_go->addComponent<Light>(scene_mgr, root_scene_node);
         cmp_light->initComponent("myLight");
         cmp_light->setType(Light::DIRECTIONAL);
+        cmp_light->setDirection(SVector3(0, -1, 0));
         cmp_light->setSpecularColour();
         cmp_light->setDiffuseColour();
         sceneActive->addObjects(light_go);
@@ -53,15 +54,20 @@ void RenderSystem::initSystem()
         Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, root_scene_node);
         cmp_cam->initComponent(getWindow(), "myCamera");
         cmp_cam->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
-        cmp_cam->lookAt(0, 0, 0, Camera::WORLD);
+        cmp_cam->lookAt(SVector3(0,0,0), Camera::WORLD);
         cmp_cam->setNearClipDistance(1);
         cmp_cam->setFarClipDistance(10000);
         sceneActive->addObjects(cam_go);
+
+        /* myWindow->getSceneManager()->createScene("NUEVA1", true);
+        myWindow->addRTShaderSystem(myWindow->getSceneManager()->getSceneActive()->getSceneManger());*/
     }
 }
 
 void RenderSystem::update(float t_delta_time)
 {
+    m_root->renderOneFrame();
+    m_window->pollEvents();
 }
 
 void RenderSystem::createRoot()

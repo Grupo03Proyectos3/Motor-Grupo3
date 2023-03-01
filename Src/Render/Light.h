@@ -26,7 +26,7 @@ struct Light : public ecs::Component
 
     virtual void initComponent(std::string t_name);
 
-    //void setDirection(Ogre::Vector3 t_direction);
+    void setDirection(Ogre::Vector3 t_direction);
     //Tipo de luz
     void setType(lightType t_l);
     //Colores
@@ -46,7 +46,7 @@ struct Light : public ecs::Component
     void setShadowFarClipDistance(float t_farClip);
     //Maxima distancia a la que se van a ver las sombras
     void setShadowFarDistance(float t_distance);
-    void setShadowNearClipDistance(float t_nearClip);	
+    void setShadowNearClipDistance(float t_nearClip);
 
   private:
     Ogre::Light* m_light = nullptr;

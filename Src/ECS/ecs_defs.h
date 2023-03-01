@@ -10,7 +10,8 @@
         _cpm_CAMERA, \
         _cmp_LIGHT, \
         _cpm_RENDER, \
-        _cpm_TRANSFORM
+        _cpm_TRANSFORM, \
+        _cmp_MESH_RENDERER
 
 // Lista de grupos
 //

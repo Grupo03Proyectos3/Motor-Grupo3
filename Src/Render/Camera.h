@@ -33,7 +33,7 @@ struct Camera : public ecs::Component
 
     virtual void initComponent(OgreWindow::Window* t_window, std::string t_name);
 
-    void lookAt(float t_x, float t_y, float t_z, transformSpace t_trs = WORLD);
+    void lookAt(Ogre::Vector3 t_pos, transformSpace t_trs = WORLD);
     void translate(float t_x, float t_y, float t_z);
 
     void roll(float t_d);
@@ -48,12 +48,13 @@ struct Camera : public ecs::Component
     void setViewPortBackgroundColour(Ogre::ColourValue t_vp_color);
     void desactiveViewport();
     void activeViewport();
+
   private:
-    Ogre::Camera* m_cam = nullptr;
-    Ogre::Viewport* m_vp = nullptr;
-    Ogre::SceneManager* m_sceneMgr = nullptr;
-    Ogre::SceneNode* m_scene_node = nullptr;
-    Ogre::SceneNode* m_cam_node = nullptr;
+    Ogre::Camera* m_cam;
+    Ogre::Viewport* m_vp;
+    Ogre::SceneManager* m_scene_mngr;
+    Ogre::SceneNode* m_scene_node;
+    Ogre::SceneNode* m_cam_node;
 };
 
 #endif

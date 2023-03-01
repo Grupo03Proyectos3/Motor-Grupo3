@@ -99,7 +99,7 @@ void loadDirectories()
 int main(int argc, char* argv[])
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
+    //IMGUI
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
@@ -107,13 +107,7 @@ int main(int argc, char* argv[])
 
     ecs::Manager* manager = new ecs::Manager();
 
-    Ogre::String s = "Motor";
-    RenderSystem* render_sys = manager->addSystem<RenderSystem>(s);
-    
     loadDirectories();
-
-   /* myWindow->getSceneManager()->createScene("NUEVA1", true);
-    myWindow->addRTShaderSystem(myWindow->getSceneManager()->getSceneActive()->getSceneManger());*/
 
     // Game-loop
     bool game_playing = true;
@@ -127,29 +121,27 @@ int main(int argc, char* argv[])
 
     /*
         InputSystem* input_system = new InputSystem();
-        RenderSystem* render_system = new RenderSystem();
         PhysicsSystem* physics_system = new PhysicsSystem();
         AudioSystem* audio_system = new AudioSystem();
         UISystem* ui_system = new UISystem();
         ScriptingSystem* scripting_system = new ScriptingSystem();
 
         input_system = manager->addSystem<InputSystem>();
-        render_system = manager->addSystem<RenderSystem>();
         physics_system = manager->addSystem<PhysicsSystem>();
         audio_system = manager->addSystem<AudioSystem>();
         ui_system = manager->addSystem<UISystem>();
         scripting_system = manager->addSystem<ScriptingSystem>();
     */
 
-    // PhysicsSystem* physics_system = new PhysicsSystem();
+    Ogre::String s = "Motor";
+    RenderSystem* render_sys = manager->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
 
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
         // leer entrada
-        render_sys->getWindow()->pollEvents();
-        //myWindow->pollEvents();
-
+        render_sys->getWindow()->pollEvents(); //Cambiar por el update del render_sys
+        
         // actualizar con delta_time
         /*now = std::chrono::high_resolution_clock::now();
         actual_time = std::chrono::duration_cast<std::chrono::milliseconds>(now - start_time);
@@ -157,7 +149,7 @@ int main(int argc, char* argv[])
         std::cout << delta_time.count() << std::endl;
         previous_time = actual_time;*/
 
-        render_sys->getOgreRoot()->renderOneFrame();
+        render_sys->getOgreRoot()->renderOneFrame(); //Cambiar por el update del render_sys
        
         /*
             input_system->update();
@@ -172,9 +164,8 @@ int main(int argc, char* argv[])
         manager->flushMessages();
     }
     render_sys->getWindow()->closeWindow();
-    
-    //delete physics_system; los sistemas los elimina el manager cuando este muismo se elimina
-    delete manager;
+   
+    delete manager; //Elimina todos los systems
    
     ImGui::DestroyContext();
 
