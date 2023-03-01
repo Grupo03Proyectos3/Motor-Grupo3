@@ -1,7 +1,7 @@
 #include "PhysicsSystem.h"
-#include <btBulletDynamicsCommon.h>
+
 #include <btBulletCollisionCommon.h>
-#include <BulletDynamics/Dynamics/btRigidBody.h>
+#include <btBulletDynamicsCommon.h>
 
 PhysicsSystem::PhysicsSystem()
 {
@@ -9,11 +9,26 @@ PhysicsSystem::PhysicsSystem()
 
 PhysicsSystem::~PhysicsSystem()
 {
-    delete m_dispatcher;
-    delete m_collision_config;
-    delete m_broadphase;
-    delete m_solver;
-    delete m_world;
+    if (m_dispatcher != nullptr)
+    {
+        delete m_dispatcher;
+    }
+    if (m_collision_config != nullptr)
+    {
+        delete m_collision_config;
+    }
+    if (m_broadphase)
+    {
+        delete m_broadphase;
+    }
+    if (m_solver != nullptr)
+    {
+        delete m_solver;
+    }
+    if (m_world != nullptr)
+    {
+        delete m_world;
+    }
 }
 
 void PhysicsSystem::recieve(const Message& t_message)
@@ -32,7 +47,7 @@ void PhysicsSystem::initSystem()
     m_dispatcher = new btCollisionDispatcher(m_collision_config);
     m_broadphase = new btDbvtBroadphase();
     // Tipo por defecto de solver
-    m_solver = new btSequentialImpulseConstraintSolver;
+    m_solver = new btSequentialImpulseConstraintSolver();
 
     m_world = new btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_solver, m_collision_config);
 
