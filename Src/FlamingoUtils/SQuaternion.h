@@ -5,8 +5,9 @@
 
 #include <OgreQuaternion.h>
 /**
- * Clase de ejemplo SQuaternion a falta de definir que Quaternion usaremos como base para el proyecto.
- * De momento solo almacena los datos básicos propios de un Quaternion similar al de Unity y actualiza el Ogre::Vector3 que contiene si se cambia su valor.
+ * Clase base que usaremos como interprete entre todos los demás quaterniones presentes en el motor (ogreQuaternion, bulletQuaternion...)
+ * Almacena los valores de un Quaternion y cuenta con setters, getters, conversores a las otras clases Quaternion y métodos que se irán añadiendo
+ * relacionados con transformaciones en éste.
  */
 class SQuaternion
 {
@@ -21,7 +22,11 @@ class SQuaternion
     double getZ();
     double getW();
 
-     operator Ogre::Quaternion() const;
+    friend std::ostream& operator<<(std::ostream& out, const SQuaternion& q);
+    friend std::istream& operator>>(std::istream& in, SQuaternion& q);
+
+    operator Ogre::Quaternion() const;
+    static SQuaternion ogreToSQuaternion(const Ogre::Quaternion& ogreQuaternion);
 
   private:
     double m_x;
