@@ -22,6 +22,9 @@
     <ProjectReference Include="..\ECS\ECS.vcxproj">
       <Project>{f67d33c8-8ac3-4ca7-a629-1310d4529998}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\FlamingoBase\FlamingoBase.vcxproj">
+      <Project>{362f5b87-0dc2-4748-9833-2186accbc13f}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\FlamingoUtils\FlamingoUtils.vcxproj">
       <Project>{9b1a365d-e452-46c9-a29d-d0f41dd50afc}</Project>
     </ProjectReference>

@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Render", "Projects\Render\R
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlamingoUtils", "Projects\FlamingoUtils\FlamingoUtils.vcxproj", "{9B1A365D-E452-46C9-A29D-D0F41DD50AFC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlamingoBase", "Projects\FlamingoBase\FlamingoBase.vcxproj", "{362F5B87-0DC2-4748-9833-2186ACCBC13F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -71,6 +73,14 @@ Global
 		{9B1A365D-E452-46C9-A29D-D0F41DD50AFC}.Release|x64.Build.0 = Release|x64
 		{9B1A365D-E452-46C9-A29D-D0F41DD50AFC}.Release|x86.ActiveCfg = Release|Win32
 		{9B1A365D-E452-46C9-A29D-D0F41DD50AFC}.Release|x86.Build.0 = Release|Win32
+		{362F5B87-0DC2-4748-9833-2186ACCBC13F}.Debug|x64.ActiveCfg = Debug|x64
+		{362F5B87-0DC2-4748-9833-2186ACCBC13F}.Debug|x64.Build.0 = Debug|x64
+		{362F5B87-0DC2-4748-9833-2186ACCBC13F}.Debug|x86.ActiveCfg = Debug|Win32
+		{362F5B87-0DC2-4748-9833-2186ACCBC13F}.Debug|x86.Build.0 = Debug|Win32
+		{362F5B87-0DC2-4748-9833-2186ACCBC13F}.Release|x64.ActiveCfg = Release|x64
+		{362F5B87-0DC2-4748-9833-2186ACCBC13F}.Release|x64.Build.0 = Release|x64
+		{362F5B87-0DC2-4748-9833-2186ACCBC13F}.Release|x86.ActiveCfg = Release|Win32
+		{362F5B87-0DC2-4748-9833-2186ACCBC13F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

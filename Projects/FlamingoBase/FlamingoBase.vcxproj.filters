@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Components">
+      <UniqueIdentifier>{e51b66f4-42d1-4a5e-bc8d-64539d34c3a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Scene">
+      <UniqueIdentifier>{0df909af-e924-4828-ac9c-6989826a4c5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Components">
+      <UniqueIdentifier>{4626c72d-40b9-45ba-94c5-40d3bed55f42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Scene">
+      <UniqueIdentifier>{6fa4a694-fe24-476c-8830-e80a5d9219f3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Src\FlamingoBase\GameObject.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\Light.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\Camera.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\Render.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\Transform.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\SceneManager.cpp">
+      <Filter>Archivos de origen\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\Scene.cpp">
+      <Filter>Archivos de origen\Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Src\FlamingoBase\GameObject.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\Render.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\Light.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\Camera.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\Transform.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\SceneManager.h">
+      <Filter>Archivos de encabezado\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\Scene.h">
+      <Filter>Archivos de encabezado\Scene</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

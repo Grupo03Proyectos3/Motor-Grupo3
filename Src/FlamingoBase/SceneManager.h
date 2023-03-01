@@ -1,7 +1,6 @@
 #ifndef __SCENE_MANAGER_H__
 #define __SCENE_MANAGER_H__
 #pragma once
-#include <OgreSceneManager.h>
 #include <unordered_map>
 #include "Scene.h"
 namespace OgreScene{

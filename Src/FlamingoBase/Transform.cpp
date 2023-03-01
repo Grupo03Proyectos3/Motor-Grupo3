@@ -1,6 +1,4 @@
 #include "Transform.h"
-#include "SVector3.h"
-#include "SQuaternion.h"
 
 Transform::Transform(SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale){
     m_position = t_position;
@@ -20,4 +18,17 @@ SQuaternion Transform::getRotation(){
 
 SVector3 Transform::getScale(){
     return m_scale;
+}
+
+void Transform::setPosition(SVector3 t_pos){
+    m_position = t_pos;
+}
+
+void Transform::setRotation(SQuaternion t_rotation)
+{
+    m_rotation = t_rotation;
+}
+
+void Transform::setScale(SVector3 t_scale){
+    m_scale = t_scale;
 }

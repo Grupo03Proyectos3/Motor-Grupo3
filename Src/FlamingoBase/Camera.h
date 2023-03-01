@@ -2,10 +2,10 @@
 #ifndef __CAMERA_H__
 #define __CAMERA_H__
 
-#include "../ECS/Component.h"
-#include "../ECS/Entity.h"
-#include "../ECS/Manager.h"
-#include "Window.h"
+#include "ECS/Component.h"
+#include "ECS/Entity.h"
+#include "ECS/Manager.h"
+#include "Render/Window.h"
 
 #include <string>
 

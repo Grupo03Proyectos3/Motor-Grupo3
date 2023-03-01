@@ -7,7 +7,7 @@
 #include <SDL.h>
 
 #include "SGTechniqueResolverListener.h"
-#include "FlamingoUtils/SceneManager.h"
+#include "FlamingoBase/SceneManager.h"
 
 namespace OgreWindow{
     typedef SDL_Window NativeWindowType;

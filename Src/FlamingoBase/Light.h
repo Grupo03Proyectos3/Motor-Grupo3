@@ -2,10 +2,9 @@
 #ifndef __LIGHT_H__
 #define __LIGHT_H__
 
-#include "../ECS/Component.h"
-#include "../ECS/Entity.h"
-#include "../ECS/Manager.h"
-
+#include "ECS/Component.h"
+#include "ECS/Entity.h"
+#include "ECS/Manager.h"
 #include <OgreLight.h>
 #include <string>
 

@@ -2,14 +2,15 @@
 
 #include "Camera.h"
 #include "Light.h"
-#include "FlamingoUtils/GameObject.h"
-#include "FlamingoUtils/SceneManager.h"
+#include "FlamingoBase/GameObject.h"
+#include "FlamingoBase/SceneManager.h"
 
 #include <OgreRoot.h>
 #include <OgreEntity.h>
 #include <OgreGpuProgramManager.h>
 #include <OgreFileSystemLayer.h>
 #include <OgreConfigFile.h>
+#include <FlamingoBase/Render.h>
 
 RenderSystem::RenderSystem(Ogre::String& t_app_name)
     : m_app_name(t_app_name)
@@ -34,11 +35,12 @@ void RenderSystem::initSystem()
         Ogre::SceneNode* root_scene_node = sceneActive->getSceneRoot();
 
         // Cubo
+
         Ogre::Entity* entity = scene_mgr->createEntity("myEntity", "cube.mesh");
-        entity->setMaterialName("Prueba/espana");
         Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
-        node->attachObject(entity);
-        node->setPosition(Ogre::Vector3(0, 0, 0));
+        GameObject* go = new GameObject(m_mngr);
+        auto cmp = go->addComponent<Render>(node, entity, "Prueba/espana");
+        sceneActive->addObjects(go);
         // Luz
         GameObject* light_go = new GameObject(m_mngr);
         Light* cmp_light = light_go->addComponent<Light>(scene_mgr, root_scene_node);

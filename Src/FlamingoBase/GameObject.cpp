@@ -1,5 +1,5 @@
 #include "GameObject.h"
-#include "Transform.h"
+#include "Render.h"
 
 GameObject::GameObject(ecs::Manager* t_mgr, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale)
     : name("")
@@ -25,7 +25,7 @@ GameObject::GameObject(ecs::Manager* t_mgr, ecs::groupId t_group, std::string t_
 {
     m_manager = t_mgr;
     m_entity = m_manager->addEntity(t_group);
-    addComponent<Transform>(t_position, t_rotation, t_scale);
+    m_transform=addComponent<Transform>(t_position, t_rotation, t_scale);
 }
 
 GameObject::~GameObject()
@@ -66,15 +66,33 @@ ecs::Manager* GameObject::m_manager;
 
 SVector3 GameObject::getPosition(){
     
-    return getComponent<Transform>()->getPosition();
+    return m_transform->getPosition();
 }
 
 SQuaternion GameObject::getRotation(){
-    return getComponent<Transform>()->getRotation();
+    return m_transform->getRotation();
 }
 
 SVector3 GameObject::getScale(){
-    return getComponent<Transform>()->getScale();
+    return m_transform->getScale();
+}
+
+void GameObject::setPosition(SVector3 t_pos){
+    m_transform->setPosition(t_pos);
+    auto rndr = getComponent<Render>();
+    if (rndr != nullptr) rndr->setPosition(t_pos);
+}
+
+void GameObject::setRotation(SQuaternion t_rotation){
+    m_transform->setRotation(t_rotation);
+    auto rndr = getComponent<Render>();
+    if (rndr != nullptr)rndr->setRotation(t_rotation);
+}
+
+void GameObject::setScale(SVector3 t_scale){
+    m_transform->setScale(t_scale);
+    auto rndr = getComponent<Render>();
+    if (rndr != nullptr)rndr->setScale(t_scale);
 }
 
 void GameObject::setManager(ecs::Manager* t_manager){

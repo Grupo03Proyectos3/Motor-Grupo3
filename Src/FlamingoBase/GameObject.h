@@ -5,9 +5,9 @@
 
 #include "ECS/Entity.h"
 #include "ECS/Manager.h"
-#include "SVector3.h"
-#include "SQuaternion.h"
-
+#include "FlamingoUtils/SVector3.h"
+#include "FlamingoUtils/SQuaternion.h"
+#include "Transform.h"
 /**
  *  Clase base para todas las instancias que se encuentren en el juego.
  * Servirá de identificdor a la vez que almacena los valores del objeto en el mundo (posición, roatación y escala).
@@ -58,6 +58,10 @@ class GameObject
     SQuaternion getRotation();
     SVector3 getScale();
 
+    void setPosition(SVector3 t_pos);
+    void setRotation(SQuaternion t_rotation);
+    void setScale(SVector3 t_scale);
+
     static void setManager(ecs::Manager* t_manager);
 
     std::string name;
@@ -65,7 +69,7 @@ class GameObject
   private:
     ecs::Entity* m_entity = nullptr;
     bool m_active;
-
+    Transform* m_transform;
     static ecs::Manager* m_manager;
 };
 #endif

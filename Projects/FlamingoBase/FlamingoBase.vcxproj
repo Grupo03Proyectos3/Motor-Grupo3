@@ -18,30 +18,11 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Src\Render\MeshRenderer.cpp" />
-    <ClCompile Include="..\..\Src\Render\RenderSystem.cpp" />
-    <ClCompile Include="..\..\Src\Render\SGTechniqueResolverListener.cpp" />
-    <ClCompile Include="..\..\Src\Render\Window.cpp" />
-    <ClCompile Include="..\..\Src\Render\WindowEventUtilities.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Src\Render\MeshRenderer.h" />
-    <ClInclude Include="..\..\Src\Render\RenderSystem.h" />
-    <ClInclude Include="..\..\Src\Render\SGTechniqueResolverListener.h" />
-    <ClInclude Include="..\..\Src\Render\Window.h" />
-    <ClInclude Include="..\..\Src\Render\WindowEventUtilities.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FlamingoUtils\FlamingoUtils.vcxproj">
-      <Project>{9b1a365d-e452-46c9-a29d-d0f41dd50afc}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{46a15e88-5016-42e0-a5c2-5f29c4897f55}</ProjectGuid>
-    <RootNamespace>Render</RootNamespace>
+    <ProjectGuid>{362f5b87-0dc2-4748-9833-2186accbc13f}</ProjectGuid>
+    <RootNamespace>FlamingoBase</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -90,23 +71,23 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)Lib\$(ProjectName)\$(Platform)\$(Configuration)\ </OutDir>
+    <OutDir>$(SolutionDir)Lib\$(ProjectName)\$(Plataform)$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Plataform)$(Configuration)</IntDir>
     <TargetName>$(ProjectName)32_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)Lib\$(ProjectName)\$(Platform)\$(Configuration)\ </OutDir>
+    <OutDir>$(SolutionDir)Lib\$(ProjectName)\$(Plataform)$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Plataform)$(Configuration)</IntDir>
     <TargetName>$(ProjectName)32</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)Lib\$(ProjectName)\$(Platform)\$(Configuration)\ </OutDir>
+    <OutDir>$(SolutionDir)Lib\$(ProjectName)\$(Plataform)$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Plataform)$(Configuration)</IntDir>
     <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)Lib\$(ProjectName)\$(Platform)\$(Configuration)\ </OutDir>
+    <OutDir>$(SolutionDir)Lib\$(ProjectName)\$(Plataform)$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Plataform)$(Configuration)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -114,15 +95,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>OgreMain_d.lib;OgreRTShaderSystem_d.lib;SDL2d.lib;SDL2maind.lib;Shell32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);OgreMain_d.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -133,7 +114,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,8 +123,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>OgreRTShaderSystem.lib;OgreMain.lib;SDL2.lib;SDL2main.lib;Shell32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);OgreMain.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -152,15 +133,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain_d.lib;OgreRTShaderSystem_d.lib;SDL2d.lib;SDL2maind.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);OgreMain_d.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -171,7 +152,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -180,10 +161,36 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>OgreRTShaderSystem.lib;OgreMain.lib;SDL2.lib;SDL2main.lib;Shell32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);OgreMain.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ECS\ECS.vcxproj">
+      <Project>{f67d33c8-8ac3-4ca7-a629-1310d4529998}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\FlamingoUtils\FlamingoUtils.vcxproj">
+      <Project>{9b1a365d-e452-46c9-a29d-d0f41dd50afc}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Src\FlamingoBase\Camera.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\GameObject.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\Light.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\Render.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\Scene.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\SceneManager.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\Transform.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Src\FlamingoBase\Camera.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\GameObject.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\Light.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\Render.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\Scene.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\SceneManager.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\Transform.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
