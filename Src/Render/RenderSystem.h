@@ -2,7 +2,7 @@
 #ifndef __RENDER_SYSTEM_H__
 #define __RENDER_SYSTEM_H__
 
-#include "../ECS/System.h"
+#include "ECS/System.h"
 
 #include "Window.h"
 

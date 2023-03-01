@@ -174,18 +174,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\FlamingoBase\Camera.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\GameObject.cpp" />
-    <ClCompile Include="..\..\Src\FlamingoBase\Light.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Render.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Scene.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\SceneManager.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\FlamingoBase\Camera.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\GameObject.h" />
-    <ClInclude Include="..\..\Src\FlamingoBase\Light.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\Render.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\Scene.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\SceneManager.h" />
