@@ -40,7 +40,7 @@ class RenderSystem : public ecs::System
     OgreWindow::Window* m_window = nullptr;
     OgreScene::SceneManager* m_ogre_scene_mngr = nullptr;
     Ogre::String m_app_name; // Nombre de la app
-    Camera* m_camera;//cámara
+    Camera* m_camera=nullptr;//cámara
 };
 
 #endif

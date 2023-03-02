@@ -23,7 +23,6 @@
     <ClCompile Include="..\..\Src\ECS\Entity.cpp" />
     <ClCompile Include="..\..\Src\ECS\InputHandler.cpp" />
     <ClCompile Include="..\..\Src\ECS\Manager.cpp" />
-    <ClCompile Include="..\..\Src\ECS\SingletonECS.cpp" />
     <ClCompile Include="..\..\Src\ECS\System.cpp" />
   </ItemGroup>
   <ItemGroup>

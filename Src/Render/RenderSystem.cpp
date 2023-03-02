@@ -14,7 +14,6 @@
 
 RenderSystem::RenderSystem(Ogre::String& t_app_name)
     : m_app_name(t_app_name)
-    , m_camera(nullptr)
 {
     m_fs_layer = new Ogre::FileSystemLayer(m_app_name);
 }
@@ -71,7 +70,7 @@ void RenderSystem::update(float t_delta_time)
 {
     m_root->renderOneFrame();
     m_window->pollEvents();
-    //manipulateCamera();
+    // manipulateCamera();
 }
 
 void RenderSystem::createRoot()
@@ -210,7 +209,6 @@ void RenderSystem::manipulateCamera()
         {
             m_camera->pitch(1.0f);
         }
-
     }
 }
 

@@ -1,4 +1,0 @@
-#include "SingletonECS.h"
-
-
-
