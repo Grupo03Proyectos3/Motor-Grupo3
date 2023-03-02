@@ -36,6 +36,9 @@ class InputHandler : public SingletonECS<InputHandler>
     // close window event
     bool closeWindowEvent();
 
+    //resize event
+    bool resizeWindowEvent();
+
     // keyboard
     bool keyDownEvent();
 
@@ -72,6 +75,7 @@ class InputHandler : public SingletonECS<InputHandler>
     void handleWindowEvent(const SDL_Event& t_event);
 
     bool m_is_close_window;
+    bool m_is_resized_window;
     bool m_is_key_up;
     bool m_is_key_down;
     bool m_is_mouse_motion;

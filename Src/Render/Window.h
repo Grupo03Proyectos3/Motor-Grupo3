@@ -26,7 +26,7 @@ namespace OgreWindow{
         bool initialiseRTShaderSystem();
         void destroyRTShaderSystem();
        
-        void pollEvents();
+        void update();
 
         void shutdown();
         void closeWindow();

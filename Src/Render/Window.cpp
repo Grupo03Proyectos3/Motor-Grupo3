@@ -6,7 +6,7 @@
 #include <OgreConfigFile.h>
 #include <OgreRenderWindow.h>
 #include <OgreGpuProgramManager.h>
-
+#include "ECS/InputHandler.h" 
 namespace OgreWindow
 {
     Window::Window(const Ogre::String& t_app_name, Ogre::Root* t_root)
@@ -96,39 +96,17 @@ namespace OgreWindow
         }
     }
 
-    void Window::pollEvents() {
+    void Window::update() {
 
         if (m_window.native == nullptr)
             return; // SDL events not initialized
 
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            switch (event.type)
-            {
-                case SDL_QUIT:
-                    m_root->queueEndRendering();
-                    break;
-                case SDL_WINDOWEVENT:
-                    if (event.window.windowID == SDL_GetWindowID(m_window.native))
-                    {
-                        if (event.window.event == SDL_WINDOWEVENT_RESIZED)
-                        {
-                            Ogre::RenderWindow* win = m_window.render;
-                            // win->resize(event.window.data1, event.window.data2);  // IG2: ERROR
-                            win->windowMovedOrResized();
-                        }
-                        // Agregar el caso SDL_WINDOWEVENT_CLOSE
-                        else if (event.window.event == SDL_WINDOWEVENT_CLOSE){
-                            m_root->queueEndRendering();
-                            isClosed = true;
-                        }
-                    }
-                    break;
-                default:
-                    break;
-            }
+        if (InputHandler::instance()->resizeWindowEvent()){
+            m_window.render->windowMovedOrResized();
         }
+        isClosed = InputHandler::instance()->closeWindowEvent();
+        if (isClosed) m_window.render->windowMovedOrResized();
+        
         // just avoid "window not responding"
         WindowEvents::WindowEventUtilities::messagePump();
     }

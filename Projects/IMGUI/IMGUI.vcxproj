@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\Src\IMGUI\imconfig.h" />
     <ClInclude Include="..\..\Src\IMGUI\imgui.h" />
+    <ClInclude Include="..\..\Src\IMGUI\imgui_impl_dx11.h" />
+    <ClInclude Include="..\..\Src\IMGUI\imgui_impl_sdl2.h" />
     <ClInclude Include="..\..\Src\IMGUI\imgui_internal.h" />
     <ClInclude Include="..\..\Src\IMGUI\imstb_rectpack.h" />
     <ClInclude Include="..\..\Src\IMGUI\imstb_textedit.h" />
@@ -30,6 +32,8 @@
     <ClCompile Include="..\..\Src\IMGUI\imgui.cpp" />
     <ClCompile Include="..\..\Src\IMGUI\imgui_demo.cpp" />
     <ClCompile Include="..\..\Src\IMGUI\imgui_draw.cpp" />
+    <ClCompile Include="..\..\Src\IMGUI\imgui_impl_dx11.cpp" />
+    <ClCompile Include="..\..\Src\IMGUI\imgui_impl_sdl2.cpp" />
     <ClCompile Include="..\..\Src\IMGUI\imgui_tables.cpp" />
     <ClCompile Include="..\..\Src\IMGUI\imgui_widgets.cpp" />
   </ItemGroup>
@@ -110,11 +114,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2d.lib;SDL2maind.lib;Shell32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -124,6 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,6 +141,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;Shell32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -138,11 +152,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2d.lib;SDL2maind.lib;Shell32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -152,6 +171,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,6 +179,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;Shell32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

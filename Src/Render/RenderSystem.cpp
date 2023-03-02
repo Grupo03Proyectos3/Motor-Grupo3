@@ -66,10 +66,9 @@ void RenderSystem::initSystem()
     }
 }
 
-void RenderSystem::update(float t_delta_time)
-{
+void RenderSystem::update(float t_delta_time){
     m_root->renderOneFrame();
-    m_window->pollEvents();
+    m_window->update();
     // manipulateCamera();
 }
 

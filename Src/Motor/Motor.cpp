@@ -145,7 +145,7 @@ int main(int argc, char* argv[])
         auto dt = clock() - time;
         time = clock();
         // leer entrada
-        render_sys->getWindow()->pollEvents(); // Cambiar por el update del render_sys
+        render_sys->getWindow()->update(); // Cambiar por el update del render_sys
 
         // actualizar con delta_time
         /*now = std::chrono::high_resolution_clock::now();

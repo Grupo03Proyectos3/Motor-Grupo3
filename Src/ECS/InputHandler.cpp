@@ -61,6 +61,11 @@ bool InputHandler::closeWindowEvent()
     return m_is_close_window;
 }
 
+bool InputHandler::resizeWindowEvent()
+{
+    return m_is_resized_window;
+}
+
 bool InputHandler::keyDownEvent()
 {
     return m_is_key_down;
@@ -160,6 +165,8 @@ void InputHandler::handleWindowEvent(const SDL_Event& t_event)
         case SDL_WINDOWEVENT_CLOSE:
             m_is_close_window = true;
             break;
+        case SDL_WINDOWEVENT_RESIZED:
+            m_is_resized_window = true;       
         default:
             break;
     }
