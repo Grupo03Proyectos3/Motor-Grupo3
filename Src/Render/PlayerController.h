@@ -6,6 +6,7 @@
 #include "ECS/Entity.h"
 #include "ECS/Manager.h"
 #include "ECS/InputHandler.h"
+#include "Render/Camera.h"
 
 struct PlayerController : public ecs::Component
 {
@@ -13,6 +14,7 @@ struct PlayerController : public ecs::Component
     __SYSTEM_ID_DECL__(ecs::_cmp_PLAYER_CONTROLLER)
 
     PlayerController();
+    PlayerController(float t_playerSpeed);
 
     virtual ~PlayerController();
 
@@ -25,7 +27,8 @@ struct PlayerController : public ecs::Component
 
   private:
     bool m_active;
-    //GameObject m_playerGo;
+    //Transform* m_playerTransform;
+    ecs::Entity* m_go;
     /*
      * Input del jugador
      */
@@ -38,8 +41,8 @@ struct PlayerController : public ecs::Component
     /*
      * Cámara
      */
-    /*Camera m_mainCamera;
-    SVector3 m_cameraPosition;*/
+    Camera* m_mainCamera;
+    SVector3 m_cameraPosition;
     /*
      * Edministración de estado
      */

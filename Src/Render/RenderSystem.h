@@ -4,9 +4,10 @@
 
 #include "ECS/System.h"
 
-#include "Window.h"
 #include "Camera.h"
+#include "Window.h"
 
+#include "PlayerController.h"
 
 class RenderSystem : public ecs::System
 {
@@ -25,22 +26,24 @@ class RenderSystem : public ecs::System
     void locateResources();
     void loadResources();
     void bringResources(Ogre::String& sec_name, Ogre::String& type_name, Ogre::String& arch_name);
-   
+
     bool config();
 
     inline OgreWindow::Window* getWindow() { return m_window; }
     inline Ogre::Root* getOgreRoot() { return m_root; }
     inline OgreScene::SceneManager* getSceneManager() { return m_ogre_scene_mngr; }
-    //en esta funcion se manipula la cámara
+    // en esta funcion se manipula la cámara
     void manipulateCamera();
 
   private:
-    Ogre::Root* m_root; // OGRE root
+    Ogre::Root* m_root;                // OGRE root
     Ogre::FileSystemLayer* m_fs_layer; // Fichero de recursos
     OgreWindow::Window* m_window = nullptr;
     OgreScene::SceneManager* m_ogre_scene_mngr = nullptr;
-    Ogre::String m_app_name; // Nombre de la app
-    Camera* m_camera=nullptr;//cámara
+    Ogre::String m_app_name;    // Nombre de la app
+    Camera* m_camera = nullptr; // cámara
+
+    PlayerController* m_controller = nullptr;
 };
 
 #endif

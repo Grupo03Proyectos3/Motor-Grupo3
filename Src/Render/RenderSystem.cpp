@@ -40,7 +40,11 @@ void RenderSystem::initSystem()
         Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
         GameObject* go = new GameObject(m_mngr);
         auto cmp = go->addComponent<MeshRenderer>(node, entity, "Prueba/espana");
+        // Falta probarlo:
+        //m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
         sceneActive->addObjects(go);
+        m_controller = go->addComponent<PlayerController>(20.0f);
+        
         // Luz
         GameObject* light_go = new GameObject(m_mngr);
         Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
@@ -191,7 +195,10 @@ bool RenderSystem::config()
 
 void RenderSystem::manipulateCamera()
 {
-    auto& ihldr = ih();
+    m_controller->handleInput();
+
+
+    /*auto& ihldr = ih();
     ihldr.refresh();
 
     if (ihldr.keyDownEvent())
@@ -208,7 +215,8 @@ void RenderSystem::manipulateCamera()
         {
             m_camera->pitch(1.0f);
         }
-    }
+
+    }*/
 }
 
 RenderSystem::~RenderSystem()

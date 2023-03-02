@@ -28,7 +28,7 @@ struct Camera : public MeshRenderer
         LOCAL,
         PARENT
     };
-
+    Camera();
     Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, OgreWindow::Window* t_window, std::string t_name);
     virtual ~Camera(){};
 

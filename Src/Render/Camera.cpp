@@ -6,6 +6,10 @@
 #include <OgreCamera.h>
 #include <OgreViewport.h>
 
+Camera::Camera()
+{
+}
+
 Camera::Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_cam_node, OgreWindow::Window* t_window, std::string t_name)
     : MeshRenderer(t_cam_node, nullptr)
     /*, m_scene_node(t_scene_node)*/
