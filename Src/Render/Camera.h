@@ -6,10 +6,11 @@
 #include "ECS/Entity.h"
 #include "ECS/Manager.h"
 #include "Render/Window.h"
+#include "FlamingoBase/Render.h"
 
 #include <string>
 
-struct Camera : public ecs::Component
+struct Camera : public Render
 {
   public:
     __SYSTEM_ID_DECL__(ecs::_cpm_CAMERA)
@@ -28,10 +29,10 @@ struct Camera : public ecs::Component
         PARENT
     };
 
-    Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node);
+    Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, OgreWindow::Window* t_window, std::string t_name);
     virtual ~Camera(){};
 
-    virtual void initComponent(OgreWindow::Window* t_window, std::string t_name);
+    virtual void initComponent();
 
     void lookAt(Ogre::Vector3 t_pos, transformSpace t_trs = WORLD);
     void translate(float t_x, float t_y, float t_z);
@@ -53,8 +54,11 @@ struct Camera : public ecs::Component
     Ogre::Camera* m_cam;
     Ogre::Viewport* m_vp;
     Ogre::SceneManager* m_scene_mngr;
-    Ogre::SceneNode* m_scene_node;
-    Ogre::SceneNode* m_cam_node;
+    //Ogre::SceneNode* m_scene_node;
+    //Ogre::SceneNode* m_cam_node;
+    OgreWindow::Window* m_window;
+
+    std::string m_name;
 };
 
 #endif

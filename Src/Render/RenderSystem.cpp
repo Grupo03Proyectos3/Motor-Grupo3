@@ -43,8 +43,8 @@ void RenderSystem::initSystem()
         sceneActive->addObjects(go);
         // Luz
         GameObject* light_go = new GameObject(m_mngr);
-        Light* cmp_light = light_go->addComponent<Light>(scene_mgr, root_scene_node);
-        cmp_light->initComponent("myLight");
+        Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
+        Light* cmp_light = light_go->addComponent<Light>(scene_mgr, cam_node, "myLight");
         cmp_light->setType(Light::DIRECTIONAL);
         cmp_light->setDirection(SVector3(0, -1, 0));
         cmp_light->setSpecularColour();
@@ -52,9 +52,9 @@ void RenderSystem::initSystem()
         sceneActive->addObjects(light_go);
 
         // Camara
-        GameObject* cam_go = new GameObject(m_mngr, SVector3(500, 200, 1000));
-        Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, root_scene_node);
-        cmp_cam->initComponent(getWindow(), "myCamera");
+        GameObject* cam_go = new GameObject(m_mngr, SVector3(500, 500, 1000));
+        Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
+        Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, light_node, getWindow(), "myCamera");
         cmp_cam->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
         cmp_cam->lookAt(SVector3(0,0,0), Camera::WORLD);
         cmp_cam->setNearClipDistance(1);

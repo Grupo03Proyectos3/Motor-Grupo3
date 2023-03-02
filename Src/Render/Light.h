@@ -5,10 +5,12 @@
 #include "ECS/Component.h"
 #include "ECS/Entity.h"
 #include "ECS/Manager.h"
+#include "FlamingoBase/Render.h"
+
 #include <OgreLight.h>
 #include <string>
 
-struct Light : public ecs::Component
+struct Light : public Render
 {
   public:
     __SYSTEM_ID_DECL__(ecs::_cmp_LIGHT)
@@ -20,10 +22,10 @@ struct Light : public ecs::Component
         SPOTLIGHT
     };
 
-    Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode*t_scene_node);
+    Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, std::string t_name);
     virtual ~Light(){};
 
-    virtual void initComponent(std::string t_name);
+    virtual void initComponent();
 
     void setDirection(Ogre::Vector3 t_direction);
     //Tipo de luz
@@ -50,8 +52,10 @@ struct Light : public ecs::Component
   private:
     Ogre::Light* m_light = nullptr;
     Ogre::SceneManager* m_sceneMgr = nullptr;
-    Ogre::SceneNode* m_scene_node = nullptr;
-    Ogre::SceneNode* m_light_node = nullptr;
+    //Ogre::SceneNode* m_scene_node = nullptr;
+    //Ogre::SceneNode* m_light_node = nullptr;
+
+    std::string m_name;
 };
 
 #endif

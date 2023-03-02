@@ -7,7 +7,8 @@
 #include <FlamingoUtils/SVector3.h>
 #include <FlamingoUtils/SQuaternion.h>
 
-struct Render : public ecs::Component{
+struct Render : public ecs::Component
+{
   public:
     __SYSTEM_ID_DECL__(ecs::_cpm_RENDER)
     Render(Ogre::SceneNode* t_root, Ogre::Entity* t_entity, Ogre::String t_materialName = "");
@@ -19,7 +20,7 @@ struct Render : public ecs::Component{
     void changeMaterial(std::string t_materialName);
   protected:
     Ogre::Entity* m_ent_ogre;
-    Ogre::SceneNode* m_scene_node;
+    Ogre::SceneNode* m_node;
     std::string m_materialName;
 };
 #endif

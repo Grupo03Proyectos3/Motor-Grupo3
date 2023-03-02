@@ -3,23 +3,26 @@
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
 
-Light::Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node)
-    : m_sceneMgr(t_sceneMgr)
-    , m_scene_node(t_scene_node)
+Light::Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_light_node, std::string t_name)
+    : Render(t_light_node, nullptr)
+    , m_sceneMgr(t_sceneMgr)
+    /*, m_scene_node(t_scene_node)*/
+    , m_name(t_name)
 {
 }
 
-void Light::initComponent(std::string t_name)
+void Light::initComponent()
 {
-    m_light = m_sceneMgr->createLight(t_name);
-    m_light_node = m_scene_node->createChildSceneNode();
+    Render::initComponent();
+    m_light = m_sceneMgr->createLight(m_name);
+   // m_light_node = m_scene_node->createChildSceneNode();
     //m_sceneMgr->setAmbientLight(Ogre::ColourValue::White);
-    m_light_node->attachObject(m_light);
+    m_node->attachObject(m_light);
 }
 
 void Light::setDirection(Ogre::Vector3 t_direction)
 {
-    m_light_node->setDirection(t_direction);
+    m_node->setDirection(t_direction);
 }
 
 void Light::setType(lightType t_l)
