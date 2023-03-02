@@ -166,14 +166,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ECS\ECS.vcxproj">
-      <Project>{f67d33c8-8ac3-4ca7-a629-1310d4529998}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\FlamingoUtils\FlamingoUtils.vcxproj">
-      <Project>{9b1a365d-e452-46c9-a29d-d0f41dd50afc}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\Src\FlamingoBase\GameObject.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Render.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Scene.cpp" />
