@@ -12,17 +12,6 @@
 #include <string>
 #include <vector>
 
-
-#include <IMGUI/imgui_impl_sdl2.h>
-#include <IMGUI/imgui_impl_dx11.h>
-#include <dxgi.h>
-#include <d3d11.h>
-
-// Data
-static ID3D11Device* g_pd3dDevice = NULL;
-static ID3D11DeviceContext* g_pd3dDeviceContext = NULL;
-
-
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
 {
@@ -115,7 +104,7 @@ int main(int argc, char* argv[])
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
-    
+
     ecs::Manager* manager = new ecs::Manager();
 
     loadDirectories();
@@ -145,17 +134,11 @@ int main(int argc, char* argv[])
     */
 
     Ogre::String s = "Motor";
-    RenderSystem* render_sys = manager->addSystem<RenderSystem>(s);   
-
+    RenderSystem* render_sys = manager->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
     //  auto& ihldr = ih();
     auto time = clock();
     auto dt = clock() - time;
-
-    /*ImGui::StyleColorsDark();
-    ImGui_ImplSDL2_InitForD3D(render_sys->getWindow()->getNativeWindow());
-    ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);*/
-
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
         //Delta time en milisegundos
@@ -171,7 +154,8 @@ int main(int argc, char* argv[])
         std::cout << delta_time.count() << std::endl;
         previous_time = actual_time;*/
 
-        render_sys->getOgreRoot()->renderOneFrame(); // Cambiar por el update del render_sys // render_sys->update(2.0);
+        render_sys->getOgreRoot()->renderOneFrame(); // Cambiar por el update del render_sys
+                                                     // render_sys->update(2.0);
         /*
             input_system->update();
             render_system->update();
