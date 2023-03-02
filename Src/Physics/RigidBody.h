@@ -5,7 +5,6 @@
 #include "ECS/Entity.h"
 #include "ECS/Manager.h"
 
-
 class btVector3;
 class btQuaternion;
 class btTransform;
@@ -29,14 +28,14 @@ struct RigidBody : public ecs::Component
     void setTrigger(bool t_trigger);
     void setStatic(bool t_static);
     // NOTE : We may need to add these methods with btVector3
-    //void setLinearVelocity(const SVector3& t_velocity);
-    //void setAngularVelocity(const SVector3& t_velocity);
+    // void setLinearVelocity(const SVector3& t_velocity);
+    // void setAngularVelocity(const SVector3& t_velocity);
 
     inline float getMass() const { return m_mass; };
     inline bool isTrigger() const { return m_trigger; };
     inline bool isStatic() const { return m_static; };
-    //SVector3 getLinearVelocity() const;
-    //SVector3 getAngularVelocity() const;
+    // SVector3 getLinearVelocity() const;
+    // SVector3 getAngularVelocity() const;
 
   private:
     btRigidBody* m_rigid_body = nullptr;       // rigidbody de Bullet
