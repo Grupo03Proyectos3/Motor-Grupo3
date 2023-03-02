@@ -13,7 +13,7 @@
  * Servirá de identificdor a la vez que almacena los valores del objeto en el mundo (posición, roatación y escala).
  * Estrechamente relacionado con las entidades del ECS las usa como base para consstruir su estructura.
  */
-class GameObject
+class GameObject : ecs::Entity
 {
   public:
     GameObject(ecs::Manager* t_mgr = nullptr, SVector3 t_position = SVector3(), SQuaternion t_rotation = SQuaternion(), SVector3 t_scale=SVector3(1.0,1.0,1.0));
@@ -31,25 +31,25 @@ class GameObject
     template <typename T, typename... Ts>
     inline T* addComponent(Ts&&... args)
     {
-        return m_manager->addComponent<T>(m_entity, args...);
+        return m_manager->addComponent<T>(this, args...);
     }
 
     template <typename T>
     inline void removeComponent()
     {
-        m_manager->removeComponent<T>(m_entity);
+        m_manager->removeComponent<T>(this);
     }
 
     template <typename T>
     inline T* getComponent()
     {
-        return m_manager->getComponent<T>(m_entity);
+        return m_manager->getComponent<T>(this);
     }
 
     template <typename T>
     inline bool hasComponent()
     {
-        return m_manager->hasComponent<T>(m_entity);
+        return m_manager->hasComponent<T>(this);
     }
 
     inline std::string getName() { return name; };
@@ -67,7 +67,6 @@ class GameObject
     std::string name;
 
   private:
-    ecs::Entity* m_entity = nullptr;
     bool m_active;
     Transform* m_transform;
     static ecs::Manager* m_manager;

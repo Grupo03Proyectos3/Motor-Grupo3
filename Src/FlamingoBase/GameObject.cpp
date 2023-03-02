@@ -2,11 +2,11 @@
 #include "Render.h"
 
 GameObject::GameObject(ecs::Manager* t_mgr, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale)
-    : name("")
+    : Entity(),
+    name("")
     , m_active(true)
 {
     m_manager = t_mgr;
-    m_entity = m_manager->addEntity();
     addComponent<Transform>(t_position, t_rotation, t_scale);
 }
 
@@ -15,7 +15,6 @@ GameObject::GameObject(ecs::Manager* t_mgr, std::string t_name, SVector3 t_posit
     , m_active(true)
 {
     m_manager = t_mgr;
-    m_entity = m_manager->addEntity();
     addComponent<Transform>(t_position, t_rotation, t_scale);
 }
 
@@ -24,20 +23,17 @@ GameObject::GameObject(ecs::Manager* t_mgr, ecs::groupId t_group, std::string t_
     , m_active(true)
 {
     m_manager = t_mgr;
-    m_entity = m_manager->addEntity(t_group);
     m_transform=addComponent<Transform>(t_position, t_rotation, t_scale);
 }
 
 GameObject::~GameObject()
 {
-    m_manager->setAlive(m_entity, false);
-    //no se si hay que borrar la entidad aqui o se encarga el manager, diría que lo segundo
-    m_entity = nullptr;
+    m_manager->setAlive(this, false);
 }
 
 bool GameObject::isAlive()
 {
-    return m_manager->isAlive(m_entity);
+    return m_manager->isAlive(this);
 }
 
 bool GameObject::isActive()
@@ -47,7 +43,7 @@ bool GameObject::isActive()
 
 void GameObject::setAlive(bool to)
 {
-   m_manager->setAlive(m_entity, to);
+   m_manager->setAlive(this, to);
 }
 
 void GameObject::setActive(bool to)
