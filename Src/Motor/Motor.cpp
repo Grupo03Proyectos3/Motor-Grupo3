@@ -137,9 +137,13 @@ int main(int argc, char* argv[])
     RenderSystem* render_sys = manager->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
     //  auto& ihldr = ih();
-
+    auto time = clock();
+    auto dt = clock() - time;
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
+        //Delta time en milisegundos
+        auto dt = clock() - time;
+        time = clock();
         // leer entrada
         render_sys->getWindow()->pollEvents(); // Cambiar por el update del render_sys
 
