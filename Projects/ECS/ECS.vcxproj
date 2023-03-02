@@ -114,12 +114,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Src\Physics</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Src\Physics;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2d.lib;SDL2maind.lib;Shell32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -129,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Src\Physics</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Src\Physics;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +141,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;Shell32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -144,7 +152,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Src\Physics;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Src\Physics;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
