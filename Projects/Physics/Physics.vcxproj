@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Physics\PhysicsSystem.cpp" />
+    <ClCompile Include="..\..\Src\Physics\PlayerController.cpp" />
     <ClCompile Include="..\..\Src\Physics\RigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Physics\PhysicsSystem.h" />
+    <ClInclude Include="..\..\Src\Physics\PlayerController.h" />
     <ClInclude Include="..\..\Src\Physics\RigidBody.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
