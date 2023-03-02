@@ -160,11 +160,12 @@ int main(int argc, char* argv[])
             ui_system->update();
             scripting_system->update();
         */
-        /*if (ihldr.keyDownEvent())
+        ihldr.refresh();
+        if (ihldr.keyDownEvent())
         {
             if (ihldr.isKeyDown(SDLK_0))
                 std::cout << "prueba";
-        }*/
+        }
 
         manager->refresh();
         manager->flushMessages();
