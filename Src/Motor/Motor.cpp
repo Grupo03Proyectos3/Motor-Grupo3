@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "FlamingoUtils/Timer.h"
 
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
@@ -137,13 +138,16 @@ int main(int argc, char* argv[])
     RenderSystem* render_sys = manager->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
     //  auto& ihldr = ih();
-    auto time = clock();
-    auto dt = clock() - time;
+
+    Flamingo::Timer* playerTimer = new Flamingo::Timer();
+    auto time = playerTimer->getElapsedTime();
+    auto dt = playerTimer->getElapsedTime() - time;
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
         //Delta time en milisegundos
-        auto dt = clock() - time;
-        time = clock();
+        dt = playerTimer->getElapsedTime() - time;
+        //Tiempo transcurrido desde el inicio del programa en milisegundos
+        time = playerTimer->getElapsedTime();
         // leer entrada
         render_sys->getWindow()->update(); // Cambiar por el update del render_sys
 
