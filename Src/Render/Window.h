@@ -31,6 +31,7 @@ namespace OgreWindow{
         void shutdown();
         void closeWindow();
        
+        inline SDL_Window* getNativeWindow() { return m_window.native; }
         inline Ogre::RenderWindow* getRenderWindow() { return m_window.render; }
         inline Ogre::RenderSystem* getRenderSystem() { return m_render_system; }
         inline void setSceneManager(OgreScene::SceneManager* t_sm) { m_scene_mngr = t_sm; }

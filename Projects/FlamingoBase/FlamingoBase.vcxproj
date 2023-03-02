@@ -95,15 +95,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies);OgreMain_d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);OgreMain_d.lib;SDL2d.lib;SDL2maind.lib;Shell32.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -114,7 +114,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,8 +123,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies);OgreMain.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);OgreMain.lib;SDL2.lib;SDL2main.lib;Shell32.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -133,15 +133,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies);OgreMain_d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);OgreMain_d.lib;SDL2d.lib;SDL2maind.lib;Shell32.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -152,7 +152,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,8 +161,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies);OgreMain.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);OgreMain.lib;SDL2.lib;SDL2main.lib;Shell32.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

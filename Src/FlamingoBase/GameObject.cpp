@@ -77,6 +77,8 @@ void GameObject::setPosition(SVector3 t_pos){
     m_transform->setPosition(t_pos);
     auto rndr = getComponent<Render>();
     if (rndr != nullptr) rndr->setPosition(t_pos);
+
+    
 }
 
 void GameObject::setRotation(SQuaternion t_rotation){
