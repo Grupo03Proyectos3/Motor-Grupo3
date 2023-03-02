@@ -27,7 +27,27 @@ class PhysicsSystem : public ecs::System
     void initSystem() override;
     void update(float t_delta_time) override;
 
+    /**
+     * @brief Adds t_rb to bullet's physics world
+     *
+     * The parameter is added to the physics world for it to be updated every frame
+     * within the game.
+     *
+     * @param[in] t_rb btRigidBody* to be added to the game
+     * @return
+     */
     void addRigidBody(btRigidBody* t_rb);
+
+    /**
+     * @brief Create a Bullet RigidBody
+     *
+     * With the given parameters, it creates a Bullet RigidBody object
+     *
+     * @param[in] t_transform Position, location and rotation of the body
+     * @param[in] t_shape Collision shape of the body
+     * @param[in] t_mass Mass value of the body
+     * @return btRigidBody* object 
+     */
     btRigidBody* createRigidBody(btTransform* t_transform, btCollisionShape* t_shape, const float& t_mass);
     
   private:

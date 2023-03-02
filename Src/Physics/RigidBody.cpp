@@ -1,6 +1,10 @@
 #include "RigidBody.h"
 #include <BulletDynamics/Dynamics/btRigidBody.h>
-//#include "../FlamingoUtils/SVector3.h"
+#include <LinearMath/btTransform.h>
+
+#include "../FlamingoUtils/SVector3.h"
+#include "../FlamingoUtils/SQuaternion.h"
+#include "../FlamingoBase/Transform.h"
 
 RigidBody::RigidBody()
 {
@@ -13,10 +17,14 @@ RigidBody::RigidBody(float t_mass, bool t_trigger, bool t_static)
 
 RigidBody::~RigidBody()
 {
+    delete m_bullet_transform;
+    delete m_rigid_body;
 }
 
 void RigidBody::initComponent()
 {
+    // Translate our location and rotation to bullet's language
+    m_bullet_transform = new btTransform();
 }
 
 void RigidBody::setMass(const float& t_mass)

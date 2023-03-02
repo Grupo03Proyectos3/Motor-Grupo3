@@ -165,7 +165,7 @@ int main(int argc, char* argv[])
     }
     render_sys->getWindow()->closeWindow();
    
-    delete manager; //Elimina todos los systems
+    delete manager; // Elimina todos los systems
    
     ImGui::DestroyContext();
 

@@ -2,17 +2,17 @@
 #ifndef __RIGID_BODY_H__
 #define __RIGID_BODY_H__
 
-#include "../ECS/Component.h"
-#include "../ECS/Entity.h"
-#include "../ECS/Manager.h"
+#include "ECS/Entity.h"
+#include "ECS/Manager.h"
 
-class btRigidBody;
-class btGhostObject;
-class btTransform;
-class btCollisionShape;
-class btCollisionObject;
+
 class btVector3;
 class btQuaternion;
+class btTransform;
+class btRigidBody;
+class btGhostObject;
+class btCollisionShape;
+class btCollisionObject;
 
 struct RigidBody : public ecs::Component
 {
@@ -45,6 +45,7 @@ struct RigidBody : public ecs::Component
     float m_mass = 1.0f;
     bool m_trigger = false;
     bool m_static = false;
+
     // la velocidad va en el btRigidBody
 };
 
