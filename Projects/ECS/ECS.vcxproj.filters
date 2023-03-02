@@ -27,9 +27,6 @@
     <ClCompile Include="..\..\Src\ECS\Entity.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\ECS\SingletonECS.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\ECS\InputHandler.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
