@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
     Ogre::String s = "Motor";
     RenderSystem* render_sys = manager->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
-    auto& ihldr = ih();
+    //  auto& ihldr = ih();
 
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
@@ -151,7 +151,7 @@ int main(int argc, char* argv[])
         previous_time = actual_time;*/
 
         render_sys->getOgreRoot()->renderOneFrame(); // Cambiar por el update del render_sys
-
+                                                     // render_sys->update(2.0);
         /*
             input_system->update();
             render_system->update();
@@ -160,12 +160,13 @@ int main(int argc, char* argv[])
             ui_system->update();
             scripting_system->update();
         */
-        ihldr.refresh();
+        render_sys->manipulateCamera();
+        /*ihldr.refresh();
         if (ihldr.keyDownEvent())
         {
             if (ihldr.isKeyDown(SDLK_0))
                 std::cout << "prueba";
-        }
+        }*/
 
         manager->refresh();
         manager->flushMessages();

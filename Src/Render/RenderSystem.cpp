@@ -1,19 +1,20 @@
 #include "RenderSystem.h"
 
-#include "Camera.h"
-#include "Light.h"
+#include "ECS/InputHandler.h"
 #include "FlamingoBase/GameObject.h"
 #include "FlamingoBase/SceneManager.h"
+#include "Light.h"
 
-#include <OgreRoot.h>
-#include <OgreEntity.h>
-#include <OgreGpuProgramManager.h>
-#include <OgreFileSystemLayer.h>
-#include <OgreConfigFile.h>
 #include <FlamingoBase/Render.h>
+#include <OgreConfigFile.h>
+#include <OgreEntity.h>
+#include <OgreFileSystemLayer.h>
+#include <OgreGpuProgramManager.h>
+#include <OgreRoot.h>
 
 RenderSystem::RenderSystem(Ogre::String& t_app_name)
     : m_app_name(t_app_name)
+    , m_camera(nullptr)
 {
     m_fs_layer = new Ogre::FileSystemLayer(m_app_name);
 }
@@ -25,7 +26,7 @@ void RenderSystem::recieve(const Message&)
 void RenderSystem::initSystem()
 {
     createRoot();
-    
+
     if (config())
     {
         setUp();
@@ -54,11 +55,11 @@ void RenderSystem::initSystem()
         // Camara
         GameObject* cam_go = new GameObject(m_mngr, SVector3(500, 500, 1000));
         Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
-        Camera* cmp_cam = cam_go->addComponent<Camera>(scene_mgr, light_node, getWindow(), "myCamera");
-        cmp_cam->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
-        cmp_cam->lookAt(SVector3(0,0,0), Camera::WORLD);
-        cmp_cam->setNearClipDistance(1);
-        cmp_cam->setFarClipDistance(10000);
+        m_camera = cam_go->addComponent<Camera>(scene_mgr, light_node, getWindow(), "myCamera");
+        m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
+        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
+        m_camera->setNearClipDistance(1);
+        m_camera->setFarClipDistance(10000);
         sceneActive->addObjects(cam_go);
 
         /* myWindow->getSceneManager()->createScene("NUEVA1", true);
@@ -70,6 +71,7 @@ void RenderSystem::update(float t_delta_time)
 {
     m_root->renderOneFrame();
     m_window->pollEvents();
+    //manipulateCamera();
 }
 
 void RenderSystem::createRoot()
@@ -100,7 +102,7 @@ void RenderSystem::setUp()
     m_window = new OgreWindow::Window(m_app_name, m_root);
     m_window->setSceneManager(m_ogre_scene_mngr);
     m_window->createWindow(m_app_name);
-    //createWindow(mAppName);
+    // createWindow(mAppName);
 
     locateResources();
     m_window->initialiseRTShaderSystem();
@@ -187,6 +189,29 @@ bool RenderSystem::config()
         return m_root->showConfigDialog(nullptr);
     }
     return true;
+}
+
+void RenderSystem::manipulateCamera()
+{
+    auto& ihldr = ih();
+    ihldr.refresh();
+
+    if (ihldr.keyDownEvent())
+    {
+        if (ihldr.isKeyDown(SDLK_r))
+        {
+            m_camera->roll(1.0f);
+        }
+        else if (ihldr.isKeyDown(SDLK_y))
+        {
+            m_camera->yaw(1.0f);
+        }
+        else if (ihldr.isKeyDown(SDLK_p))
+        {
+            m_camera->pitch(1.0f);
+        }
+
+    }
 }
 
 RenderSystem::~RenderSystem()

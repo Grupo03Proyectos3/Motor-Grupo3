@@ -5,6 +5,8 @@
 #include "ECS/System.h"
 
 #include "Window.h"
+#include "Camera.h"
+
 
 class RenderSystem : public ecs::System
 {
@@ -29,6 +31,8 @@ class RenderSystem : public ecs::System
     inline OgreWindow::Window* getWindow() { return m_window; }
     inline Ogre::Root* getOgreRoot() { return m_root; }
     inline OgreScene::SceneManager* getSceneManager() { return m_ogre_scene_mngr; }
+    //en esta funcion se manipula la cámara
+    void manipulateCamera();
 
   private:
     Ogre::Root* m_root; // OGRE root
@@ -36,6 +40,7 @@ class RenderSystem : public ecs::System
     OgreWindow::Window* m_window = nullptr;
     OgreScene::SceneManager* m_ogre_scene_mngr = nullptr;
     Ogre::String m_app_name; // Nombre de la app
+    Camera* m_camera;//cámara
 };
 
 #endif
