@@ -5,7 +5,7 @@
 #include "ECS/Component.h"
 #include "ECS/Entity.h"
 #include "ECS/Manager.h"
-#include "Render/Camera.h"
+#include "ECS/InputHandler.h"
 
 struct PlayerController : public ecs::Component
 {
@@ -25,7 +25,7 @@ struct PlayerController : public ecs::Component
 
   private:
     bool m_active;
-    GameObject m_playerGo;
+    //GameObject m_playerGo;
     /*
      * Input del jugador
      */
@@ -38,8 +38,8 @@ struct PlayerController : public ecs::Component
     /*
      * Cámara
      */
-    Camera m_mainCamera;
-    SVector3 m_cameraPosition;
+    /*Camera m_mainCamera;
+    SVector3 m_cameraPosition;*/
     /*
      * Edministración de estado
      */
