@@ -176,10 +176,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\FlamingoUtils\SQuaternion.cpp" />
     <ClCompile Include="..\..\Src\FlamingoUtils\SVector3.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoUtils\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\FlamingoUtils\SQuaternion.h" />
     <ClInclude Include="..\..\Src\FlamingoUtils\SVector3.h" />
+    <ClInclude Include="..\..\Src\FlamingoUtils\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
