@@ -1,6 +1,7 @@
 #include "SVector3.h"
 #include <math.h>
 #include <iostream>
+#include <btBulletCollisionCommon.h>
 //#include <OgreVector3.h>
 
 
@@ -164,6 +165,12 @@ double SVector3::angle(const SVector3& a, const SVector3& b)
 SVector3::operator Ogre::Vector3() const
 {
     return Ogre::Vector3(m_x, m_y, m_z);
+}
+
+SVector3::operator btVector3() const
+{
+    return btVector3(m_x, m_y, m_z);
+
 }
 
 //SVector3::operator FMOD_VECTOR() const

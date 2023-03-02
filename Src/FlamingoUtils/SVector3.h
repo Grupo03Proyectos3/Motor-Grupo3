@@ -4,6 +4,7 @@
 #define __SVECTOR3_H__
 
 #include <OgreVector3.h>
+class btVector3;
 //#include <fmod_common.h>
 
 // namespace Ogre
@@ -59,6 +60,7 @@ class SVector3
 
     // static Ogre::Vector3 sVectorToOgre(const SVector3& sVector);
     operator Ogre::Vector3() const;
+    operator btVector3() const;
     // operator FMOD_VECTOR() const;
     static SVector3 ogreToSVector3(const Ogre::Vector3& ogreVector);
     // static SVector3 fmodToSVector3(const FMOD_VECTOR& fModVector);

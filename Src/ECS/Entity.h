@@ -20,6 +20,7 @@ namespace ecs
     class Entity
     {
       public:
+        Entity();
         Entity(ecs::groupId_type t_gId);
         virtual ~Entity();
 
