@@ -7,7 +7,7 @@
 #include <OgreViewport.h>
 
 Camera::Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_cam_node, OgreWindow::Window* t_window, std::string t_name)
-    : Render(t_cam_node, nullptr)
+    : MeshRenderer(t_cam_node, nullptr)
     /*, m_scene_node(t_scene_node)*/
     , m_scene_mngr(t_sceneMgr)
     , m_cam(nullptr)
@@ -18,7 +18,7 @@ Camera::Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_cam_node, Ogre
 
 void Camera::initComponent()
 {
-    Render::initComponent();
+    MeshRenderer::initComponent();
     m_cam = m_scene_mngr->createCamera(m_name);
    // m_cam_node = m_scene_node->createChildSceneNode();
     m_node->attachObject(m_cam);

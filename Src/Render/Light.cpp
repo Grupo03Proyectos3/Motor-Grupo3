@@ -4,7 +4,7 @@
 #include <OgreSceneNode.h>
 
 Light::Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_light_node, std::string t_name)
-    : Render(t_light_node, nullptr)
+    : MeshRenderer(t_light_node, nullptr)
     , m_sceneMgr(t_sceneMgr)
     /*, m_scene_node(t_scene_node)*/
     , m_name(t_name)
@@ -13,7 +13,7 @@ Light::Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_light_node, std:
 
 void Light::initComponent()
 {
-    Render::initComponent();
+    MeshRenderer::initComponent();
     m_light = m_sceneMgr->createLight(m_name);
    // m_light_node = m_scene_node->createChildSceneNode();
     //m_sceneMgr->setAmbientLight(Ogre::ColourValue::White);

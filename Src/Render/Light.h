@@ -5,12 +5,12 @@
 #include "ECS/Component.h"
 #include "ECS/Entity.h"
 #include "ECS/Manager.h"
-#include "FlamingoBase/Render.h"
+#include "MeshRenderer.h"
 
 #include <OgreLight.h>
 #include <string>
 
-struct Light : public Render
+struct Light : public MeshRenderer
 {
   public:
     __SYSTEM_ID_DECL__(ecs::_cmp_LIGHT)
@@ -22,6 +22,7 @@ struct Light : public Render
         SPOTLIGHT
     };
 
+    Light(){};
     Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, std::string t_name);
     virtual ~Light(){};
 

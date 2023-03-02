@@ -5,7 +5,7 @@
 #include "FlamingoBase/SceneManager.h"
 #include "Light.h"
 
-#include <FlamingoBase/Render.h>
+#include "MeshRenderer.h"
 #include <OgreConfigFile.h>
 #include <OgreEntity.h>
 #include <OgreFileSystemLayer.h>
@@ -39,7 +39,7 @@ void RenderSystem::initSystem()
         Ogre::Entity* entity = scene_mgr->createEntity("myEntity", "cube.mesh");
         Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
         GameObject* go = new GameObject(m_mngr);
-        auto cmp = go->addComponent<Render>(node, entity, "Prueba/espana");
+        auto cmp = go->addComponent<MeshRenderer>(node, entity, "Prueba/espana");
         sceneActive->addObjects(go);
         // Luz
         GameObject* light_go = new GameObject(m_mngr);

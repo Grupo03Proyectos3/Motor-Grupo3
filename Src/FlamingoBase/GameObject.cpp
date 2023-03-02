@@ -1,5 +1,5 @@
 #include "GameObject.h"
-#include "Render.h"
+#include "Render/MeshRenderer.h"
 
 GameObject::GameObject(ecs::Manager* t_mgr, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale)
     : Entity(),
@@ -75,19 +75,19 @@ SVector3 GameObject::getScale(){
 
 void GameObject::setPosition(SVector3 t_pos){
     m_transform->setPosition(t_pos);
-    auto rndr = getComponent<Render>();
+    auto rndr = getComponent<MeshRenderer>();
     if (rndr != nullptr) rndr->setPosition(t_pos);
 }
 
 void GameObject::setRotation(SQuaternion t_rotation){
     m_transform->setRotation(t_rotation);
-    auto rndr = getComponent<Render>();
+    auto rndr = getComponent<MeshRenderer>();
     if (rndr != nullptr)rndr->setRotation(t_rotation);
 }
 
 void GameObject::setScale(SVector3 t_scale){
     m_transform->setScale(t_scale);
-    auto rndr = getComponent<Render>();
+    auto rndr = getComponent<MeshRenderer>();
     if (rndr != nullptr)rndr->setScale(t_scale);
 }
 

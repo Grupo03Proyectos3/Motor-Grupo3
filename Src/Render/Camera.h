@@ -6,11 +6,11 @@
 #include "ECS/Entity.h"
 #include "ECS/Manager.h"
 #include "Render/Window.h"
-#include "FlamingoBase/Render.h"
+#include "MeshRenderer.h"
 
 #include <string>
 
-struct Camera : public Render
+struct Camera : public MeshRenderer
 {
   public:
     __SYSTEM_ID_DECL__(ecs::_cpm_CAMERA)

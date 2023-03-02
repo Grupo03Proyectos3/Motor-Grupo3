@@ -9,7 +9,6 @@
         _cmp_RIGID_BODY, \
         _cpm_CAMERA, \
         _cmp_LIGHT, \
-        _cpm_RENDER, \
         _cpm_TRANSFORM, \
         _cmp_MESH_RENDERER, \
         _cmp_PLAYER_CONTROLLER

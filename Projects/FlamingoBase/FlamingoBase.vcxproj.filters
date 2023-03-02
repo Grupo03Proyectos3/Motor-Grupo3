@@ -30,9 +30,6 @@
     <ClCompile Include="..\..\Src\FlamingoBase\GameObject.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\FlamingoBase\Render.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\FlamingoBase\Transform.cpp">
       <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
@@ -46,9 +43,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\Src\FlamingoBase\GameObject.h">
       <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\FlamingoBase\Render.h">
-      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\FlamingoBase\Transform.h">
       <Filter>Archivos de encabezado\Components</Filter>
