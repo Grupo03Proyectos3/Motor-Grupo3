@@ -41,14 +41,18 @@ template <typename T>
 class SingletonECS
 {
   protected:
-    SingletonECS();
+    SingletonECS()
+    {
+    }
 
   public:
     // no se pueden copiar objetos de este tipo
     SingletonECS<T>& operator=(const SingletonECS<T>& t_o) = delete;
     SingletonECS(const SingletonECS<T>& t_o) = delete;
 
-    virtual ~SingletonECS();
+    virtual ~SingletonECS()
+    {
+    }
 
     /// NO PODEMOS INICIALIZARLO EN EL CPP PORQUE SE NECESITAN 2 TEMPLATES
     // some singletons need to be initialised with some parameters, we
@@ -64,10 +68,21 @@ class SingletonECS
     // in some cases, when singletons depend on each other, you have
     // to close them in a specific order, This is why we have this close
     // method
-    static void close();
+    inline static void close()
+    {
+        m_instance.reset();
+    }
     // get the singleton instance as a pointer
     //
-    static T* instance();
+
+    inline static T* instance()
+    {
+        if (m_instance.get() == nullptr)
+        {
+            init();
+        }
+        return m_instance.get();
+    }
 
   private:
     static std::unique_ptr<T> m_instance;

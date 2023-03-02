@@ -1,16 +1,16 @@
 #include <crtdbg.h>
 
+#include "ECS/InputHandler.h"
+#include "IMGUI/imgui.h"
 #include "Physics/PhysicsSystem.h"
 #include "Render/RenderSystem.h"
-
-#include "IMGUI/imgui.h"
 #include <OgreRoot.h> // MEMORY LEAK
 #include <filesystem>
+#include <fmod.h>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <fmod.h>
 
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
@@ -99,7 +99,7 @@ void loadDirectories()
 int main(int argc, char* argv[])
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //IMGUI
+    // IMGUI
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
@@ -136,12 +136,13 @@ int main(int argc, char* argv[])
     Ogre::String s = "Motor";
     RenderSystem* render_sys = manager->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
+    auto& ihldr = ih();
 
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
         // leer entrada
-        render_sys->getWindow()->pollEvents(); //Cambiar por el update del render_sys
-        
+        render_sys->getWindow()->pollEvents(); // Cambiar por el update del render_sys
+
         // actualizar con delta_time
         /*now = std::chrono::high_resolution_clock::now();
         actual_time = std::chrono::duration_cast<std::chrono::milliseconds>(now - start_time);
@@ -149,8 +150,8 @@ int main(int argc, char* argv[])
         std::cout << delta_time.count() << std::endl;
         previous_time = actual_time;*/
 
-        render_sys->getOgreRoot()->renderOneFrame(); //Cambiar por el update del render_sys
-       
+        render_sys->getOgreRoot()->renderOneFrame(); // Cambiar por el update del render_sys
+
         /*
             input_system->update();
             render_system->update();
@@ -159,14 +160,19 @@ int main(int argc, char* argv[])
             ui_system->update();
             scripting_system->update();
         */
+        /*if (ihldr.keyDownEvent())
+        {
+            if (ihldr.isKeyDown(SDLK_0))
+                std::cout << "prueba";
+        }*/
 
         manager->refresh();
         manager->flushMessages();
     }
     render_sys->getWindow()->closeWindow();
-   
+
     delete manager; // Elimina todos los systems
-   
+
     ImGui::DestroyContext();
 
     _CrtDumpMemoryLeaks();
