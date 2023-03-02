@@ -1,5 +1,5 @@
 #include "Timer.h"
-#include <sysinfoapi.h>
+#include <Windows.h>
 
 
 namespace Flamingo
