@@ -3,8 +3,13 @@
 #include <btBulletCollisionCommon.h>
 #include <btBulletDynamicsCommon.h>
 
+#include "ECS/GameObject.h"
+#include "ECS/Manager.h"
+#include "RigidBody.h"
+
 PhysicsSystem::PhysicsSystem()
 {
+    m_group = ecs::GROUP_PHYSICS;
 }
 
 PhysicsSystem::~PhysicsSystem()
@@ -55,9 +60,21 @@ void PhysicsSystem::initSystem()
     // m_world->setGravity();
 }
 
-
 void PhysicsSystem::update(float t_delta_time)
 {
+    // For each GameObject that has at least one Physics type component,
+    // check for the components and update them
+    for (auto game_object : m_mngr->getEntities(m_group))
+    {
+        if (auto rb = m_mngr->getComponent<RigidBody>(game_object))
+        {
+            // TODO actualise position with Transform values --> Check if its really necessary
+            //rb->setPosition();
+        }
+    }
+
+    // TO DO add forces with input/scripts
+
     if (m_world)
     {
         m_world->stepSimulation(t_delta_time);

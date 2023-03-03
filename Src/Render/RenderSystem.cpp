@@ -12,10 +12,12 @@
 #include <OgreFileSystemLayer.h>
 #include <OgreGpuProgramManager.h>
 #include <OgreRoot.h>
+#include <Physics/RigidBody.h>
 
 RenderSystem::RenderSystem(Ogre::String& t_app_name)
     : m_app_name(t_app_name)
 {
+    m_group = ecs::GROUP_RENDER;
     m_fs_layer = new Ogre::FileSystemLayer(m_app_name);
 }
 
@@ -40,35 +42,34 @@ void RenderSystem::initSystem()
         Ogre::Entity* entity = scene_mgr->createEntity("myEntity", "cube.mesh");
         Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
         ecs::GameObject* go = m_mngr->addGameObject();
-        auto cmp = ecs::AddComponent<MeshRenderer>(go, node, entity, "Prueba/espana");
-
+        auto cmp = ecs::AddComponent<MeshRenderer>(go, node, entity, "Prueba/MichaelScott");
 
         //// Falta probarlo:
         ////m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
-         sceneActive->addObjects(go);
-         m_controller = ecs::AddComponent<PlayerController>(go, 20.0f);
+        sceneActive->addObjects(go);
+        m_controller = ecs::AddComponent<PlayerController>(go, 20.0f);
         //
         // Luz
-        //ecs::GameObject* light_go = new ecs::GameObject(m_mngr);
-         ecs::GameObject* light_go = new ecs::GameObject();
-         Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
-         Light* cmp_light = ecs::AddComponent<Light>(light_go, scene_mgr, cam_node, "myLight");
-         cmp_light->setType(Light::DIRECTIONAL);
-         cmp_light->setDirection(SVector3(0, -1, 0));
-         cmp_light->setSpecularColour();
-         cmp_light->setDiffuseColour();
-         sceneActive->addObjects(light_go);
+        // ecs::GameObject* light_go = new ecs::GameObject(m_mngr);
+        ecs::GameObject* light_go = new ecs::GameObject();
+        Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
+        Light* cmp_light = ecs::AddComponent<Light>(light_go, scene_mgr, cam_node, "myLight");
+        cmp_light->setType(Light::DIRECTIONAL);
+        cmp_light->setDirection(SVector3(0, -1, 0));
+        cmp_light->setSpecularColour();
+        cmp_light->setDiffuseColour();
+        sceneActive->addObjects(light_go);
 
         // Camara
-         ecs::GameObject* cam_go = new ecs::GameObject();
-        //ecs::GameObject* cam_go = new ecs::GameObject(m_mngr, SVector3(500, 500, 1000));
-         Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
-         m_camera = ecs::AddComponent<Camera>(cam_go, scene_mgr, light_node, getWindow(), "myCamera");
-         m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
-         m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
-         m_camera->setNearClipDistance(1);
-         m_camera->setFarClipDistance(10000);
-         sceneActive->addObjects(cam_go);
+        ecs::GameObject* cam_go = new ecs::GameObject();
+        // ecs::GameObject* cam_go = new ecs::GameObject(m_mngr, SVector3(500, 500, 1000));
+        Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
+        m_camera = ecs::AddComponent<Camera>(cam_go, scene_mgr, light_node, getWindow(), "myCamera");
+        m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
+        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
+        m_camera->setNearClipDistance(1);
+        m_camera->setFarClipDistance(10000);
+        sceneActive->addObjects(cam_go);
 
         /* myWindow->getSceneManager()->createScene("NUEVA1", true);
          myWindow->addRTShaderSystem(myWindow->getSceneManager()->getSceneActive()->getSceneManger());*/
@@ -77,6 +78,17 @@ void RenderSystem::initSystem()
 
 void RenderSystem::update(float t_delta_time)
 {
+    for (auto game_object : m_mngr->getEntities(m_group))
+    {
+        auto rb = m_mngr->getComponent<RigidBody>(game_object);
+        if (rb && !rb->isKinematic())
+        {
+            // TODO actualizar posicion del Transform con rb->getPosition()
+        }
+    }
+
+    // TODO actualizar Transform con input/scripts
+
     m_root->renderOneFrame();
     m_window->update();
     // manipulateCamera();

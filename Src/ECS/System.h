@@ -24,6 +24,7 @@ namespace ecs
 
       protected:
         Manager* m_mngr;
+        groupId_type m_group;
     };
 }
 

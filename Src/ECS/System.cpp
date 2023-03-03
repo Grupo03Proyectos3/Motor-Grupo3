@@ -2,6 +2,7 @@
 
 ecs::System::System()
     : m_mngr(nullptr)
+    , m_group(GROUP_EXAMPLE)
 {
 }
 

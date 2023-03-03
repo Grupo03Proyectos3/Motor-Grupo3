@@ -149,7 +149,7 @@ int main(int argc, char* argv[])
         // Tiempo transcurrido desde el inicio del programa en milisegundos
         time = playerTimer->getElapsedTime();
         // leer entrada
-        render_sys->getWindow()->update(); // Cambiar por el update del render_sys
+       
 
         // actualizar con delta_time
         /*now = std::chrono::high_resolution_clock::now();
@@ -158,8 +158,7 @@ int main(int argc, char* argv[])
         std::cout << delta_time.count() << std::endl;
         previous_time = actual_time;*/
 
-        render_sys->getOgreRoot()->renderOneFrame(); // Cambiar por el update del render_sys
-                                                     // render_sys->update(2.0);
+        render_sys->update(dt);
         /*
             input_system->update();
             render_system->update();

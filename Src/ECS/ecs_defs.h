@@ -16,7 +16,9 @@
 // Lista de grupos
 //
 #define GROUPS_LIST \
-    GROUP_EXAMPLE
+    GROUP_EXAMPLE, \
+    GROUP_RENDER, \
+    GROUP_PHYSICS
 
 // Lista de Handlers
 //

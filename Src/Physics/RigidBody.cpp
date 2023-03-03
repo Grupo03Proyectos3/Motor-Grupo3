@@ -25,8 +25,9 @@ RigidBody::~RigidBody()
 
 void RigidBody::initComponent()
 {
-    // Translate our location and rotation to bullet's language
+    // TODO Se deben pasar a la constructora los valores del Transform
     m_bullet_transform = new btTransform();
+
 }
 
 void RigidBody::setMass(const float& t_mass)
@@ -44,22 +45,39 @@ void RigidBody::setStatic(bool t_static)
     m_static = t_static;
 }
 
-// void RigidBody::setLinearVelocity(const SVector3& t_velocity)
-//{
-//     //m_rigid_body->setLinearVelocity(btVector3(t_velocity)); // conversor de SVector3 a btVector3
-// }
-//
-// void RigidBody::setAngularVelocity(const SVector3& t_velocity)
-//{
-//    // m_rigid_body->setAngularVelocity(t_velocity); // conversor de SVector3 a btVector3
-// }
-//
-// SVector3 RigidBody::getLinearVelocity() const
-//{
-//     //return m_rigid_body->getLinearVelocity(); // conversor de btVector3 a SVector3
-// }
-//
-// SVector3 RigidBody::getAngularVelocity() const
-//{
-//     //return m_rigid_body->getAngularVelocity(); // conversor de btVector3 a SVector3
-// }
+void RigidBody::setKinematic(bool t_kinematic)
+{
+    m_kinematic = t_kinematic;
+}
+
+void RigidBody::setPosition(SVector3 t_pos)
+{
+    btTransform transform = m_rigid_body->getWorldTransform();
+    transform.setOrigin(btVector3(t_pos));
+    m_rigid_body->setWorldTransform(transform);
+}
+
+void RigidBody::setLinearVelocity(const SVector3& t_velocity)
+{
+    m_rigid_body->setLinearVelocity(btVector3(t_velocity));
+}
+
+void RigidBody::setAngularVelocity(const SVector3& t_velocity)
+{
+    m_rigid_body->setAngularVelocity(t_velocity);
+}
+
+SVector3 RigidBody::getPosition() const
+{
+    return SVector3::bulletToSVector3(m_rigid_body->getWorldTransform().getOrigin());
+}
+
+SVector3 RigidBody::getLinearVelocity() const
+{
+    return SVector3::bulletToSVector3(m_rigid_body->getLinearVelocity());
+}
+
+SVector3 RigidBody::getAngularVelocity() const
+{
+    return SVector3::bulletToSVector3(m_rigid_body->getAngularVelocity());
+}

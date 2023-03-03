@@ -1,7 +1,7 @@
 #include "SVector3.h"
 #include <math.h>
 #include <iostream>
-#include <btBulletCollisionCommon.h>
+#include <LinearMath/btVector3.h>
 //#include <OgreVector3.h>
 
 
@@ -182,9 +182,14 @@ SVector3::operator btVector3() const
 //    return v;
 //}
 
-SVector3 SVector3::ogreToSVector3(const Ogre::Vector3& ogreVector)
+SVector3 SVector3::ogreToSVector3(const Ogre::Vector3& t_ogre_vector)
 {
-    return SVector3(-ogreVector.x, -ogreVector.y, ogreVector.z);
+    return SVector3(-t_ogre_vector.x, -t_ogre_vector.y, t_ogre_vector.z);
+}
+
+SVector3 SVector3::bulletToSVector3(const btVector3& t_bullet_vector)
+{
+    return SVector3(-t_bullet_vector.x(), -t_bullet_vector.y(), t_bullet_vector.z());
 }
 
 //SVector3 SVector3::fmodToSVector3(const FMOD_VECTOR& fModVector)

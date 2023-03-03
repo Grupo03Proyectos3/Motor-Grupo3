@@ -13,6 +13,8 @@ class btGhostObject;
 class btCollisionShape;
 class btCollisionObject;
 
+class SVector3;
+
 struct RigidBody : public ecs::Component
 {
   public:
@@ -27,15 +29,18 @@ struct RigidBody : public ecs::Component
     void setMass(const float& t_mass);
     void setTrigger(bool t_trigger);
     void setStatic(bool t_static);
-    // NOTE : We may need to add these methods with btVector3
-    // void setLinearVelocity(const SVector3& t_velocity);
-    // void setAngularVelocity(const SVector3& t_velocity);
+    void setKinematic(bool t_kinematic);
+    void setPosition(SVector3 t_pos);
+    void setLinearVelocity(const SVector3& t_velocity);
+    void setAngularVelocity(const SVector3& t_velocity);
 
     inline float getMass() const { return m_mass; };
     inline bool isTrigger() const { return m_trigger; };
     inline bool isStatic() const { return m_static; };
-    // SVector3 getLinearVelocity() const;
-    // SVector3 getAngularVelocity() const;
+    inline bool isKinematic() const { return m_kinematic; };
+    SVector3 getPosition() const;
+    SVector3 getLinearVelocity() const;
+    SVector3 getAngularVelocity() const;
 
   private:
     btRigidBody* m_rigid_body = nullptr;       // rigidbody de Bullet
@@ -46,6 +51,8 @@ struct RigidBody : public ecs::Component
     bool m_static = false;
 
     // la velocidad va en el btRigidBody
+
+    bool m_kinematic = true;
 };
 
 #endif

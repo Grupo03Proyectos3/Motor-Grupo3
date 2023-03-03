@@ -62,8 +62,10 @@ class SVector3
     operator Ogre::Vector3() const;
     operator btVector3() const;
     // operator FMOD_VECTOR() const;
-    static SVector3 ogreToSVector3(const Ogre::Vector3& ogreVector);
+    static SVector3 ogreToSVector3(const Ogre::Vector3& t_ogreVector);
+    static SVector3 bulletToSVector3(const btVector3& t_bulletVector);
     // static SVector3 fmodToSVector3(const FMOD_VECTOR& fModVector);
+
 
   private:
     double m_x;
