@@ -1,6 +1,7 @@
 #include <crtdbg.h>
 
 #include "ECS/InputHandler.h"
+#include "FlamingoUtils/Timer.h"
 #include "IMGUI/imgui.h"
 #include "Physics/PhysicsSystem.h"
 #include "Render/RenderSystem.h"
@@ -11,7 +12,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "FlamingoUtils/Timer.h"
 
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
@@ -106,8 +106,6 @@ int main(int argc, char* argv[])
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
 
-    ecs::Manager* manager = new ecs::Manager();
-
     loadDirectories();
 
     // Game-loop
@@ -135,8 +133,10 @@ int main(int argc, char* argv[])
     */
 
     Ogre::String s = "Motor";
-    RenderSystem* render_sys = manager->addSystem<RenderSystem>(s);
-    PhysicsSystem* physics_system = manager->addSystem<PhysicsSystem>();
+    ecs::Manager* m_mngr = ecs::Manager::instance();
+    m_mngr->init();
+    RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
+    PhysicsSystem* physics_system = m_mngr->addSystem<PhysicsSystem>();
     //  auto& ihldr = ih();
 
     Flamingo::Timer* playerTimer = new Flamingo::Timer();
@@ -144,9 +144,9 @@ int main(int argc, char* argv[])
     auto dt = playerTimer->getElapsedTime() - time;
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
-        //Delta time en milisegundos
+        // Delta time en milisegundos
         dt = playerTimer->getElapsedTime() - time;
-        //Tiempo transcurrido desde el inicio del programa en milisegundos
+        // Tiempo transcurrido desde el inicio del programa en milisegundos
         time = playerTimer->getElapsedTime();
         // leer entrada
         render_sys->getWindow()->update(); // Cambiar por el update del render_sys
@@ -176,12 +176,12 @@ int main(int argc, char* argv[])
                 std::cout << "prueba";
         }*/
 
-        manager->refresh();
-        manager->flushMessages();
+        m_mngr->refresh();
+        m_mngr->flushMessages();
     }
     render_sys->getWindow()->closeWindow();
 
-    delete manager; // Elimina todos los systems
+    // delete manager; // Elimina todos los systems
 
     ImGui::DestroyContext();
 

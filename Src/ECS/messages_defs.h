@@ -22,7 +22,7 @@ struct Message
     {
         struct
         {
-            ecs::Entity* e;
+            ecs::GameObject* e;
         } example_msg;
     };
 };

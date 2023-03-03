@@ -1,7 +1,8 @@
 #include "RenderSystem.h"
 
+#include "ECS/Components.h"
+#include "ECS/GameObject.h"
 #include "ECS/InputHandler.h"
-#include "FlamingoBase/GameObject.h"
 #include "FlamingoBase/SceneManager.h"
 #include "Light.h"
 
@@ -38,39 +39,44 @@ void RenderSystem::initSystem()
 
         Ogre::Entity* entity = scene_mgr->createEntity("myEntity", "cube.mesh");
         Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
-        GameObject* go = new GameObject(m_mngr);
-        auto cmp = go->addComponent<MeshRenderer>(node, entity, "Prueba/espana");
-        // Falta probarlo:
-        //m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
-        sceneActive->addObjects(go);
-        m_controller = go->addComponent<PlayerController>(20.0f);
-        
+        ecs::GameObject* go = m_mngr->addGameObject();
+        auto cmp = ecs::AddComponent<MeshRenderer>(go, node, entity, "Prueba/espana");
+
+
+        //// Falta probarlo:
+        ////m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
+         sceneActive->addObjects(go);
+         m_controller = ecs::AddComponent<PlayerController>(go, 20.0f);
+        //
         // Luz
-        GameObject* light_go = new GameObject(m_mngr);
-        Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
-        Light* cmp_light = light_go->addComponent<Light>(scene_mgr, cam_node, "myLight");
-        cmp_light->setType(Light::DIRECTIONAL);
-        cmp_light->setDirection(SVector3(0, -1, 0));
-        cmp_light->setSpecularColour();
-        cmp_light->setDiffuseColour();
-        sceneActive->addObjects(light_go);
+        //ecs::GameObject* light_go = new ecs::GameObject(m_mngr);
+         ecs::GameObject* light_go = new ecs::GameObject();
+         Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
+         Light* cmp_light = ecs::AddComponent<Light>(light_go, scene_mgr, cam_node, "myLight");
+         cmp_light->setType(Light::DIRECTIONAL);
+         cmp_light->setDirection(SVector3(0, -1, 0));
+         cmp_light->setSpecularColour();
+         cmp_light->setDiffuseColour();
+         sceneActive->addObjects(light_go);
 
         // Camara
-        GameObject* cam_go = new GameObject(m_mngr, SVector3(500, 500, 1000));
-        Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
-        m_camera = cam_go->addComponent<Camera>(scene_mgr, light_node, getWindow(), "myCamera");
-        m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
-        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
-        m_camera->setNearClipDistance(1);
-        m_camera->setFarClipDistance(10000);
-        sceneActive->addObjects(cam_go);
+         ecs::GameObject* cam_go = new ecs::GameObject();
+        //ecs::GameObject* cam_go = new ecs::GameObject(m_mngr, SVector3(500, 500, 1000));
+         Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
+         m_camera = ecs::AddComponent<Camera>(cam_go, scene_mgr, light_node, getWindow(), "myCamera");
+         m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
+         m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
+         m_camera->setNearClipDistance(1);
+         m_camera->setFarClipDistance(10000);
+         sceneActive->addObjects(cam_go);
 
         /* myWindow->getSceneManager()->createScene("NUEVA1", true);
-        myWindow->addRTShaderSystem(myWindow->getSceneManager()->getSceneActive()->getSceneManger());*/
+         myWindow->addRTShaderSystem(myWindow->getSceneManager()->getSceneActive()->getSceneManger());*/
     }
 }
 
-void RenderSystem::update(float t_delta_time){
+void RenderSystem::update(float t_delta_time)
+{
     m_root->renderOneFrame();
     m_window->update();
     // manipulateCamera();
@@ -196,7 +202,6 @@ bool RenderSystem::config()
 void RenderSystem::manipulateCamera()
 {
     m_controller->handleInput();
-
 
     /*auto& ihldr = ih();
     ihldr.refresh();

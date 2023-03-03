@@ -6,7 +6,7 @@ namespace OgreScene{
 
     Scene::Scene(){
         mSceneManager = nullptr;
-        mSceneGameObjects = std::unordered_map<Ogre::String, GameObject*>();
+        mSceneGameObjects = std::unordered_map<Ogre::String, ecs::GameObject*>();
         mDebug = false;
     }
 
@@ -23,12 +23,12 @@ namespace OgreScene{
         mRootNode = mSceneManager->getRootSceneNode();
     }
     
-    void Scene::addObjects(GameObject* t_GameObject){
+    void Scene::addObjects(ecs::GameObject* t_GameObject){
         // DEJARLO ASI O K SUDE Y SE CAMBIE POR SI ENTRA OTRO CON EL MISMO NOMBRE
-        if (mSceneGameObjects.find(t_GameObject->getName()) != mSceneGameObjects.end()){ 
+       /* if (mSceneGameObjects.find(t_GameObject->getName()) != mSceneGameObjects.end()){ 
             mSceneGameObjects.insert({t_GameObject->getName(), t_GameObject});
             if(mDebug)std::cout << "OBJECT NAME: " << t_GameObject->getName() << " ADDED\n";
-        }
+        }*/
     }
 
     void Scene::delObject(std::string t_nameObject){

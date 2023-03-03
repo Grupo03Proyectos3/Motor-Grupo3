@@ -13,7 +13,7 @@ namespace ecs
 {
 
     struct Component;
-    class Entity;
+    class GameObject;
     class Manager;
     class System;
 

@@ -2,7 +2,7 @@
 #ifndef __RIGID_BODY_H__
 #define __RIGID_BODY_H__
 
-#include "ECS/Entity.h"
+#include "ECS/GameObject.h"
 #include "ECS/Manager.h"
 
 class btVector3;

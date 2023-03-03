@@ -1,7 +1,7 @@
 #include "SQuaternion.h"
-#include <math.h>
-#include <iostream>
 #include <btBulletCollisionCommon.h>
+#include <iostream>
+#include <math.h>
 SQuaternion::SQuaternion()
     : m_x(0)
     , m_y(0)
@@ -46,11 +46,20 @@ double SQuaternion::getW()
     return m_w;
 }
 
+void SQuaternion::operator*=(const SQuaternion& other)
+{
+    btQuaternion v = btQuaternion(m_x, m_y, m_z, m_w) * btQuaternion(other.m_x, other.m_y, other.m_z, other.m_w);
+    m_x = v.getX();
+    m_y = v.getY();
+    m_z = v.getZ();
+    m_w = v.getW();
+}
+
 std::ostream& operator<<(std::ostream& out, const SQuaternion& q)
 {
-    out << q.m_x << " " 
-        << q.m_y << " " 
-        << q.m_z << " " 
+    out << q.m_x << " "
+        << q.m_y << " "
+        << q.m_z << " "
         << q.m_w << std::endl;
     return out;
 }
@@ -78,5 +87,3 @@ SQuaternion SQuaternion::ogreToSQuaternion(const Ogre::Quaternion& ogreQuaternio
 {
     return SQuaternion(ogreQuaternion.x, ogreQuaternion.y, ogreQuaternion.z, ogreQuaternion.w);
 }
-
-

@@ -1,6 +1,6 @@
 #include "MeshRenderer.h"
-#include <ECS/Manager.h>
 #include "FlamingoBase/Transform.h"
+#include <ECS/Manager.h>
 
 MeshRenderer::MeshRenderer(Ogre::SceneNode* t_root, Ogre::Entity* t_entity, Ogre::String t_materialName)
 {
@@ -14,14 +14,20 @@ MeshRenderer::MeshRenderer(Ogre::SceneNode* t_root, Ogre::Entity* t_entity, Ogre
 }
 void MeshRenderer::initComponent()
 {
-    setPosition(m_mngr->getComponent<Transform>(m_ent)->getPosition());
+    // pasar a transform cuando este
+
+    /*  setPosition(m_mngr->getComponent<Transform>(m_ent)->getPosition());
     setRotation(m_mngr->getComponent<Transform>(m_ent)->getRotation());
-    setScale(m_mngr->getComponent<Transform>(m_ent)->getScale());
+    setScale(m_mngr->getComponent<Transform>(m_ent)->getScale());*/
+
+    setPosition(SVector3(0, 0, 0));
+    setRotation(SQuaternion(0, 0, 0, 1));
+    setScale(SVector3(1, 1, 1));
 }
 
 void MeshRenderer::setPosition(SVector3 t_pos)
 {
-    m_node->setPosition(t_pos);    
+    m_node->setPosition(t_pos);
 }
 
 void MeshRenderer::setRotation(SQuaternion t_pos)

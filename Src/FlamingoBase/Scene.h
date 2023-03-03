@@ -3,7 +3,7 @@
 #pragma once
 #include <OgreSceneManager.h>
 #include <unordered_map>
-#include "FlamingoBase/GameObject.h"
+#include "Ecs/GameObject.h"
 
 namespace OgreScene{
     class Scene{
@@ -11,7 +11,7 @@ namespace OgreScene{
         Scene();
         ~Scene();
         void initScene(Ogre::SceneManager* t_SceneManager);
-        void addObjects(GameObject* t_GameObject);
+        void addObjects(ecs::GameObject* t_GameObject);
         void delObject(std::string t_nameObject);
         void setDebug(bool t_active);
 
@@ -25,7 +25,7 @@ namespace OgreScene{
       private:
         Ogre::SceneNode* mRootNode;
         Ogre::SceneManager* mSceneManager;
-        std::unordered_map<std::string, GameObject*> mSceneGameObjects;
+        std::unordered_map<std::string, ecs::GameObject*> mSceneGameObjects;
         bool mDebug;
     };
 } // namespace OgreScene

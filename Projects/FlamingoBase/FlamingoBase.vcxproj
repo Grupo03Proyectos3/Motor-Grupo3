@@ -166,13 +166,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\FlamingoBase\GameObject.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Scene.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\SceneManager.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\FlamingoBase\GameObject.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\Scene.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\SceneManager.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\Transform.h" />

@@ -164,7 +164,7 @@ double SVector3::angle(const SVector3& a, const SVector3& b)
 
 SVector3::operator Ogre::Vector3() const
 {
-    return Ogre::Vector3(m_x, m_y, m_z);
+    return Ogre::Vector3(-m_x, -m_y, m_z);
 }
 
 SVector3::operator btVector3() const
@@ -184,7 +184,7 @@ SVector3::operator btVector3() const
 
 SVector3 SVector3::ogreToSVector3(const Ogre::Vector3& ogreVector)
 {
-    return SVector3(ogreVector.x, ogreVector.y, ogreVector.z);
+    return SVector3(-ogreVector.x, -ogreVector.y, ogreVector.z);
 }
 
 //SVector3 SVector3::fmodToSVector3(const FMOD_VECTOR& fModVector)

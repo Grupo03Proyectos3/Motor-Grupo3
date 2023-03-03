@@ -8,7 +8,8 @@
 #include <vector>
 
 #include "Component.h"
-#include "Entity.h"
+#include "GameObject.h"
+#include "SingletonECS.h"
 #include "System.h"
 #include "ecs.h"
 #include "messages_defs.h"
@@ -29,24 +30,71 @@ namespace ecs
      * they just have a reference to it.
      *
      *  */
-    class Manager
+    class Manager : public SingletonECS<Manager>
     {
+        // Acceso a los construtores privados
+        friend SingletonECS<Manager>;
+
       public:
-        Manager();
-        virtual ~Manager();
+        Manager()
+        {
+        }
+
+        virtual ~Manager()
+        {
+            for (auto& ents : m_ents_by_group)
+            {
+                for (auto e : ents)
+                    delete e;
+            }
+
+            for (auto i = 0u; i < maxSystemId; i++)
+                if (m_systems[i] != nullptr)
+                    delete m_systems[i];
+        }
+
+        void init()
+        {
+            m_handlers = std::array<GameObject*, maxHandlerId>();
+            m_ents_by_group = std::array<std::vector<GameObject*>, maxGroupId>();
+            m_systems = std::array<System*, maxSystemId>();
+
+            m_msgs = std::vector<Message>();
+            m_msgs_aux = std::vector<Message>();
+        }
+
+        Manager(Manager&) = delete;
+        Manager(Manager&&) = delete;
+        Manager& operator=(Manager&) = delete;
+        Manager& operator=(Manager&&) = delete;
 
         // Adding an entity simply creates an instance of Entity, adds
         // it to the list of the given group and returns it to the caller.
         //
-        Entity* addEntity(groupId gId = _grp_GENERAL);
+        inline GameObject* addGameObject(groupId t_gId = _grp_GENERAL)
+        {
+            // create and initialise the entity
+            auto e = new GameObject(t_gId);
+            e->m_alive = true;
+
+            m_ents_by_group[t_gId].push_back(e);
+
+            return e;
+        }
 
         // Setting the state of entity 't_e' (alive or dead)
         //
-        void setAlive(Entity* t_e, bool t_alive);
+        inline void setAlive(GameObject* t_e, bool t_alive)
+        {
+            t_e->m_alive = t_alive;
+        }
 
         // Returns the state of the entity 't_e' (alive o dead)
         //
-        bool isAlive(Entity* t_e);
+        inline bool isAlive(GameObject* t_e)
+        {
+            return t_e->m_alive;
+        }
 
         // Adds a component to the entity 't_e'. It receives the type
         // T (to be created), and the list of arguments (if any) to
@@ -54,7 +102,7 @@ namespace ecs
         // 'cId' is taken from T::id.
         //
         template <typename T, typename... Ts>
-        inline T* addComponent(Entity* t_e, Ts&&... t_args)
+        inline T* addComponent(GameObject* t_e, Ts&&... t_args)
         {
             constexpr compId_type cId = T::id;
             assert(cId < maxComponentId);
@@ -78,7 +126,7 @@ namespace ecs
         // Removes the component of Entity 't_e' at position T::id.
         //
         template <typename T>
-        inline void removeComponent(Entity* t_e)
+        inline void removeComponent(GameObject* t_e)
         {
             constexpr compId_type cId = T::id;
             assert(cId < maxComponentId);
@@ -110,7 +158,7 @@ namespace ecs
         // outside.
         //
         template <typename T>
-        inline T* getComponent(Entity* t_e)
+        inline T* getComponent(GameObject* t_e)
         {
             constexpr compId_type cId = T::id;
             assert(cId < maxComponentId);
@@ -122,7 +170,7 @@ namespace ecs
         // in the entity 't_e'
         //
         template <typename T>
-        inline bool hasComponent(Entity* t_e)
+        inline bool hasComponent(GameObject* t_e)
         {
             constexpr compId_type cId = T::id;
             assert(cId < maxComponentId);
@@ -132,19 +180,33 @@ namespace ecs
 
         // returns the group 't_gId' of entity 't_e'
         //
-        groupId_type groupId(Entity* t_e);
+        inline groupId_type groupId(GameObject* t_e)
+        {
+            return t_e->m_gId;
+        }
 
         // returns the vector of all entities of a given group
         //
-        const auto& getEntities(groupId_type t_gId = _grp_GENERAL);
+        inline const auto& getEntities(groupId_type t_gId = _grp_GENERAL)
+        {
+            return m_ents_by_group[t_gId];
+        }
 
         // associates the entity 't_e' to the handler 't_hId'
         //
-        void setHandler(handlerId_type t_hId, Entity* t_e);
+        void setHandler(handlerId_type t_hId, GameObject* t_e)
+        {
+            assert(t_hId < maxHandlerId);
+            m_handlers[t_hId] = t_e;
+        }
 
         // returns the entity associated to the handler 't_hId'
         //
-        Entity* getHandler(handlerId_type t_hId);
+        GameObject* getHandler(handlerId_type t_hId)
+        {
+            assert(t_hId < maxHandlerId);
+            return m_handlers[t_hId];
+        }
 
         // Adds a System to the manager. It receives the type
         // T of the system (to be created), and the list of
@@ -169,8 +231,6 @@ namespace ecs
             // return it to the user so it can be initialised if needed
             return static_cast<T*>(s);
         }
-
-        PhysicsSystem* addSystem();
 
         // Removes the system at position T::id.
         //
@@ -205,30 +265,82 @@ namespace ecs
             return static_cast<T*>(m_systems[sId]);
         }
 
-        void send(const Message& t_m, bool t_delay = false);
+        void send(const Message& t_m, bool t_delay = false)
+        {
+            if (!t_delay)
+            {
+                for (System* s : m_systems)
+                {
+                    if (s != nullptr)
+                        s->recieve(t_m);
+                }
+            }
+            else
+            {
+                m_msgs.emplace_back(t_m);
+            }
+        }
         // this method should be called in the main loop to send queued
         // messages, i.e., those were sent using send(m,true)
         //
-        void flushMessages();
+        inline void flushMessages()
+        {
+            // we traverse until msgs_.size(), so if new message
+            // we added we don't send them now. If you wish to send
+            // them as will you should write this loop in a different way
+            // and maybe using std::list would be better.
+            //
+            auto size = m_msgs.size();
+            for (auto i = 0u; i < size; i++)
+            {
+                auto& m = m_msgs[i];
+                for (System* s : m_systems)
+                {
+                    if (s != nullptr)
+                        s->recieve(m);
+                }
+            }
+
+            // delete all message that we have sent. This might be expensive
+            // since it has to shift all remaining elements to the left. A better
+            // solution would be to keep two vectors 'v1' and 'v2', when sending a
+            // message we always add it to 'v1' and in flush we swap them and send
+            // all messages in v2. After flush we simply clear v2
+            //
+            m_msgs.erase(m_msgs.begin(), m_msgs.begin() + size);
+        }
 
         // THIS IS THE VERSION THAT SWAP QUEUES, IF YOU WANT TO USE IT
         //
         // this method should be called in the main loop to send queued
         // messages, i.e., those were sent using send(m,true)
         //
-        void flushMessagesWithSwap();
-        void refresh();
+        inline void flushMessagesWithSwap()
+        {
+            std::swap(m_msgs, m_msgs_aux);
+            for (auto& m : m_msgs_aux)
+            {
+                for (System* s : m_systems)
+                {
+                    if (s != nullptr)
+                        s->recieve(m);
+                }
+            }
 
+            m_msgs_aux.clear();
+        }
+        inline void refresh()
+        {
+        }
 
       private:
-        std::array<Entity*, maxHandlerId> m_handlers;
-        std::array<std::vector<Entity*>, maxGroupId> m_ents_by_group;
+        std::array<GameObject*, maxHandlerId> m_handlers;
+        std::array<std::vector<GameObject*>, maxGroupId> m_ents_by_group;
         std::array<System*, maxSystemId> m_systems;
 
         std::vector<Message> m_msgs;
         std::vector<Message> m_msgs_aux;
     };
-
 
 } // namespace ecs
 #endif

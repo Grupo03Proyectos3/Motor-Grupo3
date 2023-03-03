@@ -3,7 +3,7 @@
 #define __PLAYER_CONTROLLER_H__
 
 #include "ECS/Component.h"
-#include "ECS/Entity.h"
+#include "ECS/GameObject.h"
 #include "ECS/Manager.h"
 #include "ECS/InputHandler.h"
 #include "Render/Camera.h"
@@ -28,7 +28,7 @@ struct PlayerController : public ecs::Component
   private:
     bool m_active;
     //Transform* m_playerTransform;
-    ecs::Entity* m_go;
+    ecs::GameObject* m_go;
     /*
      * Input del jugador
      */
