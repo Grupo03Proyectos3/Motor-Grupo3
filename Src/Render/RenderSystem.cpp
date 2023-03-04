@@ -41,13 +41,9 @@ void RenderSystem::initSystem()
         // Cubo
         Ogre::Entity* entity = scene_mgr->createEntity("myEntity", "cube.mesh");
         Ogre::SceneNode* cube_node = root_scene_node->createChildSceneNode();
-        ecs::GameObject* cube_go = /*m_mngr->addGameObject();*/ new ecs::GameObject();
+        ecs::GameObject* cube_go = m_mngr->addGameObject();
         auto cmp = ecs::AddComponent<MeshRenderer>(cube_go, cube_node, entity, "Prueba/MichaelScott");
-        Transform* cmp_tr = ecs::AddComponent<Transform>(cube_go, cube_node);
-        //cmp_tr->setPosition(SVector3(0, 100, 0));
-        //cmp_tr->setNode(cube_node);
-        //Transform* cmp_tr = ecs::AddComponent<Transform>(cube_go, cube_node, SVector3(0,0,0), SQuaternion(0,0,0,0), SVector3(1,1,1));
-        //auto cube_tr = ecs::AddComponent<Transform>(cube_go, cube_node);
+        Transform* cmp_tr = ecs::AddComponent<Transform>(cube_go, cube_node, SVector3(0, 200, 0));
 
         //// Falta probarlo:
         ////m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);

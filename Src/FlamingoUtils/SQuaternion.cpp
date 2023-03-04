@@ -114,7 +114,7 @@ std::istream& operator>>(std::istream& in, SQuaternion& q)
 
 SQuaternion::operator Ogre::Quaternion() const
 {
-    return Ogre::Quaternion(m_x, m_y, m_z, m_w);
+    return Ogre::Quaternion(m_w, m_x, m_y, m_z);
 }
 
 SQuaternion::operator btQuaternion() const

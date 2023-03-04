@@ -12,8 +12,11 @@ void Transform::setNode(Ogre::SceneNode* t_node) {
     m_transform = t_node;
 }
 
-void Transform::initComponent(){
-    //LAS INICIALIZACIONES AQUI DAN ERROR
+void Transform::initComponent()
+{
+    setPosition(m_position);
+    setRotation(m_rotation);
+    setScale(m_scale);
 }
 
 SVector3 Transform::getPosition(){
