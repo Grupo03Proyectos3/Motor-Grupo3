@@ -12,6 +12,7 @@ struct Transform : public ecs::Component {
   public:
     __SYSTEM_ID_DECL__(ecs::_cpm_TRANSFORM)
 
+    Transform(){};
     Transform(Ogre::SceneNode* t_node, SVector3 t_position = SVector3(0.0, 0.0, 0.0), SQuaternion t_rotation = SQuaternion(0.0, 0.0, 0.0, 0.0), SVector3 t_scale = SVector3(1.0, 1.0, 1.0));
     virtual ~Transform(){};
     virtual void initComponent();
@@ -24,12 +25,14 @@ struct Transform : public ecs::Component {
     void setRotation(SQuaternion t_rotation);
     void setScale(SVector3 t_scale);
 
-    Ogre::SceneNode* getTransform();
+    void setNode(Ogre::SceneNode* t_node);
+    Ogre::SceneNode* getNode();
 
-  protected:
+  private:
     SVector3 m_position;
     SQuaternion m_rotation;
     SVector3 m_scale;
+
     Ogre::SceneNode* m_transform;
 };
 #endif

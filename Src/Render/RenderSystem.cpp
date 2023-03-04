@@ -4,16 +4,15 @@
 #include "ECS/GameObject.h"
 #include "ECS/InputHandler.h"
 #include "FlamingoBase/SceneManager.h"
-#include "Light.h"
-
-#include "MeshRenderer.h"
 #include "FlamingoBase/Transform.h"
+#include "Light.h"
+#include "MeshRenderer.h"
+
 #include <OgreConfigFile.h>
 #include <OgreEntity.h>
 #include <OgreFileSystemLayer.h>
 #include <OgreGpuProgramManager.h>
 #include <OgreRoot.h>
-#include <OgreLight.h>
 #include <Physics/RigidBody.h>
 
 RenderSystem::RenderSystem(Ogre::String& t_app_name)
@@ -42,15 +41,18 @@ void RenderSystem::initSystem()
         // Cubo
         Ogre::Entity* entity = scene_mgr->createEntity("myEntity", "cube.mesh");
         Ogre::SceneNode* cube_node = root_scene_node->createChildSceneNode();
-        ecs::GameObject* cube_go = m_mngr->addGameObject();
-        auto cmp = ecs::AddComponent<MeshRenderer>(cube_go, entity, "Prueba/MichaelScott");
-        cube_node->attachObject(entity);
+        ecs::GameObject* cube_go = /*m_mngr->addGameObject();*/ new ecs::GameObject();
+        auto cmp = ecs::AddComponent<MeshRenderer>(cube_go, cube_node, entity, "Prueba/MichaelScott");
+        Transform* cmp_tr = ecs::AddComponent<Transform>(cube_go, cube_node);
+        //cmp_tr->setPosition(SVector3(0, 100, 0));
+        //cmp_tr->setNode(cube_node);
+        //Transform* cmp_tr = ecs::AddComponent<Transform>(cube_go, cube_node, SVector3(0,0,0), SQuaternion(0,0,0,0), SVector3(1,1,1));
         //auto cube_tr = ecs::AddComponent<Transform>(cube_go, cube_node);
 
         //// Falta probarlo:
         ////m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
         sceneActive->addObjects(cube_go);
-        //m_controller = ecs::AddComponent<PlayerController>(cube_go, 20.0f);
+        m_controller = ecs::AddComponent<PlayerController>(cube_go, 20.0f);
         //
         // Luz
         ecs::GameObject* light_go = new ecs::GameObject();
@@ -63,7 +65,6 @@ void RenderSystem::initSystem()
 
         // Camara
         ecs::GameObject* cam_go = new ecs::GameObject();
-        //Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
         m_camera = ecs::AddComponent<Camera>(cam_go, scene_mgr, root_scene_node, getWindow(), "myCamera");
         m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
         //m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
@@ -216,7 +217,7 @@ void RenderSystem::manipulateCamera()
 {
     m_controller->handleInput();
 
-    /*auto& ihldr = ih();
+    auto& ihldr = ih();
     ihldr.refresh();
 
     if (ihldr.keyDownEvent())
@@ -234,7 +235,7 @@ void RenderSystem::manipulateCamera()
             m_camera->pitch(1.0f);
         }
 
-    }*/
+    }
 }
 
 RenderSystem::~RenderSystem()

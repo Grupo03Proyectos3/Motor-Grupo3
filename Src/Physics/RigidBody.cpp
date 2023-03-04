@@ -2,7 +2,7 @@
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <LinearMath/btTransform.h>
 
-#include "../FlamingoBase/Transform.h"
+#include "FlamingoBase/Transform.h"
 #include "../FlamingoUtils/SQuaternion.h"
 #include "../FlamingoUtils/SVector3.h"
 

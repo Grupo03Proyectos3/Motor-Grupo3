@@ -7,10 +7,13 @@ Transform::Transform(Ogre::SceneNode* t_node, SVector3 t_position, SQuaternion t
     , m_scale(t_scale)
 {
 }
+
+void Transform::setNode(Ogre::SceneNode* t_node) {
+    m_transform = t_node;
+}
+
 void Transform::initComponent(){
-    m_transform->setPosition(m_position);
-    m_transform->setOrientation(m_rotation);
-    m_transform->setScale(m_scale);
+    //LAS INICIALIZACIONES AQUI DAN ERROR
 }
 
 SVector3 Transform::getPosition(){
@@ -26,20 +29,17 @@ SVector3 Transform::getScale(){
 }
 
 void Transform::setPosition(SVector3 t_pos){
-    m_position = t_pos;
-    m_transform->setPosition(m_position);
+    m_transform->setPosition(t_pos);
 }
 
 void Transform::setRotation(SQuaternion t_rotation) {
-    m_rotation = t_rotation;
-    m_transform->setOrientation(m_rotation);
+    m_transform->setOrientation(t_rotation);
 }
 
 void Transform::setScale(SVector3 t_scale){
-    m_scale = t_scale;
-    m_transform->setScale(m_scale);
+    m_transform->setScale(t_scale);
 }
 
-Ogre::SceneNode* Transform::getTransform() {
+Ogre::SceneNode* Transform::getNode() {
     return m_transform;
 }
