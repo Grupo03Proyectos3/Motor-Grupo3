@@ -149,7 +149,8 @@ int main(int argc, char* argv[])
 
     Flamingo::Timer* playerTimer = new Flamingo::Timer();
     auto time = playerTimer->getElapsedTime();
-    auto dt = playerTimer->getElapsedTime() - time;
+    auto dt = playerTimer->getElapsedTime() - time;   
+
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
         // Delta time en milisegundos

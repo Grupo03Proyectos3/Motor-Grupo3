@@ -8,7 +8,7 @@ InputHandler::~InputHandler()
 
 void InputHandler::clearState()
 {
-    m_is_close_window = false;
+    //no hace falta reseteear el bool de windowclose pq si se cierra se cierra
     m_is_key_down = false;
     m_is_key_up = false;
     m_is_mouse_button = false;

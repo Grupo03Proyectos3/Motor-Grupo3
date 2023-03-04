@@ -69,6 +69,6 @@ Ogre::AxisAlignedBox MeshRenderer::getBoundingBox(bool t_d)
 }
 
 MeshRenderer::~MeshRenderer() {
-    delete m_ent_ogre;
+    //delete m_ent_ogre;
     m_ent_ogre = nullptr;
 }

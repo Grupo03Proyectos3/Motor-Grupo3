@@ -11,7 +11,8 @@
         _cmp_LIGHT, \
         _cpm_TRANSFORM, \
         _cmp_MESH_RENDERER, \
-        _cmp_PLAYER_CONTROLLER
+        _cmp_PLAYER_CONTROLLER, \
+        _cmp_ANIMATOR
 
 // Lista de grupos
 //

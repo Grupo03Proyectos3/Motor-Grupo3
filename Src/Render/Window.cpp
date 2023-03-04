@@ -105,6 +105,7 @@ namespace OgreWindow
             m_window.render->windowMovedOrResized();
         }
         isClosed = InputHandler::instance()->closeWindowEvent();
+        std::cout << isClosed << "\n";
         if (isClosed) m_window.render->windowMovedOrResized();
         
         // just avoid "window not responding"
