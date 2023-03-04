@@ -4,6 +4,7 @@
 #define __SQUATERNION_H__
 
 #include <OgreQuaternion.h>
+#include "SVector3.h"
 
 class btQuaternion;
 /**
@@ -16,10 +17,12 @@ class SQuaternion
   public:
     SQuaternion();
     SQuaternion(double t_x, double t_y, double t_z, double t_w);
+    SQuaternion(double angle, const SVector3& axis);
     ~SQuaternion() = default;
     void setQuaternion(double t_x, double t_y, double t_z, double t_w);
+    void setQuaternion(double angle, SVector3& axis);
 
-    double getX();
+     double getX();
     double getY();
     double getZ();
     double getW();
@@ -32,6 +35,14 @@ class SQuaternion
     operator Ogre::Quaternion() const;
     operator btQuaternion() const;
     static SQuaternion ogreToSQuaternion(const Ogre::Quaternion& ogreQuaternion);
+
+    SQuaternion inverse();
+    double lenght();
+    double dot(const SQuaternion& qother);
+    double angle(const SQuaternion& other);
+
+
+   
 
   private:
     double m_x;
