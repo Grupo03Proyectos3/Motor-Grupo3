@@ -42,6 +42,14 @@ void findDir(std::filesystem::directory_iterator t_dir, std::ofstream& t_output)
             std::filesystem::directory_iterator d(new_Path);
             findDir(d, t_output);
         }
+        else{
+            std::string x = entry.path().string();
+            std::string aux = x.substr(x.size() - 3, 1) + x.substr(x.size() - 2, 1) + x.substr(x.size() - 1, 1);           
+            if (aux == "zip"){
+                x = parsePath(x);
+                t_output << "Zip=" << x << '\n';
+            }
+        }        
     }
 }
 
