@@ -27,3 +27,11 @@ material Prueba/rojo {
 		} 
 	} 
 }
+
+material Prueba/default { 
+	technique {	
+		pass {  
+			diffuse 1.0 1.0 1.0 
+		} 
+	} 
+}

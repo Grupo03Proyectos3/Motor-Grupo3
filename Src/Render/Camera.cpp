@@ -114,3 +114,7 @@ void Camera::desactiveViewport() {
 void Camera::activeViewport() {
     m_vp->setVisibilityMask(1.0);
 }
+
+Ogre::SceneNode* Camera::getCamNode() {
+    return m_cam_node;
+}

@@ -49,6 +49,8 @@ struct Camera : ecs::Component
     void desactiveViewport();
     void activeViewport();
 
+    Ogre::SceneNode* getCamNode();
+
   private:
     Ogre::Camera* m_cam;
     Ogre::Viewport* m_vp;

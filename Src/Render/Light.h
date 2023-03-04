@@ -51,6 +51,8 @@ struct Light : ecs::Component
     void setShadowFarDistance(float t_distance);
     void setShadowNearClipDistance(float t_nearClip);
 
+    Ogre::SceneNode* getLightNode();
+
   private:
     Ogre::Light* m_light = nullptr;
     Ogre::SceneManager* m_sceneMgr = nullptr;

@@ -39,22 +39,25 @@ void RenderSystem::initSystem()
         Ogre::SceneNode* root_scene_node = sceneActive->getSceneRoot();
 
         // Cubo
-        Ogre::Entity* entity = scene_mgr->createEntity("myEntity", "cube.mesh");
         Ogre::SceneNode* cube_node = root_scene_node->createChildSceneNode();
         ecs::GameObject* cube_go = m_mngr->addGameObject();
-        auto cmp = ecs::AddComponent<MeshRenderer>(cube_go, cube_node, entity, "Prueba/MichaelScott");
-        Transform* cmp_tr = ecs::AddComponent<Transform>(cube_go, cube_node, SVector3(0, 200, 0));
+        auto cmp = ecs::AddComponent<MeshRenderer>(cube_go, cube_node, scene_mgr, /*"cube.mesh"*/ "Sinbad.mesh", "myEntity");
+        //cmp->changeMaterial("Prueba/espana");
+        Transform* cmp_tr = ecs::AddComponent<Transform>(cube_go, cube_node);
+        cmp_tr->setScale(SVector3(25, 25, 25));
 
-        //// Falta probarlo:
-        ////m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
+        // Falta probarlo:
+        //m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
         sceneActive->addObjects(cube_go);
         m_controller = ecs::AddComponent<PlayerController>(cube_go, 20.0f);
-        //
+        
         // Luz
         ecs::GameObject* light_go = new ecs::GameObject();
         Light* cmp_light = ecs::AddComponent<Light>(light_go, scene_mgr, root_scene_node, "myLight");
         cmp_light->setType(Light::DIRECTIONAL);
-        cmp_light->setDirection(SVector3(0, 1, 0));
+        SVector3 direction = SVector3(-1, -1, 0);
+        //direction *= -1;
+        cmp_light->setDirection(direction);
         cmp_light->setSpecularColour();
         cmp_light->setDiffuseColour();
         sceneActive->addObjects(light_go);
@@ -230,7 +233,6 @@ void RenderSystem::manipulateCamera()
         {
             m_camera->pitch(1.0f);
         }
-
     }
 }
 

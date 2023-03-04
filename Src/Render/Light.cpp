@@ -12,7 +12,6 @@ Light::Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, std:
 
 void Light::initComponent()
 {
-   
     m_light = m_sceneMgr->createLight(m_name);
     m_light_node = m_scene_node->createChildSceneNode();
     //m_light_node->setPosition(Ogre::Vector3(0, 50, 0));
@@ -105,4 +104,8 @@ void Light::setShadowFarDistance(float t_distance)
 void Light::setShadowNearClipDistance(float t_nearClip)
 {
     m_light->setShadowNearClipDistance(t_nearClip);
+}
+
+Ogre::SceneNode* Light::getLightNode() {
+    return m_light_node;
 }
