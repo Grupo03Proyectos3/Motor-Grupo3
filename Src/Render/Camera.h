@@ -6,11 +6,10 @@
 #include "ECS/GameObject.h"
 #include "ECS/Manager.h"
 #include "Render/Window.h"
-#include "MeshRenderer.h"
 
 #include <string>
 
-struct Camera : public MeshRenderer
+struct Camera : ecs::Component
 {
   public:
     __SYSTEM_ID_DECL__(ecs::_cpm_CAMERA)
@@ -54,8 +53,8 @@ struct Camera : public MeshRenderer
     Ogre::Camera* m_cam;
     Ogre::Viewport* m_vp;
     Ogre::SceneManager* m_scene_mngr;
-    //Ogre::SceneNode* m_scene_node;
-    //Ogre::SceneNode* m_cam_node;
+    Ogre::SceneNode* m_scene_node;
+    Ogre::SceneNode* m_cam_node;
     OgreWindow::Window* m_window;
 
     std::string m_name;

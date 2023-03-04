@@ -5,12 +5,13 @@
 #include "ECS/Component.h"
 #include "ECS/GameObject.h"
 #include "ECS/Manager.h"
+#include "FlamingoUtils/SVector3.h"
 #include "MeshRenderer.h"
 
 #include <OgreLight.h>
 #include <string>
 
-struct Light : public MeshRenderer
+struct Light : ecs::Component
 {
   public:
     __SYSTEM_ID_DECL__(ecs::_cmp_LIGHT)
@@ -28,7 +29,7 @@ struct Light : public MeshRenderer
 
     virtual void initComponent();
 
-    void setDirection(Ogre::Vector3 t_direction);
+    void setDirection(SVector3 t_direction);
     //Tipo de luz
     void setType(lightType t_l);
     //Colores
@@ -53,8 +54,8 @@ struct Light : public MeshRenderer
   private:
     Ogre::Light* m_light = nullptr;
     Ogre::SceneManager* m_sceneMgr = nullptr;
-    //Ogre::SceneNode* m_scene_node = nullptr;
-    //Ogre::SceneNode* m_light_node = nullptr;
+    Ogre::SceneNode* m_scene_node = nullptr;
+    Ogre::SceneNode* m_light_node = nullptr;
 
     std::string m_name;
 };

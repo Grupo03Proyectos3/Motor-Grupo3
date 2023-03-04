@@ -13,17 +13,13 @@ struct MeshRenderer : public ecs::Component
     __SYSTEM_ID_DECL__(ecs::_cmp_MESH_RENDERER)
 
     MeshRenderer(){};
-    MeshRenderer(Ogre::SceneNode* t_root, Ogre::Entity* t_entity, Ogre::String t_materialName = "");
+    MeshRenderer(Ogre::Entity* t_entity, Ogre::String t_materialName = "");
     virtual ~MeshRenderer(){};
     virtual void initComponent();
-    void setPosition(SVector3 t_pos);
-    void setRotation(SQuaternion t_pos);
-    void setScale(SVector3 t_pos);
     void changeMaterial(std::string t_materialName);
 
   protected:
     Ogre::Entity* m_ent_ogre;
-    Ogre::SceneNode* m_node;
     std::string m_materialName;
 };
 #endif

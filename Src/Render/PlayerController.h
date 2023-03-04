@@ -42,7 +42,7 @@ struct PlayerController : public ecs::Component
      * Cámara
      */
     Camera* m_mainCamera;
-    SVector3 m_cameraPosition;
+    //SVector3 m_cameraPosition;
     /*
      * Edministración de estado
      */

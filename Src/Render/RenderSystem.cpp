@@ -7,11 +7,13 @@
 #include "Light.h"
 
 #include "MeshRenderer.h"
+#include "FlamingoBase/Transform.h"
 #include <OgreConfigFile.h>
 #include <OgreEntity.h>
 #include <OgreFileSystemLayer.h>
 #include <OgreGpuProgramManager.h>
 #include <OgreRoot.h>
+#include <OgreLight.h>
 #include <Physics/RigidBody.h>
 
 RenderSystem::RenderSystem(Ogre::String& t_app_name)
@@ -38,34 +40,33 @@ void RenderSystem::initSystem()
         Ogre::SceneNode* root_scene_node = sceneActive->getSceneRoot();
 
         // Cubo
-
         Ogre::Entity* entity = scene_mgr->createEntity("myEntity", "cube.mesh");
-        Ogre::SceneNode* node = root_scene_node->createChildSceneNode();
-        ecs::GameObject* go = m_mngr->addGameObject();
-        auto cmp = ecs::AddComponent<MeshRenderer>(go, node, entity, "Prueba/MichaelScott");
+        Ogre::SceneNode* cube_node = root_scene_node->createChildSceneNode();
+        ecs::GameObject* cube_go = m_mngr->addGameObject();
+        auto cmp = ecs::AddComponent<MeshRenderer>(cube_go, entity, "Prueba/MichaelScott");
+        cube_node->attachObject(entity);
+        //auto cube_tr = ecs::AddComponent<Transform>(cube_go, cube_node);
 
         //// Falta probarlo:
         ////m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
-        sceneActive->addObjects(go);
-        m_controller = ecs::AddComponent<PlayerController>(go, 20.0f);
+        sceneActive->addObjects(cube_go);
+        //m_controller = ecs::AddComponent<PlayerController>(cube_go, 20.0f);
         //
         // Luz
-        // ecs::GameObject* light_go = new ecs::GameObject(m_mngr);
         ecs::GameObject* light_go = new ecs::GameObject();
-        Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
-        Light* cmp_light = ecs::AddComponent<Light>(light_go, scene_mgr, cam_node, "myLight");
+        Light* cmp_light = ecs::AddComponent<Light>(light_go, scene_mgr, root_scene_node, "myLight");
         cmp_light->setType(Light::DIRECTIONAL);
-        cmp_light->setDirection(SVector3(0, -1, 0));
+        cmp_light->setDirection(SVector3(0, 1, 0));
         cmp_light->setSpecularColour();
         cmp_light->setDiffuseColour();
         sceneActive->addObjects(light_go);
 
         // Camara
         ecs::GameObject* cam_go = new ecs::GameObject();
-        // ecs::GameObject* cam_go = new ecs::GameObject(m_mngr, SVector3(500, 500, 1000));
-        Ogre::SceneNode* light_node = root_scene_node->createChildSceneNode();
-        m_camera = ecs::AddComponent<Camera>(cam_go, scene_mgr, light_node, getWindow(), "myCamera");
+        //Ogre::SceneNode* cam_node = root_scene_node->createChildSceneNode();
+        m_camera = ecs::AddComponent<Camera>(cam_go, scene_mgr, root_scene_node, getWindow(), "myCamera");
         m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
+        //m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
         m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
         m_camera->setNearClipDistance(1);
         m_camera->setFarClipDistance(10000);
