@@ -32,7 +32,7 @@ class RenderSystem : public ecs::System
 
     inline OgreWindow::Window* getWindow() { return m_window; }
     inline Ogre::Root* getOgreRoot() { return m_root; }
-    inline OgreScene::SceneManager* getSceneManager() { return m_ogre_scene_mngr; }
+    inline OgreScene::SceneManager* getSceneManager() { return m_ogre_scene_mngr; }    
     // en esta funcion se manipula la cámara
     void manipulateCamera();
 

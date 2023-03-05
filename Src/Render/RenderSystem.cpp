@@ -7,6 +7,7 @@
 #include "FlamingoBase/Transform.h"
 #include "Light.h"
 #include "MeshRenderer.h"
+#include "Animator.h"
 
 #include <OgreConfigFile.h>
 #include <OgreEntity.h>
@@ -32,6 +33,7 @@ void RenderSystem::initSystem()
 
     if (config())
     {
+        m_group = ecs::_grp_GENERAL;
         setUp();
         OgreScene::SceneManager* mySceneManager = getSceneManager();
         OgreScene::Scene* sceneActive = mySceneManager->getSceneActive();
@@ -45,7 +47,8 @@ void RenderSystem::initSystem()
         //cmp->changeMaterial("Prueba/espana");
         Transform* cmp_tr = ecs::AddComponent<Transform>(cube_go, cube_node);
         cmp_tr->setScale(SVector3(25, 25, 25));
-
+        Flamingo::Animator* animator=ecs::AddComponent<Flamingo::Animator>(cube_go, scene_mgr);
+        animator->setAnimation("Dance",true,true);
         // Falta probarlo:
         //m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
         sceneActive->addObjects(cube_go);
@@ -87,6 +90,9 @@ void RenderSystem::update(float t_delta_time)
             m_mngr->getComponent<Transform>(game_object)->setPosition(rb->getPosition());
             m_mngr->getComponent<Transform>(game_object)->setRotation(rb->getRotation());
         }
+        auto animator = m_mngr->getComponent<Flamingo::Animator>(game_object);
+
+        if (animator != nullptr) animator->updateAnimations(t_delta_time);   //ESTO HAY Q HACERLO POR MESNAJES CADA CIERTO TIEMPO     
     }
 
     // TODO actualizar Transform con input/scripts
