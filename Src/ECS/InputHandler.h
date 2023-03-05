@@ -23,6 +23,8 @@ class InputHandler : public SingletonECS<InputHandler>
         RIGHT = 2
     };
 
+    InputHandler();
+
     virtual ~InputHandler();
 
     void clearState();
@@ -62,7 +64,6 @@ class InputHandler : public SingletonECS<InputHandler>
     int getMouseButtonState(MOUSEBUTTON t_b);
 
   private:
-    InputHandler();
 
     void onKeyDown(const SDL_Event&);
 

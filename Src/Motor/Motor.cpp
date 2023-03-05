@@ -12,10 +12,10 @@
 // PHYSICS
 #include "Physics/PhysicsSystem.h"
 #include "Physics/RigidBody.h"
+#include "Physics/PlayerController.h"
 
 // RENDER
 #include "Render/RenderSystem.h"
-#include "Render/PlayerController.h"
 #include "Render/MeshRenderer.h"
 #include "Render/Animator.h"
 

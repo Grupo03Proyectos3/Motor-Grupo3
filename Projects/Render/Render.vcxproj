@@ -23,7 +23,6 @@
     <ClCompile Include="..\..\Src\Render\Camera.cpp" />
     <ClCompile Include="..\..\Src\Render\Light.cpp" />
     <ClCompile Include="..\..\Src\Render\MeshRenderer.cpp" />
-    <ClCompile Include="..\..\Src\Render\PlayerController.cpp" />
     <ClCompile Include="..\..\Src\Render\RenderSystem.cpp" />
     <ClCompile Include="..\..\Src\Render\SGTechniqueResolverListener.cpp" />
     <ClCompile Include="..\..\Src\Render\Window.cpp" />
@@ -34,7 +33,6 @@
     <ClInclude Include="..\..\Src\Render\Camera.h" />
     <ClInclude Include="..\..\Src\Render\Light.h" />
     <ClInclude Include="..\..\Src\Render\MeshRenderer.h" />
-    <ClInclude Include="..\..\Src\Render\PlayerController.h" />
     <ClInclude Include="..\..\Src\Render\RenderSystem.h" />
     <ClInclude Include="..\..\Src\Render\SGTechniqueResolverListener.h" />
     <ClInclude Include="..\..\Src\Render\Window.h" />

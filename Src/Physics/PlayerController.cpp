@@ -19,13 +19,13 @@ void PlayerController::initComponent()
 
 void PlayerController::movePlayer(float t_vertical, float t_horizontal)
 {
-    //m_go = m_mngr->getHandler(ecs::HANDLER_EXAMPLE);
-    /*m_playerTransform = m_mngr->getComponent<Transform>(m_ent);
-    m_playerTransform->setPosition(m_playerTransform->getPosition() + SVector3(t_horizontal, t_vertical, 0));*/
+    m_go = m_mngr->getHandler(ecs::HANDLER_EXAMPLE);
+    m_go->getNode()->setPosition(t_horizontal, t_vertical, 0);
 }
 
 void PlayerController::dash()
 {
+
 }
 
 void PlayerController::handleInput()

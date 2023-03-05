@@ -36,9 +36,6 @@
     <ClCompile Include="..\..\Src\Render\Light.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Render\PlayerController.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Render\Animator.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -63,9 +60,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Render\Light.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Render\PlayerController.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Render\Animator.h">

@@ -7,7 +7,7 @@
 #include "Camera.h"
 #include "Window.h"
 
-#include "PlayerController.h"
+#include "Physics/PlayerController.h"
 
 
 class RenderSystem : public ecs::System

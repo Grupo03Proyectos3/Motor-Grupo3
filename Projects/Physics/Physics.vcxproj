@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Physics\PhysicsSystem.cpp" />
+    <ClCompile Include="..\..\Src\Physics\PlayerController.cpp" />
     <ClCompile Include="..\..\Src\Physics\RigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Physics\PhysicsSystem.h" />
+    <ClInclude Include="..\..\Src\Physics\PlayerController.h" />
     <ClInclude Include="..\..\Src\Physics\RigidBody.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -141,15 +143,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Dependencias\Bullet\Build\lib\$(Configuration)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Dependencias\Bullet\Build\lib\$(Configuration);$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>Bullet3Collision_Debug.lib;Bullet3Common_Debug.lib;Bullet3Dynamics_Debug.lib;Bullet3Geometry_Debug.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletWorldImporter_Debug.lib;LinearMath_Debug.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Bullet\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Bullet3Collision_Debug.lib;Bullet3Common_Debug.lib;Bullet3Dynamics_Debug.lib;Bullet3Geometry_Debug.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletWorldImporter_Debug.lib;LinearMath_Debug.lib;SDL2d.lib;SDL2maind.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Bullet\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -160,7 +162,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Bullet\Src\src;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,8 +171,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>Bullet3Collision.lib;Bullet3Common.lib;Bullet3Dynamics.lib;Bullet3Geometry.lib;BulletCollision.lib;BulletDynamics.lib;BulletWorldImporter.lib;LinearMath.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Bullet\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Bullet3Collision.lib;Bullet3Common.lib;Bullet3Dynamics.lib;Bullet3Geometry.lib;BulletCollision.lib;BulletDynamics.lib;BulletWorldImporter.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Bullet\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
