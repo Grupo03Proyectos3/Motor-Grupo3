@@ -6,6 +6,7 @@
 #include <cassert>
 #include <iostream>
 #include <vector>
+#include <OgreSceneNode.h>
 
 #include "Component.h"
 #include "GameObject.h"
@@ -71,10 +72,10 @@ namespace ecs
         // Adding an entity simply creates an instance of Entity, adds
         // it to the list of the given group and returns it to the caller.
         //
-        inline GameObject* addGameObject(groupId t_gId = _grp_GENERAL)
+        inline GameObject* addGameObject(Ogre::SceneNode* t_scene_node, groupId t_gId = _grp_GENERAL)
         {
             // create and initialise the entity
-            auto e = new GameObject(t_gId);
+            auto e = new GameObject(t_scene_node, t_gId);
             e->m_alive = true;
 
             m_ents_by_group[t_gId].push_back(e);

@@ -3,9 +3,9 @@
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
 
-Light::Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, std::string t_name):
+Light::Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_node, std::string t_name):
      m_sceneMgr(t_sceneMgr)
-    , m_scene_node(t_scene_node)
+    , m_light_node(t_node)
     , m_name(t_name)
 {
 }
@@ -13,7 +13,7 @@ Light::Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, std:
 void Light::initComponent()
 {
     m_light = m_sceneMgr->createLight(m_name);
-    m_light_node = m_scene_node->createChildSceneNode();
+    //m_light_node = m_scene_node->createChildSceneNode();
     //m_light_node->setPosition(Ogre::Vector3(0, 50, 0));
     //m_sceneMgr->setAmbientLight(Ogre::ColourValue::White);
     m_light_node->attachObject(m_light);

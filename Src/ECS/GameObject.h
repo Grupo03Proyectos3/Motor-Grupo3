@@ -11,6 +11,7 @@ class Manager;
 #include <cassert>
 #include <string>
 #include <vector>
+#include <OgreSceneNode.h>
 
 namespace ecs
 {
@@ -21,14 +22,15 @@ namespace ecs
     class GameObject
     {
       public:
-        GameObject();
-        GameObject(ecs::groupId_type t_gId);
+        GameObject(Ogre::SceneNode* t_escene_node);
+        GameObject(Ogre::SceneNode* t_escene_node, ecs::groupId_type t_gId);
         virtual ~GameObject();
 
         void setAlive(bool to);
         void setActive(bool to);
 
         std::string getName();
+        Ogre::SceneNode* getNode();
 
       private:
         friend class Manager;
@@ -40,6 +42,8 @@ namespace ecs
         ecs::groupId_type m_gId;
 
         std::string m_name;
+
+        Ogre::SceneNode* m_node;
     };
 } // namespace ecs
 

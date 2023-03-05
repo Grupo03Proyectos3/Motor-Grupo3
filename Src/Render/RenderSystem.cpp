@@ -40,23 +40,30 @@ void RenderSystem::initSystem()
         Ogre::SceneManager* scene_mgr = sceneActive->getSceneManger();
         Ogre::SceneNode* root_scene_node = sceneActive->getSceneRoot();
 
-        // Cubo
-        Ogre::SceneNode* cube_node = root_scene_node->createChildSceneNode();
-        ecs::GameObject* cube_go = m_mngr->addGameObject();
-        auto cmp = ecs::AddComponent<MeshRenderer>(cube_go, cube_node, scene_mgr, /*"cube.mesh"*/ "Sinbad.mesh", "myEntity");
+        // Sinbad
+        ecs::GameObject* sinbad_go = m_mngr->addGameObject(root_scene_node);
+        auto cmp = ecs::AddComponent<MeshRenderer>(sinbad_go, sinbad_go->getNode(), scene_mgr, /*"cube.mesh"*/ "Sinbad.mesh", "myEntity");
         //cmp->changeMaterial("Prueba/espana");
-        Transform* cmp_tr = ecs::AddComponent<Transform>(cube_go, cube_node);
+        Transform* cmp_tr = ecs::AddComponent<Transform>(sinbad_go, sinbad_go->getNode());
         cmp_tr->setScale(SVector3(25, 25, 25));
-        Flamingo::Animator* animator=ecs::AddComponent<Flamingo::Animator>(cube_go, scene_mgr);
+        Flamingo::Animator* animator = ecs::AddComponent<Flamingo::Animator>(sinbad_go, scene_mgr);
         animator->setAnimation("Dance",true,true);
         // Falta probarlo:
         //m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
+        sceneActive->addObjects(sinbad_go);
+        m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
+
+        // Cubo
+        ecs::GameObject* cube_go = m_mngr->addGameObject(root_scene_node);
+        auto cmp2 = ecs::AddComponent<MeshRenderer>(cube_go, cube_go->getNode(), scene_mgr, "cube.mesh", "CubeEntity");
+        cmp2->changeMaterial("Prueba/espana");
+        Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go, cube_go->getNode());
+        cmp_tr2->setPosition(SVector3(0, 300, 0));
         sceneActive->addObjects(cube_go);
-        m_controller = ecs::AddComponent<PlayerController>(cube_go, 20.0f);
         
         // Luz
-        ecs::GameObject* light_go = new ecs::GameObject();
-        Light* cmp_light = ecs::AddComponent<Light>(light_go, scene_mgr, root_scene_node, "myLight");
+        ecs::GameObject* light_go = new ecs::GameObject(root_scene_node);
+        Light* cmp_light = ecs::AddComponent<Light>(light_go, scene_mgr, light_go->getNode(), "myLight");
         cmp_light->setType(Light::DIRECTIONAL);
         SVector3 direction = SVector3(-1, -1, 0);
         //direction *= -1;
@@ -66,8 +73,8 @@ void RenderSystem::initSystem()
         sceneActive->addObjects(light_go);
 
         // Camara
-        ecs::GameObject* cam_go = new ecs::GameObject();
-        m_camera = ecs::AddComponent<Camera>(cam_go, scene_mgr, root_scene_node, getWindow(), "myCamera");
+        ecs::GameObject* cam_go = new ecs::GameObject(root_scene_node);
+        m_camera = ecs::AddComponent<Camera>(cam_go, scene_mgr, cam_go->getNode(), getWindow(), "myCamera");
         m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
         //m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
         m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
