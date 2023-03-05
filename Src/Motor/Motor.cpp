@@ -1,18 +1,42 @@
 #include <crtdbg.h>
 
+// ENTITY COMPONENT SYSTEM
 #include "ECS/InputHandler.h"
-#include "FlamingoUtils/Timer.h"
-#include "IMGUI/imgui.h"
-#include "Physics/PhysicsSystem.h"
-#include "Render/RenderSystem.h"
+#include "ECS/Components.h"
+#include "ECS/GameObject.h"
+#include "ECS/Manager.h"
 
-#include <OgreRoot.h> // MEMORY LEAK
-#include <filesystem>
+// IMGUI
+#include "IMGUI/imgui.h"
+
+// PHYSICS
+#include "Physics/PhysicsSystem.h"
+#include "Physics/RigidBody.h"
+
+// RENDER
+#include "Render/RenderSystem.h"
+#include "Render/PlayerController.h"
+#include "Render/MeshRenderer.h"
+#include "Render/Animator.h"
+
+// BASE
+#include "FlamingoBase/SceneManager.h"
+#include "FlamingoBase/Transform.h"
+
+
+// UTILS
+#include "FlamingoUtils/Timer.h"
+
+// EXTERNAL
 #include <fmod.h>
-#include <fstream>
+#include <OgreRoot.h> // MEMORY LEAK
+
+// C++
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
+#include <filesystem>
 
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
@@ -133,6 +157,22 @@ int main(int argc, char* argv[])
     auto time = playerTimer->getElapsedTime();
     auto dt = playerTimer->getElapsedTime() - time;   
 
+
+    // Sinbad
+    ecs::GameObject* sinbad_go = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), ecs::GROUP_RENDER);
+    auto cmp = ecs::AddComponent<MeshRenderer>(sinbad_go, sinbad_go->getNode(), render_sys->getSceneManager()->getSceneActive()->getSceneManger(), /*"cube.mesh"*/ "Sinbad.mesh", "myEntity");
+    // cmp->changeMaterial("Prueba/espana");
+    Transform* cmp_tr = ecs::AddComponent<Transform>(sinbad_go, sinbad_go->getNode());
+    cmp_tr->setScale(SVector3(25, 25, 25));
+    Flamingo::Animator* animator = ecs::AddComponent<Flamingo::Animator>(sinbad_go, render_sys->getSceneManager()->getSceneActive()->getSceneManger());
+    animator->setAnimation("Dance", true, true);
+    // TODO Falta probarlo:
+    // m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
+    render_sys->getSceneManager()->getSceneActive()->addObjects(sinbad_go);
+    PlayerController* m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
+    //RigidBody* m_rigid_body = ecs::AddComponent<RigidBody>(1.0f, false, true);
+
+
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
         // Delta time en milisegundos
@@ -141,7 +181,8 @@ int main(int argc, char* argv[])
         time = playerTimer->getElapsedTime();
 
         // leer entrada
-       
+        m_controller->handleInput();
+
         physics_sys->update(dt);
         render_sys->update(dt);
 
