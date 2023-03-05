@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-namespace OgreScene{
+namespace Flamingo{
 
     Scene::Scene(){
         mSceneManager = nullptr;

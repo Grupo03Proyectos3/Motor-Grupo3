@@ -6,7 +6,9 @@
 #include "ECS/Manager.h"
 namespace Flamingo{
     Animator::Animator(Ogre::SceneManager* t_mng): 
-        m_scene_mngr(t_mng), m_num_animations_active(0){       
+        m_scene_mngr(t_mng), m_num_animations_active(0){
+        m_transform = nullptr;
+        m_meshRenderer = nullptr;
     }
 
     void Animator::initComponent(){      
@@ -65,12 +67,11 @@ namespace Flamingo{
             it->second->setEnabled(t_active);
             it->second->setLoop(t_loop);
         }
-        m_num_animations_active++;
+        m_num_animations_active+=t_active?+1:-1;
     }
 
     void Animator::updateAnimations(double time){
-        int num = 0;
-        time *= 0.001;//POR LA CARA SI NO VA RAPISIDISIMO
+        int num = 0;        
         auto it = m_animations.begin();
         while (num != m_num_animations_active){
             if (it->second->getEnabled()){

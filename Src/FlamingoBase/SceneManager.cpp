@@ -3,7 +3,7 @@
 #include "SceneManager.h"
 #include <OgreSceneManagerEnumerator.h>
 #include <OgreRoot.h>
-namespace OgreScene{
+namespace Flamingo{
     SceneManager::SceneManager(Ogre::String t_Name){
         mScenes = std::unordered_map<std::string, Scene*>();
         mName = t_Name;

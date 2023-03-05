@@ -30,17 +30,19 @@ class RenderSystem : public ecs::System
 
     bool config();
 
-    inline OgreWindow::Window* getWindow() { return m_window; }
+    inline Flamingo::Window* getWindow() { return m_window; }
     inline Ogre::Root* getOgreRoot() { return m_root; }
-    inline OgreScene::SceneManager* getSceneManager() { return m_ogre_scene_mngr; }    
+    inline Flamingo::SceneManager* getSceneManager() { return m_scene_mngr; }    
     // en esta funcion se manipula la cámara
     void manipulateCamera();
+
+    void Pruebas();
 
   private:
     Ogre::Root* m_root;                // OGRE root
     Ogre::FileSystemLayer* m_fs_layer; // Fichero de recursos
-    OgreWindow::Window* m_window = nullptr;
-    OgreScene::SceneManager* m_ogre_scene_mngr = nullptr;
+    Flamingo::Window* m_window = nullptr;
+    Flamingo::SceneManager* m_scene_mngr = nullptr;
     Ogre::String m_app_name;    // Nombre de la app
     Camera* m_camera = nullptr; // cámara
 

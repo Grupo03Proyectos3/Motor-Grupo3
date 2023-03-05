@@ -9,7 +9,7 @@
 #include "SGTechniqueResolverListener.h"
 #include "FlamingoBase/SceneManager.h"
 
-namespace OgreWindow{
+namespace Flamingo{
     typedef SDL_Window NativeWindowType;
     struct NativeWindowPair{
         Ogre::RenderWindow* render = nullptr;
@@ -33,14 +33,14 @@ namespace OgreWindow{
        
         inline Ogre::RenderWindow* getRenderWindow() { return m_window.render; }
         inline Ogre::RenderSystem* getRenderSystem() { return m_render_system; }
-        inline void setSceneManager(OgreScene::SceneManager* t_sm) { m_scene_mngr = t_sm; }
+        inline void setSceneManager(Flamingo::SceneManager* t_sm) { m_scene_mngr = t_sm; }
         
         bool isWindowClosed() { return isClosed; }
 
       protected:
         Ogre::Root* m_root;                  // OGRE root
         Ogre::RenderSystem* m_render_system;  //OGRE renderSystem
-        OgreScene::SceneManager* m_scene_mngr; // Scenes Manager
+        Flamingo::SceneManager* m_scene_mngr; // Scenes Manager
         NativeWindowPair m_window;           // La venatna
         Ogre::FileSystemLayer* m_fs_layer;    //Fichero de recursos
         Ogre::String m_app_name;              //Nombre de la app

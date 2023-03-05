@@ -3,7 +3,7 @@
 #pragma once
 #include <unordered_map>
 #include "Scene.h"
-namespace OgreScene{
+namespace Flamingo{
     class SceneManager{
       public:
         SceneManager(Ogre::String t_Name);

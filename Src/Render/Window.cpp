@@ -7,7 +7,7 @@
 #include <OgreRenderWindow.h>
 #include <OgreGpuProgramManager.h>
 #include "ECS/InputHandler.h" 
-namespace OgreWindow
+namespace Flamingo
 {
     Window::Window(const Ogre::String& t_app_name, Ogre::Root* t_root)
         : isClosed(false)

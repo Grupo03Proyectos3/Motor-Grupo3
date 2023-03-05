@@ -3,7 +3,7 @@ material Prueba/espana {
 		pass {  
 			diffuse 0.5 0.5 0.5 
 			texture_unit{
-				texture esp.png
+				texture Images/esp.png
 				colour_op add				
 			}
 		} 
@@ -14,7 +14,7 @@ material Prueba/MichaelScott {
 		pass {  
 			diffuse 0.5 0.5 0.5 
 			texture_unit{
-				texture MichaelScott.jpg
+				texture Images/MichaelScott.jpg
 				colour_op add				
 			}
 		} 

@@ -28,7 +28,7 @@ struct Camera : ecs::Component
         PARENT
     };
     Camera();
-    Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, OgreWindow::Window* t_window, std::string t_name);
+    Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, Flamingo::Window* t_window, std::string t_name);
     virtual ~Camera(){};
 
     virtual void initComponent();
@@ -57,7 +57,7 @@ struct Camera : ecs::Component
     Ogre::SceneManager* m_scene_mngr;
     //Ogre::SceneNode* m_scene_node;
     Ogre::SceneNode* m_cam_node;
-    OgreWindow::Window* m_window;
+    Flamingo::Window* m_window;
 
     std::string m_name;
 };

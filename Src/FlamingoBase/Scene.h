@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include "Ecs/GameObject.h"
 
-namespace OgreScene{
+namespace Flamingo{
     class Scene{
       public:
         Scene();

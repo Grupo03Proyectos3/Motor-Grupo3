@@ -31,17 +31,22 @@ void RenderSystem::initSystem()
 {
     createRoot();
 
-    if (config())
-    {
-        m_group = ecs::_grp_GENERAL;
-        setUp();
-        OgreScene::SceneManager* mySceneManager = getSceneManager();
-        OgreScene::Scene* sceneActive = mySceneManager->getSceneActive();
+    if (config()){
+        setUp(); 
+        /// PRUEBAS \\\ 
+        Pruebas();
+        /// PRUEBAS \\\ 
+    }
+}
+
+void RenderSystem::Pruebas()
+{
+        Flamingo::Scene* sceneActive = m_scene_mngr->getSceneActive();
         Ogre::SceneManager* scene_mgr = sceneActive->getSceneManger();
         Ogre::SceneNode* root_scene_node = sceneActive->getSceneRoot();
 
         // Sinbad
-        ecs::GameObject* sinbad_go = m_mngr->addGameObject(root_scene_node);
+        ecs::GameObject* sinbad_go = m_mngr->addGameObject(root_scene_node,ecs::GROUP_RENDER);
         auto cmp = ecs::AddComponent<MeshRenderer>(sinbad_go, sinbad_go->getNode(), scene_mgr, /*"cube.mesh"*/ "Sinbad.mesh", "myEntity");
         //cmp->changeMaterial("Prueba/espana");
         Transform* cmp_tr = ecs::AddComponent<Transform>(sinbad_go, sinbad_go->getNode());
@@ -66,7 +71,7 @@ void RenderSystem::initSystem()
         Light* cmp_light = ecs::AddComponent<Light>(light_go, scene_mgr, light_go->getNode(), "myLight");
         cmp_light->setType(Light::DIRECTIONAL);
         SVector3 direction = SVector3(-1, -1, 0);
-        //direction *= -1;
+        // direction *= -1;
         cmp_light->setDirection(direction);
         cmp_light->setSpecularColour();
         cmp_light->setDiffuseColour();
@@ -76,15 +81,14 @@ void RenderSystem::initSystem()
         ecs::GameObject* cam_go = new ecs::GameObject(root_scene_node);
         m_camera = ecs::AddComponent<Camera>(cam_go, scene_mgr, cam_go->getNode(), getWindow(), "myCamera");
         m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
-        //m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
+        // m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
         m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
         m_camera->setNearClipDistance(1);
         m_camera->setFarClipDistance(10000);
         sceneActive->addObjects(cam_go);
 
-        /* myWindow->getSceneManager()->createScene("NUEVA1", true);
-         myWindow->addRTShaderSystem(myWindow->getSceneManager()->getSceneActive()->getSceneManger());*/
-    }
+        // getSceneManager()->createScene("NUEVA1", true);
+        // m_window->addRTShaderSystem(getSceneManager()->getSceneActive()->getSceneManger());
 }
 
 void RenderSystem::update(float t_delta_time)
@@ -99,9 +103,9 @@ void RenderSystem::update(float t_delta_time)
         }
         auto animator = m_mngr->getComponent<Flamingo::Animator>(game_object);
 
-        if (animator != nullptr) animator->updateAnimations(t_delta_time);   //ESTO HAY Q HACERLO POR MESNAJES CADA CIERTO TIEMPO     
+        if (animator != nullptr)
+            animator->updateAnimations(t_delta_time * 0.001); //PQ HAY Q PASARLO A MILISEGUNDOS   
     }
-
     // TODO actualizar Transform con input/scripts
     
 
@@ -123,7 +127,7 @@ void RenderSystem::createRoot()
 
     m_root = new Ogre::Root(pluginsPath, m_fs_layer->getWritablePath("ogre.cfg"), m_fs_layer->getWritablePath("ogre.log"));
 
-    m_ogre_scene_mngr = new OgreScene::SceneManager(m_app_name + " - SceneManager");
+    m_scene_mngr = new Flamingo::SceneManager(m_app_name + " - SceneManager");
 
     // mSceneManager = mRoot->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, mAppName);
 
@@ -135,9 +139,9 @@ void RenderSystem::createRoot()
 void RenderSystem::setUp()
 {
     m_root->initialise(false);
-    m_ogre_scene_mngr->init(m_root);
-    m_window = new OgreWindow::Window(m_app_name, m_root);
-    m_window->setSceneManager(m_ogre_scene_mngr);
+    m_scene_mngr->init(m_root);
+    m_window = new Flamingo::Window(m_app_name, m_root);
+    m_window->setSceneManager(m_scene_mngr);
     m_window->createWindow(m_app_name);
     // createWindow(mAppName);
 
@@ -184,10 +188,10 @@ void RenderSystem::bringResources(Ogre::String& sec_name, Ogre::String& type_nam
     sec_name = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
     auto genLocs = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec_name);
 
-    arch_name = genLocs.front().archive->getName();
+    arch_name = genLocs.front().archive->getName() + "/Essencial";
     type_name = genLocs.front().archive->getType();
 
-    // AÑADIR LOS LENGUAJES DE PROGRAMACION DE LOS SHADERS
+    // Aï¿½ADIR LOS LENGUAJES DE PROGRAMACION DE LOS SHADERS
     // Add locations for supported shader languages
     /*if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles")){
         Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/GLSLES", type_name, sec_name);
@@ -214,7 +218,7 @@ void RenderSystem::bringResources(Ogre::String& sec_name, Ogre::String& type_nam
          Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/HLSL", type_name, sec_name);
      }*/
 
-    Ogre::String mRTShaderLibPath = arch_name + "/RTShaderLib";
+    Ogre::String mRTShaderLibPath = arch_name + "/Essencial/RTShaderLib";
     Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/materials", type_name, sec_name);
     Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type_name, sec_name); // CARGO GLSL
 }

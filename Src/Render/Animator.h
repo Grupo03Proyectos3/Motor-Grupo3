@@ -1,10 +1,11 @@
 #pragma once
 #include "ECS/component.h"
-#include <OgreAnimationState.h>
 #include "FlamingoUtils/SVector3.h"
 #include "FlamingoUtils/SQuaternion.h"
+
 #include "MeshRenderer.h"
 #include "FlamingoBase/Transform.h"
+
 #ifndef __ANIMATOR_H__
 #define __ANIMATOR_H__
 namespace Flamingo{

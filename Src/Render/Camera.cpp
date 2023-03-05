@@ -10,7 +10,7 @@ Camera::Camera()
 {
 }
 
-Camera::Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_node, OgreWindow::Window* t_window, std::string t_name): 
+Camera::Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_node, Flamingo::Window* t_window, std::string t_name): 
     m_scene_mngr(t_sceneMgr)
     , m_cam(nullptr)
     , m_vp(nullptr)
