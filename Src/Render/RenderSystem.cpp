@@ -45,18 +45,18 @@ void RenderSystem::Pruebas()
         Ogre::SceneManager* scene_mgr = sceneActive->getSceneManger();
         Ogre::SceneNode* root_scene_node = sceneActive->getSceneRoot();
 
-        // Sinbad
-        ecs::GameObject* sinbad_go = m_mngr->addGameObject(root_scene_node,ecs::GROUP_RENDER);
-        auto cmp = ecs::AddComponent<MeshRenderer>(sinbad_go, sinbad_go->getNode(), scene_mgr, /*"cube.mesh"*/ "Sinbad.mesh", "myEntity");
-        //cmp->changeMaterial("Prueba/espana");
-        Transform* cmp_tr = ecs::AddComponent<Transform>(sinbad_go, sinbad_go->getNode());
-        cmp_tr->setScale(SVector3(25, 25, 25));
-        Flamingo::Animator* animator = ecs::AddComponent<Flamingo::Animator>(sinbad_go, scene_mgr);
-        animator->setAnimation("Dance",true,true);
-        // Falta probarlo:
-        //m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
-        sceneActive->addObjects(sinbad_go);
-        m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
+        //// Sinbad --> Movido a Motor.cpp
+        //ecs::GameObject* sinbad_go = m_mngr->addGameObject(root_scene_node,ecs::GROUP_RENDER);
+        //auto cmp = ecs::AddComponent<MeshRenderer>(sinbad_go, sinbad_go->getNode(), scene_mgr, /*"cube.mesh"*/ "Sinbad.mesh", "myEntity");
+        ////cmp->changeMaterial("Prueba/espana");
+        //Transform* cmp_tr = ecs::AddComponent<Transform>(sinbad_go, sinbad_go->getNode());
+        //cmp_tr->setScale(SVector3(25, 25, 25));
+        //Flamingo::Animator* animator = ecs::AddComponent<Flamingo::Animator>(sinbad_go, scene_mgr);
+        //animator->setAnimation("Dance",true,true);
+        //// Falta probarlo:
+        ////m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
+        //sceneActive->addObjects(sinbad_go);
+        //m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
 
         // Cubo
         /*ecs::GameObject* cube_go = m_mngr->addGameObject(root_scene_node);
@@ -247,8 +247,6 @@ bool RenderSystem::config()
 
 void RenderSystem::manipulateCamera()
 {
-    m_controller->handleInput();
-
     auto& ihldr = ih();
     ihldr.refresh();
 

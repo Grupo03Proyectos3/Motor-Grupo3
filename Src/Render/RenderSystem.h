@@ -32,7 +32,7 @@ class RenderSystem : public ecs::System
 
     inline Flamingo::Window* getWindow() { return m_window; }
     inline Ogre::Root* getOgreRoot() { return m_root; }
-    inline Flamingo::SceneManager* getSceneManager() { return m_scene_mngr; }    
+    inline Flamingo::SceneManager* getSceneManager() { return m_scene_mngr; }
     // en esta funcion se manipula la cámara
     void manipulateCamera();
 
@@ -45,8 +45,6 @@ class RenderSystem : public ecs::System
     Flamingo::SceneManager* m_scene_mngr = nullptr;
     Ogre::String m_app_name;    // Nombre de la app
     Camera* m_camera = nullptr; // cámara
-
-    PlayerController* m_controller = nullptr;
 };
 
 #endif

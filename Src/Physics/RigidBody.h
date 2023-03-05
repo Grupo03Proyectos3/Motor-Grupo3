@@ -2,6 +2,7 @@
 #ifndef __RIGID_BODY_H__
 #define __RIGID_BODY_H__
 
+#include "ECS/Component.h"
 #include "ECS/GameObject.h"
 #include "ECS/Manager.h"
 
