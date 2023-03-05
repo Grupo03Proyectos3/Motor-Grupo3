@@ -238,6 +238,7 @@ void RenderSystem::initSystem()
 
         if (ihldr.keyDownEvent())
         {
+            
             if (ihldr.isKeyDown(SDLK_r))
             {
                 m_camera->roll(1.0f);

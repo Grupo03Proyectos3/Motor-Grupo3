@@ -10,7 +10,7 @@ ecs::GameObject::GameObject(Ogre::SceneNode* t_scene_node)
     , m_node(nullptr)
 {
     m_current_comps.reserve(ecs::maxComponentId);
-    if (m_node==nullptr)
+    if (m_node == nullptr)
         m_node = t_scene_node->createChildSceneNode();
 }
 
@@ -51,6 +51,7 @@ std::string ecs::GameObject::getName()
     return m_name;
 }
 
-Ogre::SceneNode* ecs::GameObject::getNode() {
+Ogre::SceneNode* ecs::GameObject::getNode()
+{
     return m_node;
 }

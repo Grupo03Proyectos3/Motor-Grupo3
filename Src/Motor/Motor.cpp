@@ -169,7 +169,7 @@ int main(int argc, char* argv[])
     // TODO Falta probarlo:
     // m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
     render_sys->getSceneManager()->getSceneActive()->addObjects(sinbad_go);
-    PlayerController* m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
+    PlayerController* m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f, cmp_tr);
     RigidBody* m_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go, 1.0f, false, true);
 
     ecs::GameObject* drake = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER});

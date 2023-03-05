@@ -12,7 +12,7 @@ struct Transform : public ecs::Component {
   public:
     __SYSTEM_ID_DECL__(ecs::_cpm_TRANSFORM)
 
-    Transform(){};
+    Transform();
     Transform(Ogre::SceneNode* t_node, SVector3 t_position = SVector3(0.0, 0.0, 0.0), SQuaternion t_rotation = SQuaternion(0.0, 0.0, 0.0, 1.0), SVector3 t_scale = SVector3(1.0, 1.0, 1.0));
     virtual ~Transform(){};
     virtual void initComponent();
