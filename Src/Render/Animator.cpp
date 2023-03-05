@@ -24,10 +24,13 @@ namespace Flamingo{
         }
 
         m_animations = std::unordered_map<Ogre::String, Ogre::AnimationState*>();
-        Ogre::AnimationStateMap mapa = m_meshRenderer->getEntity()->getAllAnimationStates()->getAnimationStates();
-        for (auto it = mapa.begin();it!=mapa.end();it++){
-            m_animations.insert({it->first, it->second}); 
-            std::cout << it->first << "\n";
+        if (m_meshRenderer->getEntity()->getAllAnimationStates()!=nullptr){
+            Ogre::AnimationStateMap mapa = m_meshRenderer->getEntity()->getAllAnimationStates()->getAnimationStates();
+            for (auto it = mapa.begin(); it != mapa.end(); it++)
+            {
+                m_animations.insert({it->first, it->second});
+                std::cout << it->first << "\n";
+            }
         }
     }
 

@@ -59,12 +59,12 @@ void RenderSystem::Pruebas()
         m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
 
         // Cubo
-        ecs::GameObject* cube_go = m_mngr->addGameObject(root_scene_node);
+        /*ecs::GameObject* cube_go = m_mngr->addGameObject(root_scene_node);
         auto cmp2 = ecs::AddComponent<MeshRenderer>(cube_go, cube_go->getNode(), scene_mgr, "cube.mesh", "CubeEntity");
         cmp2->changeMaterial("Prueba/espana");
         Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go, cube_go->getNode());
         cmp_tr2->setPosition(SVector3(0, 300, 0));
-        sceneActive->addObjects(cube_go);
+        sceneActive->addObjects(cube_go);*/
         
         // Luz
         ecs::GameObject* light_go = new ecs::GameObject(root_scene_node);
@@ -89,6 +89,19 @@ void RenderSystem::Pruebas()
 
         // getSceneManager()->createScene("NUEVA1", true);
         // m_window->addRTShaderSystem(getSceneManager()->getSceneActive()->getSceneManger());
+        // Sinbad
+
+        ecs::GameObject* drake = m_mngr->addGameObject(root_scene_node, ecs::GROUP_RENDER);
+        cmp = ecs::AddComponent<MeshRenderer>(drake, drake->getNode(), scene_mgr,"dragon.mesh", "myDrakeEntity");
+        // cmp->changeMaterial("Prueba/espana");
+        cmp_tr = ecs::AddComponent<Transform>(drake, drake->getNode());
+        cmp_tr->setPosition(SVector3(25, 400, 25));
+        animator = ecs::AddComponent<Flamingo::Animator>(drake, scene_mgr);
+        //animator->setAnimation("Dance", true, true);
+        // Falta probarlo:
+        // m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
+        sceneActive->addObjects(drake);
+
 }
 
 void RenderSystem::update(float t_delta_time)
