@@ -5,7 +5,7 @@ ecs::GameObject::GameObject(Ogre::SceneNode* t_scene_node)
     : m_current_comps()
     , m_alive()
     , m_active(true)
-    , m_gId(_grp_GENERAL)
+    , m_gIds({_grp_GENERAL})
     , m_comps()
     , m_node(nullptr)
 {
@@ -14,11 +14,11 @@ ecs::GameObject::GameObject(Ogre::SceneNode* t_scene_node)
         m_node = t_scene_node->createChildSceneNode();
 }
 
-ecs::GameObject::GameObject(Ogre::SceneNode* t_scene_node, ecs::groupId_type t_gId)
+ecs::GameObject::GameObject(Ogre::SceneNode* t_scene_node, std::vector<ecs::groupId_type> t_gId = {_grp_GENERAL})
     : m_current_comps()
     , m_alive()
     , m_active(true)
-    , m_gId(t_gId)
+    , m_gIds(t_gId)
     , m_comps()
     , m_node(nullptr)
 {
@@ -29,6 +29,8 @@ ecs::GameObject::GameObject(Ogre::SceneNode* t_scene_node, ecs::groupId_type t_g
 
 ecs::GameObject::~GameObject()
 {
+    setAlive(false);
+
     for (auto c : m_comps)
         if (c != nullptr)
             delete c;

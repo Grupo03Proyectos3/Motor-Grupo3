@@ -1,6 +1,9 @@
 #include "RigidBody.h"
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <LinearMath/btTransform.h>
+#include <BulletCollision/CollisionShapes/btBoxShape.h>
+
+#include "PhysicsSystem.h"
 
 #include "FlamingoBase/Transform.h"
 #include "../FlamingoUtils/SQuaternion.h"
@@ -25,9 +28,12 @@ RigidBody::~RigidBody()
 
 void RigidBody::initComponent()
 {
-    // TODO Se deben pasar a la constructora los valores del Transform
-    m_bullet_transform = new btTransform();
-
+    // TODO inicializar transform como primer componente SIEMPRE
+    auto transform = m_mngr->getComponent<Transform>(m_ent);
+    m_bullet_transform = new btTransform(transform->getRotation(), transform->getPosition());
+    // TODO meter diferentes formas para el RB
+    m_shape = new btBoxShape(transform->getScale());
+    m_rigid_body = m_mngr->getSystem<PhysicsSystem>()->createRigidBody(m_bullet_transform, m_shape, m_mass);
 }
 
 void RigidBody::setMass(const float& t_mass)

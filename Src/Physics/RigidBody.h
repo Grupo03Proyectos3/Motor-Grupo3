@@ -49,6 +49,7 @@ struct RigidBody : public ecs::Component
   private:
     btRigidBody* m_rigid_body = nullptr;       // rigidbody de Bullet
     btTransform* m_bullet_transform = nullptr; // transform de bullet
+    btCollisionShape* m_shape = nullptr; 
 
     float m_mass = 1.0f;
     bool m_trigger = false;

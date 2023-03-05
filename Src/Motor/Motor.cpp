@@ -159,7 +159,7 @@ int main(int argc, char* argv[])
 
 
     // Sinbad
-    ecs::GameObject* sinbad_go = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), ecs::GROUP_RENDER);
+    ecs::GameObject* sinbad_go = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER, ecs::GROUP_PHYSICS});
     auto cmp = ecs::AddComponent<MeshRenderer>(sinbad_go, sinbad_go->getNode(), render_sys->getSceneManager()->getSceneActive()->getSceneManger(), /*"cube.mesh"*/ "Sinbad.mesh", "myEntity");
     // cmp->changeMaterial("Prueba/espana");
     Transform* cmp_tr = ecs::AddComponent<Transform>(sinbad_go, sinbad_go->getNode());
@@ -170,8 +170,7 @@ int main(int argc, char* argv[])
     // m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
     render_sys->getSceneManager()->getSceneActive()->addObjects(sinbad_go);
     PlayerController* m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
-    //RigidBody* m_rigid_body = ecs::AddComponent<RigidBody>(1.0f, false, true);
-
+    RigidBody* m_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go, 1.0f, false, true);
 
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {

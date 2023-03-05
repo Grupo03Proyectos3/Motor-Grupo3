@@ -89,5 +89,16 @@ void PhysicsSystem::addRigidBody(btRigidBody* t_rb)
 
 btRigidBody* PhysicsSystem::createRigidBody(btTransform* t_transform, btCollisionShape* t_shape, const float& t_mass)
 {
-    return nullptr;
+    // Crea el Rigidbody a partir de:
+    //- Un MotionState (interno de Bullet)
+    //- Un ConstructionInfo (interno de Bullet)
+
+    btDefaultMotionState* state = new btDefaultMotionState(*t_transform);
+
+	btVector3 localInertia(0, 0, 0);
+    btRigidBody::btRigidBodyConstructionInfo cInfo(t_mass, state, t_shape, localInertia);
+
+    btRigidBody* body = new btRigidBody(cInfo);
+
+    return body;
 }

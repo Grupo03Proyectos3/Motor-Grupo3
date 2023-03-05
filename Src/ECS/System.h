@@ -22,6 +22,8 @@ namespace ecs
         virtual void update(float t_delta_time);
         virtual void recieve(const Message&);
 
+        inline groupId_type getGroup() { return m_group; };
+
       protected:
         Manager* m_mngr;
         groupId_type m_group;

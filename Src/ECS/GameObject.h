@@ -23,7 +23,7 @@ namespace ecs
     {
       public:
         GameObject(Ogre::SceneNode* t_escene_node);
-        GameObject(Ogre::SceneNode* t_escene_node, ecs::groupId_type t_gId);
+        GameObject(Ogre::SceneNode* t_escene_node, std::vector<groupId_type> t_gId);
         virtual ~GameObject();
 
         void setAlive(bool to);
@@ -39,7 +39,7 @@ namespace ecs
         bool m_active;
         std::vector<Component*> m_current_comps;
         std::array<Component*, maxComponentId> m_comps;
-        ecs::groupId_type m_gId;
+        std::vector<ecs::groupId_type> m_gIds;
 
         std::string m_name;
 

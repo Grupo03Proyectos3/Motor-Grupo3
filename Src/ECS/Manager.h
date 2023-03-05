@@ -46,7 +46,11 @@ namespace ecs
             for (auto& ents : m_ents_by_group)
             {
                 for (auto e : ents)
-                    delete e;
+                {
+                    // TODO comprobar que esto elimina bien
+                    if (e != nullptr && e->m_alive == true)
+                        delete e;
+                }
             }
 
             for (auto i = 0u; i < maxSystemId; i++)
@@ -72,13 +76,16 @@ namespace ecs
         // Adding an entity simply creates an instance of Entity, adds
         // it to the list of the given group and returns it to the caller.
         //
-        inline GameObject* addGameObject(Ogre::SceneNode* t_scene_node, groupId t_gId = _grp_GENERAL)
+        inline GameObject* addGameObject(Ogre::SceneNode* t_scene_node, std::vector<groupId_type> vect_gId = {_grp_GENERAL})
         {
-            // create and initialise the entity
-            auto e = new GameObject(t_scene_node, t_gId);
+            auto e = new GameObject(t_scene_node, vect_gId);
             e->m_alive = true;
 
-            m_ents_by_group[t_gId].push_back(e);
+            for (auto grp : vect_gId)
+            {
+                // create and initialise the entity
+                m_ents_by_group[grp].push_back(e);
+            }
 
             return e;
         }
@@ -181,9 +188,9 @@ namespace ecs
 
         // returns the group 't_gId' of entity 't_e'
         //
-        inline groupId_type groupId(GameObject* t_e)
+        inline std::vector<groupId_type> groupId(GameObject* t_e)
         {
-            return t_e->m_gId;
+            return t_e->m_gIds;
         }
 
         // returns the vector of all entities of a given group
