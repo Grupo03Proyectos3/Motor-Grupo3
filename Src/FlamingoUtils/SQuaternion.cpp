@@ -126,3 +126,9 @@ SQuaternion SQuaternion::ogreToSQuaternion(const Ogre::Quaternion& ogreQuaternio
 {
     return SQuaternion(ogreQuaternion.x, ogreQuaternion.y, ogreQuaternion.z, ogreQuaternion.w);
 }
+
+
+SQuaternion SQuaternion::bulletToQuaternion(const btQuaternion& t_bullet_quaternion)
+{
+    return SQuaternion(t_bullet_quaternion.x(), t_bullet_quaternion.y(), t_bullet_quaternion.z(), t_bullet_quaternion.w());
+}

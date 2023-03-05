@@ -84,11 +84,14 @@ void RenderSystem::update(float t_delta_time)
         auto rb = m_mngr->getComponent<RigidBody>(game_object);
         if (rb && !rb->isKinematic())
         {
-            // TODO actualizar posicion del Transform con rb->getPosition()
+            m_mngr->getComponent<Transform>(game_object)->setPosition(rb->getPosition());
+            m_mngr->getComponent<Transform>(game_object)->setRotation(rb->getRotation());
         }
     }
 
     // TODO actualizar Transform con input/scripts
+    
+
 
     m_root->renderOneFrame();
     m_window->update();

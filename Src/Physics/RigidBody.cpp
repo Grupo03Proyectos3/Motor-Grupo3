@@ -57,6 +57,13 @@ void RigidBody::setPosition(SVector3 t_pos)
     m_rigid_body->setWorldTransform(transform);
 }
 
+void RigidBody::setRotation(SQuaternion t_rot)
+{
+    btTransform transform = m_rigid_body->getWorldTransform();
+    transform.setRotation(btQuaternion(t_rot));
+    m_rigid_body->setWorldTransform(transform);
+}
+
 void RigidBody::setLinearVelocity(const SVector3& t_velocity)
 {
     m_rigid_body->setLinearVelocity(btVector3(t_velocity));
@@ -70,6 +77,11 @@ void RigidBody::setAngularVelocity(const SVector3& t_velocity)
 SVector3 RigidBody::getPosition() const
 {
     return SVector3::bulletToSVector3(m_rigid_body->getWorldTransform().getOrigin());
+}
+
+SQuaternion RigidBody::getRotation() const
+{
+    return SQuaternion::bulletToQuaternion(m_rigid_body->getWorldTransform().getRotation());
 }
 
 SVector3 RigidBody::getLinearVelocity() const

@@ -5,6 +5,7 @@
 #include "IMGUI/imgui.h"
 #include "Physics/PhysicsSystem.h"
 #include "Render/RenderSystem.h"
+
 #include <OgreRoot.h> // MEMORY LEAK
 #include <filesystem>
 #include <fmod.h>
@@ -119,32 +120,13 @@ int main(int argc, char* argv[])
     // Game-loop
     bool game_playing = true;
 
-    /*auto start_time = std::chrono::high_resolution_clock::now();
-    auto previous_time = std::chrono::duration_cast<std::chrono::milliseconds>(start_time - start_time);
-
-    std::chrono::steady_clock::time_point now = std::chrono::high_resolution_clock::now();
-    std::chrono::milliseconds actual_time;
-    std::chrono::milliseconds delta_time;*/
-
-    /*
-        InputSystem* input_system = new InputSystem();
-        PhysicsSystem* physics_system = new PhysicsSystem();
-        AudioSystem* audio_system = new AudioSystem();
-        UISystem* ui_system = new UISystem();
-        ScriptingSystem* scripting_system = new ScriptingSystem();
-
-        input_system = manager->addSystem<InputSystem>();
-        physics_system = manager->addSystem<PhysicsSystem>();
-        audio_system = manager->addSystem<AudioSystem>();
-        ui_system = manager->addSystem<UISystem>();
-        scripting_system = manager->addSystem<ScriptingSystem>();
-    */
 
     Ogre::String s = "Motor";
     ecs::Manager* m_mngr = ecs::Manager::instance();
     m_mngr->init();
+
     RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
-    PhysicsSystem* physics_system = m_mngr->addSystem<PhysicsSystem>();
+    PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
     //  auto& ihldr = ih();
 
     Flamingo::Timer* playerTimer = new Flamingo::Timer();
@@ -157,25 +139,12 @@ int main(int argc, char* argv[])
         dt = playerTimer->getElapsedTime() - time;
         // Tiempo transcurrido desde el inicio del programa en milisegundos
         time = playerTimer->getElapsedTime();
+
         // leer entrada
        
-
-        // actualizar con delta_time
-        /*now = std::chrono::high_resolution_clock::now();
-        actual_time = std::chrono::duration_cast<std::chrono::milliseconds>(now - start_time);
-        delta_time = actual_time - previous_time;
-        std::cout << delta_time.count() << std::endl;
-        previous_time = actual_time;*/
-
+        physics_sys->update(dt);
         render_sys->update(dt);
-        /*
-            input_system->update();
-            render_system->update();
-            physics_system->update();
-            audio_system->update();
-            ui_system->update();
-            scripting_system->update();
-        */
+
         render_sys->manipulateCamera();
         /*ihldr.refresh();
         if (ihldr.keyDownEvent())
@@ -187,9 +156,8 @@ int main(int argc, char* argv[])
         m_mngr->refresh();
         m_mngr->flushMessages();
     }
-    render_sys->getWindow()->closeWindow();
 
-    // delete manager; // Elimina todos los systems
+    render_sys->getWindow()->closeWindow();
 
     ImGui::DestroyContext();
 

@@ -14,6 +14,7 @@ class btCollisionShape;
 class btCollisionObject;
 
 class SVector3;
+class SQuaternion;
 
 struct RigidBody : public ecs::Component
 {
@@ -31,6 +32,7 @@ struct RigidBody : public ecs::Component
     void setStatic(bool t_static);
     void setKinematic(bool t_kinematic);
     void setPosition(SVector3 t_pos);
+    void setRotation(SQuaternion t_rot);
     void setLinearVelocity(const SVector3& t_velocity);
     void setAngularVelocity(const SVector3& t_velocity);
 
@@ -39,6 +41,7 @@ struct RigidBody : public ecs::Component
     inline bool isStatic() const { return m_static; };
     inline bool isKinematic() const { return m_kinematic; };
     SVector3 getPosition() const;
+    SQuaternion getRotation() const;
     SVector3 getLinearVelocity() const;
     SVector3 getAngularVelocity() const;
 

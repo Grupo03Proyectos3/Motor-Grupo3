@@ -6,6 +6,7 @@
 #include "ECS/GameObject.h"
 #include "ECS/Manager.h"
 #include "RigidBody.h"
+#include <FlamingoBase/Transform.h>
 
 PhysicsSystem::PhysicsSystem()
 {
@@ -69,7 +70,7 @@ void PhysicsSystem::update(float t_delta_time)
         if (auto rb = m_mngr->getComponent<RigidBody>(game_object))
         {
             // TODO actualise position with Transform values --> Check if its really necessary
-            //rb->setPosition();
+            rb->setPosition(m_mngr->getComponent<Transform>(game_object)->getPosition());
         }
     }
 

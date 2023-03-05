@@ -35,6 +35,7 @@ class SQuaternion
     operator Ogre::Quaternion() const;
     operator btQuaternion() const;
     static SQuaternion ogreToSQuaternion(const Ogre::Quaternion& ogreQuaternion);
+    static SQuaternion bulletToQuaternion(const btQuaternion& t_bullet_quaternion);
 
     SQuaternion inverse();
     double lenght();
