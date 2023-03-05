@@ -172,6 +172,17 @@ int main(int argc, char* argv[])
     PlayerController* m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
     RigidBody* m_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go, 1.0f, false, true);
 
+    ecs::GameObject* drake = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER});
+    cmp = ecs::AddComponent<MeshRenderer>(drake, drake->getNode(), render_sys->getSceneManager()->getSceneActive()->getSceneManger(), "dragon.mesh", "myDrakeEntity");
+    // cmp->changeMaterial("Prueba/espana");
+    cmp_tr = ecs::AddComponent<Transform>(drake, drake->getNode());
+    cmp_tr->setPosition(SVector3(25, 400, 25));
+    animator = ecs::AddComponent<Flamingo::Animator>(drake, render_sys->getSceneManager()->getSceneActive()->getSceneManger());
+    // animator->setAnimation("Dance", true, true);
+    //  Falta probarlo:
+    //  m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
+    render_sys->getSceneManager()->getSceneActive()->addObjects(drake);
+
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
         // Delta time en milisegundos
