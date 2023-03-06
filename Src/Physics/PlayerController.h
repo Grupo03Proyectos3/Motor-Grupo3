@@ -4,11 +4,10 @@
 
 #include "ECS/Component.h"
 #include "ECS/GameObject.h"
-#include "ECS/Manager.h"
 #include "ECS/InputHandler.h"
-#include "Render/Camera.h"
+#include "ECS/Manager.h"
 #include "FlamingoBase/Transform.h"
-
+#include "Render/Camera.h"
 
 struct PlayerController : public ecs::Component
 {
@@ -19,15 +18,16 @@ struct PlayerController : public ecs::Component
     PlayerController(float t_playerSpeed);
 
     virtual ~PlayerController();
+    virtual void initComponent();
 
     void movePlayer(float t_horizontal, float t_vertical);
-    
+
     // Métodos para el input del jugador
     void handleInput();
 
   private:
     bool m_active;
-  
+
     Transform* m_transform;
     Ogre::SceneNode* m_player_node;
     /*
@@ -38,8 +38,7 @@ struct PlayerController : public ecs::Component
      * Cámara
      */
     Camera* m_mainCamera;
-    //SVector3 m_cameraPosition;
-    
+    // SVector3 m_cameraPosition;
 };
 
 #endif

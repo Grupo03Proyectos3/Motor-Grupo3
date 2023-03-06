@@ -234,11 +234,10 @@ void RenderSystem::initSystem()
     void RenderSystem::manipulateCamera()
     {
         auto& ihldr = ih();
-      //  ihldr.refresh();
+        //  ihldr.refresh();
 
         if (ihldr.keyDownEvent())
         {
-            
             if (ihldr.isKeyDown(SDLK_r))
             {
                 m_camera->roll(1.0f);
@@ -250,6 +249,22 @@ void RenderSystem::initSystem()
             else if (ihldr.isKeyDown(SDLK_p))
             {
                 m_camera->pitch(1.0f);
+            }
+            if (ihldr.isKeyDown(SDLK_RIGHT))
+            {
+                m_camera->translate(10.0f, 0.0f, 0.0f);
+            }
+            else if (ihldr.isKeyDown(SDLK_LEFT))
+            {
+                m_camera->translate(-10.0f, 0.0f, 0.0f);
+            }
+            else if (ihldr.isKeyDown(SDLK_UP))
+            {
+                m_camera->translate(0.0f, 0.0f, -10.0f);
+            }
+            else if (ihldr.isKeyDown(SDLK_DOWN))
+            {
+                m_camera->translate(0.0f, 0.0f, +10.0f);
             }
         }
     }

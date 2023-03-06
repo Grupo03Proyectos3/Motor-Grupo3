@@ -19,9 +19,13 @@ PlayerController::~PlayerController()
     delete m_mainCamera;
 }
 
-void PlayerController::movePlayer(float t_vertical, float t_horizontal)
+void PlayerController::initComponent()
 {
     m_transform = m_mngr->getComponent<Transform>(m_ent);
+}
+
+void PlayerController::movePlayer(float t_vertical, float t_horizontal)
+{
     m_transform->translate(SVector3(t_horizontal, 0, t_vertical));
 }
 
