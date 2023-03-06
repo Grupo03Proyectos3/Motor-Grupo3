@@ -2,6 +2,9 @@
 #include <btBulletCollisionCommon.h>
 #include <iostream>
 #include <math.h>
+
+#define M_PI 3.14159265358979323846
+
 SQuaternion::SQuaternion()
     : m_x(0)
     , m_y(0)
@@ -18,9 +21,10 @@ SQuaternion::SQuaternion(double t_x, double t_y, double t_z, double t_w)
 {
 }
 
+
 SQuaternion::SQuaternion(double angle, const SVector3& axis)
 {
-    btQuaternion v(axis, angle);
+    btQuaternion v(axis, static_cast<btScalar>(angle * (M_PI / 180.0)));
     m_x = v.getX();
     m_y = v.getY();
     m_z = v.getZ();
@@ -46,7 +50,7 @@ void SQuaternion::setQuaternion(double t_x, double t_y, double t_z, double t_w)
 
 void SQuaternion::setQuaternion(double angle, SVector3& axis)
 {
-    btQuaternion v(axis, angle);
+    btQuaternion v(axis, static_cast<btScalar>(angle * (M_PI / 180.0)));
     m_x = v.getX();
     m_y = v.getY();
     m_z = v.getZ();
