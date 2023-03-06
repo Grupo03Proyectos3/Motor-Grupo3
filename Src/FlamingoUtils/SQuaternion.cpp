@@ -27,6 +27,15 @@ SQuaternion::SQuaternion(double angle, const SVector3& axis)
     m_w = v.getW();
 }
 
+SQuaternion::SQuaternion(Ogre::Degree angle, const SVector3& axis)
+{
+    btQuaternion v(axis, angle.valueRadians());
+    m_x = v.getX();
+    m_y = v.getY();
+    m_z = v.getZ();
+    m_w = v.getW();
+}
+
 void SQuaternion::setQuaternion(double t_x, double t_y, double t_z, double t_w)
 {
     m_x = t_x;

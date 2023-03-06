@@ -18,6 +18,7 @@ class SQuaternion
     SQuaternion();
     SQuaternion(double t_x, double t_y, double t_z, double t_w);
     SQuaternion(double angle, const SVector3& axis);
+    SQuaternion(Ogre::Degree angle, const SVector3& axis);
     ~SQuaternion() = default;
     void setQuaternion(double t_x, double t_y, double t_z, double t_w);
     void setQuaternion(double angle, SVector3& axis);
