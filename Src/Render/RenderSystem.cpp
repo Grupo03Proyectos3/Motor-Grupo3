@@ -60,12 +60,12 @@ void RenderSystem::initSystem()
         // m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
 
         // Cubo
-        /*ecs::GameObject* cube_go = m_mngr->addGameObject(root_scene_node);
+        ecs::GameObject* cube_go = m_mngr->addGameObject(root_scene_node);
         auto cmp2 = ecs::AddComponent<MeshRenderer>(cube_go, cube_go->getNode(), scene_mgr, "cube.mesh", "CubeEntity");
-        cmp2->changeMaterial("Prueba/espana");
+        cmp2->changeMaterial("Prueba/MichaelScott");
         Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go, cube_go->getNode());
-        cmp_tr2->setPosition(SVector3(0, 300, 0));
-        sceneActive->addObjects(cube_go);*/
+        cmp_tr2->setPosition(SVector3(0, 500, 0));
+        sceneActive->addObjects(cube_go);
 
         // Luz
         ecs::GameObject* light_go = new ecs::GameObject(root_scene_node);
