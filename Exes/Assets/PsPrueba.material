@@ -1,0 +1,31 @@
+// Example particle systems
+
+// smoke
+particle_system Example/Smoke
+{
+	material        	Prueba/smoke
+	particle_width  	50
+	particle_height 	50
+	cull_each       	true
+	quota           	500
+	billboard_type  	point
+	sorted				true
+    
+	// Area emitter
+	emitter Point
+	{
+		position 0 -2 0
+		angle 0
+		emission_rate 15
+		time_to_live 100
+		direction 0 0 0
+		velocity_min 50
+		velocity_max 50    
+                colour 0.9 0.9 0.9 0.2
+	}
+
+	
+
+   	
+}
+
