@@ -53,6 +53,10 @@ void Transform::setScale(SVector3 t_scale)
     m_transform->setScale(t_scale);
 }
 
+void Transform::translate(SVector3 t_translate){
+    m_transform->translate(t_translate.getX(), t_translate.getY(), t_translate.getZ());
+}
+
 Ogre::SceneNode* Transform::getNode()
 {
     return m_transform;

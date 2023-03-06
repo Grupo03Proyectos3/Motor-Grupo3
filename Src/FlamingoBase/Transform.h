@@ -24,6 +24,7 @@ struct Transform : public ecs::Component {
     void setPosition(SVector3 t_pos);
     void setRotation(SQuaternion t_rotation);
     void setScale(SVector3 t_scale);
+    void translate(SVector3 t_translate);
 
     void setNode(Ogre::SceneNode* t_node);
     Ogre::SceneNode* getNode();

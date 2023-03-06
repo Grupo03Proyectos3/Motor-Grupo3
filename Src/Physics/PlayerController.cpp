@@ -22,7 +22,7 @@ PlayerController::~PlayerController()
 void PlayerController::movePlayer(float t_vertical, float t_horizontal)
 {
     m_transform = m_mngr->getComponent<Transform>(m_ent);
-    m_transform->getNode()->translate(t_horizontal, 0, t_vertical);
+    m_transform->translate(SVector3(t_horizontal, 0, t_vertical));
 }
 
 void PlayerController::handleInput()
