@@ -163,6 +163,7 @@ int main(int argc, char* argv[])
     // cmp->changeMaterial("Prueba/espana");
     Transform* cmp_tr = ecs::AddComponent<Transform>(sinbad_go, sinbad_go->getNode());
     cmp_tr->setScale(SVector3(25, 25, 25));
+    cmp_tr->setPosition({0, 200, 0});
     Flamingo::Animator* animator = ecs::AddComponent<Flamingo::Animator>(sinbad_go, render_sys->getSceneManager()->getSceneActive()->getSceneManger());
     animator->setAnimation("Dance", true, true);
     // TODO Falta probarlo:
