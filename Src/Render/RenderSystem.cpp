@@ -234,7 +234,7 @@ void RenderSystem::initSystem()
     void RenderSystem::manipulateCamera()
     {
         auto& ihldr = ih();
-        ihldr.refresh();
+      //  ihldr.refresh();
 
         if (ihldr.keyDownEvent())
         {

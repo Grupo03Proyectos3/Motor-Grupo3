@@ -10,7 +10,6 @@ PlayerController::PlayerController()
 PlayerController::PlayerController(float t_playerSpeed, Transform* t_transform)
     : m_playerSpeed(t_playerSpeed)
     , m_active(true)
-    , m_go(m_ent)
     , m_mainCamera(new Camera())
     , m_transform(t_transform)
 {
@@ -18,7 +17,6 @@ PlayerController::PlayerController(float t_playerSpeed, Transform* t_transform)
 
 PlayerController::~PlayerController()
 {
-    delete m_go;
     delete m_mainCamera;
 }
 
@@ -29,7 +27,7 @@ void PlayerController::movePlayer(float t_vertical, float t_horizontal)
     /* auto aux = m_transform->getPosition();
      m_transform->setPosition(aux + SVector3(t_horizontal, t_vertical, 0));*/
     /*m_player_node.translate(t_horizontal, t_vertical, 0);*/
-    m_go->getNode()->translate(t_horizontal, t_vertical, 0);
+    m_ent->getNode()->translate(t_horizontal, 0, t_vertical);
 }
 
 void PlayerController::handleInput()
@@ -41,7 +39,6 @@ void PlayerController::handleInput()
     {
         if (ihldr.isKeyDown(SDLK_w))
         {
-            std::cout << "AAAAAAAAA ";
             movePlayer(m_playerSpeed, 0.0f);
         }
         else if (ihldr.isKeyDown(SDLK_s))

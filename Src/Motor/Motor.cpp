@@ -1,9 +1,9 @@
 #include <crtdbg.h>
 
 // ENTITY COMPONENT SYSTEM
-#include "ECS/InputHandler.h"
 #include "ECS/Components.h"
 #include "ECS/GameObject.h"
+#include "ECS/InputHandler.h"
 #include "ECS/Manager.h"
 
 // IMGUI
@@ -11,32 +11,31 @@
 
 // PHYSICS
 #include "Physics/PhysicsSystem.h"
-#include "Physics/RigidBody.h"
 #include "Physics/PlayerController.h"
+#include "Physics/RigidBody.h"
 
 // RENDER
-#include "Render/RenderSystem.h"
-#include "Render/MeshRenderer.h"
 #include "Render/Animator.h"
+#include "Render/MeshRenderer.h"
+#include "Render/RenderSystem.h"
 
 // BASE
 #include "FlamingoBase/SceneManager.h"
 #include "FlamingoBase/Transform.h"
 
-
 // UTILS
 #include "FlamingoUtils/Timer.h"
 
 // EXTERNAL
-#include <fmod.h>
 #include <OgreRoot.h> // MEMORY LEAK
+#include <fmod.h>
 
 // C++
-#include <iostream>
+#include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <string>
 #include <vector>
-#include <filesystem>
 
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
@@ -67,14 +66,16 @@ void findDir(std::filesystem::directory_iterator t_dir, std::ofstream& t_output)
             std::filesystem::directory_iterator d(new_Path);
             findDir(d, t_output);
         }
-        else{
+        else
+        {
             std::string x = entry.path().string();
-            std::string aux = x.substr(x.size() - 3, 1) + x.substr(x.size() - 2, 1) + x.substr(x.size() - 1, 1);           
-            if (aux == "zip"){
+            std::string aux = x.substr(x.size() - 3, 1) + x.substr(x.size() - 2, 1) + x.substr(x.size() - 1, 1);
+            if (aux == "zip")
+            {
                 x = parsePath(x);
                 t_output << "Zip=" << x << '\n';
             }
-        }        
+        }
     }
 }
 
@@ -144,7 +145,6 @@ int main(int argc, char* argv[])
     // Game-loop
     bool game_playing = true;
 
-
     Ogre::String s = "Motor";
     ecs::Manager* m_mngr = ecs::Manager::instance();
     m_mngr->init();
@@ -155,8 +155,7 @@ int main(int argc, char* argv[])
 
     Flamingo::Timer* playerTimer = new Flamingo::Timer();
     auto time = playerTimer->getElapsedTime();
-    auto dt = playerTimer->getElapsedTime() - time;   
-
+    auto dt = playerTimer->getElapsedTime() - time;
 
     // Sinbad
     ecs::GameObject* sinbad_go = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER, ecs::GROUP_PHYSICS});
@@ -191,11 +190,11 @@ int main(int argc, char* argv[])
         time = playerTimer->getElapsedTime();
 
         // leer entrada
-        m_controller->handleInput();
 
         physics_sys->update(dt);
         render_sys->update(dt);
 
+        m_controller->handleInput();
         render_sys->manipulateCamera();
         /*ihldr.refresh();
         if (ihldr.keyDownEvent())

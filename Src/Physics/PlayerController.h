@@ -27,7 +27,7 @@ struct PlayerController : public ecs::Component
 
   private:
     bool m_active;
-    ecs::GameObject* m_go;
+  
     Transform* m_transform;
     Ogre::SceneNode* m_player_node;
     /*
