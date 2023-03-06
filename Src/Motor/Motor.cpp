@@ -171,16 +171,20 @@ int main(int argc, char* argv[])
     PlayerController* m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
     RigidBody* m_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go, 1.0f, false, true);
 
-    ecs::GameObject* drake = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER});
-    cmp = ecs::AddComponent<MeshRenderer>(drake, drake->getNode(), render_sys->getSceneManager()->getSceneActive()->getSceneManger(), "dragon.mesh", "myDrakeEntity");
+    ecs::GameObject* ground = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER});
+    cmp = ecs::AddComponent<MeshRenderer>(ground, ground->getNode(), render_sys->getSceneManager()->getSceneActive()->getSceneManger(), "cube.mesh", "mygroundEntity");
     // cmp->changeMaterial("Prueba/espana");
-    cmp_tr = ecs::AddComponent<Transform>(drake, drake->getNode());
-    cmp_tr->setPosition(SVector3(25, 400, 25));
-    animator = ecs::AddComponent<Flamingo::Animator>(drake, render_sys->getSceneManager()->getSceneActive()->getSceneManger());
+    cmp_tr = ecs::AddComponent<Transform>(ground, ground->getNode());
+    cmp_tr->setPosition(SVector3(0, 0, 0));cmp_tr->setScale(SVector3(50, 0.5, 50));
+    animator = ecs::AddComponent<Flamingo::Animator>(ground, render_sys->getSceneManager()->getSceneActive()->getSceneManger());
+    cmp->changeMaterial("Prueba/cesped");
+
+  
+
     // animator->setAnimation("Dance", true, true);
     //  Falta probarlo:
     //  m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
-    render_sys->getSceneManager()->getSceneActive()->addObjects(drake);
+    render_sys->getSceneManager()->getSceneActive()->addObjects(ground);
 
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {

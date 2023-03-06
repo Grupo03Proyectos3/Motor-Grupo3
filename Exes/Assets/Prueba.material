@@ -3,7 +3,7 @@ material Prueba/espana {
 		pass {  
 			diffuse 0.5 0.5 0.5 
 			texture_unit{
-				texture Images/esp.png
+				texture esp.png
 				colour_op add				
 			}
 		} 
@@ -14,12 +14,27 @@ material Prueba/MichaelScott {
 		pass {  
 			diffuse 0.5 0.5 0.5 
 			texture_unit{
-				texture Images/MichaelScott.jpg
+				texture MichaelScott.jpg
 				colour_op add				
 			}
 		} 
 	} 
 }
+
+material Prueba/cesped { 
+	technique {	
+		pass {  
+			diffuse 0.5 0.5 0.5 
+			texture_unit{
+				texture cesped.jpg
+				colour_op modulate
+				scroll -0.1 0.1
+				scale 0.5 0.5				
+			}
+		} 
+	} 
+}
+
 material Prueba/rojo { 
 	technique {	
 		pass {  
