@@ -1,17 +1,17 @@
 #include "Camera.h"
 
-#include <OgreSceneManager.h>
-#include <OgreRenderWindow.h>
-#include <OgreSceneNode.h>
 #include <OgreCamera.h>
+#include <OgreRenderWindow.h>
+#include <OgreSceneManager.h>
+#include <OgreSceneNode.h>
 #include <OgreViewport.h>
 
 Camera::Camera()
 {
 }
 
-Camera::Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_node, Flamingo::Window* t_window, std::string t_name): 
-    m_scene_mngr(t_sceneMgr)
+Camera::Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_node, Flamingo::Window* t_window, std::string t_name)
+    : m_scene_mngr(t_sceneMgr)
     , m_cam(nullptr)
     , m_vp(nullptr)
     , m_window(t_window)
@@ -21,12 +21,11 @@ Camera::Camera(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_node, Flamingo
 
 void Camera::initComponent()
 {
-    
     m_cam = m_scene_mngr->createCamera(m_name);
-    //m_cam_node = m_scene_node->createChildSceneNode();
+    // m_cam_node = m_scene_node->createChildSceneNode();
     m_cam_node->attachObject(m_cam);
     m_cam_node->setPosition(500, 500, 1000);
-   
+
     m_vp = m_window->getRenderWindow()->addViewport(m_cam);
     m_vp->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
 }
@@ -74,13 +73,13 @@ void Camera::setPolygonMode(polygonMode t_p)
     switch (t_p)
     {
         case Camera::POINTS:
-            m_cam->setPolygonMode(Ogre::PM_POINTS); 
+            m_cam->setPolygonMode(Ogre::PM_POINTS);
             break;
         case Camera::SOLID:
-            m_cam->setPolygonMode(Ogre::PM_SOLID); 
+            m_cam->setPolygonMode(Ogre::PM_SOLID);
             break;
         case Camera::WIREFRAME:
-            m_cam->setPolygonMode(Ogre::PM_WIREFRAME); 
+            m_cam->setPolygonMode(Ogre::PM_WIREFRAME);
             break;
         default:
             break;
@@ -102,18 +101,22 @@ void Camera::setFarClipDistance(float t_clip)
     m_cam->setFarClipDistance(t_clip);
 }
 
-void Camera::setViewPortBackgroundColour(Ogre::ColourValue t_vp_color) {
+void Camera::setViewPortBackgroundColour(Ogre::ColourValue t_vp_color)
+{
     m_vp->setBackgroundColour(t_vp_color);
 }
 
-void Camera::desactiveViewport() {
+void Camera::desactiveViewport()
+{
     m_vp->setVisibilityMask(0.0);
 }
 
-void Camera::activeViewport() {
+void Camera::activeViewport()
+{
     m_vp->setVisibilityMask(1.0);
 }
 
-Ogre::SceneNode* Camera::getCamNode() {
+Ogre::SceneNode* Camera::getCamNode()
+{
     return m_cam_node;
 }

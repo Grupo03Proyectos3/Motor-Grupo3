@@ -17,7 +17,7 @@ struct Camera : ecs::Component
     enum polygonMode
     {
         POINTS,
-        SOLID, 
+        SOLID,
         WIREFRAME
     };
 
@@ -55,7 +55,7 @@ struct Camera : ecs::Component
     Ogre::Camera* m_cam;
     Ogre::Viewport* m_vp;
     Ogre::SceneManager* m_scene_mngr;
-    //Ogre::SceneNode* m_scene_node;
+    // Ogre::SceneNode* m_scene_node;
     Ogre::SceneNode* m_cam_node;
     Flamingo::Window* m_window;
 
