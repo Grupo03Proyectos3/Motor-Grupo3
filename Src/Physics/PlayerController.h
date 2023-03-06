@@ -16,7 +16,7 @@ struct PlayerController : public ecs::Component
     __SYSTEM_ID_DECL__(ecs::_cmp_PLAYER_CONTROLLER)
 
     PlayerController();
-    PlayerController(float t_playerSpeed, Transform* t_transform);
+    PlayerController(float t_playerSpeed);
 
     virtual ~PlayerController();
 
