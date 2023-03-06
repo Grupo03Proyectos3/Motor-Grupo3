@@ -1,9 +1,9 @@
 #include "ParticleSystem.h"
-ParticleSystem::ParticleSystem()
+Flamingo::ParticleSystem::ParticleSystem()
 {
 }
 
-ParticleSystem::ParticleSystem(std::string t_name, bool t_loop, float t_duration, int t_particles)
+Flamingo::ParticleSystem::ParticleSystem(std::string t_name, bool t_loop, float t_duration, int t_particles)
     : m_name(t_name)
     , m_loop(t_loop)
     , m_duration(t_duration)
@@ -11,10 +11,16 @@ ParticleSystem::ParticleSystem(std::string t_name, bool t_loop, float t_duration
 {
 }
 
-ParticleSystem::~ParticleSystem()
+Flamingo::ParticleSystem::~ParticleSystem()
 {
 }
 
-void ParticleSystem::initComponent()
+void Flamingo::ParticleSystem::initComponent()
 {
+    //m_particle_system = new Ogre::ParticleSystem();
+}
+
+void Flamingo::ParticleSystem::emit()
+{
+
 }

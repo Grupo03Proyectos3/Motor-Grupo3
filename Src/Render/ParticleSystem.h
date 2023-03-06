@@ -9,23 +9,28 @@
 #include <FlamingoUtils/Timer.h>
 #include <OgreSceneNode.h>
 #include <string>
-struct ParticleSystem : public ecs::Component
+namespace Flamingo
 {
-  public:
-    __SYSTEM_ID_DECL__(ecs::_cpm_PARTICLE_SYSTEM)
 
-    ParticleSystem();
-    ParticleSystem(std::string t_name, bool t_loop, float t_duration, int t_particles);
-    virtual ~ParticleSystem();
-    virtual void initComponent();
+    struct ParticleSystem : public ecs::Component
+    {
+      public:
+        __SYSTEM_ID_DECL__(ecs::_cpm_PARTICLE_SYSTEM)
 
-  private:
-    Ogre::ParticleSystem* particleSystem_ = nullptr;
-    Flamingo::Timer* time;
+        ParticleSystem();
+        ParticleSystem(std::string t_name, bool t_loop, float t_duration, int t_particles);
+        ~ParticleSystem();
+        void initComponent();
+        void emit();
 
-    std::string m_name;
-    bool m_loop;
-    float m_duration;
-    int m_particles;
-};
+      private:
+        Ogre::ParticleSystem* m_particle_system = nullptr;
+        Flamingo::Timer* m_time;
+
+        std::string m_name;
+        bool m_loop;
+        float m_duration;
+        int m_particles;
+    };
+} // namespace Flamingo
 #endif
