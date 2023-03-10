@@ -81,7 +81,7 @@ void RenderSystem::initSystem()
         // Camara
         ecs::GameObject* cam_go = new ecs::GameObject(root_scene_node);
         m_camera = ecs::AddComponent<Camera>(cam_go, scene_mgr, cam_go->getNode(), getWindow(), "myCamera");
-        m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3, 0.2, 0.6));
+        m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3f, 0.2f, 0.6f));
         // m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
         m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
         m_camera->setNearClipDistance(1);

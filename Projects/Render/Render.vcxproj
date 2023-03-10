@@ -124,7 +124,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>OgreMain_d.lib;OgreRTShaderSystem_d.lib;SDL2d.lib;SDL2maind.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>Shell32.lib;OgreMain_d.lib;OgreRTShaderSystem_d.lib;SDL2d.lib;SDL2maind.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -145,7 +145,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>OgreRTShaderSystem.lib;OgreMain.lib;SDL2.lib;SDL2main.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>Shell32.lib;OgreRTShaderSystem.lib;OgreMain.lib;SDL2.lib;SDL2main.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -163,7 +163,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain_d.lib;OgreRTShaderSystem_d.lib;SDL2d.lib;SDL2maind.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>Shell32.lib;OgreMain_d.lib;OgreRTShaderSystem_d.lib;SDL2d.lib;SDL2maind.lib;</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -183,7 +183,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>OgreRTShaderSystem.lib;OgreMain.lib;SDL2.lib;SDL2main.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>Shell32.lib;OgreRTShaderSystem.lib;OgreMain.lib;SDL2.lib;SDL2main.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\$(ConfigurationName)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>

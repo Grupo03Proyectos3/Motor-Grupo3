@@ -74,6 +74,7 @@ namespace Flamingo
             }
             return true;
         }
+        return false;
     }
 
     void Window::destroyRTShaderSystem() {

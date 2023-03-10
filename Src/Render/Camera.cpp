@@ -108,12 +108,12 @@ void Camera::setViewPortBackgroundColour(Ogre::ColourValue t_vp_color)
 
 void Camera::desactiveViewport()
 {
-    m_vp->setVisibilityMask(0.0);
+    m_vp->setVisibilityMask(0);
 }
 
 void Camera::activeViewport()
 {
-    m_vp->setVisibilityMask(1.0);
+    m_vp->setVisibilityMask(1);
 }
 
 Ogre::SceneNode* Camera::getCamNode()

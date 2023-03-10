@@ -35,7 +35,7 @@ namespace Flamingo{
     }
 
     void Animator::createAnimation(Ogre::String t_name, double t_duration){
-        Ogre::Animation* animation = m_scene_mngr->createAnimation(t_name, t_duration);
+        Ogre::Animation* animation = m_scene_mngr->createAnimation(t_name, Ogre::Real(t_duration));
         Ogre::NodeAnimationTrack* track = animation->createNodeTrack(0);
         track->setAssociatedNode(m_transform->getNode());
 
@@ -50,7 +50,7 @@ namespace Flamingo{
         Ogre::Animation* animation = m_scene_mngr->getAnimation(t_nameAnimation);
         Ogre::NodeAnimationTrack* track = animation->getNodeTrack(0);
 
-        Ogre::TransformKeyFrame* kf = track->createNodeKeyFrame(t_duration);
+        Ogre::TransformKeyFrame* kf = track->createNodeKeyFrame(Ogre::Real(t_duration));
         kf->setTranslate(t_translate);
         kf->setRotation(t_rotacion);
         kf->setScale(t_scale);
@@ -78,7 +78,7 @@ namespace Flamingo{
         auto it = m_animations.begin();
         while (num != m_num_animations_active){
             if (it->second->getEnabled()){
-                it->second->addTime(time);
+                it->second->addTime(Ogre::Real(time));
                 num++;
             }
             it++;
