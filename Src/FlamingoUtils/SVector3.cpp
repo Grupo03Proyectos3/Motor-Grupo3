@@ -164,12 +164,12 @@ double SVector3::angle(const SVector3& a, const SVector3& b)
 
 SVector3::operator Ogre::Vector3() const
 {
-    return Ogre::Vector3(/*-*/m_x, /*-*/m_y, m_z);
+    return Ogre::Vector3(/*-*/ (Ogre::Real)m_x, /*-*/ (Ogre::Real)m_y, (Ogre::Real)m_z);
 }
 
 SVector3::operator btVector3() const
 {
-    return btVector3(m_x, m_y, m_z);
+    return btVector3((btScalar)m_x, (btScalar)m_y, (btScalar)m_z);
 
 }
 
