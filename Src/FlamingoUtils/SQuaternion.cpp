@@ -21,7 +21,6 @@ SQuaternion::SQuaternion(double t_x, double t_y, double t_z, double t_w)
 {
 }
 
-
 SQuaternion::SQuaternion(double angle, const SVector3& axis)
 {
     btQuaternion v(axis, static_cast<btScalar>(angle * (M_PI / 180.0)));
@@ -59,23 +58,23 @@ void SQuaternion::setQuaternion(double angle, SVector3& axis)
 
 SQuaternion SQuaternion::inverse()
 {
-    auto v = btQuaternion(m_x, m_y, m_z, m_w).inverse();
+    auto v = btQuaternion((btScalar)m_x, (btScalar)m_y, (btScalar)m_z, (btScalar)m_w).inverse();
     return SQuaternion(v.getX(), v.getY(), v.getZ(), v.getW());
 }
 
 double SQuaternion::lenght()
 {
-    return btQuaternion(m_x, m_y, m_z, m_w).length();
+    return btQuaternion((btScalar)m_x, (btScalar)m_y, (btScalar)m_z, (btScalar)m_w).length();
 }
 
 double SQuaternion::dot(const SQuaternion& other)
 {
-    return btQuaternion(m_x, m_y, m_z, m_w).dot(btQuaternion(other.m_x, other.m_y, other.m_z, other.m_w));
+    return btQuaternion((btScalar)m_x, (btScalar)m_y, (btScalar)m_z, (btScalar)m_w).dot(btQuaternion((btScalar)other.m_x, (btScalar)other.m_y, (btScalar)other.m_z, (btScalar)other.m_w));
 }
 
 double SQuaternion::angle(const SQuaternion& other)
 {
-    return btQuaternion(m_x, m_y, m_z, m_w).angle(btQuaternion(other.m_x, other.m_y, other.m_z, other.m_w));
+    return btQuaternion((btScalar)m_x, (btScalar)m_y, (btScalar)m_z, (btScalar)m_w).angle(btQuaternion((btScalar)other.m_x, (btScalar)other.m_y, (btScalar)other.m_z, (btScalar)other.m_w));
 }
 
 double SQuaternion::getX()
@@ -100,7 +99,7 @@ double SQuaternion::getW()
 
 void SQuaternion::operator*=(const SQuaternion& other)
 {
-    auto v = btQuaternion(m_x, m_y, m_z, m_w) * btQuaternion(other.m_x, other.m_y, other.m_z, other.m_w);
+    auto v = btQuaternion((btScalar)m_x, (btScalar)m_y, (btScalar)m_z, (btScalar)m_w) * btQuaternion((btScalar)other.m_x, (btScalar)other.m_y, (btScalar)other.m_z, (btScalar)other.m_w);
     m_x = v.getX();
     m_y = v.getY();
     m_z = v.getZ();
@@ -127,21 +126,20 @@ std::istream& operator>>(std::istream& in, SQuaternion& q)
 
 SQuaternion::operator Ogre::Quaternion() const
 {
-    return Ogre::Quaternion(m_w, m_x, m_y, m_z);
+    return Ogre::Quaternion((btScalar)m_w, (btScalar)m_x, (btScalar)m_y, (btScalar)m_z);
 }
 
 SQuaternion::operator btQuaternion() const
 {
-    return btQuaternion(m_x, m_y, m_z, m_w);
+    return btQuaternion((btScalar)m_x, (btScalar)m_y, (btScalar)m_z, (btScalar)m_w);
 }
 
 SQuaternion SQuaternion::ogreToSQuaternion(const Ogre::Quaternion& ogreQuaternion)
 {
-    return SQuaternion(ogreQuaternion.x, ogreQuaternion.y, ogreQuaternion.z, ogreQuaternion.w);
+    return SQuaternion((btScalar)ogreQuaternion.x, (btScalar)ogreQuaternion.y, (btScalar)ogreQuaternion.z, (btScalar)ogreQuaternion.w);
 }
-
 
 SQuaternion SQuaternion::bulletToQuaternion(const btQuaternion& t_bullet_quaternion)
 {
-    return SQuaternion(t_bullet_quaternion.x(), t_bullet_quaternion.y(), t_bullet_quaternion.z(), t_bullet_quaternion.w());
+    return SQuaternion((double)t_bullet_quaternion.x(), (double)t_bullet_quaternion.y(), (double)t_bullet_quaternion.z(), (double)t_bullet_quaternion.w());
 }
