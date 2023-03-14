@@ -13,10 +13,10 @@ namespace ecs
 {
     //La directiva de preprocesador _declspec(dllexport) es utilizada en C y C++ para indicar que una función o variable debe ser exportada desde una biblioteca dinámica (DLL)
     //para que pueda ser utilizada por otros programas o bibliotecas. Quizá hay que añadirla a estos métodos
-    template <typename T, typename... Ts>
-    inline T* AddComponent(GameObject* gO, Ts&&... args)
+    template <typename T>
+    inline T* AddComponent(GameObject* gO)
     {
-        return Manager::instance()->addComponent<T>(gO, args...);
+        return Manager::instance()->addComponent<T>(gO);
     }
    
     template <typename T>

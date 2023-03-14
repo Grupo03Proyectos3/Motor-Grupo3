@@ -61,15 +61,18 @@ void RenderSystem::initSystem()
 
         // Cubo
         ecs::GameObject* cube_go = m_mngr->addGameObject(root_scene_node);
-        auto cmp2 = ecs::AddComponent<MeshRenderer>(cube_go, cube_go->getNode(), scene_mgr, "cube.mesh", "CubeEntity");
+        auto cmp2 = ecs::AddComponent<MeshRenderer>(cube_go);
+        cmp2->initValues(cube_go->getNode(), scene_mgr, "cube.mesh", "CubeEntity");
         cmp2->changeMaterial("Prueba/MichaelScott");
-        Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go, cube_go->getNode());
+        Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go);
+        cmp_tr2->initValues(cube_go->getNode());
         cmp_tr2->setPosition(SVector3(0, 500, 0));
         sceneActive->addObjects(cube_go);
 
         // Luz
         ecs::GameObject* light_go = new ecs::GameObject(root_scene_node);
-        Light* cmp_light = ecs::AddComponent<Light>(light_go, scene_mgr, light_go->getNode(), "myLight");
+        Light* cmp_light = ecs::AddComponent<Light>(light_go);
+        cmp_light->initValues(scene_mgr, light_go->getNode(), "myLight");
         cmp_light->setType(Light::DIRECTIONAL);
         SVector3 direction = SVector3(-1, -1, 0);
         // direction *= -1;
@@ -80,7 +83,8 @@ void RenderSystem::initSystem()
 
         // Camara
         ecs::GameObject* cam_go = new ecs::GameObject(root_scene_node);
-        m_camera = ecs::AddComponent<Camera>(cam_go, scene_mgr, cam_go->getNode(), getWindow(), "myCamera");
+        m_camera = ecs::AddComponent<Camera>(cam_go);
+        m_camera->initValues(scene_mgr, cam_go->getNode(), getWindow(), "myCamera");
         m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3f, 0.2f, 0.6f));
         // m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
         m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);

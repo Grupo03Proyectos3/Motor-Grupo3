@@ -23,9 +23,8 @@ struct RigidBody : public ecs::Component
     __SYSTEM_ID_DECL__(ecs::_cmp_RIGID_BODY)
 
     RigidBody();
-    RigidBody(float t_mass, bool t_trigger, bool t_static);
     virtual ~RigidBody();
-
+    virtual void initValues(float t_mass, bool t_trigger, bool t_static);
     virtual void initComponent();
 
     void setMass(const float& t_mass);

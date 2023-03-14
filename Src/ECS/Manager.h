@@ -109,8 +109,8 @@ namespace ecs
         // be passed to the constructor. The component identifier
         // 'cId' is taken from T::id.
         //
-        template <typename T, typename... Ts>
-        inline T* addComponent(GameObject* t_e, Ts&&... t_args)
+        template <typename T>
+        inline T* addComponent(GameObject* t_e)
         {
             constexpr compId_type cId = T::id;
             assert(cId < maxComponentId);
@@ -121,9 +121,10 @@ namespace ecs
 
             // create, initialise and install the new component
             //
-            Component* c = new T(std::forward<Ts>(t_args)...);
+            Component* c = new T();
             c->setContext(t_e, this);
-            c->initComponent();
+            //seran las factorias las encargadas de inicializar dicha inicializacion, tanto esta como la de parámetros
+            //c->initComponent();
             t_e->m_comps[cId] = c;
             t_e->m_current_comps.push_back(c);
 

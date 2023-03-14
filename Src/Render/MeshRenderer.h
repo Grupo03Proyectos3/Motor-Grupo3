@@ -13,8 +13,8 @@ struct MeshRenderer : public ecs::Component
     __SYSTEM_ID_DECL__(ecs::_cmp_MESH_RENDERER)
 
     MeshRenderer(){};
-    MeshRenderer(Ogre::SceneNode* t_node, Ogre::SceneManager* t_sceneMgr, Ogre::String t_model_name, Ogre::String t_entity_name);
     virtual ~MeshRenderer();
+    virtual void initValues(Ogre::SceneNode* t_node, Ogre::SceneManager* t_sceneMgr, Ogre::String t_model_name, Ogre::String t_entity_name);
     virtual void initComponent();
     void changeMaterial(std::string t_materialName);
 

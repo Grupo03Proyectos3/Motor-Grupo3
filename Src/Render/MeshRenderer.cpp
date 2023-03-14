@@ -2,16 +2,17 @@
 
 #include <OgreSceneManager.h>
 
-MeshRenderer::MeshRenderer(Ogre::SceneNode* t_node, Ogre::SceneManager* t_sceneMgr, Ogre::String t_model_name, Ogre::String t_entity_name)
-    : m_ent_ogre(nullptr)
-    , m_entity_name(t_entity_name)
-    , m_scene_mngr(t_sceneMgr)
-    , m_model_name(t_model_name)
-    , m_material_name(/*"Prueba/default"*/ "")
+
+void MeshRenderer::initValues(Ogre::SceneNode* t_node, Ogre::SceneManager* t_sceneMgr, Ogre::String t_model_name, Ogre::String t_entity_name)
 {
+    m_scene_mngr = t_sceneMgr;
+    m_entity_name = t_entity_name;
+    m_model_name = t_model_name;
+    m_material_name = /*"Prueba/default"*/ "";
     m_ent_ogre = m_scene_mngr->createEntity(m_entity_name, m_model_name);
     t_node->attachObject(m_ent_ogre);
 }
+
 void MeshRenderer::initComponent()
 {
     if (m_material_name != "")
@@ -68,7 +69,8 @@ Ogre::AxisAlignedBox MeshRenderer::getBoundingBox(bool t_d)
     return m_ent_ogre->getBoundingBox();
 }
 
-MeshRenderer::~MeshRenderer() {
-    //delete m_ent_ogre;
+MeshRenderer::~MeshRenderer()
+{
+    // delete m_ent_ogre;
     m_ent_ogre = nullptr;
 }
