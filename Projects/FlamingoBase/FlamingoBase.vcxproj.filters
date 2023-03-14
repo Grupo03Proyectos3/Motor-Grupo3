@@ -25,6 +25,12 @@
     <Filter Include="Archivos de origen\Scene">
       <UniqueIdentifier>{6fa4a694-fe24-476c-8830-e80a5d9219f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Factories">
+      <UniqueIdentifier>{6b1d8be7-634c-495a-910d-b318dd3e1f0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Factories">
+      <UniqueIdentifier>{14688cd9-4072-4904-8c79-191085b49c61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\FlamingoBase\SceneManager.cpp">
@@ -36,6 +42,12 @@
     <ClCompile Include="..\..\Src\FlamingoBase\Transform.cpp">
       <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\ComponentsFactory.cpp">
+      <Filter>Archivos de origen\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\Factory.cpp">
+      <Filter>Archivos de origen\Factories</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\FlamingoBase\SceneManager.h">
@@ -46,6 +58,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\FlamingoBase\Transform.h">
       <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\ComponentsFactory.h">
+      <Filter>Archivos de encabezado\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\Factory.h">
+      <Filter>Archivos de encabezado\Factories</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

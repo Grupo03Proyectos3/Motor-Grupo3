@@ -1,10 +1,18 @@
 #include "Factory.h"
 
+Factory::~Factory()
+{
+    deleteComponents();
+}
+
 void Factory::deleteComponents()
 {
     for (ecs::Component* comp : compsCreated)
     {
-        delete comp;
-        comp = nullptr;
+        if (comp != nullptr)
+        {
+            delete comp;
+            comp = nullptr;
+        }
     }
 }
