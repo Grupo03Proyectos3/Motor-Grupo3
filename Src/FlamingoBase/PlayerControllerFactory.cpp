@@ -5,9 +5,9 @@ ecs::Component* PlayerControllerFactory::createComponent(ecs::GameObject* gO, co
 {
     try
     {
-       
+        float speed = std::stof(args.at("t_playerSpeed"));
         PlayerController* c = ecs::AddComponent<PlayerController>(gO);
-        c->initValues(std::stof(args.at("t_playerSpeed")));
+        c->initValues(speed);
         c->initComponent();
 
         compsCreated.push_back(c);
