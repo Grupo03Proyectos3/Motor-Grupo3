@@ -1,7 +1,7 @@
 // Example particle systems
 
 // smoke
-particle_system Example/Smoke
+particle_system PsPrueba/Smoke
 {
 	material        	Prueba/smoke
 	particle_width  	50
@@ -14,14 +14,14 @@ particle_system Example/Smoke
 	// Area emitter
 	emitter Point
 	{
-		position 0 -2 0
+		//position 0 -2 0
 		angle 0
-		emission_rate 15
+		emission_rate 150
 		time_to_live 100
-		direction 0 0 0
-		velocity_min 50
-		velocity_max 50    
-                colour 0.9 0.9 0.9 0.2
+		direction 0 1 0
+		velocity_min 500
+		velocity_max 500    
+                colour 0.5 0.2 0.9 0.2
 	}
 
 	

@@ -29,13 +29,15 @@
 // EXTERNAL
 #include <OgreRoot.h> // MEMORY LEAK
 #include <fmod.h>
-
+#include <OgreParticleSystem.h>
 // C++
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
+
+
 
 // Convierte la ruta obtenida al formato de resources.cfg
 std::string parsePath(std::string t_path)
@@ -186,6 +188,14 @@ int main(int argc, char* argv[])
     //  Falta probarlo:
     //  m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
     render_sys->getSceneManager()->getSceneActive()->addObjects(ground);
+
+     Ogre::ParticleSystem* pSys = render_sys->getSceneManager()->getSceneActive()->getSceneManger()->
+    	createParticleSystem("psBomba", "PsPrueba/Smoke");
+     
+     pSys->setEmitting(true);
+     Ogre::SceneNode* prueba = render_sys->getSceneManager()->getSceneActive()->getSceneRoot()->createChildSceneNode();
+     prueba->setPosition({0, 60, 0});
+     prueba->attachObject(pSys);
 
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
