@@ -32,6 +32,9 @@ XCOPY /y /s .\bin\debug\OgreRTShaderSystem_d.dll %EXES%
 XCOPY /y /s .\bin\release\RenderSystem_Direct3D11.dll %EXES%
 XCOPY /y /s .\bin\debug\RenderSystem_Direct3D11_d.dll %EXES%
 
+XCOPY /y /s .\bin\release\Plugin_ParticleFX.dll %EXES%
+XCOPY /y /s .\bin\debug\Plugin_ParticleFX1_d.dll %EXES%
+
 XCOPY /y /s .\bin\release\OgreBullet.dll %EXES%
 
 XCOPY /y /s .\bin\release\zlib.dll %EXES%
