@@ -31,6 +31,18 @@
     <Filter Include="Archivos de origen\Factories">
       <UniqueIdentifier>{14688cd9-4072-4904-8c79-191085b49c61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\json">
+      <UniqueIdentifier>{cf8e478a-a4df-48d8-86de-13bffc666221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\json">
+      <UniqueIdentifier>{1a49415e-fae8-466b-a4d8-cd4d704c333e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\MapReader">
+      <UniqueIdentifier>{9638dc3b-f0ac-49b3-9336-74d16c7d7f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\MapReader">
+      <UniqueIdentifier>{12062c6b-dd9a-4b3f-bb21-96c8309abda3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\FlamingoBase\SceneManager.cpp">
@@ -54,6 +66,15 @@
     <ClCompile Include="..\..\Src\FlamingoBase\PlayerControllerFactory.cpp">
       <Filter>Archivos de origen\Factories</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\JSON.cpp">
+      <Filter>Archivos de origen\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\JSONValue.cpp">
+      <Filter>Archivos de origen\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\MapReader.cpp">
+      <Filter>Archivos de origen\MapReader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\FlamingoBase\SceneManager.h">
@@ -76,6 +97,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\FlamingoBase\PlayerControllerFactory.h">
       <Filter>Archivos de encabezado\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\JSON.h">
+      <Filter>Archivos de encabezado\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\JSONValue.h">
+      <Filter>Archivos de encabezado\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\MapReader.h">
+      <Filter>Archivos de encabezado\MapReader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

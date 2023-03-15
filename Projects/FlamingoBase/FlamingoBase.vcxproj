@@ -168,6 +168,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\FlamingoBase\ComponentsFactory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Factory.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\JSON.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\JSONValue.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\MapReader.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\PlayerControllerFactory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Scene.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\SceneManager.cpp" />
@@ -177,6 +180,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\Src\FlamingoBase\ComponentsFactory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\Factory.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\JSON.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\JSONValue.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\MapReader.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\PlayerControllerFactory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\Scene.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\SceneManager.h" />
