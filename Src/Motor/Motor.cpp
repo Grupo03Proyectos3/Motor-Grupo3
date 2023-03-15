@@ -6,8 +6,7 @@
 #include "ECS/InputHandler.h"
 #include "ECS/Manager.h"
 
-// IMGUI
-#include "IMGUI/imgui.h"
+
 
 // PHYSICS
 #include "Physics/PhysicsSystem.h"
@@ -135,12 +134,7 @@ void loadDirectories()
 
 int main(int argc, char* argv[])
 {
-    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    // IMGUI
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    (void)io;
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);  
 
     loadDirectories();
 
@@ -224,7 +218,7 @@ int main(int argc, char* argv[])
 
     render_sys->getWindow()->closeWindow();
 
-    ImGui::DestroyContext();
+    
 
     _CrtDumpMemoryLeaks();
     return 0;
