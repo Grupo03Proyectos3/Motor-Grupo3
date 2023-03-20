@@ -9,6 +9,7 @@ Dependencias/Bullet/Build
 Dependencias/CEGUI/src/dependencies
 Dependencias/CEGUI/dependencies/build
 Dependencias/CEGUI/build
+Dependencias/Lua/Build
 Exes/*
 !Exes/Assets/
 
