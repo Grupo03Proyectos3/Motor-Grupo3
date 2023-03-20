@@ -3,6 +3,7 @@
 #define __PHYSICS_SYSTEM_H__
 
 #include "../ECS/System.h"
+#include <vector>
 
 class btRigidBody;
 class btDiscreteDynamicsWorld;
@@ -10,10 +11,13 @@ class btDispatcher;
 class btConstraintSolver;
 class btCollisionConfiguration;
 class btBroadphaseInterface;
-
+class btCollisionShape;
 class btTransform;
 class btCollisionShape;
 class btGhostObject;
+
+template <typename T>
+class btAlignedObjectArray;
 
 class PhysicsSystem : public ecs::System
 {
@@ -57,6 +61,8 @@ class PhysicsSystem : public ecs::System
     btCollisionConfiguration* m_collision_config = nullptr;
     // BroadphaseInterface sirve para identificar pares de objetos que podrían colisionar entre sí
     btBroadphaseInterface* m_broadphase = nullptr;
+    // Guardamos las formas para eliminarlas después
+    btAlignedObjectArray<btCollisionShape*>* m_collision_shapes;
 };
 
 #endif

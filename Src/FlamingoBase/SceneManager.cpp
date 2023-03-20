@@ -24,8 +24,8 @@ namespace Flamingo{
     Scene* SceneManager::createScene(Ogre::String t_SceneName, bool setActive)
     {
         Scene* scene = new Scene();
-        auto newSceneManager = mRoot->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, t_SceneName);
-        scene->initScene(newSceneManager);
+        m_scene_manager = mRoot->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, t_SceneName);
+        scene->initScene(m_scene_manager);
         addScene(scene);
         if (setActive){
             setSceneActive(t_SceneName);

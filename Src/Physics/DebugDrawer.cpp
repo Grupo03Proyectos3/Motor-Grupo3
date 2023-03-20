@@ -11,33 +11,46 @@
 #include <OgreTimer.h>
 #include <OgreTechnique.h>
 #include <FlamingoUtils/SVector3.h>
+
 using namespace Ogre;
 
-OgreDebugDrawer::OgreDebugDrawer(Ogre::SceneManager* scm)
+OgreDebugDrawer::OgreDebugDrawer(Ogre::SceneManager* scm, Ogre::Root* root)
 {
-    mContactPoints = &mContactPoints1;
-    mLines = new ManualObject("physics_lines");
+   if (scm->hasManualObject("mLines"))
+        scm->destroyManualObject("mLines");
+    if (scm->hasManualObject("mTriangles"))
+        scm->destroyManualObject("mTriangles");
+
+    mLines = scm->createManualObject("mLines");
     assert(mLines);
-    mTriangles = new ManualObject("physics_triangles");
+    mTriangles = scm->createManualObject("mTriangles");
     assert(mTriangles);
+
+    mContactPoints = &mContactPoints1;
     mLines->setDynamic(true);
     mTriangles->setDynamic(true);
-    // mLines->estimateVertexCount( 100000 );
-    // mLines->estimateIndexCount( 0 );
 
+    scm->getRootSceneNode()->attachObject(mLines);
+    scm->getRootSceneNode()->attachObject(mTriangles);
 
-    //scm->getRootSceneNode()->attachObject(mLines);
-    //scm->getRootSceneNode()->attachObject(mTriangles);
+   // mLines->estimateVertexCount( 100000 );
+   // mLines->estimateIndexCount( 0 );
 
-    static const char* matName = "OgreBulletCollisionsDebugDefault";
-    MaterialPtr mtl = MaterialManager::getSingleton().getDefaultSettings()->clone(matName);
-    mtl->setReceiveShadows(false);
+    //static const char* matName = "OgreBulletCollisionsDebugDefault";
+    //MaterialPtr mtl = MaterialManager::getSingleton().getDefaultSettings()->clone(matName);
+    
+    //MaterialPtr mtl = MaterialManager::getSingleton().getDefaultMaterial();
+    //const Ogre::String matName = mtl.getPointer()->getName();
+    
+    Ogre::String matName = "Prueba/default";
+
+    /*mtl->setReceiveShadows(false);
     mtl->setSceneBlending(SBT_TRANSPARENT_ALPHA);
     mtl->setDepthBias(0.1, 0);
     TextureUnitState* tu = mtl->getTechnique(0)->getPass(0)->createTextureUnitState();
     assert(tu);
     tu->setColourOperationEx(LBX_SOURCE1, LBS_DIFFUSE);
-    mtl->getTechnique(0)->setLightingEnabled(false);
+    mtl->getTechnique(0)->setLightingEnabled(false);*/
     // mtl->getTechnique(0)->setSelfIllumination( ColourValue::White );
 
     mLines->begin(matName, RenderOperation::OT_LINE_LIST);
@@ -55,7 +68,7 @@ OgreDebugDrawer::OgreDebugDrawer(Ogre::SceneManager* scm)
     mTriangles->colour(ColourValue::Blue);
 
     mDebugModes = (DebugDrawModes)DBG_DrawWireframe;
-    Root::getSingleton().addFrameListener(this);
+    root->getSingleton().addFrameListener(this);
 }
 
 OgreDebugDrawer::~OgreDebugDrawer()

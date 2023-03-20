@@ -22,8 +22,7 @@ RigidBody::RigidBody(float t_mass, bool t_trigger, bool t_static)
 
 RigidBody::~RigidBody()
 {
-    delete m_bullet_transform;
-    delete m_rigid_body;
+    // THE SYSTEM DELETES EVERYTHING
 }
 
 void RigidBody::initComponent()
@@ -34,6 +33,7 @@ void RigidBody::initComponent()
     // TODO meter diferentes formas para el RB
     m_shape = new btBoxShape(transform->getScale());
     m_rigid_body = m_mngr->getSystem<PhysicsSystem>()->createRigidBody(m_bullet_transform, m_shape, m_mass);
+    m_mngr->getSystem<PhysicsSystem>()->addRigidBody(m_rigid_body);
 }
 
 void RigidBody::setMass(const float& t_mass)

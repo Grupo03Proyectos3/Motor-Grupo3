@@ -166,7 +166,9 @@ int main(int argc, char* argv[])
     // m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
     render_sys->getSceneManager()->getSceneActive()->addObjects(sinbad_go);
     PlayerController* m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
-    RigidBody* m_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go, 1.0f, false, true);
+    RigidBody* m_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go, 1.0f, false, false);
+    //m_rigid_body->setKinematic(false);
+    //m_rigid_body->setLinearVelocity(SVector3(100.0, -100.0, 0.0));
 
     ecs::GameObject* ground = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER});
     cmp = ecs::AddComponent<MeshRenderer>(ground, ground->getNode(), render_sys->getSceneManager()->getSceneActive()->getSceneManger(), "cube.mesh", "mygroundEntity");
@@ -175,8 +177,6 @@ int main(int argc, char* argv[])
     cmp_tr->setPosition(SVector3(0, 0, 0));cmp_tr->setScale(SVector3(50, 0.5, 50));
     animator = ecs::AddComponent<Flamingo::Animator>(ground, render_sys->getSceneManager()->getSceneActive()->getSceneManger());
     cmp->changeMaterial("Prueba/cesped");
-
-  
 
     // animator->setAnimation("Dance", true, true);
     //  Falta probarlo:
