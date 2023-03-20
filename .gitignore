@@ -6,8 +6,9 @@ Lib/
 
 Dependencias/Ogre/Build
 Dependencias/Bullet/Build
-Dependencias/CEGUI/src/cegui-0-8-7/dependencies
-Dependencias/CEGUI/bUILD
+Dependencias/CEGUI/src/dependencies
+Dependencias/CEGUI/dependencies/build
+Dependencias/CEGUI/build
 Exes/*
 !Exes/Assets/
 
