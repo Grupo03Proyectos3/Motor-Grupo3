@@ -9,3 +9,7 @@ cd ..
 cd .\LUA
 call BuildLua.bat
 cd ..
+
+cd .\CEGUI
+call BuildCEGUI.bat
+cd ..
