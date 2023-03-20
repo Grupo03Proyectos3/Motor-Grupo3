@@ -5,3 +5,7 @@ cd ..
 cd .\Bullet
 call BuildBullet.bat
 cd ..
+
+cd .\LUA
+call BuildLua.bat
+cd ..
