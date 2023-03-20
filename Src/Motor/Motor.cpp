@@ -17,6 +17,7 @@
 #include "Render/Animator.h"
 #include "Render/MeshRenderer.h"
 #include "Render/RenderSystem.h"
+#include "Render/ParticleSystem.h"
 
 // BASE
 #include "FlamingoBase/SceneManager.h"
@@ -28,7 +29,7 @@
 // EXTERNAL
 #include <OgreRoot.h> // MEMORY LEAK
 #include <fmod.h>
-#include <OgreParticleSystem.h>
+
 // C++
 #include <filesystem>
 #include <fstream>
@@ -183,13 +184,8 @@ int main(int argc, char* argv[])
     //  m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
     render_sys->getSceneManager()->getSceneActive()->addObjects(ground);
 
-     Ogre::ParticleSystem* pSys = render_sys->getSceneManager()->getSceneActive()->getSceneManger()->
-    	createParticleSystem("psBomba", "PsPrueba/Smoke");
-     
-     pSys->setEmitting(true);
-     Ogre::SceneNode* prueba = render_sys->getSceneManager()->getSceneActive()->getSceneRoot()->createChildSceneNode();
-     prueba->setPosition({0, 60, 0});
-     prueba->attachObject(pSys);
+    Flamingo::ParticleSystem* pSys = ecs::AddComponent<Flamingo::ParticleSystem>(sinbad_go, render_sys->getSceneManager()->getSceneActive()->getSceneManger(), render_sys->getSceneManager()->getSceneActive()->getSceneRoot()->createChildSceneNode());
+  
 
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
