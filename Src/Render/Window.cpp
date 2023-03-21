@@ -108,9 +108,6 @@ namespace Flamingo
         isClosed = InputHandler::instance()->closeWindowEvent();
         //std::cout << isClosed << "\n";
         if (isClosed) m_window.render->windowMovedOrResized();
-        
-        // just avoid "window not responding"
-        WindowEvents::WindowEventUtilities::messagePump();
     }
 
     void Window::shutdown(){
