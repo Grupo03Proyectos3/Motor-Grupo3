@@ -1,5 +1,4 @@
 #include "Window.h"
-#include "WindowEventUtilities.h"
 #include <OgreRoot.h>
 #include <SDL_video.h>
 #include <SDL_syswm.h>
