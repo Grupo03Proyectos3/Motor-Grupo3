@@ -103,11 +103,11 @@ void PhysicsSystem::initSystem()
     // Optional : set gravity to a certain value, plus other characteristics we need
     // m_world->setGravity();
 
-    //auto render_sys = m_mngr->getSystem<RenderSystem>();
+    auto render_sys = m_mngr->getSystem<RenderSystem>();
 
-    //OgreDebugDrawer* debug_drawer = new OgreDebugDrawer(render_sys->getSceneManager()->getSceneManager(), render_sys->getOgreRoot());
-    //debug_drawer->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
-   // m_world->setDebugDrawer(debug_drawer);
+    OgreDebugDrawer* debug_drawer = new OgreDebugDrawer(render_sys->getSceneManager()->getSceneManager(), render_sys->getOgreRoot());
+    debug_drawer->setDebugMode(btIDebugDraw::DBG_DrawWireframe | btIDebugDraw::DBG_DrawAabb);
+    m_world->setDebugDrawer(debug_drawer);
 }
 
 void PhysicsSystem::update(float t_delta_time)
@@ -134,7 +134,8 @@ void PhysicsSystem::update(float t_delta_time)
     if (m_world)
     {
         m_world->stepSimulation(t_delta_time);
-       // m_world->debugDrawWorld();
+        m_world->getDebugDrawer()->clearLines();
+        m_world->debugDrawWorld();
     }
 
     // std::cout << "RB position after: " << rbPruebas->getPosition().getX() << " " << rbPruebas->getPosition().getX() << " " << rbPruebas->getPosition().getX() << std::endl;
@@ -158,6 +159,11 @@ btRigidBody* PhysicsSystem::createRigidBody(btTransform* t_transform, btCollisio
     btDefaultMotionState* state = new btDefaultMotionState(*t_transform);
 
     btVector3 localInertia(0, 0, 0);
+
+    // TODO Poner masa 0 a los cinemáticos
+    if (t_mass != 0.0f)
+        t_shape->calculateLocalInertia(t_mass, localInertia);
+
     btRigidBody::btRigidBodyConstructionInfo cInfo(t_mass, state, t_shape, localInertia);
 
     btRigidBody* body = new btRigidBody(cInfo);

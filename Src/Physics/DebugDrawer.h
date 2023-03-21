@@ -6,7 +6,7 @@
 #include <OgreColourValue.h>
 #include <btBulletDynamicsCommon.h>
 
-class OgreDebugDrawer : public btIDebugDraw, public Ogre::FrameListener
+class OgreDebugDrawer : public btIDebugDraw
 {
   public:
     OgreDebugDrawer(Ogre::SceneManager* scm, Ogre::Root* root);
@@ -18,25 +18,13 @@ class OgreDebugDrawer : public btIDebugDraw, public Ogre::FrameListener
     virtual void draw3dText(const btVector3& location, const char* textString);
     virtual void setDebugMode(int debugMode);
     virtual int getDebugMode() const;
-
-  protected:
-    bool frameStarted(const Ogre::FrameEvent& evt) override;
-    bool frameEnded(const Ogre::FrameEvent& evt) override;
-
+    virtual void clearLines() override;
+    
   private:
-    struct ContactPoint
-    {
-        Ogre::Vector3 from;
-        Ogre::Vector3 to;
-        Ogre::ColourValue color;
-        size_t dieTime;
-    };
     DebugDrawModes mDebugModes;
-    Ogre::ManualObject* mLines;
-    Ogre::ManualObject* mTriangles;
-    std::vector<ContactPoint>* mContactPoints;
-    std::vector<ContactPoint> mContactPoints1;
-    std::vector<ContactPoint> mContactPoints2;
+    std::vector<Ogre::ManualObject*> mLines;
+
+    Ogre::SceneManager* m_scn_mngr = nullptr;
 };
 
 #endif // DebugDrawer_h__

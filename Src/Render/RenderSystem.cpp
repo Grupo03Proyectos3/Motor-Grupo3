@@ -47,25 +47,8 @@ void RenderSystem::initSystem()
         Ogre::SceneNode* root_scene_node = sceneActive->getSceneRoot();
 
         //// Sinbad --> Movido a Motor.cpp
-        // ecs::GameObject* sinbad_go = m_mngr->addGameObject(root_scene_node,ecs::GROUP_RENDER);
-        // auto cmp = ecs::AddComponent<MeshRenderer>(sinbad_go, sinbad_go->getNode(), scene_mgr, /*"cube.mesh"*/ "Sinbad.mesh", "myEntity");
-        ////cmp->changeMaterial("Prueba/espana");
-        // Transform* cmp_tr = ecs::AddComponent<Transform>(sinbad_go, sinbad_go->getNode());
-        // cmp_tr->setScale(SVector3(25, 25, 25));
-        // Flamingo::Animator* animator = ecs::AddComponent<Flamingo::Animator>(sinbad_go, scene_mgr);
-        // animator->setAnimation("Dance",true,true);
-        //// Falta probarlo:
-        ////m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
-        // sceneActive->addObjects(sinbad_go);
-        // m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
 
-        // Cubo
-        ecs::GameObject* cube_go = m_mngr->addGameObject(root_scene_node);
-        auto cmp2 = ecs::AddComponent<MeshRenderer>(cube_go, cube_go->getNode(), scene_mgr, "cube.mesh", "CubeEntity");
-        cmp2->changeMaterial("Prueba/MichaelScott");
-        Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go, cube_go->getNode());
-        cmp_tr2->setPosition(SVector3(0, 500, 0));
-        sceneActive->addObjects(cube_go);
+        // Cubo --> Movido a Motor.cpp
 
         // Luz
         ecs::GameObject* light_go = new ecs::GameObject(root_scene_node);

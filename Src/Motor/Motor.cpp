@@ -156,37 +156,48 @@ int main(int argc, char* argv[])
     auto time = playerTimer->getElapsedTime();
     auto dt = playerTimer->getElapsedTime() - time;
 
+    auto scene_active = render_sys->getSceneManager()->getSceneActive();
+    // Cubo
+    ecs::GameObject* cube_go = m_mngr->addGameObject(scene_active->getSceneRoot(), {ecs::GROUP_RENDER, ecs::GROUP_PHYSICS});
+    auto cmp2 = ecs::AddComponent<MeshRenderer>(cube_go, cube_go->getNode(), scene_active->getSceneManger(), "cube.mesh", "CubeEntity");
+    cmp2->changeMaterial("Prueba/MichaelScott");
+    Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go, cube_go->getNode());
+    cmp_tr2->setScale(SVector3(1, 1, 1));
+    cmp_tr2->setPosition(SVector3(0, 400, 0));
+    RigidBody* cube_rb = ecs::AddComponent<RigidBody>(cube_go, 100.0f, false, true);
+    scene_active->addObjects(cube_go);
+
     // Sinbad
-    ecs::GameObject* sinbad_go = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER, ecs::GROUP_PHYSICS});
-    auto cmp = ecs::AddComponent<MeshRenderer>(sinbad_go, sinbad_go->getNode(), render_sys->getSceneManager()->getSceneActive()->getSceneManger(), /*"cube.mesh"*/ "Sinbad.mesh", "myEntity");
+    ecs::GameObject* sinbad_go = m_mngr->addGameObject(scene_active->getSceneRoot(), {ecs::GROUP_RENDER, ecs::GROUP_PHYSICS});
+    auto cmp = ecs::AddComponent<MeshRenderer>(sinbad_go, sinbad_go->getNode(), scene_active->getSceneManger(), /*"cube.mesh"*/ "Sinbad.mesh", "myEntity");
     // cmp->changeMaterial("Prueba/espana");
     Transform* cmp_tr = ecs::AddComponent<Transform>(sinbad_go, sinbad_go->getNode());
     cmp_tr->setScale(SVector3(25, 25, 25));
     cmp_tr->setPosition({0, 200, 0});
-    Flamingo::Animator* animator = ecs::AddComponent<Flamingo::Animator>(sinbad_go, render_sys->getSceneManager()->getSceneActive()->getSceneManger());
+    Flamingo::Animator* animator = ecs::AddComponent<Flamingo::Animator>(sinbad_go, scene_active->getSceneManger());
     animator->setAnimation("Dance", true, true);
     // TODO Falta probarlo:
     // m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
-    render_sys->getSceneManager()->getSceneActive()->addObjects(sinbad_go);
+    scene_active->addObjects(sinbad_go);
     PlayerController* m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
-    RigidBody* m_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go, 1.0f, false, false);
-    //m_rigid_body->setKinematic(false);
-    //m_rigid_body->setLinearVelocity(SVector3(100.0, -100.0, 0.0));
+    RigidBody* m_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go, 100.0f, false, false);
+    m_rigid_body->setKinematic(false);
+    m_rigid_body->setLinearVelocity(SVector3(0.0, 70.0, 0.0));
 
-    ecs::GameObject* ground = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER});
-    cmp = ecs::AddComponent<MeshRenderer>(ground, ground->getNode(), render_sys->getSceneManager()->getSceneActive()->getSceneManger(), "cube.mesh", "mygroundEntity");
-    // cmp->changeMaterial("Prueba/espana");
-    cmp_tr = ecs::AddComponent<Transform>(ground, ground->getNode());
-    cmp_tr->setPosition(SVector3(0, 0, 0));cmp_tr->setScale(SVector3(50, 0.5, 50));
-    animator = ecs::AddComponent<Flamingo::Animator>(ground, render_sys->getSceneManager()->getSceneActive()->getSceneManger());
-    cmp->changeMaterial("Prueba/cesped");
+    //ecs::GameObject* ground = m_mngr->addGameObject(scene_active->getSceneRoot(), {ecs::GROUP_RENDER});
+    //cmp = ecs::AddComponent<MeshRenderer>(ground, ground->getNode(), scene_active->getSceneManger(), "cube.mesh", "mygroundEntity");
+    //// cmp->changeMaterial("Prueba/espana");
+    //cmp_tr = ecs::AddComponent<Transform>(ground, ground->getNode());
+    //cmp_tr->setPosition(SVector3(0, 0, 0));cmp_tr->setScale(SVector3(50, 0.5, 50));
+    //animator = ecs::AddComponent<Flamingo::Animator>(ground, scene_active->getSceneManger());
+    //cmp->changeMaterial("Prueba/cesped");
 
     // animator->setAnimation("Dance", true, true);
     //  Falta probarlo:
     //  m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
-    render_sys->getSceneManager()->getSceneActive()->addObjects(ground);
+    //scene_active->addObjects(ground);
 
-    Flamingo::ParticleSystem* pSys = ecs::AddComponent<Flamingo::ParticleSystem>(sinbad_go, render_sys->getSceneManager()->getSceneActive()->getSceneManger(), render_sys->getSceneManager()->getSceneActive()->getSceneRoot()->createChildSceneNode());
+    Flamingo::ParticleSystem* pSys = ecs::AddComponent<Flamingo::ParticleSystem>(sinbad_go, scene_active->getSceneManger(), scene_active->getSceneRoot()->createChildSceneNode());
   
 
     while (game_playing && !render_sys->getWindow()->isWindowClosed())

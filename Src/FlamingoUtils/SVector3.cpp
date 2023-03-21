@@ -184,12 +184,12 @@ SVector3::operator btVector3() const
 
 SVector3 SVector3::ogreToSVector3(const Ogre::Vector3& t_ogre_vector)
 {
-    return SVector3(-t_ogre_vector.x, -t_ogre_vector.y, t_ogre_vector.z);
+    return SVector3(t_ogre_vector.x, t_ogre_vector.y, t_ogre_vector.z);
 }
 
 SVector3 SVector3::bulletToSVector3(const btVector3& t_bullet_vector)
 {
-    return SVector3(-t_bullet_vector.x(), -t_bullet_vector.y(), t_bullet_vector.z());
+    return SVector3(t_bullet_vector.x(), t_bullet_vector.y(), t_bullet_vector.z());
 }
 
 //SVector3 SVector3::fmodToSVector3(const FMOD_VECTOR& fModVector)
