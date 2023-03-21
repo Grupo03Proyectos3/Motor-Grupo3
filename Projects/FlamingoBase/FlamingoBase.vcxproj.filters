@@ -60,9 +60,6 @@
     <ClCompile Include="..\..\Src\FlamingoBase\Factory.cpp">
       <Filter>Archivos de origen\Factories</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\FlamingoBase\TransformFactory.cpp">
-      <Filter>Archivos de origen\Factories</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\FlamingoBase\PlayerControllerFactory.cpp">
       <Filter>Archivos de origen\Factories</Filter>
     </ClCompile>
@@ -90,9 +87,6 @@
       <Filter>Archivos de encabezado\Factories</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\FlamingoBase\Factory.h">
-      <Filter>Archivos de encabezado\Factories</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\FlamingoBase\TransformFactory.h">
       <Filter>Archivos de encabezado\Factories</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\FlamingoBase\PlayerControllerFactory.h">
