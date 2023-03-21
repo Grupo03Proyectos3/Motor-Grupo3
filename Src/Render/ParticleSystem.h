@@ -10,6 +10,8 @@
 #include <OgreSceneNode.h>
 #include <OgreSceneManager.h>
 #include <OgreParticleSystem.h>
+#include <OgreTechnique.h>
+
 #include <string>
 namespace Flamingo
 {
