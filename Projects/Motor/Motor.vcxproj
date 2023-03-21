@@ -28,6 +28,9 @@
     <ProjectReference Include="..\FlamingoUtils\FlamingoUtils.vcxproj">
       <Project>{9b1a365d-e452-46c9-a29d-d0f41dd50afc}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Lua\Lua.vcxproj">
+      <Project>{6391f5fc-475b-495c-aaf1-438a9e93f877}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Physics\Physics.vcxproj">
       <Project>{eb0ca8e0-fcff-4ad1-9332-d479240af24e}</Project>
     </ProjectReference>

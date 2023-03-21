@@ -7,7 +7,6 @@
 #include "ECS/Manager.h"
 
 
-
 // PHYSICS
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PlayerController.h"
@@ -18,6 +17,9 @@
 #include "Render/MeshRenderer.h"
 #include "Render/RenderSystem.h"
 #include "Render/ParticleSystem.h"
+
+//LUA
+#include "Lua/LuaSystem.h"
 
 // BASE
 #include "FlamingoBase/SceneManager.h"
@@ -36,7 +38,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
 
 
 // Convierte la ruta obtenida al formato de resources.cfg
@@ -148,6 +149,7 @@ int main(int argc, char* argv[])
 
     RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
+    LuaSystem* lua_system = m_mngr->addSystem<LuaSystem>();
     //  auto& ihldr = ih();
 
     Flamingo::Timer* playerTimer = new Flamingo::Timer();

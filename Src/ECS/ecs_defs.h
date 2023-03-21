@@ -33,6 +33,7 @@
     SYSTEM_EXAMPLE,   \
         _sys_PHYSICS, \
         _sys_RENDER, \
-        _sys_UI
+        _sys_UI, \
+        _sys_LUA
 
 #endif // !__ECS_DEFS__

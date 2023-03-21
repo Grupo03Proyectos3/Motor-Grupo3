@@ -2,19 +2,25 @@
 #ifndef __LUA_SYSTEM_H__
 #define __LUA_SYSTEM_H__
 
-extern "C"
-{
-	#include "lua.h"
-	#include "lauxlib.h"
-	#include "lualib.h"
-}
-
-#include <LuaBridge\LuaBridge.h>
 #include "ECS/System.h"
 
-class RenderSystem : public ecs::System
-{
+class lua_State;
 
+class LuaSystem : public ecs::System
+{
+  public:
+    __SYSTEM_ID_DECL__(ecs::_sys_LUA)
+
+    LuaSystem(){};
+    virtual ~LuaSystem(){};
+
+	void initSystem() override;
+    void update(float t_delta_time) override{};
+
+    lua_State* getLuaState();
+
+  private:
+    lua_State* lua_state;
 };
 
 #endif
