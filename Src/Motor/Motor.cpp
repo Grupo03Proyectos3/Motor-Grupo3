@@ -159,11 +159,13 @@ int main(int argc, char* argv[])
     auto scene_active = render_sys->getSceneManager()->getSceneActive();
     // Cubo
     ecs::GameObject* cube_go = m_mngr->addGameObject(scene_active->getSceneRoot(), {ecs::GROUP_RENDER, ecs::GROUP_PHYSICS});
+    Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go, cube_go->getNode());
+    cmp_tr2->setScale(SVector3(0.5, 0.5, 0.5));
+    cmp_tr2->setPosition(SVector3(0, 400, 0));
+
     auto cmp2 = ecs::AddComponent<MeshRenderer>(cube_go, cube_go->getNode(), scene_active->getSceneManger(), "cube.mesh", "CubeEntity");
     cmp2->changeMaterial("Prueba/MichaelScott");
-    Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go, cube_go->getNode());
-    cmp_tr2->setScale(SVector3(1, 1, 1));
-    cmp_tr2->setPosition(SVector3(0, 400, 0));
+
     RigidBody* cube_rb = ecs::AddComponent<RigidBody>(cube_go, 100.0f, false, true);
     scene_active->addObjects(cube_go);
 
@@ -199,7 +201,6 @@ int main(int argc, char* argv[])
 
     Flamingo::ParticleSystem* pSys = ecs::AddComponent<Flamingo::ParticleSystem>(sinbad_go, scene_active->getSceneManger(), scene_active->getSceneRoot()->createChildSceneNode());
   
-
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
         // Delta time en milisegundos
