@@ -1,4 +1,6 @@
 #include "Transform.h"
+#include "FlamingoUtils/SVector3.h"
+
 Transform::Transform()
 {
 }
@@ -41,20 +43,24 @@ SVector3 Transform::getScale()
 void Transform::setPosition(SVector3 t_pos)
 {
     m_transform->setPosition(t_pos);
+    m_position = t_pos;
 }
 
 void Transform::setRotation(SQuaternion t_rotation)
 {
     m_transform->setOrientation(t_rotation);
+    m_rotation = t_rotation;
 }
 
 void Transform::setScale(SVector3 t_scale)
 {
     m_transform->setScale(t_scale);
+    m_scale = t_scale;
 }
 
 void Transform::translate(SVector3 t_translate){
     m_transform->translate(Ogre::Real(t_translate.getX()), Ogre::Real(t_translate.getY()), Ogre::Real(t_translate.getZ()));
+    m_position = SVector3::ogreToSVector3(m_transform->getPosition());
 }
 
 Ogre::SceneNode* Transform::getNode()
