@@ -5,7 +5,7 @@ ecs::Component* PlayerControllerFactory::createComponent(ecs::GameObject* gO, co
 {
     try
     {
-        float speed = std::stof(args.at("t_playerSpeed"));
+        float speed = std::stof(args.at("t_speed"));
         PlayerController* c = ecs::AddComponent<PlayerController>(gO);
         c->initValues(speed);
         c->initComponent();
@@ -16,6 +16,6 @@ ecs::Component* PlayerControllerFactory::createComponent(ecs::GameObject* gO, co
     }
     catch (const std::exception&)
     {
-        throw new std::exception("Parámetros de entrada inválidos o incompletos");
+        throw new std::exception("Invalids or incompletes params");
     }
 }

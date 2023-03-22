@@ -70,7 +70,7 @@ void MapReader::readMap(std::string filename, RenderSystem* t_renderSystem)
                                     JSONObject vObjS = w->AsObject();
                                     try
                                     {
-                                        std::string scriptType = vObjS["scriptType"]->AsString();
+                                        std::string scriptType = vObjS["type"]->AsString();
 
                                         //Parametros de ese script
                                         JSONValue* jValueSP = nullptr;
