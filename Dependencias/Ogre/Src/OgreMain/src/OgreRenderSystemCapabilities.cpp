@@ -58,10 +58,10 @@ namespace Ogre {
         : mVendor(GPU_UNKNOWN)
         , mNumTextureUnits(0)
         , mStencilBufferBitDepth(8)
-        , mConstantFloatCount{}
         , mNumMultiRenderTargets(1)
         , mNonPOW2TexturesLimited(false)
         , mMaxSupportedAnisotropy(0)
+        , mVertexTextureUnitsShared(0)
         , mGeometryProgramNumOutputVertices(0)
         , mNumVertexAttributes(1)
     {
@@ -111,36 +111,36 @@ namespace Ogre {
         }
         pLog->logMessage(" * Vertex programs: yes");
         pLog->logMessage("   - Number of constant 4-vectors: " +
-                         StringConverter::toString(mConstantFloatCount[GPT_VERTEX_PROGRAM]));
+                         StringConverter::toString(mVertexProgramConstantFloatCount));
         pLog->logMessage(" * Fragment programs: yes");
         pLog->logMessage("   - Number of constant 4-vectors: " +
-                         StringConverter::toString(mConstantFloatCount[GPT_FRAGMENT_PROGRAM]));
+                         StringConverter::toString(mFragmentProgramConstantFloatCount));
         pLog->logMessage(" * Geometry programs: " +
                          StringConverter::toString(hasCapability(RSC_GEOMETRY_PROGRAM), true));
         if (hasCapability(RSC_GEOMETRY_PROGRAM))
         {
             pLog->logMessage("   - Number of constant 4-vectors: " +
-                             StringConverter::toString(mConstantFloatCount[GPT_GEOMETRY_PROGRAM]));
+                             StringConverter::toString(mGeometryProgramConstantFloatCount));
         }
         pLog->logMessage(" * Tessellation Hull programs: " +
                          StringConverter::toString(hasCapability(RSC_TESSELLATION_HULL_PROGRAM), true));
         if (hasCapability(RSC_TESSELLATION_HULL_PROGRAM))
         {
             pLog->logMessage("   - Number of constant 4-vectors: " +
-                             StringConverter::toString(mConstantFloatCount[GPT_HULL_PROGRAM]));
+                             StringConverter::toString(mTessellationHullProgramConstantFloatCount));
         }
         pLog->logMessage(" * Tessellation Domain programs: " +
                          StringConverter::toString(hasCapability(RSC_TESSELLATION_DOMAIN_PROGRAM), true));
         if (hasCapability(RSC_TESSELLATION_DOMAIN_PROGRAM))
         {
             pLog->logMessage("   - Number of constant 4-vectors: " +
-                             StringConverter::toString(mConstantFloatCount[GPT_DOMAIN_PROGRAM]));
+                             StringConverter::toString(mTessellationDomainProgramConstantFloatCount));
         }
         pLog->logMessage(" * Compute programs: " + StringConverter::toString(hasCapability(RSC_COMPUTE_PROGRAM), true));
         if (hasCapability(RSC_COMPUTE_PROGRAM))
         {
             pLog->logMessage("   - Number of constant 4-vectors: " +
-                             StringConverter::toString(mConstantFloatCount[GPT_COMPUTE_PROGRAM]));
+                             StringConverter::toString(mComputeProgramConstantFloatCount));
         }
         pLog->logMessage(
             " * Supported Shader Profiles: " +
@@ -200,6 +200,8 @@ namespace Ogre {
         if (hasCapability(RSC_VERTEX_TEXTURE_FETCH))
         {
             pLog->logMessage("   - Max vertex textures: " + StringConverter::toString(mNumVertexTextureUnits));
+            pLog->logMessage("   - Vertex textures shared: " +
+                             StringConverter::toString(mVertexTextureUnitsShared, true));
         }
         pLog->logMessage(" * Read/Write Buffers: " +
                          StringConverter::toString(hasCapability(RSC_READ_WRITE_BUFFERS), true));

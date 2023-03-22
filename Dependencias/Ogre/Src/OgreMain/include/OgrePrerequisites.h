@@ -93,8 +93,7 @@ namespace Ogre {
     class ColourValue;
     class ConfigDialog;
     template <typename T> class Controller;
-    typedef Controller<float> ControllerFloat;
-    typedef Controller<float> ControllerReal;
+    typedef Controller<Real> ControllerReal;
     template <typename T> class ControllerFunction;
     class ControllerManager;
     template <typename T> class ControllerValue;
@@ -239,6 +238,7 @@ namespace Ogre {
     class SubMesh;
     class TagPoint;
     class Technique;
+    class TempBlendedBufferInfo;
     class ExternalTextureSource;
     class TextureUnitState;
     class Texture;

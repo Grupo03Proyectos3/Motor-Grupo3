@@ -124,13 +124,13 @@ ManualObject::ManualObject(const String& name)
         mTempIndexSize = newSize;
     }
     //-----------------------------------------------------------------------------
-    void ManualObject::estimateVertexCount(uint32 vcount)
+    void ManualObject::estimateVertexCount(size_t vcount)
     {
         resizeTempVertexBufferIfNeeded(vcount);
         mEstVertexCount = vcount;
     }
     //-----------------------------------------------------------------------------
-    void ManualObject::estimateIndexCount(uint32 icount)
+    void ManualObject::estimateIndexCount(size_t icount)
     {
         resizeTempIndexBufferIfNeeded(icount);
         mEstIndexCount = icount;
@@ -265,11 +265,11 @@ ManualObject::ManualObject(const String& name)
             case VET_FLOAT2:
             case VET_FLOAT3:
             case VET_FLOAT4:
-                OgreAssert(elem.getSemantic() != VES_COLOUR, "must use VET_UBYTE4_NORM");
+                OgreAssert(elem.getSemantic() != VES_DIFFUSE, "must use VET_COLOUR");
                 elem.baseVertexPointerToElement(pBase, &pFloat);
                 break;
             case VET_UBYTE4_NORM:
-                OgreAssert(elem.getSemantic() == VES_COLOUR, "must use VES_COLOUR");
+                OgreAssert(elem.getSemantic() == VES_DIFFUSE, "must use VES_DIFFUSE");
                 elem.baseVertexPointerToElement(pBase, &pRGBA);
                 break;
             default:
@@ -281,20 +281,27 @@ ManualObject::ManualObject(const String& name)
             switch(elem.getSemantic())
             {
             case VES_POSITION:
-                memcpy(pFloat, mTempVertex.position.ptr(), sizeof(Vector3f));
+                *pFloat++ = mTempVertex.position.x;
+                *pFloat++ = mTempVertex.position.y;
+                *pFloat++ = mTempVertex.position.z;
                 break;
             case VES_NORMAL:
-                memcpy(pFloat, mTempVertex.normal.ptr(), sizeof(Vector3f));
+                *pFloat++ = mTempVertex.normal.x;
+                *pFloat++ = mTempVertex.normal.y;
+                *pFloat++ = mTempVertex.normal.z;
                 break;
             case VES_TANGENT:
-                memcpy(pFloat, mTempVertex.tangent.ptr(), sizeof(Vector3f));
+                *pFloat++ = mTempVertex.tangent.x;
+                *pFloat++ = mTempVertex.tangent.y;
+                *pFloat++ = mTempVertex.tangent.z;
                 break;
             case VES_TEXTURE_COORDINATES:
                 dims = VertexElement::getTypeCount(elem.getType());
-                memcpy(pFloat, mTempVertex.texCoord[elem.getIndex()].ptr(), sizeof(float)*dims);
+                for (ushort t = 0; t < dims; ++t)
+                    *pFloat++ = mTempVertex.texCoord[elem.getIndex()][t];
                 break;
-            case VES_COLOUR:
-                *pRGBA = mTempVertex.colour.getAsBYTE();
+            case VES_DIFFUSE:
+                *pRGBA++ = mTempVertex.colour.getAsABGR();
                 break;
             default:
                 OgreAssert(false, "invalid semantic");

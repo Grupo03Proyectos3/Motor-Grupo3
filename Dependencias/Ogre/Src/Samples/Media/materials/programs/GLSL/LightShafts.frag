@@ -4,6 +4,7 @@
 // Ogre3D implementation by Xavier Verguín González (xavyiy [at] gmail [dot] com) [Xavyiy]
 // ---------------------------------------------------------------------------------------
 
+#define USE_OGRE_FROM_FUTURE
 #include <OgreUnifiedShader.h>
 
 SAMPLER2D(uDepthMap,  0);

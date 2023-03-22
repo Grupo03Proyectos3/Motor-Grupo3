@@ -258,6 +258,9 @@ namespace Ogre
         directly, although  this can be done if the app wants to.
         */
         virtual void _initialise();
+
+        /** Query the real capabilities of the GPU and driver in the RenderSystem*/
+        virtual RenderSystemCapabilities* createRenderSystemCapabilities() const = 0;
  
         /** Get a pointer to the current capabilities being used by the RenderSystem.
 
@@ -538,6 +541,9 @@ namespace Ogre
         virtual void _setTexture(size_t unit, bool enabled, 
             const TexturePtr &texPtr) = 0;
 
+        /// @deprecated obsolete
+        OGRE_DEPRECATED virtual void _setVertexTexture(size_t unit, const TexturePtr& tex);
+
         /**
         Sets the texture coordinate set to use for a texture unit.
 
@@ -569,6 +575,16 @@ namespace Ogre
         @deprecated only needed for fixed function APIs
         */
         virtual void _setTextureBlendMode(size_t unit, const LayerBlendModeEx& bm) {}
+
+        /// @deprecated use _setSampler
+        OGRE_DEPRECATED virtual void _setTextureUnitFiltering(size_t unit, FilterType ftype, FilterOptions filter) {}
+
+        /// @deprecated use _setSampler
+        OGRE_DEPRECATED virtual void _setTextureUnitFiltering(size_t unit, FilterOptions minFilter,
+            FilterOptions magFilter, FilterOptions mipFilter);
+
+        /// @deprecated use _setSampler
+        OGRE_DEPRECATED virtual void _setTextureAddressingMode(size_t unit, const Sampler::UVWAddressingMode& uvw) {}
 
         /** Sets the texture coordinate transformation matrix for a texture unit.
         @param unit Texture unit to affect
@@ -631,6 +647,23 @@ namespace Ogre
         * several times per complete frame if multiple viewports exist.
         */
         virtual void _beginFrame();
+        
+        /// Dummy structure for render system contexts - implementing RenderSystems can extend
+        /// as needed
+        struct RenderSystemContext { };
+        /**
+        * Pause rendering for a frame. This has to be called after _beginFrame and before _endFrame.
+        * Will usually be called by the SceneManager, don't use this manually unless you know what
+        * you are doing.
+        */
+        virtual RenderSystemContext* _pauseFrame(void);
+        /**
+        * Resume rendering for a frame. This has to be called after a _pauseFrame call
+        * Will usually be called by the SceneManager, don't use this manually unless you know what
+        * you are doing.
+        * @param context the render system context, as returned by _pauseFrame
+        */
+        virtual void _resumeFrame(RenderSystemContext* context);
 
         /**
         * Ends rendering of a frame to the current viewport.
@@ -1065,6 +1098,9 @@ namespace Ogre
         */
         virtual void unregisterThread() {}
 
+        /// @deprecated do not use
+        OGRE_DEPRECATED virtual unsigned int getDisplayMonitorCount() const { return 1; }
+
         /**
         * This marks the beginning of an event for GPU profiling.
         */
@@ -1111,7 +1147,12 @@ namespace Ogre
         RenderTarget * mActiveRenderTarget;
 
         /** The Active GPU programs and gpu program parameters*/
-        GpuProgramParametersPtr mActiveParameters[GPT_COUNT];
+        GpuProgramParametersSharedPtr mActiveVertexGpuProgramParameters;
+        GpuProgramParametersSharedPtr mActiveGeometryGpuProgramParameters;
+        GpuProgramParametersSharedPtr mActiveFragmentGpuProgramParameters;
+        GpuProgramParametersSharedPtr mActiveTessellationHullGpuProgramParameters;
+        GpuProgramParametersSharedPtr mActiveTessellationDomainGpuProgramParameters;
+        GpuProgramParametersSharedPtr mActiveComputeGpuProgramParameters;
 
         // Texture manager
         // A concrete class of this will be created and
@@ -1127,6 +1168,9 @@ namespace Ogre
         size_t mBatchCount;
         size_t mFaceCount;
         size_t mVertexCount;
+
+        /// Saved manual colour blends
+        ColourValue mManualBlendColours[OGRE_MAX_TEXTURE_LAYERS][2];
 
         bool mInvertVertexWinding;
         bool mIsReverseDepthBufferEnabled;
@@ -1169,7 +1213,12 @@ namespace Ogre
         typedef std::list<HardwareOcclusionQuery*> HardwareOcclusionQueryList;
         HardwareOcclusionQueryList mHwOcclusionQueries;
 
-        std::array<bool, GPT_COUNT> mProgramBound;
+        bool mVertexProgramBound;
+        bool mGeometryProgramBound;
+        bool mFragmentProgramBound;
+        bool mTessellationHullProgramBound;
+        bool mTessellationDomainProgramBound;
+        bool mComputeProgramBound;
 
         // Recording user clip planes
         PlaneList mClipPlanes;
@@ -1183,9 +1232,6 @@ namespace Ogre
 
         /// @deprecated only needed for fixed function APIs
         virtual void setClipPlanesImpl(const PlaneList& clipPlanes) {}
-
-        /** Query the real capabilities of the GPU and driver in the RenderSystem*/
-        virtual RenderSystemCapabilities* createRenderSystemCapabilities() const = 0;
 
         /** Initialize the render system from the capabilities*/
         virtual void initialiseFromRenderSystemCapabilities(RenderSystemCapabilities* caps, RenderTarget* primary) = 0;

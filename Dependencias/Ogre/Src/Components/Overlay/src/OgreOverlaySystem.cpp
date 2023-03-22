@@ -125,7 +125,8 @@ namespace Ogre {
         OGRE_DELETE mFontManager;
     }
     //---------------------------------------------------------------------
-    void OverlaySystem::renderQueueStarted(uint8 queueGroupId, const String& cameraName, bool& skipThisInvocation)
+    void OverlaySystem::renderQueueStarted(uint8 queueGroupId, const String& invocation, 
+            bool& skipThisInvocation)
     {
         if(queueGroupId == Ogre::RENDER_QUEUE_OVERLAY)
         {

@@ -144,7 +144,14 @@ namespace Ogre {
       void createBlendMask(size_t blendMaskSizeHint, float initialWeight = 1.0f);
       /// Destroy the currently set blend mask
       void destroyBlendMask();
-
+      /** @brief Set the blend mask data (might be dangerous)
+       *
+       * @par The size of the array should match the number of entries the
+       *      blend mask was created with.
+       *
+       * @par Stick to the setBlendMaskEntry method if you don't know exactly what you're doing.
+       */
+      void _setBlendMaskData(const float* blendMaskData);
       /** @brief Set the blend mask
        *
        * @par The size of the array should match the number of entries the
@@ -166,14 +173,6 @@ namespace Ogre {
           return mBlendMask[boneHandle];
       }
     private:
-        /** @brief Set the blend mask data (might be dangerous)
-         *
-         * @par The size of the array should match the number of entries the
-         *      blend mask was created with.
-         *
-         * @par Stick to the setBlendMaskEntry method if you don't know exactly what you're doing.
-         */
-        void _setBlendMaskData(const float* blendMaskData);
         /// The blend mask (containing per bone weights)
         BoneBlendMask mBlendMask;
 
@@ -230,7 +229,7 @@ namespace Ogre {
         /** Get an iterator over all the animation states in this set.
         @deprecated use getAnimationStates()
         */
-        OGRE_DEPRECATED AnimationStateIterator getAnimationStateIterator(void);
+        AnimationStateIterator getAnimationStateIterator(void);
         /** Get an iterator over all the animation states in this set.
         @deprecated use getAnimationStates()
         */
@@ -287,7 +286,7 @@ namespace Ogre {
         is deleted explicitly elsewhere so this causes double-free problems.
         This wrapper acts as a bridge and it is this which is destroyed automatically.
     */
-    class _OgreExport AnimationStateControllerValue : public ControllerValue<float>
+    class _OgreExport AnimationStateControllerValue : public ControllerValue<Real>
     {
     private:
         AnimationState* mTargetAnimationState;
@@ -305,13 +304,13 @@ namespace Ogre {
         static ControllerValueRealPtr create(AnimationState* targetAnimationState, bool addTime = false);
 
         /** ControllerValue implementation. */
-        float getValue(void) const override
+        Real getValue(void) const override
         {
             return mTargetAnimationState->getTimePosition() / mTargetAnimationState->getLength();
         }
 
         /** ControllerValue implementation. */
-        void setValue(float value) override
+        void setValue(Real value) override
         {
             if(mAddTime)
                 mTargetAnimationState->addTime(value);

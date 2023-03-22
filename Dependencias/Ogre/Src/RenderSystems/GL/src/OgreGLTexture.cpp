@@ -60,7 +60,16 @@ namespace Ogre {
 
     GLTexture::~GLTexture()
     {
-        unload();
+        // have to call this here rather than in Resource destructor
+        // since calling virtual methods in base destructors causes crash
+        if (isLoaded())
+        {
+            unload(); 
+        }
+        else
+        {
+            freeInternalResources();
+        }
     }
 
     GLenum GLTexture::getGLTextureTarget(void) const

@@ -31,7 +31,7 @@ TEST_F(DotSceneTests, exportImport)
     }
     catch (const std::exception& e)
     {
-        GTEST_SKIP() << "Plugin_DotScene not found";
+        return;
     }
 
     mRoot->getInstalledPlugins().front()->initialise();
@@ -66,6 +66,4 @@ TEST_F(DotSceneTests, exportImport)
     EXPECT_EQ(sceneMgr->getEntity("EntityUnlit")->getSubEntity(0)->getMaterialName(), "BaseWhiteNoLighting");
 
     FileSystemLayer::removeFile("DotSceneTest.scene");
-
-    mRoot->getInstalledPlugins().front()->shutdown();
 }

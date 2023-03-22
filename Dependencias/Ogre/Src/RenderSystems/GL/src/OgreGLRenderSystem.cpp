@@ -63,6 +63,9 @@ THE SOFTWARE.
 extern "C" void glFlushRenderAPPLE();
 #endif
 
+// Convenience macro from ARB_vertex_buffer_object spec
+#define VBO_BUFFER_OFFSET(i) ((char *)(i))
+
 namespace Ogre {
 
     static GLNativeSupport* glsupport;
@@ -697,6 +700,13 @@ namespace Ogre {
 
     void GLRenderSystem::initialiseFromRenderSystemCapabilities(RenderSystemCapabilities* caps, RenderTarget* primary)
     {
+        if(caps->getRenderSystemName() != getName())
+        {
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                        "Trying to initialize GLRenderSystem from RenderSystemCapabilities that do not support OpenGL",
+                        "GLRenderSystem::initialiseFromRenderSystemCapabilities");
+        }
+
         // set texture the number of texture units
         mFixedFunctionTextureUnits = caps->getNumTextureUnits();
 
@@ -1595,6 +1605,17 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
+    void GLRenderSystem::_setTextureAddressingMode(size_t stage, const Sampler::UVWAddressingMode& uvw)
+    {
+        mStateCacheManager->activateGLTextureUnit(stage);
+        mStateCacheManager->setTexParameteri( mTextureTypes[stage], GL_TEXTURE_WRAP_S,
+                         getTextureAddressingMode(uvw.u));
+        mStateCacheManager->setTexParameteri( mTextureTypes[stage], GL_TEXTURE_WRAP_T,
+                         getTextureAddressingMode(uvw.v));
+        mStateCacheManager->setTexParameteri( mTextureTypes[stage], GL_TEXTURE_WRAP_R,
+                         getTextureAddressingMode(uvw.w));
+    }
+    //-----------------------------------------------------------------------------
     void GLRenderSystem::_setTextureMatrix(size_t stage, const Matrix4& xform)
     {
         if (stage >= mFixedFunctionTextureUnits)
@@ -1709,10 +1730,14 @@ namespace Ogre {
     void GLRenderSystem::_setCullingMode(CullingMode mode)
     {
         mCullingMode = mode;
+        // NB: Because two-sided stencil API dependence of the front face, we must
+        // use the same 'winding' for the front face everywhere. As the OGRE default
+        // culling mode is clockwise, we also treat anticlockwise winding as front
+        // face for consistently. On the assumption that, we can't change the front
+        // face by glFrontFace anywhere.
 
         GLenum cullMode;
         bool flip = flipFrontFace();
-        glFrontFace(flip ? GL_CW : GL_CCW);
 
         switch( mode )
         {
@@ -1720,10 +1745,10 @@ namespace Ogre {
             mStateCacheManager->setEnabled( GL_CULL_FACE, false );
             return;
         case CULL_CLOCKWISE:
-            cullMode = GL_BACK;
+            cullMode = flip ? GL_FRONT : GL_BACK;
             break;
         case CULL_ANTICLOCKWISE:
-            cullMode = GL_FRONT;
+            cullMode = flip ? GL_BACK : GL_FRONT;
             break;
         }
 
@@ -1871,7 +1896,7 @@ namespace Ogre {
         if(!state.enabled)
             return;
 
-        bool flip = false;
+        bool flip;
         mStencilWriteMask = state.writeMask;
 
         auto compareOp = convertCompareFunction(state.compareOp);
@@ -1881,6 +1906,9 @@ namespace Ogre {
             if (!mCurrentCapabilities->hasCapability(RSC_TWO_SIDED_STENCIL))
                 OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "2-sided stencils are not supported");
 
+            // NB: We should always treat CCW as front face for consistent with default
+            // culling mode. Therefore, we must take care with two-sided stencil settings.
+            flip = flipFrontFace();
             if(GLAD_GL_VERSION_2_0) // New GL2 commands
             {
                 // Back
@@ -1982,6 +2010,50 @@ namespace Ogre {
         };
         // to keep compiler happy
         return SOP_KEEP;
+    }
+    //---------------------------------------------------------------------
+    void GLRenderSystem::_setTextureUnitFiltering(size_t unit,
+                                                  FilterType ftype, FilterOptions fo)
+    {
+        mStateCacheManager->activateGLTextureUnit(unit);
+        switch(ftype)
+        {
+        case FT_MIN:
+            mMinFilter = fo;
+            // Combine with existing mip filter
+            mStateCacheManager->setTexParameteri(
+                mTextureTypes[unit],
+                GL_TEXTURE_MIN_FILTER,
+                getCombinedMinMipFilter(mMinFilter, mMipFilter));
+            break;
+        case FT_MAG:
+            switch (fo)
+            {
+            case FO_ANISOTROPIC: // GL treats linear and aniso the same
+            case FO_LINEAR:
+                mStateCacheManager->setTexParameteri(
+                    mTextureTypes[unit],
+                    GL_TEXTURE_MAG_FILTER,
+                    GL_LINEAR);
+                break;
+            case FO_POINT:
+            case FO_NONE:
+                mStateCacheManager->setTexParameteri(
+                    mTextureTypes[unit],
+                    GL_TEXTURE_MAG_FILTER,
+                    GL_NEAREST);
+                break;
+            }
+            break;
+        case FT_MIP:
+            mMipFilter = fo;
+            // Combine with existing min filter
+            mStateCacheManager->setTexParameteri(
+                mTextureTypes[unit],
+                GL_TEXTURE_MIN_FILTER,
+                getCombinedMinMipFilter(mMinFilter, mMipFilter));
+            break;
+        }
     }
     //-----------------------------------------------------------------------------
     void GLRenderSystem::_setTextureBlendMode(size_t stage, const LayerBlendModeEx& bm)
@@ -2232,7 +2304,11 @@ namespace Ogre {
 
         // Find the correct type to render
         GLint primType;
-        switch (op.operationType)
+        int operationType = op.operationType;
+        // Use adjacency if there is a geometry program and it requested adjacency info
+        if(mGeometryProgramBound && mCurrentGeometryProgram && dynamic_cast<GpuProgram*>(mCurrentGeometryProgram)->isAdjacencyInfoRequired())
+            operationType |= RenderOperation::OT_DETAIL_ADJACENCY_BIT;
+        switch (operationType)
         {
         case RenderOperation::OT_POINT_LIST:
             primType = GL_POINTS;
@@ -2420,19 +2496,22 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void GLRenderSystem::unbindGpuProgram(GpuProgramType gptype)
     {
-        mActiveParameters[gptype].reset();
+
         if (gptype == GPT_VERTEX_PROGRAM && mCurrentVertexProgram)
         {
+            mActiveVertexGpuProgramParameters.reset();
             mCurrentVertexProgram->unbindProgram();
             mCurrentVertexProgram = 0;
         }
         else if (gptype == GPT_GEOMETRY_PROGRAM && mCurrentGeometryProgram)
         {
+            mActiveGeometryGpuProgramParameters.reset();
             mCurrentGeometryProgram->unbindProgram();
             mCurrentGeometryProgram = 0;
         }
         else if (gptype == GPT_FRAGMENT_PROGRAM && mCurrentFragmentProgram)
         {
+            mActiveFragmentGpuProgramParameters.reset();
             mCurrentFragmentProgram->unbindProgram();
             mCurrentFragmentProgram = 0;
         }
@@ -2449,16 +2528,19 @@ namespace Ogre {
             // for now, just copy
             params->_copySharedParams();
         }
-        mActiveParameters[gptype] = params;
+
         switch (gptype)
         {
         case GPT_VERTEX_PROGRAM:
+            mActiveVertexGpuProgramParameters = params;
             mCurrentVertexProgram->bindProgramParameters(params, mask);
             break;
         case GPT_GEOMETRY_PROGRAM:
+            mActiveGeometryGpuProgramParameters = params;
             mCurrentGeometryProgram->bindProgramParameters(params, mask);
             break;
         case GPT_FRAGMENT_PROGRAM:
+            mActiveFragmentGpuProgramParameters = params;
             mCurrentFragmentProgram->bindProgramParameters(params, mask);
             break;
         case GPT_COMPUTE_PROGRAM:

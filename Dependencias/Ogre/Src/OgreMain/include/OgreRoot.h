@@ -321,11 +321,13 @@ namespace Ogre
                 created based on the options currently set on the render
                 system.
             @param windowTitle
+            @param customCapabilitiesConfig see #useCustomRenderSystemCapabilities
             @return
                 A pointer to the automatically created window, if
                 requested, otherwise <b>NULL</b>.
         */
-        RenderWindow* initialise(bool autoCreateWindow, const String& windowTitle = "OGRE Render Window");
+        RenderWindow* initialise(bool autoCreateWindow, const String& windowTitle = "OGRE Render Window",
+                                    const String& customCapabilitiesConfig = BLANKSTRING);
 
         /** Returns whether the system is initialised or not. */
         bool isInitialised(void) const { return mIsInitialised; }
@@ -870,6 +872,9 @@ namespace Ogre
 
         /// @deprecated use getMovableObjectFactories
         OGRE_DEPRECATED MovableObjectFactoryIterator getMovableObjectFactoryIterator(void) const;
+
+        /// @deprecated do not use
+        OGRE_DEPRECATED unsigned int getDisplayMonitorCount() const;
 
         /** Get the WorkQueue for processing background tasks.
             You are free to add new requests and handlers to this queue to

@@ -253,6 +253,17 @@ namespace Ogre {
             /// User type mask limit
             USER_TYPE_MASK_LIMIT = FRUSTUM_TYPE_MASK
         };
+        /** Comparator for material map, for sorting materials into render order (e.g. transparent last).
+        */
+        struct materialLess
+        {
+            _OgreExport bool operator()(const Material* x, const Material* y) const;
+        };
+        /// Comparator for sorting lights relative to a point
+        struct lightLess
+        {
+            _OgreExport bool operator()(const Light* a, const Light* b) const;
+        };
 
         /// Describes the stage of rendering when performing complex illumination
         enum IlluminationRenderStage
@@ -395,8 +406,6 @@ namespace Ogre {
             void renderObjects(const QueuedRenderableCollection& objs, QueuedRenderableCollection::OrganisationMode om,
                                bool lightScissoringClipping, bool doLightIteration,
                                const LightList* manualLightList = 0, bool transparentShadowCastersMode = false);
-
-            void renderTransparents(const RenderPriorityGroup* priorityGrp, QueuedRenderableCollection::OrganisationMode om);
         };
         /// Allow visitor helper to access protected methods
         friend class SceneMgrQueuedRenderableVisitor;
@@ -727,7 +736,6 @@ namespace Ogre {
             void setShadowTextureCasterMaterial(const MaterialPtr& mat);
             void setShadowTextureReceiverMaterial(const MaterialPtr& mat);
             void setShadowColour(const ColourValue& colour);
-            void updateSplitOptions(RenderQueue* queue);
             void render(RenderQueueGroup* group, QueuedRenderableCollection::OrganisationMode om);
 
             /** Render a group with the added complexity of additive stencil shadows. */
@@ -895,9 +903,9 @@ namespace Ogre {
         /// Internal method for firing the queue end event
         void firePostRenderQueues();
         /// Internal method for firing the queue start event, returns true if queue is to be skipped
-        virtual bool fireRenderQueueStarted(uint8 id, const String& cameraName);
+        virtual bool fireRenderQueueStarted(uint8 id, const String& invocation);
         /// Internal method for firing the queue end event, returns true if queue is to be repeated
-        virtual bool fireRenderQueueEnded(uint8 id, const String& cameraName);
+        virtual bool fireRenderQueueEnded(uint8 id, const String& invocation);
         /// Internal method for firing when rendering a single object.
         void fireRenderSingleObject(Renderable* rend, const Pass* pass, const AutoParamDataSource* source,
             const LightList* pLightList, bool suppressRenderStateChanges);
@@ -964,6 +972,20 @@ namespace Ogre {
         LightClippingInfoMap mLightClippingInfoMap;
         unsigned long mLightClippingInfoMapFrameNumber;
 
+        /** Default sorting routine which sorts lights which cast shadows
+            to the front of a list, sub-sorting by distance.
+
+            Since shadow textures are generated from lights based on the
+            frustum rather than individual objects, a shadow and camera-wise sort is
+            required to pick the best lights near the start of the list. Up to 
+            the number of shadow textures will be generated from this.
+        */
+        struct lightsForShadowTextureLess
+        {
+            _OgreExport bool operator()(const Light* l1, const Light* l2) const;
+        };
+
+
         /** Internal method for locating a list of lights which could be affecting the frustum.
 
             Custom scene managers are encouraged to override this method to make use of their
@@ -998,6 +1020,7 @@ namespace Ogre {
             Viewport* viewport;
             Camera* camera;
             CompositorChain* activeChain;
+            RenderSystem::RenderSystemContext* rsContext;
         };
 
         /** Pause rendering of the frame. This has to be called when inside a renderScene call
@@ -1017,6 +1040,14 @@ namespace Ogre {
         /** Render a group in the ordinary way */
         void renderBasicQueueGroupObjects(RenderQueueGroup* pGroup,
             QueuedRenderableCollection::OrganisationMode om);
+
+        /** Update the state of the global render queue splitting based on a shadow
+        option change. */
+        void updateRenderQueueSplitOptions(void);
+        /** Update the state of the render queue group splitting based on a shadow
+        option change. */
+        void updateRenderQueueGroupSplitOptions(RenderQueueGroup* group,
+            bool suppressShadows, bool suppressRenderState);
 
         /// Set up a scissor rectangle from a group of lights
         ClipResult buildAndSetScissor(const LightList& ll, const Camera* cam);
@@ -1325,10 +1356,10 @@ namespace Ogre {
                 If you wish to create a node with a specific name, call the alternative method
                 which takes a name parameter.
         */
-        SceneNode* createSceneNode(void);
+        virtual SceneNode* createSceneNode(void);
 
         /// @overload
-        SceneNode* createSceneNode(const String& name);
+        virtual SceneNode* createSceneNode(const String& name);
 
         /** Destroys a SceneNode.
 
@@ -1391,9 +1422,17 @@ namespace Ogre {
         DebugDrawer* getDebugDrawer() const { return mDebugDrawer.get(); }
         /// @}
 
-        static constexpr const char* PT_PLANE = "Prefab_Plane"; //!< XY plane with -100..100 extent, +Z normal and UVs
-        static constexpr const char* PT_CUBE = "Prefab_Cube"; //!< 100x100x100 cube centred at origin with normals and UVs
-        static constexpr const char* PT_SPHERE = "Prefab_Sphere"; //!< %Sphere with radius 50, around origin with normals UVs
+        /** Prefab shapes available without loading a model.
+            @note
+                Minimal implementation at present.
+            @todo
+                Add more prefabs (teapots, teapots!!!)
+        */
+        enum PrefabType {
+            PT_PLANE,
+            PT_CUBE,
+            PT_SPHERE
+        };
         /// @name Entities
         /// @{
         /** Create an Entity (instance of a discrete mesh).
@@ -1427,6 +1466,18 @@ namespace Ogre {
         */
         Entity* createEntity(const MeshPtr& pMesh);
 
+        /** Create an Entity (instance of a discrete mesh) from a range of prefab shapes.
+            @param
+                entityName The name to be given to the entity (must be unique).
+            @param
+                ptype The prefab type.
+        */
+        Entity* createEntity(const String& entityName, PrefabType ptype);
+
+        /** Create an Entity (instance of a discrete mesh) from a range of prefab shapes, generating the name.
+            @param ptype The prefab type.
+        */
+        Entity* createEntity(PrefabType ptype);
         /// @copydoc getMovableObject()
         Entity* getEntity(const String& name) const;
         /// @copydoc hasMovableObject()
@@ -2293,10 +2344,10 @@ namespace Ogre {
         const AnimationList& getAnimations() const { return mAnimationsList; }
         /** Returns a specialised MapIterator over all animation states in the scene.
          * @deprecated use getAnimationStates() */
-       /* OGRE_DEPRECATED AnimationStateIterator getAnimationStateIterator(void)
+        OGRE_DEPRECATED AnimationStateIterator getAnimationStateIterator(void)
         {
             return mAnimationStates.getAnimationStateIterator();
-        }*/
+        }
 
         /** Returns a specialised Map over all animation states in the scene. */
         const AnimationStateMap& getAnimationStates() {

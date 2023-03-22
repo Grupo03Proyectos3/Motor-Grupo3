@@ -1468,8 +1468,7 @@ namespace Ogre
 
         if (indexUse)
         {
-            // do not clear variability, indexUse is shared across all instances
-
+            indexUse->variability = GPV_GLOBAL;
             size_t physicalIndex = indexUse->physicalIndex;
             // update existing index if it exists
             for (AutoConstantList::iterator i = mAutoConstants.begin();
@@ -1489,7 +1488,7 @@ namespace Ogre
         const GpuConstantDefinition* def = _findNamedConstantDefinition(name);
         if (def)
         {
-            // do not clear variability, def is shared across all instances
+            def->variability = GPV_GLOBAL;
 
             // Autos are always floating point
             if (def->isFloat()) {

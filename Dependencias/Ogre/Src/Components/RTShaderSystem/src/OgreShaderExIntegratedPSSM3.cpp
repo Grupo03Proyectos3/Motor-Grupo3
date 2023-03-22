@@ -178,22 +178,6 @@ bool IntegratedPSSM3::setParameter(const String& name, const String& value)
     return false;
 }
 
-void IntegratedPSSM3::setParameter(const String& name, const Any& value)
-{
-    if(name == "split_points")
-    {
-        setSplitPoints(any_cast<SplitPointList>(value));
-        return;
-    }
-    else if (name == "debug")
-    {
-        mDebug = any_cast<bool>(value);
-        return;
-    }
-
-    SubRenderState::setParameter(name, value);
-}
-
 //-----------------------------------------------------------------------
 bool IntegratedPSSM3::resolveParameters(ProgramSet* programSet)
 {
@@ -383,7 +367,7 @@ SubRenderState* IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler,
                 SubRenderState* subRenderState = createOrRetrieveInstance(translator);
                 IntegratedPSSM3* pssmSubRenderState = static_cast<IntegratedPSSM3*>(subRenderState);
 
-                pssmSubRenderState->setParameter("split_points", splitPointList);
+                pssmSubRenderState->setSplitPoints(splitPointList);
 
                 return pssmSubRenderState;
             }

@@ -48,6 +48,16 @@ namespace Ogre
     {
     }
     //---------------------------------------------------------------------
+    const AnyNumeric& NumericKeyFrame::getValue(void) const
+    {
+        return mValue;
+    }
+    //---------------------------------------------------------------------
+    void NumericKeyFrame::setValue(const AnyNumeric& val)
+    {
+        mValue = val;
+    }
+    //---------------------------------------------------------------------
     KeyFrame* NumericKeyFrame::_clone(AnimationTrack* newParent) const
     {
         NumericKeyFrame* newKf = OGRE_NEW NumericKeyFrame(newParent, mTime);

@@ -805,6 +805,20 @@ namespace Ogre {
         void _releaseManualHardwareResources() override { _destroyBuffers(); }
 
     };
+
+    /** Factory object for creating BillboardSet instances */
+    class _OgreExport BillboardSetFactory : public MovableObjectFactory
+    {
+    protected:
+        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) override;
+    public:
+        BillboardSetFactory() {}
+        ~BillboardSetFactory() {}
+
+        static String FACTORY_TYPE_NAME;
+
+        const String& getType(void) const override;
+    };
     /** @} */
     /** @} */
 

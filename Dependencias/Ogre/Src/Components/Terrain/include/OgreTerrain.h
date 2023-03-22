@@ -258,7 +258,8 @@ namespace Ogre
     </tr>
     </table>
     */
-    class _OgreTerrainExport Terrain : public SceneManager::Listener
+    class _OgreTerrainExport Terrain : public SceneManager::Listener, 
+        public WorkQueue::RequestHandler, public WorkQueue::ResponseHandler, public TerrainAlloc
     {
     public:
         friend class TerrainLodManager;
@@ -272,6 +273,7 @@ namespace Ogre
         static const uint32 TERRAIN_CHUNK_ID;
         static const uint16 TERRAIN_CHUNK_VERSION;
         static const uint16 TERRAIN_MAX_BATCH_SIZE;
+        static const uint64 TERRAIN_GENERATE_MATERIAL_INTERVAL_MS;
 
         static const uint32 TERRAINLAYERDECLARATION_CHUNK_ID;
         static const uint16 TERRAINLAYERDECLARATION_CHUNK_VERSION;
@@ -1485,6 +1487,20 @@ namespace Ogre
 
         /// Whether we're using vertex compression or not
         bool _getUseVertexCompression() const; 
+        
+        /// WorkQueue::RequestHandler override
+        bool canHandleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ) override;
+        /// WorkQueue::RequestHandler override
+        WorkQueue::Response* handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ) override;
+        /// WorkQueue::ResponseHandler override
+        bool canHandleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ) override;
+        /// WorkQueue::ResponseHandler override
+        void handleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ) override;
+        /// Handler for GenerateMaterial
+        void handleGenerateMaterialResponse(const WorkQueue::Response* res, const WorkQueue* srcQ);
+
+        static const uint16 WORKQUEUE_DERIVED_DATA_REQUEST;
+        static const uint16 WORKQUEUE_GENERATE_MATERIAL_REQUEST;
 
         /// Utility method, get the first LOD Level at which this vertex is no longer included
         uint16 getLODLevelWhenVertexEliminated(long x, long y) const;
@@ -1592,13 +1608,6 @@ namespace Ogre
 
         void waitForDerivedProcesses();
     private:
-        /// WorkQueue::RequestHandler override
-        WorkQueue::Response* handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ);
-        /// WorkQueue::ResponseHandler override
-        void handleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ);
-
-        void generateMaterial();
-
         /** Gets the data size at a given LOD level.
         */
         uint getGeoDataSizeAtLod(uint16 lodLevel) const;
@@ -1668,6 +1677,7 @@ namespace Ogre
         /// Removes this terrain instance from neighbouring terrain's list of neighbours.
         void removeFromNeighbours();
 
+        uint16 mWorkQueueChannel;
         SceneManager* mSceneMgr;
         SceneNode* mRootNode;
         String mResourceGroup;
@@ -1741,10 +1751,10 @@ namespace Ogre
         };
 
         String mMaterialName;
-        MaterialPtr mMaterial;
-        TerrainMaterialGeneratorPtr mMaterialGenerator;
-        unsigned long long int mMaterialGenerationCount;
-        bool mMaterialDirty;
+        mutable MaterialPtr mMaterial;
+        mutable TerrainMaterialGeneratorPtr mMaterialGenerator;
+        mutable unsigned long long int mMaterialGenerationCount;
+        mutable bool mMaterialDirty;
         mutable bool mMaterialParamsDirty;
 
         uint16 mLayerBlendMapSize;

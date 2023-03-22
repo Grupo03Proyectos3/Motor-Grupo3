@@ -76,7 +76,8 @@ namespace Ogre
         into the pages. Lastly, you get the standard terrain data files which are
         saved as per TerrainGroup.
     */
-    class _OgreTerrainExport TerrainPagedWorldSection : public PagedWorldSection
+    class _OgreTerrainExport TerrainPagedWorldSection : public PagedWorldSection,
+        public WorkQueue::RequestHandler, public WorkQueue::ResponseHandler
     {
     public:
         /** Constructor.
@@ -147,6 +148,13 @@ namespace Ogre
         /// Overridden from PagedWorldSection
         void unloadPage(PageID pageID, bool forceSynchronous = false) override;
 
+        /// WorkQueue::RequestHandler override
+        WorkQueue::Response* handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ) override;
+        /// WorkQueue::ResponseHandler override
+        void handleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ) override;
+
+        static const uint16 WORKQUEUE_LOAD_TERRAIN_PAGE_REQUEST;
+
         class TerrainDefiner : public TerrainAlloc
         {
         public:
@@ -169,13 +177,9 @@ namespace Ogre
         TerrainDefiner* mTerrainDefiner;
         std::list<PageID> mPagesInLoading;
         bool mHasRunningTasks;
+        uint16 mWorkQueueChannel;
         unsigned long mNextLoadingTime;
         uint32 mLoadingIntervalMs;
-
-        /// WorkQueue::RequestHandler override
-        WorkQueue::Response* handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ);
-        /// WorkQueue::ResponseHandler override
-        void handleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ);
 
         /// Overridden from PagedWorldSection
         void loadSubtypeData(StreamSerialiser& ser) override;

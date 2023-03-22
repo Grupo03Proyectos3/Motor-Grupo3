@@ -67,7 +67,9 @@ namespace Ogre
         mOpTypes.push_back(op);
     }
     //---------------------------------------------------------------------
-    TangentSpaceCalc::Result TangentSpaceCalc::build(unsigned short sourceTexCoordSet)
+    TangentSpaceCalc::Result TangentSpaceCalc::build(
+        VertexElementSemantic targetSemantic,
+        unsigned short sourceTexCoordSet, unsigned short index)
     {
         Result res;
 
@@ -88,7 +90,7 @@ namespace Ogre
         remapIndexes(res);
 
         // Create / identify target & write tangents
-        insertTangents(res, VES_TANGENT, sourceTexCoordSet, 0);
+        insertTangents(res, targetSemantic, sourceTexCoordSet, index);
 
         return res;
 

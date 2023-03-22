@@ -318,12 +318,10 @@ namespace Ogre
                 setEnabled(false);
                 return mEmissionRate;
             }
-
-            unsigned short intRequest = (unsigned short)mRemainder;
-            mRemainder -= intRequest;
-
             // Keep fractions, otherwise a high frame rate will result in zero emissions!
             mRemainder += mEmissionRate * timeElapsed;
+            unsigned short intRequest = (unsigned short)mRemainder;
+            mRemainder -= intRequest;
 
             // Check duration
             if (mDurationMax)
@@ -556,7 +554,6 @@ namespace Ogre
     void ParticleEmitter::setEnabled(bool enabled)
     {
         mEnabled = enabled;
-        mRemainder = mEmissionRate; // make sure we emit on next update
         // Reset duration & repeat
         initDurationRepeat();
     }

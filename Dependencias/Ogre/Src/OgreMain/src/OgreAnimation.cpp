@@ -138,7 +138,7 @@ namespace Ogre {
         _keyFrameListChanged();
     }
     //---------------------------------------------------------------------
-    NumericAnimationTrack* Animation::createNumericTrack(unsigned short handle, const AnimableValuePtr& anim)
+    NumericAnimationTrack* Animation::createNumericTrack(unsigned short handle)
     {
         if (hasNumericTrack(handle))
         {
@@ -148,9 +148,19 @@ namespace Ogre {
                 "Animation::createNumericTrack");
         }
 
-        NumericAnimationTrack* ret = OGRE_NEW NumericAnimationTrack(this, handle, anim);
+        NumericAnimationTrack* ret = OGRE_NEW NumericAnimationTrack(this, handle);
 
         mNumericTrackList[handle] = ret;
+        return ret;
+    }
+    //---------------------------------------------------------------------
+    NumericAnimationTrack* Animation::createNumericTrack(unsigned short handle, 
+        const AnimableValuePtr& anim)
+    {
+        NumericAnimationTrack* ret = createNumericTrack(handle);
+
+        ret->setAssociatedAnimable(anim);
+
         return ret;
     }
     //---------------------------------------------------------------------

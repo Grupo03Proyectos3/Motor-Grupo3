@@ -36,12 +36,70 @@ THE SOFTWARE.
 namespace Ogre {
 namespace RTShader {
 
-enum BlendMode : int;
-enum SourceModifier : int;
-
 class _OgreRTSSExport LayeredBlending : public FFPTexturing
 {
 public:
+    enum BlendMode
+    {
+        LB_Invalid = -1,
+        LB_FFPBlend,
+        LB_BlendNormal,
+        LB_BlendLighten,            
+        LB_BlendDarken,     
+        LB_BlendMultiply,
+        LB_BlendAverage,    
+        LB_BlendAdd,
+        LB_BlendSubtract,
+        LB_BlendDifference,
+        LB_BlendNegation,
+        LB_BlendExclusion,
+        LB_BlendScreen,
+        LB_BlendOverlay,
+        LB_BlendSoftLight,
+        LB_BlendHardLight,
+        LB_BlendColorDodge,
+        LB_BlendColorBurn, 
+        LB_BlendLinearDodge,
+        LB_BlendLinearBurn,
+        LB_BlendLinearLight,
+        LB_BlendVividLight,
+        LB_BlendPinLight,
+        LB_BlendHardMix,
+        LB_BlendReflect,
+        LB_BlendGlow,
+        LB_BlendPhoenix,
+        LB_BlendSaturation,
+        LB_BlendColor,
+        LB_BlendLuminosity,
+        LB_MaxBlendModes
+    };
+
+    enum SourceModifier
+    {
+        SM_Invalid = -1,
+        SM_None,
+        SM_Source1Modulate,
+        SM_Source2Modulate,
+        SM_Source1InvModulate,
+        SM_Source2InvModulate,
+        SM_MaxSourceModifiers
+    };
+
+    struct TextureBlend
+    {
+        TextureBlend() : blendMode(LB_Invalid), sourceModifier(SM_Invalid), customNum(0) {}
+
+        //The blend mode to use
+        BlendMode blendMode;
+        //The source modification to use
+        SourceModifier sourceModifier;
+        // The number of the custom param controlling the source modification
+        int customNum;
+        //The parameter controlling the source modification
+        ParameterPtr modControlParam;
+    };
+
+
     /** Class default constructor */
     LayeredBlending();
 
@@ -56,6 +114,9 @@ public:
     @param index The texture unit texture. Textures units (index-1) and (index) will be blended.
     @param mode The blend mode to apply.
     */
+    void setBlendMode(unsigned short index, BlendMode mode);
+
+    /// @overload
     bool setBlendMode(uint16 index, const String& mode);
 
     /** 
@@ -71,6 +132,9 @@ public:
     @param modType The source modification type to use
     @param customNum The custom parameter number used to control the modification
     */
+    void setSourceModifier(unsigned short index, SourceModifier modType, int customNum);
+
+    /// @overload
     bool setSourceModifier(unsigned short index, const String& modType, int customNum);
 
     /** 
@@ -90,7 +154,7 @@ public:
     static String Type;
 
 // Protected methods
-private:
+protected:
     
     /** 
     @see SubRenderState::resolveParameters.
@@ -122,18 +186,8 @@ private:
                                  const int groupOrder, 
                                  Operand::OpMask targetChannels);
 
-    struct TextureBlend
-    {
-        TextureBlend();
-        //The blend mode to use
-        BlendMode blendMode;
-        //The source modification to use
-        SourceModifier sourceModifier;
-        // The number of the custom param controlling the source modification
-        int customNum;
-        //The parameter controlling the source modification
-        ParameterPtr modControlParam;
-    };
+    // Attributes.
+protected:
     std::vector<TextureBlend> mTextureBlends;
 
 };

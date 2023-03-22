@@ -64,6 +64,7 @@ namespace Ogre {
         StringVector mScriptPatterns;
 
         int mLastViewportWidth, mLastViewportHeight;
+        OrientationMode mLastViewportOrientationMode;
         float mPixelRatio;
 
         bool parseChildren( DataStreamPtr& chunk, const String& line, int& l,
@@ -120,6 +121,9 @@ namespace Ogre {
         /** Gets the width of the destination viewport in pixels. */
         int getViewportWidth(void) const;
         Real getViewportAspectRatio(void) const;
+
+        /** Gets the orientation mode of the destination viewport. */
+        OrientationMode getViewportOrientationMode(void) const;
 
        /** Sets the pixel ratio: how many viewport pixels represent a single overlay pixel (in one dimension).
 

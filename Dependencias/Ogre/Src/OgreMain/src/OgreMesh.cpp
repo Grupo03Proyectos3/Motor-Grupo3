@@ -1386,8 +1386,9 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void Mesh::buildTangentVectors(unsigned short sourceTexCoordSet, bool splitMirrored, bool splitRotated,
-                                   bool storeParityInW)
+    void Mesh::buildTangentVectors(VertexElementSemantic targetSemantic, 
+        unsigned short sourceTexCoordSet, unsigned short index, 
+        bool splitMirrored, bool splitRotated, bool storeParityInW)
     {
 
         TangentSpaceCalc tangentsCalc;
@@ -1410,7 +1411,8 @@ namespace Ogre {
             }
             if (found)
             {
-                TangentSpaceCalc::Result res = tangentsCalc.build(sourceTexCoordSet);
+                TangentSpaceCalc::Result res = 
+                    tangentsCalc.build(targetSemantic, sourceTexCoordSet, index);
 
                 // If any vertex splitting happened, we have to give them bone assignments
                 if (mSkeleton)
@@ -1459,7 +1461,8 @@ namespace Ogre {
                 tangentsCalc.clear();
                 tangentsCalc.setVertexData(sm->vertexData);
                 tangentsCalc.addIndexData(sm->indexData, sm->operationType);
-                TangentSpaceCalc::Result res = tangentsCalc.build(sourceTexCoordSet);
+                TangentSpaceCalc::Result res = 
+                    tangentsCalc.build(targetSemantic, sourceTexCoordSet, index);
 
                 // If any vertex splitting happened, we have to give them bone assignments
                 if (mSkeleton)
@@ -1487,7 +1490,8 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    bool Mesh::suggestTangentVectorBuildParams(unsigned short& outSourceCoordSet)
+    bool Mesh::suggestTangentVectorBuildParams(VertexElementSemantic targetSemantic,
+        unsigned short& outSourceCoordSet, unsigned short& outIndex)
     {
         // Go through all the vertex data and locate source and dest (must agree)
         bool sharedGeometryDone = false;
@@ -1512,31 +1516,58 @@ namespace Ogre {
             unsigned short targetIndex = 0;
             for (targetIndex = 0; targetIndex < OGRE_MAX_TEXTURE_COORD_SETS; ++targetIndex)
             {
-                auto testElem =
-                    vertexData->vertexDeclaration->findElementBySemantic(VES_TEXTURE_COORDINATES, targetIndex);
+                const VertexElement* testElem =
+                    vertexData->vertexDeclaration->findElementBySemantic(
+                        VES_TEXTURE_COORDINATES, targetIndex);
                 if (!testElem)
                     break; // finish if we've run out, t will be the target
 
-                // We're still looking for the source texture coords
-                if (testElem->getType() == VET_FLOAT2)
+                if (!sourceElem)
                 {
-                    // Ok, we found it
-                    sourceElem = testElem;
-                    break;
+                    // We're still looking for the source texture coords
+                    if (testElem->getType() == VET_FLOAT2)
+                    {
+                        // Ok, we found it
+                        sourceElem = testElem;
+                    }
                 }
+                
+                if(!foundExisting && targetSemantic == VES_TEXTURE_COORDINATES)
+                {
+                    // We're looking for the destination
+                    // Check to see if we've found a possible
+                    if (testElem->getType() == VET_FLOAT3)
+                    {
+                        // This is a 3D set, might be tangents
+                        foundExisting = true;
+                    }
+
+                }
+
+            }
+
+            if (!foundExisting && targetSemantic != VES_TEXTURE_COORDINATES)
+            {
+                targetIndex = 0;
+                // Look for existing semantic
+                const VertexElement* testElem =
+                    vertexData->vertexDeclaration->findElementBySemantic(
+                    targetSemantic, targetIndex);
+                if (testElem)
+                {
+                    foundExisting = true;
+                }
+
             }
 
             // After iterating, we should have a source and a possible destination (t)
             if (!sourceElem)
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                            "Cannot locate an appropriate 2D texture coordinate set for "
-                            "all the vertex data in this mesh to create tangents from. ");
+                    "Cannot locate an appropriate 2D texture coordinate set for "
+                    "all the vertex data in this mesh to create tangents from. ",
+                    "Mesh::suggestTangentVectorBuildParams");
             }
-
-            // Look for existing semantic
-            foundExisting = vertexData->vertexDeclaration->findElementBySemantic(VES_TANGENT);
-
             // Check that we agree with previous decisions, if this is not the
             // first one, and if we're not just using the existing one
             if (!firstOne && !foundExisting)
@@ -1544,14 +1575,24 @@ namespace Ogre {
                 if (sourceElem->getIndex() != outSourceCoordSet)
                 {
                     OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                                "Multiple sets of vertex data in this mesh disagree on "
-                                "the appropriate index to use for the texture coordinates. "
-                                "This ambiguity must be rectified before tangents can be generated.");
+                        "Multiple sets of vertex data in this mesh disagree on "
+                        "the appropriate index to use for the source texture coordinates. "
+                        "This ambiguity must be rectified before tangents can be generated.",
+                        "Mesh::suggestTangentVectorBuildParams");
+                }
+                if (targetIndex != outIndex)
+                {
+                    OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                        "Multiple sets of vertex data in this mesh disagree on "
+                        "the appropriate index to use for the target texture coordinates. "
+                        "This ambiguity must be rectified before tangents can be generated.",
+                        "Mesh::suggestTangentVectorBuildParams");
                 }
             }
 
             // Otherwise, save this result
             outSourceCoordSet = sourceElem->getIndex();
+            outIndex = targetIndex;
 
             firstOne = false;
 

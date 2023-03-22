@@ -129,6 +129,7 @@ namespace Ogre {
         , mVScale(1)
         , mRotate(0)
         , mTexModMatrix(Matrix4::IDENTITY)
+        , mBindingType(BT_FRAGMENT)
         , mContentType(CONTENT_NAMED)
         , mTextureLoadFailed(false)
         , mRecalcTexMatrix(false)
@@ -172,6 +173,7 @@ namespace Ogre {
         , mVScale(1)
         , mRotate(0)
         , mTexModMatrix(Matrix4::IDENTITY)
+        , mBindingType(BT_FRAGMENT)
         , mContentType(CONTENT_NAMED)
         , mTextureLoadFailed(false)
         , mRecalcTexMatrix(false)
@@ -301,6 +303,17 @@ namespace Ogre {
         {
             mParent->_dirtyHash();
         }
+    }
+    //-----------------------------------------------------------------------
+    void TextureUnitState::setBindingType(TextureUnitState::BindingType bt)
+    {
+        mBindingType = bt;
+
+    }
+    //-----------------------------------------------------------------------
+    TextureUnitState::BindingType TextureUnitState::getBindingType(void) const
+    {
+        return mBindingType;
     }
     //-----------------------------------------------------------------------
     void TextureUnitState::setContentType(TextureUnitState::ContentType ct)
@@ -1201,6 +1214,27 @@ namespace Ogre {
     void TextureUnitState::_notifyNeedsRecompile(void)
     {
         mParent->_notifyNeedsRecompile();
+    }
+    //-----------------------------------------------------------------------
+    bool TextureUnitState::hasViewRelativeTextureCoordinateGeneration(void) const
+    {
+        // Right now this only returns true for reflection maps
+
+        EffectMap::const_iterator i, iend;
+        iend = mEffects.end();
+        
+        for(i = mEffects.find(ET_ENVIRONMENT_MAP); i != iend; ++i)
+        {
+            if (i->second.subtype == ENV_REFLECTION)
+                return true;
+        }
+
+        if(mEffects.find(ET_PROJECTIVE_TEXTURE) != iend)
+        {
+            return true;
+        }
+
+        return false;
     }
     //-----------------------------------------------------------------------
     void TextureUnitState::setProjectiveTexturing(bool enable, 

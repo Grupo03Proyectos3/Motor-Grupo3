@@ -39,7 +39,7 @@ String BASIC_ROCKWALL_MATERIAL("Examples/Rockwall");
 String BASIC_ATHENE_MATERIAL("Examples/Athene/NormalMapped");
 
 /** This class 'wibbles' the light and billboard */
-class LightWibbler : public ControllerValue<float>
+class LightWibbler : public ControllerValue<Real>
 {
 protected:
     Light* mLight;
@@ -48,7 +48,7 @@ protected:
     ColourValue mMinColour;
     Real mMinSize;
     Real mSizeRange;
-    float intensity;
+    Real intensity;
 public:
     LightWibbler(Light* light, Billboard* billboard, const ColourValue& minColour, 
         const ColourValue& maxColour, Real minSize, Real maxSize)
@@ -62,12 +62,12 @@ public:
         
     }
 
-    float  getValue (void) const override
+    Real  getValue (void) const override
     {
         return intensity;
     }
 
-    void  setValue (float value) override
+    void  setValue (Real value) override
     {
         intensity = value;
 
@@ -77,7 +77,7 @@ public:
         mLight->setDiffuseColour(newColour);
         mBillboard->setColour(newColour);
         // set billboard size
-        float newSize = mMinSize + (intensity * mSizeRange);
+        Real newSize = mMinSize + (intensity * mSizeRange);
         mBillboard->setDimensions(newSize, newSize);
     }
 };
@@ -99,7 +99,7 @@ protected:
     ColourValue mMaxLightColour;
     Real mMinFlareSize;
     Real mMaxFlareSize;
-    ControllerFloat* mController;
+    ControllerReal* mController;
 
     enum ShadowProjection
     {
@@ -245,8 +245,13 @@ protected:
         mLightNode->setAutoTracking(true, mSceneMgr->getRootSceneNode());
 
         // Prepare athene mesh for normalmapping
-        MeshPtr pAthene = MeshManager::getSingleton().load("athene.mesh", RGN_DEFAULT);
-        pAthene->buildTangentVectors();
+        MeshPtr pAthene = MeshManager::getSingleton().load("athene.mesh", 
+            ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+        unsigned short src, dest;
+        if (!pAthene->suggestTangentVectorBuildParams(VES_TANGENT, src, dest))
+        {
+            pAthene->buildTangentVectors(VES_TANGENT, src, dest);
+        }
 
         SceneNode* node;
         node = mSceneMgr->getRootSceneNode()->createChildSceneNode();

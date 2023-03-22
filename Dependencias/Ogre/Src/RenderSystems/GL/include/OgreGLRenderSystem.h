@@ -72,9 +72,6 @@ namespace Ogre {
         /// Holds texture type settings for every stage
         GLenum mTextureTypes[OGRE_MAX_TEXTURE_LAYERS];
 
-        /// Saved manual colour blends
-        ColourValue mManualBlendColours[OGRE_MAX_TEXTURE_LAYERS][2];
-
         /// Number of fixed-function texture units
         unsigned short mFixedFunctionTextureUnits;
 
@@ -210,6 +207,8 @@ namespace Ogre {
 
         void _setTextureBlendMode(size_t stage, const LayerBlendModeEx& bm) override;
 
+        void _setTextureAddressingMode(size_t stage, const Sampler::UVWAddressingMode& uvw) override;
+
         void _setTextureMatrix(size_t stage, const Matrix4& xform) override;
 
         void _setAlphaRejectSettings(CompareFunction func, unsigned char value, bool alphaToCoverage) override;
@@ -241,6 +240,8 @@ namespace Ogre {
         void _setPolygonMode(PolygonMode level) override;
 
         void setStencilState(const StencilState& state) override;
+
+        void _setTextureUnitFiltering(size_t unit, FilterType ftype, FilterOptions filter) override;
 
         void _render(const RenderOperation& op) override;
 

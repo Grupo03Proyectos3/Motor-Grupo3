@@ -37,6 +37,7 @@ THE SOFTWARE.
 
 namespace Ogre
 {
+    const uint16 TerrainGroup::WORKQUEUE_LOAD_REQUEST = 1;
     const uint32 TerrainGroup::CHUNK_ID = StreamSerialiser::makeIdentifier("TERG");
     const uint16 TerrainGroup::CHUNK_VERSION = 1;
 
@@ -59,6 +60,12 @@ namespace Ogre
         // by default we delete input data because we copy it, unless user
         // passes us an ImportData where they explicitly don't want it copied
         mDefaultImportData.deleteInputData = true;
+
+        WorkQueue* wq = Root::getSingleton().getWorkQueue();
+        mWorkQueueChannel = wq->getChannel("Ogre/TerrainGroup");
+        wq->addRequestHandler(mWorkQueueChannel, this);
+        wq->addResponseHandler(mWorkQueueChannel, this);
+
     }
     //---------------------------------------------------------------------
     TerrainGroup::TerrainGroup(SceneManager* sm)
@@ -78,6 +85,11 @@ namespace Ogre
         // by default we delete input data because we copy it, unless user
         // passes us an ImportData where they explicitly don't want it copied
         mDefaultImportData.deleteInputData = true;
+
+        WorkQueue* wq = Root::getSingleton().getWorkQueue();
+        mWorkQueueChannel = wq->getChannel("Ogre/TerrainGroup");
+        wq->addRequestHandler(mWorkQueueChannel, this);
+        wq->addResponseHandler(mWorkQueueChannel, this);
     }
     //---------------------------------------------------------------------
     TerrainGroup::~TerrainGroup()
@@ -92,10 +104,15 @@ namespace Ogre
         while (getNumTerrainPrepareRequests() > 0)
         {
             OGRE_THREAD_SLEEP(50);
-            Root::getSingleton().getWorkQueue()->processMainThreadTasks();
+            Root::getSingleton().getWorkQueue()->processResponses();
         }
 
         removeAllTerrains();
+
+        WorkQueue* wq = Root::getSingleton().getWorkQueue();
+        wq->removeRequestHandler(mWorkQueueChannel, this);
+        wq->removeResponseHandler(mWorkQueueChannel, this);
+
     }
     //---------------------------------------------------------------------
     void TerrainGroup::setOrigin(const Vector3& pos)
@@ -356,31 +373,17 @@ namespace Ogre
             // Use shared pool of buffers
             slot->instance->setGpuBufferAllocator(&mBufferAllocator);
 
+            LoadRequest req;
+            req.slot = slot;
+            req.origin = this;
             std::pair<TerrainPrepareRequestMap::iterator, bool> ret = mTerrainPrepareRequests.emplace(slot, 0);
             assert(ret.second == true);
-
-            if(synchronous)
-            {
-                auto r = new WorkQueue::Request(0, 0, slot, 0, 0);
-                auto res = handleRequest(r, NULL);
-                handleResponse(res, NULL);
-                delete res;
-                return;
-            }
-
-            Root::getSingleton().getWorkQueue()->addTask(
-                [this, slot]()
-                {
-                    auto r = new WorkQueue::Request(0, 0, slot, 0, 0);
-                    auto res = handleRequest(r, NULL);
-                    Root::getSingleton().getWorkQueue()->addMainThreadTask(
-                        [this, res]()
-                        {
-                            handleResponse(res, NULL);
-                            delete res;
-                        });
-                });
-            ret.first->second = 0;
+            WorkQueue::RequestID id =
+                Root::getSingleton().getWorkQueue()->addRequest(
+                    mWorkQueueChannel, WORKQUEUE_LOAD_REQUEST,
+                    req, 0, synchronous);
+            if (!synchronous)
+                ret.first->second = id;
         }
     }
     //---------------------------------------------------------------------
@@ -707,12 +710,23 @@ namespace Ogre
         return false;
     }
     //---------------------------------------------------------------------
+    bool TerrainGroup::canHandleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ)
+    {
+        LoadRequest lreq = any_cast<LoadRequest>(req->getData());
+        // only deal with own requests
+        if (lreq.origin != this)
+            return false;
+        else
+            return RequestHandler::canHandleRequest(req, srcQ);
+
+    }
+    //---------------------------------------------------------------------
     WorkQueue::Response* TerrainGroup::handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ)
     {
-        auto slot = any_cast<TerrainSlot*>(req->getData());
+        LoadRequest lreq = any_cast<LoadRequest>(req->getData());
 
-        TerrainSlotDefinition& def = slot->def;
-        Terrain* t = slot->instance;
+        TerrainSlotDefinition& def = lreq.slot->def;
+        Terrain* t = lreq.slot->instance;
         assert(t && "Terrain instance should have been constructed in the main thread");
         WorkQueue::Response* response = 0;
         try
@@ -740,17 +754,32 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
+    bool TerrainGroup::canHandleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ)
+    {
+        LoadRequest lreq = any_cast<LoadRequest>(res->getRequest()->getData());
+        // only deal with own requests
+        if (lreq.origin != this)
+            return false;
+        else
+            return true;
+
+    }
+    //---------------------------------------------------------------------
     void TerrainGroup::handleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ)
     {
-        // No response data, just request
-        auto slot = any_cast<TerrainSlot*>(res->getRequest()->getData());
+        // Data was already deleted so nothing we can do anymore.
+        if (res->getRequest()->getAborted())
+            return;
 
-        TerrainPrepareRequestMap::iterator it = mTerrainPrepareRequests.find(slot);
+        // No response data, just request
+        LoadRequest lreq = any_cast<LoadRequest>(res->getRequest()->getData());
+
+        TerrainPrepareRequestMap::iterator it = mTerrainPrepareRequests.find(lreq.slot);
 
         // This slot was scheduled to be deleted.
         if (it == mTerrainPrepareRequests.end())
         {
-            freeTerrainSlotInstance(slot);
+            freeTerrainSlotInstance(lreq.slot);
             return;
         }
         else
@@ -760,6 +789,7 @@ namespace Ogre
 
         if (res->succeeded())
         {
+            TerrainSlot* slot = lreq.slot;
             Terrain* terrain = slot->instance;
             if (terrain)
             {
@@ -789,9 +819,9 @@ namespace Ogre
         {
             // oh dear
             LogManager::getSingleton().stream(LML_CRITICAL) <<
-                "We failed to prepare the terrain at (" << slot->x << ", " <<
-                slot->y <<") with the error '" << res->getMessages() << "'";
-            freeTerrainSlotInstance(slot);
+                "We failed to prepare the terrain at (" << lreq.slot->x << ", " <<
+                lreq.slot->y <<") with the error '" << res->getMessages() << "'";
+            freeTerrainSlotInstance(lreq.slot);
         }
 
     }
@@ -890,7 +920,12 @@ namespace Ogre
         // Terrain was in load request so we need to schedule the deletion see handleResponse().
         if (it != mTerrainPrepareRequests.end())
         {
+            WorkQueue::RequestID id = it->second;
             mTerrainPrepareRequests.erase(it);
+
+            // We can free immediately since this slot was aborted before it could've been processed.
+            if (Root::getSingleton().getWorkQueue()->abortPendingRequest(id))
+                slot->freeInstance();
         }
         else
         {
@@ -1016,7 +1051,7 @@ namespace Ogre
         ser.read(&mDefaultImportData.maxBatchSize);
         ser.read(&mDefaultImportData.minBatchSize);
         Terrain::readLayerDeclaration(ser, mDefaultImportData.layerDeclaration);
-        Terrain::readLayerInstanceList(ser, mDefaultImportData.layerDeclaration.size(),
+        Terrain::readLayerInstanceList(ser, mDefaultImportData.layerDeclaration.samplers.size(), 
             mDefaultImportData.layerList);
 
         // copy data that would have normally happened on construction

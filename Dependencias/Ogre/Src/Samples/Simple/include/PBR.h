@@ -58,11 +58,11 @@ protected:
 
         mEntity = mSceneMgr->createEntity("DamagedHelmet.mesh");
 
-        unsigned short src;
-        if (!mEntity->getMesh()->suggestTangentVectorBuildParams(src))
+        unsigned short src, dst;
+        if (!mEntity->getMesh()->suggestTangentVectorBuildParams(VES_TANGENT, src, dst))
         {
-            // ensure that we have tangent vectors
-            mEntity->getMesh()->buildTangentVectors(src);
+            // enforce that we have tangent vectors
+            mEntity->getMesh()->buildTangentVectors(VES_TANGENT, src, dst);
         }
 
         SceneNode* node = mSceneMgr->getRootSceneNode()->createChildSceneNode();

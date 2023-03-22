@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include "OgreVolumeIsoSurfaceMC.h"
 #include "OgreVolumeOctreeNodeSplitPolicy.h"
 #include "OgreVolumeTextureSource.h"
+#include "OgreVolumeChunkHandler.h"
 #include "OgreVolumeMeshBuilder.h"
 #include "OgreVolumeDualGridGenerator.h"
 #include "OgreSceneNode.h"
@@ -43,12 +44,12 @@ THE SOFTWARE.
 #include "OgreVolumeMeshBuilder.h"
 #include "OgreVolumeOctreeNode.h"
 #include "OgreMaterialManager.h"
-#include "OgreWorkQueue.h"
 
 namespace Ogre {
 namespace Volume {
 
     const String Chunk::MOVABLE_TYPE_NAME = "VolumeChunk";
+    ChunkHandler Chunk::mChunkHandler;
     
     //-----------------------------------------------------------------------
 
@@ -71,19 +72,12 @@ namespace Volume {
             req.maxLevels = maxLevels;
             req.isUpdate = mShared->parameters->updateFrom != Vector3::ZERO || mShared->parameters->updateTo != Vector3::ZERO;
 
+            req.origin = this;
             req.root = OGRE_NEW OctreeNode(from, to);
             req.meshBuilder = OGRE_NEW MeshBuilder();
             req.dualGridGenerator = OGRE_NEW DualGridGenerator();
 
-            Root::getSingleton().getWorkQueue()->addTask([this, req]() {
-                prepareGeometry(req.level, req.root, req.dualGridGenerator, req.meshBuilder, req.totalFrom, req.totalTo);
-                Root::getSingleton().getWorkQueue()->addMainThreadTask([this, req]() {
-                    loadGeometry(req.meshBuilder, req.dualGridGenerator, req.root, req.level, req.isUpdate);
-                    delete req.root;
-                    delete req.meshBuilder;
-                    delete req.dualGridGenerator;
-                });
-            });
+            mChunkHandler.addRequest(req);
         }
         else
         {
@@ -345,7 +339,7 @@ namespace Volume {
             while(mShared->chunksBeingProcessed)
             {
                 OGRE_THREAD_SLEEP(0);
-                Root::getSingleton().getWorkQueue()->processMainThreadTasks();
+                mChunkHandler.processWorkQueue();
             }
         }
         

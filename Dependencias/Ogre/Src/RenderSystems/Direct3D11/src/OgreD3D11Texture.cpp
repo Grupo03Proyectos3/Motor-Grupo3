@@ -51,7 +51,16 @@ namespace Ogre
     //---------------------------------------------------------------------
     D3D11Texture::~D3D11Texture()
     {
-        unload();
+        // have to call this here reather than in Resource destructor
+        // since calling virtual methods in base destructors causes crash
+        if (isLoaded())
+        {
+            unload(); 
+        }
+        else
+        {
+            freeInternalResources();
+        }
     }
     //---------------------------------------------------------------------
     void D3D11Texture::notifyDeviceLost(D3D11Device* device)
@@ -174,7 +183,7 @@ namespace Ogre
             this->_create3DTex();
             break;
         default:
-            this->unloadImpl();
+            this->freeInternalResources();
             OGRE_EXCEPT( Exception::ERR_INTERNAL_ERROR, "Unknown texture type", "D3D11Texture::createInternalResources" );
         }
     }
@@ -205,7 +214,7 @@ namespace Ogre
         // check result and except if failed
         if (FAILED(hr) || mDevice.isError())
         {
-            this->unloadImpl();
+            this->freeInternalResources();
 			String errorDescription = mDevice.getErrorDescription(hr);
 			OGRE_EXCEPT_EX(Exception::ERR_RENDERINGAPI_ERROR, hr,
 				"Error creating texture\nError Description:" + errorDescription,
@@ -303,7 +312,7 @@ namespace Ogre
         // check result and except if failed
         if (FAILED(hr) || mDevice.isError())
         {
-            this->unloadImpl();
+            this->freeInternalResources();
             String errorDescription = mDevice.getErrorDescription(hr);
 			OGRE_EXCEPT_EX(Exception::ERR_RENDERINGAPI_ERROR, hr,
                 "Error creating texture\nError Description:" + errorDescription, 
@@ -422,7 +431,7 @@ namespace Ogre
         // check result and except if failed
         if (FAILED(hr) || mDevice.isError())
         {
-            this->unloadImpl();
+            this->freeInternalResources();
             String errorDescription = mDevice.getErrorDescription(hr);
 			OGRE_EXCEPT_EX(Exception::ERR_RENDERINGAPI_ERROR, hr,
                 "Error creating texture\nError Description:" + errorDescription, 

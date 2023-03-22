@@ -46,6 +46,8 @@ namespace Ogre
     const uint32 Page::CHUNK_ID = StreamSerialiser::makeIdentifier("PAGE");
     const uint16 Page::CHUNK_VERSION = 1;
     const uint32 Page::CHUNK_CONTENTCOLLECTION_DECLARATION_ID = StreamSerialiser::makeIdentifier("PCNT");
+    const uint16 Page::WORKQUEUE_PREPARE_REQUEST = 1;
+    const uint16 Page::WORKQUEUE_CHANGECOLLECTION_REQUEST = 3;
 
     //---------------------------------------------------------------------
     Page::Page(PageID pageID, PagedWorldSection* parent)
@@ -55,11 +57,19 @@ namespace Ogre
         , mModified(false)
         , mDebugNode(0)
     {
+        WorkQueue* wq = Root::getSingleton().getWorkQueue();
+        mWorkQueueChannel = wq->getChannel("Ogre/Page");
+        wq->addRequestHandler(mWorkQueueChannel, this);
+        wq->addResponseHandler(mWorkQueueChannel, this);
         touch();
     }
     //---------------------------------------------------------------------
     Page::~Page()
     {
+        WorkQueue* wq = Root::getSingleton().getWorkQueue();
+        wq->removeRequestHandler(mWorkQueueChannel, this);
+        wq->removeResponseHandler(mWorkQueueChannel, this);
+
         destroyAllContentCollections();
         if (mDebugNode)
         {
@@ -171,25 +181,10 @@ namespace Ogre
         if (!mDeferredProcessInProgress)
         {
             destroyAllContentCollections();
+            PageRequest req(this);
             mDeferredProcessInProgress = true;
-
-            if(synchronous)
-            {
-                auto res = handleRequest(NULL, NULL);
-                handleResponse(res, NULL);
-                delete res;
-            }
-            else
-            {
-                Root::getSingleton().getWorkQueue()->addTask([this]() {
-                    auto res = handleRequest(NULL, NULL);
-                    Root::getSingleton().getWorkQueue()->addMainThreadTask([this, res]() {
-                        handleResponse(res, NULL);
-                        delete res;
-                    });
-                });
-            }
-
+            Root::getSingleton().getWorkQueue()->addRequest(mWorkQueueChannel, WORKQUEUE_PREPARE_REQUEST, 
+                req, 0, synchronous);
         }
 
     }
@@ -199,9 +194,39 @@ namespace Ogre
         destroyAllContentCollections();
     }
     //---------------------------------------------------------------------
+    bool Page::canHandleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ)
+    {
+        PageRequest preq = any_cast<PageRequest>(req->getData());
+        // only deal with own requests
+        // we do this because if we delete a page we want any pending tasks to be discarded
+        if (preq.srcPage != this)
+            return false;
+        else
+            return RequestHandler::canHandleRequest(req, srcQ);
+
+    }
+    //---------------------------------------------------------------------
+    bool Page::canHandleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ)
+    {
+        PageRequest preq = any_cast<PageRequest>(res->getRequest()->getData());
+        // only deal with own requests
+        // we do this because if we delete a page we want any pending tasks to be discarded
+        if (preq.srcPage != this)
+            return false;
+        else
+            return true;
+
+    }
+    //---------------------------------------------------------------------
     WorkQueue::Response* Page::handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ)
     {
         // Background thread (maybe)
+
+        PageRequest preq = any_cast<PageRequest>(req->getData());
+        // only deal with own requests; we shouldn't ever get here though
+        if (preq.srcPage != this)
+            return 0;
+
         PageResponse res;
         res.pageData = OGRE_NEW PageData();
         WorkQueue::Response* response = 0;
@@ -224,6 +249,11 @@ namespace Ogre
     {
         // Main thread
         PageResponse pres = any_cast<PageResponse>(res->getData());
+        PageRequest preq = any_cast<PageRequest>(res->getRequest()->getData());
+
+        // only deal with own requests
+        if (preq.srcPage!= this)
+            return;
 
         // final loading behaviour
         if (res->succeeded())

@@ -561,6 +561,16 @@ namespace OgreBites
                     runSample(newSample == mCurrentSample ? 0 : newSample);
                 }
             }
+#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
+            else if (key == SDLK_M)   // change orientation mode
+            {
+                unsigned int orientationMode = (unsigned int)mWindow->getViewport(0)->getOrientationMode();
+                orientationMode++;
+                if (orientationMode >= 4)
+                    orientationMode = 0;
+                mWindow->getViewport(0)->setOrientationMode((Ogre::OrientationMode)orientationMode);
+            }
+#endif
             else if(key == SDLK_F9)   // toggle full screen
             {
                 // Make sure we use the window size as originally requested, NOT the
@@ -761,6 +771,7 @@ namespace OgreBites
           -----------------------------------------------------------------------------*/
         void setup() override
         {
+            Ogre::MeshManager::setBonesUseObjectSpace(true);
             ApplicationContext::setup();
             mWindow = getRenderWindow();
             addInputListener(this);

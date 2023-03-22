@@ -331,10 +331,12 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
         {
             if(pass->getFirstRenderQueue() < finalState.currentQueueGroupID)
             {
+                /// Mismatch -- warn user
                 /// XXX We could support repeating the last queue, with some effort
-                LogManager::getSingleton().logError(StringUtil::format(
-                    "Compositor '%s': cannot use first_render_queue %d after last_render_queue %d",
-                    mCompositor->getName().c_str(), pass->getFirstRenderQueue(), finalState.currentQueueGroupID - 1));
+                LogManager::getSingleton().logWarning("in compilation of Compositor "
+                    +mCompositor->getName()+": Attempt to render queue "+
+                    StringConverter::toString(pass->getFirstRenderQueue())+" after "+
+                    StringConverter::toString(finalState.currentQueueGroupID));
             }
 
             RSSetSchemeOperation* setSchemeOperation = 0;
@@ -448,6 +450,9 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
             }
             break;
         case CompositionPass::PT_RENDERCUSTOM:
+		
+			finalState.currentQueueGroupID = pass->getFirstRenderQueue();
+		
             RenderSystemOperation* customOperation = CompositorManager::getSingleton().
                 getCustomCompositionPass(pass->getCustomType())->createOperation(this, pass);
             queueRenderSystemOp(finalState, customOperation);

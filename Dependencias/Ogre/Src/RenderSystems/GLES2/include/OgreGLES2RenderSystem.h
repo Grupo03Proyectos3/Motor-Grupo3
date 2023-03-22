@@ -145,6 +145,8 @@ namespace Ogre {
 
             void _setSampler(size_t unit, Sampler& sampler) override;
 
+            void _setTextureAddressingMode(size_t stage, const Sampler::UVWAddressingMode& uvw) override;
+
             void _setLineWidth(float width) override;
 
             void _setViewport(Viewport *vp) override;
@@ -168,6 +170,11 @@ namespace Ogre {
             void _setPolygonMode(PolygonMode level) override;
 
             void setStencilState(const StencilState& state) override;
+
+            void _setTextureUnitFiltering(size_t unit, FilterOptions minFilter,
+                FilterOptions magFilter, FilterOptions mipFilter) override;
+
+            void _setTextureUnitFiltering(size_t unit, FilterType ftype, FilterOptions filter) override;
 
             void _render(const RenderOperation& op) override;
 

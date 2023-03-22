@@ -482,8 +482,6 @@ TEST_F(MeshWithoutIndexDataTests,GenerateLodLevels)
     remove(fileName.c_str());
 
     mMeshMgr->remove(fileName, "General");
-#else
-    GTEST_SKIP() << "MeshLodGenerator is not built";
 #endif
 }
 //--------------------------------------------------------------------------//--------------------------------------------------------------------------

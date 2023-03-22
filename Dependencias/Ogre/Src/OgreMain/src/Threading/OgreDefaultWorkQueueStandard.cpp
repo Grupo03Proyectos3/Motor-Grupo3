@@ -52,6 +52,8 @@ namespace Ogre
 
         mShuttingDown = false;
 
+        mWorkerFunc = OGRE_NEW_T(WorkerFunc(this), MEMCATEGORY_GENERAL);
+
         LogManager::getSingleton().stream() <<
             "DefaultWorkQueue('" << mName << "') initialising on thread " <<
             OGRE_THREAD_CURRENT_ID
@@ -64,7 +66,7 @@ namespace Ogre
         mNumThreadsRegisteredWithRS = 0;
         for (size_t i = 0; i < mWorkerThreadCount; ++i)
         {
-            OGRE_THREAD_CREATE(t, [this]() { _threadMain(); });
+            OGRE_THREAD_CREATE(t, *mWorkerFunc);
             mWorkers.push_back(t);
         }
 
@@ -105,7 +107,7 @@ namespace Ogre
             << ".";
 
         mShuttingDown = true;
-
+        abortAllRequests();
 #if OGRE_THREAD_SUPPORT
         // wake all threads (they should check shutting down as first thing after wait)
         OGRE_THREAD_NOTIFY_ALL(mRequestCondition);
@@ -118,6 +120,9 @@ namespace Ogre
         }
         mWorkers.clear();
 #endif
+
+        OGRE_DELETE_T(mWorkerFunc, WorkerFunc, MEMCATEGORY_GENERAL);
+        mWorkerFunc = 0;
 
         mIsRunning = false;
     }
@@ -134,7 +139,7 @@ namespace Ogre
 #if OGRE_THREAD_SUPPORT
         // Lock; note that OGRE_THREAD_WAIT will free the lock
             OGRE_WQ_LOCK_MUTEX_NAMED(mRequestMutex, queueLock);
-        if (mTasks.empty())
+        if (mRequestQueue.empty())
         {
             // frees lock and suspends the thread
             OGRE_THREAD_WAIT(mRequestCondition, mRequestMutex, queueLock);

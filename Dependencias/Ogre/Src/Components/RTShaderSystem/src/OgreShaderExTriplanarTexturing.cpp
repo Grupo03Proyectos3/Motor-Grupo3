@@ -181,25 +181,18 @@ namespace RTShader {
         mPSTPParams->setGpuParameter(mParameters);
     }
 
-    void TriplanarTexturing::setParameter(const String& name, const Any& value)
+    //-----------------------------------------------------------------------
+    void TriplanarTexturing::setParameters(const Vector3 &parameters)
     {
-        if (name == "parameters")
-        {
-            mParameters = any_cast<Vector3>(value);
-            return;
-        }
-        else if (name == "texture_names")
-        {
-            const StringVector& textureNames = any_cast<StringVector>(value);
-            if (textureNames.size() == 3)
-            {
-                mTextureNameFromX = textureNames[0];
-                mTextureNameFromY = textureNames[1];
-                mTextureNameFromZ = textureNames[2];
-                return;
-            }
-        }
-        SubRenderState::setParameter(name, value);
+        mParameters = parameters;
+    }
+
+    //-----------------------------------------------------------------------
+    void TriplanarTexturing::setTextureNames(const String &textureNameFromX, const String &textureNameFromY, const String &textureNameFromZ)
+    {
+        mTextureNameFromX = textureNameFromX;
+        mTextureNameFromY = textureNameFromY;
+        mTextureNameFromZ = textureNameFromZ;
     }
 
     //-----------------------------------------------------------------------
@@ -237,14 +230,16 @@ namespace RTShader {
                 }
                 ++it;
                 Vector3 vParameters(parameters[0], parameters[1], parameters[2]);
-                tpSubRenderState->setParameter("parameters", vParameters);
+                tpSubRenderState->setParameters(vParameters);
 
-                StringVector textureNames = {(*it++)->getString(), (*it++)->getString(), (*it++)->getString()};
+                String textureNameFromX = (*it++)->getString();
+                String textureNameFromY = (*it++)->getString();
+                String textureNameFromZ = (*it++)->getString();
 
-                if(textureNames[0].empty() || textureNames[1].empty() || textureNames[2].empty())
+                if(textureNameFromX.empty() || textureNameFromY.empty() || textureNameFromZ.empty())
                     return NULL;
 
-                tpSubRenderState->setParameter("texture_names", textureNames);
+                tpSubRenderState->setTextureNames(textureNameFromX, textureNameFromY, textureNameFromZ);
 
                 return subRenderState;
             }

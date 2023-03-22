@@ -229,6 +229,7 @@ namespace Ogre {
             | FBO | deprecated, do not use |
             | TARGET | deprecated, do not use |
             | XDISPLAY     | The X Display connection behind that context. |
+            | DISPLAYNAME | The X Server name for the connected display. |
             | ATOM        | The X Atom used in client delete events. |
             | VIEW | Cocoa NSView* |
             | NSOPENGLCONTEXT | Cocoa NSOpenGLContext* |

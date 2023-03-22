@@ -634,23 +634,23 @@ namespace Ogre {
         return ri->second->getVisibilityFlags();
     }
     //--------------------------------------------------------------------------
-    std::ostream& operator<<(std::ostream& o, const StaticGeometry& g)
+    void StaticGeometry::dump(const String& filename) const
     {
-        o << "Static Geometry Report for " << g.mName << std::endl;
-        o << "-------------------------------------------------" << std::endl;
-        o << "Number of queued submeshes: " << g.mQueuedSubMeshes.size() << std::endl;
-        o << "Number of regions: " << g.mRegionMap.size() << std::endl;
-        o << "Region dimensions: " << g.mRegionDimensions << std::endl;
-        o << "Origin: " << g.mOrigin << std::endl;
-        o << "Max distance: " << g.mUpperDistance << std::endl;
-        o << "Casts shadows?: " << g.mCastShadows << std::endl;
-        o << std::endl;
-        for (auto ri : g.mRegionMap)
+        std::ofstream of(filename.c_str());
+        of << "Static Geometry Report for " << mName << std::endl;
+        of << "-------------------------------------------------" << std::endl;
+        of << "Number of queued submeshes: " << mQueuedSubMeshes.size() << std::endl;
+        of << "Number of regions: " << mRegionMap.size() << std::endl;
+        of << "Region dimensions: " << mRegionDimensions << std::endl;
+        of << "Origin: " << mOrigin << std::endl;
+        of << "Max distance: " << mUpperDistance << std::endl;
+        of << "Casts shadows?: " << mCastShadows << std::endl;
+        of << std::endl;
+        for (auto ri : mRegionMap)
         {
-            o << *ri.second;
+            ri.second->dump(of);
         }
-        o << "-------------------------------------------------" << std::endl;
-        return o;
+        of << "-------------------------------------------------" << std::endl;
     }
     //---------------------------------------------------------------------
     void StaticGeometry::visitRenderables(Renderable::Visitor* visitor, 
@@ -912,21 +912,20 @@ namespace Ogre {
         return mLodBucketList[mCurrentLod]->getEdgeList();
     }
     //--------------------------------------------------------------------------
-    std::ostream& operator<<(std::ostream& o, const StaticGeometry::Region& r)
+    void StaticGeometry::Region::dump(std::ofstream& of) const
     {
-        o << "Region " << r.mRegionID << std::endl;
-        o << "--------------------------" << std::endl;
-        o << "Centre: " << r.mCentre << std::endl;
-        o << "Local AABB: " << r.mAABB << std::endl;
-        o << "Bounding radius: " << r.mBoundingRadius << std::endl;
-        o << "Number of LODs: " << r.mLodBucketList.size() << std::endl;
+        of << "Region " << mRegionID << std::endl;
+        of << "--------------------------" << std::endl;
+        of << "Centre: " << mCentre << std::endl;
+        of << "Local AABB: " << mAABB << std::endl;
+        of << "Bounding radius: " << mBoundingRadius << std::endl;
+        of << "Number of LODs: " << mLodBucketList.size() << std::endl;
 
-        for (auto i : r.mLodBucketList)
+        for (auto i : mLodBucketList)
         {
-            o << *i;
+            i->dump(of);
         }
-        o << "--------------------------" << std::endl;
-        return o;
+        of << "--------------------------" << std::endl;
     }
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
@@ -1060,18 +1059,18 @@ namespace Ogre {
             mMaterialBucketMap.begin(), mMaterialBucketMap.end());
     }
     //--------------------------------------------------------------------------
-    std::ostream& operator<<(std::ostream& o, const StaticGeometry::LODBucket& b)
+    void StaticGeometry::LODBucket::dump(std::ofstream& of) const
     {
-        o << "LOD Bucket " << b.mLod << std::endl;
-        o << "------------------" << std::endl;
-        o << "LOD Value: " << b.mLodValue << std::endl;
-        o << "Number of Materials: " << b.mMaterialBucketMap.size() << std::endl;
-        for (const auto & i : b.mMaterialBucketMap)
+        of << "LOD Bucket " << mLod << std::endl;
+        of << "------------------" << std::endl;
+        of << "LOD Value: " << mLodValue << std::endl;
+        of << "Number of Materials: " << mMaterialBucketMap.size() << std::endl;
+        for (const auto & i : mMaterialBucketMap)
         {
-            o << *i.second;
+            i.second->dump(of);
         }
-        o << "------------------" << std::endl;
-        return o;
+        of << "------------------" << std::endl;
+
     }
     //---------------------------------------------------------------------
     void StaticGeometry::LODBucket::visitRenderables(Renderable::Visitor* visitor, 
@@ -1251,17 +1250,17 @@ namespace Ogre {
             mGeometryBucketList.begin(), mGeometryBucketList.end());
     }
     //--------------------------------------------------------------------------
-    std::ostream& operator<<(std::ostream& o, const StaticGeometry::MaterialBucket& b)
+    void StaticGeometry::MaterialBucket::dump(std::ofstream& of) const
     {
-        o << "Material Bucket " << b.getMaterialName() << std::endl;
-        o << "--------------------------------------------------" << std::endl;
-        o << "Geometry buckets: " << b.mGeometryBucketList.size() << std::endl;
-        for (auto i : b.mGeometryBucketList)
+        of << "Material Bucket " << getMaterialName() << std::endl;
+        of << "--------------------------------------------------" << std::endl;
+        of << "Geometry buckets: " << mGeometryBucketList.size() << std::endl;
+        for (auto i : mGeometryBucketList)
         {
-            o << *i;
+            i->dump(of);
         }
-        o << "--------------------------------------------------" << std::endl;
-        return o;
+        of << "--------------------------------------------------" << std::endl;
+
     }
     //---------------------------------------------------------------------
     void StaticGeometry::MaterialBucket::visitRenderables(Renderable::Visitor* visitor, 
@@ -1575,15 +1574,15 @@ namespace Ogre {
         }
     }
     //--------------------------------------------------------------------------
-    std::ostream& operator<<(std::ostream& o, const StaticGeometry::GeometryBucket& b)
+    void StaticGeometry::GeometryBucket::dump(std::ofstream& of) const
     {
-        o << "Geometry Bucket" << std::endl;
-        o << "---------------" << std::endl;
-        o << "Geometry items: " << b.mQueuedGeometry.size() << std::endl;
-        o << "Vertex count: " << b.mVertexData->vertexCount << std::endl;
-        o << "Index count: " << b.mIndexData->indexCount << std::endl;
-        o << "---------------" << std::endl;
-        return o;
+        of << "Geometry Bucket" << std::endl;
+        of << "---------------" << std::endl;
+        of << "Geometry items: " << mQueuedGeometry.size() << std::endl;
+        of << "Vertex count: " << mVertexData->vertexCount << std::endl;
+        of << "Index count: " << mIndexData->indexCount << std::endl;
+        of << "---------------" << std::endl;
+
     }
     //--------------------------------------------------------------------------
     String StaticGeometryFactory::FACTORY_TYPE_NAME = "StaticGeometry";

@@ -28,20 +28,33 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #ifndef __GL3PlusRenderToVertexBuffer_H__
 #define __GL3PlusRenderToVertexBuffer_H__
 
-#include "OgreGLRenderToVertexBufferCommon.h"
+#include "OgreRenderToVertexBuffer.h"
 #include "OgreGL3PlusPrerequisites.h"
 
 namespace Ogre {
-    class GL3PlusRenderToVertexBuffer : public GLRenderToVertexBufferCommon
+    /**  An object which renders geometry to a vertex.
+
+         This is especially useful together with geometry shaders, as you can
+         render procedural geometry which will get saved to a vertex buffer for
+         reuse later, without regenerating it again. You can also create shaders
+         that run on previous results of those shaders, creating stateful
+         shaders.
+    */
+    class _OgreGL3PlusExport GL3PlusRenderToVertexBuffer : public RenderToVertexBuffer
     {
     public:
         GL3PlusRenderToVertexBuffer();
         virtual ~GL3PlusRenderToVertexBuffer();
 
+        /** Get the render operation for this buffer
+         */
+        void getRenderOperation(RenderOperation& op) override;
+
         /** Update the contents of this vertex buffer by rendering
          */
         void update(SceneManager* sceneMgr) override;
     protected:
+        HardwareVertexBufferSharedPtr mVertexBuffers[2];
         /* size_t mSourceBufferIndex; */
         std::vector<String> feedbackVariableNames;
         size_t mTargetBufferIndex;
@@ -52,6 +65,8 @@ namespace Ogre {
         // GLuint mFeedbackObject;
 
         void bindVerticesOutput(Pass* pass);
+        void reallocateBuffer(size_t index);
+        String getSemanticVaryingName(VertexElementSemantic semantic, unsigned short index);
     };
 }
 

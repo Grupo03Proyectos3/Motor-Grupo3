@@ -122,7 +122,7 @@ void CompositorChain::createOriginalScene()
         /// Render everything, including skies
         pass = tp->createPass(CompositionPass::PT_RENDERSCENE);
         pass->setFirstRenderQueue(RENDER_QUEUE_BACKGROUND);
-        pass->setLastRenderQueue(RENDER_QUEUE_TRANSPARENTS);
+        pass->setLastRenderQueue(RENDER_QUEUE_SKIES_LATE);
         scene->load();
     }
     mOriginalScene = OGRE_NEW CompositorInstance(scene->getSupportedTechnique(), this);
@@ -566,7 +566,7 @@ void CompositorChain::_notifyViewport(Viewport* vp)
 }
 //-----------------------------------------------------------------------
 void CompositorChain::RQListener::renderQueueStarted(uint8 id, 
-    const String& cameraName, bool& skipThisQueue)
+    const String& invocation, bool& skipThisQueue)
 {
     // Skip when not matching viewport
     // shadows update is nested within main viewport update
@@ -580,6 +580,11 @@ void CompositorChain::RQListener::renderQueueStarted(uint8 id,
     {
         skipThisQueue = true;
     }
+}
+//-----------------------------------------------------------------------
+void CompositorChain::RQListener::renderQueueEnded(uint8 id, 
+    const String& invocation, bool& repeatThisQueue)
+{
 }
 //-----------------------------------------------------------------------
 void CompositorChain::RQListener::setOperation(CompositorInstance::TargetOperation *op,SceneManager *sm,RenderSystem *rs)

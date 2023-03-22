@@ -87,7 +87,7 @@ namespace Ogre {
     Material returned from this method will apply to any materials created 
     from this point onward.
     */
-    class _OgreExport Material final : public Resource
+    class _OgreExport Material : public Resource
     {
         friend class SceneManager;
         friend class MaterialManager;

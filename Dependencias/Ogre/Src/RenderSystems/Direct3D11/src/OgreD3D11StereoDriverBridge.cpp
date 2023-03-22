@@ -42,7 +42,7 @@ namespace Ogre
 		mIsNvapiInitialized = false;
 		mStereoMode = stereoMode;
 
-		if (!mStereoMode)
+		if (SMT_FRAME_SEQUENTIAL != mStereoMode)
 			return;
 
 		NvAPI_Status nvStatus = NvAPI_Initialize();

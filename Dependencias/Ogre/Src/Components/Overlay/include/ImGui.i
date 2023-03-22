@@ -34,11 +34,14 @@
 }
 
 #ifdef SWIGPYTHON
-%rename("__version__") "IMGUI_VERSION";
+%inline %{
+#define __version__ IMGUI_VERSION
+%}
+// ABI break: %rename("__version__") "IMGUI_VERSION";
 #endif
 
 // strip duplicate namespace for ImGuiSomething_FlagName flags
-%rename("%(strip:[ImGui])s", regextarget=1) "^ImGui.+_.+";
+// ABI break: %rename("%(strip:[ImGui])s", regextarget=1) "^ImGui.+_.+";
 
 %apply bool* INOUT { bool* p_open };
 %apply float* INOUT { float* v };

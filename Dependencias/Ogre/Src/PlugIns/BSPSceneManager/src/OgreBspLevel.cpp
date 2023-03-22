@@ -44,7 +44,6 @@ THE SOFTWARE.
 #include "OgreTextureUnitState.h"
 #include "OgreResourceGroupManager.h"
 #include "OgreHardwarePixelBuffer.h"
-#include "OgreBspSceneManager.h"
 
 namespace Ogre {
 
@@ -279,8 +278,8 @@ namespace Ogre {
         // Copy the indexes into a software area for staging
         size_t numIndexes = q3lvl.mNumElements + mPatchIndexCount;
         // Create an index buffer manually in system memory, allow space for patches
-        mIndexes = std::make_shared<HardwareIndexBuffer>(nullptr, HardwareIndexBuffer::IT_32BIT, numIndexes,
-                                                         new DefaultHardwareBuffer(numIndexes * sizeof(int)));
+        mIndexes.reset(OGRE_NEW DefaultHardwareIndexBuffer(HardwareIndexBuffer::IT_32BIT, numIndexes,
+                                                           HardwareBuffer::HBU_DYNAMIC));
         // Write main indexes
         mIndexes->writeData(0, sizeof(unsigned int) * q3lvl.mNumElements, q3lvl.mElements, true);
         // create actual hardware index buffer
@@ -624,7 +623,7 @@ namespace Ogre {
                 ++brushSideIdx;
             }
             // Build world fragment
-            pBrush->fragment.fragmentType = WFT_PLANE_BOUNDED_REGION;
+            pBrush->fragment.fragmentType = SceneQuery::WFT_PLANE_BOUNDED_REGION;
             pBrush->fragment.planes = &(pBrush->planes);
 
             --progressCountdown;
@@ -689,7 +688,7 @@ namespace Ogre {
                 {
                     // Get brush 
                     BspNode::Brush *pBrush = &(mBrushes[realBrushIdx]);
-                    assert(pBrush->fragment.fragmentType == WFT_PLANE_BOUNDED_REGION);
+                    assert(pBrush->fragment.fragmentType == SceneQuery::WFT_PLANE_BOUNDED_REGION);
                     // Assign node pointer
                     node->mSolidBrushes.push_back(pBrush);
                 }

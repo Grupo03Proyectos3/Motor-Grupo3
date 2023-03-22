@@ -133,9 +133,12 @@ protected:
     void createAtheneScene(SceneNode* rootNode)
     {
         // Prepare athene mesh for normalmapping
-        MeshPtr pAthene = MeshManager::getSingleton().load("athene.mesh", RGN_DEFAULT);
-        pAthene->buildTangentVectors();
-
+        MeshPtr pAthene = MeshManager::getSingleton().load("athene.mesh", 
+                                                           ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+        unsigned short src, dest;
+        if (!pAthene->suggestTangentVectorBuildParams(VES_TANGENT, src, dest))
+            pAthene->buildTangentVectors(VES_TANGENT, src, dest);
+        
         //Create an athena statue
         Entity* athena = mSceneMgr->createEntity("Athena", "athene.mesh");
         athena->setMaterialName("DeferredDemo/DeferredAthena");
@@ -151,9 +154,12 @@ protected:
     void createKnotScene(SceneNode* rootNode)
     {
         // Prepare knot mesh for normal mapping
-        MeshPtr pKnot = MeshManager::getSingleton().load("knot.mesh", RGN_DEFAULT);
-        pKnot->buildTangentVectors();
-
+        MeshPtr pKnot = MeshManager::getSingleton().load("knot.mesh", 
+                                                         ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+        unsigned short src, dest;
+        if (!pKnot->suggestTangentVectorBuildParams(VES_TANGENT, src, dest))
+            pKnot->buildTangentVectors(VES_TANGENT, src, dest);
+        
         // Create a bunch of knots with spotlights hanging from above
         Entity* knotEnt = mSceneMgr->createEntity("Knot", "knot.mesh");
         knotEnt->setMaterialName("DeferredDemo/RockWall");

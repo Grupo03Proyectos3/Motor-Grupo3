@@ -30,7 +30,7 @@
 #include "CEGUI/RendererModules/Ogre/ImageCodec.h"
 #include <OgreTextureManager.h>
 #include <OgreHardwarePixelBuffer.h>
-
+#include <Ogre.h>
 // Start of CEGUI namespace section
 namespace CEGUI
 {

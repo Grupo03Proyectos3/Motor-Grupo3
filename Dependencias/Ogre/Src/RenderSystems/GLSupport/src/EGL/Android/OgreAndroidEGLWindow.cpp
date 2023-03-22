@@ -126,7 +126,8 @@ namespace Ogre {
                                 "currentGLContext was specified with no current GL context",
                                 "EGLWindow::create");
                 }
-
+                
+                mEglSurface = eglGetCurrentSurface(EGL_DRAW);
                 mEglDisplay = eglGetCurrentDisplay();
             }
 
@@ -188,6 +189,11 @@ namespace Ogre {
             }
         }
 
+        if (mEglSurface)
+        {
+            mEglConfig = mGLSupport->getGLConfigFromDrawable (mEglSurface, &width, &height);
+        }
+
         if (!mEglConfig && eglContext)
         {
             mEglConfig = mGLSupport->getGLConfigFromContext(eglContext);
@@ -200,6 +206,8 @@ namespace Ogre {
                             "EGLWindow::create");
             }
         }
+
+        mIsExternal = (mEglSurface != 0);
 
         if (!mEglConfig)
         {

@@ -152,7 +152,7 @@ class _OgreSampleClassExport Sample_FacialAnimation : public SdkSample
     AnimationState* mSpeakAnimState;
     AnimationState* mManualAnimState;
     VertexPoseKeyFrame* mManualKeyFrame;
-    ControllerFloat* mPlayAnimation;
+    ControllerReal* mPlayAnimation;
     WidgetList mExpressions;
     WidgetList mMouthShapes;
 };

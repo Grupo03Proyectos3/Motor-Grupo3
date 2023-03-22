@@ -41,6 +41,7 @@ THE SOFTWARE.
 
 #include "OgreShaderGenerator.h"
 #include "OgreTerrainRTShaderSRS.h"
+#include "OgreShaderExIntegratedPSSM3.h"
 
 #include <fstream>
 #include <string>
@@ -48,19 +49,19 @@ THE SOFTWARE.
 namespace Ogre
 {
     //---------------------------------------------------------------------
-    TerrainMaterialGeneratorA::TerrainMaterialGeneratorA() :
-        mLightmapEnabled(true),
-        mCompositeMapEnabled(true),
-        mReceiveDynamicShadows(true),
-        mLowLodShadows(false)
+    TerrainMaterialGeneratorA::TerrainMaterialGeneratorA()
     {
         // define the layers
         // We expect terrain textures to have no alpha, so we use the alpha channel
         // in the albedo texture to store specular reflection
         // similarly we double-up the normal and height (for parallax)
-        mLayerDecl = {{"albedo_specular", PF_BYTE_RGBA}, {"normal_height", PF_BYTE_RGBA}};
+        mLayerDecl.samplers.push_back(TerrainLayerSampler("albedo_specular", PF_BYTE_RGBA));
+        mLayerDecl.samplers.push_back(TerrainLayerSampler("normal_height", PF_BYTE_RGBA));
+        
+        mProfiles.push_back(OGRE_NEW SM2Profile(this, "SM2", "Profile for rendering on Shader Model 2 capable cards"));
 
-        mActiveProfile.reset(new SM2Profile(this));
+        // TODO - check hardware capabilities & use fallbacks if required (more profiles needed)
+        setActiveProfile(mProfiles.back());
 
         using namespace RTShader;
 
@@ -92,12 +93,17 @@ namespace Ogre
     }
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    TerrainMaterialGeneratorA::SM2Profile::SM2Profile(TerrainMaterialGeneratorA* parent)
-        : mParent(parent)
+    TerrainMaterialGeneratorA::SM2Profile::SM2Profile(TerrainMaterialGenerator* parent, const String& name, const String& desc)
+        : Profile(parent, name, desc)
         , mLayerNormalMappingEnabled(true)
         , mLayerParallaxMappingEnabled(true)
         , mLayerSpecularMappingEnabled(true)
+        , mGlobalColourMapEnabled(true)
+        , mLightmapEnabled(true)
+        , mCompositeMapEnabled(true)
+        , mReceiveDynamicShadows(true)
         , mPSSM(0)
+        , mLowLodShadows(false)
     {
     }
     //---------------------------------------------------------------------
@@ -105,12 +111,17 @@ namespace Ogre
     {
     }   
     //---------------------------------------------------------------------
-    void TerrainMaterialGeneratorA::requestOptions(Terrain* terrain)
+    void TerrainMaterialGeneratorA::SM2Profile::requestOptions(Terrain* terrain)
     {
         terrain->_setMorphRequired(true);
         terrain->_setNormalMapRequired(true);
         terrain->_setLightMapRequired(mLightmapEnabled, true);
         terrain->_setCompositeMapRequired(mCompositeMapEnabled);
+    }
+    //---------------------------------------------------------------------
+    bool TerrainMaterialGeneratorA::SM2Profile::isVertexCompressionSupported() const
+    {
+        return true;
     }
     //---------------------------------------------------------------------
     void TerrainMaterialGeneratorA::SM2Profile::setLayerNormalMappingEnabled(bool enabled)
@@ -140,30 +151,39 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    void  TerrainMaterialGeneratorA::setLightmapEnabled(bool enabled)
+    void  TerrainMaterialGeneratorA::SM2Profile::setGlobalColourMapEnabled(bool enabled)
+    {
+        if (enabled != mGlobalColourMapEnabled)
+        {
+            mGlobalColourMapEnabled = enabled;
+            mParent->_markChanged();
+        }
+    }
+    //---------------------------------------------------------------------
+    void  TerrainMaterialGeneratorA::SM2Profile::setLightmapEnabled(bool enabled)
     {
         if (enabled != mLightmapEnabled)
         {
             mLightmapEnabled = enabled;
-            _markChanged();
+            mParent->_markChanged();
         }
     }
     //---------------------------------------------------------------------
-    void  TerrainMaterialGeneratorA::setCompositeMapEnabled(bool enabled)
+    void  TerrainMaterialGeneratorA::SM2Profile::setCompositeMapEnabled(bool enabled)
     {
         if (enabled != mCompositeMapEnabled)
         {
             mCompositeMapEnabled = enabled;
-            _markChanged();
+            mParent->_markChanged();
         }
     }
     //---------------------------------------------------------------------
-    void  TerrainMaterialGeneratorA::setReceiveDynamicShadowsEnabled(bool enabled)
+    void  TerrainMaterialGeneratorA::SM2Profile::setReceiveDynamicShadowsEnabled(bool enabled)
     {
         if (enabled != mReceiveDynamicShadows)
         {
             mReceiveDynamicShadows = enabled;
-            _markChanged();
+            mParent->_markChanged();
         }
     }
     //---------------------------------------------------------------------
@@ -176,12 +196,12 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    void TerrainMaterialGeneratorA::setReceiveDynamicShadowsLowLod(bool enabled)
+    void TerrainMaterialGeneratorA::SM2Profile::setReceiveDynamicShadowsLowLod(bool enabled)
     {
         if (enabled != mLowLodShadows)
         {
             mLowLodShadows = enabled;
-            _markChanged();
+            mParent->_markChanged();
         }
     }
     //---------------------------------------------------------------------
@@ -284,9 +304,9 @@ namespace Ogre
             surface->setParameter("use_specular_mapping", std::to_string(mLayerSpecularMappingEnabled));
             if(isShadowingEnabled(HIGH_LOD, terrain))
             {
-                auto pssm = ShaderGenerator::getSingleton().createSubRenderState(SRS_INTEGRATED_PSSM3);
+                auto pssm = ShaderGenerator::getSingleton().createSubRenderState<IntegratedPSSM3>();
                 if(mPSSM)
-                    pssm->setParameter("split_points", mPSSM->getSplitPoints());
+                    pssm->setSplitPoints(mPSSM->getSplitPoints());
                 pssm->preAddToRenderState(mainRenderState.get(), pass, pass);
                 mainRenderState->addSubRenderStateInstance(pssm);
             }
@@ -301,7 +321,7 @@ namespace Ogre
         pass->getUserObjectBindings().setUserAny(TargetRenderState::UserKey, mainRenderState);
 
         // LOD
-        if(mParent->isCompositeMapEnabled())
+        if(mCompositeMapEnabled)
         {
             Technique* tech = mat->createTechnique();
             tech->setLodIndex(1);
@@ -321,9 +341,9 @@ namespace Ogre
                 {
                     // light count needed to enable PSSM3
                     lod1RenderState->setLightCount(Vector3i(0, 1, 0));
-                    auto pssm = ShaderGenerator::getSingleton().createSubRenderState(SRS_INTEGRATED_PSSM3);
+                    auto pssm = ShaderGenerator::getSingleton().createSubRenderState<IntegratedPSSM3>();
                     if(mPSSM)
-                        pssm->setParameter("split_points", mPSSM->getSplitPoints());
+                        pssm->setSplitPoints(mPSSM->getSplitPoints());
                     pssm->preAddToRenderState(lod1RenderState.get(), pass, pass);
                     lod1RenderState->addSubRenderStateInstance(pssm);
                 }
@@ -340,12 +360,12 @@ namespace Ogre
             mat->setLodLevels({TerrainGlobalOptions::getSingleton().getCompositeMapDistance()});
         }
 
-        mParent->updateParams(mat, terrain);
+        updateParams(mat, terrain);
 
         return mat;
     }
     //---------------------------------------------------------------------
-    MaterialPtr TerrainMaterialGeneratorA::generateForCompositeMap(const Terrain* terrain)
+    MaterialPtr TerrainMaterialGeneratorA::SM2Profile::generateForCompositeMap(const Terrain* terrain)
     {
         // re-use old material if exists
         MaterialPtr mat = terrain->_getCompositeMapMaterial();
@@ -395,12 +415,13 @@ namespace Ogre
     //---------------------------------------------------------------------
     bool TerrainMaterialGeneratorA::SM2Profile::isShadowingEnabled(TechniqueType tt, const Terrain* terrain) const
     {
-        return mParent->getReceiveDynamicShadowsEnabled() && tt != RENDER_COMPOSITE_MAP &&
-               (tt != LOW_LOD || mParent->getReceiveDynamicShadowsLowLod()) &&
-               terrain->getSceneManager()->isShadowTechniqueTextureBased();
+        return getReceiveDynamicShadowsEnabled() && tt != RENDER_COMPOSITE_MAP && 
+            (tt != LOW_LOD || mLowLodShadows) &&
+            terrain->getSceneManager()->isShadowTechniqueTextureBased();
+
     }
     //---------------------------------------------------------------------
-    void TerrainMaterialGeneratorA::updateParams(const MaterialPtr& mat, const Terrain* terrain)
+    void TerrainMaterialGeneratorA::SM2Profile::updateParams(const MaterialPtr& mat, const Terrain* terrain)
     {
         using namespace RTShader;
         auto mainRenderState = any_cast<TargetRenderStatePtr>(
@@ -429,7 +450,7 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    void TerrainMaterialGeneratorA::updateParamsForCompositeMap(const MaterialPtr& mat, const Terrain* terrain)
+    void TerrainMaterialGeneratorA::SM2Profile::updateParamsForCompositeMap(const MaterialPtr& mat, const Terrain* terrain)
     {
         using namespace RTShader;
         auto mainRenderState = any_cast<TargetRenderStatePtr>(

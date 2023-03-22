@@ -86,49 +86,37 @@ struct _OgreBulletExport RayResultCallback
 };
 
 /// simplified wrapper with automatic memory management
-class _OgreBulletExport CollisionWorld
+class _OgreBulletExport DynamicsWorld
 {
-protected:
     std::unique_ptr<btCollisionConfiguration> mCollisionConfig;
     std::unique_ptr<btCollisionDispatcher> mDispatcher;
-    std::unique_ptr<btBroadphaseInterface> mBroadphase;
-
-    btCollisionWorld* mBtWorld;
-
-public:
-    CollisionWorld(btCollisionWorld* btWorld) : mBtWorld(btWorld) {}
-    virtual ~CollisionWorld();
-
-    btCollisionObject* addCollisionObject(Entity* ent, ColliderType ct, int group = 1, int mask = -1);
-
-    void rayTest(const Ray& ray, RayResultCallback* callback, float maxDist = 1000);
-};
-
-/// simplified wrapper with automatic memory management
-class _OgreBulletExport DynamicsWorld : public CollisionWorld
-{
     std::unique_ptr<btConstraintSolver> mSolver;
+    std::unique_ptr<btBroadphaseInterface> mBroadphase;
+    btDynamicsWorld* mBtWorld;
 
 public:
     explicit DynamicsWorld(const Vector3& gravity);
-    DynamicsWorld(btDynamicsWorld* btWorld) : CollisionWorld(btWorld) {}
+    ~DynamicsWorld();
+    DynamicsWorld(btDynamicsWorld* btWorld) : mBtWorld(btWorld) {}
 
     btRigidBody* addRigidBody(float mass, Entity* ent, ColliderType ct, CollisionListener* listener = nullptr,
                               int group = 1, int mask = -1);
 
-    btDynamicsWorld* getBtWorld() const { return (btDynamicsWorld*)mBtWorld; }
+    btDynamicsWorld* getBtWorld() const { return mBtWorld; }
+
+    void rayTest(const Ray& ray, RayResultCallback* callback, float maxDist = 1000);
 };
 
 class _OgreBulletExport DebugDrawer : public btIDebugDraw
 {
     SceneNode* mNode;
-    btCollisionWorld* mWorld;
+    btDynamicsWorld* mWorld;
 
     ManualObject mLines;
     int mDebugMode;
 
 public:
-    DebugDrawer(SceneNode* node, btCollisionWorld* world)
+    DebugDrawer(SceneNode* node, btDynamicsWorld* world)
         : mNode(node), mWorld(world), mLines(""), mDebugMode(DBG_DrawWireframe)
     {
         mLines.setCastShadows(false);

@@ -161,17 +161,20 @@ void OgreBites::StaticPluginLoader::load()
     mPlugins.push_back(plugin);
 #endif
 #ifdef OGRE_BUILD_PLUGIN_STBI
-    STBIImageCodec::startup();
+    plugin = OGRE_NEW STBIPlugin();
+    mPlugins.push_back(plugin);
 #endif
 #if defined(OGRE_BUILD_PLUGIN_RSIMAGE) && !defined(OGRE_BUILD_PLUGIN_STBI)
-    RsImageCodec::startup();
+    plugin = OGRE_NEW RsImagePlugin();
+    mPlugins.push_back(plugin);
 #endif
 #ifdef OGRE_BUILD_PLUGIN_DOT_SCENE
     plugin = OGRE_NEW DotScenePlugin();
     mPlugins.push_back(plugin);
 #endif
 #if defined(OGRE_BUILD_PLUGIN_FREEIMAGE) && !defined(OGRE_BUILD_PLUGIN_STBI) && !defined(OGRE_BUILD_PLUGIN_RSIMAGE)
-    FreeImageCodec::startup();
+    plugin = OGRE_NEW FreeImagePlugin();
+    mPlugins.push_back(plugin);
 #endif
 #ifdef OGRE_BUILD_PLUGIN_ASSIMP
     plugin = OGRE_NEW AssimpPlugin();
@@ -196,15 +199,4 @@ void OgreBites::StaticPluginLoader::unload()
         OGRE_DELETE p;
     }
     mPlugins.clear();
-#ifdef OGRE_BITES_STATIC_PLUGINS
-#ifdef OGRE_BUILD_PLUGIN_STBI
-    Ogre::STBIImageCodec::shutdown();
-#endif
-#if defined(OGRE_BUILD_PLUGIN_RSIMAGE)
-    Ogre::RsImageCodec::shutdown();
-#endif
-#if defined(OGRE_BUILD_PLUGIN_FREEIMAGE) && !defined(OGRE_BUILD_PLUGIN_STBI) && !defined(OGRE_BUILD_PLUGIN_RSIMAGE)
-    Ogre::FreeImageCodec::shutdown();
-#endif
-#endif
 }

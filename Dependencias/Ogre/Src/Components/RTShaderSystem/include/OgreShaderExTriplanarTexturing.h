@@ -41,7 +41,7 @@ namespace RTShader {
 *  @{
 */
 
-class TriplanarTexturing : public SubRenderState
+class _OgreRTSSExport TriplanarTexturing : public SubRenderState
 {
 
 protected:
@@ -135,8 +135,10 @@ public:
     /** Sets the parameters.
     @param parameters
         Parameters: Texturescale, Plateau-size (0 to 0.57, not bigger to avoid division by zero!), transition-speed.
+    */
+    virtual void setParameters(const Vector3 &parameters);
 
-    Sets the texture names for the mapping.
+    /** Sets the texture names for the mapping.
     @param textureNameFromX
         The texture mapping from x.
     @param textureNameFromY
@@ -144,7 +146,7 @@ public:
     @param textureNameFromZ
         The texture mapping from z.
     */
-    void setParameter(const String& name, const Any& value) override;
+    virtual void setTextureNames(const String &textureNameFromX, const String &textureNameFromY, const String &textureNameFromZ);
     
     /** 
     @see SubRenderState::getType.
@@ -178,7 +180,7 @@ public:
 A factory that enables creation of TriplanarMapping instances.
 @remarks Sub class of SubRenderStateFactory
 */
-class TriplanarTexturingFactory : public SubRenderStateFactory
+class _OgreRTSSExport TriplanarTexturingFactory : public SubRenderStateFactory
 {
 public:
 

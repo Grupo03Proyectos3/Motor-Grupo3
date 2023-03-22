@@ -68,6 +68,16 @@ namespace Ogre {
         /// Static method to shutdown and unregister the codecs
         _OgreSTBICodecExport static void shutdown(void);
     };
+
+    class _OgreSTBICodecExport STBIPlugin : public Plugin
+    {
+    public:
+        const String& getName() const override;
+        void install() override { STBIImageCodec::startup(); }
+        void uninstall() override { STBIImageCodec::shutdown(); }
+        void initialise() override {}
+        void shutdown() override {}
+    };
     /** @} */
     /** @} */
 

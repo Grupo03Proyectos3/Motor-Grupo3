@@ -235,7 +235,9 @@ namespace Ogre {
 			opt = miscParams->find("stereoMode");
 			if (opt != miscParams->end())
 			{
-				mStereoEnabled = StringConverter::parseBool(opt->second);
+				StereoModeType stereoMode = StringConverter::parseStereoMode(opt->second);
+				if (SMT_NONE != stereoMode)
+					mStereoEnabled = true;
 			}
 #endif
         }

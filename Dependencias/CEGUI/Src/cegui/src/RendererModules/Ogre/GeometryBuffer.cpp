@@ -456,6 +456,7 @@ void OgreGeometryBuffer::initialiseTextureStates() const
 
     d_renderSystem._setHlmsSamplerblock(0, d_owner.getHlmsSamplerblock());
 #else
+    
     d_renderSystem._setTextureUnitFiltering(0, FO_LINEAR, FO_LINEAR, FO_POINT);
     d_renderSystem._setTextureAddressingMode(0, S_textureAddressMode);
     d_renderSystem._setTextureMatrix(0, Matrix4::IDENTITY);

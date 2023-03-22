@@ -3,6 +3,7 @@
 //
 // This code is in the public domain. You may do whatever you want with it.
 
+#define USE_OGRE_FROM_FUTURE
 #include <OgreUnifiedShader.h>
 
 uniform vec4 vpSize;

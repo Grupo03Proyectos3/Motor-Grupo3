@@ -479,16 +479,8 @@ namespace Ogre {
             break;
         default:
             profile = WGL_CONTEXT_CORE_PROFILE_BIT_ARB;
-            if (glMajorMax > 3)
-            {
-                majorVersion = glMajorMax;
-                minorVersion = glMinorMax;
-            }
-            else
-            {
-                majorVersion = 3;
-                minorVersion = 3; // 3.1 would be sufficient per spec, but we need 3.3 anyway..
-            }
+            majorVersion = std::max(glMajorMax, 3);
+            minorVersion = std::max(glMinorMax, 3); // 3.1 would be sufficient per spec, but we need 3.3 anyway..
             break;
         }
 
@@ -515,6 +507,14 @@ namespace Ogre {
         }
 
         return glrc;
+    }
+
+    unsigned int Win32GLSupport::getDisplayMonitorCount() const
+    {
+        if (mMonitorInfoList.empty())       
+            EnumDisplayMonitors(NULL, NULL, sCreateMonitorsInfoEnumProc, (LPARAM)&mMonitorInfoList);
+
+        return (unsigned int)mMonitorInfoList.size();
     }
 
     String translateWGLError()

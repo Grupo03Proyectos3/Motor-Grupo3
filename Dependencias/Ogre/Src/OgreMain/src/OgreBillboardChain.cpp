@@ -58,6 +58,7 @@ namespace Ogre {
         mChainCount(numberOfChains),
         mUseTexCoords(useTextureCoords),
         mUseVertexColour(useColours),
+        mDynamic(dynamic),
         mVertexDeclDirty(true),
         mBuffersNeedRecreating(true),
         mBoundsDirty(true),
@@ -65,9 +66,9 @@ namespace Ogre {
         mVertexContentDirty(true),
         mRadius(0.0f),
         mTexCoordDir(TCD_U),
+        mVertexCameraUsed(0),
         mFaceCamera(true),
-        mNormalBase(Vector3::UNIT_X),
-        mVertexCameraUsed(0)
+        mNormalBase(Vector3::UNIT_X)
     {
         mVertexData.reset(new VertexData());
         mIndexData.reset(new IndexData());
@@ -149,7 +150,7 @@ namespace Ogre {
                 HardwareBufferManager::getSingleton().createVertexBuffer(
                 mVertexData->vertexDeclaration->getVertexSize(0),
                 mVertexData->vertexCount,
-                HBU_CPU_TO_GPU);
+                HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY_DISCARDABLE);
 
             // (re)Bind the buffer
             // Any existing buffer will lose its reference count and be destroyed
@@ -159,7 +160,7 @@ namespace Ogre {
                 HardwareBufferManager::getSingleton().createIndexBuffer(
                     HardwareIndexBuffer::IT_16BIT,
                     mChainCount * mMaxElementsPerChain * 6, // max we can use
-                    HBU_GPU_ONLY);
+                    mDynamic? HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY : HardwareBuffer::HBU_STATIC_WRITE_ONLY);
             // NB we don't set the indexCount on IndexData here since we will
             // probably use less than the maximum number of indices
 
@@ -207,9 +208,18 @@ namespace Ogre {
         mVertexDeclDirty = mBuffersNeedRecreating = true;
         mIndexContentDirty = mVertexContentDirty = true;
     }
+    //-----------------------------------------------------------------------
+    void BillboardChain::setDynamic(bool dyn)
+    {
+        mDynamic = dyn;
+        mBuffersNeedRecreating = mIndexContentDirty = mVertexContentDirty = true;
+    }
     void BillboardChain::setAutoUpdate(bool autoUpdate)
     {
         mAutoUpdate = autoUpdate;
+        OGRE_IGNORE_DEPRECATED_BEGIN
+        setDynamic(autoUpdate);
+        OGRE_IGNORE_DEPRECATED_END
     }
     //-----------------------------------------------------------------------
     void BillboardChain::addChainElement(size_t chainIndex,

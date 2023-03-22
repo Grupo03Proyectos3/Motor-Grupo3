@@ -131,16 +131,16 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     // Local class for updating based on time
-    class ParticleSystemUpdateValue : public ControllerValue<float>
+    class ParticleSystemUpdateValue : public ControllerValue<Real>
     {
     protected:
         ParticleSystem* mTarget;
     public:
         ParticleSystemUpdateValue(ParticleSystem* target) : mTarget(target) {}
 
-        float getValue(void) const override { return 0; } // N/A
+        Real getValue(void) const override { return 0; } // N/A
 
-        void setValue(float value) override { mTarget->_update(value); }
+        void setValue(Real value) override { mTarget->_update(value); }
 
     };
     //-----------------------------------------------------------------------

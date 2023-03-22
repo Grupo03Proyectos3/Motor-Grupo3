@@ -13,7 +13,7 @@ IF EXIST .\dependencies\build RMDIR /S /Q .\dependencies\build
 mkdir .\dependencies\build
 cd .\dependencies\build
 
-%CMAKEDEP% -DCEGUI_BUILD_EXPAT:BOOL="1" -DCEGUI_BUILD_EFFECTS11:BOOL="0" -DCEGUI_BUILD_GLFW:BOOL="0" -DCEGUI_BUILD_SILLY:BOOL="1" ..\
+%CMAKEDEP%  ..\. -DCEGUI_BUILD_EXPAT:BOOL="1" -DCEGUI_BUILD_EFFECTS11:BOOL="0" -DCEGUI_BUILD_GLFW:BOOL="0" -DCEGUI_BUILD_SILLY:BOOL="1"
 msbuild "CEGUI-DEPS.sln" /p:configuration=Debug
 msbuild "CEGUI-DEPS.sln" /p:configuration=Release
 
@@ -31,3 +31,5 @@ powershell -command "(gc %CEGUI_CONFIG_PATH%) -replace 'define CEGUI_OGRE_VERSIO
 
 msbuild "cegui.sln" /p:configuration=Release 
 msbuild "cegui.sln" /p:configuration=Debug 
+
+cd ..

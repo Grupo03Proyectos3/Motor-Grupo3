@@ -44,7 +44,7 @@ namespace RTShader {
 */
 
 /// @copydoc SRS_INTEGRATED_PSSM3
-class IntegratedPSSM3 : public SubRenderState
+class _OgreRTSSExport IntegratedPSSM3 : public SubRenderState
 {
 
     // Interface.
@@ -80,25 +80,24 @@ public:
 
     
     /** Manually configure a new splitting scheme.
-    @param value A list which is splitCount + 1 entries long, containing the
+    @param newSplitPoints A list which is splitCount + 1 entries long, containing the
     split points. The first value is the near point, the last value is the
     far point, and each value in between is both a far point of the previous
     split, and a near point for the next one.
     */
-    void setParameter(const String& name, const Any& value) override;
+    void setSplitPoints(const SplitPointList& newSplitPoints);
+
+    void setDebug(bool enable) { mDebug = enable; }
+
     bool setParameter(const String& name, const String& value) override;
-
-
 
     static String Type;
 
     // Protected types:
 protected:
 
-    void setSplitPoints(const SplitPointList& newSplitPoints);
-
     // Shadow texture parameters.
-    struct ShadowTextureParams
+    struct _OgreRTSSExport ShadowTextureParams
     {                   
         // The max range of this shadow texture in terms of PSSM (far plane of viewing camera).
         Real mMaxRange;
@@ -184,7 +183,7 @@ protected:
 A factory that enables creation of IntegratedPSSM3 instances.
 @remarks Sub class of SubRenderStateFactory
 */
-class IntegratedPSSM3Factory : public SubRenderStateFactory
+class _OgreRTSSExport IntegratedPSSM3Factory : public SubRenderStateFactory
 {
 public:
     const String& getType() const override { return SRS_INTEGRATED_PSSM3; }

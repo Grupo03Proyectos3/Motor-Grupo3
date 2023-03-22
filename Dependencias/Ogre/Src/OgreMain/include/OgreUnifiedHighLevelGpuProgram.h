@@ -58,7 +58,7 @@ namespace Ogre {
         at another program name. The first one which has a supported syntax 
         will be used.
     */
-    class UnifiedHighLevelGpuProgram final : public GpuProgram
+    class _OgreExport UnifiedHighLevelGpuProgram final : public GpuProgram
     {
         /// Ordered list of potential delegates
         StringVector mDelegateNames;
@@ -152,7 +152,7 @@ namespace Ogre {
     };
 
     /** Factory class for Unified programs. */
-    class UnifiedHighLevelGpuProgramFactory : public GpuProgramFactory
+    class _OgreExport UnifiedHighLevelGpuProgramFactory : public GpuProgramFactory
     {
     public:
         UnifiedHighLevelGpuProgramFactory();

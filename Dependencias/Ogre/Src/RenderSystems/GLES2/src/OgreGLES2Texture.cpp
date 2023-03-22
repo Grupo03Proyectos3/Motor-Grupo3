@@ -344,7 +344,7 @@ namespace Ogre {
     {
         if (!isManuallyLoaded())
         {
-            unloadImpl();
+            freeInternalResources();
         }
         else
         {

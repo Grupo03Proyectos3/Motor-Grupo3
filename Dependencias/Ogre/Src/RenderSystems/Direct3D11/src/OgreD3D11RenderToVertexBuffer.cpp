@@ -31,8 +31,11 @@ THE SOFTWARE.
 #include "OgreHardwareBufferManager.h"
 #include "OgreD3D11HardwareBuffer.h"
 #include "OgreRenderable.h"
+#include "OgreSceneManager.h"
 #include "OgreRoot.h"
 #include "OgreRenderSystem.h"
+#include "OgreTechnique.h"
+#include "OgreStringConverter.h"
 #include "OgreD3D11RenderSystem.h"
 #include "OgreD3D11HLSLProgram.h"
 
@@ -41,6 +44,7 @@ namespace Ogre {
     D3D11RenderToVertexBuffer::D3D11RenderToVertexBuffer(D3D11Device & device, 
                                                          D3D11HardwareBufferManagerBase * bufManager) 
         : mDevice(device)
+        ,  mFrontBufferIndex(-1)
         , mBufManager(bufManager)
         , mpGeometryShader(0)
     {
@@ -52,16 +56,33 @@ namespace Ogre {
     {
     }
 
+    void D3D11RenderToVertexBuffer::getRenderOperation(RenderOperation& op)
+    {
+        op.operationType = mOperationType;
+        op.useIndexes = false;
+        op.useGlobalInstancingVertexBufferIsAvailable = false;
+        op.vertexData = mVertexData.get();
+    }
+
     void D3D11RenderToVertexBuffer::setupGeometryShaderLinkageToStreamOut(Pass* pass)
     {
         static bool done =  false;
 
-        if (done || !pass->hasGeometryProgram())
+        if (done)
             return;
 
+        assert(pass->hasGeometryProgram());
         const GpuProgramPtr& program = pass->getGeometryProgram();
 
-        D3D11HLSLProgram* dx11Program = static_cast<D3D11HLSLProgram*>(program->_getBindingDelegate());
+        D3D11HLSLProgram* dx11Program = 0;
+        if (program->getSyntaxCode()=="unified")
+        {
+            dx11Program = static_cast<D3D11HLSLProgram*>(program->_getBindingDelegate());
+        }
+        else
+        {
+            dx11Program = static_cast<D3D11HLSLProgram*>(program.get());
+        }
         dx11Program->reinterpretGSForStreamOut();
 
         done = true;
@@ -69,7 +90,8 @@ namespace Ogre {
     }
     void D3D11RenderToVertexBuffer::update(SceneManager* sceneMgr)
     {
-        Ogre::Pass* r2vbPass = derivePass(sceneMgr);
+        //Single pass only for now
+        Ogre::Pass* r2vbPass = mMaterial->getBestTechnique()->getPass(0);
 
         setupGeometryShaderLinkageToStreamOut(r2vbPass);
 
@@ -80,16 +102,26 @@ namespace Ogre {
             mResetRequested = true;
         }
 
+        //Set pass before binding buffers to activate the GPU programs
+        sceneMgr->_setPass(r2vbPass);
+
+        r2vbPass->_updateAutoParams(sceneMgr->_getAutoParamDataSource(), GPV_GLOBAL);
+
         RenderOperation renderOp;
-        auto targetBufferIndex = mTargetBufferIndex;
+        size_t targetBufferIndex;
         if (mResetRequested || mResetsEveryUpdate)
         {
             //Use source data to render to first buffer
             mSourceRenderable->getRenderOperation(renderOp);
+            targetBufferIndex = 0;
         }
         else
         {
-            getRenderOperation(renderOp);
+            //Use current front buffer to render to back buffer
+            renderOp.operationType = mOperationType;
+            renderOp.useIndexes = false;
+            renderOp.vertexData = mVertexData.get();
+            targetBufferIndex = 1 - mFrontBufferIndex;
         }
 
         if (!mVertexBuffers[targetBufferIndex] || 
@@ -107,15 +139,30 @@ namespace Ogre {
         ID3D11Buffer* iBuffer[1];
         iBuffer[0] = vertexBuffer->getD3DBuffer();
         mDevice.GetImmediateContext()->SOSetTargets( 1, iBuffer, offset );
+
+        if (r2vbPass->hasVertexProgram())
+        {
+            targetRenderSystem->bindGpuProgramParameters(GPT_VERTEX_PROGRAM, 
+                r2vbPass->getVertexProgramParameters(), GPV_ALL);
+        }
+        if (r2vbPass->hasGeometryProgram())
+        {
+            targetRenderSystem->bindGpuProgramParameters(GPT_GEOMETRY_PROGRAM,
+                r2vbPass->getGeometryProgramParameters(), GPV_ALL);
+        }
+
         // Remove fragment program
         mDevice.GetImmediateContext()->PSSetShader(NULL, NULL, 0);
 
         targetRenderSystem->_render(renderOp);  
 
-        //Switch the vertex binding
-        mVertexData->vertexBufferBinding->unsetAllBindings();
-        mVertexData->vertexBufferBinding->setBinding(0, mVertexBuffers[targetBufferIndex]);
-        mTargetBufferIndex = mTargetBufferIndex == 0 ? 1 : 0;
+        //Switch the vertex binding if necessary
+        if (targetBufferIndex != mFrontBufferIndex)
+        {
+            mVertexData->vertexBufferBinding->unsetAllBindings();
+            mVertexData->vertexBufferBinding->setBinding(0, mVertexBuffers[targetBufferIndex]);
+            mFrontBufferIndex = targetBufferIndex;
+        }
 
         // Remove stream output buffer 
         iBuffer[0]=NULL;

@@ -39,6 +39,9 @@ THE SOFTWARE.
 #include "OgreLogManager.h"
 
 #include "OgreMeshLodGenerator.h"
+#include "OgreLodWorkQueueWorker.h"
+#include "OgreLodWorkQueueRequest.h"
+#include "OgreLodWorkQueueInjector.h"
 #include "OgreLodWorkQueueInjectorListener.h"
 #include "OgreLodInputProvider.h"
 #include "OgreLodInputProviderMesh.h"

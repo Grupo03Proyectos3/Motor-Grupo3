@@ -60,6 +60,9 @@ THE SOFTWARE.
 Ogre::GLES2ManagedResourceManager* Ogre::GLES2RenderSystem::mResourceManager = NULL;
 #endif
 
+// Convenience macro from ARB_vertex_buffer_object spec
+#define VBO_BUFFER_OFFSET(i) ((char *)(i))
+
 #ifndef GL_PACK_ROW_LENGTH_NV
 #define GL_PACK_ROW_LENGTH_NV             0x0D02
 #endif
@@ -489,6 +492,13 @@ namespace Ogre {
 
     void GLES2RenderSystem::initialiseFromRenderSystemCapabilities(RenderSystemCapabilities* caps, RenderTarget* primary)
     {
+        if(caps->getRenderSystemName() != getName())
+        {
+            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                        "Trying to initialize GLES2RenderSystem from RenderSystemCapabilities that do not support OpenGL ES",
+                        "GLES2RenderSystem::initialiseFromRenderSystemCapabilities");
+        }
+
         if(caps->getNumVertexAttributes() < 16)
             GLSLProgramCommon::useTightAttributeLayout();
 
@@ -810,6 +820,16 @@ namespace Ogre {
         }
     }
 
+    void GLES2RenderSystem::_setTextureAddressingMode(size_t stage, const Sampler::UVWAddressingMode& uvw)
+    {
+        mStateCacheManager->activateGLTextureUnit(stage);
+        mStateCacheManager->setTexParameteri(mTextureTypes[stage], GL_TEXTURE_WRAP_S, getTextureAddressingMode(uvw.u));
+        mStateCacheManager->setTexParameteri(mTextureTypes[stage], GL_TEXTURE_WRAP_T, getTextureAddressingMode(uvw.v));
+
+        if(getCapabilities()->hasCapability(RSC_TEXTURE_3D))
+            mStateCacheManager->setTexParameteri(mTextureTypes[stage], GL_TEXTURE_WRAP_R_OES, getTextureAddressingMode(uvw.w));
+    }
+
     void GLES2RenderSystem::_setLineWidth(float width)
     {
         OGRE_CHECK_GL_ERROR(glLineWidth(width));
@@ -881,7 +901,22 @@ namespace Ogre {
                 vpRect.top = target->getHeight() - vpRect.top;
                 vpRect.bottom = target->getHeight() - vpRect.bottom;
             }
-
+            
+#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
+            // This works fine whether getConfigOptions() returns by value or by reference.
+            const ConfigOptionMap& configOptions = mGLSupport->getConfigOptions();
+            ConfigOptionMap::const_iterator opt;
+            ConfigOptionMap::const_iterator end = configOptions.end();
+            
+            if ((opt = configOptions.find("Orientation")) != end)
+            {
+                String val = opt->second.currentValue;
+                if (val.find("Landscape") != String::npos)
+                {
+                    std::swap(vpRect.right, vpRect.bottom);
+                }
+            }
+#endif
             mStateCacheManager->setViewport(vpRect);
 
             vp->_clearUpdatedFlag();
@@ -918,7 +953,6 @@ namespace Ogre {
 
         GLenum cullMode;
         bool flip = flipFrontFace();
-        OGRE_CHECK_GL_ERROR(glFrontFace(flip ? GL_CW : GL_CCW));
 
         switch (mode)
         {
@@ -926,10 +960,10 @@ namespace Ogre {
             mStateCacheManager->setDisabled(GL_CULL_FACE);
             return;
         case CULL_CLOCKWISE:
-            cullMode = GL_BACK;
+            cullMode = flip ? GL_FRONT : GL_BACK;
             break;
         case CULL_ANTICLOCKWISE:
-            cullMode = GL_FRONT;
+            cullMode = flip ? GL_BACK : GL_FRONT;
             break;
         }
 
@@ -1070,6 +1104,9 @@ namespace Ogre {
 
         if (state.twoSidedOperation)
         {
+            // NB: We should always treat CCW as front face for consistent with default
+            // culling mode. Therefore, we must take care with two-sided stencil settings.
+            flip = flipFrontFace();
             // Back
             OGRE_CHECK_GL_ERROR(glStencilMaskSeparate(GL_BACK, state.writeMask));
             OGRE_CHECK_GL_ERROR(glStencilFuncSeparate(GL_BACK, compareOp, state.referenceValue, state.compareMask));
@@ -1095,6 +1132,59 @@ namespace Ogre {
                 convertStencilOp(state.stencilFailOp, flip),
                 convertStencilOp(state.depthFailOp, flip),
                 convertStencilOp(state.depthStencilPassOp, flip)));
+        }
+    }
+
+    void GLES2RenderSystem::_setTextureUnitFiltering(size_t unit, FilterOptions minFilter,
+                FilterOptions magFilter, FilterOptions mipFilter)
+    {       
+        mMipFilter = mipFilter;
+        if(mCurTexMipCount == 0 && mMipFilter != FO_NONE)
+        {
+            mMipFilter = FO_NONE;           
+        }
+        _setTextureUnitFiltering(unit, FT_MAG, magFilter);
+        _setTextureUnitFiltering(unit, FT_MIN, minFilter);
+    }
+                
+    void GLES2RenderSystem::_setTextureUnitFiltering(size_t unit, FilterType ftype, FilterOptions fo)
+    {
+        mStateCacheManager->activateGLTextureUnit(unit);
+        switch (ftype)
+        {
+            case FT_MIN:
+                mMinFilter = fo;
+                // Combine with existing mip filter
+                mStateCacheManager->setTexParameteri(mTextureTypes[unit],
+                                GL_TEXTURE_MIN_FILTER,
+                                getCombinedMinMipFilter(mMinFilter, mMipFilter));
+                break;
+            case FT_MAG:
+                switch (fo)
+                {
+                    case FO_ANISOTROPIC: // GL treats linear and aniso the same
+                    case FO_LINEAR:
+                        mStateCacheManager->setTexParameteri(mTextureTypes[unit],
+                                        GL_TEXTURE_MAG_FILTER,
+                                        GL_LINEAR);
+                        break;
+                    case FO_POINT:
+                    case FO_NONE:
+                        mStateCacheManager->setTexParameteri(mTextureTypes[unit],
+                                        GL_TEXTURE_MAG_FILTER,
+                                        GL_NEAREST);
+                        break;
+                }
+                break;
+            case FT_MIP:
+                mMipFilter = fo;
+
+                // Combine with existing min filter
+                mStateCacheManager->setTexParameteri(mTextureTypes[unit],
+                                                     GL_TEXTURE_MIN_FILTER,
+                                                     getCombinedMinMipFilter(mMinFilter, mMipFilter));
+                
+                break;
         }
     }
 
@@ -1588,14 +1678,15 @@ namespace Ogre {
     void GLES2RenderSystem::unbindGpuProgram(GpuProgramType gptype)
     {
         mProgramManager->setActiveShader(gptype, NULL);
-        mActiveParameters[gptype].reset();
 
         if (gptype == GPT_VERTEX_PROGRAM && mCurrentVertexProgram)
         {
+            mActiveVertexGpuProgramParameters.reset();
             mCurrentVertexProgram = 0;
         }
         else if (gptype == GPT_FRAGMENT_PROGRAM && mCurrentFragmentProgram)
         {
+            mActiveFragmentGpuProgramParameters.reset();
             mCurrentFragmentProgram = 0;
         }
         RenderSystem::unbindGpuProgram(gptype);
@@ -1603,7 +1694,17 @@ namespace Ogre {
 
     void GLES2RenderSystem::bindGpuProgramParameters(GpuProgramType gptype, const GpuProgramParametersPtr& params, uint16 mask)
     {
-        mActiveParameters[gptype] = params;
+        switch (gptype)
+        {
+            case GPT_VERTEX_PROGRAM:
+                mActiveVertexGpuProgramParameters = params;
+                break;
+            case GPT_FRAGMENT_PROGRAM:
+                mActiveFragmentGpuProgramParameters = params;
+                break;
+            default:
+                break;
+        }
 
         GLSLESProgramCommon* program = NULL;
 

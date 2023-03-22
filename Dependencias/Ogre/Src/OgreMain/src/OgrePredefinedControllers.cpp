@@ -83,13 +83,13 @@ namespace Ogre
         mTextureLayer = t;
     }
     //-----------------------------------------------------------------------
-    float TextureFrameControllerValue::getValue(void) const
+    Real TextureFrameControllerValue::getValue(void) const
     {
         int numFrames = mTextureLayer->getNumFrames();
-        return ((float)mTextureLayer->getCurrentFrame() / (float)numFrames);
+        return ((Real)mTextureLayer->getCurrentFrame() / (Real)numFrames);
     }
     //-----------------------------------------------------------------------
-    void TextureFrameControllerValue::setValue(float value)
+    void TextureFrameControllerValue::setValue(Real value)
     {
         int numFrames = mTextureLayer->getNumFrames();
         mTextureLayer->setCurrentFrame(numFrames ? (int)(value * numFrames) % numFrames : 0);
@@ -108,7 +108,7 @@ namespace Ogre
         mRotate = rotate;
     }
     //-----------------------------------------------------------------------
-    float TexCoordModifierControllerValue::getValue() const
+    Real TexCoordModifierControllerValue::getValue() const
     {
         const Matrix4& pMat = mTextureLayer->getTextureTransform();
         if (mTransU)
@@ -131,7 +131,7 @@ namespace Ogre
         return 0;
     }
     //-----------------------------------------------------------------------
-    void TexCoordModifierControllerValue::setValue(float value)
+    void TexCoordModifierControllerValue::setValue(Real value)
     {
         if (mTransU)
         {
@@ -162,13 +162,13 @@ namespace Ogre
     {
     }
     //-----------------------------------------------------------------------
-    float FloatGpuParameterControllerValue::getValue(void) const
+    Real FloatGpuParameterControllerValue::getValue(void) const
     {
         // do nothing, reading from a set of params not supported
         return 0.0f;
     }
     //-----------------------------------------------------------------------
-    void FloatGpuParameterControllerValue::setValue(float val)
+    void FloatGpuParameterControllerValue::setValue(Real val)
     {
         Vector4 v4 = Vector4(0,0,0,0);
         v4.x = val;
@@ -178,11 +178,11 @@ namespace Ogre
     // PassthroughControllerFunction
     //-----------------------------------------------------------------------
     PassthroughControllerFunction::PassthroughControllerFunction(bool delta) 
-        : ControllerFunction<float>(delta)
+        : ControllerFunction<Real>(delta)
     {
     }
     //-----------------------------------------------------------------------
-    float PassthroughControllerFunction::calculate(float source)
+    Real PassthroughControllerFunction::calculate(Real source)
     {
         return getAdjustedInput(source);
 
@@ -191,13 +191,13 @@ namespace Ogre
     // AnimationControllerFunction
     //-----------------------------------------------------------------------
     AnimationControllerFunction::AnimationControllerFunction(Real sequenceTime, Real timeOffset) 
-        : ControllerFunction<float>(false)
+        : ControllerFunction<Real>(false)
     {
         mSeqTime = sequenceTime;
         mTime = timeOffset;
     }
     //-----------------------------------------------------------------------
-    float AnimationControllerFunction::calculate(float source)
+    Real AnimationControllerFunction::calculate(Real source)
     {
         // Assume source is time since last update
         mTime += source;
@@ -221,12 +221,12 @@ namespace Ogre
     //-----------------------------------------------------------------------
     // ScaleControllerFunction
     //-----------------------------------------------------------------------
-    ScaleControllerFunction::ScaleControllerFunction(Real factor, bool delta) : ControllerFunction<float>(delta)
+    ScaleControllerFunction::ScaleControllerFunction(Real factor, bool delta) : ControllerFunction<Real>(delta)
     {
         mScale = factor;
     }
     //-----------------------------------------------------------------------
-    float ScaleControllerFunction::calculate(float source)
+    Real ScaleControllerFunction::calculate(Real source)
     {
         return getAdjustedInput(source * mScale);
 
@@ -235,7 +235,7 @@ namespace Ogre
     // WaveformControllerFunction
     //-----------------------------------------------------------------------
     WaveformControllerFunction::WaveformControllerFunction(WaveformType wType, Real base,  Real frequency, Real phase, Real amplitude, bool delta, Real dutyCycle)
-        :ControllerFunction<float>(delta)
+        :ControllerFunction<Real>(delta)
     {
         mWaveType = wType;
         mBase = base;
@@ -248,7 +248,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     Real WaveformControllerFunction::getAdjustedInput(Real input)
     {
-        Real adjusted = ControllerFunction<float>::getAdjustedInput(input);
+        Real adjusted = ControllerFunction<Real>::getAdjustedInput(input);
 
         // If not delta, adjust by phase here
         // (delta inputs have it adjusted at initialisation)
@@ -260,7 +260,7 @@ namespace Ogre
         return adjusted;
     }
     //-----------------------------------------------------------------------
-    float WaveformControllerFunction::calculate(float source)
+    Real WaveformControllerFunction::calculate(Real source)
     {
         Real input = getAdjustedInput(source * mFrequency);
         Real output = 0;
@@ -312,11 +312,11 @@ namespace Ogre
     // LinearControllerFunction
     //-----------------------------------------------------------------------
     LinearControllerFunction::LinearControllerFunction(const std::vector<Real>& keys, const std::vector<Real>& values, Real frequency, bool deltaInput) :
-            ControllerFunction<float>(deltaInput), mFrequency(frequency), mKeys(keys), mValues(values) {
+            ControllerFunction<Real>(deltaInput), mFrequency(frequency), mKeys(keys), mValues(values) {
         assert(mKeys.size() == mValues.size());
     }
     //-----------------------------------------------------------------------
-    float LinearControllerFunction::calculate(float source) {
+    Real LinearControllerFunction::calculate(Real source) {
         Real input = getAdjustedInput(source*mFrequency);
 
         std::vector<Real>::iterator ifirst = std::lower_bound(mKeys.begin(), mKeys.end(), input);

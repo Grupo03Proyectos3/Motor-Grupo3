@@ -454,7 +454,7 @@ namespace Ogre {
         void deriveRootBone(void) const;
 
         /// Debugging method
-        _OgreExport friend std::ostream& operator<<(std::ostream& o, const Skeleton& s);
+        void _dumpContents(const String& filename);
 
         void loadImpl() override {}
         void unloadImpl() override { unprepareImpl(); }

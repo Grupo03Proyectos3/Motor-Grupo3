@@ -31,6 +31,8 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.h"
 #include "OgreHardwareBufferManager.h"
+#include "OgreHardwareIndexBuffer.h"
+#include "OgreHardwareVertexBuffer.h"
 
 namespace Ogre {
     /** \addtogroup Core
@@ -55,6 +57,26 @@ namespace Ogre {
     };
 
     typedef DefaultHardwareBuffer DefaultHardwareUniformBuffer;
+
+    class _OgreExport DefaultHardwareVertexBuffer : public HardwareVertexBuffer
+    {
+    public:
+        DefaultHardwareVertexBuffer(size_t vertexSize, size_t numVertices, Usage = HBU_CPU_ONLY)
+            : HardwareVertexBuffer(NULL, vertexSize, numVertices,
+                                   new DefaultHardwareBuffer(vertexSize * numVertices))
+        {
+        }
+    };
+
+    class _OgreExport DefaultHardwareIndexBuffer : public HardwareIndexBuffer
+    {
+    public:
+        DefaultHardwareIndexBuffer(IndexType idxType, size_t numIndexes, Usage = HBU_CPU_ONLY)
+            : HardwareIndexBuffer(NULL, idxType, numIndexes,
+                                  new DefaultHardwareBuffer(indexSize(idxType) * numIndexes))
+        {
+        }
+    };
 
     /** Specialisation of HardwareBufferManagerBase to emulate hardware buffers.
 

@@ -46,7 +46,7 @@ namespace RTShader
 
 /** Transform sub render state implementation of writing to GBuffers
  */
-class GBuffer : public SubRenderState
+class _OgreRTSSExport GBuffer : public SubRenderState
 {
 
     // Interface.
@@ -83,7 +83,7 @@ public:
 
     bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) override;
 
-    void setParameter(const String& name, const Any& value) override;
+    void setOutBuffers(const TargetBuffers& buffers) { mOutBuffers = buffers; }
 
     static String Type;
 
@@ -100,7 +100,7 @@ private:
 A factory that enables creation of GBuffer instances.
 @remarks Sub class of SubRenderStateFactory
 */
-class GBufferFactory : public SubRenderStateFactory
+class _OgreRTSSExport GBufferFactory : public SubRenderStateFactory
 {
 public:
     /**
