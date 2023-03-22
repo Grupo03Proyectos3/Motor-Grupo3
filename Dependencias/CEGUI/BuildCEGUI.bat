@@ -5,7 +5,6 @@ cd .\cegui\
 set CMAKE=.\..\..\cmake\bin\cmake.exe
 set CMAKEDEP=.\..\..\..\cmake\bin\cmake.exe
 set EXES=.\..\..\..\Exes
-set EXESDEP=.\..\..\..\..\..\Exes
 set CEGUI_CONFIG_PATH=.\cegui\include\CEGUI\Config.h
 
 IF EXIST .\dependencies\build RMDIR /S /Q .\dependencies\build
@@ -31,5 +30,34 @@ powershell -command "(gc %CEGUI_CONFIG_PATH%) -replace 'define CEGUI_OGRE_VERSIO
 
 msbuild "cegui.sln" /p:configuration=Release 
 msbuild "cegui.sln" /p:configuration=Debug 
+ 
+
+xcopy /y /s .\bin\CEGUIBase-0.dll %EXES%
+xcopy /y /s .\bin\CEGUIBase-0_d.dll %EXES%
+
+xcopy /y /s .\bin\CEGUIExpatParser.dll %EXES%
+xcopy /y /s .\bin\CEGUIExpatParser_d.dll %EXES%
+
+xcopy /y /s .\bin\CEGUIOgreRenderer-0.dll %EXES%
+xcopy /y /s .\bin\CEGUIOgreRenderer-0_d.dll %EXES%
+
+xcopy /y /s .\bin\CEGUICoreWindowRendererSet.dll %EXES%
+xcopy /y /s .\bin\CEGUICoreWindowRendererSet_d.dll %EXES%
+
+cd ..\Src
+xcopy /y /s .\dependencies\bin\freetype_d.dll %EXES%
+xcopy /y /s .\dependencies\bin\freetype.dll %EXES%
+
+xcopy /y /s .\dependencies\bin\glew.dll %EXES%
+xcopy /y /s .\dependencies\bin\glew_d.dll %EXES%
+
+xcopy /y /s .\dependencies\bin\jpeg.dll %EXES%
+xcopy /y /s .\dependencies\bin\jpeg_d.dll %EXES%
+
+xcopy /y /s .\dependencies\bin\expat.dll %EXES%
+xcopy /y /s .\dependencies\bin\expat_d.dll %EXES%
+
+xcopy /y /s .\dependencies\bin\pcre.dll %EXES%
+xcopy /y /s .\dependencies\bin\pcre_d.dll %EXES%
 
 cd ..
