@@ -21,7 +21,7 @@ class ComponentsFactory : public SingletonECS<ComponentsFactory>
     ecs::Component* addComponent(ecs::GameObject* gO, const std::string& type, std::unordered_map<std::string, std::string> args);
 
     // crear una factoria del tipo X
-    void addFactory(std::string& type, Factory* f);
+    void addFactory(std::string type, Factory* f);
 
   private:
     std::map<std::string, Factory*> componentFactories;

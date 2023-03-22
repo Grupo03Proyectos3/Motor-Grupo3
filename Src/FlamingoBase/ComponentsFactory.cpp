@@ -9,7 +9,8 @@ ecs::Component* ComponentsFactory::addComponent(ecs::GameObject* gO, const std::
 {
     try
     {
-        return componentFactories[type]->createComponent(gO, args);
+        ecs::Component* c = componentFactories[type]->createComponent(gO, args);
+        return c;
     }
     catch (const std::exception&)
     {
@@ -17,7 +18,7 @@ ecs::Component* ComponentsFactory::addComponent(ecs::GameObject* gO, const std::
     }
 }
 
-void ComponentsFactory::addFactory(std::string& type, Factory* f)
+void ComponentsFactory::addFactory(std::string type, Factory* f)
 {
     componentFactories.emplace(type, f);
 	

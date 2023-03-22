@@ -3,9 +3,13 @@
 #pragma once
 
 #include "FlamingoBase/ComponentsFactory.h"
+#include "FlamingoBase/PlayerControllerFactory.h"
+#include "ECS/Manager.h"
 #include <unordered_map>
 
 using Data = std::unordered_map<std::string, std::string>;
+
+class RenderSystem;
 
 class MapReader
 {
@@ -13,11 +17,13 @@ class MapReader
     MapReader();
     ~MapReader();
 
-    void readMap(std::string filename);
+    void readMap(std::string t_filename, RenderSystem* t_renderSystem);
 
   private:
-    ComponentsFactory* mComponentFactory;
-    Data mdata;
+    ComponentsFactory* m_componentFactory;
+    Data m_data;
+    ecs::Manager* m_mngr;
+   
 };
 
 #endif

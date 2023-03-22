@@ -35,7 +35,7 @@ void RenderSystem::initSystem()
     {
         setUp();
         /// PRUEBAS \\\ 
-        Pruebas();
+        //Pruebas();
         /// PRUEBAS \\\ 
     }
     }

@@ -133,8 +133,11 @@ void loadDirectories()
     output.close(); // Cierro el archivo ���IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
 }
 
-void loadScene() {
+void loadScene(RenderSystem* t_render_sys)
+{
     MapReader* m_mapReader = new MapReader();
+
+    m_mapReader->readMap("Assets/Maps/mapPrueba.json", t_render_sys);
 
 }
 
@@ -146,7 +149,6 @@ int main(int argc, char* argv[])
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
-
     loadDirectories();
 
     // Game-loop
@@ -165,7 +167,7 @@ int main(int argc, char* argv[])
     auto time = playerTimer->getElapsedTime();
     auto dt = playerTimer->getElapsedTime() - time;
 
-    loadScene();
+    loadScene(render_sys);
 
     //// Sinbad
     //ecs::GameObject* sinbad_go = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER, ecs::GROUP_PHYSICS});
