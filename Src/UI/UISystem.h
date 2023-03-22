@@ -2,7 +2,7 @@
 #ifndef __UISYSTEM_H__
 #define __UISYSTEM_H__
 
-#include <CEGUI/CEGUI.h>
+#include <CEGUI/Cegui.h>
 #include "ECS/System.h"
 
 namespace Flamingo{
