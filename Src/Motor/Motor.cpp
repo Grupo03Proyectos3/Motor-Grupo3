@@ -167,14 +167,14 @@ int main(int argc, char* argv[])
     auto cube_mr = ecs::AddComponent<MeshRenderer>(cube_go, cube_go->getNode(), scene_active->getSceneManger(), "cube.mesh", "CubeEntity");
     cube_mr->changeMaterial("Prueba/MichaelScott");
 
-    RigidBody* cube_rb = ecs::AddComponent<RigidBody>(cube_go, 100.0f, false, true);
+    RigidBody* cube_rb = ecs::AddComponent<RigidBody>(cube_go, 0.0f, false, true);
     scene_active->addObjects(cube_go);
 
     // Sinbad
     ecs::GameObject* sinbad_go = m_mngr->addGameObject(scene_active->getSceneRoot(), {ecs::GROUP_RENDER, ecs::GROUP_PHYSICS});
     Transform* sinbad_tr = ecs::AddComponent<Transform>(sinbad_go, sinbad_go->getNode());
     sinbad_tr->setScale(SVector3(25, 25, 25));
-    sinbad_tr->setPosition({0, 200, 0});
+    sinbad_tr->setPosition({0, 202, 0});
 
     auto sinbad_mr = ecs::AddComponent<MeshRenderer>(sinbad_go, sinbad_go->getNode(), scene_active->getSceneManger(), /*"cube.mesh"*/ "Sinbad.mesh", "SinbadEntity");
     
@@ -188,17 +188,18 @@ int main(int argc, char* argv[])
 
     PlayerController* m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
 
-    RigidBody* sinbad_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go, 100.0f, false, false);
+    RigidBody* sinbad_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go, 10.0f, false, false);
     sinbad_rigid_body->setKinematic(false);
     sinbad_rigid_body->setLinearVelocity(SVector3(0.0, 70.0, 0.0));
 
-    //ecs::GameObject* ground = m_mngr->addGameObject(scene_active->getSceneRoot(), {ecs::GROUP_RENDER});
-    //cmp = ecs::AddComponent<MeshRenderer>(ground, ground->getNode(), scene_active->getSceneManger(), "cube.mesh", "mygroundEntity");
-    //// cmp->changeMaterial("Prueba/espana");
-    //cmp_tr = ecs::AddComponent<Transform>(ground, ground->getNode());
-    //cmp_tr->setPosition(SVector3(0, 0, 0));cmp_tr->setScale(SVector3(50, 0.5, 50));
-    //animator = ecs::AddComponent<Flamingo::Animator>(ground, scene_active->getSceneManger());
-    //cmp->changeMaterial("Prueba/cesped");
+    ecs::GameObject* ground = m_mngr->addGameObject(scene_active->getSceneRoot(), {ecs::GROUP_RENDER});
+    auto ground_mr = ecs::AddComponent<MeshRenderer>(ground, ground->getNode(), scene_active->getSceneManger(), "cube.mesh", "mygroundEntity");
+    // cmp->changeMaterial("Prueba/espana");
+    auto ground_tr = ecs::AddComponent<Transform>(ground, ground->getNode());
+    ground_tr->setPosition(SVector3(0, 0, 0)); ground_tr->setScale(SVector3(50, 0.5, 50));
+    animator = ecs::AddComponent<Flamingo::Animator>(ground, scene_active->getSceneManger());
+    ground_mr->changeMaterial("Prueba/cesped");
+    RigidBody* ground_rb = ecs::AddComponent<RigidBody>(ground, 0.0f, false, true);
 
     // animator->setAnimation("Dance", true, true);
     //  Falta probarlo:

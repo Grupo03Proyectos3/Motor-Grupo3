@@ -20,6 +20,8 @@ RigidBody::RigidBody(float t_mass, bool t_trigger, bool t_static)
     , m_trigger(t_trigger)
     , m_static(t_static)
 {
+    if (m_static)
+        m_mass = 0.0f;
 }
 
 RigidBody::~RigidBody()
@@ -48,6 +50,13 @@ void RigidBody::initComponent()
     // TODO meter diferentes formas para el RB
  //   m_shape = new btBoxShape(transform->getScale());
     m_rigid_body = m_mngr->getSystem<PhysicsSystem>()->createRigidBody(m_bullet_transform, m_shape, m_mass);
+
+    if (m_static)
+    {
+        m_rigid_body->setCollisionFlags(btCollisionObject::CF_STATIC_OBJECT);
+        m_rigid_body->setGravity(btVector3(0.0, 0.0, 0.0));
+    }
+
     m_mngr->getSystem<PhysicsSystem>()->addRigidBody(m_rigid_body);
 }
 
