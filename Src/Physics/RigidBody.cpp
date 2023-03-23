@@ -9,6 +9,8 @@
 #include "../FlamingoUtils/SQuaternion.h"
 #include "../FlamingoUtils/SVector3.h"
 
+#include "Ogre.h"
+
 RigidBody::RigidBody()
 {
 }
@@ -29,9 +31,22 @@ void RigidBody::initComponent()
 {
     // TODO inicializar transform como primer componente SIEMPRE
     auto transform = m_mngr->getComponent<Transform>(m_ent);
+
+    // Get the mesh data from the Ogre scene node --> REVISAR
+    Ogre::Entity* entity = (Ogre::Entity*)transform->getNode()->getAttachedObject(0);
+    Ogre::MeshPtr mesh = entity->getMesh();
+    const Ogre::AxisAlignedBox& meshBoundingBox = mesh->getBounds();
+
+    // Calculate the dimensions of the box collider --> REVISAR
+    btVector3 halfExtents(meshBoundingBox.getSize().x * 0.5f, meshBoundingBox.getSize().y * 0.5f, meshBoundingBox.getSize().z * 0.5f);
+    halfExtents *= transform->getScale();
+
+    // Create a Bullet box shape using the calculated dimensions
+    m_shape = new btBoxShape(halfExtents);
+
     m_bullet_transform = new btTransform(transform->getRotation(), transform->getPosition());
     // TODO meter diferentes formas para el RB
-    m_shape = new btBoxShape(transform->getScale());
+ //   m_shape = new btBoxShape(transform->getScale());
     m_rigid_body = m_mngr->getSystem<PhysicsSystem>()->createRigidBody(m_bullet_transform, m_shape, m_mass);
     m_mngr->getSystem<PhysicsSystem>()->addRigidBody(m_rigid_body);
 }

@@ -157,34 +157,40 @@ int main(int argc, char* argv[])
     auto dt = playerTimer->getElapsedTime() - time;
 
     auto scene_active = render_sys->getSceneManager()->getSceneActive();
+
     // Cubo
     ecs::GameObject* cube_go = m_mngr->addGameObject(scene_active->getSceneRoot(), {ecs::GROUP_RENDER, ecs::GROUP_PHYSICS});
-    Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go, cube_go->getNode());
-    cmp_tr2->setScale(SVector3(0.5, 0.5, 0.5));
-    cmp_tr2->setPosition(SVector3(0, 400, 0));
+    Transform* cube_tr = ecs::AddComponent<Transform>(cube_go, cube_go->getNode());
+    cube_tr->setScale(SVector3(1, 1, 1));
+    cube_tr->setPosition(SVector3(0, 400, 0));
 
-    auto cmp2 = ecs::AddComponent<MeshRenderer>(cube_go, cube_go->getNode(), scene_active->getSceneManger(), "cube.mesh", "CubeEntity");
-    cmp2->changeMaterial("Prueba/MichaelScott");
+    auto cube_mr = ecs::AddComponent<MeshRenderer>(cube_go, cube_go->getNode(), scene_active->getSceneManger(), "cube.mesh", "CubeEntity");
+    cube_mr->changeMaterial("Prueba/MichaelScott");
 
     RigidBody* cube_rb = ecs::AddComponent<RigidBody>(cube_go, 100.0f, false, true);
     scene_active->addObjects(cube_go);
 
     // Sinbad
     ecs::GameObject* sinbad_go = m_mngr->addGameObject(scene_active->getSceneRoot(), {ecs::GROUP_RENDER, ecs::GROUP_PHYSICS});
-    auto cmp = ecs::AddComponent<MeshRenderer>(sinbad_go, sinbad_go->getNode(), scene_active->getSceneManger(), /*"cube.mesh"*/ "Sinbad.mesh", "myEntity");
-    // cmp->changeMaterial("Prueba/espana");
-    Transform* cmp_tr = ecs::AddComponent<Transform>(sinbad_go, sinbad_go->getNode());
-    cmp_tr->setScale(SVector3(25, 25, 25));
-    cmp_tr->setPosition({0, 200, 0});
+    Transform* sinbad_tr = ecs::AddComponent<Transform>(sinbad_go, sinbad_go->getNode());
+    sinbad_tr->setScale(SVector3(25, 25, 25));
+    sinbad_tr->setPosition({0, 200, 0});
+
+    auto sinbad_mr = ecs::AddComponent<MeshRenderer>(sinbad_go, sinbad_go->getNode(), scene_active->getSceneManger(), /*"cube.mesh"*/ "Sinbad.mesh", "SinbadEntity");
+    
     Flamingo::Animator* animator = ecs::AddComponent<Flamingo::Animator>(sinbad_go, scene_active->getSceneManger());
     animator->setAnimation("Dance", true, true);
+
     // TODO Falta probarlo:
     // m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
+
     scene_active->addObjects(sinbad_go);
+
     PlayerController* m_controller = ecs::AddComponent<PlayerController>(sinbad_go, 20.0f);
-    RigidBody* m_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go, 100.0f, false, false);
-    m_rigid_body->setKinematic(false);
-    m_rigid_body->setLinearVelocity(SVector3(0.0, 70.0, 0.0));
+
+    RigidBody* sinbad_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go, 100.0f, false, false);
+    sinbad_rigid_body->setKinematic(false);
+    sinbad_rigid_body->setLinearVelocity(SVector3(0.0, 70.0, 0.0));
 
     //ecs::GameObject* ground = m_mngr->addGameObject(scene_active->getSceneRoot(), {ecs::GROUP_RENDER});
     //cmp = ecs::AddComponent<MeshRenderer>(ground, ground->getNode(), scene_active->getSceneManger(), "cube.mesh", "mygroundEntity");
