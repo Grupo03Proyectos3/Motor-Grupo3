@@ -161,7 +161,7 @@ int main(int argc, char* argv[])
     RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
     LuaSystem* lua_system = m_mngr->addSystem<LuaSystem>();
-    //  auto& ihldr = ih();
+    auto& ihldr = ih();
 
     Flamingo::Timer* playerTimer = new Flamingo::Timer();
     auto time = playerTimer->getElapsedTime();
@@ -261,7 +261,8 @@ int main(int argc, char* argv[])
 
         // m_controller->handleInput();
         render_sys->manipulateCamera();
-        /*ihldr.refresh();
+        ihldr.refresh(); 
+        /*
         if (ihldr.keyDownEvent())
         {
             if (ihldr.isKeyDown(SDLK_0))
