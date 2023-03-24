@@ -245,7 +245,7 @@ int main(int argc, char* argv[])
     prueba->setPosition({0, 60, 0});
     prueba->attachObject(pSys);
 
-    Flamingo::ParticleSystem* pSys = ecs::AddComponent<Flamingo::ParticleSystem>(sinbad_go, scene_active->getSceneManger(), scene_active->getSceneRoot()->createChildSceneNode());
+    //Flamingo::ParticleSystem* pSys = ecs::AddComponent<Flamingo::ParticleSystem>(sinbad_go, scene_active->getSceneManger(), scene_active->getSceneRoot()->createChildSceneNode());
   
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
