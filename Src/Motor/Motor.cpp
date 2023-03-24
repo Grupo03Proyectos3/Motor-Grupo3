@@ -18,6 +18,7 @@
 #include "Render/Animator.h"
 #include "Render/MeshRenderer.h"
 #include "Render/RenderSystem.h"
+#include "Render/Light.h"
 
 // BASE
 #include "FlamingoBase/SceneManager.h"
@@ -186,8 +187,8 @@ int main(int argc, char* argv[])
     //render_sys->getSceneManager()->getSceneActive()->addObjects(sinbad_go);
     //PlayerController* m_controller = ecs::AddComponent<PlayerController>(sinbad_go);
     //m_controller->initValues(20.0f);
-    //RigidBody* m_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go);
-    //m_rigid_body->initValues(1.0f, false, true);
+    ////RigidBody* m_rigid_body = ecs::AddComponent<RigidBody>(sinbad_go);
+    ////m_rigid_body->initValues(1.0f, false, true);
 
     //ecs::GameObject* ground = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER});
     //cmp = ecs::AddComponent<MeshRenderer>(ground);
@@ -201,17 +202,37 @@ int main(int argc, char* argv[])
     //animator->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger());
     //cmp->changeMaterial("Prueba/cesped");
 
-    //// animator->setAnimation("Dance", true, true);
-    ////  Falta probarlo:
-    ////  m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
+    // animator->setAnimation("Dance", true, true);
+    //  Falta probarlo:
+    //  m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
     //render_sys->getSceneManager()->getSceneActive()->addObjects(ground);
 
-    //Ogre::ParticleSystem* pSys = render_sys->getSceneManager()->getSceneActive()->getSceneManger()->createParticleSystem("psBomba", "PsPrueba/Smoke");
+    ecs::GameObject* cube_go = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot());
+    auto cmp2 = ecs::AddComponent<MeshRenderer>(cube_go);
+    cmp2->initValues(cube_go->getNode(), render_sys->getSceneManager()->getSceneActive()->getSceneManger(), "cube.mesh", "CubeEntity");
+    cmp2->changeMaterial("Prueba/MichaelScott");
+    Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go);
+    cmp_tr2->initValues(cube_go->getNode());
+    cmp_tr2->setPosition(SVector3(0, 500, 0));
+    render_sys->getSceneManager()->getSceneActive()->addObjects(cube_go);
 
-    //pSys->setEmitting(true);
-    //Ogre::SceneNode* prueba = render_sys->getSceneManager()->getSceneActive()->getSceneRoot()->createChildSceneNode();
-    //prueba->setPosition({0, 60, 0});
-    //prueba->attachObject(pSys);
+     ecs::GameObject* light_go = new ecs::GameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot());
+    Light* cmp_light = ecs::AddComponent<Light>(light_go);
+     cmp_light->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), light_go->getNode(), "myLight");
+    cmp_light->setType(Light::DIRECTIONAL);
+    SVector3 direction = SVector3(-1, -1, 0);
+    // direction *= -1;
+    cmp_light->setDirection(direction);
+    cmp_light->setSpecularColour();
+    cmp_light->setDiffuseColour();
+    render_sys->getSceneManager()->getSceneActive()->addObjects(light_go);
+
+    Ogre::ParticleSystem* pSys = render_sys->getSceneManager()->getSceneActive()->getSceneManger()->createParticleSystem("psBomba", "PsPrueba/Smoke");
+
+    pSys->setEmitting(true);
+    Ogre::SceneNode* prueba = render_sys->getSceneManager()->getSceneActive()->getSceneRoot()->createChildSceneNode();
+    prueba->setPosition({0, 60, 0});
+    prueba->attachObject(pSys);
 
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
