@@ -14,8 +14,9 @@ namespace Flamingo
     {
       public:
         __SYSTEM_ID_DECL__(ecs::_cmp_ANIMATOR)
-        Animator(Ogre::SceneManager* t_mng);
+        Animator();
         virtual ~Animator(){};
+        virtual void initValues(Ogre::SceneManager* t_mng);
         virtual void initComponent();
 
         void createAnimation(Ogre::String t_name, double t_duration);

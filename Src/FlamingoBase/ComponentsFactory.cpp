@@ -1,10 +1,16 @@
 #include "ComponentsFactory.h"
 
-ecs::Component* ComponentsFactory::getComponent(const std::string& type, std::map<std::string, std::string> args)
+ComponentsFactory::ComponentsFactory()
+{
+    componentFactories = std::map<std::string, Factory*>();
+}
+
+ecs::Component* ComponentsFactory::addComponent(ecs::GameObject* gO, const std::string& type, std::unordered_map<std::string, std::string> args)
 {
     try
     {
-        return componentFactories[type]->createComponent(args);
+        ecs::Component* c = componentFactories[type]->createComponent(gO, args);
+        return c;
     }
     catch (const std::exception&)
     {
@@ -12,7 +18,7 @@ ecs::Component* ComponentsFactory::getComponent(const std::string& type, std::ma
     }
 }
 
-void ComponentsFactory::addFactory(const std::string& type, const Factory* f)
+void ComponentsFactory::addFactory(std::string type, Factory* f)
 {
     componentFactories.emplace(type, f);
 	

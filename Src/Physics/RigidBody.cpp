@@ -15,18 +15,16 @@ RigidBody::RigidBody()
 {
 }
 
-RigidBody::RigidBody(float t_mass, bool t_trigger, bool t_static)
-    : m_mass(t_mass)
-    , m_trigger(t_trigger)
-    , m_static(t_static)
-{
-    if (m_static)
-        m_mass = 0.0f;
-}
-
 RigidBody::~RigidBody()
 {
     // THE SYSTEM DELETES EVERYTHING
+}
+
+void RigidBody::initValues(float t_mass, bool t_trigger, bool t_static)
+{
+    m_mass = (t_mass);
+    m_trigger = (t_trigger);
+    m_static = (t_static);
 }
 
 void RigidBody::initComponent()

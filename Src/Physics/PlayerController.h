@@ -15,9 +15,9 @@ struct PlayerController : public ecs::Component
     __SYSTEM_ID_DECL__(ecs::_cmp_PLAYER_CONTROLLER)
 
     PlayerController();
-    PlayerController(float t_playerSpeed);
-
     virtual ~PlayerController();
+    virtual void initValues();
+    virtual void initValues(float t_playerSpeed);
     virtual void initComponent();
 
     void movePlayer(float t_horizontal, float t_vertical);

@@ -5,17 +5,17 @@ Transform::Transform()
 {
 }
 
-Transform::Transform(Ogre::SceneNode* t_node, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale)
-    : m_transform(t_node)
-    , m_position(t_position)
-    , m_rotation(t_rotation)
-    , m_scale(t_scale)
-{
-}
-
 void Transform::setNode(Ogre::SceneNode* t_node)
 {
     m_transform = t_node;
+}
+
+void Transform::initValues(Ogre::SceneNode* t_node, SVector3 t_position, SQuaternion t_rotation, SVector3 t_scale)
+{
+    m_transform = t_node;
+    m_position = t_position;
+    m_rotation = t_rotation;
+    m_scale = t_scale;
 }
 
 void Transform::initComponent()

@@ -22,6 +22,7 @@ namespace ecs
     class GameObject
     {
       public:
+        GameObject();
         GameObject(Ogre::SceneNode* t_escene_node);
         GameObject(Ogre::SceneNode* t_escene_node, std::vector<groupId_type> t_gId);
         virtual ~GameObject();

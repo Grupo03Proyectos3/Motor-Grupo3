@@ -3,11 +3,11 @@
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
 
-Light::Light(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_node, std::string t_name):
-     m_sceneMgr(t_sceneMgr)
-    , m_light_node(t_node)
-    , m_name(t_name)
+void Light::initValues(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, std::string t_name)
 {
+    m_sceneMgr = t_sceneMgr;
+    m_light_node = t_scene_node;
+    m_name = t_name;
 }
 
 void Light::initComponent()

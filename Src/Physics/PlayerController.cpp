@@ -1,22 +1,26 @@
 #include "PlayerController.h"
 
 PlayerController::PlayerController()
-    : m_playerSpeed(3.0f)
-    , m_active(true)
-    , m_mainCamera(new Camera())
-{
-}
-
-PlayerController::PlayerController(float t_playerSpeed)
-    : m_playerSpeed(t_playerSpeed)
-    , m_active(true)
-    , m_mainCamera(new Camera())
 {
 }
 
 PlayerController::~PlayerController()
 {
     delete m_mainCamera;
+}
+
+void PlayerController::initValues()
+{
+    m_playerSpeed = (3.0f);
+    m_active = (true);
+    m_mainCamera = (new Camera());
+}
+
+void PlayerController::initValues(float t_playerSpeed)
+{
+    m_playerSpeed = (t_playerSpeed);
+    m_active = (true);
+    m_mainCamera = (new Camera());
 }
 
 void PlayerController::initComponent()
@@ -39,7 +43,7 @@ void PlayerController::handleInput()
     auto& ihldr = ih();
     ihldr.refresh();
     Ogre::Quaternion quat(Ogre::Degree(90), Ogre::Vector3::UNIT_Y);
-    //SQuaternion q = SQuaternion(quat);
+    // SQuaternion q = SQuaternion(quat);
     if (ihldr.keyDownEvent())
     {
         if (ihldr.isKeyDown(SDLK_w))

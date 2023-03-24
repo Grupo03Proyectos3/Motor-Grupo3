@@ -35,7 +35,7 @@ void RenderSystem::initSystem()
     {
         setUp();
         /// PRUEBAS \\\ 
-        Pruebas();
+        //Pruebas();
         /// PRUEBAS \\\ 
     }
     }
@@ -52,7 +52,8 @@ void RenderSystem::initSystem()
 
         // Luz
         ecs::GameObject* light_go = new ecs::GameObject(root_scene_node);
-        Light* cmp_light = ecs::AddComponent<Light>(light_go, scene_mgr, light_go->getNode(), "myLight");
+        Light* cmp_light = ecs::AddComponent<Light>(light_go);
+        cmp_light->initValues(scene_mgr, light_go->getNode(), "myLight");
         cmp_light->setType(Light::DIRECTIONAL);
         SVector3 direction = SVector3(-1, -1, 0);
         // direction *= -1;
@@ -63,7 +64,8 @@ void RenderSystem::initSystem()
 
         // Camara
         ecs::GameObject* cam_go = new ecs::GameObject(root_scene_node);
-        m_camera = ecs::AddComponent<Camera>(cam_go, scene_mgr, cam_go->getNode(), getWindow(), "myCamera");
+        m_camera = ecs::AddComponent<Camera>(cam_go);
+        m_camera->initValues(scene_mgr, cam_go->getNode(), getWindow(), "myCamera");
         m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3f, 0.2f, 0.6f));
         // m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
         m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
