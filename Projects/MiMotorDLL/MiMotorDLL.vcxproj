@@ -132,6 +132,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Bullet\SRC\src;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -149,6 +150,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Bullet\SRC\src;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
