@@ -212,7 +212,6 @@ int main(int argc, char* argv[])
     cmp2->initValues(nodo, render_sys->getSceneManager()->getSceneActive()->getSceneManger(), "cube.mesh", "CubeEntity");
     cmp2->changeMaterial("Prueba/MichaelScott");
     Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go);
-    cmp_tr2->initValues(nodo->createChildSceneNode());
     cmp_tr2->setPosition(SVector3(0, 0, 0));
     render_sys->getSceneManager()->getSceneActive()->addObjects(cube_go);
 

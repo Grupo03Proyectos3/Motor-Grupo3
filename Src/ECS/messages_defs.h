@@ -3,27 +3,43 @@
 
 #ifndef __MESSAGES_DEFS_H__
 #define __MESSAGES_DEFS_H__
-
-#include <cstdint>
-
+//
+//#include "FlamingoUtils/SQuaternion.h"
+//#include "FlamingoUtils/SVector3.h"
 #include "ecs.h"
+#include <cstdint>
 
 using msgId_type = uint8_t;
 enum msgId : msgId_type
 {
-    MSG_EXAMPLE
+    MSG_TRANSFORM_MOVE,
+    MSG_TRANSFORM_ROTATE,
+    MSG_TRANSFORM_SCALING
 };
 
 struct Message
 {
     msgId_type id;
+    ecs::GameObject* entity_affected;
 
     union
     {
         struct
         {
-            ecs::GameObject* e;
-        } example_msg;
+            double x;
+            double y;
+            double z;
+        } vector;
+
+        struct
+        {
+            double x;
+            double y;
+            double z;
+            double w;
+        } quaternion;
+
+        // const SQuaternion* q;
     };
 };
 

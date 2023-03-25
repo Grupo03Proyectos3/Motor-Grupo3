@@ -53,7 +53,7 @@ namespace Flamingo
     {
         Ogre::Animation* animation = m_scene_mngr->createAnimation(t_name, Ogre::Real(t_duration));
         Ogre::NodeAnimationTrack* track = animation->createNodeTrack(0);
-        track->setAssociatedNode(m_transform->getNode());
+        track->setAssociatedNode(m_meshRenderer->getNode());
 
         auto aux = m_scene_mngr->createAnimationState(t_name);
         m_animations.insert({t_name, aux});

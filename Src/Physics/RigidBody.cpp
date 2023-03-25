@@ -8,6 +8,7 @@
 #include "FlamingoBase/Transform.h"
 #include "../FlamingoUtils/SQuaternion.h"
 #include "../FlamingoUtils/SVector3.h"
+#include "../Render/MeshRenderer.h"
 
 #include "Ogre.h"
 
@@ -29,13 +30,16 @@ void RigidBody::initValues(float t_mass, bool t_trigger, bool t_static)
 
 void RigidBody::initComponent()
 {
-    // TODO inicializar transform como primer componente SIEMPRE
-    auto transform = m_mngr->getComponent<Transform>(m_ent);
+    //// TODO inicializar transform como primer componente SIEMPRE
+    //auto transform = m_mngr->getComponent<Transform>(m_ent);
 
-    // Get the mesh data from the Ogre scene node --> REVISAR
-    Ogre::Entity* entity = (Ogre::Entity*)transform->getNode()->getAttachedObject(0);
-    Ogre::MeshPtr mesh = entity->getMesh();
-    const Ogre::AxisAlignedBox& meshBoundingBox = mesh->getBounds();
+    //// Get the mesh data from the Ogre scene node --> REVISAR
+    //Ogre::Entity* entity = (Ogre::Entity*)transform->getNode()->getAttachedObject(0);
+    //Ogre::MeshPtr mesh = entity->getMesh();
+    //const Ogre::AxisAlignedBox& meshBoundingBox = mesh->getBounds();
+
+    auto transform = m_mngr->getComponent<Transform>(m_ent);
+    const Ogre::AxisAlignedBox& meshBoundingBox = m_mngr->getComponent<MeshRenderer>(m_ent)->getBoundingBox();
 
     // Calculate the dimensions of the box collider --> REVISAR
     btVector3 halfExtents(meshBoundingBox.getSize().x * 0.5f, meshBoundingBox.getSize().y * 0.5f, meshBoundingBox.getSize().z * 0.5f);

@@ -27,12 +27,14 @@ struct MeshRenderer : public ecs::Component
     void detachObjectFromBone(Ogre::Entity* t_ent);
     void detachObjectFromBone(std::string t_bone);
 
-    Ogre::AxisAlignedBox getBoundingBox(bool t_d);
+    Ogre::AxisAlignedBox getBoundingBox();
     inline Ogre::Entity* getEntity() { return m_ent_ogre; };
+    inline Ogre::SceneNode* getNode() { return m_scene_node; };
 
   protected:
     Ogre::Entity* m_ent_ogre;
     Ogre::SceneManager* m_scene_mngr;
+    Ogre::SceneNode* m_scene_node;
 
     std::string m_material_name;
     std::string m_entity_name;

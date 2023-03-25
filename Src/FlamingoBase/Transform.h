@@ -14,7 +14,7 @@ struct Transform : public ecs::Component {
 
     Transform();
     virtual ~Transform(){};
-    void initValues(Ogre::SceneNode* t_node, SVector3 t_position = SVector3(0.0, 0.0, 0.0), SQuaternion t_rotation = SQuaternion(0.0, 0.0, 0.0, 1.0), SVector3 t_scale = SVector3(1.0, 1.0, 1.0));
+    void initValues(SVector3 t_position = SVector3(0.0, 0.0, 0.0), SQuaternion t_rotation = SQuaternion(0.0, 0.0, 0.0, 1.0), SVector3 t_scale = SVector3(1.0, 1.0, 1.0));
     void initComponent() override;
 
     SVector3 getPosition();
@@ -23,17 +23,14 @@ struct Transform : public ecs::Component {
 
     void setPosition(SVector3 t_pos);
     void setRotation(SQuaternion t_rotation);
+    void setPositionPerPhysics(SVector3 t_pos);
+    void setRotationPerPhysics(SQuaternion t_rotation);
     void setScale(SVector3 t_scale);
     void translate(SVector3 t_translate);
-
-    void setNode(Ogre::SceneNode* t_node);
-    Ogre::SceneNode* getNode();
 
   private:
     SVector3 m_position;
     SQuaternion m_rotation;
     SVector3 m_scale;
-
-    Ogre::SceneNode* m_transform;
 };
 #endif

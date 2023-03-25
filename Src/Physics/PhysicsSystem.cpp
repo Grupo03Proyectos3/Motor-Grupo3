@@ -13,7 +13,6 @@
 #include "Render/RenderSystem.h"
 #include "RigidBody.h"
 
-
 PhysicsSystem::PhysicsSystem()
 {
     m_group = ecs::GROUP_PHYSICS;
@@ -78,19 +77,29 @@ PhysicsSystem::~PhysicsSystem()
     }
 }
 
-void PhysicsSystem::recieve(const Message& t_message)
+void PhysicsSystem::recieve(const Message& t_m)
 {
-    switch (t_message.id)
+    auto rb = m_mngr->getComponent<RigidBody>(t_m.entity_affected);
+
+    if (rb == NULL)
+        return;
+
+    switch (t_m.id)
     {
+        case MSG_TRANSFORM_MOVE:
+            rb->setPosition(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
+            break;
+        case MSG_TRANSFORM_ROTATE:
+            rb->setRotation(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
+            break;
         default:
-            // MESSAGE RECIEVED
             break;
     }
 }
 
 void PhysicsSystem::initSystem()
 {
-    m_collision_shapes = new btAlignedObjectArray<btCollisionShape*>(); 
+    m_collision_shapes = new btAlignedObjectArray<btCollisionShape*>();
     m_collision_config = new btDefaultCollisionConfiguration();
     m_dispatcher = new btCollisionDispatcher(m_collision_config);
     m_broadphase = new btDbvtBroadphase();
@@ -120,8 +129,8 @@ void PhysicsSystem::update(float t_delta_time)
         if (auto rb = m_mngr->getComponent<RigidBody>(game_object))
         {
             // TODO actualise position with Transform values --> Check if its really necessary
-            if (rb->isKinematic())
-                rb->setPosition(m_mngr->getComponent<Transform>(game_object)->getPosition());
+            /* if (rb->isKinematic())
+                 rb->setPosition(m_mngr->getComponent<Transform>(game_object)->getPosition());*/
 
             // rbPruebas = rb;
             // std::cout << "RB position before: " << rb->getPosition().getX() << " " << rb->getPosition().getX() << " " << rb->getPosition().getX() << std::endl;

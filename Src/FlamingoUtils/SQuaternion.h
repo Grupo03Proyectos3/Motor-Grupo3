@@ -3,7 +3,7 @@
 #ifndef __SQUATERNION_H__
 #define __SQUATERNION_H__
 
-#include <OgreQuaternion.h>
+#include   <OgreQuaternion.h>
 #include "SVector3.h"
 
 class btQuaternion;

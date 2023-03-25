@@ -10,6 +10,7 @@ void MeshRenderer::initValues(Ogre::SceneNode* t_node, Ogre::SceneManager* t_sce
     m_model_name = t_model_name;
     m_material_name = /*"Prueba/default"*/ "";
     m_ent_ogre = m_scene_mngr->createEntity(m_entity_name, m_model_name);
+    m_scene_node = t_node;
     t_node->attachObject(m_ent_ogre);
 }
 
@@ -64,7 +65,7 @@ void MeshRenderer::detachObjectFromBone(std::string t_bone)
     m_ent_ogre->detachObjectFromBone(t_bone);
 }
 
-Ogre::AxisAlignedBox MeshRenderer::getBoundingBox(bool t_d)
+Ogre::AxisAlignedBox MeshRenderer::getBoundingBox()
 {
     return m_ent_ogre->getBoundingBox();
 }
