@@ -40,7 +40,7 @@ void MapReader::readMap(std::string filename, RenderSystem* t_renderSystem)
                 if (v->IsObject())
                 {
                     //Creacion del GO
-                    ecs::GameObject* gO = m_mngr->addGameObject(t_renderSystem->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_EXAMPLE});
+                    ecs::GameObject* gO = m_mngr->addGameObject({ecs::GROUP_EXAMPLE});
                     JSONObject vObj = v->AsObject();
 
                     //Obtengo el id
