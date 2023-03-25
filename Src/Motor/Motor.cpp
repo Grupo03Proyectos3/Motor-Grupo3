@@ -39,7 +39,7 @@
 // Carga de mapas
 #include "FlamingoBase/MapReader.h"
 #include <UI/UISystem.h>
-
+#include <CEGUI/CEGUI.h>
 #include "ResourcesLoader/Loader.h"
 
 void loadScene(RenderSystem* t_render_sys)
@@ -67,12 +67,20 @@ int main(int argc, char* argv[])
 
     RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
-    //Flamingo::UISystem* uiSystem = m_mngr->addSystem<Flamingo::UISystem>();
-
+   
+    Flamingo::UISystem* uiSystem = m_mngr->addSystem<Flamingo::UISystem>();
+    CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>(CEGUI::System::getSingleton().getResourceProvider());
+    rp->setResourceGroupDirectory("Imagesets", "./UI/imagesets/");
+    rp->setResourceGroupDirectory("Fonts", "./UI/fonts/");
+    rp->setResourceGroupDirectory("Schemes", "./UI/schemes/");
+    rp->setResourceGroupDirectory("LookNFeel", "UI/looknfeel/");
+    rp->setResourceGroupDirectory("Layouts", "UI/layouts/");
+    uiSystem->initUIResources();
+    
    // LuaSystem* lua_system = m_mngr->addSystem<LuaSystem>();
     auto& ihldr = ih();
 
-    Flamingo::Timer* player_timer = new Flamingo::Timer();
+    Flamingo::Timer* player_timer = new Flamingo::Timer(); 
     auto time = player_timer->getElapsedTime();
     auto dt = player_timer->getElapsedTime() - time;
 
