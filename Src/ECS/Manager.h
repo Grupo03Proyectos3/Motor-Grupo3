@@ -7,6 +7,8 @@
 #include <iostream>
 #include <vector>
 #include <OgreSceneNode.h>
+#include <unordered_map>
+
 
 #include "Component.h"
 #include "GameObject.h"
@@ -14,7 +16,6 @@
 #include "System.h"
 #include "ecs.h"
 #include "messages_defs.h"
-
 class PhysicsSystem;
 
 namespace ecs
@@ -76,9 +77,9 @@ namespace ecs
         // Adding an entity simply creates an instance of Entity, adds
         // it to the list of the given group and returns it to the caller.
         //
-        inline GameObject* addGameObject(Ogre::SceneNode* t_scene_node, std::vector<groupId_type> vect_gId = {_grp_GENERAL})
+        inline GameObject* addGameObject(std::vector<groupId_type> vect_gId = {_grp_GENERAL})
         {
-            auto e = new GameObject(t_scene_node, vect_gId);
+            auto e = new GameObject(vect_gId);
             e->m_alive = true;
 
             for (auto grp : vect_gId)
@@ -112,8 +113,8 @@ namespace ecs
         template <typename T>
         inline T* addComponent(GameObject* t_e)
         {
-            constexpr compId_type cId = T::id;
-            assert(cId < maxComponentId);
+           /* constexpr compId_type cId = T::id;
+            assert(cId < maxComponentId);*/
 
             // delete the current component, if any
             //
@@ -125,8 +126,8 @@ namespace ecs
             c->setContext(t_e, this);
             //seran las factorias las encargadas de inicializar dicha inicializacion, tanto esta como la de parámetros
             //c->initComponent();
-            t_e->m_comps[cId] = c;
-            t_e->m_current_comps.push_back(c);
+          
+            t_e->m_current_comps.insert({(typeid(T).name()), c});
 
             // return it to the user so i can be initialised if needed
             return static_cast<T*>(c);
@@ -137,28 +138,39 @@ namespace ecs
         template <typename T>
         inline void removeComponent(GameObject* t_e)
         {
-            constexpr compId_type cId = T::id;
-            assert(cId < maxComponentId);
+          ///*  constexpr compId_type cId = T::id;
+          //  assert(cId < maxComponentId);*/
 
-            if (t_e->m_comps[cId] != nullptr)
+          //  auto comp = t_e->m_current_comps[typeid(T).name()];
+          //  if (comp != nullptr)
+          //  {
+          //       find the element that is equal to e->cmps_[cId] (returns an iterator)
+          //      
+          //      auto iter = std::find(t_e->m_current_comps.begin(), t_e->m_current_comps.end(),
+          //                            t_e->m_comps[cId]);
+
+          //       must have such a component
+          //      assert(iter != t_e->m_current_comps.end());
+
+          //       and then remove it
+          //      t_e->m_current_comps.erase(iter);
+          //       destroy it
+          //      
+          //      delete t_e->m_comps[cId];
+
+          //       remove the pointer
+          //      
+          //      t_e->m_comps[cId] = nullptr;
+          //  }
+
+          
+            auto comp = t_e->m_current_comps.find(typeid(T).name());
+
+            if (comp != t_e->m_current_comps.end())
             {
-                // find the element that is equal to e->cmps_[cId] (returns an iterator)
-                //
-                auto iter = std::find(t_e->m_current_comps.begin(), t_e->m_current_comps.end(),
-                                      t_e->m_comps[cId]);
-
-                // must have such a component
-                assert(iter != t_e->m_current_comps.end());
-
-                // and then remove it
-                t_e->m_current_comps.erase(iter);
-                // destroy it
-                //
-                delete t_e->m_comps[cId];
-
-                // remove the pointer
-                //
-                t_e->m_comps[cId] = nullptr;
+                delete comp->second;
+                comp->second = nullptr;
+                t_e->m_current_comps.erase(comp);
             }
         }
 
@@ -169,10 +181,16 @@ namespace ecs
         template <typename T>
         inline T* getComponent(GameObject* t_e)
         {
-            constexpr compId_type cId = T::id;
-            assert(cId < maxComponentId);
-
-            return static_cast<T*>(t_e->m_comps[cId]);
+           
+            try
+            {
+                return static_cast<T*>(t_e->m_current_comps[typeid(T).name()]);
+            }
+            catch (const std::exception&)
+            {
+                return nullptr;
+            }
+          
         }
 
         // returns true if there is a component with identifier T::id
@@ -181,10 +199,8 @@ namespace ecs
         template <typename T>
         inline bool hasComponent(GameObject* t_e)
         {
-            constexpr compId_type cId = T::id;
-            assert(cId < maxComponentId);
-
-            return t_e->m_comps[cId] != nullptr;
+           
+            return t_e->m_current_comps.find(typeid(T).name()) != t_e->m_current_comps.end();
         }
 
         // returns the group 't_gId' of entity 't_e'

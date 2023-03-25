@@ -11,7 +11,7 @@ class Manager;
 #include <cassert>
 #include <string>
 #include <vector>
-#include <OgreSceneNode.h>
+#include <unordered_map>
 
 namespace ecs
 {
@@ -23,28 +23,24 @@ namespace ecs
     {
       public:
         GameObject();
-        GameObject(Ogre::SceneNode* t_escene_node);
-        GameObject(Ogre::SceneNode* t_escene_node, std::vector<groupId_type> t_gId);
+        GameObject(std::vector<groupId_type> t_gId);
         virtual ~GameObject();
 
         void setAlive(bool to);
         void setActive(bool to);
 
         std::string getName();
-        Ogre::SceneNode* getNode();
 
       private:
         friend class Manager;
 
         bool m_alive;
         bool m_active;
-        std::vector<Component*> m_current_comps;
-        std::array<Component*, maxComponentId> m_comps;
+        std::unordered_map<std::string, Component*> m_current_comps;
+        //std::array<Component*, maxComponentId> m_comps;
         std::vector<ecs::groupId_type> m_gIds;
 
         std::string m_name;
-
-        Ogre::SceneNode* m_node;
     };
 } // namespace ecs
 

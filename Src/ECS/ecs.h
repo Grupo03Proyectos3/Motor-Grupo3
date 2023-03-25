@@ -59,6 +59,7 @@ namespace ecs
         LAST_SYSTEM_ID
     };
 
+    //obtener el nº de componentes internos del motor
     constexpr compId_type maxComponentId = compId::LAST_COMP_ID;
     constexpr groupId_type maxGroupId = groupId::LAST_GROUP_ID;
     constexpr handlerId_type maxHandlerId = handlerId::LAST_HANDLER_ID;

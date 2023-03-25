@@ -42,39 +42,39 @@ void RenderSystem::initSystem()
 
     void RenderSystem::Pruebas()
     {
-        Flamingo::Scene* sceneActive = m_scene_mngr->getSceneActive();
-        Ogre::SceneManager* scene_mgr = sceneActive->getSceneManger();
-        Ogre::SceneNode* root_scene_node = sceneActive->getSceneRoot();
+        //Flamingo::Scene* sceneActive = m_scene_mngr->getSceneActive();
+        //Ogre::SceneManager* scene_mgr = sceneActive->getSceneManger();
+        //Ogre::SceneNode* root_scene_node = sceneActive->getSceneRoot();
 
-        //// Sinbad --> Movido a Motor.cpp
+        ////// Sinbad --> Movido a Motor.cpp
 
-        // Cubo --> Movido a Motor.cpp
+        //// Cubo --> Movido a Motor.cpp
 
-        // Luz
-        ecs::GameObject* light_go = new ecs::GameObject(root_scene_node);
-        Light* cmp_light = ecs::AddComponent<Light>(light_go);
-        cmp_light->initValues(scene_mgr, light_go->getNode(), "myLight");
-        cmp_light->setType(Light::DIRECTIONAL);
-        SVector3 direction = SVector3(-1, -1, 0);
-        // direction *= -1;
-        cmp_light->setDirection(direction);
-        cmp_light->setSpecularColour();
-        cmp_light->setDiffuseColour();
-        sceneActive->addObjects(light_go);
+        //// Luz
+        //ecs::GameObject* light_go = new ecs::GameObject(root_scene_node);
+        //Light* cmp_light = ecs::AddComponent<Light>(light_go);
+        //cmp_light->initValues(scene_mgr, light_go->getNode(), "myLight");
+        //cmp_light->setType(Light::DIRECTIONAL);
+        //SVector3 direction = SVector3(-1, -1, 0);
+        //// direction *= -1;
+        //cmp_light->setDirection(direction);
+        //cmp_light->setSpecularColour();
+        //cmp_light->setDiffuseColour();
+        //sceneActive->addObjects(light_go);
 
-        // Camara
-        ecs::GameObject* cam_go = new ecs::GameObject(root_scene_node);
-        m_camera = ecs::AddComponent<Camera>(cam_go);
-        m_camera->initValues(scene_mgr, cam_go->getNode(), getWindow(), "myCamera");
-        m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3f, 0.2f, 0.6f));
-        // m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
-        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
-        m_camera->setNearClipDistance(1);
-        m_camera->setFarClipDistance(10000);
-        sceneActive->addObjects(cam_go);
+        //// Camara
+        //ecs::GameObject* cam_go = new ecs::GameObject(root_scene_node);
+        //m_camera = ecs::AddComponent<Camera>(cam_go);
+        //m_camera->initValues(scene_mgr, cam_go->getNode(), getWindow(), "myCamera");
+        //m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3f, 0.2f, 0.6f));
+        //// m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
+        //m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
+        //m_camera->setNearClipDistance(1);
+        //m_camera->setFarClipDistance(10000);
+        //sceneActive->addObjects(cam_go);
 
-        // getSceneManager()->createScene("NUEVA1", true);
-        // m_window->addRTShaderSystem(getSceneManager()->getSceneActive()->getSceneManger());
+        //// getSceneManager()->createScene("NUEVA1", true);
+        //// m_window->addRTShaderSystem(getSceneManager()->getSceneActive()->getSceneManger());
     }
 
     void RenderSystem::update(float t_delta_time)

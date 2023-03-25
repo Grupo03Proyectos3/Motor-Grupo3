@@ -206,18 +206,19 @@ int main(int argc, char* argv[])
     //  m_mngr->setHandler(ecs::HANDLER_EXAMPLE, go);
     // render_sys->getSceneManager()->getSceneActive()->addObjects(ground);
 
-    ecs::GameObject* cube_go = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER});
+    auto nodo = render_sys->getSceneManager()->getSceneActive()->getSceneRoot();
+    ecs::GameObject* cube_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
     auto cmp2 = ecs::AddComponent<MeshRenderer>(cube_go);
-    cmp2->initValues(cube_go->getNode(), render_sys->getSceneManager()->getSceneActive()->getSceneManger(), "cube.mesh", "CubeEntity");
+    cmp2->initValues(nodo, render_sys->getSceneManager()->getSceneActive()->getSceneManger(), "cube.mesh", "CubeEntity");
     cmp2->changeMaterial("Prueba/MichaelScott");
     Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go);
-    cmp_tr2->initValues(cube_go->getNode());
+    cmp_tr2->initValues(nodo->createChildSceneNode());
     cmp_tr2->setPosition(SVector3(0, 0, 0));
     render_sys->getSceneManager()->getSceneActive()->addObjects(cube_go);
 
-    ecs::GameObject* light_go = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER});
+    ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
     Light* cmp_light = ecs::AddComponent<Light>(light_go);
-    cmp_light->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), light_go->getNode(), "myLight");
+    cmp_light->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), "myLight");
     cmp_light->initComponent();
     cmp_light->setType(Light::DIRECTIONAL);
     SVector3 direction = SVector3(-1, -1, 0);
@@ -227,9 +228,9 @@ int main(int argc, char* argv[])
     cmp_light->setDiffuseColour();
     render_sys->getSceneManager()->getSceneActive()->addObjects(light_go);
 
-    ecs::GameObject* cam_go = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER});
+    ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
     auto m_camera = ecs::AddComponent<Camera>(cam_go);
-    m_camera->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), cam_go->getNode(), render_sys->getWindow(), "myCamera");
+    m_camera->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
     m_camera->initComponent();
     m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3f, 0.2f, 0.6f));
     // m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
