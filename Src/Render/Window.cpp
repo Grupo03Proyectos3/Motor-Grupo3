@@ -1,25 +1,32 @@
 #include "Window.h"
-#include <OgreRoot.h>
-#include <SDL_video.h>
-#include <SDL_syswm.h>
+#include "ECS/InputHandler.h"
 #include <OgreConfigFile.h>
-#include <OgreRenderWindow.h>
 #include <OgreGpuProgramManager.h>
-#include "ECS/InputHandler.h" 
+#include <OgreRenderWindow.h>
+#include <OgreRoot.h>
+#include <SDL_syswm.h>
+#include <SDL_video.h>
 namespace Flamingo
 {
     Window::Window(const Ogre::String& t_app_name, Ogre::Root* t_root)
         : isClosed(false)
         , m_root(t_root)
         , m_app_name(t_app_name)
-        , m_scene_mngr(nullptr) 
+        , m_scene_mngr(nullptr)
     {
         m_window.native = nullptr;
         m_window.render = nullptr;
         mShaderGenerator = nullptr;
     }
 
-    Window::~Window(){
+    Window::~Window()
+    {
+        delete m_fs_layer; // TODO Check this ¿?
+        m_fs_layer = nullptr;
+
+        m_root = nullptr;
+        m_render_system = nullptr;
+        m_scene_mngr = nullptr;
     }
 
     NativeWindowPair Window::createWindow(Ogre::String& appName)
@@ -42,7 +49,8 @@ namespace Flamingo
 
         Uint32 flags = SDL_WINDOW_RESIZABLE;
 
-        if (ropts["Full Screen"].currentValue == "Yes")flags = SDL_WINDOW_FULLSCREEN;
+        if (ropts["Full Screen"].currentValue == "Yes")
+            flags = SDL_WINDOW_FULLSCREEN;
         // else  flags = SDL_WINDOW_RESIZABLE;
 
         m_window.native = SDL_CreateWindow(appName.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, flags);
@@ -57,16 +65,19 @@ namespace Flamingo
         return m_window;
     }
 
-    void Window::addRTShaderSystem(Ogre::SceneManager* t_mng){
+    void Window::addRTShaderSystem(Ogre::SceneManager* t_mng)
+    {
         Ogre::RTShader::ShaderGenerator::getSingletonPtr()->addSceneManager(t_mng);
     }
 
     bool Window::initialiseRTShaderSystem()
     {
-        if (Ogre::RTShader::ShaderGenerator::initialize()){
+        if (Ogre::RTShader::ShaderGenerator::initialize())
+        {
             mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
 
-            if (!mMaterialMgrListener){
+            if (!mMaterialMgrListener)
+            {
                 mMaterialMgrListener = new OgreSGTechique::SGTechniqueResolverListener(mShaderGenerator);
                 Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
                 mShaderGenerator->addSceneManager(m_scene_mngr->getSceneActive()->getSceneManger());
@@ -76,7 +87,8 @@ namespace Flamingo
         return false;
     }
 
-    void Window::destroyRTShaderSystem() {
+    void Window::destroyRTShaderSystem()
+    {
         // Restore default scheme.
         Ogre::MaterialManager::getSingleton().setActiveScheme(Ogre::MaterialManager::DEFAULT_SCHEME_NAME);
 
@@ -96,22 +108,25 @@ namespace Flamingo
         }
     }
 
-    void Window::update() {
-
+    void Window::update()
+    {
         if (m_window.native == nullptr)
             return; // SDL events not initialized
 
-        if (InputHandler::instance()->resizeWindowEvent()){
+        if (InputHandler::instance()->resizeWindowEvent())
+        {
             m_window.render->windowMovedOrResized();
         }
         isClosed = InputHandler::instance()->closeWindowEvent();
-        //std::cout << isClosed << "\n";
-        if (isClosed) m_window.render->windowMovedOrResized();
+        // std::cout << isClosed << "\n";
+        if (isClosed)
+            m_window.render->windowMovedOrResized();
     }
 
-    void Window::shutdown(){
-        destroyRTShaderSystem();
-        if (m_window.render != nullptr){
+    void Window::shutdown()
+    {
+        if (m_window.render != nullptr)
+        {
             m_root->destroyRenderTarget(m_window.render);
             m_window.render = nullptr;
         }
@@ -123,15 +138,18 @@ namespace Flamingo
         }
     }
 
-    void Window::closeWindow(){
-        if (m_root != nullptr){
+    void Window::closeWindow()
+    {
+        if (m_root != nullptr)
+        {
             m_root->saveConfig();
         }
-        if (getRenderSystem() != nullptr)
-            shutdown(); 
-        delete m_scene_mngr;
-        delete m_root;
-        m_root = nullptr;
+        /* if (getRenderSystem() != nullptr)
+             shutdown();*/
+
+        //  delete m_root;
+        //  m_root = nullptr;
+        //  m_scene_mngr = nullptr;
     }
 
-} // namespace OgreWindow
+} // namespace Flamingo

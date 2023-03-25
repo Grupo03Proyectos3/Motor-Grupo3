@@ -27,6 +27,6 @@ namespace Flamingo{
         Ogre::SceneManager* mSceneManager;
         std::unordered_map<std::string, ecs::GameObject*> mSceneGameObjects;
         bool mDebug;
-    };
+    }; 
 } // namespace OgreScene
 #endif

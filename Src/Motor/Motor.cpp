@@ -30,8 +30,6 @@
 #include "FlamingoUtils/Timer.h"
 
 // EXTERNAL
-#include <OgreParticleSystem.h>
-#include <OgreRoot.h> // MEMORY LEAK
 #include <fmod.h>
 
 // C++
@@ -140,9 +138,11 @@ void loadDirectories()
 
 void loadScene(RenderSystem* t_render_sys)
 {
-    MapReader* m_mapReader = new MapReader();
+    MapReader* map_reader = new MapReader();
 
-    m_mapReader->readMap("Assets/Maps/mapPrueba.json", t_render_sys);
+    map_reader->readMap("Assets/Maps/mapPrueba.json", t_render_sys);
+
+    delete map_reader; // TO DO
 }
 
 int main(int argc, char* argv[])
@@ -160,12 +160,12 @@ int main(int argc, char* argv[])
 
     RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
-    LuaSystem* lua_system = m_mngr->addSystem<LuaSystem>();
+   // LuaSystem* lua_system = m_mngr->addSystem<LuaSystem>();
     auto& ihldr = ih();
 
-    Flamingo::Timer* playerTimer = new Flamingo::Timer();
-    auto time = playerTimer->getElapsedTime();
-    auto dt = playerTimer->getElapsedTime() - time;
+    Flamingo::Timer* player_timer = new Flamingo::Timer();
+    auto time = player_timer->getElapsedTime();
+    auto dt = player_timer->getElapsedTime() - time;
 
     loadScene(render_sys);
 
@@ -246,14 +246,14 @@ int main(int argc, char* argv[])
     prueba->setPosition({0, 60, 0});
     prueba->attachObject(pSys);
 
-    //Flamingo::ParticleSystem* pSys = ecs::AddComponent<Flamingo::ParticleSystem>(sinbad_go, scene_active->getSceneManger(), scene_active->getSceneRoot()->createChildSceneNode());
+ //   Flamingo::ParticleSystem* pSys = ecs::AddComponent<Flamingo::ParticleSystem>(sinbad_go, scene_active->getSceneManger(), scene_active->getSceneRoot()->createChildSceneNode());
   
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
         // Delta time en milisegundos
-        dt = playerTimer->getElapsedTime() - time;
+        dt = player_timer->getElapsedTime() - time;
         // Tiempo transcurrido desde el inicio del programa en milisegundos
-        time = playerTimer->getElapsedTime();
+        time = player_timer->getElapsedTime();
 
         // leer entrada
 
@@ -268,15 +268,15 @@ int main(int argc, char* argv[])
         {
             if (ihldr.isKeyDown(SDLK_0))
                 std::cout << "prueba";
-        }*/
+        }
+        */
 
         m_mngr->refresh();
         m_mngr->flushMessages();
     }
 
     render_sys->getWindow()->closeWindow();
-
-    
+    delete player_timer;
 
     _CrtDumpMemoryLeaks();
     return 0;

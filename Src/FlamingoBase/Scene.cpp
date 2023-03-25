@@ -15,7 +15,10 @@ namespace Flamingo{
             delete it.second;
         }
         mSceneGameObjects.clear();
-        std::cout << "Scene " << mSceneManager->getName() << " deleted\n";
+
+        mSceneManager = nullptr;
+        mRootNode = nullptr;
+
     }
 
     void Scene::initScene(Ogre::SceneManager* t_SceneManager){

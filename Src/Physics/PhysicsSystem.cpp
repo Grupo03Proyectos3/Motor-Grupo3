@@ -114,7 +114,6 @@ void PhysicsSystem::update(float t_delta_time)
 {
     // For each GameObject that has at least one Physics type component,
     // check for the components and update them
-    // RigidBody* rbPruebas = nullptr;
 
     for (auto game_object : m_mngr->getEntities(m_group))
     {
