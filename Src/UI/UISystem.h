@@ -2,13 +2,13 @@
 #define __UISYSTEM_H__
 #pragma once
 
-#include <CEGUI/Cegui.h>
+#include <CEGUI/CEGUI.h>
 #include "ECS/System.h"
-#include <unordered_map>
+//#include <unordered_map>
 
 #include <ECS/Manager.h>
 #include <Render/RenderSystem.h>
-
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
 
 namespace Flamingo{
     class UISystem : public ecs::System{
@@ -20,6 +20,14 @@ namespace Flamingo{
         void initSystem() override;
         void update(float t_delta_time) override;
 
+        void initRoot();
+        void initUIResources();
+
+        void eraseContext();
+        void eraseMainRoot();
+
+        void loadScheme(const std::string& schemeFile);
+
       private:
         CEGUI::WindowManager* winMngr;
         CEGUI::OgreRenderer* renderer;
@@ -27,7 +35,7 @@ namespace Flamingo{
         CEGUI::Window* root = nullptr;
         CEGUI::GUIContext* guiContext;
 
-        std::unordered_map<std::string, CEGUI::Window*> layouts;
+        //std::unordered_map<CEGUI::String, CEGUI::Window*> layouts;
     };
 } // namespace Flamingo
 #endif

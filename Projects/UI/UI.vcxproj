@@ -109,7 +109,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\CEGUI\Build\lib\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>CEGUIBase-0_d.lib</AdditionalDependencies>
+      <AdditionalDependencies>CEGUIBase-0_d.lib;CEGUIOgreRenderer-0_d.lib;</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,6 +121,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\CEGUI\Src\cegui\include;$(SolutionDir)Dependencias\CEGUI\Build\cegui\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Src\PlugIns\ParticleFX\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release</AdditionalIncludeDirectories>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,7 +131,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\CEGUI\Build\lib\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>CEGUIBase-0.lib</AdditionalDependencies>
+      <AdditionalDependencies>CEGUIBase-0.lib;CEGUIOgreRenderer-0.lib;</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -147,7 +148,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\CEGUI\Build\lib\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>CEGUIBase-0_d.lib</AdditionalDependencies>
+      <AdditionalDependencies>CEGUIBase-0_d.lib;CEGUIOgreRenderer-0_d.lib;</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -159,6 +160,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\CEGUI\Src\cegui\include;$(SolutionDir)Dependencias\CEGUI\Build\cegui\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Src\PlugIns\ParticleFX\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release</AdditionalIncludeDirectories>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -168,7 +170,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\CEGUI\Build\lib\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>CEGUIBase-0.lib</AdditionalDependencies>
+      <AdditionalDependencies>CEGUIBase-0.lib;CEGUIOgreRenderer-0.lib;</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

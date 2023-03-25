@@ -34,6 +34,8 @@
 #include <stdexcept>
 #include <cstddef>
 
+
+
 // Start of CEGUI namespace section
 namespace CEGUI
 {

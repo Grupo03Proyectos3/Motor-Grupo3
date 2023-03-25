@@ -38,6 +38,7 @@
 
 // Carga de mapas
 #include "FlamingoBase/MapReader.h"
+#include <UI/UISystem.h>
 
 #include "ResourcesLoader/Loader.h"
 
@@ -66,6 +67,8 @@ int main(int argc, char* argv[])
 
     RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
+    //Flamingo::UISystem* uiSystem = m_mngr->addSystem<Flamingo::UISystem>();
+
    // LuaSystem* lua_system = m_mngr->addSystem<LuaSystem>();
     auto& ihldr = ih();
 
