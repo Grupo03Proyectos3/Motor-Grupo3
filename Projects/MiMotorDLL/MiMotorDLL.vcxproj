@@ -20,10 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\MiMotorDLL\dllmain.cpp" />
+    <ClCompile Include="..\..\Src\MiMotorDLL\MiFlamingo.cpp" />
     <ClCompile Include="..\..\Src\MiMotorDLL\pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\MiMotorDLL\framework.h" />
+    <ClInclude Include="..\..\Src\MiMotorDLL\MiFlamingo.h" />
+    <ClInclude Include="..\..\Src\MiMotorDLL\MiMotorDLL.h" />
     <ClInclude Include="..\..\Src\MiMotorDLL\pch.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -81,9 +84,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Lib\$(Platform)\$(Configuration)</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
+    <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Lib\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -125,7 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;MIMOTORDLL_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -142,7 +147,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;MIMOTORDLL_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
