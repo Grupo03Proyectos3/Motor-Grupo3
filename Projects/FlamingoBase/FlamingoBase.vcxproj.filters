@@ -72,6 +72,15 @@
     <ClCompile Include="..\..\Src\FlamingoBase\MapReader.cpp">
       <Filter>Archivos de origen\MapReader</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\LightFactory.cpp">
+      <Filter>Archivos de origen\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\RigidBodyFactory.cpp">
+      <Filter>Archivos de origen\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\MeshRendererFactory.cpp">
+      <Filter>Archivos de origen\Factories</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\FlamingoBase\SceneManager.h">
@@ -100,6 +109,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\FlamingoBase\MapReader.h">
       <Filter>Archivos de encabezado\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\LightFactory.h">
+      <Filter>Archivos de encabezado\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\RigidBodyFactory.h">
+      <Filter>Archivos de encabezado\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\MeshRendererFactory.h">
+      <Filter>Archivos de encabezado\Factories</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

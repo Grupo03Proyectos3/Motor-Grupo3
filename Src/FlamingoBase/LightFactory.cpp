@@ -1,15 +1,19 @@
 #include "LightFactory.h"
 #include "Render/Light.h"
 
+LightFactory::LightFactory(RenderSystem* t_renderSystem)
+{
+    m_renderSystem = t_renderSystem;
+}
 
 ecs::Component* LightFactory::createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args)
 {
-  /*  try
+    try
     {
-        float name = std::stof(args.at("t_name"));
+        std::string name = (args.at("t_name"));
 
         Light* c = ecs::AddComponent<Light>(gO);
-        c->initValues();
+        c->initValues(m_renderSystem->getSceneManager()->getSceneActive()->getSceneManger(), m_renderSystem->getSceneManager()->getSceneActive()->getSceneRoot()->createChildSceneNode(), name);
         c->initComponent();
 
         compsCreated.push_back(c);
@@ -19,5 +23,5 @@ ecs::Component* LightFactory::createComponent(ecs::GameObject* gO, const std::un
     catch (const std::exception&)
     {
         throw new std::exception("Invalids or incompletes params");
-    }*/
+    }
 }
