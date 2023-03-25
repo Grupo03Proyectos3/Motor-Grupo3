@@ -17,6 +17,6 @@ public:
     void loadDirectories();
    
 private:
-    std::string parsePath(std::string t_path);
-    void findDir(const char* t_dir, std::ofstream& t_output);
+    
+    void findDir(const char* t_path, std::ofstream& t_output);
 };
