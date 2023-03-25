@@ -23,7 +23,10 @@ void MapReader::readMap(std::string filename, RenderSystem* t_renderSystem)
     std::unique_ptr<JSONValue> jValueRoot(JSON::ParseFromFile(filename));
 
     if (jValueRoot == nullptr || !jValueRoot->IsObject())
-        throw "Something went wrong while load/parsing '" + filename + "'";
+    {
+        std::cout<< "Something went wrong while load/parsing '" << filename << "'\n";
+        return;
+    }
 
     JSONObject root = jValueRoot->AsObject();
     JSONValue* jValue = nullptr;
