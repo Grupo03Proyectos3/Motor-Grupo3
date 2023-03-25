@@ -166,6 +166,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\FlamingoBase\AnimatorFactory.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\CameraFactory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\ComponentsFactory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Factory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\JSON.cpp" />
@@ -180,6 +182,8 @@
     <ClCompile Include="..\..\Src\FlamingoBase\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\FlamingoBase\AnimatorFactory.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\CameraFactory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\ComponentsFactory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\Factory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\JSON.h" />
