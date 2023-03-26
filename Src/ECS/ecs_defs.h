@@ -13,14 +13,16 @@
         _cmp_MESH_RENDERER,     \
         _cmp_PLAYER_CONTROLLER, \
         _cmp_ANIMATOR,          \
-        _cpm_PARTICLE_SYSTEM
+        _cpm_PARTICLE_SYSTEM,   \
+        _cmp_AUDIO_SOURCE
 
 // Lista de grupos
 //
 #define GROUPS_LIST   \
     GROUP_EXAMPLE,    \
         GROUP_RENDER, \
-        GROUP_PHYSICS
+        GROUP_PHYSICS, \
+        GROUP_AUDIO
 
 // Lista de Handlers
 //
@@ -34,6 +36,7 @@
         _sys_PHYSICS, \
         _sys_RENDER, \
         _sys_UI, \
-        _sys_LUA
+        _sys_LUA, \
+        _sys_AUDIO
 
 #endif // !__ECS_DEFS__
