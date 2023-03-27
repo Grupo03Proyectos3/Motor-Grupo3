@@ -16,6 +16,10 @@ AudioSystem::AudioSystem()
 AudioSystem::~AudioSystem()
 {
     m_system->release();
+
+    delete m_soundMap;
+    delete m_musicMap;
+    delete m_channelMap;
 }
     
 void AudioSystem::recieve(const Message&)
@@ -25,16 +29,19 @@ void AudioSystem::recieve(const Message&)
 void AudioSystem::initSystem()
 {
     m_group = ecs::GROUP_AUDIO;
-    auto result = FMOD::System_Create(&m_system);
-       
+    checkError(FMOD::System_Create(&m_system)); 
+
+    m_soundMap = new SoundMap();
+    m_musicMap = new MusicMap();
+    m_channelMap = new ChannelMap();
     
-    result = m_system->init(12, FMOD_3D, 0);
-    result = m_system->set3DSettings(1.0f, 1.0f, 1.0f);
+    checkError(m_system->init(32, FMOD_3D, 0));
+    checkError(m_system->set3DSettings(1.0f, 1.0f, 1.0f));
     
     //Grupos, música y efectos
-    m_system->createSoundGroup("soundGroup", &m_soundGroup);
+    checkError(m_system->createSoundGroup("soundGroup", &m_soundGroup));
     m_soundGroup->setVolume(100);
-    m_system->createSoundGroup("musicGroup", &m_musicGroup);
+    checkError(m_system->createSoundGroup("musicGroup", &m_musicGroup));
     m_musicGroup->setVolume(100);
 }
     
@@ -54,15 +61,39 @@ void AudioSystem::update(float t_delta_time)
 }
     
 /// <summary>
-/// Devuelve en el parámetro Sound el onido ya creado.
+/// Devuelve en el parámetro Sound el sonido ya creado.
 /// </summary>
 /// <param name="route"></param>
 /// <param name="mode"></param>
 /// <param name="exinfo"></param>
 /// <param name="sound"></param>
-void AudioSystem::createSound(const char* route, FMOD_MODE mode, FMOD_CREATESOUNDEXINFO* exinfo, FMOD::Sound* sound)
+void AudioSystem::createSound(const char* route, FMOD_MODE mode, FMOD_CREATESOUNDEXINFO* exinfo, FMOD::Sound** sound)
 {
-    m_system->createSound(route, mode, exinfo, &sound);
+    checkError(m_system->createSound(route, mode, exinfo, &(*sound)));
+}
+
+/// <summary>
+/// Crea el sonido y lo asigna al grupo correspondiente
+/// </summary>
+/// <param name="route"></param>
+/// <param name="name"></param>
+/// <param name="isMusic">True para grupo música, false para grupo sound effect.</param>
+/// <returns></returns>
+FMOD::Sound* AudioSystem::createSound(const char* route, std::string name, bool isMusic)
+{
+    FMOD::Sound* sound = nullptr;
+
+    if (isMusic)
+    {
+        createSound(route, FMOD_3D | FMOD_LOOP_NORMAL, nullptr, &sound);
+        addMusic(sound, name);
+    }
+    else
+    {
+        createSound(route, FMOD_3D | FMOD_DEFAULT, nullptr, &sound);
+        addSoundEffect(sound, name);
+    }
+    return sound;
 }
     
 void AudioSystem::addMusic(FMOD::Sound* sound, std::string soundName)
@@ -110,6 +141,15 @@ void AudioSystem::setMusicVolume(float f)
 void AudioSystem::setSoundEffectsVolume(float f)
 {
     m_soundGroup->setVolume(f);
+}
+
+int AudioSystem::checkError(FMOD_RESULT result)
+{
+    if (result != FMOD_OK)
+    {
+        return 1;
+    }
+    return 0;
 }
 
 
