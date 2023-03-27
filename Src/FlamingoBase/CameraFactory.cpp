@@ -4,6 +4,7 @@
 CameraFactory::CameraFactory(RenderSystem* t_renderSystem)
 {
     m_renderSystem = t_renderSystem;
+    root = m_renderSystem->getSceneManager()->getSceneActive()->getSceneRoot();
 }
 
 ecs::Component* CameraFactory::createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args)
@@ -14,11 +15,11 @@ ecs::Component* CameraFactory::createComponent(ecs::GameObject* gO, const std::u
         std::string entityName = (args.at("t_entity_name"));
 
         Camera* c = ecs::AddComponent<Camera>(gO);
-        c->initValues(m_renderSystem->getSceneManager()->getSceneActive()->getSceneManger(), m_renderSystem->getSceneManager()->getSceneActive()->getSceneRoot()->createChildSceneNode()
+        c->initValues(m_renderSystem->getSceneManager()->getSceneActive()->getSceneManger(), root->createChildSceneNode()
             , m_renderSystem->getWindow(), name);
         c->initComponent();
 
-        compsCreated.push_back(c);
+        //compsCreated.push_back(c);
         return c;
     }
     catch (const std::exception&)

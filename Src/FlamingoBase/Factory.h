@@ -23,6 +23,6 @@ class Factory
    void deleteComponents();
 
    protected:
-   std::vector<ecs::Component*> compsCreated;
+  //std::vector<ecs::Component*> compsCreated;
 };
 #endif

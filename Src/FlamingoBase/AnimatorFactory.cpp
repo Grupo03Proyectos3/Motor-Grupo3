@@ -4,6 +4,7 @@
 AnimatorFactory::AnimatorFactory(RenderSystem* t_renderSystem)
 {
     m_renderSystem = t_renderSystem;
+    root = m_renderSystem->getSceneManager()->getSceneActive()->getSceneRoot();
 }
 
 ecs::Component* AnimatorFactory::createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args)
@@ -16,7 +17,7 @@ ecs::Component* AnimatorFactory::createComponent(ecs::GameObject* gO, const std:
         c->initValues(m_renderSystem->getSceneManager()->getSceneActive()->getSceneManger());
         c->initComponent();
 
-        compsCreated.push_back(c);
+        //compsCreated.push_back(c);
         return c;
     }
     catch (const std::exception&)

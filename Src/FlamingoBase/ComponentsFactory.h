@@ -17,6 +17,8 @@ class ComponentsFactory : public SingletonECS<ComponentsFactory>
 
   public:
     ComponentsFactory();
+    ~ComponentsFactory();
+
 
     ecs::Component* addComponent(ecs::GameObject* gO, const std::string& type, std::unordered_map<std::string, std::string> args);
 

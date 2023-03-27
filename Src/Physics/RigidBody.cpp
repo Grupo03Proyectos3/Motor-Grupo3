@@ -39,6 +39,7 @@ void RigidBody::initComponent()
     //const Ogre::AxisAlignedBox& meshBoundingBox = mesh->getBounds();
 
     auto transform = m_mngr->getComponent<Transform>(m_ent);
+    //rigidbody debe ir despues de mesh renderer
     const Ogre::AxisAlignedBox& meshBoundingBox = m_mngr->getComponent<MeshRenderer>(m_ent)->getBoundingBox();
 
     // Calculate the dimensions of the box collider --> REVISAR

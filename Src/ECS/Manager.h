@@ -184,7 +184,8 @@ namespace ecs
            
             try
             {
-                return static_cast<T*>(t_e->m_current_comps[typeid(T).name()]);
+                auto c = t_e->m_current_comps.at(typeid(T).name());
+                return static_cast<T*>(c);
             }
             catch (const std::exception&)
             {

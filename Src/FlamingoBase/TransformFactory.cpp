@@ -23,7 +23,7 @@ ecs::Component* TransformFactory::createComponent(ecs::GameObject* gO, const std
         c->initValues(SVector3(p_x, p_y, p_z), SQuaternion(r_x, r_y, r_z, r_w), SVector3(s_x, s_y, s_z));
         c->initComponent();
 
-        compsCreated.push_back(c);
+        //compsCreated.push_back(c);
         return c;
        
     }

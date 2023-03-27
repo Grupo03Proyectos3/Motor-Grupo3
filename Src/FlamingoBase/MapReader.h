@@ -4,6 +4,12 @@
 
 #include "FlamingoBase/ComponentsFactory.h"
 #include "FlamingoBase/PlayerControllerFactory.h"
+#include "FlamingoBase/MeshRendererFactory.h"
+#include "FlamingoBase/RigidbodyFactory.h"
+#include "FlamingoBase/TransformFactory.h"
+#include "FlamingoBase/LightFactory.h"
+#include "FlamingoBase/CameraFactory.h"
+#include "FlamingoBase/AnimatorFactory.h"
 #include "ECS/Manager.h"
 #include <unordered_map>
 
@@ -14,15 +20,16 @@ class RenderSystem;
 class MapReader
 {
   public:
-    MapReader();
+    MapReader(RenderSystem* t_renderSystem);
     ~MapReader();
 
-    void readMap(std::string t_filename, RenderSystem* t_renderSystem);
+    void readMap(std::string t_filename);
 
   private:
     ComponentsFactory* m_componentFactory;
     Data m_data;
     ecs::Manager* m_mngr;
+
    
 };
 

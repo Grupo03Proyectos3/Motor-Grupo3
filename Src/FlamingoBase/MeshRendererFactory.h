@@ -13,9 +13,10 @@ class MeshRendererFactory : public Factory
   public:
     MeshRendererFactory(RenderSystem* t_renderSystem);
 
-   ecs::Component* createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
+    ecs::Component* createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
 
-   private:
-   RenderSystem* m_renderSystem;
+  private:
+    RenderSystem* m_renderSystem;
+    Ogre::SceneNode* root;
 };
 #endif

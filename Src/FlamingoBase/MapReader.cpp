@@ -5,20 +5,26 @@
 #include "Render/RenderSystem.h"
 
 
-MapReader::MapReader()
+MapReader::MapReader(RenderSystem* t_renderSystem)
 {
     
     m_componentFactory = ComponentsFactory::instance();
     m_mngr = ecs::Manager::instance();
    
     m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
+    m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(t_renderSystem));
+    m_componentFactory->addFactory("RigidBody", new RigidBodyFactory());
+    m_componentFactory->addFactory("Transform", new TransformFactory());
+    m_componentFactory->addFactory("Light", new LightFactory(t_renderSystem));
+    m_componentFactory->addFactory("Camera", new CameraFactory(t_renderSystem));
+    m_componentFactory->addFactory("Animator", new AnimatorFactory(t_renderSystem));
 }
 
 MapReader::~MapReader()
 {
 }
 
-void MapReader::readMap(std::string filename, RenderSystem* t_renderSystem)
+void MapReader::readMap(std::string filename)
 {
     std::unique_ptr<JSONValue> jValueRoot(JSON::ParseFromFile(filename));
 
@@ -55,6 +61,37 @@ void MapReader::readMap(std::string filename, RenderSystem* t_renderSystem)
                     {
                         throw new std::exception("Id incorrect");
                     }
+
+                                        // Obtengo los datos del transform del objeto
+                    try
+                    {
+                        // POSICION
+                        std::string value = vObj["positionX"]->AsString();
+                        m_data.insert({"positionX", value});
+                        m_data.insert({"positionY", vObj["positionY"]->AsString()});
+                        m_data.insert({"positionZ", vObj["positionZ"]->AsString()});
+
+                        // SCALE
+                        m_data.insert({"scaleX", vObj["scaleX"]->AsString()});
+                        m_data.insert({"scaleY", vObj["scaleY"]->AsString()});
+                        m_data.insert({"scaleZ", vObj["scaleZ"]->AsString()});
+
+                        // ROTATION
+                        m_data.insert({"rotationX", vObj["rotationX"]->AsString()});
+                        m_data.insert({"rotationY", vObj["rotationY"]->AsString()});
+                        m_data.insert({"rotationZ", vObj["rotationZ"]->AsString()});
+                        m_data.insert({"rotationW", vObj["rotationW"]->AsString()});
+
+                        // Creacion del componente Transform
+                        m_componentFactory->addComponent(gO, "Transform", m_data);
+                    }
+                    catch (const std::exception&)
+                    {
+                        throw new std::exception("Params of Transform are incorrect");
+                    }
+
+                    m_data.clear();
+
                   
                     //Recorro cada uno de los scripts que tenga
                     JSONValue* jValueS = nullptr;
@@ -134,35 +171,7 @@ void MapReader::readMap(std::string filename, RenderSystem* t_renderSystem)
                         throw "'scripts' are null";
                     }
                    
-                    ////Obtengo los datos del transform del objeto
-                    //try
-                    //{
-                    //    // POSICION
-                    //    m_data.insert({"positionX", vObj["positionX"]->AsString()});
-                    //    m_data.insert({"positionY", vObj["positionY"]->AsString()});
-                    //    m_data.insert({"positionZ", vObj["positionZ"]->AsString()});
 
-                    //    // SCALE
-                    //    m_data.insert({"scaleX", vObj["scaleX"]->AsString()});
-                    //    m_data.insert({"scaleY", vObj["scaleY"]->AsString()});
-                    //    m_data.insert({"scaleZ", vObj["scaleZ"]->AsString()});
-
-                    //    // ROTATION
-                    //    m_data.insert({"rotationX", vObj["rotationX"]->AsString()});
-                    //    m_data.insert({"rotationY", vObj["rotationY"]->AsString()});
-                    //    m_data.insert({"rotationZ", vObj["rotationZ"]->AsString()});
-                    //    m_data.insert({"rotationW", vObj["rotationW"]->AsString()});
-
-                    //    // Creacion del componente Transform
-                    //    m_componentFactory->addComponent(gO, "Transform", m_data);
-                    //}
-                    //catch (const std::exception&)
-                    //{
-                    //    throw new std::exception("Params of Transform are incorrect");
-                    //}
-                    //
-       
-                    //m_data.clear();
                 }
                 else
                 {

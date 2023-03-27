@@ -20,21 +20,21 @@ namespace ecs
     }
    
     template <typename T>
-    inline void removeComponent()
+    inline void removeComponent(GameObject* gO)
     {
-        Manager::instance()->removeComponent<T>(this);
+        Manager::instance()->removeComponent<T>(gO);
     }
 
     template <typename T>
-    inline T* getComponent()
+    inline T* getComponent(GameObject* gO)
     {
-        return Manager::instance()->getComponent<T>(this);
+        return Manager::instance()->getComponent<T>(gO);
     }
 
     template <typename T>
-    inline bool hasComponent()
+    inline bool hasComponent(GameObject* gO)
     {
-        return Manager::instance()->hasComponent<T>(this);
+        return Manager::instance()->hasComponent<T>(gO);
     }
 } 
 

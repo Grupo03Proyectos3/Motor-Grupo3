@@ -14,7 +14,7 @@ struct MeshRenderer : public ecs::Component
 
     MeshRenderer(){};
     virtual ~MeshRenderer();
-    virtual void initValues(Ogre::SceneNode* t_node, Ogre::SceneManager* t_sceneMgr, Ogre::String t_model_name, Ogre::String t_entity_name);
+    virtual void initValues(Ogre::SceneNode* t_node, Ogre::SceneManager* t_sceneMgr, Ogre::Vector3 scaleNode, Ogre::String t_model_name, Ogre::String t_entity_name);
     virtual void initComponent();
     void changeMaterial(std::string t_materialName);
 
@@ -35,6 +35,7 @@ struct MeshRenderer : public ecs::Component
     Ogre::Entity* m_ent_ogre;
     Ogre::SceneManager* m_scene_mngr;
     Ogre::SceneNode* m_scene_node;
+    Ogre::Vector3 m_scale_diff;
 
     std::string m_material_name;
     std::string m_entity_name;

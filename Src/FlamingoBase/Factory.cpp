@@ -12,12 +12,12 @@ ecs::Component* Factory::createComponent(ecs::GameObject* gO, const std::unorder
 
 void Factory::deleteComponents()
 {
-    for (ecs::Component* comp : compsCreated)
+    /*for (ecs::Component* comp : compsCreated)
     {
         if (comp != nullptr)
         {
             delete comp;
             comp = nullptr;
         }
-    }
+    }*/
 }

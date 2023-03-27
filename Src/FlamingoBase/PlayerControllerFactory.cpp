@@ -10,7 +10,7 @@ ecs::Component* PlayerControllerFactory::createComponent(ecs::GameObject* gO, co
         c->initValues(speed);
         c->initComponent();
 
-        compsCreated.push_back(c);
+        //compsCreated.push_back(c);
         return c;
        
     }

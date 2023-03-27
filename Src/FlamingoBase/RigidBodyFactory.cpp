@@ -6,14 +6,14 @@ ecs::Component* RigidBodyFactory::createComponent(ecs::GameObject* gO, const std
     try
     {
         float mass = std::stof(args.at("t_mass"));
-        float trigger = std::stof(args.at("t_trigger"));
-        float is_static = std::stof(args.at("t_static"));
+        bool trigger = std::stof(args.at("t_trigger"));
+        bool is_static = std::stof(args.at("t_static"));
 
         RigidBody* c = ecs::AddComponent<RigidBody>(gO);
         c->initValues(mass, trigger, is_static);
         c->initComponent();
 
-        compsCreated.push_back(c);
+        //compsCreated.push_back(c);
         return c;
        
     }
