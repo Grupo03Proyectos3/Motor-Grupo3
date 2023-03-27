@@ -13,3 +13,7 @@ cd ..
 cd .\CEGUI
 call BuildCEGUI.bat
 cd ..
+
+cd .\FMOD
+call BuildFMOD.bat
+cd ..
