@@ -36,7 +36,7 @@ void RenderSystem::recieve(const Message& t_m)
             mesh->getNode()->setPosition(Ogre::Vector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
             break;
         case MSG_TRANSFORM_ROTATE:
-            mesh->getNode()->setOrientation(Ogre::Quaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
+            mesh->getNode()->setOrientation(Ogre::Quaternion(t_m.quaternion.w, t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z));
             break;
         case MSG_TRANSFORM_SCALING:
             mesh->getNode()->setScale(Ogre::Vector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
@@ -106,6 +106,11 @@ void RenderSystem::initSystem()
                 auto t = m_mngr->getComponent<Transform>(game_object);
                 t->setPositionPerPhysics(rb->getPosition());
                 t->setRotationPerPhysics(rb->getRotation());
+
+                auto mr = m_mngr->getComponent<MeshRenderer>(game_object);
+                std::cout << "MR rotation: " << mr->getNode()->getOrientation().x << " " << mr->getNode()->getOrientation().y << " " << mr->getNode()->getOrientation().z << std::endl;
+            
+
             }
             auto animator = m_mngr->getComponent<Flamingo::Animator>(game_object);
 

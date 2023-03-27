@@ -132,16 +132,16 @@ void PhysicsSystem::update(float t_delta_time)
     // For each GameObject that has at least one Physics type component,
     // check for the components and update them
 
-    for (auto game_object : m_mngr->getEntities(m_group))
+    for (auto game_object : m_mngr->getEntities(ecs::GROUP_EXAMPLE))
     {
         if (auto rb = m_mngr->getComponent<RigidBody>(game_object))
         {
             // TODO actualise position with Transform values --> Check if its really necessary
             /* if (rb->isKinematic())
                  rb->setPosition(m_mngr->getComponent<Transform>(game_object)->getPosition());*/
-
+            
+            //std::cout << "RB rotation: " << rb->getRotation().getX() << " " << rb->getRotation().getX() << " " << rb->getRotation().getX() << std::endl;
             // rbPruebas = rb;
-            // std::cout << "RB position before: " << rb->getPosition().getX() << " " << rb->getPosition().getX() << " " << rb->getPosition().getX() << std::endl;
         }
     }
 
