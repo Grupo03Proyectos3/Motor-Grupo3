@@ -45,10 +45,10 @@ PhysicsSystem::~PhysicsSystem()
             delete obj;
         }
 
-  /*      for (auto rb : m_rigid_bodies)
-        {
-            delete rb;
-        }*/
+        /*      for (auto rb : m_rigid_bodies)
+              {
+                  delete rb;
+              }*/
 
         // delete collision shapes
         for (unsigned int j = 0; j < m_collision_shapes->size(); j++)
@@ -82,6 +82,12 @@ PhysicsSystem::~PhysicsSystem()
     {
         delete m_collision_config;
         m_collision_config = nullptr;
+    }
+
+    if (m_debug_drawer != nullptr)
+    {
+        delete m_debug_drawer;
+        m_debug_drawer = nullptr;
     }
 }
 
@@ -122,9 +128,9 @@ void PhysicsSystem::initSystem()
 
     auto render_sys = m_mngr->getSystem<RenderSystem>();
 
-    OgreDebugDrawer* debug_drawer = new OgreDebugDrawer(render_sys->getSceneManager()->getSceneManager(), render_sys->getOgreRoot());
-    debug_drawer->setDebugMode(btIDebugDraw::DBG_DrawWireframe | btIDebugDraw::DBG_DrawAabb);
-    m_world->setDebugDrawer(debug_drawer);
+    m_debug_drawer = new OgreDebugDrawer(render_sys->getSceneManager()->getSceneManager(), render_sys->getOgreRoot());
+    m_debug_drawer->setDebugMode(btIDebugDraw::DBG_DrawWireframe | btIDebugDraw::DBG_DrawAabb);
+    m_world->setDebugDrawer(m_debug_drawer);
 }
 
 void PhysicsSystem::update(float t_delta_time)
@@ -139,9 +145,9 @@ void PhysicsSystem::update(float t_delta_time)
             // TODO actualise position with Transform values --> Check if its really necessary
             /* if (rb->isKinematic())
                  rb->setPosition(m_mngr->getComponent<Transform>(game_object)->getPosition());*/
-            
-            //std::cout << "RB rotation: " << rb->getRotation().getX() << " " << rb->getRotation().getX() << " " << rb->getRotation().getX() << std::endl;
-            // rbPruebas = rb;
+
+            // std::cout << "RB rotation: " << rb->getRotation().getX() << " " << rb->getRotation().getX() << " " << rb->getRotation().getX() << std::endl;
+            //  rbPruebas = rb;
         }
     }
 
@@ -162,6 +168,11 @@ void PhysicsSystem::update(float t_delta_time)
 void PhysicsSystem::addRigidBody(btRigidBody* t_rb)
 {
     m_world->addRigidBody(t_rb);
+}
+
+void PhysicsSystem::removeRigidBody(btRigidBody* t_rb)
+{
+    m_world->removeRigidBody(t_rb);
 }
 
 btRigidBody* PhysicsSystem::createRigidBody(btTransform* t_transform, btCollisionShape* t_shape, const float& t_mass)

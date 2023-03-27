@@ -16,6 +16,8 @@ class btTransform;
 class btCollisionShape;
 class btGhostObject;
 
+class OgreDebugDrawer;
+
 template <typename T>
 class btAlignedObjectArray;
 
@@ -43,6 +45,16 @@ class PhysicsSystem : public ecs::System
     void addRigidBody(btRigidBody* t_rb);
 
     /**
+     * @brief Removes t_rb from bullet's physics world
+     *
+     * The parameter is removed from the physics world
+     *
+     * @param[in] t_rb btRigidBody* to be removed from the game
+     * @return
+     */
+    void removeRigidBody(btRigidBody* t_rb);
+
+    /**
      * @brief Create a Bullet RigidBody
      *
      * With the given parameters, it creates a Bullet RigidBody object
@@ -63,6 +75,8 @@ class PhysicsSystem : public ecs::System
     btBroadphaseInterface* m_broadphase = nullptr;
     // Guardamos las formas para eliminarlas después
     btAlignedObjectArray<btCollisionShape*>* m_collision_shapes;
+
+    OgreDebugDrawer* m_debug_drawer = nullptr;
 };
 
 #endif

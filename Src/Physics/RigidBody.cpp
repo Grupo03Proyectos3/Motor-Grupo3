@@ -18,15 +18,17 @@ RigidBody::RigidBody()
 
 RigidBody::~RigidBody()
 {
-    // delete m_rigid_body->getMotionState();
-    //// delete m_rigid_body->getCollisionShape(); // lo hace el sistema
-    //// m_rigid_body->setUserPointer(nullptr);
+    delete m_rigid_body->getMotionState();
+    // delete m_rigid_body->getCollisionShape(); // lo hace el sistema
+    m_rigid_body->setUserPointer(nullptr);
+
+    m_mngr->getSystem<PhysicsSystem>()->removeRigidBody(m_rigid_body);
 
     delete m_bullet_transform;
     m_bullet_transform = nullptr;
-    /*
-        delete m_rigid_body;
-        m_rigid_body = nullptr;*/
+
+    delete m_rigid_body;
+    m_rigid_body = nullptr;
 }
 
 void RigidBody::initValues(float t_mass, bool t_trigger, bool t_static)
