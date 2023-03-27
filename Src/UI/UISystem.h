@@ -27,8 +27,15 @@ namespace Flamingo{
         void eraseMainRoot();
 
         void loadScheme(const std::string& schemeFile);
+        void setFont(const std::string& fontFile);
+        CEGUI::Window* createWidget(const std::string& type,float xPerc, float yPerc, float xPix, float yPix, const std::string& name = " ");
+
+        // ELIMINAR
+        void pruebas();
+        // ELIMINAR
 
       private:
+       
         CEGUI::WindowManager* winMngr;
         CEGUI::OgreRenderer* renderer;
 
