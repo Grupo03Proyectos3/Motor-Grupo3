@@ -16,7 +16,6 @@
 #include "System.h"
 #include "ecs.h"
 #include "messages_defs.h"
-class PhysicsSystem;
 
 namespace ecs
 {

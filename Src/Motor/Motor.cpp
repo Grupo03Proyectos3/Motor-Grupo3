@@ -28,6 +28,9 @@
 // UTILS
 #include "FlamingoUtils/Timer.h"
 
+//AUDIO
+#include "Audio/AudioSystem.h"
+
 // EXTERNAL
 
 // C++
@@ -65,7 +68,11 @@ int main(int argc, char* argv[])
 
     RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
-    //Flamingo::UISystem* uiSystem = m_mngr->addSystem<Flamingo::UISystem>();
+    AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
+
+    audio_sys->update(2);
+    audio_sys->createSound("Assets/Audio/dance.mp3", "piano", true);
+    audio_sys->setMusicVolume(0.2);
 
     //CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>(CEGUI::System::getSingleton().getResourceProvider());
    /* rp->setResourceGroupDirectory("Imagesets", "./UI/imagesets/");
@@ -183,13 +190,15 @@ int main(int argc, char* argv[])
         // m_controller->handleInput();
         render_sys->manipulateCamera();
         ihldr.refresh();
-        /*
+        
         if (ihldr.keyDownEvent())
         {
             if (ihldr.isKeyDown(SDLK_0))
-                std::cout << "prueba";
+            {
+                audio_sys->playAudio("piano");
+            }
         }
-        */
+        
 
         m_mngr->refresh();
         m_mngr->flushMessages();

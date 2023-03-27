@@ -28,13 +28,13 @@ void AudioSource::initValues(const char* songRoute, std::string songName, bool i
     FMOD_RESULT result;
     if (isMusic)
     {
-        //audioSystem->createSound(songRoute, FMOD_3D | FMOD_LOOP_NORMAL, nullptr, m_sound);
-        //audioSystem->addMusic(m_sound, songName);
+        audioSystem->createSound(songRoute, FMOD_3D | FMOD_LOOP_NORMAL, nullptr, &m_sound);
+        audioSystem->addMusic(m_sound, songName);
     }
     else
     {
-        //audioSystem->createSound(songRoute, FMOD_3D | FMOD_DEFAULT, nullptr, m_sound); 
-        //audioSystem->addSoundEffect(m_sound, songName);
+        audioSystem->createSound(songRoute, FMOD_3D | FMOD_DEFAULT, nullptr, &m_sound); 
+        audioSystem->addSoundEffect(m_sound, songName);
     }
     m_audioName = songName;
 

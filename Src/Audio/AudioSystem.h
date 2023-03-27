@@ -34,13 +34,16 @@ class AudioSystem : public ecs::System
     void initSystem() override;
     void update(float t_delta_time) override;
 
-    void createSound(const char* route, FMOD_MODE mode, FMOD_CREATESOUNDEXINFO* exinfo, FMOD::Sound* sound);
+    void createSound(const char* route, FMOD_MODE mode, FMOD_CREATESOUNDEXINFO* exinfo, FMOD::Sound** sound);
+    FMOD::Sound* createSound(const char* route, std::string name, bool isMusic);
     void addMusic(FMOD::Sound* sound, std::string soundName);
     void addSoundEffect(FMOD::Sound* sound, std::string soundName);
 
     void playAudio(std::string audioName);
     void setMusicVolume(float f);
     void setSoundEffectsVolume(float f);
+
+    int checkError(FMOD_RESULT result);
 
     protected:
     FMOD::System* m_system;
