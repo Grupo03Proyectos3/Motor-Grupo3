@@ -106,11 +106,7 @@ void RenderSystem::initSystem()
                 auto t = m_mngr->getComponent<Transform>(game_object);
                 t->setPositionPerPhysics(rb->getPosition());
                 t->setRotationPerPhysics(rb->getRotation());
-
-                auto mr = m_mngr->getComponent<MeshRenderer>(game_object);
-                std::cout << "MR rotation: " << mr->getNode()->getOrientation().x << " " << mr->getNode()->getOrientation().y << " " << mr->getNode()->getOrientation().z << std::endl;
-            
-
+                t->setRotationPerPhysics(rb->getRotation());
             }
             auto animator = m_mngr->getComponent<Flamingo::Animator>(game_object);
 
