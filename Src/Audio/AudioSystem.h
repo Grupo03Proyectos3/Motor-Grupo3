@@ -3,7 +3,8 @@
 #define __AUDIO_SYSTEM_H__
 
 #include "ECS/System.h"
-
+#include <unordered_map>
+#include <string>
 
 namespace FMOD
 {
@@ -11,11 +12,20 @@ namespace FMOD
     class System;
     class SoundGroup;
     class Channel;
-}
+    class mega;
+} // namespace FMOD
+struct FMOD_CREATESOUNDEXINFO;
+enum FMOD_RESULT;
+typedef unsigned int FMOD_MODE;
 namespace Flamingo
 {
+
     class AudioSystem : public ecs::System
     {
+        typedef std::unordered_map<std::string, FMOD::Sound*> SoundMap;
+        typedef std::unordered_map<std::string, FMOD::Sound*> MusicMap;
+        typedef std::unordered_map<std::string, FMOD::Channel*> ChannelMap;
+
       public:
         __SYSTEM_ID_DECL__(ecs::_sys_AUDIO)
 
@@ -25,6 +35,21 @@ namespace Flamingo
         void recieve(const Message&) override;
         void initSystem() override;
         void update(float t_delta_time) override;
+
+        FMOD::Sound createSound(const char* route, FMOD_MODE mode, FMOD_CREATESOUNDEXINFO* exinfo, FMOD::Sound* sound);
+        void addMusic(FMOD::Sound* sound, std::string soundName);
+        void addSoundEffect(FMOD::Sound* sound, std::string soundName);
+
+        void playAudio(std::string audioName);
+
+      protected:
+        FMOD::System* m_system;
+        FMOD::SoundGroup* m_musicGroup;
+        FMOD::SoundGroup* m_soundGroup;
+
+        SoundMap* m_soundMap;
+        MusicMap* m_musicMap;
+        ChannelMap* m_channelMap;
     };
 }
 

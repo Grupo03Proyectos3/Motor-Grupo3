@@ -11,7 +11,7 @@ namespace FMOD
 }
 namespace Flamingo
 {
-    class AudioSource : ecs::Component
+    class AudioSource : public ecs::Component
     {
       public:
         __SYSTEM_ID_DECL__(ecs::_cmp_AUDIO_SOURCE)

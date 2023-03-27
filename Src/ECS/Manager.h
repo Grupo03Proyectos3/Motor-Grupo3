@@ -6,7 +6,7 @@
 #include <cassert>
 #include <iostream>
 #include <vector>
-#include <OgreSceneNode.h>
+//#include <OgreSceneNode.h>
 #include <unordered_map>
 
 
