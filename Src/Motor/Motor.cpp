@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
 
     audio_sys->update(2);
     audio_sys->createSound("Assets/Audio/dance.mp3", "piano", true);
-    audio_sys->setMusicVolume(0.2);
+    audio_sys->setMusicVolume(0.05);
 
     //CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>(CEGUI::System::getSingleton().getResourceProvider());
    /* rp->setResourceGroupDirectory("Imagesets", "./UI/imagesets/");
@@ -195,6 +195,7 @@ int main(int argc, char* argv[])
         {
             if (ihldr.isKeyDown(SDLK_0))
             {
+                std::cout << "Musica\n";
                 audio_sys->playAudio("piano");
             }
         }

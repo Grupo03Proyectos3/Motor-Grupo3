@@ -40,9 +40,9 @@ void AudioSystem::initSystem()
     
     //Grupos, música y efectos
     checkError(m_system->createSoundGroup("soundGroup", &m_soundGroup));
-    m_soundGroup->setVolume(100);
+    m_soundGroup->setVolume(0.5);
     checkError(m_system->createSoundGroup("musicGroup", &m_musicGroup));
-    m_musicGroup->setVolume(100);
+    m_musicGroup->setVolume(0.5);
 }
     
 void AudioSystem::update(float t_delta_time)
@@ -132,7 +132,11 @@ void AudioSystem::playAudio(std::string audioName)
     auxChannel->setMode(FMOD_3D_LINEARROLLOFF);
     m_channelMap->emplace(audioName, auxChannel);
 }
-    
+
+/// <summary>
+/// Volumen de 0 a 1 donde 1 es el máximo.
+/// </summary>
+/// <param name="f"></param>
 void AudioSystem::setMusicVolume(float f)
 {
     m_musicGroup->setVolume(f);
