@@ -65,15 +65,15 @@ int main(int argc, char* argv[])
 
     RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
+    //Flamingo::UISystem* uiSystem = m_mngr->addSystem<Flamingo::UISystem>();
 
-    // Flamingo::UISystem* uiSystem = m_mngr->addSystem<Flamingo::UISystem>();
-    /* CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>(CEGUI::System::getSingleton().getResourceProvider());
-     rp->setResourceGroupDirectory("Imagesets", "./UI/imagesets/");
-     rp->setResourceGroupDirectory("Fonts", "./UI/fonts/");
-     rp->setResourceGroupDirectory("Schemes", "./UI/schemes/");
-     rp->setResourceGroupDirectory("LookNFeel", "UI/looknfeel/");
-     rp->setResourceGroupDirectory("Layouts", "UI/layouts/");
-     uiSystem->initUIResources();*/
+    //CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>(CEGUI::System::getSingleton().getResourceProvider());
+   /* rp->setResourceGroupDirectory("Imagesets", "./UI/imagesets/");
+    rp->setResourceGroupDirectory("Fonts", "./UI/fonts/");
+    rp->setResourceGroupDirectory("Schemes", "./UI/schemes/");
+    rp->setResourceGroupDirectory("LookNFeel", "UI/looknfeel/");
+    rp->setResourceGroupDirectory("Layouts", "UI/layouts/");
+    uiSystem->initUIResources();*/
 
     // LuaSystem* lua_system = m_mngr->addSystem<LuaSystem>();
     auto& ihldr = ih();
@@ -193,12 +193,11 @@ int main(int argc, char* argv[])
 
         m_mngr->refresh();
         m_mngr->flushMessages();
-    }
-
+    }  
     render_sys->getWindow()->closeWindow();
     delete player_timer;
 
-    _CrtDumpMemoryLeaks();
+    //_CrtDumpMemoryLeaks();
     return 0;
 }
 

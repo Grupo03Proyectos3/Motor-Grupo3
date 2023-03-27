@@ -277,7 +277,6 @@ void RenderSystem::initSystem()
     RenderSystem::~RenderSystem()
     {
         m_window->destroyRTShaderSystem();
-
         delete m_scene_mngr;
         m_scene_mngr = nullptr;
 
