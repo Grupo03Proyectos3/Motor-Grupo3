@@ -16,6 +16,7 @@ class btCollisionObject;
 
 class SVector3;
 class SQuaternion;
+class FlamingoMotionState;
 
 struct RigidBody : public ecs::Component
 {
@@ -49,6 +50,7 @@ struct RigidBody : public ecs::Component
     btRigidBody* m_rigid_body = nullptr;       // rigidbody de Bullet
     btTransform* m_bullet_transform = nullptr; // transform de bullet
     btCollisionShape* m_shape = nullptr; 
+    FlamingoMotionState* m_state = nullptr;
 
     float m_mass = 1.0f;
     bool m_trigger = false;
@@ -56,7 +58,7 @@ struct RigidBody : public ecs::Component
 
     // la velocidad va en el btRigidBody
 
-    bool m_kinematic = true;
+    bool m_kinematic = false;
 };
 
 #endif

@@ -12,6 +12,7 @@
 #include "FlamingoBase/Transform.h"
 #include "Render/RenderSystem.h"
 #include "RigidBody.h"
+#include "FlamingoMotionState.h"
 
 PhysicsSystem::PhysicsSystem()
 {
@@ -38,9 +39,17 @@ PhysicsSystem::~PhysicsSystem()
         for (i = m_world->getNumCollisionObjects() - 1; i >= 0; i--)
         {
             btCollisionObject* obj = m_world->getCollisionObjectArray()[i];
+            btRigidBody* body = btRigidBody::upcast(obj);
+            if (body && body->getMotionState())
+                delete body->getMotionState();
             m_world->removeCollisionObject(obj);
             delete obj;
         }
+
+  /*      for (auto rb : m_rigid_bodies)
+        {
+            delete rb;
+        }*/
 
         // delete collision shapes
         for (unsigned int j = 0; j < m_collision_shapes->size(); j++)

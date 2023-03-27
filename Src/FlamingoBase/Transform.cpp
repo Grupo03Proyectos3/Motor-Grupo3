@@ -42,7 +42,7 @@ void Transform::setPosition(SVector3 t_pos)
     Message m;
     m.id = MSG_TRANSFORM_MOVE;
     m.entity_affected = m_ent;
-    //m.v = &m_position;
+    // m.v = &m_position;
     m.vector.x = m_position.getX();
     m.vector.y = m_position.getY();
     m.vector.z = m_position.getZ();
@@ -75,7 +75,7 @@ void Transform::setPositionPerPhysics(SVector3 t_pos)
     m.vector.z = m_position.getZ();
     m_mngr->send(m);
 
-     m_mngr->getSystem<RenderSystem>()->recieve(m);
+    m_mngr->getSystem<RenderSystem>()->recieve(m);
 }
 
 void Transform::setRotationPerPhysics(SQuaternion t_rotation)
@@ -87,7 +87,7 @@ void Transform::setRotationPerPhysics(SQuaternion t_rotation)
     m.quaternion.x = m_rotation.getX();
     m.quaternion.y = m_rotation.getY();
     m.quaternion.z = m_rotation.getZ();
-    m.quaternion.w = m.quaternion.z = m_rotation.getW();
+    m.quaternion.w = m_rotation.getW();
     // m.v = &m_scale;
     m_mngr->getSystem<RenderSystem>()->recieve(m);
 }
@@ -101,12 +101,12 @@ void Transform::setScale(SVector3 t_scale)
     m.vector.x = m_scale.getX();
     m.vector.y = m_scale.getY();
     m.vector.z = m_scale.getZ();
-    //m.v = &m_scale;
+    // m.v = &m_scale;
     m_mngr->send(m);
 }
 
-void Transform::translate(SVector3 distance){
-   
+void Transform::translate(SVector3 distance)
+{
     m_position += distance;
     Message m;
     m.id = MSG_TRANSFORM_MOVE;

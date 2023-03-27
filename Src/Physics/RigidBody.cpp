@@ -1,14 +1,14 @@
-#include "RigidBody.h"
+﻿#include "RigidBody.h"
+#include <BulletCollision/CollisionShapes/btBoxShape.h>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <LinearMath/btTransform.h>
-#include <BulletCollision/CollisionShapes/btBoxShape.h>
 
 #include "PhysicsSystem.h"
 
-#include "FlamingoBase/Transform.h"
 #include "../FlamingoUtils/SQuaternion.h"
 #include "../FlamingoUtils/SVector3.h"
 #include "../Render/MeshRenderer.h"
+#include "FlamingoBase/Transform.h"
 
 #include "Ogre.h"
 
@@ -18,46 +18,60 @@ RigidBody::RigidBody()
 
 RigidBody::~RigidBody()
 {
-    // THE SYSTEM DELETES EVERYTHING
+    // delete m_rigid_body->getMotionState();
+    //// delete m_rigid_body->getCollisionShape(); // lo hace el sistema
+    //// m_rigid_body->setUserPointer(nullptr);
+
+    delete m_bullet_transform;
+    m_bullet_transform = nullptr;
+    /*
+        delete m_rigid_body;
+        m_rigid_body = nullptr;*/
 }
 
 void RigidBody::initValues(float t_mass, bool t_trigger, bool t_static)
 {
-    m_mass = (t_mass);
     m_trigger = (t_trigger);
     m_static = (t_static);
+    if (t_static)
+        m_mass = 0.0f;
+    else
+        m_mass = (t_mass);
 }
 
 void RigidBody::initComponent()
 {
-    //// TODO inicializar transform como primer componente SIEMPRE
-    //auto transform = m_mngr->getComponent<Transform>(m_ent);
-
-    //// Get the mesh data from the Ogre scene node --> REVISAR
-    //Ogre::Entity* entity = (Ogre::Entity*)transform->getNode()->getAttachedObject(0);
-    //Ogre::MeshPtr mesh = entity->getMesh();
-    //const Ogre::AxisAlignedBox& meshBoundingBox = mesh->getBounds();
+    // TO DO a�adir try catch por si no tiene transform
 
     auto transform = m_mngr->getComponent<Transform>(m_ent);
-    //rigidbody debe ir despues de mesh renderer
-    const Ogre::AxisAlignedBox& meshBoundingBox = m_mngr->getComponent<MeshRenderer>(m_ent)->getBoundingBox();
 
-    // Calculate the dimensions of the box collider --> REVISAR
-    btVector3 halfExtents(meshBoundingBox.getSize().x * 0.5f, meshBoundingBox.getSize().y * 0.5f, meshBoundingBox.getSize().z * 0.5f);
-    halfExtents *= transform->getScale();
-
-    // Create a Bullet box shape using the calculated dimensions
-    m_shape = new btBoxShape(halfExtents);
+    if (auto mr = m_mngr->getComponent<MeshRenderer>(m_ent))
+    {
+        const Ogre::AxisAlignedBox& meshBoundingBox = mr->getBoundingBox();
+        // Calculate the dimensions of the box collider
+        btVector3 halfExtents(meshBoundingBox.getSize().x * 0.5f, meshBoundingBox.getSize().y * 0.5f, meshBoundingBox.getSize().z * 0.5f);
+        halfExtents *= transform->getScale();
+        m_shape = new btBoxShape(halfExtents);
+    }
+    else // TODO a�adir else: collider a un tama�o por defecto
+    {
+        m_shape = new btBoxShape({1.0f, 1.0f, 1.0f});
+    }
 
     m_bullet_transform = new btTransform(transform->getRotation(), transform->getPosition());
+
     // TODO meter diferentes formas para el RB
- //   m_shape = new btBoxShape(transform->getScale());
+    //   m_shape = new btBoxShape(transform->getScale());
+
+    //   m_state = new FlamingoMotionState(*m_bullet_transform, transform);
+
     m_rigid_body = m_mngr->getSystem<PhysicsSystem>()->createRigidBody(m_bullet_transform, m_shape, m_mass);
 
     if (m_static)
     {
         m_rigid_body->setCollisionFlags(btCollisionObject::CF_STATIC_OBJECT);
         m_rigid_body->setGravity(btVector3(0.0, 0.0, 0.0));
+        //    m_rigid_body->setActivationState(DISABLE_DEACTIVATION);
     }
 
     m_mngr->getSystem<PhysicsSystem>()->addRigidBody(m_rigid_body);

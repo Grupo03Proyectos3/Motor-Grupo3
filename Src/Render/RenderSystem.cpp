@@ -98,7 +98,7 @@ void RenderSystem::initSystem()
 
     void RenderSystem::update(float t_delta_time)
     {
-        for (auto game_object : m_mngr->getEntities(m_group))
+        for (auto game_object : m_mngr->getEntities(ecs::GROUP_EXAMPLE))
         {
             auto rb = m_mngr->getComponent<RigidBody>(game_object);
             if (rb && !rb->isKinematic())
