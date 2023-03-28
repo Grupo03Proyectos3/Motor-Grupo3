@@ -3,8 +3,8 @@
 #include <CEGUI/Window.h>
 #include <iostream>
 #include <OgreRenderWindow.h>
-
-
+#include <CEGUI/RendererModules/Ogre/ResourceProvider.h>
+#include <CEGUI/System.h>
 
 namespace Flamingo{
     UISystem::UISystem(){
@@ -19,11 +19,15 @@ namespace Flamingo{
 
     void UISystem::initSystem(){
         auto sys = m_mngr->getSystem<RenderSystem>();
-        // Seleccionamos el RenderTarget que usamos de ogre que usamos de Root de Renderizado
+        // Seleccionamos el RenderTarget que usamos de ogre que usamos de Root de Renderizado       
         renderer = &CEGUI::OgreRenderer::bootstrapSystem(*sys->getWindow()->getRenderWindow());
         renderer->setUsingShaders(true);
         guiContext = &CEGUI::System::getSingleton().createGUIContext(renderer->getDefaultRenderTarget());
         winMngr = CEGUI::WindowManager::getSingletonPtr();
+        renderer->setRenderingEnabled(true);
+
+        
+
         //initUIResources(); // HAY Q HACERLO AUTOMATICAMENTE COMO OGRE
         initRoot();
     }
@@ -45,12 +49,12 @@ namespace Flamingo{
 
     void UISystem::initUIResources(){
 
-        CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>(CEGUI::System::getSingleton().getResourceProvider());
+      /*  CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>(CEGUI::System::getSingleton().getResourceProvider()); 
         rp->setResourceGroupDirectory("Imagesets", "Exes/Assets/UI/imagesets/");
         rp->setResourceGroupDirectory("Fonts", "Exes/Assets/UI/fonts/");
         rp->setResourceGroupDirectory("Schemes", "Exes/Assets/UI/schemes/");
         rp->setResourceGroupDirectory("LookNFeel", "Exes/Assets/UI/looknfeel/");
-        rp->setResourceGroupDirectory("Layouts", "Exes/Assets/UI/layouts/");
+        rp->setResourceGroupDirectory("Layouts", "Exes/Assets/UI/layouts/");*/
 
         CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
         CEGUI::Font::setDefaultResourceGroup("Fonts");
