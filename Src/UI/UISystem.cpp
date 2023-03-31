@@ -12,6 +12,7 @@ namespace Flamingo{
 
     UISystem::~UISystem(){
         eraseContext();
+        //winMngr->destroyAllWindows();                     
     }
 
     void UISystem::recieve(const Message&){
@@ -25,11 +26,10 @@ namespace Flamingo{
         guiContext = &CEGUI::System::getSingleton().createGUIContext(renderer->getDefaultRenderTarget());
         winMngr = CEGUI::WindowManager::getSingletonPtr();
         renderer->setRenderingEnabled(true);
-
-        
-
-        //initUIResources(); // HAY Q HACERLO AUTOMATICAMENTE COMO OGRE
+       
+        initUIResources(); // HAY Q HACERLO AUTOMATICAMENTE COMO OGRE
         initRoot();
+        pruebas();
     }
 
     void UISystem::update(float t_delta_time){
@@ -44,18 +44,11 @@ namespace Flamingo{
         root->setUsingAutoRenderingSurface(true);
         guiContext->setRootWindow(root);
         root->activate();
-
+        //root->setAlwaysOnTop(true);
+        //root->setAlpha(0.0f);
     }
 
     void UISystem::initUIResources(){
-
-      /*  CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>(CEGUI::System::getSingleton().getResourceProvider()); 
-        rp->setResourceGroupDirectory("Imagesets", "Exes/Assets/UI/imagesets/");
-        rp->setResourceGroupDirectory("Fonts", "Exes/Assets/UI/fonts/");
-        rp->setResourceGroupDirectory("Schemes", "Exes/Assets/UI/schemes/");
-        rp->setResourceGroupDirectory("LookNFeel", "Exes/Assets/UI/looknfeel/");
-        rp->setResourceGroupDirectory("Layouts", "Exes/Assets/UI/layouts/");*/
-
         CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
         CEGUI::Font::setDefaultResourceGroup("Fonts");
         CEGUI::Scheme::setDefaultResourceGroup("Schemes");
@@ -65,9 +58,9 @@ namespace Flamingo{
 
     void UISystem::eraseContext(){
         renderer->setUsingShaders(false);
-        //eraseMainRoot();
-        //CEGUI::System::getSingleton().destroyGUIContext(*guiContext);
-        //renderer->destroySystem();
+        eraseMainRoot();
+        CEGUI::System::getSingleton().destroyGUIContext(*guiContext);
+        renderer->destroySystem();
     }
 
     void UISystem::eraseMainRoot(){
@@ -90,14 +83,16 @@ namespace Flamingo{
     CEGUI::Window* UISystem::createWidget(const std::string& type, float xPerc, float yPerc, float xPix, float yPix, const std::string& name){
         CEGUI::Window* newWindow = winMngr->createWindow(type, name);
         root->addChild(newWindow);
-        newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(xPerc, xPix), CEGUI::UDim(yPerc, yPix)));
-        newWindow->setSize(CEGUI::USize(CEGUI::UDim(xPerc, xPix), CEGUI::UDim(yPerc, yPix)));
+        newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5,0.5), CEGUI::UDim(0.5, 0.5)));
+        newWindow->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0.3), CEGUI::UDim(0.2, 0.5)));
         return newWindow;
     }
 
     void UISystem::pruebas(){
         loadScheme("TaharezLook.scheme");
         setFont("DejaVuSans-10");
-        createWidget("TaharezLook/Button", 0.5f, 0.5f, 0.1f, 0.05f);
+        auto x = createWidget("TaharezLook/Slider", 0.5f, 0.5f, 0.1f, 0.05f); 
+        x->setText("fdsfsdfssdf");       
+      
     }
 } // namespace Flamingo
