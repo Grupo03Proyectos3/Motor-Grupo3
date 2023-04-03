@@ -44,7 +44,7 @@
 #include <UI/UISystem.h>
 
 // DLLs
-//#include "FlamingoExport/FlamingoExport.h"
+#include "FlamingoExport/FlamingoExport.h"
 
 void loadScene(RenderSystem* t_render_sys)
 {
@@ -60,9 +60,9 @@ int main(int argc, char* argv[])
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     // carga implícita del motor en el main
-    //CFlamingoExport::Init();
-    //CFlamingoExport* miMotor = CFlamingoExport::Instance();
-    //miMotor->DoSomething();
+    CFlamingoExport::Init();
+    CFlamingoExport* miMotor = CFlamingoExport::Instance();
+    miMotor->DoSomething();
 
     Loader l;
     l.loadDirectories();

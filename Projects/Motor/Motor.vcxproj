@@ -28,6 +28,9 @@
     <ProjectReference Include="..\FlamingoBase\FlamingoBase.vcxproj">
       <Project>{362f5b87-0dc2-4748-9833-2186accbc13f}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\FlamingoExport\FlamingoExport.vcxproj">
+      <Project>{1b8237b9-e047-4608-a144-18c34d609cd6}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\FlamingoUtils\FlamingoUtils.vcxproj">
       <Project>{9b1a365d-e452-46c9-a29d-d0f41dd50afc}</Project>
     </ProjectReference>

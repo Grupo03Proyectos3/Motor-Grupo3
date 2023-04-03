@@ -10,7 +10,7 @@
 // FLAMINGOEXPORT_API int nFlamingoExport=0;
 //
 //// Ejemplo de funciÃ³n exportada.
-// FLAMINGOEXPORT_API int fnFlamingoExport(void)
+// FLAMINGOEXPORT_API int fnFlamingoExport(void) 
 //{
 //     return 0;
 // }
