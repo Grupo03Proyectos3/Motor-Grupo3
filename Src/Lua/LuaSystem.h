@@ -6,21 +6,26 @@
 
 class lua_State;
 
-class LuaSystem : public ecs::System
+namespace Flamingo
 {
-  public:
-    __SYSTEM_ID_DECL__(ecs::_sys_LUA)
+    class LuaSystem : public ecs::System
+    {
+      public:
+        __SYSTEM_ID_DECL__(ecs::_sys_LUA)
 
-    LuaSystem(){};
-    virtual ~LuaSystem(){};
+        LuaSystem(){};
+        virtual ~LuaSystem(){};
 
-	void initSystem() override;
-    void update(float t_delta_time) override{};
+        void initSystem() override;
+        void update(float t_delta_time) override{};
 
-    lua_State* getLuaState();
+        lua_State* getLuaState();
 
-  private:
-    lua_State* lua_state;
-};
+      private:
+        lua_State* lua_state;
 
+        void createSystemFuntions();
+        void createComponetsFuntions();
+    };
+}
 #endif
