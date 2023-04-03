@@ -39,13 +39,14 @@ namespace Flamingo{
     }
 
     void UISystem::initRoot(){
-        eraseMainRoot();
-        root = winMngr->createWindow("DefaultWindow", "Root"); // Ventana por defecto a modo de GameObject
+        eraseMainRoot();     
+        root = winMngr->createWindow("DefaultWindow", "Root");
+
         root->setUsingAutoRenderingSurface(true);
+
         guiContext->setRootWindow(root);
+
         root->activate();
-        //root->setAlwaysOnTop(true);
-        //root->setAlpha(0.0f);
     }
 
     void UISystem::initUIResources(){
@@ -83,6 +84,7 @@ namespace Flamingo{
     CEGUI::Window* UISystem::createWidget(const std::string& type, float xPerc, float yPerc, float xPix, float yPix, const std::string& name){
         CEGUI::Window* newWindow = winMngr->createWindow(type, name);
         root->addChild(newWindow);
+        newWindow->activate();
         newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5,0.5), CEGUI::UDim(0.5, 0.5)));
         newWindow->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0.3), CEGUI::UDim(0.2, 0.5)));
         return newWindow;
@@ -91,8 +93,8 @@ namespace Flamingo{
     void UISystem::pruebas(){
         loadScheme("TaharezLook.scheme");
         setFont("DejaVuSans-10");
-        auto x = createWidget("TaharezLook/Slider", 0.5f, 0.5f, 0.1f, 0.05f); 
-        x->setText("fdsfsdfssdf");       
+        auto x = createWidget("TaharezLook/Label", 0.5f, 0.5f, 20.0f, 5.0f); 
+        x->setText("ODIO CEGUI");    
       
     }
 } // namespace Flamingo
