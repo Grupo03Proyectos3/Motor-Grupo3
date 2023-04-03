@@ -5,6 +5,7 @@
 #include <OgreRenderWindow.h>
 #include <CEGUI/RendererModules/Ogre/ResourceProvider.h>
 #include <CEGUI/System.h>
+#include "UIElement.h"
 
 namespace Flamingo{
     UISystem::UISystem(){
@@ -29,13 +30,18 @@ namespace Flamingo{
        
         initUIResources(); // HAY Q HACERLO AUTOMATICAMENTE COMO OGRE
         initRoot();
-        pruebas();
+        //pruebas();
     }
 
     void UISystem::update(float t_delta_time){
         renderer->beginRendering();
         guiContext->draw();
         renderer->endRendering();
+
+     /*   for (auto game_object : m_mngr->getEntities(ecs::GROUP_UI)){
+            auto TR = m_mngr->getComponent<Transform>(game_object);
+            auto uielement = m_mngr->getComponent<Flamingo::UIElement>(game_object)
+        }*/
     }
 
     void UISystem::initRoot(){
@@ -81,7 +87,7 @@ namespace Flamingo{
         guiContext->setDefaultFont(fontFile);
     }
 
-    CEGUI::Window* UISystem::createWidget(const std::string& type, float xPerc, float yPerc, float xPix, float yPix, const std::string& name){
+    CEGUI::Window* UISystem::createWidget(const std::string& type, const std::string& name){
         CEGUI::Window* newWindow = winMngr->createWindow(type, name);
         root->addChild(newWindow);
         newWindow->activate();
@@ -93,7 +99,7 @@ namespace Flamingo{
     void UISystem::pruebas(){
         loadScheme("TaharezLook.scheme");
         setFont("DejaVuSans-10");
-        auto x = createWidget("TaharezLook/Label", 0.5f, 0.5f, 20.0f, 5.0f); 
+        auto x = createWidget("TaharezLook/Label"); 
         x->setText("ODIO CEGUI");    
       
     }

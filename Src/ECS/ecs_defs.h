@@ -14,15 +14,17 @@
         _cmp_PLAYER_CONTROLLER, \
         _cmp_ANIMATOR,          \
         _cpm_PARTICLE_SYSTEM,   \
-        _cmp_AUDIO_SOURCE
+        _cmp_AUDIO_SOURCE,      \
+        _cmp_UIELEMENT
 
 // Lista de grupos
 //
 #define GROUPS_LIST   \
     GROUP_EXAMPLE,    \
         GROUP_RENDER, \
-        GROUP_PHYSICS, \
-        GROUP_AUDIO
+        GROUP_PHYSICS,\
+        GROUP_AUDIO,  \
+        GROUP_UI     
 
 // Lista de Handlers
 //

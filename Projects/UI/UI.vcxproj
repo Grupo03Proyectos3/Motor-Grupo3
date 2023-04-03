@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\UI\UIElement.cpp" />
     <ClCompile Include="..\..\Src\UI\UISystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\UI\UIElement.h" />
     <ClInclude Include="..\..\Src\UI\UISystem.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
