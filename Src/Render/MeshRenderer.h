@@ -16,8 +16,8 @@ struct MeshRenderer : public ecs::Component
     virtual ~MeshRenderer();
     virtual void initValues(Ogre::SceneNode* t_node, Ogre::SceneManager* t_sceneMgr, Ogre::Vector3 scaleNode, Ogre::String t_model_name, Ogre::String t_entity_name);
     virtual void initComponent();
-    void changeMaterial(std::string t_materialName);
 
+    void changeMaterial(std::string t_materialName);
     void onDisable();
     void onEnable();
     void setRenderingDistance(float t_d);
