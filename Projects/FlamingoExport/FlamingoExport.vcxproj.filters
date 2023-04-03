@@ -15,36 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\Physics\PhysicsSystem.cpp">
+    <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Src\FlamingoExport\dllmain.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Physics\RigidBody.cpp">
+    <ClCompile Include="..\..\Src\FlamingoExport\FlamingoExport.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Physics\PlayerController.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Physics\DebugDrawer.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Physics\FlamingoMotionState.cpp">
+    <ClCompile Include="..\..\Src\FlamingoExport\pch.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\Physics\PhysicsSystem.h">
+    <ClInclude Include="..\..\Src\FlamingoExport\FlamingoExport.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Physics\RigidBody.h">
+    <ClInclude Include="..\..\Src\FlamingoExport\framework.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Physics\PlayerController.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Physics\DebugDrawer.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Physics\FlamingoMotionState.h">
+    <ClInclude Include="..\..\Src\FlamingoExport\pch.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
