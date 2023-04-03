@@ -9,9 +9,10 @@ namespace Flamingo{
         SceneManager(Ogre::String t_Name);
         ~SceneManager();
         void init(Ogre::Root* t_root);
+
         Scene* createScene(Ogre::String t_SceneName,bool setActive=false);
-        void addScene(Scene* t_Scene);
         void delScene(Ogre::String t_SceneName);
+
         void setSceneActive(Ogre::String t_SceneName);
         Scene* getSceneActive();
 
@@ -24,6 +25,8 @@ namespace Flamingo{
         std::unordered_map<Ogre::String, Scene*> m_scenes;
         Ogre::String mNameSceneActive = "";
         Ogre::String mName;
+
+        void addScene(Scene* t_Scene);
     };
 } // namespace OgreScene
 #endif

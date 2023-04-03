@@ -21,6 +21,8 @@ class LuaSystem : public ecs::System
 
   private:
     lua_State* lua_state;
+
+    void createFuntions();
 };
 
 #endif

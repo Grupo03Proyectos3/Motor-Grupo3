@@ -22,14 +22,6 @@ class RenderSystem : public ecs::System
     void initSystem() override;
     void update(float t_delta_time) override;
 
-    void createRoot();
-    void setUp();
-    void locateResources();
-    void loadResources();
-    void bringResources(Ogre::String& sec_name, Ogre::String& type_name, Ogre::String& arch_name);
-
-    bool config();
-
     inline Flamingo::Window* getWindow() { return m_window; }
     inline Ogre::Root* getOgreRoot() { return m_root; }
     inline Flamingo::SceneManager* getSceneManager() { return m_scene_mngr; }
@@ -46,6 +38,13 @@ class RenderSystem : public ecs::System
     Flamingo::SceneManager* m_scene_mngr = nullptr;
     Ogre::String m_app_name;    // Nombre de la app
     Camera* m_camera = nullptr; // cámara
+
+    void createRoot();
+    void setUp();
+    void loadResources();
+    void locateResources();
+    void bringResources(Ogre::String& sec_name, Ogre::String& type_name, Ogre::String& arch_name);
+    bool config();
 };
 
 #endif
