@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
     audio_sys->createSound("Assets/Audio/dance.mp3", "piano", true);
     audio_sys->setMusicVolume(0.05);   
 
-    // LuaSystem* lua_system = m_mngr->addSystem<LuaSystem>();
+    Flamingo::LuaSystem* lua_system = m_mngr->addSystem<Flamingo::LuaSystem>();
     auto& ihldr = ih();
 
     Flamingo::Timer* player_timer = new Flamingo::Timer();

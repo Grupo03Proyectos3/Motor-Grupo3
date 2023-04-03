@@ -118,7 +118,7 @@ void Flamingo::LuaSystem::createComponetsFuntions()
 
     //MeshRenderer
     luabridge::getGlobalNamespace(lua_state)
-        .beginClass<MeshRenderer>("Camera")
+        .beginClass<MeshRenderer>("MeshRenderer")
         .addFunction("setMaterial", (&MeshRenderer::changeMaterial))
         .addFunction("onEnable", (&MeshRenderer::onEnable))
         .addFunction("onDisable", (&MeshRenderer::onDisable))
