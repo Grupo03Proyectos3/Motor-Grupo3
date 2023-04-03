@@ -26,6 +26,11 @@ extern "C"
 #include "FlamingoBase/SceneManager.h"
 #include "FlamingoBase/Transform.h"
 
+Flamingo::LuaSystem::~LuaSystem()
+{
+    lua_close(lua_state);
+}
+
 void Flamingo::LuaSystem::initSystem()
 {
     // crear un Lua state
@@ -35,12 +40,27 @@ void Flamingo::LuaSystem::initSystem()
     // guardarme en Lua las funciones internas de Flamingo
     createSystemFuntions();
     createComponetsFuntions();
-    // LuaSystem::getInstance()->readLuaScript("engineFunctions");
+    //readScript("engineFunctions");
 }
 
 lua_State* Flamingo::LuaSystem::getLuaState()
 {
     return lua_state;
+}
+
+void Flamingo::LuaSystem::readScript(const std::string& t_name)
+{
+    std::string path = PATH_PREFIX + t_name + FILE_EXTENSION;
+    //Cargar el script de lua
+    int fd = luaL_dofile(lua_state, path.c_str());
+    //Comprobar si ha fallado
+    if (fd == 0)
+    {
+        return;
+    }
+    std::cerr << "[LUA ERROR] " << lua_tostring(lua_state, -1) << std::endl;
+    // remove error message from Lua state
+    lua_pop(lua_state, 1);
 }
 
 void Flamingo::LuaSystem::createSystemFuntions()
