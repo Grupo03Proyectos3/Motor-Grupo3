@@ -18,10 +18,13 @@ extern "C"
 #include "Render/Camera.h"
 #include "Render/Light.h"
 #include "Render/MeshRenderer.h"
+#include "Render/Animator.h"
 //PHYSICS
 #include "Physics/PhysicsSystem.h"
+#include "Physics/RigidBody.h"
 //BASE
 #include "FlamingoBase/SceneManager.h"
+#include "FlamingoBase/Transform.h"
 
 void Flamingo::LuaSystem::initSystem()
 {
@@ -95,7 +98,6 @@ void Flamingo::LuaSystem::createComponetsFuntions()
         .addFunction("setPolygonMode", (&Camera::setPolygonMode))
         .addFunction("setAutoAspectRatio", (&Camera::setAutoAspectRatio))
         .endClass();
-
     //Light
     luabridge::getGlobalNamespace(lua_state)
         .beginClass<Light>("Light")
@@ -115,7 +117,6 @@ void Flamingo::LuaSystem::createComponetsFuntions()
         .addFunction("setSpotlightNearClipDistance", (&Light::setSpotlightNearClipDistance))
         .addFunction("setSpotlightRange", (&Light::setSpotlightRange))
         .endClass();
-
     //MeshRenderer
     luabridge::getGlobalNamespace(lua_state)
         .beginClass<MeshRenderer>("MeshRenderer")
@@ -124,5 +125,46 @@ void Flamingo::LuaSystem::createComponetsFuntions()
         .addFunction("onDisable", (&MeshRenderer::onDisable))
         .addFunction("attachObjectToBone", (&MeshRenderer::attachObjectToBone))
         //.addFunction("detachObjectFromBone", (&MeshRenderer::detachObjectFromBone))
+        .endClass();
+    //Animator
+    luabridge::getGlobalNamespace(lua_state)
+        .beginClass<Animator>("Animator")
+        .addFunction("createAnimation", (&Animator::createAnimation))
+        .addFunction("setAnimation", (&Animator::setAnimation))
+        .addFunction("createFrame", (&Animator::setFrameAnimation))
+        .endClass();
+
+    //PHYSICS
+    //
+    //RigidBody
+    luabridge::getGlobalNamespace(lua_state)
+        .beginClass<RigidBody>("RigidBody")
+        .addFunction("getAngularVelocity", (&RigidBody::getAngularVelocity))
+        .addFunction("setAnimation", (&RigidBody::getLinearVelocity))
+        .addFunction("getLinearVelocity", (&RigidBody::getMass))
+        .addFunction("isKinematic", (&RigidBody::isKinematic))
+        .addFunction("isStatic", (&RigidBody::isStatic))
+        .addFunction("isTrigger", (&RigidBody::isTrigger))
+        .addFunction("setAngularVelocity", (&RigidBody::setAngularVelocity))
+        .addFunction("setKinematic", (&RigidBody::setKinematic))
+        .addFunction("setStatic", (&RigidBody::setStatic))
+        .addFunction("setTrigger", (&RigidBody::setTrigger))
+        .addFunction("setLinearVelocity", (&RigidBody::setLinearVelocity))
+        .addFunction("setMass", (&RigidBody::setMass))
+        .endClass();
+
+    //BASE
+    //
+    //Transform
+    luabridge::getGlobalNamespace(lua_state)
+        .beginClass<Transform>("Transform")
+        .addFunction("getPosition", (&Transform::getPosition))
+        .addFunction("getRotation", (&Transform::getRotation))
+        .addFunction("getScale", (&Transform::getScale))
+        .addFunction("setPosition", (&Transform::setPosition))
+        .addFunction("setPositionPerPhysics", (&Transform::setPositionPerPhysics))
+        .addFunction("setRotation", (&Transform::setRotation))
+        .addFunction("setRotationPerPhysics", (&Transform::setRotationPerPhysics))
+        .addFunction("setScale", (&Transform::setScale))
         .endClass();
 }

@@ -72,7 +72,7 @@ namespace Flamingo
         kf->setScale(t_scale);
     }
 
-    void Animator::AllAnimations(bool t_active)
+    void Animator::allAnimations(bool t_active)
     {
         m_num_animations_active = t_active == true ? m_animations.size() : 0;
         for (auto it = m_animations.begin(); it != m_animations.end(); it++)

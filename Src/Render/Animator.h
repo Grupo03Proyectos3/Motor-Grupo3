@@ -24,7 +24,7 @@ namespace Flamingo
                                SVector3 t_translate, SQuaternion t_rotacion, SVector3 t_scale);
 
         void setAnimation(Ogre::String t_name, bool t_active, bool t_loop = false);
-        void AllAnimations(bool t_active);
+        void allAnimations(bool t_active);
 
         int getAnimationsActive() { return m_num_animations_active; };
 
