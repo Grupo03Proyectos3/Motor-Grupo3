@@ -1,5 +1,6 @@
 #include "InputHandler.h"
-
+#include "Manager.h"
+#include <UI/UISystem.h>
 
 
 InputHandler::~InputHandler()
@@ -166,7 +167,8 @@ void InputHandler::handleWindowEvent(const SDL_Event& t_event)
             m_is_close_window = true;
             break;
         case SDL_WINDOWEVENT_RESIZED:
-            m_is_resized_window = true;       
+            m_is_resized_window = true;
+            sendMessageWindowResized();     
         default:
             break;
     }
@@ -175,4 +177,11 @@ void InputHandler::handleWindowEvent(const SDL_Event& t_event)
 InputHandler& ih()
 {
     return *InputHandler::instance();
+}
+void InputHandler::sendMessageWindowResized()
+{
+    Message m;
+    m.id = MSG_WINDOW_RESIZED;
+    m.entity_affected = nullptr;
+    ecs::Manager::instance()->send(m);
 }

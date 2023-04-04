@@ -25,6 +25,7 @@ RenderSystem::RenderSystem(Ogre::String& t_app_name)
 
 void RenderSystem::recieve(const Message& t_m)
 {
+    if (t_m.entity_affected == nullptr) return;
     auto mesh = m_mngr->getComponent<MeshRenderer>(t_m.entity_affected);
 
     if (mesh == NULL)

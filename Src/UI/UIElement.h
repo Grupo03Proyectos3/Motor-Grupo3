@@ -9,16 +9,17 @@
 #include "FlamingoBase/Transform.h"
 namespace Flamingo{
     class SVector2;
+    class UISystem;
 }
 
 namespace Flamingo{
     /*
     * ES NECESARIO PARA EL CORRECTO FUNCIONAMIENTO DE ESTE COMPONENTE Q EL GAMEOBJECT QUE LO CONTIENE ESTA ESTE EN EL GRUPO DE ENTIDADES DE UI
     */
-    class UIElement : ecs::Component{
+    struct UIElement : ecs::Component{
         public:
         __SYSTEM_ID_DECL__(ecs::_cmp_UIELEMENT)
-        UIElement(const std::string& type, const std::string& name);
+        UIElement();
         virtual ~UIElement();
         void initComponent() override;
         void setPosition();
@@ -31,16 +32,14 @@ namespace Flamingo{
         SVector2 getPivotCenter();
         void addChild(CEGUI::Window* windowChild);
         CEGUI::Window* getChild(const std::string& childName);
-        
+        void setElementWidget(const std::string& widget,const std::string& name);
 
         protected:
             CEGUI::Window* getWindowElement();
             void setElement(CEGUI::Window* element);
             CEGUI::Window* m_element;
             Transform* m_transform;
-        private:
-             std::string type;
-             std::string name;
+            UISystem* m_uiSys;       
     };
 } // namespace Flamingo
 #endif __UIELEMENT_H__

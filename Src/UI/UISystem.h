@@ -29,7 +29,7 @@ namespace Flamingo{
         void loadScheme(const std::string& schemeFile);
         void setFont(const std::string& fontFile);
         CEGUI::Window* createWidget(const std::string& type, const std::string& name = " ");
-
+        void chageScreenSize(int widht,int height);
         // ELIMINAR
         void pruebas();
         // ELIMINAR

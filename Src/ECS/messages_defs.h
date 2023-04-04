@@ -14,7 +14,8 @@ enum msgId : msgId_type
 {
     MSG_TRANSFORM_MOVE,
     MSG_TRANSFORM_ROTATE,
-    MSG_TRANSFORM_SCALING
+    MSG_TRANSFORM_SCALING,
+    MSG_WINDOW_RESIZED
 };
 
 struct Message

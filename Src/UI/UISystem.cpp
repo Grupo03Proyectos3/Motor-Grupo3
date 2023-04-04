@@ -12,11 +12,17 @@ namespace Flamingo{
     }
 
     UISystem::~UISystem(){
-        eraseContext();
-        //winMngr->destroyAllWindows();                     
+        winMngr->destroyAllWindows();  
     }
 
-    void UISystem::recieve(const Message&){
+    void UISystem::recieve(const Message& m){
+        switch (m.id)
+        {
+            case MSG_WINDOW_RESIZED:
+                chageScreenSize(m_mngr->getSystem<RenderSystem>()->getWindow()->getRenderWindow()->getWidth(), m_mngr->getSystem<RenderSystem>()->getWindow()->getRenderWindow()->getHeight());
+            default:
+                break;
+        }
     }
 
     void UISystem::initSystem(){
@@ -96,11 +102,13 @@ namespace Flamingo{
         return newWindow;
     }
 
+    void UISystem::chageScreenSize(int width, int height){
+        renderer->setDisplaySize(CEGUI::Size<float>(width, height));
+        CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Size<float>(width, height));        
+    }
+
     void UISystem::pruebas(){
         loadScheme("TaharezLook.scheme");
-        setFont("DejaVuSans-10");
-        auto x = createWidget("TaharezLook/Label"); 
-        x->setText("ODIO CEGUI");    
-      
+        setFont("DejaVuSans-10");      
     }
 } // namespace Flamingo

@@ -48,8 +48,11 @@ HMODULE hinstLib = LoadLibrary(TEXT("EldersbaneExport"));
 // Carga de mapas
 #include "FlamingoBase/MapReader.h"
 #include "ResourcesLoader/Loader.h"
+
+//UI
 #include <CEGUI/CEGUI.h>
 #include <UI/UISystem.h>
+#include <UI/UIElement.h>
 
 typedef bool(__cdecl* GameEntryPoint)(void);
 
@@ -210,6 +213,14 @@ int main(int argc, char* argv[])
 
     //   Flamingo::ParticleSystem* pSys = ecs::AddComponent<Flamingo::ParticleSystem>(sinbad_go, scene_active->getSceneManger(), scene_active->getSceneRoot()->createChildSceneNode());
 
+    ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
+    auto y = ecs::AddComponent<Transform>(UI);
+    y->initValues();
+    y->setPosition({75, 75, 0});
+   /* auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
+    x->setElementWidget("TaharezLook/Label", "COSO");      
+    x->setText("ODIO CEGUI");*/   
+
     while (game_playing && !render_sys->getWindow()->isWindowClosed())
     {
         // Delta time en milisegundos
@@ -241,7 +252,8 @@ int main(int argc, char* argv[])
 
         m_mngr->refresh();
         m_mngr->flushMessages();
-    }  
+    }
+    ui_sys->eraseContext();
     render_sys->getWindow()->closeWindow();
     delete player_timer;
 

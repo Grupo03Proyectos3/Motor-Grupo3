@@ -93,6 +93,8 @@ PhysicsSystem::~PhysicsSystem()
 
 void PhysicsSystem::recieve(const Message& t_m)
 {
+    if (t_m.entity_affected == nullptr)return;
+
     auto rb = m_mngr->getComponent<RigidBody>(t_m.entity_affected);
 
     if (rb == NULL)

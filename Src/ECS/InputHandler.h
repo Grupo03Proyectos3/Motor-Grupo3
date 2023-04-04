@@ -75,6 +75,8 @@ class InputHandler : public SingletonECS<InputHandler>
 
     void handleWindowEvent(const SDL_Event& t_event);
 
+    void sendMessageWindowResized();
+
     bool m_is_close_window;
     bool m_is_resized_window;
     bool m_is_key_up;
