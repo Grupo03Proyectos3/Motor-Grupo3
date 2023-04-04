@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
     RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
     PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
     AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
-    Flamingo::UISystem* ui_sys = m_mngr->addSystem<Flamingo::UISystem>();
+    //Flamingo::UISystem* ui_sys = m_mngr->addSystem<Flamingo::UISystem>();
     audio_sys->update(2);
     audio_sys->createSound("Assets/Audio/dance.mp3", "piano", true);
     audio_sys->setMusicVolume(0.05);   
@@ -180,10 +180,17 @@ int main(int argc, char* argv[])
 
     ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
     auto m_camera = ecs::AddComponent<Camera>(cam_go);
+    lua_system->addCameraToLua(m_camera, "cam1"); //Añado la referenacia a LUA
     m_camera->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
     m_camera->initComponent();
     m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3f, 0.2f, 0.6f));
-    // m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
+    //Ogre::ColourValue color = Ogre::ColourValue(0.0, 0.0, 0.0);
+    //lua_system->pushColorToLua(color, "color");
+    //lua_system->callLuaFunction("changeVPcolor");
+    bool autoradio = true;
+    lua_system->pushBool(autoradio, "autoradio");
+    lua_system->callLuaFunction("autoAspectRatio");
+
     m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
     m_camera->setNearClipDistance(1);
     m_camera->setFarClipDistance(10000);
@@ -213,12 +220,10 @@ int main(int argc, char* argv[])
         // leer entrada
 
         physics_sys->update(dt);
-        ui_sys->update(dt);
+        //ui_sys->update(dt);
         render_sys->update(dt);
        
-        
-        
-       
+      
        
         // m_controller->handleInput();
         render_sys->manipulateCamera();

@@ -15,7 +15,6 @@ extern "C"
 //RENDER
 #include "Render/RenderSystem.h"
 #include "Render/ParticleSystem.h"
-#include "Render/Camera.h"
 #include "Render/Light.h"
 #include "Render/MeshRenderer.h"
 #include "Render/Animator.h"
@@ -40,7 +39,7 @@ void Flamingo::LuaSystem::initSystem()
     // guardarme en Lua las funciones internas de Flamingo
     createSystemFuntions();
     createComponetsFuntions();
-    //readScript("engineFunctions");
+    readScript("prueba");
 }
 
 lua_State* Flamingo::LuaSystem::getLuaState()
@@ -63,8 +62,51 @@ void Flamingo::LuaSystem::readScript(const std::string& t_name)
     lua_pop(lua_state, 1);
 }
 
+void Flamingo::LuaSystem::callLuaFunction(std::string t_name)
+{
+    luabridge::LuaRef fun = /*getFromLua(t_name)*/ luabridge::getGlobal(lua_state, t_name.c_str());
+    fun();
+}
+
+void Flamingo::LuaSystem::pushBool(bool var, std::string t_name)
+{
+    lua_pushboolean(lua_state, (int)var);
+    lua_setglobal(lua_state, t_name.c_str());
+}
+
+void Flamingo::LuaSystem::pushColorToLua(Ogre::ColourValue t_color_param, std::string t_var_name)
+{
+    // Uso de la función push() de LuaBridge para empujar una instancia de la clase a Lua
+    t_color my_color(t_color_param.r, t_color_param.g, t_color_param.b);
+    luabridge::push(lua_state, my_color);
+    lua_setglobal(lua_state, t_var_name.c_str());
+}
+
+void Flamingo::LuaSystem::addCameraToLua(Camera* t_cam, std::string t_var_name)
+{
+    luabridge::push(lua_state, t_cam);
+    lua_setglobal(lua_state, t_var_name.c_str());
+}
+
+//template <class... Args>
+//void Flamingo::LuaSystem::callLuaFunction(std::string name, Args&&... args)
+//{
+//    luabridge::LuaRef s = getFromLua(name);
+//    s(args...);
+//}
+
 void Flamingo::LuaSystem::createSystemFuntions()
 {
+    luabridge::getGlobalNamespace(lua_state)
+        .beginClass<t_color>("t_color")
+        .addConstructor<void (*)(float, float, float)>()
+        .addData("r", &t_color::r)
+        .addData("g", &t_color::g)
+        .addData("b", &t_color::b)
+        .endClass();
+
+   
+
     //SceneManager
     luabridge::getGlobalNamespace(lua_state)
         .beginClass<Flamingo::SceneManager>("SceneManager")
@@ -110,7 +152,7 @@ void Flamingo::LuaSystem::createComponetsFuntions()
         .beginClass<Camera>("Camera") //Aunque sea un struct en lua se pone como clase (beginClass), esta en el manual de luabridge
         .addFunction("lookAt", (&Camera::lookAt))
         .addFunction("setFarClipDistance", (&Camera::setFarClipDistance))
-        .addFunction("setVPBackgroundColour", (&Camera::setViewPortBackgroundColour))
+        .addFunction("setViewPortBackgroundColour", (&Camera::setViewPortBackgroundColour))
         .addFunction("setNearClipDistance", (&Camera::setNearClipDistance))
         .addFunction("pith", (&Camera::pitch))
         .addFunction("roll", (&Camera::roll))
@@ -187,4 +229,9 @@ void Flamingo::LuaSystem::createComponetsFuntions()
         .addFunction("setRotationPerPhysics", (&Transform::setRotationPerPhysics))
         .addFunction("setScale", (&Transform::setScale))
         .endClass();
+}
+
+luabridge::LuaRef Flamingo::LuaSystem::getFromLua(std::string t_name)
+{
+    return luabridge::getGlobal(lua_state, t_name.c_str());
 }
