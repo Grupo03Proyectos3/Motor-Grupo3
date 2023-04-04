@@ -1,3 +1,11 @@
+#include <Windows.h>
+
+#ifdef _DEBUG
+HMODULE hinstLib = LoadLibrary(TEXT("EldersbaneExport_d"));
+#else
+HMODULE hinstLib = LoadLibrary(TEXT("EldersbaneExport"));
+#endif
+
 #include <crtdbg.h>
 
 // ENTITY COMPONENT SYSTEM
@@ -43,8 +51,7 @@
 #include <CEGUI/CEGUI.h>
 #include <UI/UISystem.h>
 
-// DLLs
-#include "FlamingoExport/FlamingoExport.h"
+typedef bool(__cdecl* GameEntryPoint)(void);
 
 void loadScene(RenderSystem* t_render_sys)
 {
@@ -59,10 +66,31 @@ int main(int argc, char* argv[])
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    // carga implícita del motor en el main
-    CFlamingoExport::Init();
-    CFlamingoExport* miMotor = CFlamingoExport::Instance();
-    miMotor->DoSomething();
+    //// carga implícita del motor en el main -> se hace en el juego
+    //CFlamingoExport::Init();
+    //CFlamingoExport* miMotor = CFlamingoExport::Instance();
+    //miMotor->DoSomething();
+
+    // Carga del juego 
+    if (hinstLib != NULL)
+    {
+        std::cout << "Libreria cargada\n";
+        
+        // Ejecución de una función
+        GameEntryPoint entryPoint;
+        entryPoint = (GameEntryPoint)GetProcAddress(hinstLib, "InitJuego");
+        if (entryPoint != nullptr)
+            entryPoint();
+        else
+            std::cout << "No he encontrado InitJuego\n";
+
+        FreeLibrary(hinstLib); // OJO! Si cargo una DLL DEBO LIBERARLA -> debe hacerse al cerrar el juego
+    }
+    else
+    {
+        std::cout << "No está la DLL DllJuego\n";
+    }
+
 
     Loader l;
     l.loadDirectories();
