@@ -53,15 +53,6 @@
 
 typedef bool(__cdecl* GameEntryPoint)(void);
 
-//void loadScene(RenderSystem* t_render_sys)
-//{
-//    MapReader* map_reader = new MapReader(t_render_sys);
-//
-//    map_reader->readMap("Assets/Maps/mapPrueba.json");
-//
-//    delete map_reader; // TO DO
-//}
-
 int main(int argc, char* argv[])
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -77,10 +68,11 @@ HMODULE hinstLib = LoadLibrary(TEXT("EldersbaneExport"));
     // miMotor->DoSomething();
 
 
-    // Carga del juego
+    // PARA TRABAJAR CON EL JUEGO
+  
     //if (hinstLib != NULL)
     //{
-    //    FlamingoBase* fBase = new FlamingoBase();
+    //    Flamingo::FlamingoBase* fBase = new Flamingo::FlamingoBase();
     //    std::cout << "Libreria cargada\n";
 
     //    // Ejecución de una función
@@ -94,17 +86,19 @@ HMODULE hinstLib = LoadLibrary(TEXT("EldersbaneExport"));
     //            fBase->FlamingoLoop();
     //            fBase->FlamingoExit();
     //        }
-    //    else
-    //        std::cout << "No he encontrado InitJuego\n";
+    //        else
+    //            std::cout << "No he encontrado InitJuego\n";
 
-    //    delete fBase;
-    //    FreeLibrary(hinstLib); // OJO! Si cargo una DLL DEBO LIBERARLA -> debe hacerse al cerrar el juego
+    //        delete fBase;
+    //        FreeLibrary(hinstLib); // OJO! Si cargo una DLL DEBO LIBERARLA -> debe hacerse al cerrar el juego
+    //    }
     //}
     //else
     //{
-    //    std::cout << "No está la DLL DllJuego\n";
+    //    std::cout << "No se encuentra la DLL DllJuego\n";
     //}
 
+    //PARA TRABAJAR DESDE EL MOTOR
     Flamingo::FlamingoBase* fBase = new Flamingo::FlamingoBase();
     if (fBase->FlamingoInit())
     {
@@ -115,32 +109,7 @@ HMODULE hinstLib = LoadLibrary(TEXT("EldersbaneExport"));
         return -1;
     delete fBase;
 
-    /*Loader l;
-    l.loadDirectories();*/
-
-    // Game-loop
-    //bool game_playing = true;
-
-    //Ogre::String s = "Motor";
-    //ecs::Manager* m_mngr = ecs::Manager::instance();
-    //m_mngr->init();
-
-    //RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
-    //PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
-    //AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
-    //// Flamingo::UISystem* ui_sys = m_mngr->addSystem<Flamingo::UISystem>();
-    ///*audio_sys->update(2);
-    //audio_sys->createSound("Assets/Audio/dance.mp3", "piano", true);
-    //audio_sys->setMusicVolume(0.05);*/
-
-    //Flamingo::LuaSystem* lua_system = m_mngr->addSystem<Flamingo::LuaSystem>();
-    //auto& ihldr = ih();
-
-    //Flamingo::Timer* player_timer = new Flamingo::Timer();
-    //auto time = player_timer->getElapsedTime();
-    //auto dt = player_timer->getElapsedTime() - time;
-
-    ////loadScene(render_sys);
+    //CÓDIGO TEMPORAL
 
     ////// Sinbad
     //// ecs::GameObject* sinbad_go = m_mngr->addGameObject(render_sys->getSceneManager()->getSceneActive()->getSceneRoot(), {ecs::GROUP_RENDER, ecs::GROUP_PHYSICS});
@@ -241,40 +210,6 @@ HMODULE hinstLib = LoadLibrary(TEXT("EldersbaneExport"));
     // x->setElementWidget("TaharezLook/Label", "COSO");
     // x->setText("ODIO CEGUI");*/
 
-    //while (game_playing && !render_sys->getWindow()->isWindowClosed())
-    //{
-    //    // Delta time en milisegundos
-    //    dt = player_timer->getElapsedTime() - time;
-    //    // Tiempo transcurrido desde el inicio del programa en milisegundos
-    //    time = player_timer->getElapsedTime();
-
-    //    // leer entrada
-
-    //    physics_sys->update(dt);
-    //    // ui_sys->update(dt);
-    //    render_sys->update(dt);
-
-    //    // m_controller->handleInput();
-    //    render_sys->manipulateCamera();
-    //    ihldr.refresh();
-
-    //    if (ihldr.keyDownEvent())
-    //    {
-    //        if (ihldr.isKeyDown(SDLK_0))
-    //        {
-    //            std::cout << "Musica\n";
-    //            audio_sys->playAudio("piano");
-    //        }
-    //    }
-
-    //    m_mngr->refresh();
-    //    m_mngr->flushMessages();
-    //}
-    ////  ui_sys->eraseContext();
-    //render_sys->getWindow()->closeWindow();
-    //delete player_timer;
-
-    //_CrtDumpMemoryLeaks();
     return 0;
 }
 
@@ -378,25 +313,4 @@ HMODULE hinstLib = LoadLibrary(TEXT("EldersbaneExport"));
 // findDir(dir, output);
 //
 // output.close(); // Cierro el archivo ���IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
-// }
-//
-// int main()
-//{
-//     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-//     loadDirectories();
-//     MiFlamingo* motorFlamingo = new MiFlamingo();
-//     if (motorFlamingo->setup())
-//     {
-//         motorFlamingo->loop();
-//         motorFlamingo->exit();
-//     }
-//     else
-//     {
-//         delete motorFlamingo;
-//         return -1;
-//     }
-//
-//     delete motorFlamingo;
-//
-//     return 0;
 // }
