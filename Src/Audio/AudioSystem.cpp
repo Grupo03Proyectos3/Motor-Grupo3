@@ -40,9 +40,9 @@ void AudioSystem::initSystem()
     
     //Grupos, música y efectos
     checkError(m_system->createSoundGroup("soundGroup", &m_soundGroup));
-    m_soundGroup->setVolume(0.5);
+    m_soundGroup->setVolume(0.2);
     checkError(m_system->createSoundGroup("musicGroup", &m_musicGroup));
-    m_musicGroup->setVolume(0.5);
+    m_musicGroup->setVolume(0.2);
 }
     
 void AudioSystem::update(float t_delta_time)

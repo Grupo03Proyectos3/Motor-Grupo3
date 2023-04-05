@@ -290,6 +290,11 @@ namespace ecs
             return static_cast<T*>(m_systems[sId]);
         }
 
+        inline std::array<System*, maxSystemId> getSystems()
+        {
+            return m_systems;
+        }
+
         void send(const Message& t_m, bool t_delay = false)
         {
             if (!t_delay)
