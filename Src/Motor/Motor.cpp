@@ -188,16 +188,24 @@ int main(int argc, char* argv[])
     m_camera->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
     m_camera->initComponent();
     m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
-    SColor color = SColor(0.0, 0.0, 0.0);
-    lua_system->pushColorToLua(color, "color");
-    lua_system->callLuaFunction("changeVPcolor");
-    bool autoradio = true;
-    lua_system->pushBool(autoradio, "autoradio");
-    lua_system->callLuaFunction("autoAspectRatio");
-
-    m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
-    m_camera->setNearClipDistance(1);
-    m_camera->setFarClipDistance(10000);
+    /*SColor color = SColor(0.0, 0.0, 0.0);
+    lua_system->addColorToLua(color, "color");
+    lua_system->callLuaFunction("changeVPcolor");*/
+    /*bool autoradio = true;
+    lua_system->addBooleanToLua(autoradio, "autoradio");
+    lua_system->callLuaFunction("autoAspectRatio");*/
+    lua_system->addVector3ToLua(SVector3(0.0, 0.0, 0.0), "lookAtVec");
+    lua_system->addIntToLua(0, "transformspace");
+    lua_system->callLuaFunction("lookAtCam");
+    //m_camera->lookAt(SVector3(0.0, 0.0, 0.0), Camera::WORLD);
+    float nearClip = 1;
+    lua_system->addNumToLua(nearClip, "nearClip");
+    lua_system->callLuaFunction("setNearClipDist");
+    //m_camera->setNearClipDistance(1);
+    float farClip = 10000;
+    lua_system->addNumToLua(farClip, "farClip");
+    lua_system->callLuaFunction("setFarClipDist");
+    //m_camera->setFarClipDistance(10000);
     render_sys->getSceneManager()->getSceneActive()->addObjects(cam_go);
 
     Ogre::ParticleSystem* pSys = render_sys->getSceneManager()->getSceneActive()->getSceneManger()->createParticleSystem("psBomba", "PsPrueba/Smoke");

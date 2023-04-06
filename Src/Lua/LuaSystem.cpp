@@ -15,7 +15,6 @@ extern "C"
 //RENDER
 #include "Render/RenderSystem.h"
 #include "Render/ParticleSystem.h"
-#include "Render/Light.h"
 #include "Render/MeshRenderer.h"
 #include "Render/Animator.h"
 //PHYSICS
@@ -64,19 +63,37 @@ void Flamingo::LuaSystem::readScript(const std::string& t_name)
 
 void Flamingo::LuaSystem::callLuaFunction(std::string t_name)
 {
-    luabridge::LuaRef fun = /*getFromLua(t_name)*/ luabridge::getGlobal(lua_state, t_name.c_str());
+    luabridge::LuaRef fun = getFromLua(t_name);
     fun();
 }
 
-void Flamingo::LuaSystem::pushBool(bool var, std::string t_name)
+void Flamingo::LuaSystem::addIntToLua(int var, std::string name)
+{
+    lua_pushinteger(lua_state, var);
+    lua_setglobal(lua_state, name.c_str());
+}
+
+void Flamingo::LuaSystem::addNumToLua(float var, std::string name) 
+{
+    lua_pushnumber(lua_state, var);
+    lua_setglobal(lua_state, name.c_str());
+}
+
+void Flamingo::LuaSystem::addBooleanToLua(bool var, std::string t_name)
 {
     lua_pushboolean(lua_state, (int)var);
     lua_setglobal(lua_state, t_name.c_str());
 }
 
-void Flamingo::LuaSystem::pushColorToLua(SColor t_color_param, std::string t_var_name)
+void Flamingo::LuaSystem::addColorToLua(SColor t_color_param, std::string t_var_name)
 {
     luabridge::push(lua_state, t_color_param);
+    lua_setglobal(lua_state, t_var_name.c_str());
+}
+
+void Flamingo::LuaSystem::addVector3ToLua(SVector3 t_vec_param, std::string t_var_name)
+{
+    luabridge::push(lua_state, t_vec_param);
     lua_setglobal(lua_state, t_var_name.c_str());
 }
 
@@ -86,12 +103,11 @@ void Flamingo::LuaSystem::addCameraToLua(Camera* t_cam, std::string t_var_name)
     lua_setglobal(lua_state, t_var_name.c_str());
 }
 
-//template <class... Args>
-//void Flamingo::LuaSystem::callLuaFunction(std::string name, Args&&... args)
-//{
-//    luabridge::LuaRef s = getFromLua(name);
-//    s(args...);
-//}
+void Flamingo::LuaSystem::addLightToLua(Light* t_light, std::string t_var_name)
+{
+    luabridge::push(lua_state, t_light);
+    lua_setglobal(lua_state, t_var_name.c_str());
+}
 
 void Flamingo::LuaSystem::createSystemFuntions()
 {
@@ -108,6 +124,12 @@ void Flamingo::LuaSystem::createSystemFuntions()
     luabridge::getGlobalNamespace(lua_state)
         .beginClass<SColor>("SColor")
         .addFunction("setColor", (&SColor::setColor))
+        .endClass();
+    // SVector3
+    luabridge::getGlobalNamespace(lua_state)
+        .beginClass<SVector3>("SVector3")
+        .addFunction("setVector3", (&SVector3::setVector3))
+        .addFunction("getMagnitude", (&SVector3::magnitude))
         .endClass();
     //AudioSystem
     luabridge::getGlobalNamespace(lua_state)
@@ -133,6 +155,7 @@ void Flamingo::LuaSystem::createSystemFuntions()
    //UISystem
     luabridge::getGlobalNamespace(lua_state)
         .beginClass<Flamingo::UISystem>("UISystem")
+        .addFunction("addRigidBody", (&UISystem::chageScreenSize))
         .endClass();
 }
 
@@ -143,15 +166,15 @@ void Flamingo::LuaSystem::createComponetsFuntions()
     //Camara
     luabridge::getGlobalNamespace(lua_state)
         .beginClass<Camera>("Camera") //Aunque sea un struct en lua se pone como clase (beginClass), esta en el manual de luabridge
-        .addFunction("lookAt", (&Camera::lookAt))
-        .addFunction("setFarClipDistance", (&Camera::setFarClipDistance))
-        .addFunction("setViewPortBackgroundColour", (&Camera::setViewPortBackgroundColour))
-        .addFunction("setNearClipDistance", (&Camera::setNearClipDistance))
+        .addFunction("lookAt", (&Camera::lookAt)) //Funciona
+        .addFunction("setFarClipDistance", (&Camera::setFarClipDistance)) //Funciona
+        .addFunction("setViewPortBackgroundColour", (&Camera::setViewPortBackgroundColour)) //Funciona
+        .addFunction("setNearClipDistance", (&Camera::setNearClipDistance)) //Funciona
         .addFunction("pith", (&Camera::pitch))
         .addFunction("roll", (&Camera::roll))
         .addFunction("yaw", (&Camera::yaw))
         .addFunction("setPolygonMode", (&Camera::setPolygonMode))
-        .addFunction("setAutoAspectRatio", (&Camera::setAutoAspectRatio))
+        .addFunction("setAutoAspectRatio", (&Camera::setAutoAspectRatio)) //Funciona
         .endClass();
     //Light
     luabridge::getGlobalNamespace(lua_state)

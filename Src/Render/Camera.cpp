@@ -30,17 +30,17 @@ void Camera::initComponent()
     m_vp->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
 }
 
-void Camera::lookAt(Ogre::Vector3 t_pos, transformSpace t_trs)
+void Camera::lookAt(SVector3 t_pos, int t_trs)
 {
     switch (t_trs)
     {
-        case Camera::WORLD:
+        case 0:
             m_cam_node->lookAt(t_pos, Ogre::Node::TransformSpace::TS_WORLD);
             break;
-        case Camera::LOCAL:
+        case 1:
             m_cam_node->lookAt(t_pos, Ogre::Node::TransformSpace::TS_LOCAL);
             break;
-        case Camera::PARENT:
+        case 2:
             m_cam_node->lookAt(t_pos, Ogre::Node::TransformSpace::TS_PARENT);
             break;
         default:

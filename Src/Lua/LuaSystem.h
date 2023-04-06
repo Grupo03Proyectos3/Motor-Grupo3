@@ -4,10 +4,11 @@
 
 #include "ECS/System.h"
 #include "Render/Camera.h"
-#include "FlamingoUtils/SColor.h"
+#include "Render/Light.h"
+#include "FlamingoUtils/SColor.h" 
+#include "FlamingoUtils/SVector3.h"
 
 #include <string>
-#include"FlamingoUtils/SColor.h" 
 
 #define PATH_PREFIX "Assets/Scripts/"
 #define FILE_EXTENSION ".lua"
@@ -39,9 +40,13 @@ namespace Flamingo
         void callLuaFunction(std::string t_name);
         //template <class... Args>
         //void callLuaFunction(std::string name, Args&&...args);
-        void pushBool(bool var, std::string t_name);
-        void pushColorToLua(SColor t_color, std::string t_var_name);
+        void addNumToLua(float var, std::string name);
+        void addIntToLua(int var, std::string name);
+        void addBooleanToLua(bool var, std::string t_name);
+        void addColorToLua(SColor t_color, std::string t_var_name);
+        void addVector3ToLua(SVector3 t_vec, std::string t_var_name);
         void addCameraToLua(Camera* t_cam, std::string t_var_name);
+        void addLightToLua(Light* t_light, std::string t_var_name);
 
       private:
         lua_State* lua_state;
