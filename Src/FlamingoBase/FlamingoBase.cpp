@@ -1,32 +1,32 @@
 #include "FlamingoBase.h"
 
-//Audio
+// Audio
 #include "Audio/AudioSystem.h"
 
-//Carga de mapas
+// Carga de mapas
 #include "MapReader.h"
 #include "ResourcesLoader/Loader.h"
 
-//ECS
+// ECS
 #include "ECS/Manager.h"
 
-//Físicas
+// Físicas
 #include "Physics/PhysicsSystem.h"
 
-//FlamingoBase
+// FlamingoBase
 #include "FlamingoUtils/Timer.h"
 
-//LUA
+// LUA
 #include <Lua/LuaSystem.h>
 
-//Render3D
+// Render3D
 #include "Render/RenderSystem.h"
 
-//Debug de memory leaks
+// Debug de memory leaks
 #include <crtdbg.h>
 
-//INCLUDES TEMPORALES PARA LA ESCENA DE JUEGO
-
+// INCLUDES TEMPORALES PARA LA ESCENA DE JUEGO
+#include <Render/Light.h>
 
 namespace Flamingo
 {
@@ -78,6 +78,37 @@ namespace Flamingo
             return false;
         }
 
+        auto nodo = render_sys->getSceneManager()->getSceneActive()->getSceneRoot();
+        ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        auto m_camera = ecs::AddComponent<Camera>(cam_go);
+        lua_system->addCameraToLua(m_camera, "cam1"); // Añado la referenacia a LUA
+        m_camera->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
+        m_camera->initComponent();
+        m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3f, 0.2f, 0.6f));
+        // Ogre::ColourValue color = Ogre::ColourValue(0.0, 0.0, 0.0);
+        // lua_system->pushColorToLua(color, "color");
+        // lua_system->callLuaFunction("changeVPcolor");
+        bool autoradio = true;
+        lua_system->pushBool(autoradio, "autoradio");
+        lua_system->callLuaFunction("autoAspectRatio");
+
+        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
+        m_camera->setNearClipDistance(1);
+        m_camera->setFarClipDistance(10000);
+        render_sys->getSceneManager()->getSceneActive()->addObjects(cam_go);
+
+        ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        Light* cmp_light = ecs::AddComponent<Light>(light_go);
+        cmp_light->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), "myLight");
+        cmp_light->initComponent();
+        cmp_light->setType(Light::DIRECTIONAL);
+        SVector3 direction = SVector3(-1, -1, 0);
+        // direction *= -1;
+        cmp_light->setDirection(direction);
+        cmp_light->setSpecularColour();
+        cmp_light->setDiffuseColour();
+        render_sys->getSceneManager()->getSceneActive()->addObjects(light_go);
+
         return true;
     }
 
@@ -94,7 +125,6 @@ namespace Flamingo
         auto render_sys = m_mngr->getSystem<RenderSystem>();
 
         auto& ihldr = ih();
-
 
         while (motor_running && !render_sys->getWindow()->isWindowClosed())
         {
@@ -131,4 +161,4 @@ namespace Flamingo
     {
         return false;
     }
-}
+} // namespace Flamingo
