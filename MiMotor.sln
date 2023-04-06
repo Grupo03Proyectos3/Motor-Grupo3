@@ -24,8 +24,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lua", "Projects\Lua\Lua.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Audio", "Projects\Audio\Audio.vcxproj", "{9E58A016-07CF-4872-BCB7-DE1C7DE1B395}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MiMotorDLL", "Projects\MiMotorDLL\MiMotorDLL.vcxproj", "{7701DA4F-90BE-47A8-A941-1B2D0DAABF9F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ResourcesLoader", "Projects\ResourcesLoader\ResourcesLoader.vcxproj", "{6B7A60DD-427F-4B39-8DB6-AEDDB92A4501}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlamingoExport", "Projects\FlamingoExport\FlamingoExport.vcxproj", "{1B8237B9-E047-4608-A144-18C34D609CD6}"
@@ -110,14 +108,6 @@ Global
 		{9E58A016-07CF-4872-BCB7-DE1C7DE1B395}.Release|x64.Build.0 = Release|x64
 		{9E58A016-07CF-4872-BCB7-DE1C7DE1B395}.Release|x86.ActiveCfg = Release|Win32
 		{9E58A016-07CF-4872-BCB7-DE1C7DE1B395}.Release|x86.Build.0 = Release|Win32
-		{7701DA4F-90BE-47A8-A941-1B2D0DAABF9F}.Debug|x64.ActiveCfg = Debug|x64
-		{7701DA4F-90BE-47A8-A941-1B2D0DAABF9F}.Debug|x64.Build.0 = Debug|x64
-		{7701DA4F-90BE-47A8-A941-1B2D0DAABF9F}.Debug|x86.ActiveCfg = Debug|Win32
-		{7701DA4F-90BE-47A8-A941-1B2D0DAABF9F}.Debug|x86.Build.0 = Debug|Win32
-		{7701DA4F-90BE-47A8-A941-1B2D0DAABF9F}.Release|x64.ActiveCfg = Release|x64
-		{7701DA4F-90BE-47A8-A941-1B2D0DAABF9F}.Release|x64.Build.0 = Release|x64
-		{7701DA4F-90BE-47A8-A941-1B2D0DAABF9F}.Release|x86.ActiveCfg = Release|Win32
-		{7701DA4F-90BE-47A8-A941-1B2D0DAABF9F}.Release|x86.Build.0 = Release|Win32
 		{6B7A60DD-427F-4B39-8DB6-AEDDB92A4501}.Debug|x64.ActiveCfg = Debug|x64
 		{6B7A60DD-427F-4B39-8DB6-AEDDB92A4501}.Debug|x64.Build.0 = Debug|x64
 		{6B7A60DD-427F-4B39-8DB6-AEDDB92A4501}.Debug|x86.ActiveCfg = Debug|Win32

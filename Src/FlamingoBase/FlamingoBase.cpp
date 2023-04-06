@@ -22,8 +22,10 @@
 //Render3D
 #include "Render/RenderSystem.h"
 
-//INCLUDES TEMPORALES PARA LA ESCENA DE JUEGO
+//Debug de memory leaks
+#include <crtdbg.h>
 
+//INCLUDES TEMPORALES PARA LA ESCENA DE JUEGO
 
 
 namespace Flamingo
@@ -56,6 +58,8 @@ namespace Flamingo
 
     bool FlamingoBase::FlamingoInit()
     {
+        _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
         Loader l;
         l.loadDirectories();
 
@@ -119,6 +123,8 @@ namespace Flamingo
         //  ui_sys->eraseContext();
         render_sys->getWindow()->closeWindow();
         delete player_timer;
+
+        //_CrtDumpMemoryLeaks();
     }
 
     bool FlamingoBase::FlamingoExit()
