@@ -6,6 +6,7 @@
 #include "ECS/GameObject.h"
 #include "ECS/Manager.h"
 #include "Render/Window.h"
+#include "FlamingoUtils/SColor.h"
 
 #include <string>
 
@@ -44,7 +45,7 @@ struct Camera : ecs::Component
     void setNearClipDistance(float t_clip);
     void setFarClipDistance(float t_clip);
 
-    void setViewPortBackgroundColour(Ogre::ColourValue t_vp_color);
+    void setViewPortBackgroundColour(SColor t_vp_color);
     void desactiveViewport();
     void activeViewport();
 

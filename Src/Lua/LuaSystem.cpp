@@ -74,11 +74,9 @@ void Flamingo::LuaSystem::pushBool(bool var, std::string t_name)
     lua_setglobal(lua_state, t_name.c_str());
 }
 
-void Flamingo::LuaSystem::pushColorToLua(Ogre::ColourValue t_color_param, std::string t_var_name)
+void Flamingo::LuaSystem::pushColorToLua(SColor t_color_param, std::string t_var_name)
 {
-    // Uso de la función push() de LuaBridge para empujar una instancia de la clase a Lua
-    t_color my_color(t_color_param.r, t_color_param.g, t_color_param.b);
-    luabridge::push(lua_state, my_color);
+    luabridge::push(lua_state, t_color_param);
     lua_setglobal(lua_state, t_var_name.c_str());
 }
 
@@ -97,16 +95,6 @@ void Flamingo::LuaSystem::addCameraToLua(Camera* t_cam, std::string t_var_name)
 
 void Flamingo::LuaSystem::createSystemFuntions()
 {
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<t_color>("t_color")
-        .addConstructor<void (*)(float, float, float)>()
-        .addData("r", &t_color::r)
-        .addData("g", &t_color::g)
-        .addData("b", &t_color::b)
-        .endClass();
-
-   
-
     //SceneManager
     luabridge::getGlobalNamespace(lua_state)
         .beginClass<Flamingo::SceneManager>("SceneManager")
@@ -115,6 +103,11 @@ void Flamingo::LuaSystem::createSystemFuntions()
         .addFunction("deleteScene", (&Flamingo::SceneManager::delScene))
         .addFunction("getCurrentScene", (&Flamingo::SceneManager::getSceneActive))
         .addFunction("setCurrentScene", (&Flamingo::SceneManager::setSceneActive))
+        .endClass();
+    // SColor
+    luabridge::getGlobalNamespace(lua_state)
+        .beginClass<SColor>("SColor")
+        .addFunction("setColor", (&SColor::setColor))
         .endClass();
     //AudioSystem
     luabridge::getGlobalNamespace(lua_state)
