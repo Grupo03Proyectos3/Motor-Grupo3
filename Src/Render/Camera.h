@@ -35,7 +35,7 @@ struct Camera : ecs::Component
     virtual void initComponent();
 
     //void lookAt(SVector3 t_pos, transformSpace t_trs = WORLD);
-    void lookAt(SVector3 t_pos, int t_trs = 0);
+    void lookAt(SVector3 t_pos, transformSpace t_trs);
     void translate(float t_x, float t_y, float t_z);
 
     void roll(float t_d);

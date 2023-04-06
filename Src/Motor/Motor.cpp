@@ -195,7 +195,8 @@ int main(int argc, char* argv[])
     lua_system->addBooleanToLua(autoradio, "autoradio");
     lua_system->callLuaFunction("autoAspectRatio");*/
     lua_system->addVector3ToLua(SVector3(0.0, 0.0, 0.0), "lookAtVec");
-    lua_system->addIntToLua(0, "transformspace");
+    lua_system->addTransSpaceToLua(Camera::WORLD, "transformspace");
+    //lua_system->addIntToLua(0, "transformspace");
     lua_system->callLuaFunction("lookAtCam");
     //m_camera->lookAt(SVector3(0.0, 0.0, 0.0), Camera::WORLD);
     float nearClip = 1;

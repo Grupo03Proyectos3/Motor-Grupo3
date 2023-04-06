@@ -97,6 +97,12 @@ void Flamingo::LuaSystem::addVector3ToLua(SVector3 t_vec_param, std::string t_va
     lua_setglobal(lua_state, t_var_name.c_str());
 }
 
+void Flamingo::LuaSystem::addTransSpaceToLua(Camera::transformSpace t_trs, std::string t_var_name)
+{
+    luabridge::push(lua_state, t_trs);
+    lua_setglobal(lua_state, t_var_name.c_str());
+}
+
 void Flamingo::LuaSystem::addCameraToLua(Camera* t_cam, std::string t_var_name)
 {
     luabridge::push(lua_state, t_cam);
@@ -119,6 +125,9 @@ void Flamingo::LuaSystem::createSystemFuntions()
         .addFunction("deleteScene", (&Flamingo::SceneManager::delScene))
         .addFunction("getCurrentScene", (&Flamingo::SceneManager::getSceneActive))
         .addFunction("setCurrentScene", (&Flamingo::SceneManager::setSceneActive))
+        .endClass();
+    luabridge::getGlobalNamespace(lua_state)
+        .beginClass<Camera::transformSpace>("transformSpace")
         .endClass();
     // SColor
     luabridge::getGlobalNamespace(lua_state)
