@@ -48,6 +48,7 @@ void Flamingo::LuaSystem::initSystem()
 
 void Flamingo::LuaSystem::update(float t_delta_time)
 {
+    // TO DO : CHANGE TO SCRIPT GROUP
     for (auto game_object : m_mngr->getEntities(ecs::GROUP_EXAMPLE))
     {
         auto bs = m_mngr->getComponent<BehaviourScript>(game_object);
@@ -55,6 +56,28 @@ void Flamingo::LuaSystem::update(float t_delta_time)
         {
             bs->update();
         }
+    }
+}
+
+void Flamingo::LuaSystem::recieve(const Message& t_m)
+{
+    switch (t_m.id)
+    {
+        case MSG_COLLISION_STAY:
+        {
+            // TO DO : CHANGE TO SCRIPT GROUP
+            for (auto game_object : m_mngr->getEntities(ecs::GROUP_EXAMPLE))
+            {
+                auto bs = m_mngr->getComponent<BehaviourScript>(game_object);
+                if (bs)
+                {
+                //    bs->onCollisionStay();
+                }
+            }
+            break;
+        }
+        default:
+            break;
     }
 }
 

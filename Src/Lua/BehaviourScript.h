@@ -26,6 +26,7 @@ struct BehaviourScript : public ecs::Component
 
     virtual void update();
     virtual void onCollisionEnter(ecs::GameObject* t_other);
+    virtual void onCollisionStay(ecs::GameObject* t_other);
 
     private:
 

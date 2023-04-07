@@ -36,6 +36,7 @@ namespace Flamingo
 
         void initSystem() override;
         void update(float t_delta_time) override;
+        void recieve(const Message& t_m) override;
 
         lua_State* getLuaState();
 

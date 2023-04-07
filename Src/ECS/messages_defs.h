@@ -9,22 +9,26 @@
 #include "ecs.h"
 #include <cstdint>
 
+class GameObject;
+
 using msgId_type = uint8_t;
 enum msgId : msgId_type
 {
     MSG_TRANSFORM_MOVE,
     MSG_TRANSFORM_ROTATE,
     MSG_TRANSFORM_SCALING,
-    MSG_WINDOW_RESIZED
+    MSG_WINDOW_RESIZED,
+    MSG_COLLISION_STAY
 };
 
 struct Message
 {
     msgId_type id;
-    ecs::GameObject* entity_affected;
 
     union
     {
+        ecs::GameObject* entity_affected;
+
         struct
         {
             double x;
@@ -40,7 +44,11 @@ struct Message
             double w;
         } quaternion;
 
-        // const SQuaternion* q;
+        struct
+        {
+            GameObject* obj1;
+            GameObject* obj2;
+        }collision;
     };
 };
 

@@ -93,21 +93,35 @@ PhysicsSystem::~PhysicsSystem()
 
 void PhysicsSystem::recieve(const Message& t_m)
 {
-    if (t_m.entity_affected == nullptr)return;
-
-    auto rb = m_mngr->getComponent<RigidBody>(t_m.entity_affected);
-
-    if (rb == NULL)
-        return;
 
     switch (t_m.id)
     {
         case MSG_TRANSFORM_MOVE:
+        {
+            if (t_m.entity_affected == nullptr)
+                return;
+
+            auto rb = m_mngr->getComponent<RigidBody>(t_m.entity_affected);
+
+            if (rb == NULL)
+                return;
+
             rb->setPosition(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
             break;
+        }
         case MSG_TRANSFORM_ROTATE:
+        {
+            if (t_m.entity_affected == nullptr)
+                return;
+
+            auto rb = m_mngr->getComponent<RigidBody>(t_m.entity_affected);
+
+            if (rb == NULL)
+                return;
+
             rb->setRotation(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
             break;
+        }
         default:
             break;
     }
@@ -118,6 +132,7 @@ void PhysicsSystem::initSystem()
     m_collision_shapes = new btAlignedObjectArray<btCollisionShape*>();
     m_collision_config = new btDefaultCollisionConfiguration();
     m_dispatcher = new btCollisionDispatcher(m_collision_config);
+    m_dispatcher->setNearCallback(onCollisionStay);
     m_broadphase = new btDbvtBroadphase();
     // Tipo por defecto de solver
     btSequentialImpulseConstraintSolver* sol = new btSequentialImpulseConstraintSolver;
@@ -199,4 +214,24 @@ btRigidBody* PhysicsSystem::createRigidBody(btTransform* t_transform, btCollisio
 
     body->setUserIndex(1);
     return body;
+}
+
+void PhysicsSystem::onCollisionStay(btBroadphasePair& t_collisionPair, btCollisionDispatcher& t_dispatcher, const btDispatcherInfo& t_dispatchInfo)
+{
+    // Obtener los dos objetos implicados en la colisión
+    btCollisionObject* obj1 = static_cast<btCollisionObject*>(t_collisionPair.m_pProxy0->m_clientObject);
+    btCollisionObject* obj2 = static_cast<btCollisionObject*>(t_collisionPair.m_pProxy1->m_clientObject);
+    // Comprobar si los dos objetos son rigid bodies
+    btRigidBody* rigidBody1 = btRigidBody::upcast(obj1);
+    btRigidBody* rigidBody2 = btRigidBody::upcast(obj2);
+    if (rigidBody1 && rigidBody2)
+    {
+        std::cout << "Colision entre " << rigidBody1 << " y " << rigidBody2 << "\n ";
+        Message m;
+        m.id = MSG_COLLISION_STAY;
+        ecs::Manager::instance()->send(m);
+    }
+
+    // Llamar a la función de devolución de llamada predeterminada de Bullet para manejar la colisión
+    t_dispatcher.defaultNearCallback(t_collisionPair, t_dispatcher, t_dispatchInfo);
 }

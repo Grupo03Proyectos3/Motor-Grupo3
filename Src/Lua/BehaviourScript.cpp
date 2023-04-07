@@ -29,10 +29,15 @@ void BehaviourScript::initComponent()
 
 void BehaviourScript::update()
 {
-    std::cout << "BehaviourScript: updating " << m_ent->getName() << "\n";
+    // std::cout << "BehaviourScript: updating " << m_ent->getName() << "\n";
 }
 
 void BehaviourScript::onCollisionEnter(ecs::GameObject* t_other)
 {
     std::cout << "BehaviourScript: collision entered.\n";
+}
+
+void BehaviourScript::onCollisionStay(ecs::GameObject* t_other)
+{
+    std::cout << "BehaviourScript: collision ongoing.\n";
 }
