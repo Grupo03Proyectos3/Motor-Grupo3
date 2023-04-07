@@ -122,7 +122,7 @@ namespace Flamingo
          auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
          x->setElementWidget("TaharezLook/Label", "COSO");
          x->setText("ODIO CEGUI");
-         y->setPosition({100, 100, 0});*/
+         y->setPosition({200, 200, 0});*/
         //PRUEBAS DE UI
 
         return true;

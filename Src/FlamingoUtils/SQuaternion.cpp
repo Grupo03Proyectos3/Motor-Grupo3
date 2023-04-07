@@ -136,7 +136,7 @@ SQuaternion::operator btQuaternion() const
 
 SQuaternion::operator CEGUI::Quaternion()
 {
-    return CEGUI::Quaternion((btScalar)m_x, (btScalar)m_y, (btScalar)m_z, (btScalar)m_w);
+    return CEGUI::Quaternion((btScalar)m_w,(btScalar) m_x, (btScalar)m_y, (btScalar)m_z);
 }
 
 SQuaternion SQuaternion::ogreToSQuaternion(const Ogre::Quaternion& ogreQuaternion)

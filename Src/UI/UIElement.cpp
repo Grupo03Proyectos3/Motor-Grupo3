@@ -18,10 +18,10 @@ namespace Flamingo{
         m_uiSys = m_mngr->getSystem<Flamingo::UISystem>();
        //m_element = nullptr;
         auto m_transform = m_mngr->getComponent<Transform>(m_ent); // accedo al componente transform
-       //if (m_transform == nullptr){
-       //    std::cout << m_ent->getName() << "ADD TRANSFORM COMPONENT TO SET ANIMATOR COMPONENT\n";
-       //    exit(1);
-       //}
+       if (m_transform == nullptr){
+           std::cout << m_ent->getName() << "Add Trasnform component to set uielement component\n";
+           exit(1);
+       }
     }
 
     void UIElement::setText(const std::string& text){
@@ -51,12 +51,12 @@ namespace Flamingo{
 
     void UIElement::setPosition( SVector3 pos)
     {
-        m_element->setPosition(CEGUI::UVector2(CEGUI::UDim(0, pos.getX()/10), CEGUI::UDim(0,pos.getY()/10)));
+        m_element->setPosition(CEGUI::UVector2(CEGUI::UDim(0, pos.getX()), CEGUI::UDim(0,pos.getY())));
     }
 
     void UIElement::setSize( SVector3 size)
     {
-        m_element->setPosition(CEGUI::UVector2(CEGUI::UDim(size.getX()/10, 0), CEGUI::UDim(size.getY()/10, 0)));
+        m_element->setPosition(CEGUI::UVector2(CEGUI::UDim(size.getX(), 0), CEGUI::UDim(size.getY(), 0)));
     }
 
     void UIElement::setRotation(SQuaternion rot){
