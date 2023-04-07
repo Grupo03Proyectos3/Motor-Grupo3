@@ -20,3 +20,8 @@ void ecs::Component::setContext(GameObject* t_ent, Manager* t_mngr)
 void ecs::Component::initComponent()
 {
 }
+
+ecs::GameObject* ecs::Component::gameObject()
+{
+    return m_ent;
+}

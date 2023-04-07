@@ -222,8 +222,8 @@ void PhysicsSystem::onCollisionStay(btBroadphasePair& t_collisionPair, btCollisi
     btCollisionObject* obj1 = static_cast<btCollisionObject*>(t_collisionPair.m_pProxy0->m_clientObject);
     btCollisionObject* obj2 = static_cast<btCollisionObject*>(t_collisionPair.m_pProxy1->m_clientObject);
     // Comprobar si los dos objetos son rigid bodies
-    btRigidBody* rigidBody1 = btRigidBody::upcast(obj1);
-    btRigidBody* rigidBody2 = btRigidBody::upcast(obj2);
+    RigidBody* rigidBody1 = static_cast<RigidBody*>(obj1->getUserPointer());
+    RigidBody* rigidBody2 = static_cast<RigidBody*>(obj2->getUserPointer());
 
     if (rigidBody1 && rigidBody2)
     {
@@ -232,7 +232,7 @@ void PhysicsSystem::onCollisionStay(btBroadphasePair& t_collisionPair, btCollisi
         Message m;
         m.id = MSG_COLLISION_STAY;
         // TO DO : cambiar a Grupo físico
-        for (auto game_object : ecs::Manager::instance()->getEntities(ecs::GROUP_EXAMPLE))
+        /*for (auto game_object : ecs::Manager::instance()->getEntities(ecs::GROUP_EXAMPLE))
         {
             if (auto rb = ecs::Manager::instance()->getComponent<RigidBody>(game_object))
             {
@@ -245,7 +245,9 @@ void PhysicsSystem::onCollisionStay(btBroadphasePair& t_collisionPair, btCollisi
                     m.collision.obj2 = game_object;
                 }
             }
-        }
+        }*/
+        m.collision.obj1 = rigidBody1->gameObject();
+        m.collision.obj2 = rigidBody1->gameObject();
         ecs::Manager::instance()->send(m);
     }
 
