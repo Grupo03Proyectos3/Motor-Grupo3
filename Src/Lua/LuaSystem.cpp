@@ -8,6 +8,7 @@ extern "C"
 }
 
 #include <LuaBridge\LuaBridge.h>
+#include "ECS/Manager.h"
 //AUDIO
 #include "Audio/AudioSystem.h"
 //UI
@@ -164,7 +165,58 @@ void Flamingo::LuaSystem::createSystemFuntions()
    //UISystem
     luabridge::getGlobalNamespace(lua_state)
         .beginClass<Flamingo::UISystem>("UISystem")
-        .addFunction("addRigidBody", (&UISystem::chageScreenSize))
+        .addFunction("changeScreenSize", (&UISystem::chageScreenSize))
+        .endClass();
+    //Manager
+     luabridge::getGlobalNamespace(lua_state)
+        .beginClass<ecs::Manager>("Manager")
+        .addStaticFunction("getSceneManager", &ecs::Manager::instance)
+        .addFunction("addGameObject", (&ecs::Manager::addGameObject))
+        .addFunction("addComponent", (&ecs::Manager::addComponent<Camera>))
+        .addFunction("addComponent", (&ecs::Manager::addComponent<Light>))
+        .addFunction("addComponent", (&ecs::Manager::addComponent<MeshRenderer>))
+        .addFunction("addComponent", (&ecs::Manager::addComponent<Transform>))
+        .addFunction("addComponent", (&ecs::Manager::addComponent<RigidBody>))
+        .addFunction("addComponent", (&ecs::Manager::addComponent<PlayerController>))
+        .addFunction("addSystem", (&ecs::Manager::addSystem<RenderSystem>))
+        .addFunction("addSystem", (&ecs::Manager::addSystem<PhysicsSystem>))
+        .addFunction("addSystem", (&ecs::Manager::addSystem<ParticleSystem>))
+        .addFunction("addSystem", (&ecs::Manager::addSystem<AudioSystem>))
+        .addFunction("addSystem", (&ecs::Manager::addSystem<UISystem>))
+        .addFunction("getComponent", (&ecs::Manager::getComponent<Camera>))
+        .addFunction("getComponent", (&ecs::Manager::getComponent<Light>))
+        .addFunction("getComponent", (&ecs::Manager::getComponent<MeshRenderer>))
+        .addFunction("getComponent", (&ecs::Manager::getComponent<Transform>))
+        .addFunction("getComponent", (&ecs::Manager::getComponent<RigidBody>))
+        .addFunction("getComponent", (&ecs::Manager::getComponent<PlayerController>))
+        .addFunction("getEntities", (&ecs::Manager::getEntities))
+        .addFunction("getHandler", (&ecs::Manager::getHandler))
+        .addFunction("getSystem", (&ecs::Manager::getSystem<AudioSystem>))
+        .addFunction("getSystem", (&ecs::Manager::getSystem<RenderSystem>))
+        .addFunction("getSystem", (&ecs::Manager::getSystem<ParticleSystem>))
+        .addFunction("getSystem", (&ecs::Manager::getSystem<PhysicsSystem>))
+        .addFunction("getSystem", (&ecs::Manager::getSystem<UISystem>))
+        .addFunction("hasComponent", (&ecs::Manager::hasComponent<Camera>))
+        .addFunction("hasComponent", (&ecs::Manager::hasComponent<MeshRenderer>))
+        .addFunction("hasComponent", (&ecs::Manager::hasComponent<Light>))
+        .addFunction("hasComponent", (&ecs::Manager::hasComponent<Transform>))
+        .addFunction("hasComponent", (&ecs::Manager::hasComponent<RigidBody>))
+        .addFunction("hasComponent", (&ecs::Manager::hasComponent<PlayerController>))
+        .addFunction("isAlive", (&ecs::Manager::isAlive))
+        .addFunction("setAlive", (&ecs::Manager::setAlive))
+        .addFunction("removeComponent", (&ecs::Manager::removeComponent<Camera>))
+        .addFunction("removeComponent", (&ecs::Manager::removeComponent<Light>))
+        .addFunction("removeComponent", (&ecs::Manager::removeComponent<MeshRenderer>))
+        .addFunction("removeComponent", (&ecs::Manager::removeComponent<Transform>))
+        .addFunction("removeComponent", (&ecs::Manager::removeComponent<RigidBody>))
+        .addFunction("removeComponent", (&ecs::Manager::removeComponent<PlayerController>))
+        .addFunction("removeSystem", (&ecs::Manager::removeSystem<AudioSystem>))
+        .addFunction("removeSystem", (&ecs::Manager::removeSystem<UISystem>))
+        .addFunction("removeSystem", (&ecs::Manager::removeSystem<RenderSystem>))
+        .addFunction("removeSystem", (&ecs::Manager::removeSystem<ParticleSystem>))
+        .addFunction("removeSystem", (&ecs::Manager::removeSystem<PhysicsSystem>))
+        .addFunction("setAlive", (&ecs::Manager::setAlive))
+        .addFunction("setHandler", (&ecs::Manager::setHandler))
         .endClass();
 }
 
