@@ -224,11 +224,28 @@ void PhysicsSystem::onCollisionStay(btBroadphasePair& t_collisionPair, btCollisi
     // Comprobar si los dos objetos son rigid bodies
     btRigidBody* rigidBody1 = btRigidBody::upcast(obj1);
     btRigidBody* rigidBody2 = btRigidBody::upcast(obj2);
+
     if (rigidBody1 && rigidBody2)
     {
-        std::cout << "Colision entre " << rigidBody1 << " y " << rigidBody2 << "\n ";
+     //   std::cout << "Colision entre " << rigidBody1 << " y " << rigidBody2 << "\n ";
+
         Message m;
         m.id = MSG_COLLISION_STAY;
+        // TO DO : cambiar a Grupo físico
+        for (auto game_object : ecs::Manager::instance()->getEntities(ecs::GROUP_EXAMPLE))
+        {
+            if (auto rb = ecs::Manager::instance()->getComponent<RigidBody>(game_object))
+            {
+                if (rb->getBtRigidBody() == rigidBody1)
+                {
+                    m.collision.obj1 = game_object;
+                }
+                else if (rb->getBtRigidBody() == rigidBody2)
+                {
+                    m.collision.obj2 = game_object;
+                }
+            }
+        }
         ecs::Manager::instance()->send(m);
     }
 

@@ -9,8 +9,6 @@
 #include "ecs.h"
 #include <cstdint>
 
-class GameObject;
-
 using msgId_type = uint8_t;
 enum msgId : msgId_type
 {
@@ -24,10 +22,10 @@ enum msgId : msgId_type
 struct Message
 {
     msgId_type id;
+    ecs::GameObject* entity_affected;
 
     union
     {
-        ecs::GameObject* entity_affected;
 
         struct
         {
@@ -46,8 +44,8 @@ struct Message
 
         struct
         {
-            GameObject* obj1;
-            GameObject* obj2;
+            ecs::GameObject* obj1;
+            ecs::GameObject* obj2;
         }collision;
     };
 };

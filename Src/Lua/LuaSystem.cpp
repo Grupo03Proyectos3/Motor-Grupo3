@@ -65,15 +65,18 @@ void Flamingo::LuaSystem::recieve(const Message& t_m)
     {
         case MSG_COLLISION_STAY:
         {
-            // TO DO : CHANGE TO SCRIPT GROUP
-            for (auto game_object : m_mngr->getEntities(ecs::GROUP_EXAMPLE))
+            // Si alguno de los GameObjects implicados en la colisión tiene BehaviourScript,
+            // se llama a su OnCollisionStay() para ejecutar la acción determinada por el usuario
+            if (auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj1))
             {
-                auto bs = m_mngr->getComponent<BehaviourScript>(game_object);
-                if (bs)
-                {
-                //    bs->onCollisionStay();
-                }
+                bsCmp->onCollisionStay(t_m.collision.obj1, t_m.collision.obj2);
             }
+
+            if (auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj2))
+            {
+                bsCmp->onCollisionStay(t_m.collision.obj2, t_m.collision.obj1);
+            }
+
             break;
         }
         default:

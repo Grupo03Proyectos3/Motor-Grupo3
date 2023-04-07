@@ -32,12 +32,13 @@ void BehaviourScript::update()
     // std::cout << "BehaviourScript: updating " << m_ent->getName() << "\n";
 }
 
-void BehaviourScript::onCollisionEnter(ecs::GameObject* t_other)
+void BehaviourScript::onCollisionEnter(ecs::GameObject* t_one, ecs::GameObject* t_other)
 {
     std::cout << "BehaviourScript: collision entered.\n";
 }
 
-void BehaviourScript::onCollisionStay(ecs::GameObject* t_other)
+void BehaviourScript::onCollisionStay(ecs::GameObject* t_one, ecs::GameObject* t_other)
 {
-    std::cout << "BehaviourScript: collision ongoing.\n";
+    std::cout << "BehaviourScript: collision ongoing: " << t_one->getName() << " and " << t_other->getName()
+              << ".\n ";
 }

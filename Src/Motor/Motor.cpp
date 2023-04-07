@@ -196,7 +196,7 @@ int main(int argc, char* argv[])
     lua_system->addCameraToLua(m_camera, "cam1"); //Añado la referenacia a LUA
     m_camera->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
     m_camera->initComponent();
-    auto script_cmp = m_mngr->addComponent<BehaviourScript>(cam_go);
+    //auto script_cmp = m_mngr->addComponent<BehaviourScript>(cam_go);
 
     lua_system->addColorToLua(SColor(0.3f, 0.2f, 0.6f), "color");
     lua_system->callLuaFunction("changeVPcolor");
