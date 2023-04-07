@@ -172,14 +172,21 @@ int main(int argc, char* argv[])
     auto nodo = render_sys->getSceneManager()->getSceneActive()->getSceneRoot();
     ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
     Light* cmp_light = ecs::AddComponent<Light>(light_go);
+    lua_system->addLightToLua(cmp_light, "light1");
     cmp_light->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), "myLight");
     cmp_light->initComponent();
-    cmp_light->setType(Light::DIRECTIONAL);
-    SVector3 direction = SVector3(-1, -1, 0);
-    // direction *= -1;
-    cmp_light->setDirection(direction);
-    cmp_light->setSpecularColour();
-    cmp_light->setDiffuseColour();
+    lua_system->addLightTypeToLua(Light::DIRECTIONAL, "ltype");
+    lua_system->callLuaFunction("type");
+    
+    lua_system->addVector3ToLua(SVector3(-1, -1, 0), "lightdirection");
+    lua_system->callLuaFunction("direction");
+
+    lua_system->addNumToLua(0.5f, "lightspecular");
+    lua_system->callLuaFunction("specularColor");
+    
+    lua_system->addNumToLua(1.0f, "lightdiffuse");
+    lua_system->callLuaFunction("diffuseColor");
+
     render_sys->getSceneManager()->getSceneActive()->addObjects(light_go);
 
     ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
@@ -187,10 +194,8 @@ int main(int argc, char* argv[])
     lua_system->addCameraToLua(m_camera, "cam1"); //Añado la referenacia a LUA
     m_camera->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
     m_camera->initComponent();
-    m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
-    /*SColor color = SColor(0.0, 0.0, 0.0);
-    lua_system->addColorToLua(color, "color");
-    lua_system->callLuaFunction("changeVPcolor");*/
+    lua_system->addColorToLua(SColor(0.3f, 0.2f, 0.6f), "color");
+    lua_system->callLuaFunction("changeVPcolor");
     /*bool autoradio = true;
     lua_system->addBooleanToLua(autoradio, "autoradio");
     lua_system->callLuaFunction("autoAspectRatio");*/
@@ -198,14 +203,17 @@ int main(int argc, char* argv[])
     lua_system->addTransSpaceToLua(Camera::WORLD, "transformspace");
     lua_system->callLuaFunction("lookAtCam");
     //m_camera->lookAt(SVector3(0.0, 0.0, 0.0), Camera::WORLD);
-    float nearClip = 1;
-    lua_system->addNumToLua(nearClip, "nearClip");
+    lua_system->addNumToLua(1, "nearClip");
     lua_system->callLuaFunction("setNearClipDist");
-    //m_camera->setNearClipDistance(1);
-    float farClip = 10000;
-    lua_system->addNumToLua(farClip, "farClip");
+   
+    lua_system->addNumToLua(10000, "farClip");
     lua_system->callLuaFunction("setFarClipDist");
-    //m_camera->setFarClipDistance(10000);
+
+    lua_system->addPolygonModeToLua(Camera::SOLID, "pmode");
+    lua_system->callLuaFunction("polygonMode");
+
+    lua_system->addNumToLua(45.5f, "degrees");
+    lua_system->callLuaFunction("rollCam");
     render_sys->getSceneManager()->getSceneActive()->addObjects(cam_go);
 
     Ogre::ParticleSystem* pSys = render_sys->getSceneManager()->getSceneActive()->getSceneManger()->createParticleSystem("psBomba", "PsPrueba/Smoke");
@@ -243,7 +251,6 @@ int main(int argc, char* argv[])
         //ui_sys->update(dt);
         render_sys->update(dt);
        
-      
        
         // m_controller->handleInput();
         render_sys->manipulateCamera();
@@ -257,7 +264,6 @@ int main(int argc, char* argv[])
                 audio_sys->playAudio("piano");
             }
         }
-        
 
         m_mngr->refresh();
         m_mngr->flushMessages();
@@ -269,126 +275,3 @@ int main(int argc, char* argv[])
     //_CrtDumpMemoryLeaks();
     return 0;
 }
-
-//
-//#include "MiMotorDLL/MiFlamingo.h"
-//// Carga de mapas
-//#include "FlamingoBase/MapReader.h"
-////#include <Windows.h>
-//
-// using namespace Flamingo;
-//
-//// Convierte la ruta obtenida al formato de resources.cfg
-// std::string parsePath(std::string t_path)
-//{
-//     std::string new_Path = t_path;          // Creo otro string del mimo tama�o que "path"
-//     for (int i = 0; i < t_path.size(); i++) // En "newPath" me guardo la ruta pero con el formato adecuado
-//     {
-//         if (t_path[i] == '\\')
-//         {
-//             new_Path[i] = '/';
-//         }
-//         else
-//             new_Path[i] = t_path[i];
-//     }
-//     return new_Path;
-// }
-//
-// void findDir(std::filesystem::directory_iterator t_dir, std::ofstream& t_output)
-//{
-//     for (const auto& entry : t_dir) // Burco los directorios dentro de "directory"
-//     {
-//         if (entry.is_directory()) // Si es un fichero tipo directorio
-//         {
-//             std::string path = entry.path().string(); // Me guardo su ruta en "path"
-//             std::string new_Path = parsePath(path);
-//             // Escribe en el archivo todas las rutas que encuentro
-//             t_output << "FileSystem=" << new_Path << '\n';
-//             std::filesystem::directory_iterator d(new_Path);
-//             findDir(d, t_output);
-//         }
-//         else
-//         {
-//             std::string x = entry.path().string();
-//             std::string aux = x.substr(x.size() - 3, 1) + x.substr(x.size() - 2, 1) + x.substr(x.size() - 1, 1);
-//             if (aux == "zip")
-//             {
-//                 x = parsePath(x);
-//                 t_output << "Zip=" << x << '\n';
-//             }
-//         }
-//     }
-// }
-//
-// void loadDirectories()
-//{
-//     std::string directory = "./Assets";    // Directorio donde estan todos los recursos que buscar
-//     std::ifstream infile("resources.cfg"); // Archivo de input
-//     std::string line;                      // Linea donde se guarda cada linea leida
-//     std::vector<std::string> text;         // Vector donde me guardo todo el texto leido. Cada componente del vector es una linea
-//
-//     // si no puede abrir resources.cfg ERROR
-//     try
-//     {
-//         if (!infile)
-//         {
-//             throw std::ifstream::failure("resources.cfg dont found");
-//         }
-//     }
-//     catch (std::ifstream::failure& excepcion)
-//     {
-//         std::cerr << "Error: " << excepcion.what() << '\n';
-//         exit(1);
-//     }
-//
-//     while (line != "FileSystem=./Assets") // Leo hasta "FileSystem=./Assets" que es lo que no quiero sobreescribir
-//     {
-//         getline(infile, line);
-//         text.push_back(line);
-//     }
-//     infile.close(); // Cierro el archivo
-//
-//     std::ofstream output("resources.cfg" /*, std::ios::app | std::ios::ate*/); // Archivo para output
-// for (int i = 0; i < text.size(); i++)                                          // Escribo en el archivo todas las lineas anteriores que quiero conservar
-//{
-//     line = text[i];
-//     output << line << '\n';
-// }
-// std::filesystem::directory_iterator dir;
-//
-//// abrimos el directorio y si lanza excepcion la capturamos
-// try
-//{
-//     dir = std::filesystem::directory_iterator(directory); // si no existe la carpeta de Assets lanzamos excepcion
-// }
-// catch (std::filesystem::filesystem_error& e)
-//{
-//     std::cerr << "ERROR: " << e.what() << "\n";
-//     exit(1);
-// }
-//// Metod recursivo para buscar todos los directorios
-// findDir(dir, output);
-//
-// output.close(); // Cierro el archivo ���IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
-// }
-//
-// int main()
-//{
-//     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-//     loadDirectories();
-//     MiFlamingo* motorFlamingo = new MiFlamingo();
-//     if (motorFlamingo->setup())
-//     {
-//         motorFlamingo->loop();
-//         motorFlamingo->exit();
-//     }
-//     else
-//     {
-//         delete motorFlamingo;
-//         return -1;
-//     }
-//
-//     delete motorFlamingo;
-//
-//     return 0;
-// }

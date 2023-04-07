@@ -43,6 +43,8 @@ namespace Flamingo
         void addNumToLua(float var, std::string name);
         void addIntToLua(int var, std::string name);
         void addTransSpaceToLua(Camera::transformSpace t_trs, std::string t_var_name);
+        void addPolygonModeToLua(Camera::polygonMode t_pm, std::string t_var_name);
+        void addLightTypeToLua(Light::lightType t_type, std::string t_var_name);
         void addBooleanToLua(bool var, std::string t_name);
         void addColorToLua(SColor t_color, std::string t_var_name);
         void addVector3ToLua(SVector3 t_vec, std::string t_var_name);
@@ -54,6 +56,7 @@ namespace Flamingo
 
         void createSystemFuntions();
         void createComponetsFuntions();
+        void createFlamingoFunctions();
 
         luabridge::LuaRef getFromLua(std::string t_name);
     };

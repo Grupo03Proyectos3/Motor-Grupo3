@@ -39,7 +39,9 @@ void Flamingo::LuaSystem::initSystem()
     // guardarme en Lua las funciones internas de Flamingo
     createSystemFuntions();
     createComponetsFuntions();
-    readScript("prueba");
+    createFlamingoFunctions();
+    readScript("camara");
+    readScript("luces");
 }
 
 lua_State* Flamingo::LuaSystem::getLuaState()
@@ -104,6 +106,18 @@ void Flamingo::LuaSystem::addTransSpaceToLua(Camera::transformSpace t_trs, std::
     lua_setglobal(lua_state, t_var_name.c_str());
 }
 
+void Flamingo::LuaSystem::addPolygonModeToLua(Camera::polygonMode t_pm, std::string t_var_name)
+{
+    luabridge::push(lua_state, t_pm);
+    lua_setglobal(lua_state, t_var_name.c_str());
+}
+
+void Flamingo::LuaSystem::addLightTypeToLua(Light::lightType t_type, std::string t_var_name) 
+{
+    luabridge::push(lua_state, t_type);
+    lua_setglobal(lua_state, t_var_name.c_str());
+}
+
 void Flamingo::LuaSystem::addCameraToLua(Camera* t_cam, std::string t_var_name)
 {
     luabridge::push(lua_state, t_cam);
@@ -127,20 +141,7 @@ void Flamingo::LuaSystem::createSystemFuntions()
         .addFunction("getCurrentScene", (&Flamingo::SceneManager::getSceneActive))
         .addFunction("setCurrentScene", (&Flamingo::SceneManager::setSceneActive))
         .endClass();
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<Camera::transformSpace>("transformSpace")
-        .endClass();
-    // SColor
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<SColor>("SColor")
-        .addFunction("setColor", (&SColor::setColor))
-        .endClass();
-    // SVector3
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<SVector3>("SVector3")
-        .addFunction("setVector3", (&SVector3::setVector3))
-        .addFunction("getMagnitude", (&SVector3::magnitude))
-        .endClass();
+
     //AudioSystem
     luabridge::getGlobalNamespace(lua_state)
         .beginClass<AudioSystem>("AudioSystem")
@@ -172,7 +173,7 @@ void Flamingo::LuaSystem::createSystemFuntions()
         .beginClass<ecs::Manager>("Manager")
         .addStaticFunction("getSceneManager", &ecs::Manager::instance)
         .addFunction("addGameObject", (&ecs::Manager::addGameObject))
-        .addFunction("addComponent", (&ecs::Manager::addComponent<Camera>))
+        /*.addFunction("addComponent", (&ecs::Manager::addComponent<Camera>))
         .addFunction("addComponent", (&ecs::Manager::addComponent<Light>))
         .addFunction("addComponent", (&ecs::Manager::addComponent<MeshRenderer>))
         .addFunction("addComponent", (&ecs::Manager::addComponent<Transform>))
@@ -182,16 +183,16 @@ void Flamingo::LuaSystem::createSystemFuntions()
         .addFunction("addSystem", (&ecs::Manager::addSystem<PhysicsSystem>))
         .addFunction("addSystem", (&ecs::Manager::addSystem<ParticleSystem>))
         .addFunction("addSystem", (&ecs::Manager::addSystem<AudioSystem>))
-        .addFunction("addSystem", (&ecs::Manager::addSystem<UISystem>))
-        .addFunction("getComponent", (&ecs::Manager::getComponent<Camera>))
+        .addFunction("addSystem", (&ecs::Manager::addSystem<UISystem>))*/
+        /*.addFunction("getComponent", (&ecs::Manager::getComponent<Camera>))
         .addFunction("getComponent", (&ecs::Manager::getComponent<Light>))
         .addFunction("getComponent", (&ecs::Manager::getComponent<MeshRenderer>))
         .addFunction("getComponent", (&ecs::Manager::getComponent<Transform>))
         .addFunction("getComponent", (&ecs::Manager::getComponent<RigidBody>))
-        .addFunction("getComponent", (&ecs::Manager::getComponent<PlayerController>))
+        .addFunction("getComponent", (&ecs::Manager::getComponent<PlayerController>))*/
         .addFunction("getEntities", (&ecs::Manager::getEntities))
         .addFunction("getHandler", (&ecs::Manager::getHandler))
-        .addFunction("getSystem", (&ecs::Manager::getSystem<AudioSystem>))
+        /*.addFunction("getSystem", (&ecs::Manager::getSystem<AudioSystem>))
         .addFunction("getSystem", (&ecs::Manager::getSystem<RenderSystem>))
         .addFunction("getSystem", (&ecs::Manager::getSystem<ParticleSystem>))
         .addFunction("getSystem", (&ecs::Manager::getSystem<PhysicsSystem>))
@@ -201,10 +202,10 @@ void Flamingo::LuaSystem::createSystemFuntions()
         .addFunction("hasComponent", (&ecs::Manager::hasComponent<Light>))
         .addFunction("hasComponent", (&ecs::Manager::hasComponent<Transform>))
         .addFunction("hasComponent", (&ecs::Manager::hasComponent<RigidBody>))
-        .addFunction("hasComponent", (&ecs::Manager::hasComponent<PlayerController>))
+        .addFunction("hasComponent", (&ecs::Manager::hasComponent<PlayerController>))*/
         .addFunction("isAlive", (&ecs::Manager::isAlive))
         .addFunction("setAlive", (&ecs::Manager::setAlive))
-        .addFunction("removeComponent", (&ecs::Manager::removeComponent<Camera>))
+        /*.addFunction("removeComponent", (&ecs::Manager::removeComponent<Camera>))
         .addFunction("removeComponent", (&ecs::Manager::removeComponent<Light>))
         .addFunction("removeComponent", (&ecs::Manager::removeComponent<MeshRenderer>))
         .addFunction("removeComponent", (&ecs::Manager::removeComponent<Transform>))
@@ -214,7 +215,7 @@ void Flamingo::LuaSystem::createSystemFuntions()
         .addFunction("removeSystem", (&ecs::Manager::removeSystem<UISystem>))
         .addFunction("removeSystem", (&ecs::Manager::removeSystem<RenderSystem>))
         .addFunction("removeSystem", (&ecs::Manager::removeSystem<ParticleSystem>))
-        .addFunction("removeSystem", (&ecs::Manager::removeSystem<PhysicsSystem>))
+        .addFunction("removeSystem", (&ecs::Manager::removeSystem<PhysicsSystem>))*/
         .addFunction("setAlive", (&ecs::Manager::setAlive))
         .addFunction("setHandler", (&ecs::Manager::setHandler))
         .endClass();
@@ -231,21 +232,21 @@ void Flamingo::LuaSystem::createComponetsFuntions()
         .addFunction("setFarClipDistance", (&Camera::setFarClipDistance)) //Funciona
         .addFunction("setViewPortBackgroundColour", (&Camera::setViewPortBackgroundColour)) //Funciona
         .addFunction("setNearClipDistance", (&Camera::setNearClipDistance)) //Funciona
-        .addFunction("pith", (&Camera::pitch))
-        .addFunction("roll", (&Camera::roll))
-        .addFunction("yaw", (&Camera::yaw))
-        .addFunction("setPolygonMode", (&Camera::setPolygonMode))
+        .addFunction("pith", (&Camera::pitch)) //Funciona
+        .addFunction("roll", (&Camera::roll)) //Funciona
+        .addFunction("yaw", (&Camera::yaw)) //Funciona
+        .addFunction("setPolygonMode", (&Camera::setPolygonMode)) //Funciona
         .addFunction("setAutoAspectRatio", (&Camera::setAutoAspectRatio)) //Funciona
         .endClass();
     //Light
     luabridge::getGlobalNamespace(lua_state)
         .beginClass<Light>("Light")
-        .addFunction("setType", (&Light::setType))
+        .addFunction("setType", (&Light::setType)) //Funciona
         .addFunction("setAttenuation", (&Light::setAttenuation))
         .addFunction("setCastShadows", (&Light::setCastShadows))
-        .addFunction("setDiffuseColour", (&Light::setDiffuseColour))
-        .addFunction("setSpecularColour", (&Light::setSpecularColour))
-        .addFunction("setDirection", (&Light::setDirection))
+        .addFunction("setDiffuseColour", (&Light::setDiffuseColour)) //Funciona
+        .addFunction("setSpecularColour", (&Light::setSpecularColour)) //Funciona
+        .addFunction("setDirection", (&Light::setDirection)) //Funciona
         .addFunction("setShadowFarClipDistance", (&Light::setShadowFarClipDistance))
         .addFunction("setShadowFarDistance", (&Light::setShadowFarDistance))
         .addFunction("setShadowNearClipDistance", (&Light::setShadowNearClipDistance))
@@ -305,6 +306,33 @@ void Flamingo::LuaSystem::createComponetsFuntions()
         .addFunction("setRotation", (&Transform::setRotation))
         .addFunction("setRotationPerPhysics", (&Transform::setRotationPerPhysics))
         .addFunction("setScale", (&Transform::setScale))
+        .endClass();
+}
+
+void Flamingo::LuaSystem::createFlamingoFunctions() 
+{
+    // SColor
+    luabridge::getGlobalNamespace(lua_state)
+        .beginClass<SColor>("SColor")
+        .addFunction("setColor", (&SColor::setColor))
+        .endClass();
+    // SVector3
+    luabridge::getGlobalNamespace(lua_state)
+        .beginClass<SVector3>("SVector3")
+        .addFunction("setVector3", (&SVector3::setVector3))
+        .addFunction("getMagnitude", (&SVector3::magnitude))
+        .endClass();
+    //Camera Transfom Space
+    luabridge::getGlobalNamespace(lua_state)
+        .beginClass<Camera::transformSpace>("transformSpace")
+        .endClass();
+    // Camera Polygon Mode
+    luabridge::getGlobalNamespace(lua_state)
+        .beginClass<Camera::polygonMode>("polygonMode")
+        .endClass();
+    //Light Type
+    luabridge::getGlobalNamespace(lua_state)
+        .beginClass<Light::lightType>("lightType")
         .endClass();
 }
 

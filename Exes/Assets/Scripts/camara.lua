@@ -22,3 +22,23 @@ function lookAtCam()
     local mycamera = cam1
     mycamera:lookAt(lookAtVec, transformspace)
 end 
+
+function polygonMode()
+    local mycamera = cam1
+    mycamera:setPolygonMode(pmode)
+end 
+
+function pitchCam()
+    local mycamera = cam1
+    mycamera:pitch(degrees)
+end 
+
+function yawCam()
+    local mycamera = cam1
+    mycamera:yaw(degrees)
+end 
+
+function rollCam()
+    local mycamera = cam1
+    mycamera:roll(degrees)
+end 
