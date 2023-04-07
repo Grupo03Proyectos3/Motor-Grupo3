@@ -7,6 +7,8 @@
 #include <CEGUI/WindowRenderer.h>
 #include <string>
 #include "FlamingoBase/Transform.h"
+#include <CEGUI/EventArgs.h>
+#include <functional>
 namespace Flamingo{
     class SVector2;
     class UISystem;
@@ -31,15 +33,29 @@ namespace Flamingo{
 
         bool isActive();
         SVector2 getPivotCenter();
-        void addChild(CEGUI::Window* windowChild);
-        CEGUI::Window* getChild(const std::string& childName);
+        void addChild(Flamingo::UIElement* element);
+        Flamingo::UIElement* getChild(const std::string& childName);
+
         void setElementWidget(const std::string& widget,const std::string& name);
+        void createEmptyWindow(const std::string& name);
+        void setAxisAligment(bool set);
+
+        void setImage(const std::string& name,const std::string& file);   
+
+        template <class T>
+        void subscribeEvent(std::string layoutName, std::string childName, void (T::*func)(), T* comp);
+        void subscribeChildEvent(std::string layoutName, std::string childName, std::function<bool(const CEGUI::EventArgs&)> func);       
+        void subscribeEvent(std::string layoutName, std::string childName, bool (*func)());
+        void subscribeEvent(std::string layoutName, std::string childName, bool (*func)(const CEGUI::EventArgs& e));
 
         protected:
             CEGUI::Window* getWindowElement();
             void setElement(CEGUI::Window* element);
+            void setToInitComponent();
+            void setNewParent(CEGUI::Window* wnd);
             CEGUI::Window* m_element;
-            UISystem* m_uiSys;       
-    };
+            UISystem* m_uiSys;
+            std::unordered_map<std::string, Flamingo::UIElement*> childs;
+    };   
 } // namespace Flamingo
 #endif __UIELEMENT_H__

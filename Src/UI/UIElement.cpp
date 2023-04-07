@@ -6,22 +6,25 @@
 #include "UISystem.h"
 #include "FlamingoUtils/SVector3.h"
 #include "FlamingoUtils/SQuaternion.h"
+#include "CEGUI/ImageManager.h"
 namespace Flamingo{
     UIElement::UIElement() {
         m_element = nullptr;
         m_uiSys = nullptr;
     }
+
     UIElement::~UIElement(){
        //if(m_element!=nullptr) m_element->destroy();
     }
+
     void UIElement::initComponent(){       
         m_uiSys = m_mngr->getSystem<Flamingo::UISystem>();
-       //m_element = nullptr;
-        auto m_transform = m_mngr->getComponent<Transform>(m_ent); // accedo al componente transform
-       if (m_transform == nullptr){
-           std::cout << m_ent->getName() << "Add Trasnform component to set uielement component\n";
-           exit(1);
-       }
+        m_element = nullptr;
+        if (m_mngr->getComponent<Transform>(m_ent) == nullptr){
+            std::cout << m_ent->getName() << "Add Trasnform component to set uielement component\n";
+            exit(1);
+        }
+        createEmptyWindow("");
     }
 
     void UIElement::setText(const std::string& text){
@@ -41,21 +44,22 @@ namespace Flamingo{
         return m_element->isActive();
     }
 
-    void UIElement::addChild(CEGUI::Window* windowChild){
-        m_element->addChild(windowChild);
+    void UIElement::addChild(Flamingo::UIElement* element){
+        m_element->addChild(element->getWindowElement());
+        childs[element->m_element->getName().c_str()] = element;      
     }
 
-    CEGUI::Window* UIElement::getChild(const std::string& childName){
-        return m_element->getChild(childName);        
+    Flamingo::UIElement* UIElement::getChild(const std::string& childName){
+        for (auto it : childs)       
+            if(it.first==childName)return it.second;
+        return nullptr;
     }
 
-    void UIElement::setPosition( SVector3 pos)
-    {
+    void UIElement::setPosition( SVector3 pos){
         m_element->setPosition(CEGUI::UVector2(CEGUI::UDim(0, pos.getX()), CEGUI::UDim(0,pos.getY())));
     }
 
-    void UIElement::setSize( SVector3 size)
-    {
+    void UIElement::setSize( SVector3 size){
         m_element->setPosition(CEGUI::UVector2(CEGUI::UDim(size.getX(), 0), CEGUI::UDim(size.getY(), 0)));
     }
 
@@ -82,17 +86,72 @@ namespace Flamingo{
         if (m_element != nullptr) m_element->destroy();
         m_element = element;
     }
+
+    void UIElement::setToInitComponent(){
+        // seteo los datos de transform
+        auto transform = m_mngr->getComponent<Transform>(m_ent);
+        setPosition(transform->getPosition());
+        setSize(transform->getScale());
+        setRotation(transform->getRotation()); 
+    }
+
+    void UIElement::setNewParent(CEGUI::Window* wnd){
+        for (auto it : childs)
+            wnd->addChild(it.second->getWindowElement());
+
+        if (m_element != nullptr) m_element->destroy();
+        m_element = wnd;
+    }
+
     void UIElement::setElementWidget(const std::string& widget,const  std::string& name){
         //solucionar lo de k no se llmae al init
-        if (m_uiSys == nullptr) m_uiSys = m_mngr->getSystem<Flamingo::UISystem>();
-        auto m_transform = m_mngr->getComponent<Transform>(m_ent);
-        //QUITAR
-        if (m_element != nullptr) m_element->destroy();
-        // habria k meter este objecto el gfrupo de entidades de UI
-        m_element = m_uiSys->createWidget(widget, name); // obtengo el widget cargado por el usuario      
-        // seteo los datos de transform
-        setPosition(m_transform->getPosition());
-        setSize(m_transform->getScale());
-        setRotation(m_transform->getRotation());
+        if (m_uiSys == nullptr) m_uiSys = m_mngr->getSystem<Flamingo::UISystem>();              
+        setNewParent(m_uiSys->createWidget(widget, name));               
+        setToInitComponent();
+    }
+
+    void UIElement::createEmptyWindow(const std::string& name){
+        if (m_uiSys == nullptr) m_uiSys = m_mngr->getSystem<Flamingo::UISystem>();       
+        setNewParent(m_uiSys->createEmptyWindow(name));
+        setToInitComponent();     
+    }
+
+    void UIElement::setAxisAligment(bool set){
+        m_element->setPixelAligned(set);
+    }
+    void UIElement::setImage(const std::string& name, const std::string& file){
+        /*if (!CEGUI::ImageManager::getSingleton().isDefined(file))
+        CEGUI::ImageManager::getSingleton().addImageType(file);*/
+        // PRUEBAS
+        /*if (!CEGUI::ImageManager::getSingleton().isDefined("100.png")){
+           CEGUI::ImageManager::getSingleton().addFromImageFile("cien", "100.png");
+        }
+        CEGUI::ImageManager::getSingleton().destroy("cien");*/
+        // PRUEBAS
+    }
+
+    void UIElement::subscribeChildEvent(std::string layoutName, std::string childName, std::function<bool(const CEGUI::EventArgs&)> func){
+        if (m_element != nullptr){
+           m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func));
+        }
+    }
+
+    template <class T>
+    void UIElement::subscribeEvent(std::string layoutName, std::string childName, void (T::*func)(), T* comp){
+        if (m_element != nullptr){
+           m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
+        }
+    }
+
+    void UIElement::subscribeEvent(std::string layoutName, std::string childName, bool (*func)()){             
+        if (m_element != nullptr){
+           m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func));
+        }
+    }
+
+    void UIElement::subscribeEvent(std::string layoutName, std::string childName, bool (*func)(const CEGUI::EventArgs& e)){
+        if (m_element != nullptr){
+           m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func));
+        }
     }
 } // namespace Flamingo

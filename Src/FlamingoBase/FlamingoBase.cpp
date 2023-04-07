@@ -122,7 +122,19 @@ namespace Flamingo
          auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
          x->setElementWidget("TaharezLook/Label", "COSO");
          x->setText("ODIO CEGUI");
-         y->setPosition({200, 200, 0});*/
+         y->setPosition({0, 0, 0});
+         y->setScale({50, 50, 0});
+
+         ecs::GameObject* UI2 = m_mngr->addGameObject({ecs::GROUP_UI});
+         auto y2 = ecs::AddComponent<Transform>(UI2);
+         y2->initValues();
+         y2->setPosition({75, 75, 0});
+         auto x2 = ecs::AddComponent<Flamingo::UIElement>(UI2);
+         x2->setElementWidget("TaharezLook/Label", "COSO2");
+         x2->setText("ODIO CEGUI");
+         y2->setPosition({200, 200, 0});
+         
+         x->addChild(x2);*/
         //PRUEBAS DE UI
 
         return true;
@@ -150,7 +162,6 @@ namespace Flamingo
             time = player_timer->getElapsedTime();
 
             // leer entrada
-
             for (auto sys : m_mngr->getSystems())
             {
                 if (sys)

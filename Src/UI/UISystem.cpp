@@ -59,12 +59,7 @@ namespace Flamingo{
     void UISystem::update(float t_delta_time){
         renderer->beginRendering();
         guiContext->draw();
-        renderer->endRendering();
-
-     /*   for (auto game_object : m_mngr->getEntities(ecs::GROUP_UI)){
-            auto TR = m_mngr->getComponent<Transform>(game_object);
-            auto uielement = m_mngr->getComponent<Flamingo::UIElement>(game_object)
-        }*/
+        renderer->endRendering();     
     }
 
     void UISystem::initRoot(){
@@ -79,18 +74,18 @@ namespace Flamingo{
     }
 
     void UISystem::initUIResources(){
-        CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
-        CEGUI::Font::setDefaultResourceGroup("Fonts");
-        CEGUI::Scheme::setDefaultResourceGroup("Schemes");
-        CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
-        CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
+        CEGUI::ImageManager::setImagesetDefaultResourceGroup("General");
+        CEGUI::Font::setDefaultResourceGroup("General");
+        CEGUI::Scheme::setDefaultResourceGroup("General");
+        CEGUI::WidgetLookManager::setDefaultResourceGroup("General");
+        CEGUI::WindowManager::setDefaultResourceGroup("General");
     }
 
     void UISystem::eraseContext(){
         renderer->setUsingShaders(false);
         eraseMainRoot();
         CEGUI::System::getSingleton().destroyGUIContext(*guiContext);
-        renderer->destroySystem();
+        renderer->destroySystem();      
     }
 
     void UISystem::eraseMainRoot(){
@@ -115,6 +110,15 @@ namespace Flamingo{
         root->addChild(newWindow);
         newWindow->activate();
         newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5,0.5), CEGUI::UDim(0.5, 0.5)));
+        newWindow->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0.3), CEGUI::UDim(0.2, 0.5)));
+        return newWindow;
+    }
+
+    CEGUI::Window* UISystem::createEmptyWindow(const std::string& name) {
+        CEGUI::Window* newWindow = winMngr->createWindow("DefaultWindow", name);
+        root->addChild(newWindow);
+        newWindow->activate();
+        newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0.5), CEGUI::UDim(0.5, 0.5)));
         newWindow->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0.3), CEGUI::UDim(0.2, 0.5)));
         return newWindow;
     }

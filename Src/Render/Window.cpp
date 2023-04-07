@@ -31,9 +31,11 @@ namespace Flamingo
 
     NativeWindowPair Window::createWindow(Ogre::String& appName)
     {
+        Ogre::ConfigFile configFile;
         uint32_t w, h;
         Ogre::NameValuePairList miscParams;
         Ogre::ConfigOptionMap ropts = m_root->getRenderSystem()->getConfigOptions();
+       
         std::istringstream mode(ropts["Video Mode"].currentValue);
         Ogre::String token;
         mode >> w;     // width
