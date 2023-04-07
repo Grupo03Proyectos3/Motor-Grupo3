@@ -3,8 +3,11 @@
 #define __LUA_SYSTEM_H__
 
 #include "ECS/System.h"
+//RENDER
 #include "Render/Camera.h"
 #include "Render/Light.h"
+#include "Render/MeshRenderer.h"
+//FLAMINGO UTILS
 #include "FlamingoUtils/SColor.h" 
 #include "FlamingoUtils/SVector3.h"
 
@@ -50,6 +53,7 @@ namespace Flamingo
         void addVector3ToLua(SVector3 t_vec, std::string t_var_name);
         void addCameraToLua(Camera* t_cam, std::string t_var_name);
         void addLightToLua(Light* t_light, std::string t_var_name);
+        void addMeshRendererToLua(MeshRenderer* t_mr, std::string t_var_name);
 
       private:
         lua_State* lua_state;

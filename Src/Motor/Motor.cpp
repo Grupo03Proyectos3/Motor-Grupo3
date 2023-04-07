@@ -212,8 +212,6 @@ int main(int argc, char* argv[])
     lua_system->addPolygonModeToLua(Camera::SOLID, "pmode");
     lua_system->callLuaFunction("polygonMode");
 
-    lua_system->addNumToLua(45.5f, "degrees");
-    lua_system->callLuaFunction("rollCam");
     render_sys->getSceneManager()->getSceneActive()->addObjects(cam_go);
 
     Ogre::ParticleSystem* pSys = render_sys->getSceneManager()->getSceneActive()->getSceneManger()->createParticleSystem("psBomba", "PsPrueba/Smoke");

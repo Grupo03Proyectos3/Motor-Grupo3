@@ -9,6 +9,8 @@ extern "C"
 
 #include <LuaBridge\LuaBridge.h>
 #include "ECS/Manager.h"
+#include "ECS/GameObject.h"
+#include <ECS/Components.h>
 //AUDIO
 #include "Audio/AudioSystem.h"
 //UI
@@ -16,7 +18,6 @@ extern "C"
 //RENDER
 #include "Render/RenderSystem.h"
 #include "Render/ParticleSystem.h"
-#include "Render/MeshRenderer.h"
 #include "Render/Animator.h"
 //PHYSICS
 #include "Physics/PhysicsSystem.h"
@@ -130,6 +131,12 @@ void Flamingo::LuaSystem::addLightToLua(Light* t_light, std::string t_var_name)
     lua_setglobal(lua_state, t_var_name.c_str());
 }
 
+void Flamingo::LuaSystem::addMeshRendererToLua(MeshRenderer* t_mr, std::string t_var_name)
+{
+    luabridge::push(lua_state, t_mr);
+    lua_setglobal(lua_state, t_var_name.c_str());
+}
+
 void Flamingo::LuaSystem::createSystemFuntions()
 {
     //SceneManager
@@ -173,7 +180,7 @@ void Flamingo::LuaSystem::createSystemFuntions()
         .beginClass<ecs::Manager>("Manager")
         .addStaticFunction("getSceneManager", &ecs::Manager::instance)
         .addFunction("addGameObject", (&ecs::Manager::addGameObject))
-        /*.addFunction("addComponent", (&ecs::Manager::addComponent<Camera>))
+        .addFunction("addComponent", (&ecs::Manager::addComponent<Camera>))
         .addFunction("addComponent", (&ecs::Manager::addComponent<Light>))
         .addFunction("addComponent", (&ecs::Manager::addComponent<MeshRenderer>))
         .addFunction("addComponent", (&ecs::Manager::addComponent<Transform>))
@@ -181,20 +188,20 @@ void Flamingo::LuaSystem::createSystemFuntions()
         .addFunction("addComponent", (&ecs::Manager::addComponent<PlayerController>))
         .addFunction("addSystem", (&ecs::Manager::addSystem<RenderSystem>))
         .addFunction("addSystem", (&ecs::Manager::addSystem<PhysicsSystem>))
-        .addFunction("addSystem", (&ecs::Manager::addSystem<ParticleSystem>))
+        //.addFunction("addSystem", (&ecs::Manager::addSystem<Flamingo::ParticleSystem>))
         .addFunction("addSystem", (&ecs::Manager::addSystem<AudioSystem>))
-        .addFunction("addSystem", (&ecs::Manager::addSystem<UISystem>))*/
-        /*.addFunction("getComponent", (&ecs::Manager::getComponent<Camera>))
+        .addFunction("addSystem", (&ecs::Manager::addSystem<UISystem>))
+        .addFunction("getComponent", (&ecs::Manager::getComponent<Camera>))
         .addFunction("getComponent", (&ecs::Manager::getComponent<Light>))
         .addFunction("getComponent", (&ecs::Manager::getComponent<MeshRenderer>))
         .addFunction("getComponent", (&ecs::Manager::getComponent<Transform>))
         .addFunction("getComponent", (&ecs::Manager::getComponent<RigidBody>))
-        .addFunction("getComponent", (&ecs::Manager::getComponent<PlayerController>))*/
+        .addFunction("getComponent", (&ecs::Manager::getComponent<PlayerController>))
         .addFunction("getEntities", (&ecs::Manager::getEntities))
         .addFunction("getHandler", (&ecs::Manager::getHandler))
-        /*.addFunction("getSystem", (&ecs::Manager::getSystem<AudioSystem>))
+        .addFunction("getSystem", (&ecs::Manager::getSystem<AudioSystem>))
         .addFunction("getSystem", (&ecs::Manager::getSystem<RenderSystem>))
-        .addFunction("getSystem", (&ecs::Manager::getSystem<ParticleSystem>))
+        //.addFunction("getSystem", (&ecs::Manager::getSystem<Flamingo::ParticleSystem>))
         .addFunction("getSystem", (&ecs::Manager::getSystem<PhysicsSystem>))
         .addFunction("getSystem", (&ecs::Manager::getSystem<UISystem>))
         .addFunction("hasComponent", (&ecs::Manager::hasComponent<Camera>))
@@ -202,10 +209,10 @@ void Flamingo::LuaSystem::createSystemFuntions()
         .addFunction("hasComponent", (&ecs::Manager::hasComponent<Light>))
         .addFunction("hasComponent", (&ecs::Manager::hasComponent<Transform>))
         .addFunction("hasComponent", (&ecs::Manager::hasComponent<RigidBody>))
-        .addFunction("hasComponent", (&ecs::Manager::hasComponent<PlayerController>))*/
+        .addFunction("hasComponent", (&ecs::Manager::hasComponent<PlayerController>))
         .addFunction("isAlive", (&ecs::Manager::isAlive))
         .addFunction("setAlive", (&ecs::Manager::setAlive))
-        /*.addFunction("removeComponent", (&ecs::Manager::removeComponent<Camera>))
+        .addFunction("removeComponent", (&ecs::Manager::removeComponent<Camera>))
         .addFunction("removeComponent", (&ecs::Manager::removeComponent<Light>))
         .addFunction("removeComponent", (&ecs::Manager::removeComponent<MeshRenderer>))
         .addFunction("removeComponent", (&ecs::Manager::removeComponent<Transform>))
@@ -214,8 +221,8 @@ void Flamingo::LuaSystem::createSystemFuntions()
         .addFunction("removeSystem", (&ecs::Manager::removeSystem<AudioSystem>))
         .addFunction("removeSystem", (&ecs::Manager::removeSystem<UISystem>))
         .addFunction("removeSystem", (&ecs::Manager::removeSystem<RenderSystem>))
-        .addFunction("removeSystem", (&ecs::Manager::removeSystem<ParticleSystem>))
-        .addFunction("removeSystem", (&ecs::Manager::removeSystem<PhysicsSystem>))*/
+        //.addFunction("removeSystem", (&ecs::Manager::removeSystem<Flamingo::ParticleSystem>))
+        .addFunction("removeSystem", (&ecs::Manager::removeSystem<PhysicsSystem>))
         .addFunction("setAlive", (&ecs::Manager::setAlive))
         .addFunction("setHandler", (&ecs::Manager::setHandler))
         .endClass();
@@ -243,18 +250,18 @@ void Flamingo::LuaSystem::createComponetsFuntions()
         .beginClass<Light>("Light")
         .addFunction("setType", (&Light::setType)) //Funciona
         .addFunction("setAttenuation", (&Light::setAttenuation))
-        .addFunction("setCastShadows", (&Light::setCastShadows))
+        .addFunction("setCastShadows", (&Light::setCastShadows)) //Funciona
         .addFunction("setDiffuseColour", (&Light::setDiffuseColour)) //Funciona
         .addFunction("setSpecularColour", (&Light::setSpecularColour)) //Funciona
         .addFunction("setDirection", (&Light::setDirection)) //Funciona
-        .addFunction("setShadowFarClipDistance", (&Light::setShadowFarClipDistance))
-        .addFunction("setShadowFarDistance", (&Light::setShadowFarDistance))
-        .addFunction("setShadowNearClipDistance", (&Light::setShadowNearClipDistance))
+        .addFunction("setShadowFarClipDistance", (&Light::setShadowFarClipDistance)) //Funciona
+        .addFunction("setShadowFarDistance", (&Light::setShadowFarDistance)) //Funciona
+        .addFunction("setShadowNearClipDistance", (&Light::setShadowNearClipDistance)) //Funciona
         //SpotLight
-        .addFunction("setSpotlightFalloff", (&Light::setSpotlightFalloff))
-        .addFunction("setSpotlightInnerAngle", (&Light::setSpotlightInnerAngle))
-        .addFunction("setSpotlightOuterAngle", (&Light::setSpotlightOuterAngle))
-        .addFunction("setSpotlightNearClipDistance", (&Light::setSpotlightNearClipDistance))
+        .addFunction("setSpotlightFalloff", (&Light::setSpotlightFalloff)) //Funciona
+        .addFunction("setSpotlightInnerAngle", (&Light::setSpotlightInnerAngle)) //Funciona
+        .addFunction("setSpotlightOuterAngle", (&Light::setSpotlightOuterAngle)) // Funciona
+        .addFunction("setSpotlightNearClipDistance", (&Light::setSpotlightNearClipDistance)) // Funciona
         .addFunction("setSpotlightRange", (&Light::setSpotlightRange))
         .endClass();
     //MeshRenderer
@@ -333,6 +340,10 @@ void Flamingo::LuaSystem::createFlamingoFunctions()
     //Light Type
     luabridge::getGlobalNamespace(lua_state)
         .beginClass<Light::lightType>("lightType")
+        .endClass();
+
+    luabridge::getGlobalNamespace(lua_state)
+        .beginClass<GameObject>("GameObject")
         .endClass();
 }
 
