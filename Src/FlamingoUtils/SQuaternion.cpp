@@ -2,7 +2,7 @@
 #include <btBulletCollisionCommon.h>
 #include <iostream>
 #include <math.h>
-
+#include <CEGUI/Quaternion.h>
 #define M_PI 3.14159265358979323846
 
 SQuaternion::SQuaternion()
@@ -134,6 +134,11 @@ SQuaternion::operator btQuaternion() const
     return btQuaternion((btScalar)m_x, (btScalar)m_y, (btScalar)m_z, (btScalar)m_w);
 }
 
+SQuaternion::operator CEGUI::Quaternion()
+{
+    return CEGUI::Quaternion((btScalar)m_x, (btScalar)m_y, (btScalar)m_z, (btScalar)m_w);
+}
+
 SQuaternion SQuaternion::ogreToSQuaternion(const Ogre::Quaternion& ogreQuaternion)
 {
     return SQuaternion((btScalar)ogreQuaternion.x, (btScalar)ogreQuaternion.y, (btScalar)ogreQuaternion.z, (btScalar)ogreQuaternion.w);
@@ -142,4 +147,8 @@ SQuaternion SQuaternion::ogreToSQuaternion(const Ogre::Quaternion& ogreQuaternio
 SQuaternion SQuaternion::bulletToQuaternion(const btQuaternion& t_bullet_quaternion)
 {
     return SQuaternion((double)t_bullet_quaternion.x(), (double)t_bullet_quaternion.y(), (double)t_bullet_quaternion.z(), (double)t_bullet_quaternion.w());
+}
+
+SQuaternion SQuaternion::ceguiToSQuaternion(const CEGUI::Quaternion& ceguiQuaternion){
+    return SQuaternion((double)ceguiQuaternion.d_x, (double)ceguiQuaternion.d_y, (double)ceguiQuaternion.d_z, (double)ceguiQuaternion.d_w);
 }

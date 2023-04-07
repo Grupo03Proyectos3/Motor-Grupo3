@@ -22,8 +22,9 @@ namespace Flamingo{
         UIElement();
         virtual ~UIElement();
         void initComponent() override;
-        void setPosition();
-        void setSize();
+        void setPosition(SVector3 pos);
+        void setSize(SVector3 size);
+        void setRotation(SQuaternion rot);
         void setText(const std::string& text);
         void setAlpha(float alpha);
         void setActive(bool valor);
@@ -38,7 +39,6 @@ namespace Flamingo{
             CEGUI::Window* getWindowElement();
             void setElement(CEGUI::Window* element);
             CEGUI::Window* m_element;
-            Transform* m_transform;
             UISystem* m_uiSys;       
     };
 } // namespace Flamingo

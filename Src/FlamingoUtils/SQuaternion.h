@@ -5,7 +5,7 @@
 
 #include   <OgreQuaternion.h>
 #include "SVector3.h"
-
+#include <CEGUI/Quaternion.h>
 class btQuaternion;
 /**
  * Clase base que usaremos como interprete entre todos los demás quaterniones presentes en el motor (ogreQuaternion, bulletQuaternion...)
@@ -35,9 +35,11 @@ class SQuaternion
 
     operator Ogre::Quaternion() const;
     operator btQuaternion() const;
+    operator CEGUI::Quaternion();
+
     static SQuaternion ogreToSQuaternion(const Ogre::Quaternion& ogreQuaternion);
     static SQuaternion bulletToQuaternion(const btQuaternion& t_bullet_quaternion);
-
+    static SQuaternion ceguiToSQuaternion(const CEGUI::Quaternion& ceguiQuaternion);
     SQuaternion inverse();
     double lenght();
     double dot(const SQuaternion& qother);

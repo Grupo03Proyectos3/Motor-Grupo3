@@ -22,11 +22,15 @@
 // Render3D
 #include "Render/RenderSystem.h"
 
+//UI
+#include "UI/UISystem.h"
+
 // Debug de memory leaks
 #include <crtdbg.h>
 
 // INCLUDES TEMPORALES PARA LA ESCENA DE JUEGO
 #include <Render/Light.h>
+#include <UI/UIElement.h>
 
 namespace Flamingo
 {
@@ -71,7 +75,7 @@ namespace Flamingo
         PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
         AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
         Flamingo::LuaSystem* lua_system = m_mngr->addSystem<Flamingo::LuaSystem>();
-
+        Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
         if (!loadScene(render_sys))
         {
             std::cout << "No ha sido posible cargar la escena";
@@ -109,6 +113,18 @@ namespace Flamingo
         cmp_light->setDiffuseColour();
         render_sys->getSceneManager()->getSceneActive()->addObjects(light_go);
 
+
+        //PRUEBAS DE UI
+        /* ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
+         auto y = ecs::AddComponent<Transform>(UI);
+         y->initValues();
+         y->setPosition({75, 75, 0});
+         auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
+         x->setElementWidget("TaharezLook/Label", "COSO");
+         x->setText("ODIO CEGUI");
+         y->setPosition({100, 100, 0});*/
+        //PRUEBAS DE UI
+
         return true;
     }
 
@@ -121,7 +137,7 @@ namespace Flamingo
         auto dt = player_timer->getElapsedTime() - time;
 
         ecs::Manager* m_mngr = ecs::Manager::instance();
-
+        auto ui_system = m_mngr->getSystem<Flamingo::UISystem>();
         auto render_sys = m_mngr->getSystem<RenderSystem>();
 
         auto& ihldr = ih();
@@ -150,7 +166,7 @@ namespace Flamingo
             m_mngr->refresh();
             m_mngr->flushMessages();
         }
-        //  ui_sys->eraseContext();
+        ui_system->eraseContext();
         render_sys->getWindow()->closeWindow();
         delete player_timer;
 

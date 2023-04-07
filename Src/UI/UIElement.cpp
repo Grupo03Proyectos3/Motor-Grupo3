@@ -10,7 +10,6 @@ namespace Flamingo{
     UIElement::UIElement() {
         m_element = nullptr;
         m_uiSys = nullptr;
-        m_transform = nullptr;
     }
     UIElement::~UIElement(){
        //if(m_element!=nullptr) m_element->destroy();
@@ -18,7 +17,7 @@ namespace Flamingo{
     void UIElement::initComponent(){       
         m_uiSys = m_mngr->getSystem<Flamingo::UISystem>();
        //m_element = nullptr;
-       m_transform = m_mngr->getComponent<Transform>(m_ent); // accedo al componente transform
+        auto m_transform = m_mngr->getComponent<Transform>(m_ent); // accedo al componente transform
        //if (m_transform == nullptr){
        //    std::cout << m_ent->getName() << "ADD TRANSFORM COMPONENT TO SET ANIMATOR COMPONENT\n";
        //    exit(1);
@@ -50,12 +49,18 @@ namespace Flamingo{
         return m_element->getChild(childName);        
     }
 
-    void UIElement::setPosition(){
-        m_element->setPosition(CEGUI::UVector2(CEGUI::UDim(0, m_transform->getPosition().getX()/10), CEGUI::UDim(0, m_transform->getPosition().getY()/10)));
+    void UIElement::setPosition( SVector3 pos)
+    {
+        m_element->setPosition(CEGUI::UVector2(CEGUI::UDim(0, pos.getX()/10), CEGUI::UDim(0,pos.getY()/10)));
     }
 
-    void UIElement::setSize(){
-        m_element->setPosition(CEGUI::UVector2(CEGUI::UDim(m_transform->getScale().getX()/10, 0), CEGUI::UDim(m_transform->getScale().getY()/10, 0)));
+    void UIElement::setSize( SVector3 size)
+    {
+        m_element->setPosition(CEGUI::UVector2(CEGUI::UDim(size.getX()/10, 0), CEGUI::UDim(size.getY()/10, 0)));
+    }
+
+    void UIElement::setRotation(SQuaternion rot){
+        m_element->setRotation(rot);
     }
 
     Flamingo::SVector2 UIElement::getPivotCenter(){
@@ -80,13 +85,14 @@ namespace Flamingo{
     void UIElement::setElementWidget(const std::string& widget,const  std::string& name){
         //solucionar lo de k no se llmae al init
         if (m_uiSys == nullptr) m_uiSys = m_mngr->getSystem<Flamingo::UISystem>();
-        if (m_transform == nullptr) m_transform = m_mngr->getComponent<Transform>(m_ent);
+        auto m_transform = m_mngr->getComponent<Transform>(m_ent);
         //QUITAR
         if (m_element != nullptr) m_element->destroy();
         // habria k meter este objecto el gfrupo de entidades de UI
         m_element = m_uiSys->createWidget(widget, name); // obtengo el widget cargado por el usuario      
         // seteo los datos de transform
-        setPosition();
-        setSize();
+        setPosition(m_transform->getPosition());
+        setSize(m_transform->getScale());
+        setRotation(m_transform->getRotation());
     }
 } // namespace Flamingo

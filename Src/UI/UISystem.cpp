@@ -16,10 +16,27 @@ namespace Flamingo{
     }
 
     void UISystem::recieve(const Message& m){
+        UIElement* element = nullptr;
+        Transform* transform = nullptr;
+        if (m.entity_affected != nullptr){
+            element = m_mngr->getComponent<UIElement>(m.entity_affected);
+            transform = m_mngr->getComponent<Transform>(m.entity_affected);
+        }
+        if (element == nullptr)
+            return;
         switch (m.id)
         {
             case MSG_WINDOW_RESIZED:
                 chageScreenSize(m_mngr->getSystem<RenderSystem>()->getWindow()->getRenderWindow()->getWidth(), m_mngr->getSystem<RenderSystem>()->getWindow()->getRenderWindow()->getHeight());
+            case MSG_TRANSFORM_MOVE:
+                element->setPosition(transform->getPosition());              
+                break;
+            case MSG_TRANSFORM_ROTATE:
+                element->setRotation(transform->getRotation());
+                break;
+            case MSG_TRANSFORM_SCALING:
+                element->setPosition(transform->getScale());
+                break;
             default:
                 break;
         }
