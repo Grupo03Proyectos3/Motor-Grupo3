@@ -30,6 +30,7 @@ namespace ecs
         void setActive(bool to);
 
         std::string getName();
+        void setName(std::string t_name);
 
       private:
         friend class Manager;

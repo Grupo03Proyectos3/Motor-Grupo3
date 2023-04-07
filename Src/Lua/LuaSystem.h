@@ -35,7 +35,7 @@ namespace Flamingo
         virtual ~LuaSystem();
 
         void initSystem() override;
-        void update(float t_delta_time) override{};
+        void update(float t_delta_time) override;
 
         lua_State* getLuaState();
 

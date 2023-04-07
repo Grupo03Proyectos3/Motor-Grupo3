@@ -54,6 +54,7 @@ HMODULE hinstLib = LoadLibrary(TEXT("EldersbaneExport"));
 #include <CEGUI/CEGUI.h>
 #include <UI/UISystem.h>
 #include <UI/UIElement.h>
+#include <Lua/BehaviourScript.h>
 
 typedef bool(__cdecl* GameEntryPoint)(void);
 
@@ -189,11 +190,14 @@ int main(int argc, char* argv[])
 
     render_sys->getSceneManager()->getSceneActive()->addObjects(light_go);
 
-    ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
+    ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER, ecs::GROUP_EXAMPLE});
+    cam_go->setName("Camera");
     auto m_camera = ecs::AddComponent<Camera>(cam_go);
     lua_system->addCameraToLua(m_camera, "cam1"); //Añado la referenacia a LUA
     m_camera->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
     m_camera->initComponent();
+    auto script_cmp = m_mngr->addComponent<BehaviourScript>(cam_go);
+
     lua_system->addColorToLua(SColor(0.3f, 0.2f, 0.6f), "color");
     lua_system->callLuaFunction("changeVPcolor");
     /*bool autoradio = true;
@@ -245,6 +249,7 @@ int main(int argc, char* argv[])
 
         // leer entrada
 
+        lua_system->update(dt);
         physics_sys->update(dt);
         //ui_sys->update(dt);
         render_sys->update(dt);

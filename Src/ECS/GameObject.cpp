@@ -42,3 +42,8 @@ std::string ecs::GameObject::getName()
 {
     return m_name;
 }
+
+void ecs::GameObject::setName(std::string t_name)
+{
+    m_name = t_name;
+}

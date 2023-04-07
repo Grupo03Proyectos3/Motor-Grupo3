@@ -25,6 +25,7 @@ extern "C"
 //BASE
 #include "FlamingoBase/SceneManager.h"
 #include "FlamingoBase/Transform.h"
+#include "BehaviourScript.h"
 
 Flamingo::LuaSystem::~LuaSystem()
 {
@@ -43,6 +44,18 @@ void Flamingo::LuaSystem::initSystem()
     createFlamingoFunctions();
     readScript("camara");
     readScript("luces");
+}
+
+void Flamingo::LuaSystem::update(float t_delta_time)
+{
+    for (auto game_object : m_mngr->getEntities(ecs::GROUP_EXAMPLE))
+    {
+        auto bs = m_mngr->getComponent<BehaviourScript>(game_object);
+        if (bs)
+        {
+            bs->update();
+        }
+    }
 }
 
 lua_State* Flamingo::LuaSystem::getLuaState()
