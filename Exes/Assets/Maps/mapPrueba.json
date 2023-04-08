@@ -129,7 +129,68 @@
                         ]
                     }
                     ]
-                }
+                },
+                {
+                    "id":2,
+                    "positionX": "200.0",
+                    "positionY":"260.0",
+                    "positionZ":"50.0",
+                    "scaleX":"50.0",
+                    "scaleY":"50",
+                    "scaleZ":"50.0",
+                    "rotationX":"0.0",
+                    "rotationY":"0.0",
+                    "rotationZ":"0.0",
+                    "rotationW":"1.0",
+                    "scripts":[
+                        {
+                            "type":"MeshRenderer",
+                            "allParams":[
+                                {
+                                    "nameParam":"t_model_name",
+                                    "valueParam":"Torus.mesh"
+                                },
+                                {
+                                    "nameParam":"t_entity_name",
+                                    "valueParam":"torus"
+                                },
+                                {
+                                    "nameParam":"t_node_x",
+                                    "valueParam":"100"
+                                },
+                                {
+                                    "nameParam":"t_node_y",
+                                    "valueParam":"0.2"
+                                },
+                                {
+                                    "nameParam":"t_node_z",
+                                    "valueParam":"100"
+                                },
+                                {
+                                    "nameParam":"t_mat_name",
+                                    "valueParam":"Prueba/cesped"
+                                }
+                            ]
+                        },
+                        {
+                            "type":"RigidBody",
+                            "allParams":[
+                                {
+                                    "nameParam":"t_mass",
+                                    "valueParam":"20"
+                                },
+                                {
+                                    "nameParam":"t_trigger",
+                                    "valueParam":"0"
+                                },
+                                {
+                                    "nameParam":"t_static",
+                                    "valueParam":"1"
+                                }
+                            ]
+                        }
+                        ]
+                    }
             
         ]
 }
