@@ -66,15 +66,43 @@ void Flamingo::LuaSystem::recieve(const Message& t_m)
         case MSG_COLLISION_STAY:
         {
             // Si alguno de los GameObjects implicados en la colisión tiene BehaviourScript,
-            // se llama a su OnCollisionStay() para ejecutar la acción determinada por el usuario
+            // se llama a su OnCollisionStay() para ejecutar la acción determinada por el usuario.
             if (auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj1))
             {
-                bsCmp->onCollisionStay(t_m.collision.obj1, t_m.collision.obj2);
+                bsCmp->onCollisionStay(t_m.collision.obj2);
             }
 
             if (auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj2))
             {
-                bsCmp->onCollisionStay(t_m.collision.obj2, t_m.collision.obj1);
+                bsCmp->onCollisionStay(t_m.collision.obj1);
+            }
+
+            break;
+        }
+        case MSG_COLLISION_ENTER:
+        {
+            if(auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj1))
+            {
+                bsCmp->onCollisionEnter(t_m.collision.obj2);
+            }
+
+            if (auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj2))
+            {
+                bsCmp->onCollisionEnter(t_m.collision.obj1);
+            }
+
+            break;
+        }
+        case MSG_COLLIISION_EXIT:
+        {
+            if (auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj1))
+            {
+                bsCmp->onCollisionExit(t_m.collision.obj2);
+            }
+
+            if (auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj2))
+            {
+                bsCmp->onCollisionExit(t_m.collision.obj1);
             }
 
             break;

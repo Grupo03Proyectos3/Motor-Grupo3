@@ -25,8 +25,34 @@ struct BehaviourScript : public ecs::Component
     virtual void initComponent(); // == start() ?
 
     virtual void update();
-    virtual void onCollisionEnter(ecs::GameObject* t_one, ecs::GameObject* t_other);
-    virtual void onCollisionStay(ecs::GameObject* t_one, ecs::GameObject* t_other);
+
+    /**
+     * @brief Se llama una vez al comienzo de collisionar con otro cuerpo 
+     *
+     * 
+     *
+     * @param[in] t_other GameObject* GameObject del cuerpo contra el que ha colisionado
+     * @return
+     */
+    virtual void onCollisionEnter(ecs::GameObject* t_other);
+
+    /**
+     * @brief Se llama continuamente al collisionar con otro cuerpo
+     *
+     *
+     * @param[in] t_other GameObject* GameObject del cuerpo contra el que colisiona
+     * @return
+     */
+    virtual void onCollisionStay(ecs::GameObject* t_other);
+
+    /**
+     * @brief Se llama al salir de la colision con otro cuerpo
+     *
+     *
+     * @param[in] t_other GameObject* GameObject del cuerpo contra el que colisiona
+     * @return
+     */
+    virtual void onCollisionExit(ecs::GameObject* t_other);
 
     private:
 

@@ -224,11 +224,32 @@ btRigidBody* PhysicsSystem::createRigidBody(btTransform* t_transform, btCollisio
 
 void PhysicsSystem::onCollisionEnter(btPersistentManifold* const& manifold)
 {
-   
+    RigidBody* rb1 = static_cast<RigidBody*>(manifold->getBody0()->getUserPointer());
+    RigidBody* rb2 = static_cast<RigidBody*>(manifold->getBody1()->getUserPointer());
+    if (rb1 && rb2)
+    {
+        Message m;
+        m.id = MSG_COLLISION_ENTER;
+
+        m.collision.obj1 = rb1->gameObject();
+        m.collision.obj2 = rb2->gameObject();
+        ecs::Manager::instance()->send(m);
+    }
 }
 
 void PhysicsSystem::onCollisionExit(btPersistentManifold* const& manifold)
 {
+    RigidBody* rb1 = static_cast<RigidBody*>(manifold->getBody0()->getUserPointer());
+    RigidBody* rb2 = static_cast<RigidBody*>(manifold->getBody1()->getUserPointer());
+    if (rb1 && rb2)
+    {
+        Message m;
+        m.id = MSG_COLLIISION_EXIT;
+
+        m.collision.obj1 = rb1->gameObject();
+        m.collision.obj2 = rb2->gameObject();
+        ecs::Manager::instance()->send(m);
+    }
 }
 
 void PhysicsSystem::onCollisionStay(btBroadphasePair& t_collisionPair, btCollisionDispatcher& t_dispatcher, const btDispatcherInfo& t_dispatchInfo)
@@ -247,20 +268,7 @@ void PhysicsSystem::onCollisionStay(btBroadphasePair& t_collisionPair, btCollisi
         Message m;
         m.id = MSG_COLLISION_STAY;
         // TO DO : cambiar a Grupo físico
-        /*for (auto game_object : ecs::Manager::instance()->getEntities(ecs::GROUP_EXAMPLE))
-        {
-            if (auto rb = ecs::Manager::instance()->getComponent<RigidBody>(game_object))
-            {
-                if (rb->getBtRigidBody() == rigidBody1)
-                {
-                    m.collision.obj1 = game_object;
-                }
-                else if (rb->getBtRigidBody() == rigidBody2)
-                {
-                    m.collision.obj2 = game_object;
-                }
-            }
-        }*/
+       
         m.collision.obj1 = rigidBody1->gameObject();
         m.collision.obj2 = rigidBody1->gameObject();
         ecs::Manager::instance()->send(m);

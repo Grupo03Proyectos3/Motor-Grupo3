@@ -80,8 +80,8 @@ class PhysicsSystem : public ecs::System
      * @param[in] t_dispatchInfo
      */
     static void onCollisionStay(btBroadphasePair& t_collisionPair, btCollisionDispatcher& t_dispatcher, const btDispatcherInfo& t_dispatchInfo);
-    void onCollisionEnter(btPersistentManifold* const& manifold);
-    void onCollisionExit(btPersistentManifold* const& manifold);
+    static void onCollisionEnter(btPersistentManifold* const& manifold);
+    static void onCollisionExit(btPersistentManifold* const& manifold);
 
   private:
     btDiscreteDynamicsWorld* m_world = nullptr;
