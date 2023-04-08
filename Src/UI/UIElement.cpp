@@ -60,7 +60,7 @@ namespace Flamingo{
     }
 
     void UIElement::setSize( SVector3 size){
-        m_element->setPosition(CEGUI::UVector2(CEGUI::UDim(size.getX(), 0), CEGUI::UDim(size.getY(), 0)));
+        m_element->setSize(CEGUI::USize(CEGUI::UDim(size.getX(), 0), CEGUI::UDim(size.getY(), 0)));
     }
 
     void UIElement::setRotation(SQuaternion rot){

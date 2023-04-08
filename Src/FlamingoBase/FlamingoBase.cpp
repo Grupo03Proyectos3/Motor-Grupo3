@@ -71,11 +71,13 @@ namespace Flamingo
         ecs::Manager* m_mngr = ecs::Manager::instance();
         m_mngr->init();
 
+        Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
         RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
         PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
         AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
         Flamingo::LuaSystem* lua_system = m_mngr->addSystem<Flamingo::LuaSystem>();
-        Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
+
+        ui_system->initContext();
         if (!loadScene(render_sys))
         {
             std::cout << "No ha sido posible cargar la escena";
@@ -115,26 +117,27 @@ namespace Flamingo
 
 
         //PRUEBAS DE UI
-        /* ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
+         ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
          auto y = ecs::AddComponent<Transform>(UI);
          y->initValues();
          y->setPosition({75, 75, 0});
          auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
          x->setElementWidget("TaharezLook/Label", "COSO");
          x->setText("ODIO CEGUI");
+        // x->setImage("", "");
          y->setPosition({0, 0, 0});
          y->setScale({50, 50, 0});
 
-         ecs::GameObject* UI2 = m_mngr->addGameObject({ecs::GROUP_UI});
-         auto y2 = ecs::AddComponent<Transform>(UI2);
-         y2->initValues();
-         y2->setPosition({75, 75, 0});
-         auto x2 = ecs::AddComponent<Flamingo::UIElement>(UI2);
-         x2->setElementWidget("TaharezLook/Label", "COSO2");
-         x2->setText("ODIO CEGUI");
-         y2->setPosition({200, 200, 0});
-         
-         x->addChild(x2);*/
+         //ecs::GameObject* UI2 = m_mngr->addGameObject({ecs::GROUP_UI});
+         //auto y2 = ecs::AddComponent<Transform>(UI2);
+         //y2->initValues();
+         //y2->setPosition({75, 75, 0});
+         //auto x2 = ecs::AddComponent<Flamingo::UIElement>(UI2);
+         //x2->setElementWidget("TaharezLook/Label", "COSO2");
+         //x2->setText("ODIO CEGUI");
+         //y2->setPosition({200, 200, 0});
+         //
+         //x->addChild(x2);
         //PRUEBAS DE UI
 
         return true;

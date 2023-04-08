@@ -43,23 +43,28 @@ namespace Flamingo{
     }
 
     void UISystem::initSystem(){
-        auto sys = m_mngr->getSystem<RenderSystem>();
-        // Seleccionamos el RenderTarget que usamos de ogre que usamos de Root de Renderizado       
-        renderer = &CEGUI::OgreRenderer::bootstrapSystem(*sys->getWindow()->getRenderWindow());
-        renderer->setUsingShaders(true);
-        guiContext = &CEGUI::System::getSingleton().createGUIContext(renderer->getDefaultRenderTarget());
-        winMngr = CEGUI::WindowManager::getSingletonPtr();
-        renderer->setRenderingEnabled(true);
-       
-        initUIResources(); // HAY Q HACERLO AUTOMATICAMENTE COMO OGRE
-        initRoot();
-        //pruebas();
+        initUIResources(); 
     }
 
     void UISystem::update(float t_delta_time){
         renderer->beginRendering();
         guiContext->draw();
         renderer->endRendering();     
+    }
+
+    void UISystem::initContext()
+    {
+        auto sys = m_mngr->getSystem<RenderSystem>();
+        // Seleccionamos el RenderTarget que usamos de ogre que usamos de Root de Renderizado
+        renderer = &CEGUI::OgreRenderer::bootstrapSystem(*sys->getWindow()->getRenderWindow());
+        renderer->setUsingShaders(true);
+        guiContext = &CEGUI::System::getSingleton().createGUIContext(renderer->getDefaultRenderTarget());
+        winMngr = CEGUI::WindowManager::getSingletonPtr();
+        renderer->setRenderingEnabled(true);
+
+        initRoot();
+        pruebas();
+
     }
 
     void UISystem::initRoot(){

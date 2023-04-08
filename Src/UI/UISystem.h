@@ -20,6 +20,8 @@ namespace Flamingo{
         void initSystem() override;
         void update(float t_delta_time) override;
 
+        void initContext();
+
         void initRoot();
         void initUIResources();
 
