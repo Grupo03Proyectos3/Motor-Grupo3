@@ -132,8 +132,14 @@ void PhysicsSystem::initSystem()
     m_collision_shapes = new btAlignedObjectArray<btCollisionShape*>();
     m_collision_config = new btDefaultCollisionConfiguration();
     m_dispatcher = new btCollisionDispatcher(m_collision_config);
+
+    //Callbacks de las colisiones
     m_dispatcher->setNearCallback(onCollisionStay);
+    gContactStartedCallback = onCollisionEnter;
+    gContactEndedCallback = onCollisionExit;
+
     m_broadphase = new btDbvtBroadphase();
+
     // Tipo por defecto de solver
     btSequentialImpulseConstraintSolver* sol = new btSequentialImpulseConstraintSolver;
     m_solver = sol;
@@ -214,6 +220,15 @@ btRigidBody* PhysicsSystem::createRigidBody(btTransform* t_transform, btCollisio
 
     body->setUserIndex(1);
     return body;
+}
+
+void PhysicsSystem::onCollisionEnter(btPersistentManifold* const& manifold)
+{
+   
+}
+
+void PhysicsSystem::onCollisionExit(btPersistentManifold* const& manifold)
+{
 }
 
 void PhysicsSystem::onCollisionStay(btBroadphasePair& t_collisionPair, btCollisionDispatcher& t_dispatcher, const btDispatcherInfo& t_dispatchInfo)
