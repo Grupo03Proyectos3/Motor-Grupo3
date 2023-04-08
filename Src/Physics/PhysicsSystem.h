@@ -17,6 +17,7 @@ class btGhostObject;
 class btRigidBody;
 class btTransform;
 class btPersistentManifold;
+class btManifoldPoint;
 
 class OgreDebugDrawer;
 
@@ -79,7 +80,8 @@ class PhysicsSystem : public ecs::System
      * @param[in] t_dispatcher
      * @param[in] t_dispatchInfo
      */
-    static void onCollisionStay(btBroadphasePair& t_collisionPair, btCollisionDispatcher& t_dispatcher, const btDispatcherInfo& t_dispatchInfo);
+    //static void onCollisionStay(btBroadphasePair& t_collisionPair, btCollisionDispatcher& t_dispatcher, const btDispatcherInfo& t_dispatchInfo);
+    static bool onCollisionStay(btManifoldPoint& cp, void* body0, void* body1);
     static void onCollisionEnter(btPersistentManifold* const& manifold);
     static void onCollisionExit(btPersistentManifold* const& manifold);
 

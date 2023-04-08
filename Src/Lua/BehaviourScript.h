@@ -49,7 +49,7 @@ struct BehaviourScript : public ecs::Component
      * @brief Se llama al salir de la colision con otro cuerpo
      *
      *
-     * @param[in] t_other GameObject* GameObject del cuerpo contra el que colisiona
+     * @param[in] t_other GameObject* GameObject del cuerpo con el que ha terminado la colision
      * @return
      */
     virtual void onCollisionExit(ecs::GameObject* t_other);
