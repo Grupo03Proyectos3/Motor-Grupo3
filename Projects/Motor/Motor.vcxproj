@@ -130,13 +130,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\CEGUI\Src\cegui\include;$(SolutionDir)Dependencias\CEGUI\Build\cegui\include;$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Src;$(SolutionDir)Src\Physics;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Src\Physics</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\CEGUI\Src\cegui\include;$(SolutionDir)Dependencias\LuaBridge\Source;$(SolutionDir)Dependencias\LUA\src;$(SolutionDir)Dependencias\CEGUI\Build\cegui\include;$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Src;$(SolutionDir)Src\Physics;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Src\Physics</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Lib\FlamingoExport\$(Platform)\$(Configuration);$(SolutionDir)Dependencias\CEGUI\Build\lib\;$(SolutionDir)Dependencias\FMOD\api\studio\libs\x86;$(SolutionDir)Dependencias\FMOD\api\core\libs\x86;$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Bullet\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\FlamingoExport\$(Platform)\$(Configuration);$(SolutionDir)Dependencias\LUA\Build;$(SolutionDir)Dependencias\CEGUI\Build\lib\;$(SolutionDir)Dependencias\FMOD\api\studio\libs\x86;$(SolutionDir)Dependencias\FMOD\api\core\libs\x86;$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Bullet\Build\lib\$(ConfigurationName)</AdditionalLibraryDirectories>
       <AdditionalDependencies>OgreMain_d.lib;fmodL_vc.lib;fmodstudioL_vc.lib;CEGUIBase-0_d.lib;CEGUIOgreRenderer-0_d.lib;OgreBullet_d.lib;%(AdditionalDependencies);FlamingoExport_d_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -148,7 +148,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\CEGUI\Src\cegui\include;$(SolutionDir)Dependencias\CEGUI\Build\cegui\include;$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Src;$(SolutionDir)Src\Physics;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Src\Physics</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\CEGUI\Src\cegui\include;$(SolutionDir)Dependencias\LuaBridge\Source;$(SolutionDir)Dependencias\LUA\src;$(SolutionDir)Dependencias\CEGUI\Build\cegui\include;$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Src;$(SolutionDir)Src\Physics;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Src\Physics</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -166,13 +166,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\CEGUI\Src\cegui\include;$(SolutionDir)Dependencias\CEGUI\Build\cegui\include;$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\CEGUI\Src\cegui\include;$(SolutionDir)Dependencias\LuaBridge\Source;$(SolutionDir)Dependencias\LUA\src;$(SolutionDir)Dependencias\CEGUI\Build\cegui\include;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Lib\FlamingoExport\$(Platform)\$(Configuration);$(SolutionDir)Dependencias\CEGUI\Build\lib\;$(SolutionDir)Dependencias\FMOD\api\studio\libs\x64;$(SolutionDir)Dependencias\FMOD\api\core\libs\x64;$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Bullet\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Bullet\Build\lib\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\FlamingoExport\$(Platform)\$(Configuration);$(SolutionDir)Dependencias\CEGUI\Build\lib\;$(SolutionDir)Dependencias\FMOD\api\studio\libs\x64;$(SolutionDir)Dependencias\FMOD\api\core\libs\x64;$(SolutionDir)Dependencias\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Dependencias\Bullet\Build\lib\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies);FlamingoExport_d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -184,7 +184,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\CEGUI\Src\cegui\include;$(SolutionDir)Dependencias\CEGUI\Build\cegui\include;$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\CEGUI\Src\cegui\include;$(SolutionDir)Dependencias\LuaBridge\Source;$(SolutionDir)Dependencias\LUA\src;$(SolutionDir)Dependencias\CEGUI\Build\cegui\include;$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Src;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-release</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <SupportJustMyCode>false</SupportJustMyCode>

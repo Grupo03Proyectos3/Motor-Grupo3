@@ -29,5 +29,8 @@
     <ClCompile Include="..\..\Src\Lua\BehaviourScript.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Lua\LuaVariables.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

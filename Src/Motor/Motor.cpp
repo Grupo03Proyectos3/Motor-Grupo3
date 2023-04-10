@@ -29,6 +29,9 @@ HMODULE hinstLib = LoadLibrary(TEXT("EldersbaneExport"));
 // LUA
 #include "Lua/LuaSystem.h"
 
+//#include "Lua/LuaVariables.cpp"
+
+
 // BASE
 #include "FlamingoBase/SceneManager.h"
 #include "FlamingoBase/Transform.h"
@@ -173,7 +176,8 @@ int main(int argc, char* argv[])
     auto nodo = render_sys->getSceneManager()->getSceneActive()->getSceneRoot();
     ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
     Light* cmp_light = ecs::AddComponent<Light>(light_go);
-    lua_system->addLightToLua(cmp_light, "light1");
+    //lua_system->addLightToLua(cmp_light, "light1");
+    lua_system->addVarToLua(cmp_light, "light1");
     cmp_light->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), "myLight");
     cmp_light->initComponent();
     lua_system->addLightTypeToLua(Light::DIRECTIONAL, "ltype");
