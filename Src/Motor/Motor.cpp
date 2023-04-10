@@ -180,16 +180,20 @@ int main(int argc, char* argv[])
     lua_system->addVarToLua(cmp_light, "light1");
     cmp_light->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), "myLight");
     cmp_light->initComponent();
-    lua_system->addLightTypeToLua(Light::DIRECTIONAL, "ltype");
+    //lua_system->addLightTypeToLua(Light::DIRECTIONAL, "ltype");
+    lua_system->addVarToLua(Light::DIRECTIONAL, "ltype");
     lua_system->callLuaFunction("type");
     
-    lua_system->addVector3ToLua(SVector3(-1, -1, 0), "lightdirection");
+    //lua_system->addVector3ToLua(SVector3(-1, -1, 0), "lightdirection");
+    lua_system->addVarToLua(SVector3(-1, -1, 0), "lightdirection");
     lua_system->callLuaFunction("direction");
 
-    lua_system->addNumToLua(0.5f, "lightspecular");
+    //lua_system->addNumToLua(0.5f, "lightspecular");
+    lua_system->addVarToLua(0.5f, "lightspecular");
     lua_system->callLuaFunction("specularColor");
     
-    lua_system->addNumToLua(1.0f, "lightdiffuse");
+    //lua_system->addNumToLua(1.0f, "lightdiffuse");
+    lua_system->addVarToLua(1.0f, "lightdiffuse");
     lua_system->callLuaFunction("diffuseColor");
 
     render_sys->getSceneManager()->getSceneActive()->addObjects(light_go);
@@ -197,27 +201,36 @@ int main(int argc, char* argv[])
     ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER, ecs::GROUP_EXAMPLE});
     cam_go->setName("Camera");
     auto m_camera = ecs::AddComponent<Camera>(cam_go);
-    lua_system->addCameraToLua(m_camera, "cam1"); //Añado la referenacia a LUA
+    //lua_system->addCameraToLua(m_camera, "cam1"); //Añado la referenacia a LUA
+    lua_system->addVarToLua(m_camera, "cam1");
     m_camera->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
     m_camera->initComponent();
     //auto script_cmp = m_mngr->addComponent<BehaviourScript>(cam_go);
 
-    lua_system->addColorToLua(SColor(0.3f, 0.2f, 0.6f), "color");
+    //lua_system->addColorToLua(SColor(0.3f, 0.2f, 0.6f), "color");
+    lua_system->addVarToLua(SColor(0.3f, 0.2f, 0.6f), "color");
     lua_system->callLuaFunction("changeVPcolor");
+
     /*bool autoradio = true;
     lua_system->addBooleanToLua(autoradio, "autoradio");
     lua_system->callLuaFunction("autoAspectRatio");*/
-    lua_system->addVector3ToLua(SVector3(0.0, 0.0, 0.0), "lookAtVec");
-    lua_system->addTransSpaceToLua(Camera::WORLD, "transformspace");
+
+    //lua_system->addVector3ToLua(SVector3(0.0, 0.0, 0.0), "lookAtVec");
+    lua_system->addVarToLua(SVector3(0.0, 0.0, 0.0), "lookAtVec");
+    //lua_system->addTransSpaceToLua(Camera::WORLD, "transformspace");
+    lua_system->addVarToLua(Camera::WORLD, "transformspace");
     lua_system->callLuaFunction("lookAtCam");
     //m_camera->lookAt(SVector3(0.0, 0.0, 0.0), Camera::WORLD);
-    lua_system->addNumToLua(1, "nearClip");
+    //lua_system->addNumToLua(1, "nearClip");
+    lua_system->addVarToLua(1, "nearClip");
     lua_system->callLuaFunction("setNearClipDist");
    
-    lua_system->addNumToLua(10000, "farClip");
+    //lua_system->addNumToLua(10000, "farClip");
+    lua_system->addVarToLua(10000, "farClip");
     lua_system->callLuaFunction("setFarClipDist");
 
-    lua_system->addPolygonModeToLua(Camera::SOLID, "pmode");
+    //lua_system->addPolygonModeToLua(Camera::SOLID, "pmode");
+    lua_system->addVarToLua(Camera::SOLID, "pmode");
     lua_system->callLuaFunction("polygonMode");
 
     render_sys->getSceneManager()->getSceneActive()->addObjects(cam_go);

@@ -138,71 +138,71 @@ void Flamingo::LuaSystem::callLuaFunction(std::string t_name)
     fun();
 }
 
-void Flamingo::LuaSystem::addIntToLua(int var, std::string name)
-{
-    lua_pushinteger(lua_state, var);
-    lua_setglobal(lua_state, name.c_str());
-}
-
-void Flamingo::LuaSystem::addNumToLua(float var, std::string name)
-{
-    lua_pushnumber(lua_state, var);
-    lua_setglobal(lua_state, name.c_str());
-}
-
-void Flamingo::LuaSystem::addBooleanToLua(bool var, std::string t_name)
-{
-    lua_pushboolean(lua_state, (int)var);
-    lua_setglobal(lua_state, t_name.c_str());
-}
-
-void Flamingo::LuaSystem::addColorToLua(SColor t_color_param, std::string t_var_name)
-{
-    luabridge::push(lua_state, t_color_param);
-    lua_setglobal(lua_state, t_var_name.c_str());
-}
-
-void Flamingo::LuaSystem::addVector3ToLua(SVector3 t_vec_param, std::string t_var_name)
-{
-    luabridge::push(lua_state, t_vec_param);
-    lua_setglobal(lua_state, t_var_name.c_str());
-}
-
-void Flamingo::LuaSystem::addTransSpaceToLua(Camera::transformSpace t_trs, std::string t_var_name)
-{
-    luabridge::push(lua_state, t_trs);
-    lua_setglobal(lua_state, t_var_name.c_str());
-}
-
-void Flamingo::LuaSystem::addPolygonModeToLua(Camera::polygonMode t_pm, std::string t_var_name)
-{
-    luabridge::push(lua_state, t_pm);
-    lua_setglobal(lua_state, t_var_name.c_str());
-}
-
-void Flamingo::LuaSystem::addLightTypeToLua(Light::lightType t_type, std::string t_var_name)
-{
-    luabridge::push(lua_state, t_type);
-    lua_setglobal(lua_state, t_var_name.c_str());
-}
-
-void Flamingo::LuaSystem::addCameraToLua(Camera* t_cam, std::string t_var_name)
-{
-    luabridge::push(lua_state, t_cam);
-    lua_setglobal(lua_state, t_var_name.c_str());
-}
-
-void Flamingo::LuaSystem::addLightToLua(Light* t_light, std::string t_var_name)
-{
-    luabridge::push(lua_state, t_light);
-    lua_setglobal(lua_state, t_var_name.c_str());
-}
-
-void Flamingo::LuaSystem::addMeshRendererToLua(MeshRenderer* t_mr, std::string t_var_name)
-{
-    luabridge::push(lua_state, t_mr);
-    lua_setglobal(lua_state, t_var_name.c_str());
-}
+//void Flamingo::LuaSystem::addIntToLua(int var, std::string name)
+//{
+//    lua_pushinteger(lua_state, var);
+//    lua_setglobal(lua_state, name.c_str());
+//}
+//
+//void Flamingo::LuaSystem::addNumToLua(float var, std::string name)
+//{
+//    lua_pushnumber(lua_state, var);
+//    lua_setglobal(lua_state, name.c_str());
+//}
+//
+//void Flamingo::LuaSystem::addBooleanToLua(bool var, std::string t_name)
+//{
+//    lua_pushboolean(lua_state, (int)var);
+//    lua_setglobal(lua_state, t_name.c_str());
+//}
+//
+//void Flamingo::LuaSystem::addColorToLua(SColor t_color_param, std::string t_var_name)
+//{
+//    luabridge::push(lua_state, t_color_param);
+//    lua_setglobal(lua_state, t_var_name.c_str());
+//}
+//
+//void Flamingo::LuaSystem::addVector3ToLua(SVector3 t_vec_param, std::string t_var_name)
+//{
+//    luabridge::push(lua_state, t_vec_param);
+//    lua_setglobal(lua_state, t_var_name.c_str());
+//}
+//
+//void Flamingo::LuaSystem::addTransSpaceToLua(Camera::transformSpace t_trs, std::string t_var_name)
+//{
+//    luabridge::push(lua_state, t_trs);
+//    lua_setglobal(lua_state, t_var_name.c_str());
+//}
+//
+//void Flamingo::LuaSystem::addPolygonModeToLua(Camera::polygonMode t_pm, std::string t_var_name)
+//{
+//    luabridge::push(lua_state, t_pm);
+//    lua_setglobal(lua_state, t_var_name.c_str());
+//}
+//
+//void Flamingo::LuaSystem::addLightTypeToLua(Light::lightType t_type, std::string t_var_name)
+//{
+//    luabridge::push(lua_state, t_type);
+//    lua_setglobal(lua_state, t_var_name.c_str());
+//}
+//
+//void Flamingo::LuaSystem::addCameraToLua(Camera* t_cam, std::string t_var_name)
+//{
+//    luabridge::push(lua_state, t_cam);
+//    lua_setglobal(lua_state, t_var_name.c_str());
+//}
+//
+//void Flamingo::LuaSystem::addLightToLua(Light* t_light, std::string t_var_name)
+//{
+//    luabridge::push(lua_state, t_light);
+//    lua_setglobal(lua_state, t_var_name.c_str());
+//}
+//
+//void Flamingo::LuaSystem::addMeshRendererToLua(MeshRenderer* t_mr, std::string t_var_name)
+//{
+//    luabridge::push(lua_state, t_mr);
+//    lua_setglobal(lua_state, t_var_name.c_str());
+//}
 
 void Flamingo::LuaSystem::createSystemFuntions()
 {
