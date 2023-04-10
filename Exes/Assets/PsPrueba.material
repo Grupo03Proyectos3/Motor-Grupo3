@@ -4,42 +4,24 @@
 particle_system PsPrueba/Smoke {
 
     material        	Prueba/smoke
- 
     // Configuración de las partículas
     quota 200
-    common_direction -1 0 0
-    common_up_vector 0 1 0
-    billboard_rotation_type vertex
-    billboard_origin_type bottom_center
-    width 1
-    height 1
-    // Establece la duración de las partículas
-    time_to_live 5
+    default_width        0.1
+    default_height       0.1
+    quota                100
+    keep_local           on
+    particle_width_range 0.2 0.4
+    particle_height_range 0.2 0.4
+    sorted               on
  
     // Configuración de los emisores
     emitter Point {
-        // Establece el número de partículas emitidas por segundo
-        emission_rate 100
-        // Establece la dirección de emisión
+        emission_rate 10
+        time_to_live      1.0
         direction 0 1 0
-        // Establece la velocidad inicial de las partículas
-        velocity 50
-        // Establece la dispersión de la velocidad
+        velocity 100
         velocity_variation 10
-    }
- 
-    
-	// Configuración de los efectos de los emisores
-    affector Randomiser {
-        // Agrega aleatoriedad a la dirección de las partículas
-        randomness 20
-        // Configura el ángulo máximo de dispersión en la dirección
-        // especificada por el emisor
-        angle 90
-    }
-    affector ColourFader {
-        // Hace que las partículas vayan cambiando de color mientras se desvanecen
-        alpha 1 0
-        colour 1 0.5 0 1 1 0 0.5 0.5 0 0 0 0
+        angle             45
+        angle_variation   10
     }
 }
