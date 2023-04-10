@@ -53,19 +53,19 @@ material Prueba/default {
 
 material Prueba/smoke
 {
-technique
-{
-pass
-{
-lighting off
-scene_blend alpha_blend
-depth_write off
-diffuse vertexcolour
-texture_unit
-{
-texture smoke.png
-tex_address_mode clamp
-}
-}
-}
+	technique
+	{
+		pass
+		{
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+			diffuse vertexcolour
+			texture_unit
+			{
+				texture fire_default.png
+				tex_address_mode clamp
+			}
+		}
+	}
 }
