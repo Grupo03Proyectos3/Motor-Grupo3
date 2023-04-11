@@ -87,15 +87,15 @@ namespace Flamingo
         auto nodo = render_sys->getSceneManager()->getSceneActive()->getSceneRoot();
         ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
         auto m_camera = ecs::AddComponent<Camera>(cam_go);
-        lua_system->addCameraToLua(m_camera, "cam1"); // Añado la referenacia a LUA
+       // lua_system->addCameraToLua(m_camera, "cam1"); // Añado la referenacia a LUA
         m_camera->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
         m_camera->initComponent();
-        m_camera->setViewPortBackgroundColour(Ogre::ColourValue(0.3f, 0.2f, 0.6f));
+        m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
         // Ogre::ColourValue color = Ogre::ColourValue(0.0, 0.0, 0.0);
         // lua_system->pushColorToLua(color, "color");
         // lua_system->callLuaFunction("changeVPcolor");
         bool autoradio = true;
-        lua_system->pushBool(autoradio, "autoradio");
+      //  lua_system->pushBool(autoradio, "autoradio");
         lua_system->callLuaFunction("autoAspectRatio");
 
         m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
