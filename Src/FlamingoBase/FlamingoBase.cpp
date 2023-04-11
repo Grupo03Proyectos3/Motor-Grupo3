@@ -87,16 +87,9 @@ namespace Flamingo
         auto nodo = render_sys->getSceneManager()->getSceneActive()->getSceneRoot();
         ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
         auto m_camera = ecs::AddComponent<Camera>(cam_go);
-       // lua_system->addCameraToLua(m_camera, "cam1"); // Añado la referenacia a LUA
         m_camera->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
         m_camera->initComponent();
         m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
-        // Ogre::ColourValue color = Ogre::ColourValue(0.0, 0.0, 0.0);
-        // lua_system->pushColorToLua(color, "color");
-        // lua_system->callLuaFunction("changeVPcolor");
-        bool autoradio = true;
-      //  lua_system->pushBool(autoradio, "autoradio");
-        lua_system->callLuaFunction("autoAspectRatio");
 
         m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
         m_camera->setNearClipDistance(1);
@@ -108,9 +101,7 @@ namespace Flamingo
         cmp_light->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), "myLight");
         cmp_light->initComponent();
         cmp_light->setType(Light::DIRECTIONAL);
-        SVector3 direction = SVector3(-1, -1, 0);
-        // direction *= -1;
-        cmp_light->setDirection(direction);
+        cmp_light->setDirection(SVector3(-1, -1, 0));
         cmp_light->setSpecularColour();
         cmp_light->setDiffuseColour();
         render_sys->getSceneManager()->getSceneActive()->addObjects(light_go);
