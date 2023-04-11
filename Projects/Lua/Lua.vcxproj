@@ -19,10 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\Lua\BehaviourScript.h" />
     <ClInclude Include="..\..\Src\Lua\LuaSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\Lua\BehaviourScript.cpp" />
     <ClCompile Include="..\..\Src\Lua\LuaSystem.cpp" />
+    <ClCompile Include="..\..\Src\Lua\LuaVariables.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -37,6 +37,7 @@ struct RigidBody : public ecs::Component
     void setLinearVelocity(const SVector3& t_velocity);
     void setAngularVelocity(const SVector3& t_velocity);
 
+    inline btRigidBody* getBtRigidBody() const { return m_rigid_body; };
     inline float getMass() const { return m_mass; };
     inline bool isTrigger() const { return m_trigger; };
     inline bool isStatic() const { return m_static; };

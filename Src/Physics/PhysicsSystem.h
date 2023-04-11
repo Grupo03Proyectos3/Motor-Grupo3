@@ -5,16 +5,19 @@
 #include "../ECS/System.h"
 #include <vector>
 
-class btRigidBody;
-class btDiscreteDynamicsWorld;
-class btDispatcher;
-class btConstraintSolver;
-class btCollisionConfiguration;
 class btBroadphaseInterface;
+class btBroadphasePair;
+class btCollisionConfiguration;
+class btCollisionDispatcher;
 class btCollisionShape;
-class btTransform;
-class btCollisionShape;
+class btConstraintSolver;
+class btDiscreteDynamicsWorld;
+class btDispatcherInfo;
 class btGhostObject;
+class btRigidBody;
+class btTransform;
+class btPersistentManifold;
+class btManifoldPoint;
 
 class OgreDebugDrawer;
 
@@ -66,9 +69,25 @@ class PhysicsSystem : public ecs::System
      */
     btRigidBody* createRigidBody(btTransform* t_transform, btCollisionShape* t_shape, const float& t_mass);
     
+    /**
+     * @brief Controla la colisión de objetos del mundo físico de bullet
+     *
+     * Llamada cuando dos objetos del mundo físico de bullet estén en contacto. 
+     * Avisa al sistema de scripting para llamar a las funciones definidas por el desarrollador.
+     * Tras ello delega en bullet para que maneje la colisión.
+     *
+     * @param[in] t_collisionPair 
+     * @param[in] t_dispatcher
+     * @param[in] t_dispatchInfo
+     */
+    //static void onCollisionStay(btBroadphasePair& t_collisionPair, btCollisionDispatcher& t_dispatcher, const btDispatcherInfo& t_dispatchInfo);
+    static bool onCollisionStay(btManifoldPoint& cp, void* body0, void* body1);
+    static void onCollisionEnter(btPersistentManifold* const& manifold);
+    static void onCollisionExit(btPersistentManifold* const& manifold);
+
   private:
     btDiscreteDynamicsWorld* m_world = nullptr;
-    btDispatcher* m_dispatcher = nullptr;
+    btCollisionDispatcher* m_dispatcher = nullptr;
     btConstraintSolver* m_solver = nullptr;
     btCollisionConfiguration* m_collision_config = nullptr;
     // BroadphaseInterface sirve para identificar pares de objetos que podrían colisionar entre sí

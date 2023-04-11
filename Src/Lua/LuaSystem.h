@@ -3,10 +3,24 @@
 #define __LUA_SYSTEM_H__
 
 #include "ECS/System.h"
+// RENDER
 #include "Render/Camera.h"
+#include "Render/Light.h"
+#include "Render/MeshRenderer.h"
+// FLAMINGO UTILS
+#include "FlamingoUtils/SColor.h"
+#include "FlamingoUtils/SVector3.h"
+//LUA
+extern "C"
+{
+#include "lua.h"
+#include "lauxlib.h"
+#include "lualib.h"
+}
+
+#include <LuaBridge\LuaBridge.h>
 
 #include <string>
-#include <OgreColourValue.h>
 
 #define PATH_PREFIX "Assets/Scripts/"
 #define FILE_EXTENSION ".lua"
@@ -17,7 +31,9 @@ namespace luabridge
 {
     class LuaRef;
     class LuaResult;
-}
+} // namespace luabridge
+
+// LUA
 
 namespace Flamingo
 {
@@ -30,39 +46,46 @@ namespace Flamingo
         virtual ~LuaSystem();
 
         void initSystem() override;
-        void update(float t_delta_time) override{};
+        void update(float t_delta_time) override;
+        void recieve(const Message& t_m) override;
 
         lua_State* getLuaState();
 
         void readScript(const std::string& t_name);
         void callLuaFunction(std::string t_name);
-        //template <class... Args>
-        //void callLuaFunction(std::string name, Args&&...args);
-        void pushBool(bool var, std::string t_name);
-        void pushColorToLua(Ogre::ColourValue t_color, std::string t_var_name);
-        void addCameraToLua(Camera* t_cam, std::string t_var_name);
+        //// template <class... Args>
+        //// void callLuaFunction(std::string name, Args&&...args);
+        //void addNumToLua(float var, std::string name);
+        //void addIntToLua(int var, std::string name);
+        //void addTransSpaceToLua(Camera::transformSpace t_trs, std::string t_var_name);
+        //void addPolygonModeToLua(Camera::polygonMode t_pm, std::string t_var_name);
+        //void addLightTypeToLua(Light::lightType t_type, std::string t_var_name);
+        //void addBooleanToLua(bool var, std::string t_name);
+        //void addColorToLua(SColor t_color, std::string t_var_name);
+        //void addVector3ToLua(SVector3 t_vec, std::string t_var_name);
+        //void addCameraToLua(Camera* t_cam, std::string t_var_name);
+        //void addLightToLua(Light* t_light, std::string t_var_name);
+        //void addMeshRendererToLua(MeshRenderer* t_mr, std::string t_var_name);
+        
+        template <typename T>
+        void addVarToLua(T t_var, std::string t_name)
+        {
+            luabridge::push(lua_state, t_var);
+            lua_setglobal(lua_state, t_name.c_str());
+        }
 
       private:
         lua_State* lua_state;
 
         void createSystemFuntions();
-        void createComponetsFuntions();
-
+       
         luabridge::LuaRef getFromLua(std::string t_name);
     };
+
     
+   //extern template void LuaSystem::addVar(Light::lightType t_var, std::string t_name);
+
 } // namespace Flamingo
 
-class t_color
-{
-  public:
-    float r, g, b;
-    // constructor
-    t_color(float r_, float g_, float b_)
-        : r(r_)
-        , g(g_)
-        , b(b_)
-    {
-    }
-};
+
 #endif

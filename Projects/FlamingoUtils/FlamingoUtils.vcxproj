@@ -174,12 +174,14 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Src\FlamingoUtils\SColor.cpp" />
     <ClCompile Include="..\..\Src\FlamingoUtils\SQuaternion.cpp" />
     <ClCompile Include="..\..\Src\FlamingoUtils\SVector2.cpp" />
     <ClCompile Include="..\..\Src\FlamingoUtils\SVector3.cpp" />
     <ClCompile Include="..\..\Src\FlamingoUtils\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\FlamingoUtils\SColor.h" />
     <ClInclude Include="..\..\Src\FlamingoUtils\SQuaternion.h" />
     <ClInclude Include="..\..\Src\FlamingoUtils\SVector2.h" />
     <ClInclude Include="..\..\Src\FlamingoUtils\SVector3.h" />

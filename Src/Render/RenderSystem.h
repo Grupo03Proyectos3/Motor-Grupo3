@@ -15,6 +15,7 @@ class RenderSystem : public ecs::System
   public:
     __SYSTEM_ID_DECL__(ecs::_sys_RENDER)
 
+    RenderSystem(){};
     RenderSystem(Ogre::String& t_app_name);
     virtual ~RenderSystem();
 

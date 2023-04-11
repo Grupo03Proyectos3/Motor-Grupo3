@@ -6,6 +6,8 @@
 #include "ECS/GameObject.h"
 #include "ECS/Manager.h"
 #include "Render/Window.h"
+#include "FlamingoUtils/SColor.h"
+#include "FlamingoUtils/SVector3.h"
 
 #include <string>
 
@@ -32,7 +34,8 @@ struct Camera : ecs::Component
     virtual void initValues(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, Flamingo::Window* t_window, std::string t_name);
     virtual void initComponent();
 
-    void lookAt(Ogre::Vector3 t_pos, transformSpace t_trs = WORLD);
+    //void lookAt(SVector3 t_pos, transformSpace t_trs = WORLD);
+    void lookAt(SVector3 t_pos, transformSpace t_trs);
     void translate(float t_x, float t_y, float t_z);
 
     void roll(float t_d);
@@ -44,7 +47,7 @@ struct Camera : ecs::Component
     void setNearClipDistance(float t_clip);
     void setFarClipDistance(float t_clip);
 
-    void setViewPortBackgroundColour(Ogre::ColourValue t_vp_color);
+    void setViewPortBackgroundColour(SColor t_vp_color);
     void desactiveViewport();
     void activeViewport();
 

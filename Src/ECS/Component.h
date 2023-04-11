@@ -27,6 +27,8 @@ namespace ecs
         //
         virtual void initComponent();
 
+        GameObject* gameObject();
+
       protected:
         // as mentions above, when using systems these fields are not
         // really needed, but we keep them for now from the same reason that

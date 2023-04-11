@@ -15,7 +15,10 @@ enum msgId : msgId_type
     MSG_TRANSFORM_MOVE,
     MSG_TRANSFORM_ROTATE,
     MSG_TRANSFORM_SCALING,
-    MSG_WINDOW_RESIZED
+    MSG_WINDOW_RESIZED,
+    MSG_COLLISION_STAY,
+    MSG_COLLISION_ENTER,
+    MSG_COLLIISION_EXIT
 };
 
 struct Message
@@ -25,6 +28,7 @@ struct Message
 
     union
     {
+
         struct
         {
             double x;
@@ -40,7 +44,11 @@ struct Message
             double w;
         } quaternion;
 
-        // const SQuaternion* q;
+        struct
+        {
+            ecs::GameObject* obj1;
+            ecs::GameObject* obj2;
+        }collision;
     };
 };
 

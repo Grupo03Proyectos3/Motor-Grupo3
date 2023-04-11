@@ -25,23 +25,42 @@ RenderSystem::RenderSystem(Ogre::String& t_app_name)
 
 void RenderSystem::recieve(const Message& t_m)
 {
-    if (t_m.entity_affected == nullptr) return;
-    auto mesh = m_mngr->getComponent<MeshRenderer>(t_m.entity_affected);
-
-    if (mesh == NULL)
-        return;
-
+    // TO DO :  limpiar para reutilizar código -> mover a una función externa?
     switch (t_m.id)
     {
         case MSG_TRANSFORM_MOVE:
+        {
+            if (t_m.entity_affected == nullptr)
+                return;
+            auto mesh = m_mngr->getComponent<MeshRenderer>(t_m.entity_affected);
+
+            if (mesh == NULL)
+                return;
             mesh->getNode()->setPosition(Ogre::Vector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
             break;
+        }
         case MSG_TRANSFORM_ROTATE:
+        {
+            if (t_m.entity_affected == nullptr)
+                return;
+            auto mesh = m_mngr->getComponent<MeshRenderer>(t_m.entity_affected);
+
+            if (mesh == NULL)
+                return;
             mesh->getNode()->setOrientation(Ogre::Quaternion(t_m.quaternion.w, t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z));
             break;
+        }
         case MSG_TRANSFORM_SCALING:
+        {
+            if (t_m.entity_affected == nullptr)
+                return;
+            auto mesh = m_mngr->getComponent<MeshRenderer>(t_m.entity_affected);
+
+            if (mesh == NULL)
+                return;
             mesh->getNode()->setScale(Ogre::Vector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
             break;
+        }
         default:
             break;
     }

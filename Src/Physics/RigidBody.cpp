@@ -27,8 +27,11 @@ RigidBody::~RigidBody()
     delete m_bullet_transform;
     m_bullet_transform = nullptr;
 
+    m_rigid_body->setUserPointer(nullptr);
+
     delete m_rigid_body;
     m_rigid_body = nullptr;
+
 }
 
 void RigidBody::initValues(float t_mass, bool t_trigger, bool t_static)
@@ -62,12 +65,16 @@ void RigidBody::initComponent()
 
     m_bullet_transform = new btTransform(transform->getRotation(), transform->getPosition());
 
+
     // TODO meter diferentes formas para el RB
     //   m_shape = new btBoxShape(transform->getScale());
 
     //   m_state = new FlamingoMotionState(*m_bullet_transform, transform);
 
     m_rigid_body = m_mngr->getSystem<PhysicsSystem>()->createRigidBody(m_bullet_transform, m_shape, m_mass);
+
+    //Guardamosla referencia en un void* de bullet para recuperarlo en el callback de colisiones
+    m_rigid_body->setUserPointer(this);
 
     if (m_static)
     {
