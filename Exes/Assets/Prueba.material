@@ -51,7 +51,7 @@ material Prueba/default {
 	} 
 }
 
-material Prueba/smoke
+material Prueba/fire
 {
 	technique
 	{
@@ -64,6 +64,42 @@ material Prueba/smoke
 			texture_unit
 			{
 				texture fire_default.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+material Prueba/blood
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+			diffuse vertexcolour
+			texture_unit
+			{
+				texture red.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+material Prueba/smoke
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+			diffuse vertexcolour
+			texture_unit
+			{
+				texture smoke.png
 				tex_address_mode clamp
 			}
 		}
