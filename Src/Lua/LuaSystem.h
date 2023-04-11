@@ -78,9 +78,7 @@ namespace Flamingo
         lua_State* lua_state;
 
         void createSystemFuntions();
-        void createComponetsFuntions();
-        void createFlamingoFunctions();
-
+       
         luabridge::LuaRef getFromLua(std::string t_name);
     };
 

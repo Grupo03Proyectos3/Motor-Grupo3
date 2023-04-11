@@ -40,10 +40,7 @@ void Flamingo::LuaSystem::initSystem()
     luaL_openlibs(lua_state);
     // guardarme en Lua las funciones internas de Flamingo
     createSystemFuntions();
-    createComponetsFuntions();
-    createFlamingoFunctions();
-    readScript("camara");
-    readScript("luces");
+    //readScript("camara"); 
 }
 
 void Flamingo::LuaSystem::update(float t_delta_time)
@@ -292,125 +289,6 @@ void Flamingo::LuaSystem::createSystemFuntions()
         .addFunction("removeSystem", (&ecs::Manager::removeSystem<PhysicsSystem>))
         .addFunction("setAlive", (&ecs::Manager::setAlive))
         .addFunction("setHandler", (&ecs::Manager::setHandler))
-        .endClass();
-}
-
-void Flamingo::LuaSystem::createComponetsFuntions()
-{
-    // RENDER
-    //
-    // Camara
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<Camera>("Camera")                                                       // Aunque sea un struct en lua se pone como clase (beginClass), esta en el manual de luabridge
-        .addFunction("lookAt", (&Camera::lookAt))                                           // Funciona
-        .addFunction("setFarClipDistance", (&Camera::setFarClipDistance))                   // Funciona
-        .addFunction("setViewPortBackgroundColour", (&Camera::setViewPortBackgroundColour)) // Funciona
-        .addFunction("setNearClipDistance", (&Camera::setNearClipDistance))                 // Funciona
-        .addFunction("pith", (&Camera::pitch))                                              // Funciona
-        .addFunction("roll", (&Camera::roll))                                               // Funciona
-        .addFunction("yaw", (&Camera::yaw))                                                 // Funciona
-        .addFunction("setPolygonMode", (&Camera::setPolygonMode))                           // Funciona
-        .addFunction("setAutoAspectRatio", (&Camera::setAutoAspectRatio))                   // Funciona
-        .endClass();
-    // Light
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<Light>("Light")
-        .addFunction("setType", (&Light::setType)) // Funciona
-        .addFunction("setAttenuation", (&Light::setAttenuation))
-        .addFunction("setCastShadows", (&Light::setCastShadows))                       // Funciona
-        .addFunction("setDiffuseColour", (&Light::setDiffuseColour))                   // Funciona
-        .addFunction("setSpecularColour", (&Light::setSpecularColour))                 // Funciona
-        .addFunction("setDirection", (&Light::setDirection))                           // Funciona
-        .addFunction("setShadowFarClipDistance", (&Light::setShadowFarClipDistance))   // Funciona
-        .addFunction("setShadowFarDistance", (&Light::setShadowFarDistance))           // Funciona
-        .addFunction("setShadowNearClipDistance", (&Light::setShadowNearClipDistance)) // Funciona
-        // SpotLight
-        .addFunction("setSpotlightFalloff", (&Light::setSpotlightFalloff))                   // Funciona
-        .addFunction("setSpotlightInnerAngle", (&Light::setSpotlightInnerAngle))             // Funciona
-        .addFunction("setSpotlightOuterAngle", (&Light::setSpotlightOuterAngle))             // Funciona
-        .addFunction("setSpotlightNearClipDistance", (&Light::setSpotlightNearClipDistance)) // Funciona
-        .addFunction("setSpotlightRange", (&Light::setSpotlightRange))
-        .endClass();
-    // MeshRenderer
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<MeshRenderer>("MeshRenderer")
-        .addFunction("setMaterial", (&MeshRenderer::changeMaterial))
-        .addFunction("onEnable", (&MeshRenderer::onEnable))
-        .addFunction("onDisable", (&MeshRenderer::onDisable))
-        .addFunction("attachObjectToBone", (&MeshRenderer::attachObjectToBone))
-        //.addFunction("detachObjectFromBone", (&MeshRenderer::detachObjectFromBone))
-        .endClass();
-    // Animator
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<Animator>("Animator")
-        .addFunction("createAnimation", (&Animator::createAnimation))
-        .addFunction("setAnimation", (&Animator::setAnimation))
-        .addFunction("createFrame", (&Animator::setFrameAnimation))
-        .endClass();
-
-    // PHYSICS
-    //
-    // RigidBody
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<RigidBody>("RigidBody")
-        .addFunction("getAngularVelocity", (&RigidBody::getAngularVelocity))
-        .addFunction("setAnimation", (&RigidBody::getLinearVelocity))
-        .addFunction("getLinearVelocity", (&RigidBody::getMass))
-        .addFunction("isKinematic", (&RigidBody::isKinematic))
-        .addFunction("isStatic", (&RigidBody::isStatic))
-        .addFunction("isTrigger", (&RigidBody::isTrigger))
-        .addFunction("setAngularVelocity", (&RigidBody::setAngularVelocity))
-        .addFunction("setKinematic", (&RigidBody::setKinematic))
-        .addFunction("setStatic", (&RigidBody::setStatic))
-        .addFunction("setTrigger", (&RigidBody::setTrigger))
-        .addFunction("setLinearVelocity", (&RigidBody::setLinearVelocity))
-        .addFunction("setMass", (&RigidBody::setMass))
-        .endClass();
-
-    // BASE
-    //
-    // Transform
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<Transform>("Transform")
-        .addFunction("getPosition", (&Transform::getPosition))
-        .addFunction("getRotation", (&Transform::getRotation))
-        .addFunction("getScale", (&Transform::getScale))
-        .addFunction("setPosition", (&Transform::setPosition))
-        .addFunction("setPositionPerPhysics", (&Transform::setPositionPerPhysics))
-        .addFunction("setRotation", (&Transform::setRotation))
-        .addFunction("setRotationPerPhysics", (&Transform::setRotationPerPhysics))
-        .addFunction("setScale", (&Transform::setScale))
-        .endClass();
-}
-
-void Flamingo::LuaSystem::createFlamingoFunctions()
-{
-    // SColor
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<SColor>("SColor")
-        .addFunction("setColor", (&SColor::setColor))
-        .endClass();
-    // SVector3
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<SVector3>("SVector3")
-        .addFunction("setVector3", (&SVector3::setVector3))
-        .addFunction("getMagnitude", (&SVector3::magnitude))
-        .endClass();
-    // Camera Transfom Space
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<Camera::transformSpace>("transformSpace")
-        .endClass();
-    // Camera Polygon Mode
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<Camera::polygonMode>("polygonMode")
-        .endClass();
-    // Light Type
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<Light::lightType>("lightType")
-        .endClass();
-
-    luabridge::getGlobalNamespace(lua_state)
-        .beginClass<GameObject>("GameObject")
         .endClass();
 }
 
