@@ -118,20 +118,21 @@ void RenderSystem::initSystem()
 
     void RenderSystem::update(float t_delta_time)
     {
-        for (auto game_object : m_mngr->getEntities(ecs::GROUP_EXAMPLE))
-        {
-            auto rb = m_mngr->getComponent<RigidBody>(game_object);
-            if (rb && !rb->isKinematic())
-            {
-                auto t = m_mngr->getComponent<Transform>(game_object);
-                t->setPositionPerPhysics(rb->getPosition());
-                t->setRotationPerPhysics(rb->getRotation());
-                t->setRotationPerPhysics(rb->getRotation());
-            }
-            auto animator = m_mngr->getComponent<Flamingo::Animator>(game_object);
+        for (auto game_object : m_mngr->getEntities(ecs::GROUP_EXAMPLE)){
+            if (game_object->getActive()){            
+                auto rb = m_mngr->getComponent<RigidBody>(game_object);
+                if (rb && !rb->isKinematic())
+                {
+                    auto t = m_mngr->getComponent<Transform>(game_object);
+                    t->setPositionPerPhysics(rb->getPosition());
+                    t->setRotationPerPhysics(rb->getRotation());
+                    t->setRotationPerPhysics(rb->getRotation());
+                }
+                auto animator = m_mngr->getComponent<Flamingo::Animator>(game_object);
 
-            if (animator != nullptr)
-                animator->updateAnimations(t_delta_time * 0.001); // PQ HAY Q PASARLO A MILISEGUNDOS
+                if (animator != nullptr)
+                    animator->updateAnimations(t_delta_time * 0.001); // PQ HAY Q PASARLO A MILISEGUNDOS
+            }
         }
         // TODO actualizar Transform con input/scripts
 
@@ -152,7 +153,7 @@ void RenderSystem::initSystem()
 
         m_root = new Ogre::Root(pluginsPath, m_fs_layer->getWritablePath("ogre.cfg"), m_fs_layer->getWritablePath("ogre.log"));
 
-        m_scene_mngr = new Flamingo::SceneManager(m_app_name + " - SceneManager");
+        m_scene_mngr = new Flamingo::SceneManager(m_app_name + " - SceneManager",m_mngr);
 
         // mSceneManager = mRoot->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, mAppName);
 

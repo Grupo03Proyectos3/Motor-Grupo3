@@ -20,24 +20,25 @@ namespace Flamingo
 
     void UISystem::recieve(const Message& m)
     {
-        if (!(m.id == MSG_WINDOW_RESIZED || m.id == MSG_TRANSFORM_MOVE || m.id == MSG_TRANSFORM_ROTATE || m.id == MSG_TRANSFORM_SCALING))
-        {
+        if (!(m.id == MSG_WINDOW_RESIZED || m.id == MSG_TRANSFORM_MOVE || m.id == MSG_TRANSFORM_ROTATE || m.id == MSG_TRANSFORM_SCALING)){
             return;
         }
 
         UIElement* element = nullptr;
         Transform* transform = nullptr;
-        element = m_mngr->getComponent<UIElement>(m.entity_affected);
-        transform = m_mngr->getComponent<Transform>(m.entity_affected);
-        if (element == nullptr)
-        {
-            return;
+        if (m.id != MSG_WINDOW_RESIZED){
+            element = m_mngr->getComponent<UIElement>(m.entity_affected);
+            transform = m_mngr->getComponent<Transform>(m.entity_affected);
+            if (element == nullptr)
+            {
+                return;
+            }
         }
-
         switch (m.id) 
         {
             case MSG_WINDOW_RESIZED:
                 chageScreenSize(m_mngr->getSystem<RenderSystem>()->getWindow()->getRenderWindow()->getWidth(), m_mngr->getSystem<RenderSystem>()->getWindow()->getRenderWindow()->getHeight());
+                break;
             case MSG_TRANSFORM_MOVE:
             {
                 element->setPosition(transform->getPosition());

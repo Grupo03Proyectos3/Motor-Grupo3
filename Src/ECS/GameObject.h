@@ -29,6 +29,9 @@ namespace ecs
         void setAlive(bool to);
         void setActive(bool to);
 
+        bool getAlive();
+        bool getActive();
+
         std::string getName();
         void setName(std::string t_name);
 

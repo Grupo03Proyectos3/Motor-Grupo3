@@ -10,7 +10,7 @@
 // ECS
 #include "ECS/Manager.h"
 
-// Físicas
+// Fï¿½sicas
 #include "Physics/PhysicsSystem.h"
 
 // FlamingoBase
@@ -85,18 +85,32 @@ namespace Flamingo
             std::cout << "No ha sido posible cargar la escena";
             return false;
         }
+        SceneManager* sceneManager = render_sys->getSceneManager();
+        Scene* mainScene = sceneManager->getSceneActive();
+        auto nodo = mainScene->getSceneRoot();
+        
+        ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        cam_go->setName("myCamera");
+        auto m_camera = ecs::AddComponent<Camera>(cam_go);
+        m_camera->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
+        m_camera->initComponent();
+        m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
 
-        auto nodo = render_sys->getSceneManager()->getSceneActive()->getSceneRoot();
+        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
+        m_camera->setNearClipDistance(1);
+        m_camera->setFarClipDistance(10000);
+        mainScene->addObjects(cam_go);
 
         ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        light_go->setName("mylight");
         Light* cmp_light = ecs::AddComponent<Light>(light_go);
-        cmp_light->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), "myLight");
+        cmp_light->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), "myLight");
         cmp_light->initComponent();
         cmp_light->setType(Light::DIRECTIONAL);
         cmp_light->setDirection(SVector3(-1, -1, 0));
         cmp_light->setSpecularColour();
         cmp_light->setDiffuseColour();
-        render_sys->getSceneManager()->getSceneActive()->addObjects(light_go);
+        mainScene->addObjects(light_go);
 
 
         //PRUEBAS DE UI
@@ -138,6 +152,42 @@ namespace Flamingo
          //
          //x->addChild(x2);
         //PRUEBAS DE UI
+
+        /*sceneManager->createScene("Menu", true);
+        mainScene = sceneManager->getSceneActive();
+        nodo = mainScene->getSceneRoot();
+
+        cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        m_camera = ecs::AddComponent<Camera>(cam_go);
+        m_camera->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera2dsa");
+        m_camera->initComponent();
+        m_camera->setViewPortBackgroundColour(SColor(0.8f, 0.05f, 0.9f));
+        
+        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
+        m_camera->setNearClipDistance(1);
+        m_camera->setFarClipDistance(10000);
+        mainScene->addObjects(cam_go);
+
+        light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        light_go->setName("mylight2");
+        cmp_light = ecs::AddComponent<Light>(light_go);
+        cmp_light->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), "myLight2");
+        cmp_light->initComponent();
+        cmp_light->setType(Light::DIRECTIONAL);
+        cmp_light->setDirection(SVector3(-1, -1, 0));
+        cmp_light->setSpecularColour();
+        cmp_light->setDiffuseColour();
+        mainScene->addObjects(light_go);
+        
+        ecs::GameObject* cube_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        cube_go->setName("fgddfgdfg");        
+        Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go);
+        cmp_tr2->setPosition(SVector3(0, 200, 0));
+        cmp_tr2->setScale({50, 50, 50});
+        auto cmp2 = ecs::AddComponent<MeshRenderer>(cube_go);
+        cmp2->initValues(nodo->createChildSceneNode(), mainScene->getSceneManger(), SVector3(50, 50, 50), "Torus.mesh", "CubeEntity");
+        cmp2->changeMaterial("Prueba/MichaelScott");       
+        mainScene->addObjects(cube_go);*/
 
         return true;
     }

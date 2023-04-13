@@ -50,7 +50,8 @@ struct Camera : ecs::Component
     void setViewPortBackgroundColour(SColor t_vp_color);
     void desactiveViewport();
     void activeViewport();
-
+    void desactive();
+    void active();
     Ogre::SceneNode* getCamNode();
 
   private:

@@ -10,7 +10,7 @@ namespace Flamingo{
       public:
         Scene();
         ~Scene();
-        void initScene(Ogre::SceneManager* t_SceneManager);
+        void initScene(Ogre::SceneManager* t_SceneManager, ecs::Manager* mng);
         void addObjects(ecs::GameObject* t_GameObject);
         void delObject(std::string t_nameObject);
         void setDebug(bool t_active);
@@ -21,8 +21,8 @@ namespace Flamingo{
         inline Ogre::String getName() { return mSceneManager->getName(); };
         inline Ogre::SceneManager* getSceneManger() { return mSceneManager; };
         inline Ogre::SceneNode* getSceneRoot() { return mRootNode; };      
-
       private:
+        ecs::Manager* m_mngr;
         Ogre::SceneNode* mRootNode;
         Ogre::SceneManager* mSceneManager;
         std::unordered_map<std::string, ecs::GameObject*> mSceneGameObjects;

@@ -17,6 +17,7 @@ void Camera::initValues(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene
     m_vp = nullptr;
     m_window = t_window;
     m_cam_node = t_scene_node;
+    m_name = t_name;
 }
 
 void Camera::initComponent()
@@ -26,7 +27,7 @@ void Camera::initComponent()
     m_cam_node->attachObject(m_cam);
     m_cam_node->setPosition(500, 500, 1000);
 
-    m_vp = m_window->getRenderWindow()->addViewport(m_cam);
+    m_vp = m_window->getRenderWindow()->addViewport(m_cam,-m_window->getRenderWindow()->getNumViewports());
     m_vp->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
 }
 
@@ -115,7 +116,12 @@ void Camera::activeViewport()
 {
     m_vp->setVisibilityMask(1);
 }
-
+void Camera::desactive() {
+    m_vp->setCamera(nullptr);
+}
+void Camera::active(){
+    m_vp->setCamera(m_cam);
+}
 Ogre::SceneNode* Camera::getCamNode()
 {
     return m_cam_node;

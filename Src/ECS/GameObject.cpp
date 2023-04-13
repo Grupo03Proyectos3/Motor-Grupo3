@@ -38,6 +38,16 @@ void ecs::GameObject::setActive(bool to)
     m_active = to;
 }
 
+bool ecs::GameObject::getAlive()
+{
+    return m_alive;
+}
+
+bool ecs::GameObject::getActive()
+{
+    return m_active;
+}
+
 std::string ecs::GameObject::getName()
 {
     return m_name;

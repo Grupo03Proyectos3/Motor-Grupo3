@@ -4,9 +4,11 @@
 #include <OgreSceneManagerEnumerator.h>
 #include <OgreRoot.h>
 namespace Flamingo{
-    SceneManager::SceneManager(std::string t_Name){
+    SceneManager::SceneManager(std::string t_Name, ecs::Manager* m_mng)
+    {
         m_scenes = std::unordered_map<std::string, Scene*>();
         mName = t_Name;
+        m_mngr = m_mng;
     }
 
     SceneManager::~SceneManager(){
@@ -30,12 +32,14 @@ namespace Flamingo{
     {
         Scene* scene = new Scene();
         m_scene_manager = m_root->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, t_SceneName);
-        scene->initScene(m_scene_manager);
+        scene->initScene(m_scene_manager,m_mngr);
         addScene(scene);
         if (setActive){
             setSceneActive(t_SceneName);
         }
-        else scene->desactive();
+        else{
+            scene->desactive();
+        }
         
         return scene;
     }
@@ -46,6 +50,10 @@ namespace Flamingo{
             m_scenes.insert({t_SceneName->getName(), t_SceneName});
             t_SceneName->getSceneManger();
             std::cout <<"Scene " << t_SceneName->getName() << " Added\n ";
+        }
+        else{
+            std::cout << "Ya existe una Escena con ese Nombre\n";
+            exit(1);
         }
     }
 

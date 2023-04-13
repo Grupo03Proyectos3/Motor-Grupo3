@@ -10,7 +10,7 @@ namespace Flamingo{
         friend PhysicsSystem;
         friend RenderSystem;
       public:
-        SceneManager(std::string t_Name);
+        SceneManager(std::string t_Name, ecs::Manager* m_mng);
         ~SceneManager();       
 
         Scene* createScene(std::string t_SceneName,bool setActive=false);
@@ -26,6 +26,7 @@ namespace Flamingo{
         inline Ogre::SceneManager* getSceneManager() { return m_scene_manager; }
 
       private:
+        ecs::Manager* m_mngr;
         Ogre::Root* m_root;
         Ogre::SceneManager* m_scene_manager = nullptr;
         std::unordered_map<Ogre::String, Scene*> m_scenes;
