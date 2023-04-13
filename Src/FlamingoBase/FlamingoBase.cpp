@@ -87,16 +87,6 @@ namespace Flamingo
         }
 
         auto nodo = render_sys->getSceneManager()->getSceneActive()->getSceneRoot();
-        ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
-        auto m_camera = ecs::AddComponent<Camera>(cam_go);
-        m_camera->initValues(render_sys->getSceneManager()->getSceneActive()->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
-        m_camera->initComponent();
-        m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
-
-        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
-        m_camera->setNearClipDistance(1);
-        m_camera->setFarClipDistance(10000);
-        render_sys->getSceneManager()->getSceneActive()->addObjects(cam_go);
 
         ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
         Light* cmp_light = ecs::AddComponent<Light>(light_go);

@@ -25,11 +25,13 @@ class MapReader
 
     void readMap(std::string t_filename);
 
+    void createCamera();
+
   private:
     ComponentsFactory* m_componentFactory;
     Data m_data;
     ecs::Manager* m_mngr;
-
+    RenderSystem* m_renderSystem;
    
 };
 

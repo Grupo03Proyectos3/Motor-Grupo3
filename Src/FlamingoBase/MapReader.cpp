@@ -7,7 +7,7 @@
 
 MapReader::MapReader(RenderSystem* t_renderSystem)
 {
-    
+    m_renderSystem = t_renderSystem;
     m_componentFactory = ComponentsFactory::instance();
     m_mngr = ecs::Manager::instance();
    
@@ -26,6 +26,9 @@ MapReader::~MapReader()
 
 void MapReader::readMap(std::string filename)
 {
+
+    createCamera();
+
     std::unique_ptr<JSONValue> jValueRoot(JSON::ParseFromFile(filename));
 
     if (jValueRoot == nullptr || !jValueRoot->IsObject())
@@ -185,4 +188,23 @@ void MapReader::readMap(std::string filename)
     {
         throw "'objects' are null";
     }
+}
+
+void MapReader::createCamera()
+{
+    ecs::GameObject* gO = m_mngr->addGameObject({ecs::GROUP_RENDER});
+
+    m_data.insert({"t_name", "m_camera"}); 
+    m_data.insert({"t_entity_name", "camera"}); 
+    m_componentFactory->addComponent(gO, "Camera", m_data);
+
+    m_data.clear();
+
+    //PASAR A FLAMINGOBASE
+    auto m_camera = ecs::getComponent<Camera>(gO);
+    m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
+
+    m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
+    m_camera->setNearClipDistance(1);
+    m_camera->setFarClipDistance(10000);
 }
