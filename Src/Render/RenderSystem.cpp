@@ -222,7 +222,7 @@ void RenderSystem::initSystem()
         /*if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles")){
             
         }*/
-        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/GLSLES", type_name, sec_name);
+        //Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/GLSLES", type_name, sec_name);
         //if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl"))
         //{
             Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/GLSL120", type_name, sec_name);
@@ -241,7 +241,7 @@ void RenderSystem::initSystem()
                 Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/GLSL400", type_name, sec_name);
             }
         //}
-        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/HLSL", type_name, sec_name);
+        //Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/HLSL", type_name, sec_name);
         /* else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("hlsl")){
              Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/HLSL", type_name, sec_name);
          }*/

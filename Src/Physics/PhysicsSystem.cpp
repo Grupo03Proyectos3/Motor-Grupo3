@@ -12,7 +12,7 @@
 #include "FlamingoBase/Transform.h"
 #include "Render/RenderSystem.h"
 #include "RigidBody.h"
-
+#include "FlamingoBase/SceneManager.h"
 PhysicsSystem::PhysicsSystem()
 {
     m_group = ecs::GROUP_PHYSICS;

@@ -4,15 +4,13 @@
 #include <OgreSceneManagerEnumerator.h>
 #include <OgreRoot.h>
 namespace Flamingo{
-    SceneManager::SceneManager(Ogre::String t_Name){
+    SceneManager::SceneManager(std::string t_Name){
         m_scenes = std::unordered_map<std::string, Scene*>();
         mName = t_Name;
     }
 
     SceneManager::~SceneManager(){
-        for (auto it = m_scenes.begin(); it != m_scenes.end(); it = m_scenes.erase(it))
-        {
-            // TO DO Por qué falla aqui
+        for (auto it = m_scenes.begin(); it != m_scenes.end(); it = m_scenes.erase(it)){
             m_root->destroySceneManager(it->second->getSceneManger());
             delete it->second;
         }
@@ -28,7 +26,7 @@ namespace Flamingo{
         createScene("DefaultScene", true);
     }
 
-    Scene* SceneManager::createScene(Ogre::String t_SceneName, bool setActive)
+    Scene* SceneManager::createScene(std::string t_SceneName, bool setActive)
     {
         Scene* scene = new Scene();
         m_scene_manager = m_root->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, t_SceneName);
@@ -43,7 +41,7 @@ namespace Flamingo{
     }
 
     void SceneManager::addScene(Scene* t_SceneName){
-        // DEJARLO ASI O K SUDE Y SE CAMBIE POR SI ENTRA OTRO CON EL MISMO NOMBRE
+        
         if (m_scenes.find(t_SceneName->getName()) == m_scenes.end()){
             m_scenes.insert({t_SceneName->getName(), t_SceneName});
             t_SceneName->getSceneManger();
@@ -51,7 +49,7 @@ namespace Flamingo{
         }
     }
 
-    void SceneManager::delScene(Ogre::String t_SceneName){
+    void SceneManager::delScene(std::string t_SceneName){
         auto t_aux = m_scenes.find(t_SceneName);
         if (t_aux != m_scenes.end()){
             m_scenes.erase(t_aux);
@@ -59,7 +57,7 @@ namespace Flamingo{
         }
     }
 
-    void SceneManager::setSceneActive(Ogre::String t_SceneName){
+    void SceneManager::setSceneActive(std::string t_SceneName){
         auto t_aux = m_scenes.find(t_SceneName);
         if (t_aux != m_scenes.end()){
             if (mNameSceneActive != ""){
