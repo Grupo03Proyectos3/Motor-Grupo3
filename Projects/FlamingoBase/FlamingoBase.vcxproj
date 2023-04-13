@@ -182,6 +182,7 @@
     <ClCompile Include="..\..\Src\FlamingoBase\SceneManager.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Transform.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\TransformFactory.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\UIElementFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\FlamingoBase\AnimatorFactory.h" />
@@ -200,6 +201,7 @@
     <ClInclude Include="..\..\Src\FlamingoBase\SceneManager.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\Transform.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\TransformFactory.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\UIElementFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

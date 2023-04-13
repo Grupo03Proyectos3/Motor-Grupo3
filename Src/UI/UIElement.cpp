@@ -130,26 +130,44 @@ namespace Flamingo{
         // PRUEBAS
     }
 
-    void UIElement::subscribeChildEvent(std::string layoutName, std::string childName, std::function<bool(const CEGUI::EventArgs&)> func){
+    void UIElement::subscribeChildEvent(std::function<bool(const CEGUI::EventArgs&)> func){
         if (m_element != nullptr){
            m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func));
         }
     }
 
     template <class T>
-    void UIElement::subscribeEvent(std::string layoutName, std::string childName, void (T::*func)(), T* comp){
+    void UIElement::subscribeEvent(void (T::*func)(), T* comp){
         if (m_element != nullptr){
            m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
         }
     }
 
-    void UIElement::subscribeEvent(std::string layoutName, std::string childName, bool (*func)()){             
+    void UIElement::subscribeEvent(bool (*func)()){             
         if (m_element != nullptr){
            m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func));
         }
     }
 
-    void UIElement::subscribeEvent(std::string layoutName, std::string childName, bool (*func)(const CEGUI::EventArgs& e)){
+   //void UIElement::drawresult(std::function<void()>& f)
+   // {
+   //    if (m_element != nullptr)
+   //    {
+   //        m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(f));
+   //    }
+   //}
+   //   
+
+    void UIElement::subs(void (*func)())
+    {
+        if (m_element != nullptr)
+        {
+            m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func));
+        }
+    }
+
+    void UIElement::subscribeEvent(bool (*func)(const CEGUI::EventArgs& e))
+    {
         if (m_element != nullptr){
            m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func));
         }

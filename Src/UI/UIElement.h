@@ -43,10 +43,16 @@ namespace Flamingo{
         void setImage(const std::string& name,const std::string& file);   
 
         template <class T>
-        void subscribeEvent(std::string layoutName, std::string childName, void (T::*func)(), T* comp);
-        void subscribeChildEvent(std::string layoutName, std::string childName, std::function<bool(const CEGUI::EventArgs&)> func);       
-        void subscribeEvent(std::string layoutName, std::string childName, bool (*func)());
-        void subscribeEvent(std::string layoutName, std::string childName, bool (*func)(const CEGUI::EventArgs& e));
+        void subscribeEvent(void (T::*func)(), T* comp);
+        void subscribeChildEvent(std::function<bool(const CEGUI::EventArgs&)> func);       
+        void subscribeEvent(bool (*func)());
+
+     
+        void subs(void (*func)());
+        void subscribeEvent(bool (*func)(const CEGUI::EventArgs& e));
+
+        //void drawresult(std::function<void()>& f);
+       
 
         protected:
             CEGUI::Window* getWindowElement();

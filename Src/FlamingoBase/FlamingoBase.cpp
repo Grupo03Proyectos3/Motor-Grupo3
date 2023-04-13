@@ -31,6 +31,8 @@
 // INCLUDES TEMPORALES PARA LA ESCENA DE JUEGO
 #include <Render/Light.h>
 #include <UI/UIElement.h>
+#include <functional>
+#include <iostream>
 
 namespace Flamingo
 {
@@ -119,6 +121,22 @@ namespace Flamingo
          y->setPosition({0, 0, 0});
          y->setScale({50, 50, 0});
 
+       /*  std::function<void()> f_display = hola;
+         x->subs(f_display);*/
+
+       /*  x->subscribeEvent(hol1a);*/
+      /* 
+         std::function<void()> funcionEnlazada = prueba1;
+         {
+             std::cout << "fuegirola" << std::endl;
+         };
+
+         x->subs(prueba1);*/
+
+       /* bool (FlamingoBase::* pfunc)() = &FlamingoBase::prueba2;
+         x->subscribeEvent(FlamingoBase::prueba2);*/
+
+
          //ecs::GameObject* UI2 = m_mngr->addGameObject({ecs::GROUP_UI});
          //auto y2 = ecs::AddComponent<Transform>(UI2);
          //y2->initValues();
@@ -182,4 +200,5 @@ namespace Flamingo
     {
         return false;
     }
+
 } // namespace Flamingo

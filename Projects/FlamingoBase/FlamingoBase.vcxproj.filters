@@ -93,6 +93,9 @@
     <ClCompile Include="..\..\Src\FlamingoBase\FlamingoBase.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoBase\UIElementFactory.cpp">
+      <Filter>Archivos de origen\Factories</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\FlamingoBase\SceneManager.h">
@@ -142,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\FlamingoBase\FlamingoBase.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoBase\UIElementFactory.h">
+      <Filter>Archivos de encabezado\Factories</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
