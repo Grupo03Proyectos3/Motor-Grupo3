@@ -3,6 +3,8 @@
 class RenderSystem;
 namespace Flamingo 
 {
+    class Scene;
+
     class FlamingoBase
     {
       public:
@@ -16,7 +18,7 @@ namespace Flamingo
        
       private:
 
-        bool loadScene(RenderSystem* t_render_sys);
+        bool loadScene(RenderSystem* t_render_sys, Scene* t_scene);
 
       
     };

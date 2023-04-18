@@ -15,6 +15,7 @@ namespace Flamingo{
         void delObject(std::string t_nameObject);
         void setDebug(bool t_active);
 
+        void destroySceneObjects();
         void desactive();
         void active();
 

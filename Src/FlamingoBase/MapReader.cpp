@@ -1,16 +1,16 @@
 #include "MapReader.h"
 #include "ECS/GameObject.h"
 #include "FlamingoBase/JSON.h"
-//Include temporal
+// Include temporal
+#include "FlamingoBase/Scene.h"
 #include "Render/RenderSystem.h"
-
 
 MapReader::MapReader(RenderSystem* t_renderSystem)
 {
     m_renderSystem = t_renderSystem;
     m_componentFactory = ComponentsFactory::instance();
     m_mngr = ecs::Manager::instance();
-   
+
     m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
     m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(t_renderSystem));
     m_componentFactory->addFactory("RigidBody", new RigidBodyFactory());
@@ -24,48 +24,49 @@ MapReader::~MapReader()
 {
 }
 
-void MapReader::readMap(std::string filename)
+void MapReader::readMap(std::string filename, Flamingo::Scene* t_scene)
 {
-
     createCamera();
 
     std::unique_ptr<JSONValue> jValueRoot(JSON::ParseFromFile(filename));
 
     if (jValueRoot == nullptr || !jValueRoot->IsObject())
     {
-        std::cout<< "Something went wrong while load/parsing '" << filename << "'\n";
+        std::cout << "Something went wrong while load/parsing '" << filename << "'\n";
         return;
     }
 
     JSONObject root = jValueRoot->AsObject();
     JSONValue* jValue = nullptr;
 
-    //Se mete en los datos de los objectos 
+    // Se mete en los datos de los objectos
     jValue = root["objects"];
     if (jValue != nullptr)
     {
         if (jValue->IsArray())
         {
-            //Por cada objeto
+            // Por cada objeto
             for (auto& v : jValue->AsArray())
             {
+                // Creacion del GO, se puede quitar grupo, hay que ajustar que se borre si no se consigue crear transform
+                ecs::GameObject* gO = m_mngr->addGameObject({ecs::GROUP_EXAMPLE});
+                t_scene->addObjects(gO);
+
                 if (v->IsObject())
                 {
-                    //Creacion del GO
-                    ecs::GameObject* gO = m_mngr->addGameObject({ecs::GROUP_EXAMPLE});
                     JSONObject vObj = v->AsObject();
 
-                    //Obtengo el id
+                    // Obtengo el id
                     try
                     {
                         int id = vObj["id"]->AsNumber();
                     }
-                    catch(const std::exception&)
+                    catch (const std::exception&)
                     {
                         throw new std::exception("Id incorrect");
                     }
 
-                                        // Obtengo los datos del transform del objeto
+                    // Obtengo los datos del transform del objeto
                     try
                     {
                         // POSICION
@@ -95,8 +96,7 @@ void MapReader::readMap(std::string filename)
 
                     m_data.clear();
 
-                  
-                    //Recorro cada uno de los scripts que tenga
+                    // Recorro cada uno de los scripts que tenga
                     JSONValue* jValueS = nullptr;
 
                     root = vObj;
@@ -109,13 +109,13 @@ void MapReader::readMap(std::string filename)
                             {
                                 if (w->IsObject())
                                 {
-                                    //Por cada script obtengo el nombre 
+                                    // Por cada script obtengo el nombre
                                     JSONObject vObjS = w->AsObject();
                                     try
                                     {
                                         std::string scriptType = vObjS["type"]->AsString();
 
-                                        //Parametros de ese script
+                                        // Parametros de ese script
                                         JSONValue* jValueSP = nullptr;
                                         root = vObjS;
                                         jValueSP = root["allParams"];
@@ -139,7 +139,6 @@ void MapReader::readMap(std::string filename)
                                                         {
                                                             throw new std::exception("Params of script incorrect");
                                                         }
-
                                                     }
                                                     else
                                                     {
@@ -152,7 +151,7 @@ void MapReader::readMap(std::string filename)
                                         {
                                             throw "'allParams' is null";
                                         }
-                                        //Se añade al componente
+                                        // Se añade al componente
                                         m_componentFactory->addComponent(gO, scriptType, m_data);
                                         m_data.clear();
                                     }
@@ -173,14 +172,11 @@ void MapReader::readMap(std::string filename)
                     {
                         throw "'scripts' are null";
                     }
-                   
-
                 }
                 else
                 {
                     throw "'objects' array in '" + filename + "' includes and invalid value";
                 }
-               
             }
         }
     }
@@ -194,13 +190,13 @@ void MapReader::createCamera()
 {
     ecs::GameObject* gO = m_mngr->addGameObject({ecs::GROUP_RENDER});
 
-    m_data.insert({"t_name", "m_camera"}); 
-    m_data.insert({"t_entity_name", "camera"}); 
+    m_data.insert({"t_name", "m_camera"});
+    m_data.insert({"t_entity_name", "camera"});
     m_componentFactory->addComponent(gO, "Camera", m_data);
 
     m_data.clear();
 
-    //PASAR A FLAMINGOBASE
+    // PASAR A FLAMINGOBASE
     auto m_camera = ecs::getComponent<Camera>(gO);
     m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
 

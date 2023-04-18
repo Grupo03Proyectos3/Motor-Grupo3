@@ -16,6 +16,7 @@
 using Data = std::unordered_map<std::string, std::string>;
 
 class RenderSystem;
+class Flamingo::Scene;
 
 class MapReader
 {
@@ -23,7 +24,7 @@ class MapReader
     MapReader(RenderSystem* t_renderSystem);
     ~MapReader();
 
-    void readMap(std::string t_filename);
+    void readMap(std::string t_filename, Flamingo::Scene* t_scene);
 
     void createCamera();
 

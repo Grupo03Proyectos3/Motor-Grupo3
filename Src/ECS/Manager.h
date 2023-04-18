@@ -77,7 +77,7 @@ namespace ecs
         // Adding an entity simply creates an instance of Entity, adds
         // it to the list of the given group and returns it to the caller.
         //se puede eliminar los grupos de aqui ya que van a ser añadidos segun que componente contengan
-        inline GameObject* addGameObject(std::vector<groupId_type> t_vect_gId = {GROUP_EXAMPLE})
+        inline GameObject* addGameObject(std::vector<groupId_type> t_vect_gId = {})
         {
             auto e = new GameObject(t_vect_gId);
             e->m_alive = true;
@@ -92,7 +92,7 @@ namespace ecs
         }
 
         //add a specific gameobject to a grouop after be created
-        inline void addGameObjectToGroups(GameObject* t_e, std::vector<groupId_type> t_vect_gId = {GROUP_EXAMPLE})
+        inline void addGameObjectToGroups(GameObject* t_e, std::vector<groupId_type> t_vect_gId = {})
         {
             for (auto grp : t_vect_gId)
             {
@@ -372,8 +372,18 @@ namespace ecs
 
             m_msgs_aux.clear();
         }
+        //uso el metodo para eliminar gameObejcts ya que estaba vacio
         inline void refresh()
         {
+            //falta probar
+            for (auto& ents : m_ents_by_group)
+            {
+                for (auto e : ents)
+                {
+                    if (e != nullptr && e->m_alive == false)
+                        delete e;
+                }
+            }
         }
 
       private:
