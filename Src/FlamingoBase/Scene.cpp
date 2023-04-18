@@ -66,6 +66,7 @@ namespace Flamingo
 
             obj.second->setAlive(false);
         }
+        m_mngr->reajustGroups();
     }
 
     void Scene::desactive()

@@ -10,7 +10,6 @@
 #include <algorithm>
 #include <unordered_map>
 
-
 #include "Component.h"
 #include "GameObject.h"
 #include "SingletonECS.h"
@@ -76,7 +75,7 @@ namespace ecs
 
         // Adding an entity simply creates an instance of Entity, adds
         // it to the list of the given group and returns it to the caller.
-        //se puede eliminar los grupos de aqui ya que van a ser añadidos segun que componente contengan
+        // se puede eliminar los grupos de aqui ya que van a ser añadidos segun que componente contengan
         inline GameObject* addGameObject(std::vector<groupId_type> t_vect_gId = {})
         {
             auto e = new GameObject(t_vect_gId);
@@ -91,7 +90,7 @@ namespace ecs
             return e;
         }
 
-        //add a specific gameobject to a grouop after be created
+        // add a specific gameobject to a grouop after be created
         inline void addGameObjectToGroups(GameObject* t_e, std::vector<groupId_type> t_vect_gId = {})
         {
             for (auto grp : t_vect_gId)
@@ -125,8 +124,8 @@ namespace ecs
         template <typename T>
         inline T* addComponent(GameObject* t_e)
         {
-           /* constexpr compId_type cId = T::id;
-            assert(cId < maxComponentId);*/
+            /* constexpr compId_type cId = T::id;
+             assert(cId < maxComponentId);*/
 
             // delete the current component, if any
             //
@@ -136,9 +135,9 @@ namespace ecs
             //
             Component* c = new T();
             c->setContext(t_e, this);
-            //seran las factorias las encargadas de inicializar dicha inicializacion, tanto esta como la de parámetros
-            //c->initComponent();
-          
+            // seran las factorias las encargadas de inicializar dicha inicializacion, tanto esta como la de parámetros
+            // c->initComponent();
+
             t_e->m_current_comps.insert({(typeid(T).name()), c});
 
             // return it to the user so i can be initialised if needed
@@ -150,32 +149,31 @@ namespace ecs
         template <typename T>
         inline void removeComponent(GameObject* t_e)
         {
-          ///*  constexpr compId_type cId = T::id;
-          //  assert(cId < maxComponentId);*/
+            ///*  constexpr compId_type cId = T::id;
+            //  assert(cId < maxComponentId);*/
 
-          //  auto comp = t_e->m_current_comps[typeid(T).name()];
-          //  if (comp != nullptr)
-          //  {
-          //       find the element that is equal to e->cmps_[cId] (returns an iterator)
-          //      
-          //      auto iter = std::find(t_e->m_current_comps.begin(), t_e->m_current_comps.end(),
-          //                            t_e->m_comps[cId]);
+            //  auto comp = t_e->m_current_comps[typeid(T).name()];
+            //  if (comp != nullptr)
+            //  {
+            //       find the element that is equal to e->cmps_[cId] (returns an iterator)
+            //
+            //      auto iter = std::find(t_e->m_current_comps.begin(), t_e->m_current_comps.end(),
+            //                            t_e->m_comps[cId]);
 
-          //       must have such a component
-          //      assert(iter != t_e->m_current_comps.end());
+            //       must have such a component
+            //      assert(iter != t_e->m_current_comps.end());
 
-          //       and then remove it
-          //      t_e->m_current_comps.erase(iter);
-          //       destroy it
-          //      
-          //      delete t_e->m_comps[cId];
+            //       and then remove it
+            //      t_e->m_current_comps.erase(iter);
+            //       destroy it
+            //
+            //      delete t_e->m_comps[cId];
 
-          //       remove the pointer
-          //      
-          //      t_e->m_comps[cId] = nullptr;
-          //  }
+            //       remove the pointer
+            //
+            //      t_e->m_comps[cId] = nullptr;
+            //  }
 
-          
             auto comp = t_e->m_current_comps.find(typeid(T).name());
 
             if (comp != t_e->m_current_comps.end())
@@ -193,7 +191,6 @@ namespace ecs
         template <typename T>
         inline T* getComponent(GameObject* t_e)
         {
-           
             try
             {
                 auto c = t_e->m_current_comps.at(typeid(T).name());
@@ -203,7 +200,6 @@ namespace ecs
             {
                 return nullptr;
             }
-          
         }
 
         // returns true if there is a component with identifier T::id
@@ -212,7 +208,6 @@ namespace ecs
         template <typename T>
         inline bool hasComponent(GameObject* t_e)
         {
-           
             return t_e->m_current_comps.find(typeid(T).name()) != t_e->m_current_comps.end();
         }
 
@@ -308,6 +303,11 @@ namespace ecs
             return m_systems;
         }
 
+        inline void reajustGroups()
+        {
+            reajustG = true;
+        }
+
         void send(const Message& t_m, bool t_delay = false)
         {
             if (!t_delay)
@@ -372,27 +372,54 @@ namespace ecs
 
             m_msgs_aux.clear();
         }
-        //uso el metodo para eliminar gameObejcts ya que estaba vacio
+        // uso el metodo para eliminar gameObejcts ya que estaba vacio
         inline void refresh()
         {
-            //falta probar
+            // falta probar
             for (auto& ents : m_ents_by_group)
             {
-                for (auto e : ents)
+                for (auto i = 0; i < ents.size(); i++)
                 {
-                    if (e != nullptr && e->m_alive == false)
-                        delete e;
+                    if (ents[i] != nullptr && ents[i]->m_alive == false)
+                    {
+                        delete ents[i];
+                        ents[i] = nullptr;
+                    }
                 }
+            }
+
+            if (reajustG)
+            {
+                reajustG = false;
+                reajustSizeGroups();
             }
         }
 
       private:
-        std::array<GameObject*, maxHandlerId> m_handlers;
+        inline void reajustSizeGroups()
+        {
+            for (auto j = 0; j < m_ents_by_group.size(); j++)
+            {
+                auto i = m_ents_by_group[j].begin();
+                while (i != m_ents_by_group[j].end())
+                {
+                    if (*i == nullptr)
+                        i = m_ents_by_group[j].erase(i);
+                    else
+                        ++i;
+                }
+            }
+        }
+
+        std::array<GameObject*, maxHandlerId>
+            m_handlers;
         std::array<std::vector<GameObject*>, maxGroupId> m_ents_by_group;
         std::array<System*, maxSystemId> m_systems;
 
         std::vector<Message> m_msgs;
         std::vector<Message> m_msgs_aux;
+
+        bool reajustG = false;
     };
 
 } // namespace ecs
