@@ -120,14 +120,21 @@ namespace Flamingo{
         m_element->setPixelAligned(set);
     }
     void UIElement::setImage(const std::string& name, const std::string& file){
-        /*if (!CEGUI::ImageManager::getSingleton().isDefined(file))
+       /* if (!CEGUI::ImageManager::getSingleton().isDefined(file))
         CEGUI::ImageManager::getSingleton().addImageType(file);*/
         // PRUEBAS
-        /*if (!CEGUI::ImageManager::getSingleton().isDefined("100.png")){
-           CEGUI::ImageManager::getSingleton().addFromImageFile("cien", "100.png");
+
+       // CEGUI::ImageManager* im = CEGUI::ImageManager::getSingletonPtr();
+
+        if (!CEGUI::ImageManager::getSingleton().isDefined(file)){
+            CEGUI::ImageManager::getSingleton().addFromImageFile(name, file);
+            int o = 1;
+            CEGUI::Image& p = CEGUI::ImageManager::getSingletonPtr()->get(name);
+            m_element->setProperty("Image", name);
         }
-        CEGUI::ImageManager::getSingleton().destroy("cien");*/
-        // PRUEBAS
+       //CEGUI::Image p = im->get("paco"); addFromImageFile(name, file);
+        //CEGUI::Image p = im->get("paco");
+        int o = 1;
     }
 
     void UIElement::subscribeChildEvent(std::function<bool(const CEGUI::EventArgs&)> func){

@@ -36,6 +36,7 @@ namespace Flamingo{
         void chageScreenSize(int widht,int height);
         // ELIMINAR
         void pruebas();
+        void prueba2();
         // ELIMINAR
 
       private:

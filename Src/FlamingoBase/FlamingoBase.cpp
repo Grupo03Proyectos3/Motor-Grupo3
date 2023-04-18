@@ -119,39 +119,12 @@ namespace Flamingo
          y->initValues();
          y->setPosition({75, 75, 0});
          auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
-         x->setElementWidget("TaharezLook/Label", "COSO");
-         x->setText("ODIO CEGUI");
-        // x->setImage("", "");
-         y->setPosition({0, 0, 0});
-         y->setScale({50, 50, 0});
+         x->setElementWidget("TaharezLook/StaticImage", "COSO");
+         //x->setText("ODIO CEGUI");
+         x->setImage("paco", "100.png");
+         y->setPosition({50, 20, 0});
+         y->setScale({100, 50, 0});
 
-       /*  std::function<void()> f_display = hola;
-         x->subs(f_display);*/
-
-       /*  x->subscribeEvent(hol1a);*/
-      /* 
-         std::function<void()> funcionEnlazada = prueba1;
-         {
-             std::cout << "fuegirola" << std::endl;
-         };
-
-         x->subs(prueba1);*/
-
-       /* bool (FlamingoBase::* pfunc)() = &FlamingoBase::prueba2;
-         x->subscribeEvent(FlamingoBase::prueba2);*/
-
-
-         //ecs::GameObject* UI2 = m_mngr->addGameObject({ecs::GROUP_UI});
-         //auto y2 = ecs::AddComponent<Transform>(UI2);
-         //y2->initValues();
-         //y2->setPosition({75, 75, 0});
-         //auto x2 = ecs::AddComponent<Flamingo::UIElement>(UI2);
-         //x2->setElementWidget("TaharezLook/Label", "COSO2");
-         //x2->setText("ODIO CEGUI");
-         //y2->setPosition({200, 200, 0});
-         //
-         //x->addChild(x2);
-        //PRUEBAS DE UI
 
         /*sceneManager->createScene("Menu", true);
         mainScene = sceneManager->getSceneActive();
