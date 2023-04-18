@@ -25,7 +25,7 @@ ecs::Component* MeshRendererFactory::createComponent(ecs::GameObject* gO, const 
         c->initComponent();
 
 
-
+         ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_RENDER});
         //compsCreated.push_back(c);
         return c;
        

@@ -13,6 +13,7 @@ ecs::Component* RigidBodyFactory::createComponent(ecs::GameObject* gO, const std
         c->initValues(mass, trigger, is_static);
         c->initComponent();
 
+         ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_PHYSICS});
         //compsCreated.push_back(c);
         return c;
        

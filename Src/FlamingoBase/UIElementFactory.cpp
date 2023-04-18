@@ -8,6 +8,7 @@ ecs::Component* UIElementFactory::createComponent(ecs::GameObject* gO, const std
         Flamingo::UIElement* c = ecs::AddComponent<Flamingo::UIElement>(gO);
         c->initComponent();
 
+         ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_UI});
         return c;
        
     }

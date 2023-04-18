@@ -1,5 +1,6 @@
 #include "AnimatorFactory.h"
 #include "Render/Animator.h"
+#include "ECS/Manager.h"
 
 AnimatorFactory::AnimatorFactory(RenderSystem* t_renderSystem)
 {
@@ -16,6 +17,8 @@ ecs::Component* AnimatorFactory::createComponent(ecs::GameObject* gO, const std:
         Flamingo::Animator* c = ecs::AddComponent<Flamingo::Animator>(gO);
         c->initValues(m_renderSystem->getSceneManager()->getSceneActive()->getSceneManger());
         c->initComponent();
+
+      ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_RENDER});
 
         //compsCreated.push_back(c);
         return c;

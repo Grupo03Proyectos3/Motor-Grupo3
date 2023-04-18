@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 //#include <OgreSceneNode.h>
+#include <algorithm>
 #include <unordered_map>
 
 
@@ -75,19 +76,31 @@ namespace ecs
 
         // Adding an entity simply creates an instance of Entity, adds
         // it to the list of the given group and returns it to the caller.
-        //
-        inline GameObject* addGameObject(std::vector<groupId_type> vect_gId = {_grp_GENERAL})
+        //se puede eliminar los grupos de aqui ya que van a ser añadidos segun que componente contengan
+        inline GameObject* addGameObject(std::vector<groupId_type> t_vect_gId = {GROUP_EXAMPLE})
         {
-            auto e = new GameObject(vect_gId);
+            auto e = new GameObject(t_vect_gId);
             e->m_alive = true;
 
-            for (auto grp : vect_gId)
+            for (auto grp : t_vect_gId)
             {
                 // create and initialise the entity
                 m_ents_by_group[grp].push_back(e);
             }
 
             return e;
+        }
+
+        //add a specific gameobject to a grouop after be created
+        inline void addGameObjectToGroups(GameObject* t_e, std::vector<groupId_type> t_vect_gId = {GROUP_EXAMPLE})
+        {
+            for (auto grp : t_vect_gId)
+            {
+                if (std::find(m_ents_by_group[grp].begin(), m_ents_by_group[grp].end(), t_e) == m_ents_by_group[grp].end())
+                {
+                    m_ents_by_group[grp].push_back(t_e);
+                }
+            }
         }
 
         // Setting the state of entity 't_e' (alive or dead)
@@ -212,7 +225,7 @@ namespace ecs
 
         // returns the vector of all entities of a given group
         //
-        inline const auto& getEntities(groupId_type t_gId = _grp_GENERAL)
+        inline const auto& getEntities(groupId_type t_gId = GROUP_EXAMPLE)
         {
             return m_ents_by_group[t_gId];
         }

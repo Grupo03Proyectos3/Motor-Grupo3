@@ -19,6 +19,7 @@ ecs::Component* CameraFactory::createComponent(ecs::GameObject* gO, const std::u
             , m_renderSystem->getWindow(), name);
         c->initComponent();
 
+         ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_RENDER});
         //compsCreated.push_back(c);
         return c;
     }

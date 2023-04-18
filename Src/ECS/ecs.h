@@ -34,7 +34,6 @@ namespace ecs
     // list of group identifiers
     enum groupId : compId_type
     {
-        _grp_GENERAL,
         GROUPS_LIST, /* taken from ../game/ecs_defs */
 
         // do not remove this

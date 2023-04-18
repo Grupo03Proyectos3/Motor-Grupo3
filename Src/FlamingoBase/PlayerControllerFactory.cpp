@@ -11,6 +11,7 @@ ecs::Component* PlayerControllerFactory::createComponent(ecs::GameObject* gO, co
         c->initComponent();
 
         //compsCreated.push_back(c);
+        ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_PHYSICS});
         return c;
        
     }
