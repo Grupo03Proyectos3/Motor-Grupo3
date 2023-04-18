@@ -5,12 +5,12 @@ ecs::GameObject::GameObject()
     : m_current_comps()
     , m_alive()
     , m_active(true)
-    , m_gIds({_grp_GENERAL})
+    , m_gIds({GROUP_EXAMPLE})
 {
     m_current_comps.reserve(ecs::maxComponentId);
 }
 
-ecs::GameObject::GameObject(std::vector<ecs::groupId_type> t_gId = {_grp_GENERAL})
+ecs::GameObject::GameObject(std::vector<ecs::groupId_type> t_gId = {GROUP_EXAMPLE})
     : m_current_comps()
     , m_alive()
     , m_active(true)

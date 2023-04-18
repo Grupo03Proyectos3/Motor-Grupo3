@@ -18,6 +18,7 @@ ecs::Component* LightFactory::createComponent(ecs::GameObject* gO, const std::un
         c->initComponent();
 
         //compsCreated.push_back(c);
+        ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_RENDER});
         return c;
        
     }
