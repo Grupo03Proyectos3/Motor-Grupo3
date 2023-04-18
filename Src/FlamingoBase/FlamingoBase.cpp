@@ -107,8 +107,8 @@ namespace Flamingo
         y->setPosition({75, 75, 0});
         auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
         x->setElementWidget("FlamingoDefaultUI/ImageButton", "COSO");
-        x->setText("ODIO CEGUI");
-        //x->setImage("paco", "100.png");
+        //x->setText("ODIO CEGUI");
+        x->setImage("NormalImage", "paco", "100.png");
         y->setPosition({50, 30, 0});
         y->setScale({50, 50, 0});
 
@@ -116,15 +116,15 @@ namespace Flamingo
           x->subs(f_display);*/
 
         /*  x->subscribeEvent(hol1a);*/
-        /*
-           std::function<void()> funcionEnlazada = prueba1;
+        
+     /*      std::function<void()> funcionEnlazada = prueba1;
            {
                std::cout << "fuegirola" << std::endl;
            };
 
            x->subs(prueba1);*/
 
-        /* bool (FlamingoBase::* pfunc)() = &FlamingoBase::prueba2;
+       /*  bool (FlamingoBase::* pfunc)() = &FlamingoBase::prueba2;
           x->subscribeEvent(FlamingoBase::prueba2);*/
 
         // ecs::GameObject* UI2 = m_mngr->addGameObject({ecs::GROUP_UI});
@@ -245,6 +245,6 @@ namespace Flamingo
         return true;
     }
 
-  
+    inline void prueba1(){};
 
 } // namespace Flamingo

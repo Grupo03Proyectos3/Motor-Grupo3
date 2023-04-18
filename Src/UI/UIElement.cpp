@@ -119,7 +119,7 @@ namespace Flamingo{
     void UIElement::setAxisAligment(bool set){
         m_element->setPixelAligned(set);
     }
-    void UIElement::setImage(const std::string& name, const std::string& file){
+    void UIElement::setImage(const std::string& property, const std::string& name, const std::string& file){
        /* if (!CEGUI::ImageManager::getSingleton().isDefined(file))
         CEGUI::ImageManager::getSingleton().addImageType(file);*/
         // PRUEBAS
@@ -128,13 +128,20 @@ namespace Flamingo{
 
         if (!CEGUI::ImageManager::getSingleton().isDefined(file)){
             CEGUI::ImageManager::getSingleton().addFromImageFile(name, file);
-            int o = 1;
+
             CEGUI::Image& p = CEGUI::ImageManager::getSingletonPtr()->get(name);
-            m_element->setProperty("NormalImage", name);
+
+            try
+            {
+                m_element->setProperty(property, name);
+            }catch(const std::exception&) {
+                std::cout << "Propiedad no compatible con este elemento\n";          
+                exit(1);
+            }
+          
         }
-       //CEGUI::Image p = im->get("paco"); addFromImageFile(name, file);
-        //CEGUI::Image p = im->get("paco");
-        int o = 1;
+
+     
     }
 
     void UIElement::subscribeChildEvent(std::function<bool(const CEGUI::EventArgs&)> func){
@@ -165,18 +172,23 @@ namespace Flamingo{
    //}
    //   
 
-    void UIElement::subs(void (*func)())
+   /* void UIElement::subs()
     {
         if (m_element != nullptr)
         {
-            m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func));
+            m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(p));
         }
-    }
+    }*/
 
     void UIElement::subscribeEvent(bool (*func)(const CEGUI::EventArgs& e))
     {
         if (m_element != nullptr){
            m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func));
         }
+    }
+
+    void p()
+    {
+        std::cout << "HOLACLICO\n";
     }
 } // namespace Flamingo

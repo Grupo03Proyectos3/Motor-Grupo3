@@ -40,7 +40,7 @@ namespace Flamingo{
         void createEmptyWindow(const std::string& name);
         void setAxisAligment(bool set);
 
-        void setImage(const std::string& name,const std::string& file);   
+        void setImage(const std::string& property, const std::string& name, const std::string& file);   
 
         template <class T>
         void subscribeEvent(void (T::*func)(), T* comp);
@@ -48,11 +48,11 @@ namespace Flamingo{
         void subscribeEvent(bool (*func)());
 
      
-        void subs(void (*func)());
+        //void subs(void (*func)());
+        void subs();
         void subscribeEvent(bool (*func)(const CEGUI::EventArgs& e));
 
         //void drawresult(std::function<void()>& f);
-       
 
         protected:
             CEGUI::Window* getWindowElement();

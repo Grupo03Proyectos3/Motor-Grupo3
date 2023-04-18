@@ -6,8 +6,9 @@
 #include <CEGUI/Window.h>
 #include <OgreRenderWindow.h>
 #include <iostream>
-#include <Ogre.h>
-#include <CEGUI/CEGUI.h>
+#include <ECS/Manager.h>
+#include <functional>
+#include <iostream>
 
 namespace Flamingo
 {
@@ -162,4 +163,21 @@ namespace Flamingo
         CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Size<float>(width, height));
     }
 
+    void UISystem::pruebas2()
+    {
+        //ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
+        //auto y = m_mngr->addComponent<Transform>(UI);
+        //y->initValues();
+        //y->setPosition({75, 75, 0});
+        //auto x = m_mngr->addComponent<Flamingo::UIElement>(UI);
+        //x->setElementWidget("FlamingoDefaultUI/ImageButton", "COSO");
+        //// x->setText("ODIO CEGUI");
+        //x->setImage("NormalImage", "paco", "100.png");
+       
+        //x->subs();
+        //y->setPosition({50, 30, 0});
+        //y->setScale({50, 50, 0});
+    }
+
+   
 } // namespace Flamingo
