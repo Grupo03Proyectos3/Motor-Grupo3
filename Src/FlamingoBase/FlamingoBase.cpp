@@ -22,7 +22,7 @@
 // Render3D
 #include "Render/RenderSystem.h"
 
-//UI
+// UI
 #include "UI/UISystem.h"
 
 // Debug de memory leaks
@@ -44,23 +44,6 @@ namespace Flamingo
     {
     }
 
-    bool FlamingoBase::loadScene(RenderSystem* t_sys)
-    {
-        try
-        {
-            MapReader* map_reader = new MapReader(t_sys);
-
-            map_reader->readMap("Assets/Maps/mapPrueba.json");
-
-            delete map_reader;
-        }
-        catch (...)
-        {
-            return false;
-        }
-
-        return true;
-    }
 
     bool FlamingoBase::FlamingoInit()
     {
@@ -80,15 +63,18 @@ namespace Flamingo
         Flamingo::LuaSystem* lua_system = m_mngr->addSystem<Flamingo::LuaSystem>();
 
         ui_system->initContext();
-        if (!loadScene(render_sys))
+
+        SceneManager* sceneManager = render_sys->getSceneManager();
+        Scene* mainScene = sceneManager->getSceneActive();
+
+        if (!loadScene(render_sys, mainScene))
         {
             std::cout << "No ha sido posible cargar la escena";
             return false;
         }
-        SceneManager* sceneManager = render_sys->getSceneManager();
-        Scene* mainScene = sceneManager->getSceneActive();
+
         auto nodo = mainScene->getSceneRoot();
-        
+
         ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
         cam_go->setName("myCamera");
         auto m_camera = ecs::AddComponent<Camera>(cam_go);
@@ -112,46 +98,44 @@ namespace Flamingo
         cmp_light->setDiffuseColour();
         mainScene->addObjects(light_go);
 
-
-        //PRUEBAS DE UI
-         ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
-         auto y = ecs::AddComponent<Transform>(UI);
-         y->initValues();
-         y->setPosition({75, 75, 0});
-         auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
-         x->setElementWidget("TaharezLook/Label", "COSO");
-         x->setText("ODIO CEGUI");
+        // PRUEBAS DE UI
+        ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
+        auto y = ecs::AddComponent<Transform>(UI);
+        y->initValues();
+        y->setPosition({75, 75, 0});
+        auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
+        x->setElementWidget("TaharezLook/Label", "COSO");
+        x->setText("ODIO CEGUI");
         // x->setImage("", "");
-         y->setPosition({0, 0, 0});
-         y->setScale({50, 50, 0});
+        y->setPosition({0, 0, 0});
+        y->setScale({50, 50, 0});
 
-       /*  std::function<void()> f_display = hola;
-         x->subs(f_display);*/
+        /*  std::function<void()> f_display = hola;
+          x->subs(f_display);*/
 
-       /*  x->subscribeEvent(hol1a);*/
-      /* 
-         std::function<void()> funcionEnlazada = prueba1;
-         {
-             std::cout << "fuegirola" << std::endl;
-         };
+        /*  x->subscribeEvent(hol1a);*/
+        /*
+           std::function<void()> funcionEnlazada = prueba1;
+           {
+               std::cout << "fuegirola" << std::endl;
+           };
 
-         x->subs(prueba1);*/
+           x->subs(prueba1);*/
 
-       /* bool (FlamingoBase::* pfunc)() = &FlamingoBase::prueba2;
-         x->subscribeEvent(FlamingoBase::prueba2);*/
+        /* bool (FlamingoBase::* pfunc)() = &FlamingoBase::prueba2;
+          x->subscribeEvent(FlamingoBase::prueba2);*/
 
-
-         //ecs::GameObject* UI2 = m_mngr->addGameObject({ecs::GROUP_UI});
-         //auto y2 = ecs::AddComponent<Transform>(UI2);
-         //y2->initValues();
-         //y2->setPosition({75, 75, 0});
-         //auto x2 = ecs::AddComponent<Flamingo::UIElement>(UI2);
-         //x2->setElementWidget("TaharezLook/Label", "COSO2");
-         //x2->setText("ODIO CEGUI");
-         //y2->setPosition({200, 200, 0});
-         //
-         //x->addChild(x2);
-        //PRUEBAS DE UI
+        // ecs::GameObject* UI2 = m_mngr->addGameObject({ecs::GROUP_UI});
+        // auto y2 = ecs::AddComponent<Transform>(UI2);
+        // y2->initValues();
+        // y2->setPosition({75, 75, 0});
+        // auto x2 = ecs::AddComponent<Flamingo::UIElement>(UI2);
+        // x2->setElementWidget("TaharezLook/Label", "COSO2");
+        // x2->setText("ODIO CEGUI");
+        // y2->setPosition({200, 200, 0});
+        //
+        // x->addChild(x2);
+        // PRUEBAS DE UI
 
         /*sceneManager->createScene("Menu", true);
         mainScene = sceneManager->getSceneActive();
@@ -162,7 +146,7 @@ namespace Flamingo
         m_camera->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera2dsa");
         m_camera->initComponent();
         m_camera->setViewPortBackgroundColour(SColor(0.8f, 0.05f, 0.9f));
-        
+
         m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
         m_camera->setNearClipDistance(1);
         m_camera->setFarClipDistance(10000);
@@ -178,15 +162,15 @@ namespace Flamingo
         cmp_light->setSpecularColour();
         cmp_light->setDiffuseColour();
         mainScene->addObjects(light_go);
-        
+
         ecs::GameObject* cube_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
-        cube_go->setName("fgddfgdfg");        
+        cube_go->setName("fgddfgdfg");
         Transform* cmp_tr2 = ecs::AddComponent<Transform>(cube_go);
         cmp_tr2->setPosition(SVector3(0, 200, 0));
         cmp_tr2->setScale({50, 50, 50});
         auto cmp2 = ecs::AddComponent<MeshRenderer>(cube_go);
         cmp2->initValues(nodo->createChildSceneNode(), mainScene->getSceneManger(), SVector3(50, 50, 50), "Torus.mesh", "CubeEntity");
-        cmp2->changeMaterial("Prueba/MichaelScott");       
+        cmp2->changeMaterial("Prueba/MichaelScott");
         mainScene->addObjects(cube_go);*/
 
         return true;
@@ -240,5 +224,25 @@ namespace Flamingo
     {
         return false;
     }
+
+    bool FlamingoBase::loadScene(RenderSystem* t_render_sys, Scene* t_scene)
+    {
+        try
+        {
+            MapReader* map_reader = new MapReader(t_render_sys);
+
+            map_reader->readMap("Assets/Maps/mapPrueba.json", t_scene);
+
+            delete map_reader;
+        }
+        catch (...)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+  
 
 } // namespace Flamingo
