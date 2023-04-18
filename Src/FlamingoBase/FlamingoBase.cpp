@@ -106,10 +106,10 @@ namespace Flamingo
         y->initValues();
         y->setPosition({75, 75, 0});
         auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
-        x->setElementWidget("TaharezLook/Label", "COSO");
+        x->setElementWidget("FlamingoDefaultUI/ImageButton", "COSO");
         x->setText("ODIO CEGUI");
-        // x->setImage("", "");
-        y->setPosition({0, 0, 0});
+        //x->setImage("paco", "100.png");
+        y->setPosition({50, 30, 0});
         y->setScale({50, 50, 0});
 
         /*  std::function<void()> f_display = hola;

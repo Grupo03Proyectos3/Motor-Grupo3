@@ -84,8 +84,7 @@ namespace Flamingo
         renderer->setRenderingEnabled(true);
 
         initRoot();
-        pruebas();
-        prueba2();
+        loadScheme("FlamingoDefaultUI.scheme");
     }
 
     void UISystem::initRoot()
@@ -163,45 +162,4 @@ namespace Flamingo
         CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Size<float>(width, height));
     }
 
-    void UISystem::pruebas()
-    {
-        loadScheme("TaharezLook.scheme");
-        setFont("DejaVuSans-10");
-    }
-    void UISystem::prueba2()
-    {
-            ////CEGUI::Window* newWindow = winMngr->createWindow("TaharezLook/ImageButton", "ffsdfsdsdf");
-            ////root->addChild(newWindow);
-            ////newWindow->activate();
-            ////newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0.5), CEGUI::UDim(0.5, 0.5)));
-            ////newWindow->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0.3), CEGUI::UDim(0.2, 0.5)));
-            //////newWindow->setText("CEGUI");
-
-
-            //Ogre::TexturePtr tex = m_mngr->getSystem<RenderSystem>()->getOgreRoot()->getTextureManager()->create("100.png", "General");
-            //    /*->createManual(
-            //    "RTT",
-            //    Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-            //    Ogre::TEX_TYPE_2D,
-            //    512,
-            //    512,
-            //    0,
-            //    Ogre::PF_R8G8B8,
-            //    Ogre::TU_RENDERTARGET);*/
-            //CEGUI::Texture& guiTex = renderer->createTexture("RTT", tex);
-            //const CEGUI::Rectf rect(CEGUI::Vector2f(0.0f, 0.0f), guiTex.getOriginalDataSize());
-            //CEGUI::BasicImage* image = (CEGUI::BasicImage*)(&CEGUI::ImageManager::getSingleton().create("BasicImage", "RTTImage"));
-            //image->setTexture(&guiTex);
-            //image->setArea(rect);
-            //image->setAutoScaled(CEGUI::ASM_Both);   
-
-            //CEGUI::Window* si = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage", "RTTWindow");
-            //// si->setSize(CEGUI::UVector2(CEGUI::UDim(0.5f, 0),
-            //si->setSize(CEGUI::USize(CEGUI::UDim(0.5f, 0),
-            //                         CEGUI::UDim(0.4f, 0)));
-            //si->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5f, 0),
-            //                                CEGUI::UDim(0.0f, 0)));
-            //si->setProperty("Image", "RTTImage");
-
-    }
 } // namespace Flamingo

@@ -34,10 +34,6 @@ namespace Flamingo{
         CEGUI::Window* createWidget(const std::string& type, const std::string& name = " ");
         CEGUI::Window* createEmptyWindow(const std::string& name = " ");
         void chageScreenSize(int widht,int height);
-        // ELIMINAR
-        void pruebas();
-        void prueba2();
-        // ELIMINAR
 
       private:
        

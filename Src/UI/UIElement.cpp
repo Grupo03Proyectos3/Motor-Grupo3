@@ -130,7 +130,7 @@ namespace Flamingo{
             CEGUI::ImageManager::getSingleton().addFromImageFile(name, file);
             int o = 1;
             CEGUI::Image& p = CEGUI::ImageManager::getSingletonPtr()->get(name);
-            m_element->setProperty("Image", name);
+            m_element->setProperty("NormalImage", name);
         }
        //CEGUI::Image p = im->get("paco"); addFromImageFile(name, file);
         //CEGUI::Image p = im->get("paco");
