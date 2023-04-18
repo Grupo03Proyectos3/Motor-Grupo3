@@ -3,13 +3,17 @@
 #define __LUA_SYSTEM_H__
 
 #include "ECS/System.h"
-// RENDER
-#include "Render/Camera.h"
-#include "Render/Light.h"
-#include "Render/MeshRenderer.h"
-// FLAMINGO UTILS
-#include "FlamingoUtils/SColor.h"
-#include "FlamingoUtils/SVector3.h"
+#include "ECS/Manager.h"
+#include "FlamingoBase/ComponentsFactory.h"
+#include "FlamingoBase/PlayerControllerFactory.h"
+#include "FlamingoBase/MeshRendererFactory.h"
+#include "FlamingoBase/RigidbodyFactory.h"
+#include "FlamingoBase/TransformFactory.h"
+#include "FlamingoBase/LightFactory.h"
+#include "FlamingoBase/CameraFactory.h"
+#include "FlamingoBase/AnimatorFactory.h"
+#include "Render/RenderSystem.h"
+
 //LUA
 extern "C"
 {
@@ -19,11 +23,13 @@ extern "C"
 }
 
 #include <LuaBridge\LuaBridge.h>
-
+#include <unordered_map>
 #include <string>
 
 #define PATH_PREFIX "Assets/Scripts/"
 #define FILE_EXTENSION ".lua"
+
+using Data = std::unordered_map<std::string, std::string>;
 
 class lua_State;
 
@@ -42,7 +48,7 @@ namespace Flamingo
       public:
         __SYSTEM_ID_DECL__(ecs::_sys_LUA)
 
-        LuaSystem(){};
+        LuaSystem(RenderSystem* t_renderSystem);
         virtual ~LuaSystem();
 
         void initSystem() override;
@@ -57,15 +63,8 @@ namespace Flamingo
         //// void callLuaFunction(std::string name, Args&&...args);
         //void addNumToLua(float var, std::string name);
         //void addIntToLua(int var, std::string name);
-        //void addTransSpaceToLua(Camera::transformSpace t_trs, std::string t_var_name);
-        //void addPolygonModeToLua(Camera::polygonMode t_pm, std::string t_var_name);
-        //void addLightTypeToLua(Light::lightType t_type, std::string t_var_name);
         //void addBooleanToLua(bool var, std::string t_name);
-        //void addColorToLua(SColor t_color, std::string t_var_name);
-        //void addVector3ToLua(SVector3 t_vec, std::string t_var_name);
-        //void addCameraToLua(Camera* t_cam, std::string t_var_name);
-        //void addLightToLua(Light* t_light, std::string t_var_name);
-        //void addMeshRendererToLua(MeshRenderer* t_mr, std::string t_var_name);
+        void loadScene();
         
         template <typename T>
         void addVarToLua(T t_var, std::string t_name)
@@ -76,9 +75,11 @@ namespace Flamingo
 
       private:
         lua_State* lua_state;
+        ComponentsFactory* m_componentFactory;
+        Data m_data;
+        ecs::Manager* m_mngr;
 
         void createSystemFuntions();
-       
         luabridge::LuaRef getFromLua(std::string t_name);
     };
 

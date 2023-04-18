@@ -18,7 +18,9 @@ extern "C"
 // RENDER
 #include "Render/Animator.h"
 #include "Render/ParticleSystem.h"
-#include "Render/RenderSystem.h"
+
+#include "Render/Light.h"
+#include "Render/Camera.h"
 // PHYSICS
 #include "Physics/PhysicsSystem.h"
 #include "Physics/RigidBody.h"
@@ -26,6 +28,20 @@ extern "C"
 #include "BehaviourScript.h"
 #include "FlamingoBase/SceneManager.h"
 #include "FlamingoBase/Transform.h"
+
+Flamingo::LuaSystem::LuaSystem(RenderSystem* t_renderSystem)
+{
+    m_componentFactory = ComponentsFactory::instance();
+    m_mngr = ecs::Manager::instance();
+
+    m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
+    m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(t_renderSystem));
+    m_componentFactory->addFactory("RigidBody", new RigidBodyFactory());
+    m_componentFactory->addFactory("ATransform", new TransformFactory());
+    m_componentFactory->addFactory("Light", new LightFactory(t_renderSystem));
+    m_componentFactory->addFactory("Camera", new CameraFactory(t_renderSystem));
+    m_componentFactory->addFactory("Animator", new AnimatorFactory(t_renderSystem));
+}
 
 Flamingo::LuaSystem::~LuaSystem()
 {
@@ -41,6 +57,7 @@ void Flamingo::LuaSystem::initSystem()
     // guardarme en Lua las funciones internas de Flamingo
     createSystemFuntions();
     //readScript("camara"); 
+    //loadScene();
 }
 
 void Flamingo::LuaSystem::update(float t_delta_time)
@@ -153,53 +170,49 @@ void Flamingo::LuaSystem::callLuaFunction(std::string t_name)
 //    lua_setglobal(lua_state, t_name.c_str());
 //}
 //
-//void Flamingo::LuaSystem::addColorToLua(SColor t_color_param, std::string t_var_name)
-//{
-//    luabridge::push(lua_state, t_color_param);
-//    lua_setglobal(lua_state, t_var_name.c_str());
-//}
-//
-//void Flamingo::LuaSystem::addVector3ToLua(SVector3 t_vec_param, std::string t_var_name)
-//{
-//    luabridge::push(lua_state, t_vec_param);
-//    lua_setglobal(lua_state, t_var_name.c_str());
-//}
-//
-//void Flamingo::LuaSystem::addTransSpaceToLua(Camera::transformSpace t_trs, std::string t_var_name)
-//{
-//    luabridge::push(lua_state, t_trs);
-//    lua_setglobal(lua_state, t_var_name.c_str());
-//}
-//
-//void Flamingo::LuaSystem::addPolygonModeToLua(Camera::polygonMode t_pm, std::string t_var_name)
-//{
-//    luabridge::push(lua_state, t_pm);
-//    lua_setglobal(lua_state, t_var_name.c_str());
-//}
-//
-//void Flamingo::LuaSystem::addLightTypeToLua(Light::lightType t_type, std::string t_var_name)
-//{
-//    luabridge::push(lua_state, t_type);
-//    lua_setglobal(lua_state, t_var_name.c_str());
-//}
-//
-//void Flamingo::LuaSystem::addCameraToLua(Camera* t_cam, std::string t_var_name)
-//{
-//    luabridge::push(lua_state, t_cam);
-//    lua_setglobal(lua_state, t_var_name.c_str());
-//}
-//
-//void Flamingo::LuaSystem::addLightToLua(Light* t_light, std::string t_var_name)
-//{
-//    luabridge::push(lua_state, t_light);
-//    lua_setglobal(lua_state, t_var_name.c_str());
-//}
-//
-//void Flamingo::LuaSystem::addMeshRendererToLua(MeshRenderer* t_mr, std::string t_var_name)
-//{
-//    luabridge::push(lua_state, t_mr);
-//    lua_setglobal(lua_state, t_var_name.c_str());
-//}
+
+void Flamingo::LuaSystem::loadScene()
+{
+    readScript("mapa"); // Habra que cambiarlo a que lea el nombre del script de la escena pertinente
+    luabridge::LuaRef allEnts = getFromLua("entities");
+    int n = allEnts.length();
+    // Recorro las entidades del script de lua
+    for (int i = 1; i <= n; i++)
+    {
+        luabridge::LuaRef entity = getFromLua(allEnts[i]);
+        ecs::GameObject* gO = m_mngr->addGameObject({ecs::GROUP_EXAMPLE});
+
+        // Ordenar componentes de la entidad
+        std::vector<std::string> componentNames;
+        lua_pushnil(entity);
+        while (lua_next(entity, 0) != 0) // Recorro los componentes que hay la entidad
+        {
+            std::string compName = lua_tostring(entity, -2); // Tipo de componente
+            componentNames.push_back(compName);
+            lua_pop(entity, 1);
+        }
+
+        // Ordenar atributos de cada componente
+        std::sort(componentNames.begin(), componentNames.end());
+        for (const auto& compName : componentNames)
+        {
+            luabridge::LuaRef component = entity[compName];
+            lua_pushnil(component);
+
+            while (lua_next(component, 0) != 0) // Recorro los atributos del componente
+            {
+                std::string key = lua_tostring(entity, -2); // Nombre del atributo
+                std::string val = lua_tostring(entity, -1); // Valor del atributo
+
+                m_data.insert({key, val});
+                lua_pop(component, 1);
+            }
+            m_componentFactory->addComponent(gO, compName, m_data); // (GameObject, tipo de componente, el map)
+            //lua_pop(entity, 1);
+            m_data.clear();
+        }
+    }
+}
 
 void Flamingo::LuaSystem::createSystemFuntions()
 {

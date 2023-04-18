@@ -60,18 +60,20 @@ namespace Flamingo
         RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
         PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
         AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
-        Flamingo::LuaSystem* lua_system = m_mngr->addSystem<Flamingo::LuaSystem>();
+        Flamingo::LuaSystem* lua_system = m_mngr->addSystem<Flamingo::LuaSystem>(render_sys);
 
         ui_system->initContext();
 
         SceneManager* sceneManager = render_sys->getSceneManager();
         Scene* mainScene = sceneManager->getSceneActive();
 
-        if (!loadScene(render_sys, mainScene))
-        {
-            std::cout << "No ha sido posible cargar la escena";
-            return false;
-        }
+        //if (!loadScene(render_sys, mainScene))
+        //{
+        //    std::cout << "No ha sido posible cargar la escena";
+        //    return false;
+        //}
+
+        lua_system->loadScene();
 
         auto nodo = mainScene->getSceneRoot();
 
