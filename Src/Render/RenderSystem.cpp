@@ -121,7 +121,7 @@ namespace Flamingo
 
         void RenderSystem::update(float t_delta_time)
         {
-            for (auto game_object : m_mngr->getEntities(ecs::GROUP_EXAMPLE))
+            for (auto game_object : m_mngr->getEntities(ecs::GROUP_RENDER))
             {
                 if (game_object->getActive())
                 {

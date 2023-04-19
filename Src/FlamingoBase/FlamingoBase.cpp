@@ -113,7 +113,7 @@ namespace Flamingo
         y->setPosition({50, 30, 0});
         y->setScale({50, 50, 0});
 
-        mainScene->destroySceneObjects();
+        //mainScene->destroySceneObjects();
 
         /*  std::function<void()> f_display = hola;
           x->subs(f_display);*/

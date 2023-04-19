@@ -118,7 +118,7 @@ namespace Flamingo
         // Distancia en el mundo a la que se puede oir el sonido
         // auxChannel->set3DMinMaxDistance(minDistance, maxDistance);
         auxChannel->setMode(FMOD_3D_LINEARROLLOFF);
-        m_channelMap->emplace(audioName, auxChannel);
+        m_channelMap->emplace(t_audioName, auxChannel);
     }
 
     /// <summary>

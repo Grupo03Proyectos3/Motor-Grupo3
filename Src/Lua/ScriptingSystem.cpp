@@ -2,8 +2,8 @@
 
 extern "C"
 {
-#include "lua.h"
 #include "lauxlib.h"
+#include "lua.h"
 #include "lualib.h"
 }
 
@@ -19,8 +19,8 @@ extern "C"
 #include "Render/Animator.h"
 #include "Render/ParticleSystem.h"
 
-#include "Render/Light.h"
 #include "Render/Camera.h"
+#include "Render/Light.h"
 // PHYSICS
 #include "Physics/PhysicsSystem.h"
 #include "Physics/RigidBody.h"
@@ -35,7 +35,6 @@ Flamingo::ScriptingSystem::ScriptingSystem()
 {
     m_componentFactory = ComponentsFactory::instance();
     m_mngr = ecs::Manager::instance();
-
 }
 
 Flamingo::ScriptingSystem::~ScriptingSystem()
@@ -60,20 +59,17 @@ void Flamingo::ScriptingSystem::initSystem()
     luaL_openlibs(lua_state);
     // guardarme en Lua las funciones internas de Flamingo
     createSystemFuntions();
-    //readScript("camara"); 
-    //loadScene();
+    // readScript("camara");
+    // loadScene();
 }
 
 void Flamingo::ScriptingSystem::update(float t_delta_time)
 {
     // TO DO : CHANGE TO SCRIPT GROUP
-    for (auto game_object : m_mngr->getEntities(ecs::GROUP_EXAMPLE))
+    for (auto game_object : m_mngr->getEntities(ecs::GROUP_SCRIPTING))
     {
-        auto bs = m_mngr->getComponent<BehaviourScript>(game_object);
-        if (bs)
-        {
-            bs->update();
-        }
+        if (game_object->getActive())
+            m_mngr->getComponent<BehaviourScript>(game_object)->update();
     }
 }
 
@@ -156,23 +152,23 @@ void Flamingo::ScriptingSystem::callLuaFunction(std::string t_name)
     fun();
 }
 
-//void Flamingo::LuaSystem::addIntToLua(int var, std::string name)
+// void Flamingo::LuaSystem::addIntToLua(int var, std::string name)
 //{
-//    lua_pushinteger(lua_state, var);
-//    lua_setglobal(lua_state, name.c_str());
-//}
+//     lua_pushinteger(lua_state, var);
+//     lua_setglobal(lua_state, name.c_str());
+// }
 //
-//void Flamingo::LuaSystem::addNumToLua(float var, std::string name)
+// void Flamingo::LuaSystem::addNumToLua(float var, std::string name)
 //{
-//    lua_pushnumber(lua_state, var);
-//    lua_setglobal(lua_state, name.c_str());
-//}
+//     lua_pushnumber(lua_state, var);
+//     lua_setglobal(lua_state, name.c_str());
+// }
 //
-//void Flamingo::LuaSystem::addBooleanToLua(bool var, std::string t_name)
+// void Flamingo::LuaSystem::addBooleanToLua(bool var, std::string t_name)
 //{
-//    lua_pushboolean(lua_state, (int)var);
-//    lua_setglobal(lua_state, t_name.c_str());
-//}
+//     lua_pushboolean(lua_state, (int)var);
+//     lua_setglobal(lua_state, t_name.c_str());
+// }
 //
 
 void Flamingo::ScriptingSystem::loadScene()
@@ -212,7 +208,7 @@ void Flamingo::ScriptingSystem::loadScene()
                 lua_pop(component, 1);
             }
             m_componentFactory->addComponent(gO, compName, m_data); // (GameObject, tipo de componente, el map)
-            //lua_pop(entity, 1);
+            // lua_pop(entity, 1);
             m_data.clear();
         }
     }

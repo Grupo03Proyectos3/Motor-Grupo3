@@ -163,10 +163,12 @@ namespace Flamingo
         // For each GameObject that has at least one Physics type component,
         // check for the components and update them
 
-        for (auto game_object : m_mngr->getEntities(ecs::GROUP_EXAMPLE))
+        for (auto game_object : m_mngr->getEntities(ecs::GROUP_PHYSICS))
         {
-            if (auto rb = m_mngr->getComponent<RigidBody>(game_object))
+            if (game_object->getActive())
             {
+                // auto rb = m_mngr->getComponent<RigidBody>(game_object));
+
                 // TODO actualise position with Transform values --> Check if its really necessary
                 /* if (rb->isKinematic())
                      rb->setPosition(m_mngr->getComponent<Transform>(game_object)->getPosition());*/
@@ -174,6 +176,7 @@ namespace Flamingo
                 // std::cout << "RB rotation: " << rb->getRotation().getX() << " " << rb->getRotation().getX() << " " << rb->getRotation().getX() << std::endl;
                 //  rbPruebas = rb;
             }
+           
         }
 
         // TO DO add forces with input/scripts
@@ -304,4 +307,4 @@ namespace Flamingo
 
         return true;
     }
-}
+} // namespace Flamingo
