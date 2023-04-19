@@ -28,19 +28,14 @@ extern "C"
 #include "BehaviourScript.h"
 #include "FlamingoBase/SceneManager.h"
 #include "FlamingoBase/Transform.h"
+// PLAYER CONTROLLER
+#include "Physics/PlayerController.h"
 
-Flamingo::LuaSystem::LuaSystem(Flamingo::RenderSystem* t_renderSystem)
+Flamingo::LuaSystem::LuaSystem()
 {
     m_componentFactory = ComponentsFactory::instance();
     m_mngr = ecs::Manager::instance();
 
-    m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
-    m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(t_renderSystem));
-    m_componentFactory->addFactory("RigidBody", new RigidBodyFactory());
-    m_componentFactory->addFactory("ATransform", new TransformFactory());
-    m_componentFactory->addFactory("Light", new LightFactory(t_renderSystem));
-    m_componentFactory->addFactory("Camera", new CameraFactory(t_renderSystem));
-    m_componentFactory->addFactory("Animator", new AnimatorFactory(t_renderSystem));
 }
 
 Flamingo::LuaSystem::~LuaSystem()
@@ -50,6 +45,15 @@ Flamingo::LuaSystem::~LuaSystem()
 
 void Flamingo::LuaSystem::initSystem()
 {
+    auto renderSystem = m_mngr->getSystem<Flamingo::RenderSystem>();
+    m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
+    m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(renderSystem));
+    m_componentFactory->addFactory("RigidBody", new RigidBodyFactory());
+    m_componentFactory->addFactory("ATransform", new TransformFactory());
+    m_componentFactory->addFactory("Light", new LightFactory(renderSystem));
+    m_componentFactory->addFactory("Camera", new CameraFactory(renderSystem));
+    m_componentFactory->addFactory("Animator", new AnimatorFactory(renderSystem));
+
     // crear un Lua state
     lua_state = luaL_newstate();
     // cargar las standard libs

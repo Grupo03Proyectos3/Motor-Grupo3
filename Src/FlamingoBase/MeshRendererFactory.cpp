@@ -1,7 +1,6 @@
 #include "MeshRendererFactory.h"
 #include "Render/MeshRenderer.h"
 
-
 MeshRendererFactory::MeshRendererFactory(Flamingo::RenderSystem* t_renderSystem)
 {
     m_renderSystem = t_renderSystem;

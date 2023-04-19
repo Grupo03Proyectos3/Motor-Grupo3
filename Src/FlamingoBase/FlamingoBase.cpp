@@ -33,6 +33,7 @@
 #include <UI/UIElement.h>
 #include <functional>
 #include <iostream>
+#include <ECS/InputHandler.h>
 
 namespace Flamingo
 {
@@ -60,7 +61,7 @@ namespace Flamingo
         Flamingo::RenderSystem* render_sys = m_mngr->addSystem<Flamingo::RenderSystem>(s);
         Flamingo::PhysicsSystem* physics_sys = m_mngr->addSystem<Flamingo::PhysicsSystem>();
         Flamingo::AudioSystem* audio_sys = m_mngr->addSystem<Flamingo::AudioSystem>();
-        Flamingo::LuaSystem* lua_system = m_mngr->addSystem<Flamingo::LuaSystem>(render_sys);
+        Flamingo::LuaSystem* lua_system = m_mngr->addSystem<Flamingo::LuaSystem>();
 
         ui_system->initContext();
 

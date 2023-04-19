@@ -15,6 +15,7 @@
 #include <OgreGpuProgramManager.h>
 #include <OgreRoot.h>
 #include <Physics/RigidBody.h>
+#include "Window.h"
 
 namespace Flamingo
 {
