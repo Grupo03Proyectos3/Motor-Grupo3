@@ -62,25 +62,11 @@ namespace Flamingo
         // Liberar los sonidos que no estén siendo reproducidos
     }
 
-    /// <summary>
-    /// Devuelve en el parámetro Sound el sonido ya creado.
-    /// </summary>
-    /// <param name="route"></param>
-    /// <param name="mode"></param>
-    /// <param name="exinfo"></param>
-    /// <param name="sound"></param>
     void AudioSystem::createSound(const char* route, FMOD_MODE mode, FMOD_CREATESOUNDEXINFO* exinfo, FMOD::Sound** sound)
     {
         checkError(m_system->createSound(route, mode, exinfo, &(*sound)));
     }
 
-    /// <summary>
-    /// Crea el sonido y lo asigna al grupo correspondiente
-    /// </summary>
-    /// <param name="route"></param>
-    /// <param name="name"></param>
-    /// <param name="isMusic">True para grupo música, false para grupo sound effect.</param>
-    /// <returns></returns>
     FMOD::Sound* AudioSystem::createSound(const char* route, std::string name, bool isMusic)
     {
         FMOD::Sound* sound = nullptr;
@@ -110,15 +96,15 @@ namespace Flamingo
         sound->setSoundGroup(m_soundGroup);
     }
 
-    void AudioSystem::playAudio(std::string audioName)
+    void AudioSystem::playAudio(std::string t_audioName)
     {
         FMOD::Channel* auxChannel = nullptr;
         FMOD::Sound* auxSound = nullptr;
 
-        if (m_soundMap->count(audioName))
-            auxSound = m_soundMap->find(audioName)->second;
-        else if (m_musicMap->count(audioName))
-            auxSound = m_musicMap->find(audioName)->second;
+        if (m_soundMap->count(t_audioName))
+            auxSound = m_soundMap->find(t_audioName)->second;
+        else if (m_musicMap->count(t_audioName))
+            auxSound = m_musicMap->find(t_audioName)->second;
         else
         {
             // cout << "Sonido no encontrado" << "\n";

@@ -21,6 +21,11 @@ enum msgId : msgId_type
     MSG_COLLIISION_EXIT
 };
 
+
+/**
+ * @brief Estructura Message con el tipo de mensaje y datos
+ * msgId_type id: Identifica el mensaje unívocamente
+ */
 struct Message
 {
     msgId_type id;
