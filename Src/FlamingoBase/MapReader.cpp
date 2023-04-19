@@ -63,6 +63,7 @@ void MapReader::readMap(std::string filename, Flamingo::Scene* t_scene)
                     }
                     catch (const std::exception&)
                     {
+                        gO->setAlive(false);
                         throw new std::exception("Id incorrect");
                     }
 
@@ -91,6 +92,7 @@ void MapReader::readMap(std::string filename, Flamingo::Scene* t_scene)
                     }
                     catch (const std::exception&)
                     {
+                        gO->setAlive(false);
                         throw new std::exception("Params of Transform are incorrect");
                     }
 
@@ -163,6 +165,7 @@ void MapReader::readMap(std::string filename, Flamingo::Scene* t_scene)
                                 }
                                 else
                                 {
+                                    gO->setAlive(false);
                                     throw "'scripts' array in '" + filename + "' includes and invalid value";
                                 }
                             }
@@ -170,11 +173,13 @@ void MapReader::readMap(std::string filename, Flamingo::Scene* t_scene)
                     }
                     else
                     {
+                        gO->setAlive(false);
                         throw "'scripts' are null";
                     }
                 }
                 else
                 {
+                    gO->setAlive(false);
                     throw "'objects' array in '" + filename + "' includes and invalid value";
                 }
             }
