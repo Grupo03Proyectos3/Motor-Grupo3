@@ -1,4 +1,4 @@
-#include "LuaSystem.h"
+#include "ScriptingSystem.h"
 
 extern "C"
 {
@@ -31,19 +31,19 @@ extern "C"
 // PLAYER CONTROLLER
 #include "Physics/PlayerController.h"
 
-Flamingo::LuaSystem::LuaSystem()
+Flamingo::ScriptingSystem::ScriptingSystem()
 {
     m_componentFactory = ComponentsFactory::instance();
     m_mngr = ecs::Manager::instance();
 
 }
 
-Flamingo::LuaSystem::~LuaSystem()
+Flamingo::ScriptingSystem::~ScriptingSystem()
 {
     lua_close(lua_state);
 }
 
-void Flamingo::LuaSystem::initSystem()
+void Flamingo::ScriptingSystem::initSystem()
 {
     auto renderSystem = m_mngr->getSystem<Flamingo::RenderSystem>();
     m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
@@ -64,7 +64,7 @@ void Flamingo::LuaSystem::initSystem()
     //loadScene();
 }
 
-void Flamingo::LuaSystem::update(float t_delta_time)
+void Flamingo::ScriptingSystem::update(float t_delta_time)
 {
     // TO DO : CHANGE TO SCRIPT GROUP
     for (auto game_object : m_mngr->getEntities(ecs::GROUP_EXAMPLE))
@@ -77,7 +77,7 @@ void Flamingo::LuaSystem::update(float t_delta_time)
     }
 }
 
-void Flamingo::LuaSystem::recieve(const Message& t_m)
+void Flamingo::ScriptingSystem::recieve(const Message& t_m)
 {
     switch (t_m.id)
     {
@@ -130,12 +130,12 @@ void Flamingo::LuaSystem::recieve(const Message& t_m)
     }
 }
 
-lua_State* Flamingo::LuaSystem::getLuaState()
+lua_State* Flamingo::ScriptingSystem::getLuaState()
 {
     return lua_state;
 }
 
-void Flamingo::LuaSystem::readScript(const std::string& t_name)
+void Flamingo::ScriptingSystem::readScript(const std::string& t_name)
 {
     std::string path = PATH_PREFIX + t_name + FILE_EXTENSION;
     // Cargar el script de lua
@@ -150,7 +150,7 @@ void Flamingo::LuaSystem::readScript(const std::string& t_name)
     lua_pop(lua_state, 1);
 }
 
-void Flamingo::LuaSystem::callLuaFunction(std::string t_name)
+void Flamingo::ScriptingSystem::callLuaFunction(std::string t_name)
 {
     luabridge::LuaRef fun = getFromLua(t_name);
     fun();
@@ -175,7 +175,7 @@ void Flamingo::LuaSystem::callLuaFunction(std::string t_name)
 //}
 //
 
-void Flamingo::LuaSystem::loadScene()
+void Flamingo::ScriptingSystem::loadScene()
 {
     readScript("mapa"); // Habra que cambiarlo a que lea el nombre del script de la escena pertinente
     luabridge::LuaRef allEnts = getFromLua("entities");
@@ -218,7 +218,7 @@ void Flamingo::LuaSystem::loadScene()
     }
 }
 
-void Flamingo::LuaSystem::createSystemFuntions()
+void Flamingo::ScriptingSystem::createSystemFuntions()
 {
     // SceneManager
     luabridge::getGlobalNamespace(lua_state)
@@ -309,7 +309,7 @@ void Flamingo::LuaSystem::createSystemFuntions()
         .endClass();
 }
 
-luabridge::LuaRef Flamingo::LuaSystem::getFromLua(std::string t_name)
+luabridge::LuaRef Flamingo::ScriptingSystem::getFromLua(std::string t_name)
 {
     return luabridge::getGlobal(lua_state, t_name.c_str());
 }

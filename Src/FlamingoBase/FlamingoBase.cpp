@@ -17,7 +17,7 @@
 #include "FlamingoUtils/Timer.h"
 
 // LUA
-#include <Lua/LuaSystem.h>
+#include <Lua/ScriptingSystem.h>
 
 // Render3D
 #include "Render/RenderSystem.h"
@@ -61,7 +61,7 @@ namespace Flamingo
         Flamingo::RenderSystem* render_sys = m_mngr->addSystem<Flamingo::RenderSystem>(s);
         Flamingo::PhysicsSystem* physics_sys = m_mngr->addSystem<Flamingo::PhysicsSystem>();
         Flamingo::AudioSystem* audio_sys = m_mngr->addSystem<Flamingo::AudioSystem>();
-        Flamingo::LuaSystem* lua_system = m_mngr->addSystem<Flamingo::LuaSystem>();
+        Flamingo::ScriptingSystem* lua_system = m_mngr->addSystem<Flamingo::ScriptingSystem>();
 
         ui_system->initContext();
 

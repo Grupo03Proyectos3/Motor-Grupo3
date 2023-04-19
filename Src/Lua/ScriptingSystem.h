@@ -43,13 +43,13 @@ namespace luabridge
 
 namespace Flamingo
 {
-    class LuaSystem : public ecs::System
+    class ScriptingSystem : public ecs::System
     {
       public:
         __SYSTEM_ID_DECL__(ecs::_sys_LUA)
 
-        LuaSystem();
-        virtual ~LuaSystem();
+        ScriptingSystem();
+        virtual ~ScriptingSystem();
 
         void initSystem() override;
         void update(float t_delta_time) override;

@@ -22,7 +22,7 @@
 #include "Render/RenderSystem.h"
 
 // LUA
-#include "Lua/LuaSystem.h"
+#include "Lua/ScriptingSystem.h"
 
 // BASE
 #include "FlamingoBase/SceneManager.h"
