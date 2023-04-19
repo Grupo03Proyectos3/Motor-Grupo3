@@ -29,7 +29,7 @@ extern "C"
 #include "FlamingoBase/SceneManager.h"
 #include "FlamingoBase/Transform.h"
 
-Flamingo::LuaSystem::LuaSystem(RenderSystem* t_renderSystem)
+Flamingo::LuaSystem::LuaSystem(Flamingo::RenderSystem* t_renderSystem)
 {
     m_componentFactory = ComponentsFactory::instance();
     m_mngr = ecs::Manager::instance();

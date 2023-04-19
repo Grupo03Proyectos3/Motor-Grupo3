@@ -1,7 +1,7 @@
 #include "LightFactory.h"
 #include "Render/Light.h"
 
-LightFactory::LightFactory(RenderSystem* t_renderSystem)
+LightFactory::LightFactory(Flamingo::RenderSystem* t_renderSystem)
 {
     m_renderSystem = t_renderSystem;
     root = m_renderSystem->getSceneManager()->getSceneActive()->getSceneRoot();

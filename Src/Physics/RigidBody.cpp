@@ -22,7 +22,7 @@ RigidBody::~RigidBody()
     // delete m_rigid_body->getCollisionShape(); // lo hace el sistema
     m_rigid_body->setUserPointer(nullptr);
 
-    m_mngr->getSystem<PhysicsSystem>()->removeRigidBody(m_rigid_body);
+    m_mngr->getSystem<Flamingo::PhysicsSystem>()->removeRigidBody(m_rigid_body);
 
     delete m_bullet_transform;
     m_bullet_transform = nullptr;
@@ -71,7 +71,7 @@ void RigidBody::initComponent()
 
     //   m_state = new FlamingoMotionState(*m_bullet_transform, transform);
 
-    m_rigid_body = m_mngr->getSystem<PhysicsSystem>()->createRigidBody(m_bullet_transform, m_shape, m_mass);
+    m_rigid_body = m_mngr->getSystem<Flamingo::PhysicsSystem>()->createRigidBody(m_bullet_transform, m_shape, m_mass);
 
     //Guardamosla referencia en un void* de bullet para recuperarlo en el callback de colisiones
     m_rigid_body->setUserPointer(this);
@@ -83,7 +83,7 @@ void RigidBody::initComponent()
         //    m_rigid_body->setActivationState(DISABLE_DEACTIVATION);
     }
 
-    m_mngr->getSystem<PhysicsSystem>()->addRigidBody(m_rigid_body);
+    m_mngr->getSystem<Flamingo::PhysicsSystem>()->addRigidBody(m_rigid_body);
 }
 
 void RigidBody::setMass(const float& t_mass)

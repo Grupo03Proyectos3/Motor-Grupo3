@@ -10,7 +10,9 @@
 #include "Physics/PlayerController.h"
 
 
-class RenderSystem : public ecs::System
+namespace Flamingo
+{
+	class RenderSystem : public ecs::System
 {
   public:
     __SYSTEM_ID_DECL__(ecs::_sys_RENDER)
@@ -33,8 +35,8 @@ class RenderSystem : public ecs::System
     void Pruebas();
 
   private:
-    Ogre::Root* m_root;                // OGRE root
-    Ogre::FileSystemLayer* m_fs_layer; // Fichero de recursos
+    Ogre::Root* m_root = nullptr;                // OGRE root
+    Ogre::FileSystemLayer* m_fs_layer = nullptr; // Fichero de recursos
     Flamingo::Window* m_window = nullptr;
     Flamingo::SceneManager* m_scene_mngr = nullptr;
     Ogre::String m_app_name;    // Nombre de la app
@@ -47,5 +49,6 @@ class RenderSystem : public ecs::System
     void bringResources(Ogre::String& sec_name, Ogre::String& type_name, Ogre::String& arch_name);
     bool config();
 };
+}
 
 #endif

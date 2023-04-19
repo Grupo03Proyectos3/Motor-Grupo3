@@ -48,7 +48,7 @@ namespace Flamingo
       public:
         __SYSTEM_ID_DECL__(ecs::_sys_LUA)
 
-        LuaSystem(RenderSystem* t_renderSystem);
+        LuaSystem(Flamingo::RenderSystem* t_renderSystem);
         virtual ~LuaSystem();
 
         void initSystem() override;

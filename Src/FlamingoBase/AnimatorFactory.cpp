@@ -2,7 +2,7 @@
 #include "Render/Animator.h"
 #include "ECS/Manager.h"
 
-AnimatorFactory::AnimatorFactory(RenderSystem* t_renderSystem)
+AnimatorFactory::AnimatorFactory(Flamingo::RenderSystem* t_renderSystem)
 {
     m_renderSystem = t_renderSystem;
     root = m_renderSystem->getSceneManager()->getSceneActive()->getSceneRoot();

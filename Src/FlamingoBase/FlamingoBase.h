@@ -1,6 +1,10 @@
 #pragma once
 
-class RenderSystem;
+namespace Flamingo
+{
+    class RenderSystem;
+}
+
 namespace Flamingo 
 {
     class Scene;
@@ -18,7 +22,7 @@ namespace Flamingo
        
       private:
 
-        bool loadScene(RenderSystem* t_render_sys, Scene* t_scene);
+        bool loadScene(Flamingo::RenderSystem* t_render_sys, Scene* t_scene);
 
       
     };

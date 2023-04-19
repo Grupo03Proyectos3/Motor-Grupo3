@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Motor\main.cpp" />
-    <ClCompile Include="..\..\Src\Motor\Motor.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

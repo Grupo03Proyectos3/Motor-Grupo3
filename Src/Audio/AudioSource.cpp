@@ -24,7 +24,7 @@ void AudioSource::initComponent()
 
 void AudioSource::initValues(const char* songRoute, std::string songName, bool isMusic)
 {
-    auto audioSystem = m_mngr->getSystem<AudioSystem>();
+    auto audioSystem = m_mngr->getSystem<Flamingo::AudioSystem>();
     FMOD_RESULT result;
     if (isMusic)
     {

@@ -14,46 +14,50 @@ namespace FMOD
     class Channel;
     class mega;
 } // namespace FMOD
+
 struct FMOD_CREATESOUNDEXINFO;
 enum FMOD_RESULT;
 typedef unsigned int FMOD_MODE;
 
-class AudioSystem : public ecs::System
+namespace Flamingo
 {
-    typedef std::unordered_map<std::string, FMOD::Sound*> SoundMap;
-    typedef std::unordered_map<std::string, FMOD::Sound*> MusicMap;
-    typedef std::unordered_map<std::string, FMOD::Channel*> ChannelMap;
-    
-    public:
-    __SYSTEM_ID_DECL__(ecs::_sys_AUDIO)
+    class AudioSystem : public ecs::System
+    {
+        typedef std::unordered_map<std::string, FMOD::Sound*> SoundMap;
+        typedef std::unordered_map<std::string, FMOD::Sound*> MusicMap;
+        typedef std::unordered_map<std::string, FMOD::Channel*> ChannelMap;
 
-    AudioSystem();
-    ~AudioSystem();
+      public:
+        __SYSTEM_ID_DECL__(ecs::_sys_AUDIO)
 
-    void recieve(const Message&) override;
-    void initSystem() override;
-    void update(float t_delta_time) override;
+        AudioSystem();
+        ~AudioSystem();
 
-    void createSound(const char* route, FMOD_MODE mode, FMOD_CREATESOUNDEXINFO* exinfo, FMOD::Sound** sound);
-    FMOD::Sound* createSound(const char* route, std::string name, bool isMusic);
-    void addMusic(FMOD::Sound* sound, std::string soundName);
-    void addSoundEffect(FMOD::Sound* sound, std::string soundName);
+        void recieve(const Message&) override;
+        void initSystem() override;
+        void update(float t_delta_time) override;
 
-    void playAudio(std::string audioName);
-    void setMusicVolume(float f);
-    void setSoundEffectsVolume(float f);
+        void createSound(const char* route, FMOD_MODE mode, FMOD_CREATESOUNDEXINFO* exinfo, FMOD::Sound** sound);
+        FMOD::Sound* createSound(const char* route, std::string name, bool isMusic);
+        void addMusic(FMOD::Sound* sound, std::string soundName);
+        void addSoundEffect(FMOD::Sound* sound, std::string soundName);
 
-    int checkError(FMOD_RESULT result);
+        void playAudio(std::string audioName);
+        void setMusicVolume(float f);
+        void setSoundEffectsVolume(float f);
 
-    protected:
-    FMOD::System* m_system;
-    FMOD::SoundGroup* m_musicGroup;
-    FMOD::SoundGroup* m_soundGroup;
+        int checkError(FMOD_RESULT result);
 
-    SoundMap* m_soundMap;
-    MusicMap* m_musicMap;
-    ChannelMap* m_channelMap;
-};
+      protected:
+        FMOD::System* m_system;
+        FMOD::SoundGroup* m_musicGroup;
+        FMOD::SoundGroup* m_soundGroup;
+
+        SoundMap* m_soundMap;
+        MusicMap* m_musicMap;
+        ChannelMap* m_channelMap;
+    };
+}
 
 
 #endif

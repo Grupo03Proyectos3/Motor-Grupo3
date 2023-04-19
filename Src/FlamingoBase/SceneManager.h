@@ -3,12 +3,17 @@
 #pragma once
 #include <unordered_map>
 #include "Scene.h"
-class PhysicsSystem;
-class RenderSystem;
+
+namespace Flamingo
+{
+    class PhysicsSystem;
+    class RenderSystem;
+}
+
 namespace Flamingo{
     class SceneManager{
-        friend PhysicsSystem;
-        friend RenderSystem;
+        friend Flamingo::PhysicsSystem;
+        friend Flamingo::RenderSystem;
       public:
         SceneManager(std::string t_Name, ecs::Manager* m_mng);
         ~SceneManager();       

@@ -10,12 +10,12 @@
 class AnimatorFactory : public Factory
 {
   public:
-    AnimatorFactory(RenderSystem* t_renderSystem);
+    AnimatorFactory(Flamingo::RenderSystem* t_renderSystem);
 
    ecs::Component* createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
 
    private:
    Ogre::SceneNode* root;
-   RenderSystem* m_renderSystem;
+   Flamingo::RenderSystem* m_renderSystem;
 };
 #endif

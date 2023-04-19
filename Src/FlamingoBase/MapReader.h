@@ -21,7 +21,7 @@ class Flamingo::Scene;
 class MapReader
 {
   public:
-    MapReader(RenderSystem* t_renderSystem);
+    MapReader(Flamingo::RenderSystem* t_renderSystem);
     ~MapReader();
 
     void readMap(std::string t_filename, Flamingo::Scene* t_scene);
@@ -32,7 +32,7 @@ class MapReader
     ComponentsFactory* m_componentFactory;
     Data m_data;
     ecs::Manager* m_mngr;
-    RenderSystem* m_renderSystem;
+    Flamingo::RenderSystem* m_renderSystem;
    
 };
 

@@ -1,7 +1,7 @@
 #include "CameraFactory.h"
 #include "Render/Camera.h"
 
-CameraFactory::CameraFactory(RenderSystem* t_renderSystem)
+CameraFactory::CameraFactory(Flamingo::RenderSystem* t_renderSystem)
 {
     m_renderSystem = t_renderSystem;
     root = m_renderSystem->getSceneManager()->getSceneActive()->getSceneRoot();

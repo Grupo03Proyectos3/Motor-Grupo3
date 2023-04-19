@@ -5,7 +5,7 @@
 #include "FlamingoBase/Scene.h"
 #include "Render/RenderSystem.h"
 
-MapReader::MapReader(RenderSystem* t_renderSystem)
+MapReader::MapReader(Flamingo::RenderSystem* t_renderSystem)
 {
     m_renderSystem = t_renderSystem;
     m_componentFactory = ComponentsFactory::instance();

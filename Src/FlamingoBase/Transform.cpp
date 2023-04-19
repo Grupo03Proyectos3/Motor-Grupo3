@@ -75,7 +75,7 @@ void Transform::setPositionPerPhysics(SVector3 t_pos)
     m.vector.z = m_position.getZ();
     m_mngr->send(m);
 
-    m_mngr->getSystem<RenderSystem>()->recieve(m);
+    m_mngr->getSystem<Flamingo::RenderSystem>()->recieve(m);
 }
 
 void Transform::setRotationPerPhysics(SQuaternion t_rotation)
@@ -89,7 +89,7 @@ void Transform::setRotationPerPhysics(SQuaternion t_rotation)
     m.quaternion.z = m_rotation.getZ();
     m.quaternion.w = m_rotation.getW();
     // m.v = &m_scale;
-    m_mngr->getSystem<RenderSystem>()->recieve(m);
+    m_mngr->getSystem<Flamingo::RenderSystem>()->recieve(m);
 }
 
 void Transform::setScale(SVector3 t_scale)

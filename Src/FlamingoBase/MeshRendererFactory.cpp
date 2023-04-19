@@ -2,7 +2,7 @@
 #include "Render/MeshRenderer.h"
 
 
-MeshRendererFactory::MeshRendererFactory(RenderSystem* t_renderSystem)
+MeshRendererFactory::MeshRendererFactory(Flamingo::RenderSystem* t_renderSystem)
 {
     m_renderSystem = t_renderSystem;
     root = m_renderSystem->getSceneManager()->getSceneActive()->getSceneRoot();

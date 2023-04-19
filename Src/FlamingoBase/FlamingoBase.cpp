@@ -57,9 +57,9 @@ namespace Flamingo
         m_mngr->init();
 
         Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
-        RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
-        PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
-        AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
+        Flamingo::RenderSystem* render_sys = m_mngr->addSystem<Flamingo::RenderSystem>(s);
+        Flamingo::PhysicsSystem* physics_sys = m_mngr->addSystem<Flamingo::PhysicsSystem>();
+        Flamingo::AudioSystem* audio_sys = m_mngr->addSystem<Flamingo::AudioSystem>();
         Flamingo::LuaSystem* lua_system = m_mngr->addSystem<Flamingo::LuaSystem>(render_sys);
 
         ui_system->initContext();
@@ -229,7 +229,7 @@ namespace Flamingo
         return false;
     }
 
-    bool FlamingoBase::loadScene(RenderSystem* t_render_sys, Scene* t_scene)
+    bool FlamingoBase::loadScene(Flamingo::RenderSystem* t_render_sys, Scene* t_scene)
     {
         try
         {
