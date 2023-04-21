@@ -8,7 +8,7 @@
 //#include "FlamingoUtils/SVector3.h"
 #include "ecs.h"
 #include <cstdint>
-
+#include <array>
 using msgId_type = uint8_t;
 enum msgId : msgId_type
 {
@@ -18,7 +18,8 @@ enum msgId : msgId_type
     MSG_WINDOW_RESIZED,
     MSG_COLLISION_STAY,
     MSG_COLLISION_ENTER,
-    MSG_COLLIISION_EXIT
+    MSG_COLLIISION_EXIT,
+    MSG_MOUSE_INPUT
 };
 
 
@@ -31,9 +32,7 @@ struct Message
     msgId_type id;
     ecs::GameObject* entity_affected;
 
-    union
-    {
-
+    union{
         struct
         {
             double x;
@@ -54,6 +53,11 @@ struct Message
             ecs::GameObject* obj1;
             ecs::GameObject* obj2;
         }collision;
+
+        struct
+        {
+            std::array<bool, 3>* mouse_states;
+        }ui_input;
     };
 };
 

@@ -20,6 +20,7 @@ namespace Flamingo
         void FlamingoLoop();
         bool FlamingoExit();
        
+        void hola();
       private:
 
         bool loadScene(Flamingo::RenderSystem* t_render_sys, Scene* t_scene);

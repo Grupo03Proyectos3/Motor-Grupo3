@@ -102,24 +102,23 @@ namespace Flamingo
         mainScene->addObjects(light_go);
 
         // PRUEBAS DE UI
-        //ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
-        //auto y = ecs::AddComponent<Transform>(UI);
-        //y->initValues();
-        //y->setPosition({75, 75, 0});
-        //auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
-        //x->setElementWidget("FlamingoDefaultUI/ImageButton", "COSO");
-        ////x->setText("ODIO CEGUI");
+        ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
+        auto y = ecs::AddComponent<Transform>(UI);
+        y->initValues();
+        y->setPosition({75, 75, 0});
+        auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
+        x->setElementWidget("FlamingoDefaultUI/Button", "COSO");
+        x->setText("ODIO CEGUI");
         //x->setImage("NormalImage", "paco", "100.png");
-        //y->setPosition({50, 30, 0});
-        //y->setScale({50, 50, 0});
+        y->setPosition({50, 30, 0});
+        y->setScale({50, 50, 0});
 
         //mainScene->destroySceneObjects();
 
-        /*  std::function<void()> f_display = hola;
-          x->subs(f_display);*/
+          //x->subs(hola);
 
-        /*  x->subscribeEvent(hol1a);*/
-        
+          //x->subscribeEvent(hola);
+            //x->pruebaSubEvent();
      /*      std::function<void()> funcionEnlazada = prueba1;
            {
                std::cout << "fuegirola" << std::endl;
@@ -228,6 +227,10 @@ namespace Flamingo
     bool FlamingoBase::FlamingoExit()
     {
         return false;
+    }
+
+    void FlamingoBase::hola(){
+        std::cout << "CLICK ENTER\n";
     }
 
     bool FlamingoBase::loadScene(Flamingo::RenderSystem* t_render_sys, Scene* t_scene)

@@ -9,6 +9,7 @@
 #include <ECS/Manager.h>
 #include <functional>
 #include <iostream>
+#include "ECS/InputHandlerContainer.h"
 
 namespace Flamingo
 {
@@ -21,22 +22,26 @@ namespace Flamingo
         winMngr->destroyAllWindows();
     }
 
-    void UISystem::recieve(const Message& m)
-    {
-        if (!(m.id == MSG_WINDOW_RESIZED || m.id == MSG_TRANSFORM_MOVE || m.id == MSG_TRANSFORM_ROTATE || m.id == MSG_TRANSFORM_SCALING)){
+    void UISystem::recieve(const Message& m){
+
+        if (!(m.id == MSG_WINDOW_RESIZED || m.id == MSG_TRANSFORM_MOVE || m.id == MSG_TRANSFORM_ROTATE || m.id == MSG_TRANSFORM_SCALING || m.id == MSG_MOUSE_INPUT))
+        {
             return;
         }
 
         UIElement* element = nullptr;
         Transform* transform = nullptr;
-        if (m.id != MSG_WINDOW_RESIZED){
+        if (m.id == MSG_MOUSE_INPUT){
+            CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(CEGUI::MouseButton::LeftButton);
+            CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(CEGUI::MouseButton::LeftButton);
+        }
+        else if (m.id != MSG_WINDOW_RESIZED){
             element = m_mngr->getComponent<UIElement>(m.entity_affected);
             transform = m_mngr->getComponent<Transform>(m.entity_affected);
-            if (element == nullptr)
-            {
+            if (element == nullptr)           
                 return;
-            }
-        }
+            
+        } 
         switch (m.id) 
         {
             case MSG_WINDOW_RESIZED:
@@ -67,8 +72,9 @@ namespace Flamingo
         initUIResources();
     }
 
-    void UISystem::update(float t_delta_time)
-    {
+    void UISystem::update(float t_delta_time){
+
+
         renderer->beginRendering();
         guiContext->draw();
         renderer->endRendering();

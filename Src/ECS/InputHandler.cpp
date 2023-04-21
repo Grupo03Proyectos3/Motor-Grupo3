@@ -157,6 +157,11 @@ void InputHandler::onMouseButtonChange(const SDL_Event& t_event, bool t_is_down)
         default:
             break;
     }
+    Message m;
+    m.ui_input.mouse_states = &m_mB_state;
+    m.id = MSG_MOUSE_INPUT;
+      m.entity_affected = nullptr;
+    ecs::Manager::instance()->send(m);
 }
 
 void InputHandler::handleWindowEvent(const SDL_Event& t_event)
