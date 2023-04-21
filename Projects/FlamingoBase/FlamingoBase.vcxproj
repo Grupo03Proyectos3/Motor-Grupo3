@@ -167,6 +167,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\FlamingoBase\AnimatorFactory.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\AudioFactory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\CameraFactory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\ComponentsFactory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Factory.cpp" />
@@ -180,12 +181,14 @@
     <ClCompile Include="..\..\Src\FlamingoBase\RigidBodyFactory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Scene.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\SceneManager.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\ScriptFactory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Transform.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\TransformFactory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\UIElementFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\FlamingoBase\AnimatorFactory.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\AudioFactory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\CameraFactory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\ComponentsFactory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\Factory.h" />
@@ -199,6 +202,7 @@
     <ClInclude Include="..\..\Src\FlamingoBase\RigidBodyFactory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\Scene.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\SceneManager.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\ScriptFactory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\Transform.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\TransformFactory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\UIElementFactory.h" />
