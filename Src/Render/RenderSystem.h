@@ -3,11 +3,7 @@
 #define __RENDER_SYSTEM_H__
 
 #include "ECS/System.h"
-
 #include "Camera.h"
-
-//#include "Physics/PlayerController.h"
-
 
 namespace Flamingo
 {
@@ -19,7 +15,7 @@ namespace Flamingo
         __SYSTEM_ID_DECL__(ecs::_sys_RENDER)
 
         RenderSystem(){};
-        RenderSystem(Ogre::String& t_app_name);
+        RenderSystem(std::string& t_app_name);
         virtual ~RenderSystem();
 
         void recieve(const Message&) override;
@@ -29,25 +25,23 @@ namespace Flamingo
         inline Flamingo::Window* getWindow() { return m_window; }
         inline Ogre::Root* getOgreRoot() { return m_root; }
         inline Flamingo::SceneManager* getSceneManager() { return m_scene_mngr; }
-        inline Ogre::String getAppName() { return m_app_name; }
+        //inline std::string getAppName() { return m_app_name; }
         // en esta funcion se manipula la cámara
         void manipulateCamera();
-
-        void Pruebas();
 
       private:
         Ogre::Root* m_root = nullptr;                // OGRE root
         Ogre::FileSystemLayer* m_fs_layer = nullptr; // Fichero de recursos
         Flamingo::Window* m_window = nullptr;
         Flamingo::SceneManager* m_scene_mngr = nullptr;
-        Ogre::String m_app_name;    // Nombre de la app
+        std::string m_app_name;     // Nombre de la app
         Camera* m_camera = nullptr; // cámara
 
         void createRoot();
         void setUp();
         void loadResources();
         void locateResources();
-        void bringResources(Ogre::String& sec_name, Ogre::String& type_name, Ogre::String& arch_name);
+        void bringResources(std::string& sec_name, std::string& type_name, std::string& arch_name);
         bool config();
     };
 }
