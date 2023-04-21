@@ -25,18 +25,32 @@ namespace Flamingo
     void Animator::initComponent()
     {
         m_transform = m_mngr->getComponent<Transform>(m_ent);
-        if (m_transform == nullptr)
+        try
         {
-            std::cout << m_ent->getName() << "ADD TRANSFORM COMPONENT TO SET ANIMATOR COMPONENT\n";
+            if (m_transform == nullptr)
+            {
+                throw std::exception("Transform is missing");
+            }
+        }
+        catch (std::exception& excepcion)
+        {
+            std::cerr << "[ERROR Animator]: " << excepcion.what() << "in " << m_ent->getName() << '\n';
             exit(1);
         }
         m_meshRenderer = m_mngr->getComponent<MeshRenderer>(m_ent);
-        if (m_meshRenderer == nullptr)
+        try
         {
-            std::cout << m_ent->getName() << "ADD MESHRENDERER COMPONENT TO SET ANIMATOR COMPONENT\n";
-            exit(1);
+            if (m_meshRenderer == nullptr)
+            {
+                throw std::exception("MeshRenderer is missing");
+            }
         }
-
+        catch (std::exception& excepcion)
+        {
+            std::cerr << "[ERROR Animator]: " << excepcion.what() << "in " << m_ent->getName() << '\n';
+            exit(1);
+        } 
+       
         m_animations = std::unordered_map<Ogre::String, Ogre::AnimationState*>();
         if (m_meshRenderer->getEntity()->getAllAnimationStates() != nullptr)
         {

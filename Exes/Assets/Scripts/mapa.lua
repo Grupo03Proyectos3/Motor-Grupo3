@@ -2,7 +2,7 @@
 entities = {"Sinbad", "Cesped", "Torus"}
 
 Sinbad = {
-    ATransform = {
+    AATransform = {
         positionX = "0.0",
         positionY="200.0",
         positionZ="0.0",
@@ -32,7 +32,7 @@ Sinbad = {
     }
 }
 Cesped = {
-    ATransform = {
+    AATransform = {
         positionX = "0.0",
         positionY = "0.0",
         positionZ = "0.0",
@@ -59,7 +59,7 @@ Cesped = {
     }
 }
 Torus = {
-    ATransform = {
+    AATransform = {
         positionX= "200.0",
         positionY="260.0",
         positionZ="50.0",

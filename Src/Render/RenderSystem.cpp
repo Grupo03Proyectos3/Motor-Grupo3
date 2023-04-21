@@ -313,13 +313,18 @@ namespace Flamingo
             delete m_window;
             m_window = nullptr;
 
-            delete m_camera;
-            m_camera = nullptr;
-
+            if (m_camera != nullptr) {
+                delete m_camera;
+                m_camera = nullptr;
+            }
+ 
             delete m_fs_layer;
             m_fs_layer = nullptr;
 
-            delete m_root;
-            m_root = nullptr;
+            if (m_root != nullptr)
+            {
+                delete m_root;
+                m_root = nullptr;
+            }
         }
     }

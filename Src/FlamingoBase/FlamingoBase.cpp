@@ -57,13 +57,13 @@ namespace Flamingo
         ecs::Manager* m_mngr = ecs::Manager::instance();
         m_mngr->init();
 
-        Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
+        //Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
         Flamingo::RenderSystem* render_sys = m_mngr->addSystem<Flamingo::RenderSystem>(s);
         Flamingo::PhysicsSystem* physics_sys = m_mngr->addSystem<Flamingo::PhysicsSystem>();
         Flamingo::AudioSystem* audio_sys = m_mngr->addSystem<Flamingo::AudioSystem>();
         Flamingo::ScriptingSystem* lua_system = m_mngr->addSystem<Flamingo::ScriptingSystem>();
 
-        ui_system->initContext();
+        //ui_system->initContext();
 
         SceneManager* sceneManager = render_sys->getSceneManager();
         Scene* mainScene = sceneManager->getSceneActive();
@@ -102,16 +102,16 @@ namespace Flamingo
         mainScene->addObjects(light_go);
 
         // PRUEBAS DE UI
-        ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
-        auto y = ecs::AddComponent<Transform>(UI);
-        y->initValues();
-        y->setPosition({75, 75, 0});
-        auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
-        x->setElementWidget("FlamingoDefaultUI/ImageButton", "COSO");
-        //x->setText("ODIO CEGUI");
-        x->setImage("NormalImage", "paco", "100.png");
-        y->setPosition({50, 30, 0});
-        y->setScale({50, 50, 0});
+        //ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
+        //auto y = ecs::AddComponent<Transform>(UI);
+        //y->initValues();
+        //y->setPosition({75, 75, 0});
+        //auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
+        //x->setElementWidget("FlamingoDefaultUI/ImageButton", "COSO");
+        ////x->setText("ODIO CEGUI");
+        //x->setImage("NormalImage", "paco", "100.png");
+        //y->setPosition({50, 30, 0});
+        //y->setScale({50, 50, 0});
 
         //mainScene->destroySceneObjects();
 
@@ -190,7 +190,7 @@ namespace Flamingo
         auto dt = player_timer->getElapsedTime() - time;
 
         ecs::Manager* m_mngr = ecs::Manager::instance();
-        auto ui_system = m_mngr->getSystem<Flamingo::UISystem>();
+        //auto ui_system = m_mngr->getSystem<Flamingo::UISystem>();
         auto render_sys = m_mngr->getSystem<RenderSystem>();
 
         auto& ihldr = ih();
@@ -218,7 +218,7 @@ namespace Flamingo
             m_mngr->refresh();
             m_mngr->flushMessages();
         }
-        ui_system->eraseContext();
+        //ui_system->eraseContext();
         render_sys->getWindow()->closeWindow();
         delete player_timer;
 

@@ -8,17 +8,30 @@ void MeshRenderer::initValues(Ogre::SceneNode* t_node, Ogre::SceneManager* t_sce
     m_scene_mngr = t_sceneMgr;
     m_entity_name = t_entity_name;
     m_model_name = t_model_name;
-    m_material_name = /*"Prueba/default"*/ "";
+    m_material_name = "";
     m_ent_ogre = m_scene_mngr->createEntity(m_entity_name, m_model_name);
     m_scene_node = t_node;
     m_scale_diff = scaleNode;
 
     auto t = ecs::getComponent<Transform>(m_ent);
+    try
+    {
+        if (t==nullptr)
+        {
+            throw std::exception("Transform is missing");
+        }
+    }
+    catch (std::exception& excepcion)
+    {
+        std::cerr << "[ERROR Mesh Renderer]: " << excepcion.what() << '\n';
+        exit(1);
+    } 
     // hay que tener en cuenta m_sclae_diff, hacerlo
     m_scene_node->setScale(t->getScale());
     m_scene_node->setPosition(t->getPosition());
     m_scene_node->setOrientation(t->getRotation());
     t_node->attachObject(m_ent_ogre);
+  
 }
 
 void MeshRenderer::initComponent()

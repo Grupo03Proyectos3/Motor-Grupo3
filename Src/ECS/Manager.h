@@ -49,13 +49,21 @@ namespace ecs
                 {
                     // TODO comprobar que esto elimina bien
                     if (e != nullptr && e->m_alive == true)
+                    {
                         delete e;
+                        e = nullptr;
+                    }
+                       
                 }
             }
 
             for (auto i = 0u; i < maxSystemId; i++)
                 if (m_systems[i] != nullptr)
+                {
                     delete m_systems[i];
+                    m_systems[i] = nullptr;
+                }
+                   
         }
 
         void init()
