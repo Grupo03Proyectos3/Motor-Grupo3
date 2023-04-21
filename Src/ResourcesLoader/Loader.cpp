@@ -1,5 +1,12 @@
 ﻿#include "Loader.h"
 
+#include <string>
+#include <vector>
+#include <filesystem>
+#include <iostream>
+
+#include "dirent.h"
+
 void Loader::findDir(const char* t_path, std::ofstream& t_output)
 {
     DIR* dir = opendir(t_path); //Abrir el directorio
@@ -82,7 +89,7 @@ void Loader::loadDirectories()
         line = text[i];
         output << line << '\n';
     }
-    // Metod0 recursivo para buscar todos los directorios
+    // Metodo recursivo para buscar todos los directorios
     findDir(directory, output);
     // Cierro el archivo ���IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
     output.close();

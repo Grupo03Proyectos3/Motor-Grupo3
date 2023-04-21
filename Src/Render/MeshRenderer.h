@@ -1,11 +1,10 @@
-#pragma once
 #ifndef __MESH_RENDERER_H__
 #define __MESH_RENDERER_H__
+
 #include "ECS/Component.h"
 
 #include <OgreAxisAlignedBox.h>
 #include <OgreEntity.h>
-#include <OgreSceneNode.h>
 
 struct MeshRenderer : public ecs::Component
 {

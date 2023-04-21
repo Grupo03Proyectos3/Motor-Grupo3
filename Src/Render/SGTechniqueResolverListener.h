@@ -1,6 +1,6 @@
 #ifndef __SGTechniqueResolverListener_H__
 #define __SGTechniqueResolverListener_H__
-#pragma once
+
 #include "OgreMaterialManager.h"
 #include <OgreRTShaderSystem.h>
 

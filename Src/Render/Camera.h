@@ -1,10 +1,7 @@
-#pragma once
 #ifndef __CAMERA_H__
 #define __CAMERA_H__
 
 #include "ECS/Component.h"
-#include "ECS/GameObject.h"
-#include "ECS/Manager.h"
 #include "Render/Window.h"
 #include "FlamingoUtils/SColor.h"
 #include "FlamingoUtils/SVector3.h"

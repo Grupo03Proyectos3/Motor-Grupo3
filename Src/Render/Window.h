@@ -1,6 +1,6 @@
 #ifndef __Window_H__
 #define __Window_H__
-#pragma once
+
 #include <OgreFileSystemLayer.h>
 #include <OgreRTShaderSystem.h>
 #include <OgreFrameListener.h>

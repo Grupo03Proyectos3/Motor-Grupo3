@@ -1,14 +1,9 @@
-#pragma once
 #ifndef __LIGHT_H__
 #define __LIGHT_H__
 
 #include "ECS/Component.h"
-#include "ECS/GameObject.h"
-#include "ECS/Manager.h"
 #include "FlamingoUtils/SVector3.h"
-#include "MeshRenderer.h"
 
-#include <OgreLight.h>
 #include <string>
 
 struct Light : ecs::Component

@@ -1,15 +1,10 @@
-#pragma once
+#ifndef __LOADER_H__
+#define __LOADER_H__
 
-#include <string>
-#include <filesystem>
 #include <fstream>
-#include <iostream>
-#include <vector>
-#include "dirent.h"
 
 class Loader
 {
-
 public:
     Loader(){};
     ~Loader(){};
@@ -20,3 +15,4 @@ private:
     
     void findDir(const char* t_path, std::ofstream& t_output);
 };
+#endif

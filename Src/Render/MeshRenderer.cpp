@@ -1,7 +1,10 @@
 #include "MeshRenderer.h"
+
 #include "ECS/Components.h"
 #include "FlamingoBase/Transform.h"
+
 #include <OgreSceneManager.h>
+#include <OgreSceneNode.h>
 
 void MeshRenderer::initValues(Ogre::SceneNode* t_node, Ogre::SceneManager* t_sceneMgr, Ogre::Vector3 scaleNode, Ogre::String t_model_name, Ogre::String t_entity_name)
 {

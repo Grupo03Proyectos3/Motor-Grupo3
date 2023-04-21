@@ -1,4 +1,5 @@
 #include "Animator.h"
+
 #include <OgreAnimation.h>
 #include <OgreKeyFrame.h>
 #include <OgreSceneManager.h>
@@ -8,9 +9,7 @@
 namespace Flamingo
 {
 
-    Animator::Animator()
-    {
-    }
+    Animator::Animator() {}
 
     void Animator::initValues(Ogre::SceneManager* t_mng)
     {
@@ -51,7 +50,7 @@ namespace Flamingo
             exit(1);
         } 
        
-        m_animations = std::unordered_map<Ogre::String, Ogre::AnimationState*>();
+        m_animations = std::unordered_map<std::string, Ogre::AnimationState*>();
         if (m_meshRenderer->getEntity()->getAllAnimationStates() != nullptr)
         {
             Ogre::AnimationStateMap mapa = m_meshRenderer->getEntity()->getAllAnimationStates()->getAnimationStates();
@@ -63,7 +62,7 @@ namespace Flamingo
         }
     }
 
-    void Animator::createAnimation(Ogre::String t_name, double t_duration)
+    void Animator::createAnimation(std::string t_name, double t_duration)
     {
         Ogre::Animation* animation = m_scene_mngr->createAnimation(t_name, Ogre::Real(t_duration));
         Ogre::NodeAnimationTrack* track = animation->createNodeTrack(0);
@@ -74,7 +73,7 @@ namespace Flamingo
         setAnimation(t_name, false, false);
     }
 
-    void Animator::setFrameAnimation(Ogre::String t_nameAnimation, double t_duration,
+    void Animator::setFrameAnimation(std::string t_nameAnimation, double t_duration,
                                      SVector3 t_translate, SQuaternion t_rotacion, SVector3 t_scale)
     {
         Ogre::Animation* animation = m_scene_mngr->getAnimation(t_nameAnimation);
@@ -96,7 +95,7 @@ namespace Flamingo
         }
     }
 
-    void Animator::setAnimation(Ogre::String t_name, bool t_active, bool t_loop)
+    void Animator::setAnimation(std::string t_name, bool t_active, bool t_loop)
     {
         auto it = m_animations.find(t_name);
         if (it != m_animations.end())

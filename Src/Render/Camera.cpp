@@ -6,9 +6,9 @@
 #include <OgreSceneNode.h>
 #include <OgreViewport.h>
 
-Camera::Camera()
-{
-}
+#include "ECS/Manager.h"
+
+Camera::Camera() {}
 
 void Camera::initValues(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, Flamingo::Window* t_window, std::string t_name)
 {

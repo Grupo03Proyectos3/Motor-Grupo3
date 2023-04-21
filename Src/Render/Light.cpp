@@ -1,7 +1,10 @@
 #include "Light.h"
 
+#include <OgreLight.h>
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
+
+#include "ECS/Manager.h"
 
 void Light::initValues(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, std::string t_name)
 {
