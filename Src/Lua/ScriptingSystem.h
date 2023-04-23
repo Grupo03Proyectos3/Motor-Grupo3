@@ -64,7 +64,7 @@ namespace Flamingo
         //void addNumToLua(float var, std::string name);
         //void addIntToLua(int var, std::string name);
         //void addBooleanToLua(bool var, std::string t_name);
-        void loadScene();
+        bool loadScene(std::string t_scene);
         
         template <typename T>
         void addVarToLua(T t_var, std::string t_name)

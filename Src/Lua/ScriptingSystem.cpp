@@ -171,9 +171,16 @@ void Flamingo::ScriptingSystem::callLuaFunction(std::string t_name)
 // }
 //
 
-void Flamingo::ScriptingSystem::loadScene()
+bool Flamingo::ScriptingSystem::loadScene(std::string t_scene)
 {
-    readScript("mapa"); // Habra que cambiarlo a que lea el nombre del script de la escena pertinente
+    if (t_scene.empty())
+    {
+        return false;
+    }
+
+    // TO DO : añadir control de excepciones devolviendo false si algo falla
+    // Por ej : no encuentra el fichero
+    readScript(t_scene); 
     luabridge::LuaRef allEnts = getFromLua("entities");
     int n = allEnts.length();
     // Recorro las entidades del script de lua
@@ -212,6 +219,8 @@ void Flamingo::ScriptingSystem::loadScene()
             m_data.clear();
         }
     }
+
+    return true;
 }
 
 void Flamingo::ScriptingSystem::createSystemFuntions()

@@ -19,35 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Audio\Audio.vcxproj">
-      <Project>{9e58a016-07cf-4872-bcb7-de1c7de1b395}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\ECS\ECS.vcxproj">
-      <Project>{f67d33c8-8ac3-4ca7-a629-1310d4529998}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\FlamingoBase\FlamingoBase.vcxproj">
-      <Project>{362f5b87-0dc2-4748-9833-2186accbc13f}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\FlamingoExport\FlamingoExport.vcxproj">
       <Project>{1b8237b9-e047-4608-a144-18c34d609cd6}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\FlamingoUtils\FlamingoUtils.vcxproj">
-      <Project>{9b1a365d-e452-46c9-a29d-d0f41dd50afc}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Lua\Lua.vcxproj">
-      <Project>{6391f5fc-475b-495c-aaf1-438a9e93f877}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Physics\Physics.vcxproj">
-      <Project>{eb0ca8e0-fcff-4ad1-9332-d479240af24e}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Render\Render.vcxproj">
-      <Project>{46a15e88-5016-42e0-a5c2-5f29c4897f55}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\ResourcesLoader\ResourcesLoader.vcxproj">
-      <Project>{6b7a60dd-427f-4b39-8db6-aeddb92a4501}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\UI\UI.vcxproj">
-      <Project>{5a08cd47-c455-4c79-bafd-d836786779ae}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -90,9 +90,6 @@
     <ClCompile Include="..\..\Src\FlamingoBase\TransformFactory.cpp">
       <Filter>Archivos de origen\Factories</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\FlamingoBase\FlamingoBase.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\FlamingoBase\UIElementFactory.cpp">
       <Filter>Archivos de origen\Factories</Filter>
     </ClCompile>
@@ -148,9 +145,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\FlamingoBase\TransformFactory.h">
       <Filter>Archivos de encabezado\Factories</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\FlamingoBase\FlamingoBase.h">
-      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\FlamingoBase\UIElementFactory.h">
       <Filter>Archivos de encabezado\Factories</Filter>

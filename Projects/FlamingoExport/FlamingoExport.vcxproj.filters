@@ -27,6 +27,9 @@
     <ClCompile Include="..\..\Src\FlamingoExport\pch.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\FlamingoExport\FlamingoCore.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\FlamingoExport\FlamingoExport.h">
@@ -36,6 +39,12 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\FlamingoExport\pch.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoExport\FlamingoAPI.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoExport\FlamingoCore.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
