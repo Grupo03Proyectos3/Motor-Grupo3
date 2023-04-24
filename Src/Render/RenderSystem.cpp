@@ -110,8 +110,8 @@ namespace Flamingo
             OGRE_EXCEPT(Ogre::Exception::ERR_FILE_NOT_FOUND, "plugins.cfg", m_app_name + ": createRoot");
         }
 
-        m_root = new Ogre::Root(pluginsPath, m_fs_layer->getWritablePath("ogre.cfg"), m_fs_layer->getWritablePath("ogre.log"));
-
+        //m_root = new Ogre::Root(pluginsPath, m_fs_layer->getWritablePath("ogre.cfg"), m_fs_layer->getWritablePath("ogre.log"));
+        m_root = new Ogre::Root("plugins.cfg", "ogre.cfg", "Ogre.log");
         m_scene_mngr = new Flamingo::SceneManager(m_app_name + " - SceneManager", m_mngr);
 
         // mSceneManager = mRoot->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, mAppName);

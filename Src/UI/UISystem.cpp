@@ -33,17 +33,26 @@ namespace Flamingo
         UIElement* element = nullptr;
         Transform* transform = nullptr;
         if (m.id == MSG_MOUSE_MOVE){
-            //guiContext->injectMouseMove(m.moveMouse.x,m.moveMouse.y);
-            guiContext->getMouseCursor().setPosition({m.moveMouse.x, m.moveMouse.y});
-            std::cout << "x: " << m.moveMouse.x << " ,y: " << m.moveMouse.y << "\n";
-            std::cout << "x2: " << guiContext->getMouseCursor().getPosition().d_x << " ,y2: " << guiContext->getMouseCursor().getPosition().d_y << "\n";
+
+            guiContext->injectMousePosition(m.moveMouse.x, m.moveMouse.y);
+            
+            //std::cout << "x: " << m.moveMouse.x << " ,y: " << m.moveMouse.y << "\n";
+            //std::cout << "x2: " << guiContext->getMouseCursor().getPosition().d_x << " ,y2: " << guiContext->getMouseCursor().getPosition().d_y << "\n";
         }
         else  if (m.id == MSG_MOUSE_CLICK){
-
-            if (guiContext->injectMouseButtonClick(CEGUI::MouseButton::LeftButton)){
-                std::cout << "sddasdasdsdasdaasd\n";
+               // injectMouseButtonClick(CEGUI::MouseButton::LeftButton);
+            if (guiContext->injectMouseButtonDown(CEGUI::MouseButton::LeftButton)){
+                std::cout << "sasdaasd\n";
             }
-            CEGUI::System::getSingletonPtr()->injectTimePulse(10.0f);
+            if (guiContext->injectMouseButtonUp(CEGUI::MouseButton::LeftButton))
+            {
+                std::cout << "ekhriweh\n";
+            }
+
+            //if (guiContext->injectMouseButtonClick(CEGUI::MouseButton::LeftButton))
+            //   std::cout << "lima\n";
+
+            //CEGUI::System::getSingletonPtr()->injectTimePulse(10.0f);
             
         }
         else if (m.id != MSG_WINDOW_RESIZED){
@@ -105,17 +114,16 @@ namespace Flamingo
 
         initRoot();
         loadScheme("FlamingoDefaultUI.scheme");
-
-
     }
 
     void UISystem::initRoot()
     {
         eraseMainRoot();
         root = winMngr->createWindow("DefaultWindow", "Root");
+        root->setSize(CEGUI::USize(CEGUI::UDim(0, renderer->getDisplaySize().d_width*2), 
+            CEGUI::UDim(0, renderer->getDisplaySize().d_height*2)));
 
         root->setUsingAutoRenderingSurface(true);
-
         guiContext->setRootWindow(root);
 
         //root->activate();

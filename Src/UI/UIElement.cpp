@@ -188,6 +188,7 @@ namespace Flamingo{
     {
         std::cout << "HOLACLICO\n";
     }
+
     void UIElement::pruebaSubEvent() {
         if (m_element != nullptr)
         {
