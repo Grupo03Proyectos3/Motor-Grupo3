@@ -24,16 +24,27 @@ namespace Flamingo
 
     void UISystem::recieve(const Message& m){
 
-        if (!(m.id == MSG_WINDOW_RESIZED || m.id == MSG_TRANSFORM_MOVE || m.id == MSG_TRANSFORM_ROTATE || m.id == MSG_TRANSFORM_SCALING || m.id == MSG_MOUSE_INPUT))
+        if (!(m.id == MSG_WINDOW_RESIZED || m.id == MSG_TRANSFORM_MOVE || m.id == MSG_TRANSFORM_ROTATE || 
+            m.id == MSG_TRANSFORM_SCALING || m.id == MSG_MOUSE_CLICK || m.id == MSG_MOUSE_MOVE))
         {
             return;
         }
 
         UIElement* element = nullptr;
         Transform* transform = nullptr;
-        if (m.id == MSG_MOUSE_INPUT){
-            CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(CEGUI::MouseButton::LeftButton);
-            CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(CEGUI::MouseButton::LeftButton);
+        if (m.id == MSG_MOUSE_MOVE){
+            //guiContext->injectMouseMove(m.moveMouse.x,m.moveMouse.y);
+            guiContext->getMouseCursor().setPosition({m.moveMouse.x, m.moveMouse.y});
+            std::cout << "x: " << m.moveMouse.x << " ,y: " << m.moveMouse.y << "\n";
+            std::cout << "x2: " << guiContext->getMouseCursor().getPosition().d_x << " ,y2: " << guiContext->getMouseCursor().getPosition().d_y << "\n";
+        }
+        else  if (m.id == MSG_MOUSE_CLICK){
+
+            if (guiContext->injectMouseButtonClick(CEGUI::MouseButton::LeftButton)){
+                std::cout << "sddasdasdsdasdaasd\n";
+            }
+            CEGUI::System::getSingletonPtr()->injectTimePulse(10.0f);
+            
         }
         else if (m.id != MSG_WINDOW_RESIZED){
             element = m_mngr->getComponent<UIElement>(m.entity_affected);
@@ -49,7 +60,7 @@ namespace Flamingo
                 break;
             case MSG_TRANSFORM_MOVE:
             {
-                element->setPosition(transform->getPosition());
+                element->setPosition(transform->getPosition()/100);
                 break;
             }
             case MSG_TRANSFORM_ROTATE:
@@ -59,7 +70,7 @@ namespace Flamingo
             }
             case MSG_TRANSFORM_SCALING:
             {
-                element->setPosition(transform->getScale());
+                element->setSize(transform->getScale());
                 break;
             }
             default:
@@ -78,6 +89,8 @@ namespace Flamingo
         renderer->beginRendering();
         guiContext->draw();
         renderer->endRendering();
+
+        //CEGUI::System::getSingletonPtr()->injectTimePulse(t_delta_time);
     }
 
     void UISystem::initContext()
@@ -92,6 +105,8 @@ namespace Flamingo
 
         initRoot();
         loadScheme("FlamingoDefaultUI.scheme");
+
+
     }
 
     void UISystem::initRoot()
@@ -103,7 +118,7 @@ namespace Flamingo
 
         guiContext->setRootWindow(root);
 
-        root->activate();
+        //root->activate();
     }
 
     void UISystem::initUIResources()
@@ -167,23 +182,5 @@ namespace Flamingo
     {
         renderer->setDisplaySize(CEGUI::Size<float>(width, height));
         CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Size<float>(width, height));
-    }
-
-    void UISystem::pruebas2()
-    {
-        //ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
-        //auto y = m_mngr->addComponent<Transform>(UI);
-        //y->initValues();
-        //y->setPosition({75, 75, 0});
-        //auto x = m_mngr->addComponent<Flamingo::UIElement>(UI);
-        //x->setElementWidget("FlamingoDefaultUI/ImageButton", "COSO");
-        //// x->setText("ODIO CEGUI");
-        //x->setImage("NormalImage", "paco", "100.png");
-       
-        //x->subs();
-        //y->setPosition({50, 30, 0});
-        //y->setScale({50, 50, 0});
-    }
-
-   
+    }       
 } // namespace Flamingo

@@ -25,6 +25,7 @@ namespace Flamingo{
         virtual ~UIElement();
         void initComponent() override;
         void setPosition(SVector3 pos);
+        SVector2 GetPosition();
         void setSize(SVector3 size);
         void setRotation(SQuaternion rot);
         void setText(const std::string& text);

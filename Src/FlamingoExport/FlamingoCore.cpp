@@ -20,6 +20,7 @@
 #include "Render/Light.h"
 #include <FlamingoBase/Transform.h>
 #include <UI/UIElement.h>
+#include <FlamingoUtils/SVector2.h>
 
 namespace Flamingo
 {
@@ -86,14 +87,18 @@ namespace Flamingo
         ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
         auto y = ecs::AddComponent<Transform>(UI);
         y->initValues();
-        y->setPosition({75, 75, 0});
+        //y->setPosition({75, 75, 0});
         auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
         x->setElementWidget("FlamingoDefaultUI/Button", "COSO");
         x->setText("ODIO CEGUI");
         x->setImage("NormalImage", "paco", "100.png");
-        y->setPosition({50, 30, 0});
-        y->setScale({50, 50, 0});
-
+        x->setImage("PushedImage", "paco2", "alonso1.png");
+        x->setImage("HoverImage", "paco3", "esp.png");
+        y->setPosition({50, 50, 0});
+        y->setScale({100, 100, 0});
+        x->pruebaSubEvent();
+        x->setActive(true);
+        std::cout << "x: " << x->GetPosition().getX() << " ,y: " << x->GetPosition().getY() << "\n";
         return initSuccessful;
     }
 

@@ -19,47 +19,46 @@ int main(int argc, char* argv[])
 
     // PARA TRABAJAR CON EL JUEGO
 
-    if (hinstLib != NULL)
-    {
-        std::cout << "Libreria cargada\n";
+    //if (hinstLib != NULL)
+    //{
+    //    std::cout << "Libreria cargada\n";
 
-        Flamingo::FlamingoCore* core = Flamingo::FlamingoCore::instance();
+    //    Flamingo::FlamingoCore* core = Flamingo::FlamingoCore::instance();
 
-        // Ejecución de una función
-        GameEntryPoint initJuego = (GameEntryPoint)GetProcAddress(hinstLib, "InitJuego");
-        if (initJuego)
-        {
-            initJuego();
+    //    // Ejecución de una función
+    //    GameEntryPoint initJuego = (GameEntryPoint)GetProcAddress(hinstLib, "InitJuego");
+    //    if (initJuego)
+    //    {
+    //        initJuego();
 
-            if (core->FlamingoInit())
-            {
-                core->FlamingoLoop();
-            }
-            else
-                std::cout << "No se ha podido inicializar el motor\n";
+    //        if (core->FlamingoInit())
+    //        {
+    //            core->FlamingoLoop();
+    //        }
+    //        else
+    //            std::cout << "No se ha podido inicializar el motor\n";
 
-            core->FlamingoExit();
+    //        core->FlamingoExit();
 
-            FreeLibrary(hinstLib); // OJO! Si cargo una DLL DEBO LIBERARLA -> debe hacerse al cerrar el juego
-        }
-        else
-            std::cout << "No he encontrado InitJuego\n";
-    }
-    else
-    {
-        std::cout << "No se encuentra la DLL DllJuego\n";
-    }
+    //        FreeLibrary(hinstLib); // OJO! Si cargo una DLL DEBO LIBERARLA -> debe hacerse al cerrar el juego
+    //    }
+    //    else
+    //        std::cout << "No he encontrado InitJuego\n";
+    //}
+    //else
+    //{
+    //    std::cout << "No se encuentra la DLL DllJuego\n";
+    //}
 
     // PARA TRABAJAR DESDE EL MOTOR
-    // Flamingo::FlamingoBase* fBase = new Flamingo::FlamingoBase();
-    // if (fBase->FlamingoInit())
-    //{
-    //     fBase->FlamingoLoop();
-    //     fBase->FlamingoExit();
-    // }
-    // else
-    //     return -1;
-    // delete fBase;
+     Flamingo::FlamingoCore* fBase = new Flamingo::FlamingoCore();
+     if (fBase->FlamingoInit()){
+         fBase->FlamingoLoop();
+         fBase->FlamingoExit();
+     }
+     else
+         return -1;
+     delete fBase;
 
     //_CrtDumpMemoryLeaks();
 
