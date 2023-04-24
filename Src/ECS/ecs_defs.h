@@ -16,7 +16,8 @@
         _cpm_PARTICLE_SYSTEM,   \
         _cmp_AUDIO_SOURCE,      \
         _cmp_UIELEMENT,         \
-        _cmp_BEHAVIOUR_SCRIPT
+        _cmp_BEHAVIOUR_SCRIPT,  \
+        _cpm_ENEMY_AI
 
 // Lista de grupos
 //
@@ -25,7 +26,7 @@
         GROUP_RENDER,  \
         GROUP_PHYSICS, \
         GROUP_AUDIO,   \
-        GROUP_UI,       \
+        GROUP_UI,      \
         GROUP_SCRIPTING
 
 // Lista de Handlers

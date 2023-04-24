@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\Render\Animator.cpp" />
     <ClCompile Include="..\..\Src\Render\Camera.cpp" />
+    <ClCompile Include="..\..\Src\Render\EnemyAI.cpp" />
     <ClCompile Include="..\..\Src\Render\Light.cpp" />
     <ClCompile Include="..\..\Src\Render\MeshRenderer.cpp" />
     <ClCompile Include="..\..\Src\Render\ParticleSystem.cpp" />
@@ -31,6 +32,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Src\Render\Animator.h" />
     <ClInclude Include="..\..\Src\Render\Camera.h" />
+    <ClInclude Include="..\..\Src\Render\EnemyAI.h" />
     <ClInclude Include="..\..\Src\Render\Light.h" />
     <ClInclude Include="..\..\Src\Render\MeshRenderer.h" />
     <ClInclude Include="..\..\Src\Render\ParticleSystem.h" />
