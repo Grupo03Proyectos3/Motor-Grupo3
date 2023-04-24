@@ -132,6 +132,9 @@ namespace Flamingo
                 }
             }
             // m_controller->handleInput();
+            /*auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER);
+            auto test = m_mngr->getComponent<Transform>(enemigo[2]);
+            test->translate(SVector3(0, 0.05, 0));*/
             render_sys->manipulateCamera();
 
             ihdlr.refresh();
