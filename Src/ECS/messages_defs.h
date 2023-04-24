@@ -19,7 +19,8 @@ enum msgId : msgId_type
     MSG_COLLISION_STAY,
     MSG_COLLISION_ENTER,
     MSG_COLLIISION_EXIT,
-    MSG_MOUSE_INPUT
+    MSG_MOUSE_CLICK,
+    MSG_MOUSE_MOVE
 };
 
 
@@ -58,6 +59,12 @@ struct Message
         {
             std::array<bool, 3>* mouse_states;
         }ui_input;
+
+        struct 
+        {
+            float x;
+            float y;
+        } moveMouse;
     };
 };
 

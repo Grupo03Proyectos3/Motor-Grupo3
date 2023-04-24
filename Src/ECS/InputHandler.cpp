@@ -138,6 +138,13 @@ void InputHandler::onMouseMotion(const SDL_Event& t_event)
     m_is_mouse_motion = true;
     m_mouse_pos.first = t_event.motion.x;
     m_mouse_pos.second = t_event.motion.y;
+
+    Message m;
+    m.moveMouse.x = t_event.motion.x;
+    m.moveMouse.y = t_event.motion.y;
+    m.id = MSG_MOUSE_MOVE;
+    m.entity_affected = nullptr;
+    ecs::Manager::instance()->send(m);
 }
 
 void InputHandler::onMouseButtonChange(const SDL_Event& t_event, bool t_is_down)
@@ -159,7 +166,7 @@ void InputHandler::onMouseButtonChange(const SDL_Event& t_event, bool t_is_down)
     }
     Message m;
     m.ui_input.mouse_states = &m_mB_state;
-    m.id = MSG_MOUSE_INPUT;
+    m.id = MSG_MOUSE_CLICK;
       m.entity_affected = nullptr;
     ecs::Manager::instance()->send(m);
 }

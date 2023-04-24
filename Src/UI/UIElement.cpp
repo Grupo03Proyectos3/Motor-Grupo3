@@ -55,12 +55,18 @@ namespace Flamingo{
         return nullptr;
     }
 
-    void UIElement::setPosition( SVector3 pos){
-        m_element->setPosition(CEGUI::UVector2(CEGUI::UDim(0, pos.getX()), CEGUI::UDim(0,pos.getY())));
+    void UIElement::setPosition(SVector3 pos)
+    {
+        m_element->setPosition(CEGUI::UVector2(CEGUI::UDim(pos.getX(), 0), CEGUI::UDim(pos.getY(), 0)));
     }
 
-    void UIElement::setSize( SVector3 size){
-        m_element->setSize(CEGUI::USize(CEGUI::UDim(size.getX(), 0), CEGUI::UDim(size.getY(), 0)));
+    SVector2 UIElement::GetPosition() {
+        return SVector2(m_element->getPosition().d_x.d_scale, m_element->getPosition().d_y.d_scale);
+    }
+
+    void UIElement::setSize(SVector3 size)
+    {
+        m_element->setSize(CEGUI::USize(CEGUI::UDim(0, size.getX()), CEGUI::UDim(0, size.getY())));
     }
 
     void UIElement::setRotation(SQuaternion rot){
