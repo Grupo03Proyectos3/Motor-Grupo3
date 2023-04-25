@@ -2,7 +2,7 @@
 #ifndef __PHYSICS_SYSTEM_H__
 #define __PHYSICS_SYSTEM_H__
 
-#include "../ECS/System.h"
+#include "ECS/System.h"
 #include <vector>
 
 class btBroadphaseInterface;

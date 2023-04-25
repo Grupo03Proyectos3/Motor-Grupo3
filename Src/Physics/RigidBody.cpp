@@ -5,9 +5,9 @@
 
 #include "PhysicsSystem.h"
 
-#include "../FlamingoUtils/SQuaternion.h"
-#include "../FlamingoUtils/SVector3.h"
-#include "../Render/MeshRenderer.h"
+#include "FlamingoUtils/SQuaternion.h"
+#include "FlamingoUtils/SVector3.h"
+#include "Render/MeshRenderer.h"
 #include "FlamingoBase/Transform.h"
 
 #include "Ogre.h"
