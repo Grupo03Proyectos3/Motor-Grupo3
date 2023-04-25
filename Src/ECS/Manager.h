@@ -156,31 +156,6 @@ namespace ecs
         template <typename T>
         inline void removeComponent(GameObject* t_e)
         {
-            ///*  constexpr compId_type cId = T::id;
-            //  assert(cId < maxComponentId);*/
-
-            //  auto comp = t_e->m_current_comps[typeid(T).name()];
-            //  if (comp != nullptr)
-            //  {
-            //       find the element that is equal to e->cmps_[cId] (returns an iterator)
-            //
-            //      auto iter = std::find(t_e->m_current_comps.begin(), t_e->m_current_comps.end(),
-            //                            t_e->m_comps[cId]);
-
-            //       must have such a component
-            //      assert(iter != t_e->m_current_comps.end());
-
-            //       and then remove it
-            //      t_e->m_current_comps.erase(iter);
-            //       destroy it
-            //
-            //      delete t_e->m_comps[cId];
-
-            //       remove the pointer
-            //
-            //      t_e->m_comps[cId] = nullptr;
-            //  }
-
             auto comp = t_e->m_current_comps.find(typeid(T).name());
 
             if (comp != t_e->m_current_comps.end())

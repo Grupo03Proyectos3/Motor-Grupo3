@@ -82,20 +82,24 @@
     <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)Exes\</OutDir>
     <TargetName>$(ProjectName)32_d</TargetName>
+    <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)Exes\</OutDir>
     <TargetName>$(ProjectName)32</TargetName>
+    <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)Exes\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
+    <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(SolutionDir)Temp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)Exes\</OutDir>
+    <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -105,6 +109,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)Dependencias\CEGUI\Src\cegui\include;$(SolutionDir)Dependencias\LuaBridge\Source;$(SolutionDir)Dependencias\LUA\src;$(SolutionDir)Dependencias\CEGUI\Build\cegui\include;$(SolutionDir)Dependencias\FMOD\api\core\inc;$(SolutionDir)Dependencias\FMOD\api\studio\inc;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Dependencias\Ogre\Src\OgreMain\include;$(SolutionDir)Src;$(SolutionDir)Src\Physics;$(SolutionDir)Dependencias\Ogre\Build\include;$(SolutionDir)Dependencias\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include;$(SolutionDir)Dependencias\Ogre\Build\SDL2-build\include-config-debug;$(SolutionDir)Dependencias\Bullet\Src\src;$(SolutionDir)Src\Physics</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
+      <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
