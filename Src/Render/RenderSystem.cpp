@@ -222,7 +222,6 @@ namespace Flamingo
     void RenderSystem::manipulateCamera()
     {
         auto& ihldr = ih();
-        //  ihldr.refresh();
 
         if (ihldr.keyDownEvent())
         {

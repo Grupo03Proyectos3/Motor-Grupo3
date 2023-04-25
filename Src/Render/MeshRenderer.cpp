@@ -12,7 +12,16 @@ void MeshRenderer::initValues(Ogre::SceneNode* t_node, Ogre::SceneManager* t_sce
     m_entity_name = t_entity_name;
     m_model_name = t_model_name;
     m_material_name = "";
-    m_ent_ogre = m_scene_mngr->createEntity(m_entity_name, m_model_name);
+    try
+    {
+        m_ent_ogre = m_scene_mngr->createEntity(m_entity_name, m_model_name);
+    }
+    catch (...)
+    {
+        std::cerr << "[ERROR Mesh Renderer]: Mesh name if different from .mesh name"<< '\n';
+        exit(1);
+    } 
+    
     m_scene_node = t_node;
     m_scale_diff = scaleNode;
 

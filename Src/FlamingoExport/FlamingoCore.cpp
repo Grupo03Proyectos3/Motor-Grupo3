@@ -78,6 +78,7 @@ namespace Flamingo
         m_camera->setNearClipDistance(1);
         m_camera->setFarClipDistance(10000);
         mainScene->addObjects(cam_go);
+        render_sys->setMainCamera(m_camera);
 
         ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
         light_go->setName("mylight");
