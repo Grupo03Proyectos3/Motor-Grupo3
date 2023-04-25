@@ -222,7 +222,6 @@ namespace Flamingo
     void RenderSystem::manipulateCamera()
     {
         auto& ihldr = ih();
-
         if (ihldr.keyDownEvent())
         {
             if (ihldr.isKeyDown(SDLK_r))

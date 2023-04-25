@@ -169,8 +169,9 @@ namespace Flamingo
             auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER);
             auto controller = m_mngr->getComponent<PlayerController>(enemigo[0]);
 
-            render_sys->manipulateCamera();
+            
             controller->handleInput();
+            render_sys->manipulateCamera();
 
             /// MOVIMIENTO RANDOM ENEMIGOS COMENTADO
             // m_timeSinceLastDirectionChange += dt;
