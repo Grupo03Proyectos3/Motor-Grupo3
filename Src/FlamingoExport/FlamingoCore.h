@@ -30,6 +30,7 @@ namespace Flamingo
 
         void setFirstScene(const std::string& t_name);
         std::string getFirstScene();
+        void prueba();
 
       private:
 

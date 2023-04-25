@@ -98,7 +98,12 @@ namespace Flamingo
         x->setImage("HoverImage", "paco3", "esp.png");
         y->setPosition({50, 50, 0});
         y->setScale({100, 100, 0});
-        x->pruebaSubEvent();
+        //x->pruebaSubEvent();
+        //x->subscribeEvent(prueba, this);
+        //x->subs(prueba);
+
+        //auto p = std::bind(&FlamingoCore::prueba, this);
+        //x->subscribeEvent(&p);
         x->setActive(true);
         std::cout << "x: " << x->GetPosition().getX() << " ,y: " << x->GetPosition().getY() << "\n";
         return initSuccessful;
@@ -150,24 +155,24 @@ namespace Flamingo
             /// MOVIMIENTO RANDOM ENEMIGOS COMENTADO
             //m_timeSinceLastDirectionChange += dt;
             //// SVector3 m_velocity;
-            ////  Si ha pasado suficiente tiempo, cambia la dirección del enemigo
+            ////  Si ha pasado suficiente tiempo, cambia la direcciï¿½n del enemigo
             //if (m_timeSinceLastDirectionChange >= 1000.0f)
             //{
             //    float x = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
             //    float y = 0;
             //    float z = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
 
-            //    //std::cout << "MARACUYÁ!!!!!!!!!!!! x: " << x << " y: " << y << " z: " << z << std::endl;
+            //    //std::cout << "MARACUYï¿½!!!!!!!!!!!! x: " << x << " y: " << y << " z: " << z << std::endl;
 
-            //    // Crea un vector con estos valores y normalízalo
+            //    // Crea un vector con estos valores y normalï¿½zalo
             //    SVector3 direction(x, y, z);
             //    direction.normalize();
             //    //std::cout << "Normalice!!!!!!!!!!!! x: " << direction.getX() << " y: " << direction.getY() << " z: " << direction.getZ() << std::endl;
 
-            //    // Genera una dirección aleatoria
+            //    // Genera una direcciï¿½n aleatoria
             //    SVector3 randomDirection = direction;
 
-            //    // Asigna una velocidad constante a lo largo de esta dirección
+            //    // Asigna una velocidad constante a lo largo de esta direcciï¿½n
             //    m_velocity = randomDirection * 0.2f;
 
             //    // Reinicia el contador de tiempo
@@ -207,4 +212,11 @@ namespace Flamingo
         Flamingo::FlamingoCore* core = Flamingo::FlamingoCore::instance();
         core->setFirstScene(t_scene_name);
     }
-} // namespace Flamingo
+
+    void FlamingoCore::prueba()
+    {
+        std::cout << "PRUEBA\n";
+       /* m_mng*/
+    }
+}
+

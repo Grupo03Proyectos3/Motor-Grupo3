@@ -126,29 +126,26 @@ namespace Flamingo{
         m_element->setPixelAligned(set);
     }
     void UIElement::setImage(const std::string& property, const std::string& name, const std::string& file){
-       /* if (!CEGUI::ImageManager::getSingleton().isDefined(file))
-        CEGUI::ImageManager::getSingleton().addImageType(file);*/
-        // PRUEBAS
-
-       // CEGUI::ImageManager* im = CEGUI::ImageManager::getSingletonPtr();
 
         if (!CEGUI::ImageManager::getSingleton().isDefined(file)){
             CEGUI::ImageManager::getSingleton().addFromImageFile(name, file);
-
-            CEGUI::Image& p = CEGUI::ImageManager::getSingletonPtr()->get(name);
-
-            try
-            {
-                m_element->setProperty(property, name);
-            }catch(const std::exception&) {
-                std::cout << "Propiedad no compatible con este elemento\n";          
-                exit(1);
-            }
-          
+            setProperty(property, name);
         }
-
-     
     }
+
+     void UIElement::setProperty(const std::string& property, const std::string& file)
+     {
+         try
+         {
+             m_element->setProperty(property, file);
+         }
+         catch (const std::exception&)
+         {
+             std::cout << "Propiedad no compatible con este elemento\n";
+             exit(1);
+         }
+     }
+
 
     //void UIElement::subscribeChildEvent(std::function<bool(const CEGUI::EventArgs&)> func){
     //    if (m_element != nullptr){
@@ -156,12 +153,12 @@ namespace Flamingo{
     //    }
     //}
 
-    //template <class T>
-    //void UIElement::subscribeEvent(void (T::*func)(), T* comp){
-    //    if (m_element != nullptr){
-    //       m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
-    //    }
-    //}
+    template <class T>
+    void UIElement::subscribeEvent(void (T::*func)(), T* comp){
+        if (m_element != nullptr){
+           m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
+        }
+    }
     template <class T>
     void UIElement::subscribeEvent( void (T::*function)()){             
         if (m_element != nullptr){          
@@ -169,14 +166,7 @@ namespace Flamingo{
         }
     }     
 
-   /* void UIElement::subs()
-    {
-        if (m_element != nullptr)
-        {
-            m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(p));
-        }
-    }*/
-
+    
    /* void UIElement::subscribeEvent(bool (*func)(const CEGUI::EventArgs& e))
     {
         if (m_element != nullptr){
