@@ -5,6 +5,7 @@
 #include "FlamingoUtils/SVector3.h"
 #include "Lua/BehaviourScript.h"
 #include <string>
+#include <FlamingoBase/Transform.h>
 
 struct EnemyAI : public BehaviourScript
 {
@@ -24,13 +25,14 @@ struct EnemyAI : public BehaviourScript
     };
     EnemyAI();
     virtual ~EnemyAI(){};
-    //virtual void initValues(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, Flamingo::Window* t_window, std::string t_name);
+    void initValues() override;
     void initComponent() override;
     void update() override;
 
   private:
     int m_timeSinceLastDirectionChange = 0;
     SVector3 m_velocity;
+    Transform* m_tr;
 };
 
 #endif
