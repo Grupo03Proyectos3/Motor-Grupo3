@@ -18,6 +18,7 @@
 
 // TEMPORAL -> TO DO : quitarlos
 #include "Render/Light.h"
+#include "Render/MeshRenderer.h"
 #include <FlamingoBase/Transform.h>
 #include <FlamingoUtils/SVector2.h>
 #include <UI/UIElement.h>
@@ -77,14 +78,30 @@ namespace Flamingo
 
         ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
         light_go->setName("mylight");
+        auto tr_transform = ecs::AddComponent<Transform>(light_go);
+        tr_transform->initValues(SVector3(0.0, 350.0, 200.0), SQuaternion(0.0, 0.0, 0.0, 1.0), SVector3(1.0, 1.0, 1.0));
+        //MeshRenderer* cmp_mesh = ecs::AddComponent<MeshRenderer>(light_go);
+        //cmp_mesh->initValues(nodo->createChildSceneNode(), mainScene->getSceneManger(), SVector3(1, 1, 1), "cube.mesh", "cuboluz");
+        Light* cmp_light = ecs::AddComponent<Light>(light_go);
+        cmp_light->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), "myLight2");
+        cmp_light->initComponent();
+        cmp_light->setType(Light::DIRECTIONAL);
+        cmp_light->setDirection(SVector3(0, -1, -1));
+        cmp_light->setSpecularColour();
+        cmp_light->setDiffuseColour();
+        mainScene->addObjects(light_go);
+        /*ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        light_go->setName("mylight");
+        auto tr_transform = ecs::AddComponent<Transform>(light_go);
+        tr_transform->initValues(SVector3(0.0, 0.0, 0.0), SQuaternion(0.0, 0.0, 0.0, 1.0), SVector3(1.0, 1.0, 1.0));
         Light* cmp_light = ecs::AddComponent<Light>(light_go);
         cmp_light->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), "myLight");
         cmp_light->initComponent();
         cmp_light->setType(Light::DIRECTIONAL);
-        cmp_light->setDirection(SVector3(-1, -1, 0));
+        cmp_light->setDirection(SVector3(0, -1, 0));
         cmp_light->setSpecularColour();
         cmp_light->setDiffuseColour();
-        mainScene->addObjects(light_go);
+        mainScene->addObjects(light_go);*/
 
         ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
         auto y = ecs::AddComponent<Transform>(UI);
