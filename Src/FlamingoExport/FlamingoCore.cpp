@@ -23,7 +23,8 @@
 #include <FlamingoUtils/SVector2.h>
 #include <UI/UIElement.h>
 // chapucilla
-//#include <Physics/PlayerController.h>
+#include <Physics/PlayerController.h>
+#include <Render/EnemyAI.h>
 
 namespace Flamingo
 {
@@ -115,20 +116,26 @@ namespace Flamingo
         x->setImage("HoverImage", "paco3", "esp.png");
         y->setPosition({50, 50, 0});
         y->setScale({100, 100, 0});
-        
-        //x->subscribeEvent(prueba, this);
-     
+
+        // x->subscribeEvent(prueba, this);
+
         x->setActive(true);
         std::cout << "x: " << x->GetPosition().getX() << " ,y: " << x->GetPosition().getY() << "\n";
+
+        // enemigos
+        auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER);
+        auto ene = m_mngr->addComponent<EnemyAI>(enemigo[2]);
+        ene->initValues();
+        m_mngr->addGameObjectToGroups(enemigo[2], {ecs::GROUP_SCRIPTING});
         return initSuccessful;
     }
 
     void Flamingo::FlamingoCore::FlamingoLoop()
     {
         bool motor_running = true;
-        //SVector3 m_velocity;
+        SVector3 m_velocity;
         // var pruebas
-        //int m_timeSinceLastDirectionChange = 0;
+        int m_timeSinceLastDirectionChange = 0;
         //
 
         Flamingo::Timer* player_timer = new Flamingo::Timer();
@@ -159,22 +166,21 @@ namespace Flamingo
             // m_controller->handleInput();
             // pruebas de enemigos
 
-            //auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER);
-            //auto controller = m_mngr->getComponent<PlayerController>(enemigo[0]);
-            //auto test = m_mngr->getComponent<Transform>(enemigo[2]);
-            // test->translate(SVector3(0, 0.5, 0));
+            auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER);
+            auto controller = m_mngr->getComponent<PlayerController>(enemigo[0]);
+
             render_sys->manipulateCamera();
-            //controller->handleInput();
+            controller->handleInput();
 
             /// MOVIMIENTO RANDOM ENEMIGOS COMENTADO
-            //m_timeSinceLastDirectionChange += dt;
+            // m_timeSinceLastDirectionChange += dt;
             //// SVector3 m_velocity;
             ////  Si ha pasado suficiente tiempo, cambia la direcci�n del enemigo
-            //if (m_timeSinceLastDirectionChange >= 1000.0f)
+            // if (m_timeSinceLastDirectionChange >= 1000.0f)
             //{
-            //    float x = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
-            //    float y = 0;
-            //    float z = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
+            //     float x = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
+            //     float y = 0;
+            //     float z = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
 
             //    //std::cout << "MARACUY�!!!!!!!!!!!! x: " << x << " y: " << y << " z: " << z << std::endl;
 
@@ -192,7 +198,7 @@ namespace Flamingo
             //    // Reinicia el contador de tiempo
             //    m_timeSinceLastDirectionChange = 0;
             //}
-            //test->translate(m_velocity * dt);
+            // test->translate(m_velocity * dt);
 
             // acaban pruebas
 
@@ -230,7 +236,6 @@ namespace Flamingo
     void FlamingoCore::prueba()
     {
         std::cout << "PRUEBA\n";
-       /* m_mng*/
+        /* m_mng*/
     }
-}
-
+} // namespace Flamingo

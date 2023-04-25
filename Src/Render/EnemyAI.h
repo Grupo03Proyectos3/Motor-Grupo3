@@ -32,8 +32,10 @@ struct EnemyAI : public BehaviourScript
   private:
    
     Transform* m_tr; 
-    int m_timeSinceLastDirectionChange = 0;
+    int m_time_last_dir = 0;
+    int m_time_last_move = 0;
     SVector3 m_velocity;
+    bool m_wandering;
 };
 
 #endif

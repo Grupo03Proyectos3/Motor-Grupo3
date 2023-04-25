@@ -13,8 +13,10 @@ EnemyAI::EnemyAI()
 void EnemyAI::initValues()
 {
     m_tr = m_mngr->getComponent<Transform>(m_ent);
-    m_timeSinceLastDirectionChange = 0;
+    m_time_last_dir = 0;
+    m_time_last_move = 0;
     m_velocity = SVector3(0,0,0);
+    m_wandering = false;
 }
 
 void EnemyAI::initComponent()
@@ -24,11 +26,11 @@ void EnemyAI::initComponent()
 void EnemyAI::update(float t_delta_time)
 {
 
-     m_timeSinceLastDirectionChange += t_delta_time;
+     m_time_last_dir += t_delta_time;
     //std::cout << m_timeSinceLastDirectionChange << std::endl;
     
     //  Si ha pasado suficiente tiempo, cambia la direccion del enemigo
-    if (m_timeSinceLastDirectionChange >= 5000.0f)
+    if (m_time_last_dir >= 5000.0f)
     {
         float x = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
         float y = 0;
@@ -44,8 +46,18 @@ void EnemyAI::update(float t_delta_time)
         m_velocity = direction * 0.2f;
 
         // Reinicia el contador de tiempo
-        m_timeSinceLastDirectionChange = 0;
+        m_time_last_dir = 0;
     }
-    m_tr->translate(SVector3(m_velocity*t_delta_time));
+    //m_tr->translate(SVector3(m_velocity*t_delta_time));
     //m_velocity = SVector3(0, 0, 0);
+    //  Mueve el enemigo mientras no haya pasado suficiente tiempo
+    if (m_time_last_dir < 2000.0f)
+    {
+        m_tr->translate(SVector3(m_velocity * t_delta_time));
+    }
+    else
+    {
+        m_velocity = SVector3(0, 0, 0);
+    }
+   
 }
