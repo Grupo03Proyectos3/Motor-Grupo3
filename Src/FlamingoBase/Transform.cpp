@@ -111,5 +111,8 @@ void Transform::translate(SVector3 distance)
     Message m;
     m.id = MSG_TRANSFORM_MOVE;
     m.entity_affected = m_ent;
+    m.vector.x = m_position.getX();
+    m.vector.y = m_position.getY();
+    m.vector.z = m_position.getZ();
     m_mngr->send(m);
 }
