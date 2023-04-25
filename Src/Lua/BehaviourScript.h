@@ -26,7 +26,7 @@ struct BehaviourScript : public ecs::Component
     virtual void initValues();
     virtual void initComponent(); // == start() ?
 
-    virtual void update();
+    virtual void update(float t_delta_time);
 
     /**
      * @brief Se llama una vez al comienzo de collisionar con otro cuerpo 

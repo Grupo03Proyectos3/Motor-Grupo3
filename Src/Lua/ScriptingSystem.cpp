@@ -73,7 +73,7 @@ void Flamingo::ScriptingSystem::update(float t_delta_time)
     {
         if (game_object->getActive())
             //se llama a los update de los componentes que heredan de BehaviourScript
-            m_mngr->getIBehaviourComponent<BehaviourScript>(game_object)->update();
+            m_mngr->getIBehaviourComponent<BehaviourScript>(game_object)->update(t_delta_time);
     }
 }
 

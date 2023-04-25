@@ -25,7 +25,7 @@ struct PruebaScript : public BehaviourScript
 
     BehaviourScript* clone() override;
 
-    void update() override;
+    void update(float t_delta_time) override;
 
     /**
      * @brief Se llama una vez al comienzo de collisionar con otro cuerpo 

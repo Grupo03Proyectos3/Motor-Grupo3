@@ -32,7 +32,7 @@ void BehaviourScript::initComponent()
     std::cout << "BehaviourScript: initializing component " << m_ent->getName() << "\n";
 }
 
-void BehaviourScript::update()
+void BehaviourScript::update(float t_delta_time)
 {
     // std::cout << "BehaviourScript: updating " << m_ent->getName() << "\n";
 }

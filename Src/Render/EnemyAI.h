@@ -27,12 +27,13 @@ struct EnemyAI : public BehaviourScript
     virtual ~EnemyAI(){};
     void initValues() override;
     void initComponent() override;
-    void update() override;
+    void update(float t_delta_time) override;
 
   private:
+   
+    Transform* m_tr; 
     int m_timeSinceLastDirectionChange = 0;
     SVector3 m_velocity;
-    Transform* m_tr;
 };
 
 #endif

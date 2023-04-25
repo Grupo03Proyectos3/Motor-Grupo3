@@ -13,40 +13,39 @@ EnemyAI::EnemyAI()
 void EnemyAI::initValues()
 {
     m_tr = m_mngr->getComponent<Transform>(m_ent);
+    m_timeSinceLastDirectionChange = 0;
+    m_velocity = SVector3(0,0,0);
 }
 
 void EnemyAI::initComponent()
 {
 }
 
-void EnemyAI::update()
+void EnemyAI::update(float t_delta_time)
 {
-    std::cout << "Soy el componente EnemyAI" << std::endl;
 
-    // m_timeSinceLastDirectionChange += dt;
-    //// SVector3 m_velocity;
-    ////  Si ha pasado suficiente tiempo, cambia la direcci�n del enemigo
-    //if (m_timeSinceLastDirectionChange >= 1000.0f)
-    //{
-    //    float x = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
-    //    float y = 0;
-    //    float z = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
+     m_timeSinceLastDirectionChange += t_delta_time;
+    //std::cout << m_timeSinceLastDirectionChange << std::endl;
+    
+    //  Si ha pasado suficiente tiempo, cambia la direccion del enemigo
+    if (m_timeSinceLastDirectionChange >= 5000.0f)
+    {
+        float x = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
+        float y = 0;
+        float z = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
 
-    //    // std::cout << "MARACUY�!!!!!!!!!!!! x: " << x << " y: " << y << " z: " << z << std::endl;
 
-    //    // Crea un vector con estos valores y normal�zalo
-    //    SVector3 direction(x, y, z);
-    //    direction.normalize();
-    //    // std::cout << "Normalice!!!!!!!!!!!! x: " << direction.getX() << " y: " << direction.getY() << " z: " << direction.getZ() << std::endl;
+        // Crea un vector con estos valores y normal�zalo
+        SVector3 direction(x, y, z);
+        direction.normalize();
 
-    //    // Genera una direcci�n aleatoria
-    //    SVector3 randomDirection = direction;
+    
+        // Asigna una velocidad constante a lo largo de esta direcci�n
+        m_velocity = direction * 0.2f;
 
-    //    // Asigna una velocidad constante a lo largo de esta direcci�n
-    //    m_velocity = randomDirection * 0.2f;
-
-    //    // Reinicia el contador de tiempo
-    //    m_timeSinceLastDirectionChange = 0;
-    //}
-    m_tr->translate(SVector3(0, 0.5, 0));
+        // Reinicia el contador de tiempo
+        m_timeSinceLastDirectionChange = 0;
+    }
+    m_tr->translate(SVector3(m_velocity*t_delta_time));
+    //m_velocity = SVector3(0, 0, 0);
 }

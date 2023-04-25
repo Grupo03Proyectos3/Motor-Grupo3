@@ -31,7 +31,7 @@ void PruebaScript::initComponent()
     std::cout << "PruebaScript: initializing component " << "\n";
 }
 
-void PruebaScript::update()
+void PruebaScript::update(float t_delta_time)
 {
     // std::cout << "BehaviourScript: updating " << m_ent->getName() << "\n";
 }
