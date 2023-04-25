@@ -21,6 +21,8 @@
 #include <FlamingoBase/Transform.h>
 #include <UI/UIElement.h>
 #include <FlamingoUtils/SVector2.h>
+//chapucilla
+#include <Physics/PlayerController.h>
 
 namespace Flamingo
 {
@@ -132,10 +134,13 @@ namespace Flamingo
                 }
             }
             // m_controller->handleInput();
-            auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER);
+          
+            auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER); 
+            auto controller = m_mngr->getComponent<PlayerController>(enemigo[0]);
             auto test = m_mngr->getComponent<Transform>(enemigo[2]);
             test->translate(SVector3(0, 0.5, 0));
             render_sys->manipulateCamera();
+            controller->handleInput();
 
             ihdlr.refresh();
 
