@@ -3,10 +3,10 @@
 
 #include "ECS/Component.h"
 #include "FlamingoUtils/SVector3.h"
-
+#include "Lua/BehaviourScript.h"
 #include <string>
 
-struct EnemyAI : ecs::Component
+struct EnemyAI : BehaviourScript
 {
   public:
     __SYSTEM_ID_DECL__(ecs::_cpm_ENEMY_AI)
