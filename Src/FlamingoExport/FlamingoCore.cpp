@@ -98,12 +98,9 @@ namespace Flamingo
         x->setImage("HoverImage", "paco3", "esp.png");
         y->setPosition({50, 50, 0});
         y->setScale({100, 100, 0});
-        //x->pruebaSubEvent();
+        
         //x->subscribeEvent(prueba, this);
-        //x->subs(prueba);
-
-        //auto p = std::bind(&FlamingoCore::prueba, this);
-        //x->subscribeEvent(&p);
+     
         x->setActive(true);
         std::cout << "x: " << x->GetPosition().getX() << " ,y: " << x->GetPosition().getY() << "\n";
         return initSuccessful;
