@@ -2,6 +2,9 @@
 entities = {"Sinbad", "Cesped", "Torus", "Arbol"}
 
 Sinbad = {
+    Name={
+        t_name="simbad",
+    },
    AATransform = {
        positionX = "200.0",
        positionY="200.0",
@@ -32,6 +35,9 @@ Sinbad = {
    }
 }
 Cesped = {
+    Name={
+        t_name="cesped",
+    },
     AATransform = {
         positionX = "0.0",
         positionY = "0.0",
@@ -59,6 +65,9 @@ Cesped = {
     }
 }
 Torus = {
+    Name={
+        t_name="torus",
+    },
    AATransform = {
        positionX= "200.0",
        positionY="260.0",
@@ -86,13 +95,16 @@ Torus = {
    }
 }
 Arbol = {
+    Name={
+        t_name="dragon",
+    },
     AATransform = {
         positionX = "0.0",
         positionY = "100.0",
         positionZ = "0.0",
-        scaleX = "0.1",
-        scaleY = "0.1",
-        scaleZ = "0.1",
+        scaleX = "20",
+        scaleY = "20",
+        scaleZ = "20",
         rotationX = "-1.0",
         rotationY = "0.0",
         rotationZ = "0.0",
@@ -104,11 +116,14 @@ Arbol = {
         t_static = "1",
     },
     MeshRenderer = {
-        t_model_name = "Arbol10.mesh",
-        t_entity_name= "arbol01",
+        t_model_name = "dragon.mesh",
+        t_entity_name= "dragon",
         t_node_x="0",
         t_node_y="0",
         t_node_z="0",
         t_mat_name= "",
+    },
+    ZAnimator={
+        t_name="dragon",
     }
 }

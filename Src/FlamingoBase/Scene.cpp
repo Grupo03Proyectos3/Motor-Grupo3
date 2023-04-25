@@ -98,4 +98,14 @@ namespace Flamingo
         std::cout << "Scene name: " << mSceneManager->getName() << " Activated\n";
     }
 
+    ecs::GameObject* Scene::getObject(std::string t_name)
+    {
+        for (auto it : mSceneGameObjects)
+        {
+            if (it.first == t_name)
+                return it.second;
+        }
+        return nullptr;
+    }
+
 } // namespace Flamingo

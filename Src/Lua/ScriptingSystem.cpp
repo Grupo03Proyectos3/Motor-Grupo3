@@ -26,17 +26,18 @@ extern "C"
 #include "Physics/RigidBody.h"
 // BASE
 #include "BehaviourScript.h"
-#include "FlamingoBase/SceneManager.h"
+
 #include "FlamingoBase/Transform.h"
 // PLAYER CONTROLLER
 #include "Physics/PlayerController.h"
 // SCRIPTING
 #include "BehaviourScript.h"
 
-Flamingo::ScriptingSystem::ScriptingSystem()
+Flamingo::ScriptingSystem::ScriptingSystem(SceneManager* t_scene_mngr)
 {
     m_componentFactory = ComponentsFactory::instance();
     m_mngr = ecs::Manager::instance();
+    m_scene_mngr = t_scene_mngr;
 }
 
 Flamingo::ScriptingSystem::~ScriptingSystem()
@@ -53,7 +54,7 @@ void Flamingo::ScriptingSystem::initSystem()
     m_componentFactory->addFactory("AATransform", new TransformFactory());
     m_componentFactory->addFactory("Light", new LightFactory(renderSystem));
     m_componentFactory->addFactory("Camera", new CameraFactory(renderSystem));
-    m_componentFactory->addFactory("Animator", new AnimatorFactory(renderSystem));
+    m_componentFactory->addFactory("ZAnimator", new AnimatorFactory(renderSystem));
     m_componentFactory->addFactory("Scripts", new ScriptFactory());
 
     // crear un Lua state
@@ -156,32 +157,13 @@ void Flamingo::ScriptingSystem::callLuaFunction(std::string t_name)
     fun();
 }
 
-// void Flamingo::LuaSystem::addIntToLua(int var, std::string name)
-//{
-//     lua_pushinteger(lua_state, var);
-//     lua_setglobal(lua_state, name.c_str());
-// }
-//
-// void Flamingo::LuaSystem::addNumToLua(float var, std::string name)
-//{
-//     lua_pushnumber(lua_state, var);
-//     lua_setglobal(lua_state, name.c_str());
-// }
-//
-// void Flamingo::LuaSystem::addBooleanToLua(bool var, std::string t_name)
-//{
-//     lua_pushboolean(lua_state, (int)var);
-//     lua_setglobal(lua_state, t_name.c_str());
-// }
-//
-
 bool Flamingo::ScriptingSystem::loadScene(std::string t_scene)
 {
     if (t_scene.empty())
     {
         return false;
     }
-
+    m_scene_mngr->createScene(t_scene, true);
     // TO DO : añadir control de excepciones devolviendo false si algo falla
     // Por ej : no encuentra el fichero
     readScript(t_scene); 
@@ -214,14 +196,19 @@ bool Flamingo::ScriptingSystem::loadScene(std::string t_scene)
             {
                 std::string key = lua_tostring(entity, -2); // Nombre del atributo
                 std::string val = lua_tostring(entity, -1); // Valor del atributo
-
-                m_data.insert({key, val});
+                if (compName == "Name")
+                {
+                    gO->setName(val);
+                }
+                else m_data.insert({key, val});
                 lua_pop(component, 1);
             }
-            m_componentFactory->addComponent(gO, compName, m_data); // (GameObject, tipo de componente, el map)
+            if (compName != "Name")
+                m_componentFactory->addComponent(gO, compName, m_data); // (GameObject, tipo de componente, el map)
             // lua_pop(entity, 1);
             m_data.clear();
         }
+        m_scene_mngr->getSceneActive()->addObjects(gO);
     }
 
     return true;

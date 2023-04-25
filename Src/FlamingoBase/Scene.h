@@ -18,6 +18,7 @@ namespace Flamingo{
         void destroySceneObjects();
         void desactive();
         void active();
+        ecs::GameObject* getObject(std::string t_name);
 
         inline Ogre::String getName() { return mSceneManager->getName(); };
         inline Ogre::SceneManager* getSceneManger() { return mSceneManager; };

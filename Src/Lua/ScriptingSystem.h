@@ -13,6 +13,7 @@
 #include "FlamingoBase/CameraFactory.h"
 #include "FlamingoBase/AnimatorFactory.h"
 #include "FlamingoBase/ScriptFactory.h"
+#include "FlamingoBase/SceneManager.h"
 #include "Render/RenderSystem.h"
 
 //LUA
@@ -49,7 +50,7 @@ namespace Flamingo
       public:
         __SYSTEM_ID_DECL__(ecs::_sys_LUA)
 
-        ScriptingSystem();
+        ScriptingSystem(SceneManager* t_scene_mngr);
         virtual ~ScriptingSystem();
 
         void initSystem() override;
@@ -77,6 +78,7 @@ namespace Flamingo
       private:
         lua_State* lua_state;
         ComponentsFactory* m_componentFactory;
+        SceneManager* m_scene_mngr;
         Data m_data;
         ecs::Manager* m_mngr;
 

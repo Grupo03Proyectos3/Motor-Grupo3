@@ -19,7 +19,9 @@ ecs::Component* MeshRendererFactory::createComponent(ecs::GameObject* gO, const 
         float s_z = std::stof(args.at("t_node_z"));
 
         MeshRenderer* c = ecs::AddComponent<MeshRenderer>(gO);
-        c->initValues(root->createChildSceneNode(), m_renderSystem->getSceneManager()->getSceneActive()->getSceneManger(), Ogre::Vector3(s_x, s_y, s_z), modelName, entityName);
+        c->initValues(m_renderSystem->getSceneManager()->getSceneActive()->getSceneRoot()->createChildSceneNode(), 
+            m_renderSystem->getSceneManager()->getSceneActive()->getSceneManger(), 
+            Ogre::Vector3(s_x, s_y, s_z), modelName, entityName);
         c->changeMaterial(matName);
         c->initComponent();
 

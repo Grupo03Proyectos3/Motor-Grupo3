@@ -18,6 +18,7 @@
 
 // TEMPORAL -> TO DO : quitarlos
 #include "Render/Light.h"
+#include "Render/Animator.h"
 #include "Render/MeshRenderer.h"
 #include <FlamingoBase/Transform.h>
 #include <FlamingoUtils/SVector2.h>
@@ -52,9 +53,10 @@ namespace Flamingo
 
         Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
         RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
+        SceneManager* sceneManager = render_sys->getSceneManager();
         PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
         AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
-        Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();
+        Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>(sceneManager);
 
         ui_system->initContext();
 
@@ -64,7 +66,6 @@ namespace Flamingo
             return false;
         }
 
-        SceneManager* sceneManager = render_sys->getSceneManager();
         Scene* mainScene = sceneManager->getSceneActive();
         auto nodo = mainScene->getSceneRoot();
         ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
@@ -120,6 +121,11 @@ namespace Flamingo
         y->setScale({100, 100, 0});
         x->subscribeEvent(&FlamingoCore::prueba, this);    
         x->setActive(true);
+
+        //TO DO: eliminar despues de comprobar las animaciones
+        auto d = mainScene->getObject("dragon");
+        auto a = m_mngr->getComponent<Flamingo::Animator>(d);
+        //a->setAnimation("idle", true, true);
 
         // enemigos
         auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER);
