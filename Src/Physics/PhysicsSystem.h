@@ -3,6 +3,7 @@
 #define __PHYSICS_SYSTEM_H__
 
 #include "ECS/System.h"
+#include "FlamingoExport/FlamingoAPI.h"
 #include <vector>
 
 class btBroadphaseInterface;
@@ -82,10 +83,12 @@ namespace Flamingo
          * @param[in] t_dispatcher
          * @param[in] t_dispatchInfo
          */
-        // static void onCollisionStay(btBroadphasePair& t_collisionPair, btCollisionDispatcher& t_dispatcher, const btDispatcherInfo& t_dispatchInfo);
         static bool onCollisionStay(btManifoldPoint& cp, void* body0, void* body1);
         static void onCollisionEnter(btPersistentManifold* const& manifold);
         static void onCollisionExit(btPersistentManifold* const& manifold);
+
+        FLAMINGOEXPORT_API void SetDebugMode(bool t_mode);
+        FLAMINGOEXPORT_API bool GetDebugMode();
 
       private:
         btDiscreteDynamicsWorld* m_world = nullptr;
@@ -98,6 +101,7 @@ namespace Flamingo
         btAlignedObjectArray<btCollisionShape*>* m_collision_shapes;
 
         OgreDebugDrawer* m_debug_drawer = nullptr;
+        bool m_debug_enabled = false;
     };
 }
 
