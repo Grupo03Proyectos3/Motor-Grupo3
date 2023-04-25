@@ -63,7 +63,7 @@ namespace Flamingo{
     {
         return m_inputHandler.getMouseButtonState(t_b);
     }
-    InputHandlerContainer& ihContainer()
+    InputHandlerContainer& Input()
     {
         return *InputHandlerContainer::instance();
     }
