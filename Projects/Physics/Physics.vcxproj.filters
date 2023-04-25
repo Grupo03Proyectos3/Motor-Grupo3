@@ -24,7 +24,7 @@
     <ClCompile Include="..\..\Src\Physics\PlayerController.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Physics\DebugDrawer.cpp">
+    <ClCompile Include="..\..\Src\Render\DebugDrawer.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +38,7 @@
     <ClInclude Include="..\..\Src\Physics\PlayerController.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Physics\DebugDrawer.h">
+    <ClInclude Include="..\..\Src\Render\DebugDrawer.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

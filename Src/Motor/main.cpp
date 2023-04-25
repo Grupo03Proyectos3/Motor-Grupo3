@@ -12,9 +12,9 @@ int main(int argc, char* argv[])
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 #ifdef _DEBUG
-    HMODULE hinstLib = LoadLibrary(TEXT("EldersbaneExport_d")); // TO DO : cambiar a nombre generico
+    HMODULE hinstLib = LoadLibrary(TEXT("GameExport_d"));
 #else
-    HMODULE hinstLib = LoadLibrary(TEXT("EldersbaneExport"));
+    HMODULE hinstLib = LoadLibrary(TEXT("GameExport"));
 #endif
 
     // PARA TRABAJAR CON EL JUEGO

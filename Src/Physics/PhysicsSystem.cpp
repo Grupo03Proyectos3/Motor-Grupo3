@@ -6,11 +6,11 @@
 #include <btBulletCollisionCommon.h>
 #include <btBulletDynamicsCommon.h>
 
-#include "DebugDrawer.h"
 #include "ECS/GameObject.h"
 #include "ECS/Manager.h"
 #include "FlamingoBase/Transform.h"
 #include "Render/RenderSystem.h"
+#include "Render/DebugDrawer.h"
 #include "RigidBody.h"
 
 namespace Flamingo

@@ -19,16 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\Physics\DebugDrawer.cpp" />
     <ClCompile Include="..\..\Src\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="..\..\Src\Physics\PlayerController.cpp" />
     <ClCompile Include="..\..\Src\Physics\RigidBody.cpp" />
+    <ClCompile Include="..\..\Src\Render\DebugDrawer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\Physics\DebugDrawer.h" />
     <ClInclude Include="..\..\Src\Physics\PhysicsSystem.h" />
     <ClInclude Include="..\..\Src\Physics\PlayerController.h" />
     <ClInclude Include="..\..\Src\Physics\RigidBody.h" />
+    <ClInclude Include="..\..\Src\Render\DebugDrawer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
