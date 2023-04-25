@@ -12,6 +12,7 @@
 #include "FlamingoBase/LightFactory.h"
 #include "FlamingoBase/CameraFactory.h"
 #include "FlamingoBase/AnimatorFactory.h"
+#include "FlamingoBase/ScriptFactory.h"
 #include "Render/RenderSystem.h"
 
 //LUA

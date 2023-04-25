@@ -17,6 +17,11 @@ BehaviourScript::~BehaviourScript()
 {
 }
 
+BehaviourScript* BehaviourScript::clone()
+{
+    return new BehaviourScript();
+}
+
 void BehaviourScript::initValues()
 {
     std::cout << "BehaviourScript: initializing values " << m_ent->getName() << "\n";

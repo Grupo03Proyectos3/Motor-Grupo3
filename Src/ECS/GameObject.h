@@ -4,6 +4,7 @@
 #define __GAMEOBJECT_H__
 
 class Manager;
+class ScriptFactory;
 // class Component;
 #include "Component.h"
 #include "ecs.h"
@@ -37,6 +38,7 @@ namespace ecs
 
       private:
         friend class Manager;
+        friend class ScriptFactory;
 
         bool m_alive;
         bool m_active;

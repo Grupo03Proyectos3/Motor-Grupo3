@@ -30,6 +30,8 @@ extern "C"
 #include "FlamingoBase/Transform.h"
 // PLAYER CONTROLLER
 #include "Physics/PlayerController.h"
+// SCRIPTING
+#include "BehaviourScript.h"
 
 Flamingo::ScriptingSystem::ScriptingSystem()
 {
@@ -52,6 +54,7 @@ void Flamingo::ScriptingSystem::initSystem()
     m_componentFactory->addFactory("Light", new LightFactory(renderSystem));
     m_componentFactory->addFactory("Camera", new CameraFactory(renderSystem));
     m_componentFactory->addFactory("Animator", new AnimatorFactory(renderSystem));
+    m_componentFactory->addFactory("Scripts", new ScriptFactory());
 
     // crear un Lua state
     lua_state = luaL_newstate();

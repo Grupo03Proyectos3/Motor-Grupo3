@@ -1,9 +1,8 @@
 #pragma once
-#ifndef __BEHAVIOUR_SCRIPT_H__
-#define __BEHAVIOUR_SCRIPT_H__
+#ifndef __PRUEBA_SCRIPT_H__
+#define __PRUEBA_SCRIPT_H__
 
-#include "ECS/Component.h"
-#include "ECS/GameObject.h"
+#include "BehaviourScript.h"
 //
 //namespace luabridge
 //{
@@ -12,21 +11,21 @@
 //} // namespace luabridge
 //class lua_State;
 
-struct BehaviourScript : public ecs::Component
+struct PruebaScript : public BehaviourScript
 {
   public:
     __SYSTEM_ID_DECL__(ecs::_cmp_BEHAVIOUR_SCRIPT)
 
-    BehaviourScript();
-    virtual ~BehaviourScript();
-
-    virtual BehaviourScript* clone();
+    PruebaScript();
+    virtual ~PruebaScript();
 
     // Clases que podrán ser overrideadas por el desarrollador, para definir a su gusto
-    virtual void initValues();
-    virtual void initComponent(); // == start() ?
+    void initValues() override;
+    void initComponent() override; // == start() ?
 
-    virtual void update();
+    BehaviourScript* clone() override;
+
+    void update() override;
 
     /**
      * @brief Se llama una vez al comienzo de collisionar con otro cuerpo 
@@ -36,7 +35,7 @@ struct BehaviourScript : public ecs::Component
      * @param[in] t_other GameObject* GameObject del cuerpo contra el que ha colisionado
      * @return
      */
-    virtual void onCollisionEnter(ecs::GameObject* t_other);
+    void onCollisionEnter(ecs::GameObject* t_other) override;
 
     /**
      * @brief Se llama continuamente al collisionar con otro cuerpo
@@ -45,7 +44,7 @@ struct BehaviourScript : public ecs::Component
      * @param[in] t_other GameObject* GameObject del cuerpo contra el que colisiona
      * @return
      */
-    virtual void onCollisionStay(ecs::GameObject* t_other);
+    void onCollisionStay(ecs::GameObject* t_other) override;
 
     /**
      * @brief Se llama al salir de la colision con otro cuerpo
@@ -54,7 +53,7 @@ struct BehaviourScript : public ecs::Component
      * @param[in] t_other GameObject* GameObject del cuerpo con el que ha terminado la colision
      * @return
      */
-    virtual void onCollisionExit(ecs::GameObject* t_other);
+    void onCollisionExit(ecs::GameObject* t_other) override;
 
     private:
 

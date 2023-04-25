@@ -12,11 +12,11 @@
 
 #include "Component.h"
 #include "GameObject.h"
+#include "Lua/BehaviourScript.h"
 #include "SingletonECS.h"
 #include "System.h"
 #include "ecs.h"
 #include "messages_defs.h"
-#include "Lua/BehaviourScript.h"
 
 namespace ecs
 {
@@ -54,7 +54,6 @@ namespace ecs
                         delete e;
                         e = nullptr;
                     }
-                       
                 }
             }
 
@@ -64,7 +63,6 @@ namespace ecs
                     delete m_systems[i];
                     m_systems[i] = nullptr;
                 }
-                   
         }
 
         void init()
@@ -193,6 +191,30 @@ namespace ecs
             }
         }
 
+        /*Añade un script a un gameObject, la isntancia de la clase del script debe estar ya creada y no comprueba si es necesario borrar
+        un duplicado*/
+        template <typename T>
+        inline T* addScript(GameObject* t_e, T* t_s)
+        {
+            // removeScript<T>(t_e, t_scriptIndex);
+
+            t_s->setContext(t_e, this);
+
+            t_e->m_current_comps.insert({(typeid(T).name()), t_s});
+
+            return t_s;
+        }
+
+        /*Remueve un componente dado un iterador del mapa de componentes,
+         * es usado por el ScriptFactory para eliminar los componentes en caso de estar repetidos.
+         */
+        inline void removeScript(GameObject* t_e, std::unordered_map<std::string, Component*>::iterator t_scriptIndex)
+        {
+            delete t_scriptIndex->second;
+            t_scriptIndex->second = nullptr;
+            t_e->m_current_comps.erase(t_scriptIndex);
+        }
+
         // Returns the component that corresponds to position T::id, casting it
         // to T*. The casting is done just for ease of use, to avoid casting
         // outside.
@@ -211,8 +233,7 @@ namespace ecs
             }
         }
 
-
-         // Devuelve un componente que herede de BehaviourScript
+        // Devuelve un componente que herede de BehaviourScript
         //
         template <typename T>
         inline T* getIBehaviourComponent(GameObject* t_e)
@@ -245,7 +266,6 @@ namespace ecs
                 return nullptr;
             }
         }
-
 
         // returns true if there is a component with identifier T::id
         // in the entity 't_e'

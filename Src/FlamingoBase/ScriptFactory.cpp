@@ -10,15 +10,11 @@ ecs::Component* ScriptFactory::createComponent(ecs::GameObject* gO, const std::u
     {
         std::string script = (args.at("t_scriptName"));
 
-        /*
-         * 1-Obligar a que en un archivo del juego se incluya en un map del motor todos los scripts
-         * 2-Mediante el map obtenemos la referencia base del script que hereda de BehaviourScript 
-         */
-        auto t = m_gameScripts.at(script);
-        auto c = ecs::AddComponent<decltype(t)>(gO);
-        c->initValues();
-        c->initComponent();
+        deleteOtherScript(m_scriptsIndex[typeid( m_gameScripts[script]).name()], gO);
 
+        auto c = ecs::Manager::instance()->addScript<>(gO, m_gameScripts[script]->clone());
+
+        //c->initValues();
         ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_SCRIPTING});
         // compsCreated.push_back(c);
         return c;
@@ -29,7 +25,20 @@ ecs::Component* ScriptFactory::createComponent(ecs::GameObject* gO, const std::u
     }
 }
 
-void ScriptFactory::addGameScript(BehaviourScript b)
+void ScriptFactory::deleteOtherScript(int t_scriptIndex, ecs::GameObject* t_gO)
 {
-    m_gameScripts.emplace((std::string) typeid(b).name(), b);
+    auto it = t_gO->m_current_comps.begin();
+
+    while (it != t_gO->m_current_comps.end())
+    {
+        BehaviourScript* other = dynamic_cast<BehaviourScript*>(it->second);
+
+        if (other != nullptr && m_scriptsIndex[typeid(other).name()] == t_scriptIndex)
+        {
+                ecs::Manager::instance()->removeScript(t_gO, it);
+                break;
+        }
+        else
+            it++;
+    }
 }
