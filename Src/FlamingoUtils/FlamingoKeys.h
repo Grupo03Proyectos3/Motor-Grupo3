@@ -127,5 +127,12 @@ namespace Flamingo{
         FLM_KP_0 = SDLK_KP_0,
         FLM_KP_PERIOD = SDLK_KP_PERIOD       
     } FLM_KeyCode;
+
+    typedef enum MOUSEBUTTON : uint8_t
+    {
+        LEFT = 0,
+        MIDDLE = 1,
+        RIGHT = 2
+    };
 } // namespace Flamingo
 #endif

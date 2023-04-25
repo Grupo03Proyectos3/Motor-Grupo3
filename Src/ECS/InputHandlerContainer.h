@@ -11,6 +11,7 @@ namespace Flamingo{
         friend SingletonECS<InputHandlerContainer>;
 
       public:
+
         InputHandlerContainer();
 
         virtual ~InputHandlerContainer();
@@ -39,10 +40,10 @@ namespace Flamingo{
 
         const std::pair<Sint32, Sint32>& getMousePos();
 
-        int getMouseButtonState(InputHandler::MOUSEBUTTON t_b);
+        int getMouseButtonState(MOUSEBUTTON t_b);
 
       private:
-        InputHandler m_inputHandler;
+        InputHandler& m_inputHandler;
     };
     // This macro defines a compact way for using the singleton InputHandler, instead of
     // writing InputHandler::instance()->method() we write ih().method()

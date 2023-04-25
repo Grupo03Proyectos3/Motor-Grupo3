@@ -40,7 +40,7 @@ void PlayerController::rotatePlayer(double t_angle, SVector3 t_axis)
 
 void PlayerController::handleInput()
 {
-    auto& ihldr = ih();
+    auto& ihldr = Flamingo::ih();
     ihldr.refresh();
     Ogre::Quaternion quat(Ogre::Degree(90), Ogre::Vector3::UNIT_Y);
     // SQuaternion q = SQuaternion(quat);

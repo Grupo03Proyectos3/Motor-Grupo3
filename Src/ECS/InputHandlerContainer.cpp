@@ -1,8 +1,8 @@
 #include "InputHandlerContainer.h"
 namespace Flamingo{
     InputHandlerContainer::InputHandlerContainer()
-        : m_inputHandler() // inicializa el objeto InputHandler
-    {
+        : m_inputHandler(ih())  // inicializa el objeto InputHandler
+    {        
     }
 
     InputHandlerContainer::~InputHandlerContainer()
@@ -59,7 +59,7 @@ namespace Flamingo{
         return m_inputHandler.getMousePos();
     }
 
-    int InputHandlerContainer::getMouseButtonState(InputHandler::MOUSEBUTTON t_b)
+    int InputHandlerContainer::getMouseButtonState(MOUSEBUTTON t_b)
     {
         return m_inputHandler.getMouseButtonState(t_b);
     }
