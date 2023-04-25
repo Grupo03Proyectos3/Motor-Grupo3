@@ -1,5 +1,4 @@
 #include "UIElement.h"
-#include <CEGUI/CEGUI.h>
 #include <iostream>
 #include "FlamingoUtils/SVector2.h"
 #include "ECS/Manager.h"
@@ -14,14 +13,14 @@ namespace Flamingo{
     }
 
     UIElement::~UIElement(){
-       //if(m_element!=nullptr) m_element->destroy();
+       
     }
 
     void UIElement::initComponent(){       
         m_uiSys = m_mngr->getSystem<Flamingo::UISystem>();
         m_element = nullptr;
         if (m_mngr->getComponent<Transform>(m_ent) == nullptr){
-            std::cout << m_ent->getName() << "Add Trasnform component to set uielement component\n";
+            std::cout << m_ent->getName() << "Add Transform component to set uiElement Component\n";
             exit(1);
         }
         createEmptyWindow("");
@@ -83,8 +82,9 @@ namespace Flamingo{
 
         return Flamingo::SVector2((i + j) / 2, (w + k) / 2);
     }
-   
-    CEGUI::Window* UIElement::getWindowElement(){
+
+    CEGUI::Window* UIElement::getWindowElement()
+    {
         return m_element;
     }
 
@@ -145,45 +145,4 @@ namespace Flamingo{
              exit(1);
          }
      }
-
-
-    //void UIElement::subscribeChildEvent(std::function<bool(const CEGUI::EventArgs&)> func){
-    //    if (m_element != nullptr){
-    //       m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func));
-    //    }
-    //}
-
-    template <class T>
-    void UIElement::subscribeEvent(void (T::*func)(), T* comp){
-        if (m_element != nullptr){
-           m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
-        }
-    }
-    template <class T>
-    void UIElement::subscribeEvent( void (T::*function)()){             
-        if (m_element != nullptr){          
-           m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(function));
-        }
-    }     
-
-    
-   /* void UIElement::subscribeEvent(bool (*func)(const CEGUI::EventArgs& e))
-    {
-        if (m_element != nullptr){
-           m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func));
-        }
-    }*/
-
-    void p()
-    {
-        std::cout << "HOLACLICO\n";
-    }
-
-    void UIElement::pruebaSubEvent() {
-        if (m_element != nullptr)
-        {
-            //m_element->activate();
-            m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(p));
-        }
-    }
 } // namespace Flamingo

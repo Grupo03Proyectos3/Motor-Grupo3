@@ -22,6 +22,8 @@
 #include <FlamingoBase/Transform.h>
 #include <FlamingoUtils/SVector2.h>
 #include <UI/UIElement.h>
+#include <ECS/InputHandlerContainer.h>
+#include <FlamingoUtils/FlamingoKeys.h>
 // chapucilla
 #include <Physics/PlayerController.h>
 #include <Render/EnemyAI.h>
@@ -107,7 +109,6 @@ namespace Flamingo
         ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
         auto y = ecs::AddComponent<Transform>(UI);
         y->initValues();
-        // y->setPosition({75, 75, 0});
         auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
         x->setElementWidget("FlamingoDefaultUI/Button", "COSO");
         x->setText("ODIO CEGUI");
@@ -116,17 +117,9 @@ namespace Flamingo
         x->setImage("HoverImage", "paco3", "esp.png");
         y->setPosition({50, 50, 0});
         y->setScale({100, 100, 0});
-
-        // x->subscribeEvent(prueba, this);
-
+        x->subscribeEvent(&FlamingoCore::prueba, this);    
         x->setActive(true);
-        std::cout << "x: " << x->GetPosition().getX() << " ,y: " << x->GetPosition().getY() << "\n";
-
-        // enemigos
-        auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER);
-        auto ene = m_mngr->addComponent<EnemyAI>(enemigo[2]);
-        ene->initValues();
-        m_mngr->addGameObjectToGroups(enemigo[2], {ecs::GROUP_SCRIPTING});
+        
         return initSuccessful;
     }
 
@@ -155,7 +148,7 @@ namespace Flamingo
             // Tiempo transcurrido desde el inicio del programa en milisegundos
             time = player_timer->getElapsedTime();
 
-            // leer entrada
+            // leer entrada           
             for (auto sys : m_mngr->getSystems())
             {
                 if (sys)
@@ -236,6 +229,6 @@ namespace Flamingo
     void FlamingoCore::prueba()
     {
         std::cout << "PRUEBA\n";
-        /* m_mng*/
-    }
-} // namespace Flamingo
+    }   
+}
+

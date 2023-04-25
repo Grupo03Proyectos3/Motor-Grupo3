@@ -14,16 +14,6 @@ namespace Flamingo{
         m_inputHandler.clearState();
     }
 
-    void InputHandlerContainer::update(const SDL_Event& t_event)
-    {
-        m_inputHandler.update(t_event);
-    }
-
-    void InputHandlerContainer::refresh()
-    {
-        m_inputHandler.refresh();
-    }
-
     bool InputHandlerContainer::closeWindowEvent()
     {
         return m_inputHandler.closeWindowEvent();
@@ -44,22 +34,12 @@ namespace Flamingo{
         return m_inputHandler.keyUpEvent();
     }
 
-    bool InputHandlerContainer::isKeyDown(SDL_Scancode t_key)
+    bool InputHandlerContainer::isKeyDown(FLM_KeyCode t_key)
     {
         return m_inputHandler.isKeyDown(t_key);
     }
 
-    bool InputHandlerContainer::isKeyDown(SDL_Keycode t_key)
-    {
-        return m_inputHandler.isKeyDown(t_key);
-    }
-
-    bool InputHandlerContainer::isKeyUp(SDL_Scancode t_key)
-    {
-        return m_inputHandler.isKeyUp(t_key);
-    }
-
-    bool InputHandlerContainer::isKeyUp(SDL_Keycode t_key)
+    bool InputHandlerContainer::isKeyUp(FLM_KeyCode t_key)
     {
         return m_inputHandler.isKeyUp(t_key);
     }
@@ -83,7 +63,7 @@ namespace Flamingo{
     {
         return m_inputHandler.getMouseButtonState(t_b);
     }
-    InputHandlerContainer& ih()
+    InputHandlerContainer& ihContainer()
     {
         return *InputHandlerContainer::instance();
     }

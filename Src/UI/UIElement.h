@@ -8,7 +8,7 @@
 #include <string>
 #include "FlamingoBase/Transform.h"
 #include <CEGUI/EventArgs.h>
-#include <functional>
+
 namespace Flamingo{
     class SVector2;
     class UISystem;
@@ -43,16 +43,44 @@ namespace Flamingo{
 
         void setImage(const std::string& property, const std::string& name, const std::string& file);   
         void setProperty(const std::string& property,  const std::string& file);
+                 
+
+        template <class T> 
+        void subscribeEvent(void (T::*func)(), T* comp)
+        {
+            if (m_element != nullptr)
+            {
+                m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
+            }
+        }        
+       
+        template <class T>
+        void subscribeEvent(void (T::*func)(const CEGUI::EventArgs& e), T* comp)
+        {
+            if (m_element != nullptr)
+            {
+                m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
+            }
+        }   
 
         template <class T>
-        void subscribeEvent(void (T::*func)(), T* comp);
-        //void subscribeChildEvent(std::function<bool(const CEGUI::EventArgs&)> func);      
-        template <class T>
-        void subscribeEvent( void (T::*func)());
-        //void subscribeEvent(bool (*func)());
-        //void subscribeEvent(bool (*func)(const CEGUI::EventArgs& e));
+        void subscribeEvent(bool (T::*func)(), T* comp)
+        {
+            if (m_element != nullptr)
+            {
+                m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
+            }
+        }
 
-        void pruebaSubEvent();
+        template <class T>
+        void subscribeEvent(bool (T::*func)(const CEGUI::EventArgs& e), T* comp)
+        {
+            if (m_element != nullptr)
+            {
+                m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
+            }
+        }   
+     
         protected:
             CEGUI::Window* getWindowElement();
             void setElement(CEGUI::Window* element);

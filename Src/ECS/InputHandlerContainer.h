@@ -4,6 +4,7 @@
 #define __INPUT_HANDLER_CONTAINER_H__
 
 #include "InputHandler.h"
+#include "FlamingoUtils/FlamingoKeys.h"
 namespace Flamingo{
     class InputHandlerContainer : public SingletonECS<InputHandlerContainer>
     {
@@ -14,13 +15,7 @@ namespace Flamingo{
 
         virtual ~InputHandlerContainer();
 
-        void clearState();
-
-        // update the state with a new event
-        void update(const SDL_Event& t_event);
-
-        // refresh
-        void refresh();
+        void clearState();       
 
         // close window event
         bool closeWindowEvent();
@@ -33,13 +28,9 @@ namespace Flamingo{
 
         bool keyUpEvent();
 
-        bool isKeyDown(SDL_Scancode t_key);
+        bool isKeyDown(FLM_KeyCode t_key);      
 
-        bool isKeyDown(SDL_Keycode t_key);
-
-        bool isKeyUp(SDL_Scancode t_key);
-
-        bool isKeyUp(SDL_Keycode t_key);
+        bool isKeyUp(FLM_KeyCode t_key);
 
         // mouse
         bool mouseMotionEvent();
@@ -56,6 +47,6 @@ namespace Flamingo{
     // This macro defines a compact way for using the singleton InputHandler, instead of
     // writing InputHandler::instance()->method() we write ih().method()
     //
-    InputHandlerContainer& ih();
+    InputHandlerContainer& ihContainer();
 } // namespace Flamingo
 #endif

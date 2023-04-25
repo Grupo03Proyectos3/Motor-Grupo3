@@ -47,5 +47,8 @@
     <ClInclude Include="..\..\Src\FlamingoUtils\SColor.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\FlamingoUtils\FlamingoKeys.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
