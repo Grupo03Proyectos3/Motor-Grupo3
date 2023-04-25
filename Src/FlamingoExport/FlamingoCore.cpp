@@ -147,6 +147,7 @@ namespace Flamingo
         auto render_sys = m_mngr->getSystem<RenderSystem>();
 
         auto& ihdlr = ih();
+        auto& ihdlrContainer = ih();
 
         while (motor_running && !render_sys->getWindow()->isWindowClosed())
         {
@@ -155,7 +156,7 @@ namespace Flamingo
             // Tiempo transcurrido desde el inicio del programa en milisegundos
             time = player_timer->getElapsedTime();
 
-            // leer entrada           
+            // leer entrada              
             for (auto sys : m_mngr->getSystems())
             {
                 if (sys)
