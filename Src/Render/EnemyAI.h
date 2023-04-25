@@ -6,7 +6,7 @@
 #include "Lua/BehaviourScript.h"
 #include <string>
 
-struct EnemyAI : BehaviourScript
+struct EnemyAI : public BehaviourScript
 {
   public:
     __SYSTEM_ID_DECL__(ecs::_cpm_ENEMY_AI)
@@ -25,12 +25,12 @@ struct EnemyAI : BehaviourScript
     EnemyAI();
     virtual ~EnemyAI(){};
     //virtual void initValues(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, Flamingo::Window* t_window, std::string t_name);
-    virtual void initComponent();
+    void initComponent() override;
+    void update() override;
 
   private:
-    Ogre::SceneManager* m_scene_mngr;
-    // Ogre::SceneNode* m_scene_node;
-    std::string m_name;
+    int m_timeSinceLastDirectionChange = 0;
+    SVector3 m_velocity;
 };
 
 #endif
