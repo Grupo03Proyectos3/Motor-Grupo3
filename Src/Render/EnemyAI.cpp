@@ -6,6 +6,7 @@
 #include "ECS/Manager.h"
 #include <Physics/PlayerController.h>
 
+
 EnemyAI::EnemyAI()
     : BehaviourScript()
 {
@@ -18,6 +19,7 @@ void EnemyAI::initValues()
     m_time_last_move = 0;
     m_velocity = SVector3(0,0,0);
     m_wandering = false;
+    m_lives = 2;
 }
 
 void EnemyAI::initComponent()
@@ -26,7 +28,11 @@ void EnemyAI::initComponent()
 
 void EnemyAI::update(float t_delta_time)
 {
-
+    //if (m_lives <= 0)
+    //{
+    //    m_ent->setActive(false);
+    //    m_ent->setAlive(false);
+    //}
      m_time_last_dir += t_delta_time;
     //std::cout << m_timeSinceLastDirectionChange << std::endl;
     
@@ -67,6 +73,7 @@ void EnemyAI::onCollisionEnter(ecs::GameObject* t_other)
 {
     if (m_mngr->hasComponent<PlayerController>(t_other))
     {
-        std::cout << "Choque: Jugador-Enemigo" << std::endl;
+        std::cout << "Choque: Jugador-Enemigo  "<<m_lives << std::endl;
+        m_lives--;
     }
 }

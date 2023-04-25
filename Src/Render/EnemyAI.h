@@ -37,6 +37,7 @@ struct EnemyAI : public BehaviourScript
     int m_time_last_move = 0;
     SVector3 m_velocity;
     bool m_wandering;
+    int m_lives;
 };
 
 #endif
