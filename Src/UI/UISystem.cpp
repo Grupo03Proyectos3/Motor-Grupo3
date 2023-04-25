@@ -41,14 +41,41 @@ namespace Flamingo
         }
         else  if (m.id == MSG_MOUSE_CLICK){
                // injectMouseButtonClick(CEGUI::MouseButton::LeftButton);
-            if (guiContext->injectMouseButtonDown(CEGUI::MouseButton::LeftButton)){
-                std::cout << "sasdaasd\n";
-            }
-            if (guiContext->injectMouseButtonUp(CEGUI::MouseButton::LeftButton))
-            {
-                std::cout << "ekhriweh\n";
+           
+            if (m.ui_input.mouse_states[0] != estadoBotones[0]){
+                if (m.ui_input.mouse_states[0])
+                {
+                    if (guiContext->injectMouseButtonDown(CEGUI::MouseButton::LeftButton))
+                        std::cout << "LEFT DOWN\n";
+                }
+                else if (guiContext->injectMouseButtonUp(CEGUI::MouseButton::LeftButton))
+                    std::cout << "LEFT UP\n";
+                estadoBotones[0] = m.ui_input.mouse_states[0];
             }
 
+            if (m.ui_input.mouse_states[1] != estadoBotones[1])
+            {
+                if (m.ui_input.mouse_states[1])
+                {
+                    if (guiContext->injectMouseButtonDown(CEGUI::MouseButton::MiddleButton))
+                        std::cout << "MIDDLE DOWN\n";
+                }
+                else if (guiContext->injectMouseButtonUp(CEGUI::MouseButton::MiddleButton))
+                    std::cout << "MIDDLE UP\n";
+                estadoBotones[1] = m.ui_input.mouse_states[1];
+            }
+
+            if (m.ui_input.mouse_states[2] != estadoBotones[2])
+            {
+                if (m.ui_input.mouse_states[2])
+                {
+                    if (guiContext->injectMouseButtonDown(CEGUI::MouseButton::RightButton))
+                        std::cout << "RIGHT DOWN\n";
+                }
+                else if (guiContext->injectMouseButtonUp(CEGUI::MouseButton::RightButton))
+                    std::cout << "RIGHT UP\n";
+                estadoBotones[2] = m.ui_input.mouse_states[2];
+            }
             //if (guiContext->injectMouseButtonClick(CEGUI::MouseButton::LeftButton))
             //   std::cout << "lima\n";
 

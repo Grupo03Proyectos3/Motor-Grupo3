@@ -57,7 +57,7 @@ struct Message
 
         struct
         {
-            std::array<bool, 3>* mouse_states;
+            std::array<bool, 3> mouse_states;
         }ui_input;
 
         struct 

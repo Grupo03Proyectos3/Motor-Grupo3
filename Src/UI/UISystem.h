@@ -45,7 +45,7 @@ namespace Flamingo{
 
         CEGUI::Window* root = nullptr;
         CEGUI::GUIContext* guiContext;
-        //std::unordered_map<CEGUI::String, CEGUI::Window*> layouts;
+        std::array<bool, 3> estadoBotones;
     };
 } // namespace Flamingo
 #endif

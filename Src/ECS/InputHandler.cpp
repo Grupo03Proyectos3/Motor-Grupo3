@@ -165,7 +165,9 @@ void InputHandler::onMouseButtonChange(const SDL_Event& t_event, bool t_is_down)
             break;
     }
     Message m;
-    m.ui_input.mouse_states = &m_mB_state;
+    m.ui_input.mouse_states[LEFT] = m_mB_state[LEFT];
+    m.ui_input.mouse_states[RIGHT] = m_mB_state[RIGHT];
+    m.ui_input.mouse_states[MIDDLE] = m_mB_state[MIDDLE];
     m.id = MSG_MOUSE_CLICK;
       m.entity_affected = nullptr;
     ecs::Manager::instance()->send(m);
