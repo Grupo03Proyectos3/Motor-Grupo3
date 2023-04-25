@@ -34,6 +34,8 @@ namespace Flamingo
       private:
 
         std::string m_first_scene = "mapa"; // TO DO : poner un nombre por defecto? para una escena por defecto?
+
+      
     };
 
     extern "C" FLAMINGOEXPORT_API void SetFirstScene(const std::string& t_scene_name);

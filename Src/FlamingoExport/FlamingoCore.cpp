@@ -1,28 +1,28 @@
-#include "pch.h"
 #include "FlamingoCore.h"
+#include "pch.h"
 
-#include "ResourcesLoader/Loader.h"
 #include "FlamingoUtils/Timer.h"
+#include "ResourcesLoader/Loader.h"
 
-#include "ECS/Manager.h"
 #include "ECS/InputHandler.h"
+#include "ECS/Manager.h"
 
-#include "Render/RenderSystem.h"
-#include "Physics/PhysicsSystem.h"
-#include "UI/UISystem.h"
 #include "Audio/AudioSystem.h"
-#include "Lua/ScriptingSystem.h"
 #include "FlamingoBase/MapReader.h"
+#include "Lua/ScriptingSystem.h"
+#include "Physics/PhysicsSystem.h"
+#include "Render/RenderSystem.h"
+#include "UI/UISystem.h"
 
 #include "ECS/SingletonECS.h"
 
 // TEMPORAL -> TO DO : quitarlos
 #include "Render/Light.h"
 #include <FlamingoBase/Transform.h>
-#include <UI/UIElement.h>
 #include <FlamingoUtils/SVector2.h>
-//chapucilla
-#include <Physics/PlayerController.h>
+#include <UI/UIElement.h>
+// chapucilla
+//#include <Physics/PlayerController.h>
 
 namespace Flamingo
 {
@@ -89,7 +89,7 @@ namespace Flamingo
         ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
         auto y = ecs::AddComponent<Transform>(UI);
         y->initValues();
-        //y->setPosition({75, 75, 0});
+        // y->setPosition({75, 75, 0});
         auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
         x->setElementWidget("FlamingoDefaultUI/Button", "COSO");
         x->setText("ODIO CEGUI");
@@ -107,6 +107,10 @@ namespace Flamingo
     void Flamingo::FlamingoCore::FlamingoLoop()
     {
         bool motor_running = true;
+        //SVector3 m_velocity;
+        // var pruebas
+        //int m_timeSinceLastDirectionChange = 0;
+        //
 
         Flamingo::Timer* player_timer = new Flamingo::Timer();
         auto time = player_timer->getElapsedTime();
@@ -134,13 +138,44 @@ namespace Flamingo
                 }
             }
             // m_controller->handleInput();
-          
-            auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER); 
-            auto controller = m_mngr->getComponent<PlayerController>(enemigo[0]);
-            auto test = m_mngr->getComponent<Transform>(enemigo[2]);
-            test->translate(SVector3(0, 0.5, 0));
+            // pruebas de enemigos
+
+            //auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER);
+            //auto controller = m_mngr->getComponent<PlayerController>(enemigo[0]);
+            //auto test = m_mngr->getComponent<Transform>(enemigo[2]);
+            // test->translate(SVector3(0, 0.5, 0));
             render_sys->manipulateCamera();
-            controller->handleInput();
+            //controller->handleInput();
+
+            /// MOVIMIENTO RANDOM ENEMIGOS COMENTADO
+            //m_timeSinceLastDirectionChange += dt;
+            //// SVector3 m_velocity;
+            ////  Si ha pasado suficiente tiempo, cambia la dirección del enemigo
+            //if (m_timeSinceLastDirectionChange >= 1000.0f)
+            //{
+            //    float x = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
+            //    float y = 0;
+            //    float z = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
+
+            //    //std::cout << "MARACUYÁ!!!!!!!!!!!! x: " << x << " y: " << y << " z: " << z << std::endl;
+
+            //    // Crea un vector con estos valores y normalízalo
+            //    SVector3 direction(x, y, z);
+            //    direction.normalize();
+            //    //std::cout << "Normalice!!!!!!!!!!!! x: " << direction.getX() << " y: " << direction.getY() << " z: " << direction.getZ() << std::endl;
+
+            //    // Genera una dirección aleatoria
+            //    SVector3 randomDirection = direction;
+
+            //    // Asigna una velocidad constante a lo largo de esta dirección
+            //    m_velocity = randomDirection * 0.2f;
+
+            //    // Reinicia el contador de tiempo
+            //    m_timeSinceLastDirectionChange = 0;
+            //}
+            //test->translate(m_velocity * dt);
+
+            // acaban pruebas
 
             ihdlr.refresh();
 
@@ -172,5 +207,4 @@ namespace Flamingo
         Flamingo::FlamingoCore* core = Flamingo::FlamingoCore::instance();
         core->setFirstScene(t_scene_name);
     }
-}
-
+} // namespace Flamingo
