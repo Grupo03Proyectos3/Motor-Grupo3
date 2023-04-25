@@ -4,6 +4,7 @@
 #include <OgreSceneNode.h>
 
 #include "ECS/Manager.h"
+#include <Physics/PlayerController.h>
 
 EnemyAI::EnemyAI()
     : BehaviourScript()
@@ -60,4 +61,12 @@ void EnemyAI::update(float t_delta_time)
         m_velocity = SVector3(0, 0, 0);
     }
    
+}
+
+void EnemyAI::onCollisionEnter(ecs::GameObject* t_other)
+{
+    if (m_mngr->hasComponent<PlayerController>(t_other))
+    {
+        std::cout << "Choque: Jugador-Enemigo" << std::endl;
+    }
 }

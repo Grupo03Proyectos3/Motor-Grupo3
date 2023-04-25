@@ -28,6 +28,7 @@ struct EnemyAI : public BehaviourScript
     void initValues() override;
     void initComponent() override;
     void update(float t_delta_time) override;
+    void onCollisionEnter(ecs::GameObject* t_other) override;
 
   private:
    

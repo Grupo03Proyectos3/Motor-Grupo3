@@ -73,7 +73,7 @@ void Flamingo::ScriptingSystem::update(float t_delta_time)
     {
         if (game_object->getActive())
             //se llama a los update de los componentes que heredan de BehaviourScript
-            m_mngr->getIBehaviourComponent<BehaviourScript>(game_object)->update(t_delta_time);
+            m_mngr->getBehaviourComponent<BehaviourScript>(game_object)->update(t_delta_time);
     }
 }
 
@@ -85,12 +85,12 @@ void Flamingo::ScriptingSystem::recieve(const Message& t_m)
         {
             // Si alguno de los GameObjects implicados en la colisión tiene BehaviourScript,
             // se llama a su OnCollisionStay() para ejecutar la acción determinada por el usuario.
-            if (auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj1))
+            if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj1))
             {
                 bsCmp->onCollisionStay(t_m.collision.obj2);
             }
 
-            if (auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj2))
+            if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj2))
             {
                 bsCmp->onCollisionStay(t_m.collision.obj1);
             }
@@ -99,12 +99,12 @@ void Flamingo::ScriptingSystem::recieve(const Message& t_m)
         }
         case MSG_COLLISION_ENTER:
         {
-            if (auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj1))
+            if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj1))
             {
                 bsCmp->onCollisionEnter(t_m.collision.obj2);
             }
 
-            if (auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj2))
+            if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj2))
             {
                 bsCmp->onCollisionEnter(t_m.collision.obj1);
             }
@@ -113,12 +113,12 @@ void Flamingo::ScriptingSystem::recieve(const Message& t_m)
         }
         case MSG_COLLIISION_EXIT:
         {
-            if (auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj1))
+            if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj1))
             {
                 bsCmp->onCollisionExit(t_m.collision.obj2);
             }
 
-            if (auto bsCmp = m_mngr->getComponent<BehaviourScript>(t_m.collision.obj2))
+            if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj2))
             {
                 bsCmp->onCollisionExit(t_m.collision.obj1);
             }

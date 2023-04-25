@@ -236,7 +236,7 @@ namespace ecs
         // Devuelve un componente que herede de BehaviourScript
         //
         template <typename T>
-        inline T* getIBehaviourComponent(GameObject* t_e)
+        inline T* getBehaviourComponent(GameObject* t_e)
         {
             try
             {

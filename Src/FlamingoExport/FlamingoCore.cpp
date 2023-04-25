@@ -119,6 +119,12 @@ namespace Flamingo
         y->setScale({100, 100, 0});
         x->subscribeEvent(&FlamingoCore::prueba, this);    
         x->setActive(true);
+
+        // enemigos
+        auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER);
+        auto ene = m_mngr->addComponent<EnemyAI>(enemigo[2]);
+        ene->initValues();
+        m_mngr->addGameObjectToGroups(enemigo[2], {ecs::GROUP_SCRIPTING});
         
         return initSuccessful;
     }
