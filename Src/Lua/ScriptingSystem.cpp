@@ -158,7 +158,7 @@ void Flamingo::ScriptingSystem::callLuaFunction(std::string t_name)
     fun();
 }
 
-bool Flamingo::ScriptingSystem::loadScene(std::string t_scene, bool t_first = true)
+bool Flamingo::ScriptingSystem::loadScene(std::string t_scene, bool t_first)
 {
     if (t_scene.empty())
     {
