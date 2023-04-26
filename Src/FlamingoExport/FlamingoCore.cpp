@@ -125,6 +125,10 @@ namespace Flamingo
         x->subscribeEvent(&FlamingoCore::prueba, this);    
         x->setActive(true);
 
+     /*  ScriptManager::instance()->addGameScript("PruebaScript", new PruebaScript());
+        ecs::GameObject* g = m_mngr->addGameObject();
+        ecs::AddComponent<PruebaScript>(g);*/
+
         //TO DO: eliminar despues de comprobar las animaciones
         //auto d = mainScene->getObject("dragon");
         //auto a = m_mngr->getComponent<Flamingo::Animator>(d);

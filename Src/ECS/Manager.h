@@ -184,6 +184,8 @@ namespace ecs
 
             t_e->m_current_comps.insert({t_n, t_s});
 
+            addGameObjectToGroups(t_e, {ecs::GROUP_SCRIPTING});
+
             return t_s;
         }
 

@@ -14,9 +14,6 @@ ecs::Component* ScriptFactory::createComponent(ecs::GameObject* gO, const std::u
 
         auto c = ecs::Manager::instance()->addScript<>(gO, ScriptManager::instance()->getScript(script), script);
 
-        // c->initValues();
-        ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_SCRIPTING});
-        // compsCreated.push_back(c);
         return c;
     }
     catch (...)

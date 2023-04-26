@@ -3,22 +3,24 @@
 #ifndef __COMPONENTS_H__
 #define __COMPONENTS_H__
 
-
 #include "Component.h"
+#include "Lua/ScriptManager.h"
 #include "ecs.h"
-#include "Manager.h"
 
 class GameObject;
 namespace ecs
 {
-    //La directiva de preprocesador _declspec(dllexport) es utilizada en C y C++ para indicar que una función o variable debe ser exportada desde una biblioteca dinámica (DLL)
-    //para que pueda ser utilizada por otros programas o bibliotecas. Quizá hay que añadirla a estos métodos
     template <typename T>
     inline T* AddComponent(GameObject* gO)
     {
-        return Manager::instance()->addComponent<T>(gO);
+        if (!std::is_base_of_v<BehaviourScript, T>)
+            return Manager::instance()->addComponent<T>(gO);
+        //falta asegurarse de que nunca se realice con un behaviorScript puro, sin heredar
+        else
+            return dynamic_cast<T*>(ScriptManager::instance()->addScript(typeid(T).name(), gO));
+        
     }
-   
+
     template <typename T>
     inline void removeComponent(GameObject* gO)
     {
@@ -36,6 +38,6 @@ namespace ecs
     {
         return Manager::instance()->hasComponent<T>(gO);
     }
-} 
+} // namespace ecs
 
 #endif

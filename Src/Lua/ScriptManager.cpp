@@ -18,16 +18,9 @@ std::string ScriptManager::getScriptName(std::string t_n)
     return m_nameScripts[t_n];
 }
 
-// std::string ScriptManager::getScriptType(const BehaviourScript* t_s)
-//{
-//     std::string name = typeid(t_s).name();
-//     auto p1 = name.find(' ');
-//     name = name.substr(p1 + 1);
-//     return name.substr(0, name.find(' '));
-// }
-
 void ScriptManager::addGameScript(std::string t_n, BehaviourScript* t_s)
 {
+    
     if (m_scriptsIndex.count(t_n))
         return;
 
@@ -38,6 +31,7 @@ void ScriptManager::addGameScript(std::string t_n, BehaviourScript* t_s)
 
 void ScriptManager::deleteOtherScript(std::string t_n, ecs::GameObject* t_gO)
 {
+    // falta codigo defensivo ya que si se pide uno que no exite se la suda y lo crea
     int scriptIndex = m_scriptsIndex[t_n];
 
     auto it = t_gO->m_current_comps.begin();
