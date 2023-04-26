@@ -2,6 +2,7 @@
 #include "ECS/Manager.h"
 #include "FlamingoUtils/SVector3.h"
 #include "Render/RenderSystem.h"
+#include <OgreSceneNode.h>
 
 Transform::Transform()
 {

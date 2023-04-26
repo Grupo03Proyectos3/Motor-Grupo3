@@ -1,5 +1,6 @@
 #include "CameraFactory.h"
 #include "Render/Camera.h"
+#include "Render/RenderSystem.h"
 
 CameraFactory::CameraFactory(Flamingo::RenderSystem* t_renderSystem)
 {

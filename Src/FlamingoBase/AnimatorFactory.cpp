@@ -1,6 +1,7 @@
 #include "AnimatorFactory.h"
 #include "Render/Animator.h"
 #include "ECS/Manager.h"
+#include "Render/RenderSystem.h"
 
 AnimatorFactory::AnimatorFactory(Flamingo::RenderSystem* t_renderSystem)
 {
@@ -27,7 +28,4 @@ ecs::Component* AnimatorFactory::createComponent(ecs::GameObject* gO, const std:
         std::cerr << "[ERROR Animator Factory]: Key not found" << '\n';
         exit(1);
     }
-
-
-
 }

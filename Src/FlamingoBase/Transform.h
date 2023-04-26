@@ -3,10 +3,8 @@
 #define __TRANSFORM_H__
 
 #include "ECS/Component.h"
-
 #include <FlamingoUtils/SVector3.h>
 #include <FlamingoUtils/SQuaternion.h>
-#include <OgreSceneNode.h>
 
 /**
  *  Componente que se encarga de almacenar y manejar información 

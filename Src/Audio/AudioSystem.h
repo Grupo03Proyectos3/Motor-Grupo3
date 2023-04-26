@@ -38,15 +38,23 @@ namespace Flamingo
         void update(float t_delta_time) override;
 
       
-        
-        void createSound(const char* route, FMOD_MODE mode, FMOD_CREATESOUNDEXINFO* exinfo, FMOD::Sound** sound);
         /**
          * @brief Crea el sonido y lo asigna al grupo correspondiente
          *
          * @param[in] t_audioName string Nombre del audio
+         * 
+         */
+        void createSound(const char* route, FMOD_MODE mode, FMOD_CREATESOUNDEXINFO* exinfo, FMOD::Sound** sound);
+        
+        /**
+         * @brief Crea el sonido y lo asigna al grupo correspondiente
+         *
+         * @param[in] route const char* Ruta del audio en la carpeta assets
+         * @param[in] t_name string Nombre del audio
+         * @param[in] isMusic bool True si es música, false si es un SoundEffect
          * @return FMOD::Sound* El sonido creado y registrado
          */
-        FMOD::Sound* createSound(const char* route, std::string name, bool isMusic);
+        FMOD::Sound* createSound(const char* route, std::string t_name, bool t_isMusic);
 
         /**
          * @brief Resgistra un audio como música
@@ -75,9 +83,18 @@ namespace Flamingo
         void setMusicVolume(float f);
         void setSoundEffectsVolume(float f);
 
-        int checkError(FMOD_RESULT result);
 
       protected:
+
+
+        /**
+         * @brief Crea el sonido y lo asigna al grupo correspondiente
+         *
+         * @param[in] result FMOD_RESULT Control de errores de FMOD
+         * @return int 1 si ha habido algún problema, 0 en otro caso
+         */
+        int checkError(FMOD_RESULT result);
+
         FMOD::System* m_system;
         FMOD::SoundGroup* m_musicGroup;
         FMOD::SoundGroup* m_soundGroup;
