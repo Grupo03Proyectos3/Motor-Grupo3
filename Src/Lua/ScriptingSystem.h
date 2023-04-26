@@ -50,7 +50,7 @@ namespace Flamingo
       public:
         __SYSTEM_ID_DECL__(ecs::_sys_LUA)
 
-        ScriptingSystem(SceneManager* t_scene_mngr);
+        ScriptingSystem();
         virtual ~ScriptingSystem();
 
         void initSystem() override;
@@ -78,7 +78,7 @@ namespace Flamingo
       private:
         lua_State* lua_state;
         ComponentsFactory* m_componentFactory;
-        SceneManager* m_scene_mngr;
+        SceneManager& m_scene_mngr;
         Data m_data;
         ecs::Manager* m_mngr;
 

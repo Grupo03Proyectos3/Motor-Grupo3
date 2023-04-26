@@ -12,7 +12,7 @@ namespace Flamingo
     void MeshRenderer::initValues(SVector3 scaleNode, std::string t_model_name, std::string t_entity_name)
     {
         auto sys = m_mngr->getSystem<RenderSystem>();
-        m_scene_mngr = sys->getSceneManager()->getSceneActive()->getSceneManger();
+        m_scene_mngr = SceneMngr().getSceneActive()->getSceneManger();
         m_entity_name = t_entity_name;
         m_model_name = t_model_name;
         m_material_name = "";
@@ -26,7 +26,7 @@ namespace Flamingo
             exit(1);
         }
 
-        m_scene_node = sys->getSceneManager()->getSceneActive()->getSceneRoot()->createChildSceneNode();
+        m_scene_node = SceneMngr().getSceneActive()->getSceneRoot()->createChildSceneNode();
         m_scale_diff = scaleNode;
 
         auto t = ecs::getComponent<Transform>(m_ent);

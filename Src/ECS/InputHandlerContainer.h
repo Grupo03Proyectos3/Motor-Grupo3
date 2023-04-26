@@ -45,8 +45,7 @@ namespace Flamingo{
       private:
         InputHandler& m_inputHandler;
     };
-    // This macro defines a compact way for using the singleton InputHandler, instead of
-    // writing InputHandler::instance()->method() we write ih().method()
+    // This macro defines a compact way for using the singleton InputHandler
     //
     InputHandlerContainer& Input();
 } // namespace Flamingo

@@ -31,7 +31,6 @@ namespace Flamingo{
         void closeWindow();
        
         inline Ogre::RenderWindow* getRenderWindow() { return m_window.render; } //NO EXPORTAR
-        inline void setSceneManager(Flamingo::SceneManager* t_sm) { m_scene_mngr = t_sm; }
         
         bool isWindowClosed() { return isClosed; }
 
@@ -41,7 +40,6 @@ namespace Flamingo{
 
         Ogre::Root* m_root;                  // OGRE root
         Ogre::RenderSystem* m_render_system;  //OGRE renderSystem
-        Flamingo::SceneManager* m_scene_mngr; // Scenes Manager
         NativeWindowPair m_window;           // La venatna
         Ogre::FileSystemLayer* m_fs_layer;    //Fichero de recursos
         Ogre::String m_app_name;              //Nombre de la app

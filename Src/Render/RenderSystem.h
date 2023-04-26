@@ -23,17 +23,16 @@ namespace Flamingo
 
         inline Flamingo::Window* getWindow() { return m_window; } 
         inline Ogre::Root* getOgreRoot() { return m_root; } //NO EXPORTAR
-        inline Flamingo::SceneManager* getSceneManager() { return m_scene_mngr; } //NO EXPORTAR
         
         inline void setMainCamera(Camera* t_camera) { m_camera = t_camera; }
         // en esta funcion se manipula la cámara
         void manipulateCamera();
-
+        void inicializarShaders();
+        void addShadersScene(Scene* scene);
       private:
         Ogre::Root* m_root = nullptr;                // OGRE root
         Ogre::FileSystemLayer* m_fs_layer = nullptr; // Fichero de recursos
-        Flamingo::Window* m_window = nullptr;
-        Flamingo::SceneManager* m_scene_mngr = nullptr;
+        Flamingo::Window* m_window = nullptr;        
         std::string m_app_name;     // Nombre de la app
         Camera* m_camera = nullptr; // cámara
 

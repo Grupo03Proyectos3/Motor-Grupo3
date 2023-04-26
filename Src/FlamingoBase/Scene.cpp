@@ -11,6 +11,8 @@ namespace Flamingo
     Scene::Scene()
     {
         mSceneManager = nullptr;
+        mOgreRootNode = nullptr;
+        mCeguiRootNode = nullptr;
         mSceneGameObjects = std::unordered_map<Ogre::String, ecs::GameObject*>();
         mDebug = false;
     }
@@ -19,13 +21,13 @@ namespace Flamingo
     {
         mSceneGameObjects.clear();
         mSceneManager = nullptr;
-        mRootNode = nullptr;
+        mOgreRootNode = nullptr;
     }
 
-    void Scene::initScene(Ogre::SceneManager* t_SceneManager, ecs::Manager* mng)
+    void Scene::initScene(Ogre::SceneManager* t_SceneManager,CEGUI::Window* root ,ecs::Manager* mng)
     {
         mSceneManager = t_SceneManager;
-        mRootNode = mSceneManager->getRootSceneNode();
+        mOgreRootNode = mSceneManager->getRootSceneNode();
         m_mngr = mng;
     }
 
@@ -72,7 +74,7 @@ namespace Flamingo
 
     void Scene::desactive()
     {
-        mRootNode->setVisible(false);
+        mOgreRootNode->setVisible(false);
         // acceder a objectos de la scene en la k esten y desactivarlos
         for (auto obj : mSceneGameObjects)
         {
@@ -87,7 +89,7 @@ namespace Flamingo
 
     void Scene::active()
     {
-        mRootNode->setVisible(true);
+        mOgreRootNode->setVisible(true);
         for (auto it : mSceneGameObjects)
         {
             it.second->setActive(false);
@@ -121,7 +123,7 @@ namespace Flamingo
 
     Ogre::SceneNode* Scene::getSceneRoot()
     {
-        return mRootNode;
+        return mOgreRootNode;
     }
 
 } // namespace Flamingo

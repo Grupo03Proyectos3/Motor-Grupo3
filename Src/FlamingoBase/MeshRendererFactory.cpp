@@ -4,7 +4,7 @@
 MeshRendererFactory::MeshRendererFactory(Flamingo::RenderSystem* t_renderSystem)
 {
     m_renderSystem = t_renderSystem;
-    root = m_renderSystem->getSceneManager()->getSceneActive()->getSceneRoot();
+    root = Flamingo::SceneMngr().getSceneActive()->getSceneRoot();
 }
 
 ecs::Component* MeshRendererFactory::createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args)

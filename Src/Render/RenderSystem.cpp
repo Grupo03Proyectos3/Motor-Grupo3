@@ -19,6 +19,7 @@ namespace Flamingo
     {
         m_group = ecs::GROUP_RENDER;
         m_fs_layer = new Ogre::FileSystemLayer(m_app_name);
+        
     }
 
     void RenderSystem::recieve(const Message& t_m)
@@ -110,21 +111,20 @@ namespace Flamingo
             OGRE_EXCEPT(Ogre::Exception::ERR_FILE_NOT_FOUND, "plugins.cfg", m_app_name + ": createRoot");
         }
         m_root = new Ogre::Root("plugins.cfg", "ogre.cfg", "Ogre.log");
-        m_scene_mngr = new Flamingo::SceneManager(m_app_name + " - SceneManager", m_mngr);      
+        
     }
 
     void RenderSystem::setUp()
     {
-        m_root->initialise(false);
-        m_scene_mngr->init(m_root);
+        m_root->initialise(false);        
         m_window = new Flamingo::Window(m_app_name, m_root);
-        m_window->setSceneManager(m_scene_mngr);
         m_window->createWindow(m_app_name);
         // createWindow(mAppName);
 
         locateResources();
-        m_window->initialiseRTShaderSystem();
         loadResources();
+        //m_window->initialiseRTShaderSystem();
+        //loadResources();
     }
 
     void RenderSystem::locateResources()
@@ -244,8 +244,6 @@ namespace Flamingo
     RenderSystem::~RenderSystem()
     {
         m_window->destroyRTShaderSystem();
-        delete m_scene_mngr;
-        m_scene_mngr = nullptr;
 
         m_window->shutdown();
         delete m_window;
@@ -265,5 +263,12 @@ namespace Flamingo
             delete m_root;
             m_root = nullptr;
         }
+    }
+    void RenderSystem::inicializarShaders()
+    {
+        m_window->initialiseRTShaderSystem();
+    }
+    void RenderSystem::addShadersScene(Scene* scene) {
+        Ogre::RTShader::ShaderGenerator::getSingletonPtr()->addSceneManager(scene->getSceneManger());
     }
 }

@@ -4,7 +4,6 @@
 
 #include <CEGUI/CEGUI.h>
 #include "ECS/System.h"
-//#include <unordered_map>
 
 #include <ECS/Manager.h>
 #include <Render/RenderSystem.h>
@@ -30,22 +29,22 @@ namespace Flamingo{
 
         void loadScheme(const std::string& schemeFile);
         void setFont(const std::string& fontFile);
-        //NO DEBEJOS DEJAR ESE METIODO PUBLICO **cambiar**
-        CEGUI::Window* createWidget(const std::string& type, const std::string& name = " ");
-        CEGUI::Window* createEmptyWindow(const std::string& name = " ");
+
+        CEGUI::Window* createWidget(const std::string& type, const std::string& name = " "); //NO EXPORTAR
+        CEGUI::Window* createEmptyWindow(const std::string& name = " "); //NO EXPORTAR
+        CEGUI::Window* createRootScene(const std::string& name = " "); //NO EXPORTAR
+
         void chageScreenSize(int widht,int height);
-
-        void pruebas2();
-
+        void setSceneManager(SceneManager* sceneManager);
 
       private:
-       
-        CEGUI::WindowManager* winMngr;
-        CEGUI::OgreRenderer* renderer;
-
-        CEGUI::Window* root = nullptr;
-        CEGUI::GUIContext* guiContext;
-        std::array<bool, 3> estadoBotones;
+        
+        CEGUI::WindowManager* m_winMngr;
+        CEGUI::OgreRenderer* m_renderer;
+        SceneManager* m_SceneManager;
+        CEGUI::Window* m_root = nullptr;
+        CEGUI::GUIContext* m_guiContext;
+        std::array<bool, 3> m_estadoBotones;
     };
 } // namespace Flamingo
 #endif

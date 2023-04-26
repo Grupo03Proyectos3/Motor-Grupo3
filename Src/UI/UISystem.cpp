@@ -19,7 +19,7 @@ namespace Flamingo
 
     UISystem::~UISystem()
     {
-        winMngr->destroyAllWindows();
+        m_winMngr->destroyAllWindows();
     }
 
     void UISystem::recieve(const Message& m){
@@ -34,7 +34,7 @@ namespace Flamingo
         Transform* transform = nullptr;
         if (m.id == MSG_MOUSE_MOVE){
 
-            guiContext->injectMousePosition(m.moveMouse.x, m.moveMouse.y);
+            m_guiContext->injectMousePosition(m.moveMouse.x, m.moveMouse.y);
             
             //std::cout << "x: " << m.moveMouse.x << " ,y: " << m.moveMouse.y << "\n";
             //std::cout << "x2: " << guiContext->getMouseCursor().getPosition().d_x << " ,y2: " << guiContext->getMouseCursor().getPosition().d_y << "\n";
@@ -42,39 +42,39 @@ namespace Flamingo
         else  if (m.id == MSG_MOUSE_CLICK){
                // injectMouseButtonClick(CEGUI::MouseButton::LeftButton);
            
-            if (m.ui_input.mouse_states[0] != estadoBotones[0]){
+            if (m.ui_input.mouse_states[0] != m_estadoBotones[0]){
                 if (m.ui_input.mouse_states[0])
                 {
-                    if (guiContext->injectMouseButtonDown(CEGUI::MouseButton::LeftButton))
+                    if (m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::LeftButton))
                         std::cout << "LEFT DOWN\n";
                 }
-                else if (guiContext->injectMouseButtonUp(CEGUI::MouseButton::LeftButton))
+                else if (m_guiContext->injectMouseButtonUp(CEGUI::MouseButton::LeftButton))
                     std::cout << "LEFT UP\n";
-                estadoBotones[0] = m.ui_input.mouse_states[0];
+                m_estadoBotones[0] = m.ui_input.mouse_states[0];
             }
 
-            if (m.ui_input.mouse_states[1] != estadoBotones[1])
+            if (m.ui_input.mouse_states[1] != m_estadoBotones[1])
             {
                 if (m.ui_input.mouse_states[1])
                 {
-                    if (guiContext->injectMouseButtonDown(CEGUI::MouseButton::MiddleButton))
+                    if (m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::MiddleButton))
                         std::cout << "MIDDLE DOWN\n";
                 }
-                else if (guiContext->injectMouseButtonUp(CEGUI::MouseButton::MiddleButton))
+                else if (m_guiContext->injectMouseButtonUp(CEGUI::MouseButton::MiddleButton))
                     std::cout << "MIDDLE UP\n";
-                estadoBotones[1] = m.ui_input.mouse_states[1];
+                m_estadoBotones[1] = m.ui_input.mouse_states[1];
             }
 
-            if (m.ui_input.mouse_states[2] != estadoBotones[2])
+            if (m.ui_input.mouse_states[2] != m_estadoBotones[2])
             {
                 if (m.ui_input.mouse_states[2])
                 {
-                    if (guiContext->injectMouseButtonDown(CEGUI::MouseButton::RightButton))
+                    if (m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::RightButton))
                         std::cout << "RIGHT DOWN\n";
                 }
-                else if (guiContext->injectMouseButtonUp(CEGUI::MouseButton::RightButton))
+                else if (m_guiContext->injectMouseButtonUp(CEGUI::MouseButton::RightButton))
                     std::cout << "RIGHT UP\n";
-                estadoBotones[2] = m.ui_input.mouse_states[2];
+                m_estadoBotones[2] = m.ui_input.mouse_states[2];
             }
             //if (guiContext->injectMouseButtonClick(CEGUI::MouseButton::LeftButton))
             //   std::cout << "lima\n";
@@ -122,9 +122,9 @@ namespace Flamingo
     void UISystem::update(float t_delta_time){
 
 
-        renderer->beginRendering();
-        guiContext->draw();
-        renderer->endRendering();
+        m_renderer->beginRendering();
+        m_guiContext->draw();
+        m_renderer->endRendering();
 
         //CEGUI::System::getSingletonPtr()->injectTimePulse(t_delta_time);
     }
@@ -133,11 +133,11 @@ namespace Flamingo
     {
         auto sys = m_mngr->getSystem<RenderSystem>();
         // Seleccionamos el RenderTarget que usamos de ogre que usamos de Root de Renderizado
-        renderer = &CEGUI::OgreRenderer::bootstrapSystem(*sys->getWindow()->getRenderWindow());
-        renderer->setUsingShaders(true);
-        guiContext = &CEGUI::System::getSingleton().createGUIContext(renderer->getDefaultRenderTarget());
-        winMngr = CEGUI::WindowManager::getSingletonPtr();
-        renderer->setRenderingEnabled(true);
+        m_renderer = &CEGUI::OgreRenderer::bootstrapSystem(*sys->getWindow()->getRenderWindow());
+        m_renderer->setUsingShaders(true);
+        m_guiContext = &CEGUI::System::getSingleton().createGUIContext(m_renderer->getDefaultRenderTarget());
+        m_winMngr = CEGUI::WindowManager::getSingletonPtr();
+        m_renderer->setRenderingEnabled(true);
 
         initRoot();
         loadScheme("FlamingoDefaultUI.scheme");
@@ -146,12 +146,12 @@ namespace Flamingo
     void UISystem::initRoot()
     {
         eraseMainRoot();
-        root = winMngr->createWindow("DefaultWindow", "Root");
-        root->setSize(CEGUI::USize(CEGUI::UDim(0, renderer->getDisplaySize().d_width*2), 
-            CEGUI::UDim(0, renderer->getDisplaySize().d_height*2)));
+        m_root = m_winMngr->createWindow("DefaultWindow", "Root");
+        m_root->setSize(CEGUI::USize(CEGUI::UDim(0, m_renderer->getDisplaySize().d_width*2), 
+            CEGUI::UDim(0, m_renderer->getDisplaySize().d_height*2)));
 
-        root->setUsingAutoRenderingSurface(true);
-        guiContext->setRootWindow(root);
+        m_root->setUsingAutoRenderingSurface(true);
+        m_guiContext->setRootWindow(m_root);
 
         //root->activate();
     }
@@ -167,18 +167,18 @@ namespace Flamingo
 
     void UISystem::eraseContext()
     {
-        renderer->setUsingShaders(false);
+        m_renderer->setUsingShaders(false);
         eraseMainRoot();
-        CEGUI::System::getSingleton().destroyGUIContext(*guiContext);
-        renderer->destroySystem();
+        CEGUI::System::getSingleton().destroyGUIContext(*m_guiContext);
+        m_renderer->destroySystem();
     }
 
     void UISystem::eraseMainRoot()
     {
-        if (root != nullptr)
-            root->destroy();
+        if (m_root != nullptr)
+            m_root->destroy();
 
-        root = nullptr;
+        m_root = nullptr;
     }
 
     void UISystem::loadScheme(const std::string& schemeFile)
@@ -190,13 +190,13 @@ namespace Flamingo
     void UISystem::setFont(const std::string& fontFile)
     {
         CEGUI::FontManager::getSingleton().createFromFile(fontFile + ".font");
-        guiContext->setDefaultFont(fontFile);
+        m_guiContext->setDefaultFont(fontFile);
     }
 
     CEGUI::Window* UISystem::createWidget(const std::string& type, const std::string& name)
     {
-        CEGUI::Window* newWindow = winMngr->createWindow(type, name);
-        root->addChild(newWindow);
+        CEGUI::Window* newWindow = m_winMngr->createWindow(type, name);
+        m_root->addChild(newWindow);
         newWindow->activate();
         newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0.5), CEGUI::UDim(0.5, 0.5)));
         newWindow->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0.3), CEGUI::UDim(0.2, 0.5)));
@@ -205,17 +205,29 @@ namespace Flamingo
 
     CEGUI::Window* UISystem::createEmptyWindow(const std::string& name)
     {
-        CEGUI::Window* newWindow = winMngr->createWindow("DefaultWindow", name);
-        root->addChild(newWindow);
+        CEGUI::Window* newWindow = m_winMngr->createWindow("DefaultWindow", name);
+        m_root->addChild(newWindow);
         newWindow->activate();
         newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0.5), CEGUI::UDim(0.5, 0.5)));
         newWindow->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0.3), CEGUI::UDim(0.2, 0.5)));
         return newWindow;
     }
 
+    CEGUI::Window* UISystem::createRootScene(const std::string& name){
+        CEGUI::Window* newWindow = m_winMngr->createWindow("DefaultWindow", name);
+        m_root->addChild(newWindow);
+        newWindow->activate();
+        newWindow->setPosition(m_root->getPosition());
+        newWindow->setSize(m_root->getSize());
+        return newWindow;
+    }
+
     void UISystem::chageScreenSize(int width, int height)
     {
-        renderer->setDisplaySize(CEGUI::Size<float>(width, height));
+        m_renderer->setDisplaySize(CEGUI::Size<float>(width, height));
         CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Size<float>(width, height));
-    }       
+    }
+    void UISystem::setSceneManager(SceneManager* sceneManager){
+        m_SceneManager = sceneManager;
+    }
 } // namespace Flamingo

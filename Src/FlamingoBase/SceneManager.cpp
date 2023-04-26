@@ -3,36 +3,42 @@
 #include "SceneManager.h"
 #include <OgreSceneManagerEnumerator.h>
 #include <OgreRoot.h>
-namespace Flamingo{
-    SceneManager::SceneManager(std::string t_Name, ecs::Manager* m_mng)
-    {
-        m_scenes = std::unordered_map<std::string, Scene*>();
-        mName = t_Name;
-        m_mngr = m_mng;
+#include "ECS/Manager.h"
+#include "Render/RenderSystem.h"
+#include "UI/UISystem.h"
+namespace Flamingo
+{
+    SceneManager::SceneManager(){
+            m_scenes = std::unordered_map<std::string, Scene*>();
     }
 
     SceneManager::~SceneManager(){
         for (auto it = m_scenes.begin(); it != m_scenes.end(); it = m_scenes.erase(it)){
-            m_root->destroySceneManager(it->second->getSceneManger());
+            //m_OgreRoot->destroySceneManager(it->second->getSceneManger());
             delete it->second;
         }
         m_scenes.clear();
 
        // delete m_scene_manager;
         m_scene_manager = nullptr;
-        m_root = nullptr;
+        m_OgreRoot = nullptr;
     }
 
-    void SceneManager::init(Ogre::Root* t_root){
-        m_root = t_root;
+    void SceneManager::initManager(std::string t_Name, ecs::Manager* m_mng){
+        mName = t_Name;
+        m_mngr = m_mng;
+        auto syse = m_mngr->getSystem<RenderSystem>();
+        m_OgreRoot = syse->getOgreRoot();
+
         createScene("DefaultScene", true);
     }
 
     Scene* SceneManager::createScene(std::string t_SceneName, bool setActive)
     {
         Scene* scene = new Scene();
-        m_scene_manager = m_root->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, t_SceneName);
-        scene->initScene(m_scene_manager,m_mngr);
+        m_scene_manager = m_OgreRoot->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, t_SceneName);
+        auto sysu = m_mngr->getSystem<UISystem>();
+        scene->initScene(m_scene_manager, sysu->createRootScene(t_SceneName), m_mngr);
         addScene(scene);
         if (setActive){
             setSceneActive(t_SceneName);
@@ -84,13 +90,8 @@ namespace Flamingo{
         return (*m_scenes.find(mNameSceneActive)).second;
     }
 
-    Scene* SceneManager::getScene(std::string t_scene_name)
-    {
-        if (m_scenes.empty())
-        {
-            std::cout << "ERROR: NO HAY ESCENAS ACTIVAS EN " << mName << "\n";
-            exit(1);
-        }
-        return (*m_scenes.find(t_scene_name)).second;
+    SceneManager& SceneMngr() {
+        return *SceneManager::instance();
     }
-} // namespace OgreScene
+
+} // namespace Flamingo

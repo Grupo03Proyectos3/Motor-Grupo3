@@ -25,6 +25,7 @@
 #include <UI/UIElement.h>
 #include <ECS/InputHandlerContainer.h>
 #include <FlamingoUtils/FlamingoKeys.h>
+#include "FlamingoBase/SceneManager.h"
 // chapucilla
 #include <Physics/PlayerController.h>
 #include <Render/EnemyAI.h>
@@ -48,17 +49,17 @@ namespace Flamingo
         l.loadDirectories();
 
         std::string s = "Motor";
-        ecs::Manager* m_mngr = ecs::Manager::instance();
-        m_mngr->init();
-
+        ecs::Manager* m_mngr = ecs::Manager::instance();m_mngr->init();
+        SceneManager& sceneManager = SceneMngr();
         Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
         RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
-        SceneManager* sceneManager = render_sys->getSceneManager();
+        ui_system->initContext();
+        sceneManager.initManager("SceneManager", m_mngr);
         PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
         AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
-        Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>(sceneManager);
-
-        ui_system->initContext();
+        Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();       
+        render_sys->inicializarShaders();
+        
 
         if (!scripting_sys->loadScene(m_first_scene))
         {
@@ -66,7 +67,7 @@ namespace Flamingo
             return false;
         }
 
-        Scene* mainScene = sceneManager->getSceneActive();
+        Scene* mainScene = sceneManager.getSceneActive();
         auto nodo = mainScene->getSceneRoot();
         ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
         cam_go->setName("myCamera");
@@ -159,7 +160,7 @@ namespace Flamingo
         auto render_sys = m_mngr->getSystem<RenderSystem>();
 
         auto& ihdlr = ih();
-
+        
         while (motor_running && !render_sys->getWindow()->isWindowClosed())
         {
             // Delta time en milisegundos

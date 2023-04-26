@@ -9,14 +9,17 @@ namespace Ogre
 {
     class SceneManager;
     class SceneNode;
+} 
+namespace CEGUI
+{
+    class Window;
 }
-
 namespace Flamingo{
     class Scene{
       public:
         Scene();
         ~Scene();
-        void initScene(Ogre::SceneManager* t_SceneManager, ecs::Manager* mng);
+        void initScene(Ogre::SceneManager* t_SceneManager, CEGUI::Window* root, ecs::Manager* mng);
         void addObjects(ecs::GameObject* t_GameObject);
         void delObject(std::string t_nameObject);
         void setDebug(bool t_active);
@@ -31,7 +34,8 @@ namespace Flamingo{
         Ogre::SceneNode* getSceneRoot();      
       private:
         ecs::Manager* m_mngr;
-        Ogre::SceneNode* mRootNode;
+        Ogre::SceneNode* mOgreRootNode;
+        CEGUI::Window* mCeguiRootNode;
         Ogre::SceneManager* mSceneManager;
         std::unordered_map<std::string, ecs::GameObject*> mSceneGameObjects;
         bool mDebug;

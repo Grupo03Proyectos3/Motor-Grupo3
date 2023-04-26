@@ -12,7 +12,6 @@ namespace Flamingo
         : isClosed(false)
         , m_root(t_root)
         , m_app_name(t_app_name)
-        , m_scene_mngr(nullptr)
     {
         m_window.native = nullptr;
         m_window.render = nullptr;
@@ -26,7 +25,6 @@ namespace Flamingo
 
         m_root = nullptr;
         m_render_system = nullptr;
-        m_scene_mngr = nullptr;
     }
 
     NativeWindowPair Window::createWindow(std::string& appName)
@@ -82,7 +80,7 @@ namespace Flamingo
             {
                 mMaterialMgrListener = new OgreSGTechique::SGTechniqueResolverListener(mShaderGenerator);
                 Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
-                mShaderGenerator->addSceneManager(m_scene_mngr->getSceneActive()->getSceneManger());
+                mShaderGenerator->addSceneManager(Flamingo::SceneMngr().getSceneActive()->getSceneManger());
             }
             return true;
         }

@@ -32,12 +32,13 @@ extern "C"
 #include "Physics/PlayerController.h"
 // SCRIPTING
 #include "BehaviourScript.h"
+#include "FlamingoBase/SceneManager.h"
 
-Flamingo::ScriptingSystem::ScriptingSystem(SceneManager* t_scene_mngr)
+Flamingo::ScriptingSystem::ScriptingSystem()
+    : m_scene_mngr(SceneMngr())
 {
     m_componentFactory = ComponentsFactory::instance();
     m_mngr = ecs::Manager::instance();
-    m_scene_mngr = t_scene_mngr;
 }
 
 Flamingo::ScriptingSystem::~ScriptingSystem()
@@ -84,8 +85,8 @@ void Flamingo::ScriptingSystem::recieve(const Message& t_m)
     {
         case MSG_COLLISION_STAY:
         {
-            // Si alguno de los GameObjects implicados en la colisión tiene BehaviourScript,
-            // se llama a su OnCollisionStay() para ejecutar la acción determinada por el usuario.
+            // Si alguno de los GameObjects implicados en la colisiï¿½n tiene BehaviourScript,
+            // se llama a su OnCollisionStay() para ejecutar la acciï¿½n determinada por el usuario.
             if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj1))
             {
                 bsCmp->onCollisionStay(t_m.collision.obj2);
@@ -164,8 +165,9 @@ bool Flamingo::ScriptingSystem::loadScene(std::string t_scene, bool t_first)
     {
         return false;
     }
-    m_scene_mngr->createScene(t_scene, t_first);
-    // TO DO : añadir control de excepciones devolviendo false si algo falla
+   auto myscene= m_scene_mngr.createScene(t_scene, true);
+    m_mngr->getSystem<RenderSystem>()->addShadersScene(myscene);
+    // TO DO : aï¿½adir control de excepciones devolviendo false si algo falla
     // Por ej : no encuentra el fichero
     readScript(t_scene); 
     luabridge::LuaRef allEnts = getFromLua("entities");
@@ -209,8 +211,7 @@ bool Flamingo::ScriptingSystem::loadScene(std::string t_scene, bool t_first)
             // lua_pop(entity, 1);
             m_data.clear();
         }
-        //m_scene_mngr->getSceneActive()->addObjects(gO);
-        m_scene_mngr->getScene(t_scene)->addObjects(gO);
+        m_scene_mngr.getSceneActive()->addObjects(gO);
     }
 
     return true;
