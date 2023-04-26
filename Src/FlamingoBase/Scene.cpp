@@ -3,6 +3,7 @@
 #include "Render/Camera.h"
 #include <UI/UIElement.h>
 #include <iostream>
+#include <OgreSceneManager.h>
 
 namespace Flamingo
 {
@@ -106,6 +107,21 @@ namespace Flamingo
                 return it.second;
         }
         return nullptr;
+    }
+
+    std::string Scene::getName()
+    {
+        return (std::string)mSceneManager->getName(); 
+    }
+
+    Ogre::SceneManager* Scene::getSceneManger()
+    {
+        return mSceneManager;
+    }
+
+    Ogre::SceneNode* Scene::getSceneRoot()
+    {
+        return mRootNode;
     }
 
 } // namespace Flamingo

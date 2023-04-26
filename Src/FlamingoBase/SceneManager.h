@@ -10,6 +10,12 @@ namespace Flamingo
     class RenderSystem;
 }
 
+namespace Ogre
+{
+    class Root;
+    class SceneManager;
+}
+
 namespace Flamingo{
     class SceneManager{
         friend Flamingo::PhysicsSystem;
@@ -34,9 +40,9 @@ namespace Flamingo{
         ecs::Manager* m_mngr;
         Ogre::Root* m_root;
         Ogre::SceneManager* m_scene_manager = nullptr;
-        std::unordered_map<Ogre::String, Scene*> m_scenes;
-        Ogre::String mNameSceneActive = "";
-        Ogre::String mName;        
+        std::unordered_map<std::string, Scene*> m_scenes;
+        std::string mNameSceneActive = "";
+        std::string mName;        
     };
 } // namespace OgreScene
 #endif
