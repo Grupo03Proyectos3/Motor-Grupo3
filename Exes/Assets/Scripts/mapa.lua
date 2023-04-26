@@ -1,4 +1,4 @@
-entities = {"Sinbad", "Cesped", "Torus", "Arbol", "EspadaMetal", "EspadaMadera", "EspadaEspecial", "Slime", "EscudoMadera"}
+entities = {"Sinbad", "Cesped", "Torus", "Arbol", "EspadaMetal", "EspadaMadera", "EspadaEspecial", "Slime", "EscudoMadera", "PocionRoja"}
 
 Sinbad = {
     Name={
@@ -271,6 +271,36 @@ EscudoMadera = {
     MeshRenderer = {
         t_model_name = "EscudoMadera.mesh",
         t_entity_name= "escudom",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+PocionRoja = {
+    Name={
+        t_name="pocionr",
+    },
+    AATransform = {
+        positionX = "500.0",
+        positionY = "50.0",
+        positionZ = "200.0",
+        scaleX = "20",
+        scaleY = "20",
+        scaleZ = "20",
+        rotationX = "1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "PocionRosa.mesh",
+        t_entity_name= "pocionr",
         t_node_x="0",
         t_node_y="0",
         t_node_z="0",
