@@ -133,6 +133,12 @@ namespace Flamingo
         ene->initValues();
         m_mngr->addGameObjectToGroups(enemigo[2], {ecs::GROUP_SCRIPTING});
         
+       //ecs::GameObject* p = m_mngr->addGameObject({ecs::GROUP_RENDER});
+       // auto t = ecs::AddComponent<Transform>(p);
+       // t->initValues(SVector3(0 , 100, 0));
+       // auto r = ecs::AddComponent<MeshRenderer>(p);
+       // 
+
         return initSuccessful;
     }
 

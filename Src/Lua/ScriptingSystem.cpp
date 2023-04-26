@@ -72,7 +72,7 @@ void Flamingo::ScriptingSystem::update(float t_delta_time)
     // TO DO : CHANGE TO SCRIPT GROUP
     for (auto game_object : m_mngr->getEntities(ecs::GROUP_SCRIPTING))
     {
-        if (game_object->getActive())
+        if (game_object != nullptr && game_object->getActive())
             //se llama a los update de los componentes que heredan de BehaviourScript
             m_mngr->getBehaviourComponent<BehaviourScript>(game_object)->update(t_delta_time);
     }

@@ -106,5 +106,6 @@ Ogre::AxisAlignedBox MeshRenderer::getBoundingBox()
 MeshRenderer::~MeshRenderer()
 {
     // delete m_ent_ogre;
+    m_scene_node->detachAllObjects();
     m_ent_ogre = nullptr;
 }

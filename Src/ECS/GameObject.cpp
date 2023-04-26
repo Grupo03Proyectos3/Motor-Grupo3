@@ -21,11 +21,10 @@ ecs::GameObject::GameObject(std::vector<ecs::groupId_type> t_gId = {GROUP_EXAMPL
 
 ecs::GameObject::~GameObject()
 {
-    setAlive(false);
+    for (auto it = m_current_comps.begin(); it != m_current_comps.end(); ++it)
+        delete it->second;
 
-    for (auto c : m_current_comps)
-        if (c.second != nullptr)
-            delete c.second;
+    m_current_comps.clear();
 }
 
 void ecs::GameObject::setAlive(bool to)

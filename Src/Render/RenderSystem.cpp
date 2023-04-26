@@ -78,7 +78,7 @@ namespace Flamingo
     {
         for (auto game_object : m_mngr->getEntities(ecs::GROUP_RENDER))
         {
-            if (game_object->getActive())
+            if (game_object != nullptr && game_object->getActive())
             {
                 auto rb = m_mngr->getComponent<RigidBody>(game_object);
                 if (rb && !rb->isKinematic())

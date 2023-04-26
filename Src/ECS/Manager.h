@@ -412,27 +412,45 @@ namespace ecs
 
             m_msgs_aux.clear();
         }
-        // uso el metodo para eliminar gameObejcts ya que estaba vacio
+        // uso el metodo para eliminar gameObjects
         inline void refresh()
         {
-            // falta probar
+            std::vector<GameObject*> toDestroy;
+
             for (auto& ents : m_ents_by_group)
             {
                 for (auto i = 0; i < ents.size(); i++)
                 {
-                    if (ents[i] != nullptr && ents[i]->m_alive == false)
+                    if (gameObjectMarked(toDestroy, ents[i]))
+                        ents[i] = nullptr;
+
+                    else if (ents[i] != nullptr && ents[i]->m_alive == false)
                     {
-                        delete ents[i];
+                        toDestroy.push_back(ents[i]);
                         ents[i] = nullptr;
                     }
                 }
             }
+
+            for (auto i = 0; i < toDestroy.size(); i++)
+                delete toDestroy[i];
 
             if (reajustG)
             {
                 reajustG = false;
                 reajustSizeGroups();
             }
+        }
+
+        inline bool gameObjectMarked(const std::vector<GameObject*>& v, GameObject* gO)
+        {
+            for (auto i = 0; i < v.size(); i++)
+            {
+                if (v[i] == gO)
+                    return true;
+            }
+
+            return false;
         }
 
       private:
