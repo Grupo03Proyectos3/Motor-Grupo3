@@ -13,16 +13,15 @@ namespace Flamingo{
     typedef SDL_Window NativeWindowType;
     struct NativeWindowPair{
         Ogre::RenderWindow* render = nullptr;
-        NativeWindowType* native = nullptr; // ES NECESARIO UNA VENTANA TIPO SDL CON EL MISMO NOMBRE DE CARA A LAS LIBRERIAS DE UI
+        NativeWindowType* native = nullptr;
     };
     class Window {
       public:
-        Window(const Ogre::String& appName, Ogre::Root* t_root);
-        ~Window();
+        Window(const std::string& appName, Ogre::Root* t_root);
+        ~Window();       
 
-        NativeWindowPair createWindow(Ogre::String& appName);
+        NativeWindowPair createWindow(std::string& appName); //NO EXPORTAR
 
-        void addRTShaderSystem(Ogre::SceneManager* t_mng);
         bool initialiseRTShaderSystem();
         void destroyRTShaderSystem();
        
@@ -31,13 +30,15 @@ namespace Flamingo{
         void shutdown();
         void closeWindow();
        
-        inline Ogre::RenderWindow* getRenderWindow() { return m_window.render; }
-        inline Ogre::RenderSystem* getRenderSystem() { return m_render_system; }
+        inline Ogre::RenderWindow* getRenderWindow() { return m_window.render; } //NO EXPORTAR
         inline void setSceneManager(Flamingo::SceneManager* t_sm) { m_scene_mngr = t_sm; }
         
         bool isWindowClosed() { return isClosed; }
 
-      protected:
+      protected:      
+
+        void addRTShaderSystem(Ogre::SceneManager* t_mng); 
+
         Ogre::Root* m_root;                  // OGRE root
         Ogre::RenderSystem* m_render_system;  //OGRE renderSystem
         Flamingo::SceneManager* m_scene_mngr; // Scenes Manager

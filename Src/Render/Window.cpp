@@ -8,7 +8,7 @@
 #include <SDL_video.h>
 namespace Flamingo
 {
-    Window::Window(const Ogre::String& t_app_name, Ogre::Root* t_root)
+    Window::Window(const std::string& t_app_name, Ogre::Root* t_root)
         : isClosed(false)
         , m_root(t_root)
         , m_app_name(t_app_name)
@@ -29,7 +29,7 @@ namespace Flamingo
         m_scene_mngr = nullptr;
     }
 
-    NativeWindowPair Window::createWindow(Ogre::String& appName)
+    NativeWindowPair Window::createWindow(std::string& appName)
     {
         Ogre::ConfigFile configFile;
         uint32_t w, h;

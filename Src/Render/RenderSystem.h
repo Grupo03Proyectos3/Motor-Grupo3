@@ -21,10 +21,10 @@ namespace Flamingo
         void initSystem() override;
         void update(float t_delta_time) override;
 
-        inline Flamingo::Window* getWindow() { return m_window; }
-        inline Ogre::Root* getOgreRoot() { return m_root; }
-        inline Flamingo::SceneManager* getSceneManager() { return m_scene_mngr; }
-        //inline std::string getAppName() { return m_app_name; }
+        inline Flamingo::Window* getWindow() { return m_window; } 
+        inline Ogre::Root* getOgreRoot() { return m_root; } //NO EXPORTAR
+        inline Flamingo::SceneManager* getSceneManager() { return m_scene_mngr; } //NO EXPORTAR
+        
         inline void setMainCamera(Camera* t_camera) { m_camera = t_camera; }
         // en esta funcion se manipula la cámara
         void manipulateCamera();
