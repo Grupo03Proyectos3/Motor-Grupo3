@@ -15,6 +15,8 @@ struct BehaviourScript : public ecs::Component
 
     virtual BehaviourScript* clone();
 
+    std::string GetScriptName();
+
     // Clases que podrán ser overrideadas por el desarrollador, para definir a su gusto
     virtual void initValues();
     virtual void initComponent(); // == start() ?

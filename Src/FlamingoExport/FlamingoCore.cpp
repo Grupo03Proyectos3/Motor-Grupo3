@@ -26,6 +26,8 @@
 #include <ECS/InputHandlerContainer.h>
 #include <FlamingoUtils/FlamingoKeys.h>
 #include "FlamingoBase/SceneManager.h"
+#include "Lua/ScriptManager.h"
+#include "Lua/PruebaScript.h"
 // chapucilla
 #include <Physics/PlayerController.h>
 #include <Render/EnemyAI.h>
@@ -139,6 +141,7 @@ namespace Flamingo
        // t->initValues(SVector3(0 , 100, 0));
        // auto r = ecs::AddComponent<MeshRenderer>(p);
        // 
+
         return initSuccessful;
     }
 

@@ -57,6 +57,7 @@ void Flamingo::ScriptingSystem::initSystem()
     m_componentFactory->addFactory("Camera", new CameraFactory(renderSystem));
     m_componentFactory->addFactory("ZAnimator", new AnimatorFactory(renderSystem));
     m_componentFactory->addFactory("Scripts", new ScriptFactory());
+    m_componentFactory->addFactory("UIElement", new UIElementFactory());
 
     // crear un Lua state
     lua_state = luaL_newstate();

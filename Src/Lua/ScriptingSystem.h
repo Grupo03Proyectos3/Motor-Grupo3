@@ -10,6 +10,7 @@
 #include "FlamingoBase/RigidbodyFactory.h"
 #include "FlamingoBase/TransformFactory.h"
 #include "FlamingoBase/LightFactory.h"
+#include "FlamingoBase/UIElementFactory.h"
 #include "FlamingoBase/CameraFactory.h"
 #include "FlamingoBase/AnimatorFactory.h"
 #include "FlamingoBase/ScriptFactory.h"

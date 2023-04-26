@@ -22,6 +22,11 @@ BehaviourScript* BehaviourScript::clone()
     return new BehaviourScript();
 }
 
+std::string BehaviourScript::GetScriptName() 
+{
+    return typeid(*this).name();
+}
+
 void BehaviourScript::initValues()
 {
     std::cout << "BehaviourScript: initializing values " << m_ent->getName() << "\n";

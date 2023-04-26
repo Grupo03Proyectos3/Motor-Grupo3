@@ -22,12 +22,14 @@
     <ClInclude Include="..\..\Src\Lua\BehaviourScript.h" />
     <ClInclude Include="..\..\Src\Lua\PruebaScript.h" />
     <ClInclude Include="..\..\Src\Lua\ScriptingSystem.h" />
+    <ClInclude Include="..\..\Src\Lua\ScriptManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\Lua\BehaviourScript.cpp" />
     <ClCompile Include="..\..\Src\Lua\LuaVariables.cpp" />
     <ClCompile Include="..\..\Src\Lua\PruebaScript.cpp" />
     <ClCompile Include="..\..\Src\Lua\ScriptingSystem.cpp" />
+    <ClCompile Include="..\..\Src\Lua\ScriptManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
