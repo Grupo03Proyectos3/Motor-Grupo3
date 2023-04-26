@@ -5,38 +5,37 @@
 #include <iostream>
 #include <OgreSceneManager.h>
 
-namespace Flamingo
-{
-
+namespace Flamingo{
     Scene::Scene()
     {
-        mSceneManager = nullptr;
-        mOgreRootNode = nullptr;
-        mCeguiRootNode = nullptr;
-        mSceneGameObjects = std::unordered_map<Ogre::String, ecs::GameObject*>();
+        m_SceneManager = nullptr;
+        m_OgreRootNode = nullptr;
+        m_CeguiRootNode = nullptr;
+        m_SceneGameObjects = std::unordered_map<Ogre::String, ecs::GameObject*>();
         mDebug = false;
     }
 
     Scene::~Scene()
     {
-        mSceneGameObjects.clear();
-        mSceneManager = nullptr;
-        mOgreRootNode = nullptr;
+        m_SceneGameObjects.clear();
+        m_SceneManager = nullptr;
+        m_OgreRootNode = nullptr;
     }
 
     void Scene::initScene(Ogre::SceneManager* t_SceneManager,CEGUI::Window* root ,ecs::Manager* mng)
     {
-        mSceneManager = t_SceneManager;
-        mOgreRootNode = mSceneManager->getRootSceneNode();
+        m_SceneManager = t_SceneManager;
+        m_OgreRootNode = m_SceneManager->getRootSceneNode();
+        m_CeguiRootNode = root;
         m_mngr = mng;
     }
 
     void Scene::addObjects(ecs::GameObject* t_GameObject)
     {
         // DEJARLO ASI O K SUDE Y SE CAMBIE POR SI ENTRA OTRO CON EL MISMO NOMBRE
-        if (mSceneGameObjects.find(t_GameObject->getName()) == mSceneGameObjects.end())
+        if (m_SceneGameObjects.find(t_GameObject->getName()) == m_SceneGameObjects.end())
         {
-            mSceneGameObjects.insert({t_GameObject->getName(), t_GameObject});
+            m_SceneGameObjects.insert({t_GameObject->getName(), t_GameObject});
             if (mDebug)
                 std::cout << "Object Name: " << t_GameObject->getName() << " Added\n";
         }
@@ -44,10 +43,10 @@ namespace Flamingo
 
     void Scene::delObject(std::string t_nameObject)
     {
-        auto t_aux = mSceneGameObjects.find(t_nameObject);
-        if (t_aux != mSceneGameObjects.end())
+        auto t_aux = m_SceneGameObjects.find(t_nameObject);
+        if (t_aux != m_SceneGameObjects.end())
         {
-            mSceneGameObjects.erase(t_aux);
+            m_SceneGameObjects.erase(t_aux);
             if (mDebug)
                 std::cout << "Object Name: " << t_nameObject << " Deleted\n";
         }
@@ -60,7 +59,7 @@ namespace Flamingo
 
     void Scene::destroySceneObjects()
     {
-        for (auto obj : mSceneGameObjects)
+        for (auto obj : m_SceneGameObjects)
         {
             if (m_mngr->getComponent<Camera>(obj.second) != nullptr)
             { // es necesario desasociar el viewport de la camara con la camra para k pare de renderizar
@@ -74,9 +73,10 @@ namespace Flamingo
 
     void Scene::desactive()
     {
-        mOgreRootNode->setVisible(false);
+        m_OgreRootNode->setVisible(false);
+        m_CeguiRootNode->setVisible(false);
         // acceder a objectos de la scene en la k esten y desactivarlos
-        for (auto obj : mSceneGameObjects)
+        for (auto obj : m_SceneGameObjects)
         {
             obj.second->setActive(false);
             if (m_mngr->getComponent<Camera>(obj.second) != nullptr)
@@ -84,13 +84,14 @@ namespace Flamingo
                 m_mngr->getComponent<Camera>(obj.second)->desactive();
             }
         }
-        std::cout << "Scene Name: " << mSceneManager->getName() << " Desactivated\n";
+        std::cout << "Scene Name: " << m_SceneManager->getName() << " Desactivated\n";
     }
 
     void Scene::active()
     {
-        mOgreRootNode->setVisible(true);
-        for (auto it : mSceneGameObjects)
+        m_OgreRootNode->setVisible(true);
+        m_CeguiRootNode->setVisible(true);
+        for (auto it : m_SceneGameObjects)
         {
             it.second->setActive(false);
             if (m_mngr->getComponent<Camera>(it.second) != nullptr)
@@ -98,12 +99,12 @@ namespace Flamingo
                 m_mngr->getComponent<Camera>(it.second)->active();
             }
         }
-        std::cout << "Scene name: " << mSceneManager->getName() << " Activated\n";
+        std::cout << "Scene Name: " << m_SceneManager->getName() << " Activated\n";
     }
 
     ecs::GameObject* Scene::getObject(std::string t_name)
     {
-        for (auto it : mSceneGameObjects)
+        for (auto it : m_SceneGameObjects)
         {
             if (it.first == t_name)
                 return it.second;
@@ -113,17 +114,22 @@ namespace Flamingo
 
     std::string Scene::getName()
     {
-        return (std::string)mSceneManager->getName(); 
+        return (std::string)m_SceneManager->getName(); 
     }
 
     Ogre::SceneManager* Scene::getSceneManger()
     {
-        return mSceneManager;
+        return m_SceneManager;
     }
 
     Ogre::SceneNode* Scene::getSceneRoot()
     {
-        return mOgreRootNode;
+        return m_OgreRootNode;
+    }
+
+    CEGUI::Window* Scene::getCeguiRoot()
+    {
+        return m_CeguiRootNode;
     }
 
 } // namespace Flamingo

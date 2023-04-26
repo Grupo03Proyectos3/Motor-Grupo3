@@ -139,7 +139,6 @@ namespace Flamingo
        // t->initValues(SVector3(0 , 100, 0));
        // auto r = ecs::AddComponent<MeshRenderer>(p);
        // 
-
         return initSuccessful;
     }
 

@@ -30,14 +30,15 @@ namespace Flamingo{
         ecs::GameObject* getObject(std::string t_name);
 
         std::string getName();
-        Ogre::SceneManager* getSceneManger();
-        Ogre::SceneNode* getSceneRoot();      
+        Ogre::SceneManager* getSceneManger();//NO EXPORTAR
+        Ogre::SceneNode* getSceneRoot();     //NO EXPORTAR 
+        CEGUI::Window* getCeguiRoot();       //NO EXPORTAR
       private:
         ecs::Manager* m_mngr;
-        Ogre::SceneNode* mOgreRootNode;
-        CEGUI::Window* mCeguiRootNode;
-        Ogre::SceneManager* mSceneManager;
-        std::unordered_map<std::string, ecs::GameObject*> mSceneGameObjects;
+        Ogre::SceneNode* m_OgreRootNode;
+        CEGUI::Window* m_CeguiRootNode;
+        Ogre::SceneManager* m_SceneManager;
+        std::unordered_map<std::string, ecs::GameObject*> m_SceneGameObjects;
         bool mDebug;
     }; 
 } // namespace OgreScene

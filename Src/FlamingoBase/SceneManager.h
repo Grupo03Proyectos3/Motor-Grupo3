@@ -34,16 +34,15 @@ namespace Flamingo{
 
         void setSceneActive(std::string t_SceneName);
         Scene* getSceneActive();
-        Scene* getScene(std::string t_scene_name);
 
         void addScene(Scene* t_Scene);
       protected:
         inline Ogre::Root* getOgreRoot() { return m_OgreRoot; }
-        inline Ogre::SceneManager* getSceneManager() { return m_scene_manager; }
+
       private:
         ecs::Manager* m_mngr;
         Ogre::Root* m_OgreRoot;
-        Ogre::SceneManager* m_scene_manager = nullptr;
+      
         std::unordered_map<std::string, Scene*> m_scenes;
         std::string mNameSceneActive = "";
         std::string mName;        

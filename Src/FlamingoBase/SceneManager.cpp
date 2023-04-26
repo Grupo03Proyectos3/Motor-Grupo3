@@ -14,13 +14,10 @@ namespace Flamingo
 
     SceneManager::~SceneManager(){
         for (auto it = m_scenes.begin(); it != m_scenes.end(); it = m_scenes.erase(it)){
-            //m_OgreRoot->destroySceneManager(it->second->getSceneManger());
             delete it->second;
         }
         m_scenes.clear();
 
-       // delete m_scene_manager;
-        m_scene_manager = nullptr;
         m_OgreRoot = nullptr;
     }
 
@@ -36,7 +33,7 @@ namespace Flamingo
     Scene* SceneManager::createScene(std::string t_SceneName, bool setActive)
     {
         Scene* scene = new Scene();
-        m_scene_manager = m_OgreRoot->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, t_SceneName);
+       auto m_scene_manager = m_OgreRoot->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, t_SceneName);
         auto sysu = m_mngr->getSystem<UISystem>();
         scene->initScene(m_scene_manager, sysu->createRootScene(t_SceneName), m_mngr);
         addScene(scene);
@@ -58,7 +55,7 @@ namespace Flamingo
             std::cout <<"Scene " << t_SceneName->getName() << " Added\n ";
         }
         else{
-            std::cout << "Ya existe una Escena con ese Nombre\n";
+            std::cout << "Already exists a Scene with Name: "<<t_SceneName<<"\n";
             exit(1);
         }
     }
@@ -84,7 +81,7 @@ namespace Flamingo
 
     Scene* SceneManager::getSceneActive(){
         if (m_scenes.empty()){
-            std::cout << "ERROR: NO HAY ESCENAS ACTIVAS EN "<<mName<<"\n";
+            std::cout << "ERROR: There isnt any Scenes Active "<<mName<<"\n";
             exit(1);
         }
         return (*m_scenes.find(mNameSceneActive)).second;
