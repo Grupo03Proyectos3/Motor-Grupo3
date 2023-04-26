@@ -20,9 +20,9 @@ class ScriptFactory : public Factory
 
     ecs::Component* createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
 
-   /*Método que añade un nuevo tipo de script a la lista de scripts, así como almacena su indice de script para poder realizar comprobaciones a la 
-   * hora de añadir nuevos scripts o eliminarlos
-   */
+    /*Método que añade un nuevo tipo de script a la lista de scripts, así como almacena su indice de script para poder realizar comprobaciones a la
+     * hora de añadir nuevos scripts o eliminarlos
+     */
     void addGameScript(std::string t_n, BehaviourScript* t_s)
     {
         if (m_scriptsIndex.count(typeid(t_s).name()))

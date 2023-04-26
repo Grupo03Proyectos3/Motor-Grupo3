@@ -23,6 +23,7 @@ namespace Flamingo{
 
         void setSceneActive(std::string t_SceneName);
         Scene* getSceneActive();
+        Scene* getScene(std::string t_scene_name);
 
         void addScene(Scene* t_Scene);
       protected:

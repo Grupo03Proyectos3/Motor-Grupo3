@@ -158,13 +158,13 @@ void Flamingo::ScriptingSystem::callLuaFunction(std::string t_name)
     fun();
 }
 
-bool Flamingo::ScriptingSystem::loadScene(std::string t_scene)
+bool Flamingo::ScriptingSystem::loadScene(std::string t_scene, bool t_first = true)
 {
     if (t_scene.empty())
     {
         return false;
     }
-    m_scene_mngr->createScene(t_scene, true);
+    m_scene_mngr->createScene(t_scene, t_first);
     // TO DO : añadir control de excepciones devolviendo false si algo falla
     // Por ej : no encuentra el fichero
     readScript(t_scene); 
@@ -209,7 +209,8 @@ bool Flamingo::ScriptingSystem::loadScene(std::string t_scene)
             // lua_pop(entity, 1);
             m_data.clear();
         }
-        m_scene_mngr->getSceneActive()->addObjects(gO);
+        //m_scene_mngr->getSceneActive()->addObjects(gO);
+        m_scene_mngr->getScene(t_scene)->addObjects(gO);
     }
 
     return true;

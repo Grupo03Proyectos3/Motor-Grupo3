@@ -84,4 +84,13 @@ namespace Flamingo{
         return (*m_scenes.find(mNameSceneActive)).second;
     }
 
+    Scene* SceneManager::getScene(std::string t_scene_name)
+    {
+        if (m_scenes.empty())
+        {
+            std::cout << "ERROR: NO HAY ESCENAS ACTIVAS EN " << mName << "\n";
+            exit(1);
+        }
+        return (*m_scenes.find(t_scene_name)).second;
+    }
 } // namespace OgreScene

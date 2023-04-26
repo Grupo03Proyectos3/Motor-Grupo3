@@ -66,7 +66,7 @@ namespace Flamingo
         //void addNumToLua(float var, std::string name);
         //void addIntToLua(int var, std::string name);
         //void addBooleanToLua(bool var, std::string t_name);
-        bool loadScene(std::string t_scene);
+        bool loadScene(std::string t_scene, bool t_first = true);
         
         template <typename T>
         void addVarToLua(T t_var, std::string t_name)
@@ -85,7 +85,6 @@ namespace Flamingo
         void createSystemFuntions();
         luabridge::LuaRef getFromLua(std::string t_name);
     };
-
     
    //extern template void LuaSystem::addVar(Light::lightType t_var, std::string t_name);
 

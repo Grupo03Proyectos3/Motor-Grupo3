@@ -4,13 +4,6 @@
 
 #include "ECS/Component.h"
 #include "ECS/GameObject.h"
-//
-//namespace luabridge
-//{
-//    class LuaRef;
-//    class LuaResult;
-//} // namespace luabridge
-//class lua_State;
 
 struct BehaviourScript : public ecs::Component
 {
