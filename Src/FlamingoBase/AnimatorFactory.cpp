@@ -18,14 +18,14 @@ ecs::Component* AnimatorFactory::createComponent(ecs::GameObject* gO, const std:
         c->initValues(m_renderSystem->getSceneManager()->getSceneActive()->getSceneManger());
         c->initComponent();
 
-      ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_RENDER});
+        ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_RENDER});
 
-        //compsCreated.push_back(c);
         return c;
     }
-    catch (const std::exception&)
+    catch (...)
     {
-        throw new std::exception("Invalids or incompletes params");
+        std::cerr << "[ERROR Animator Factory]: Key not found" << '\n';
+        exit(1);
     }
 
 

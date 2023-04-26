@@ -10,13 +10,13 @@ ecs::Component* PlayerControllerFactory::createComponent(ecs::GameObject* gO, co
         c->initValues(speed);
         c->initComponent();
 
-        //compsCreated.push_back(c);
         ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_PHYSICS});
         return c;
        
     }
-    catch (const std::exception&)
+    catch (...)
     {
-        throw new std::exception("Invalids or incompletes params");
+        std::cerr << "[ERROR PlayerController Factory]: Key does not found" << '\n';
+        exit(1);
     }
 }

@@ -23,12 +23,12 @@ ecs::Component* TransformFactory::createComponent(ecs::GameObject* gO, const std
         c->initValues(SVector3(p_x, p_y, p_z), SQuaternion(r_x, r_y, r_z, r_w), SVector3(s_x, s_y, s_z));
         c->initComponent();
 
-        //compsCreated.push_back(c);
         return c;
        
     }
-    catch (const std::exception&)
+    catch (...)
     {
-        throw new std::exception("Invalids or incompletes params");
+        std::cerr << "[ERROR Transform Factory]: Key not found" << '\n';
+        exit(1);
     }
 }

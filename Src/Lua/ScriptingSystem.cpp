@@ -149,6 +149,7 @@ void Flamingo::ScriptingSystem::readScript(const std::string& t_name)
     std::cerr << "[LUA ERROR] " << lua_tostring(lua_state, -1) << std::endl;
     // remove error message from Lua state
     lua_pop(lua_state, 1);
+    exit(1);
 }
 
 void Flamingo::ScriptingSystem::callLuaFunction(std::string t_name)

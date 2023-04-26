@@ -15,16 +15,16 @@ ecs::Component* CameraFactory::createComponent(ecs::GameObject* gO, const std::u
         std::string entityName = (args.at("t_entity_name"));
 
         Camera* c = ecs::AddComponent<Camera>(gO);
-        c->initValues(m_renderSystem->getSceneManager()->getSceneActive()->getSceneManger(), root->createChildSceneNode()
-            , m_renderSystem->getWindow(), name);
+        c->initValues(m_renderSystem->getSceneManager()->getSceneActive()->getSceneManger(), 
+            root->createChildSceneNode(), m_renderSystem->getWindow(), name);
         c->initComponent();
 
-         ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_RENDER});
-        //compsCreated.push_back(c);
+        ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_RENDER});
         return c;
     }
-    catch (const std::exception&)
+    catch (...)
     {
-        throw new std::exception("Invalids or incompletes params");
+        std::cerr << "[ERROR Camera Factory]: Key not found" << '\n';
+        exit(1);
     }
 }

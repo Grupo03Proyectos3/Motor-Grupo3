@@ -8,12 +8,13 @@ ecs::Component* UIElementFactory::createComponent(ecs::GameObject* gO, const std
         Flamingo::UIElement* c = ecs::AddComponent<Flamingo::UIElement>(gO);
         c->initComponent();
 
-         ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_UI});
+        ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_UI});
         return c;
        
     }
-    catch (const std::exception&)
+    catch (...)
     {
-        throw new std::exception("Invalids or incompletes params");
+        std::cerr << "[ERROR UIElement Factory]: Key does not found" << '\n';
+        exit(1);
     }
 }

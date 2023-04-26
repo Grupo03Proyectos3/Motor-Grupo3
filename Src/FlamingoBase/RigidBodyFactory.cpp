@@ -18,8 +18,9 @@ ecs::Component* RigidBodyFactory::createComponent(ecs::GameObject* gO, const std
         return c;
        
     }
-    catch (const std::exception&)
+    catch (...)
     {
-        throw new std::exception("Invalids or incompletes params");
+        std::cerr << "[ERROR RigidBody Factory]: Key not found" << '\n';
+        exit(1);
     }
 }

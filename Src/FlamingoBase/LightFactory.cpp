@@ -17,13 +17,13 @@ ecs::Component* LightFactory::createComponent(ecs::GameObject* gO, const std::un
         c->initValues(m_renderSystem->getSceneManager()->getSceneActive()->getSceneManger(), root->createChildSceneNode(), name);
         c->initComponent();
 
-        //compsCreated.push_back(c);
         ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_RENDER});
         return c;
        
     }
-    catch (const std::exception&)
+    catch (...)
     {
-        throw new std::exception("Invalids or incompletes params");
+        std::cerr << "[ERROR Light Factory]: Key not found" << '\n';
+        exit(1);
     }
 }

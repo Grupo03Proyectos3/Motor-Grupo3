@@ -26,12 +26,12 @@ ecs::Component* AudioFactory::createComponent(ecs::GameObject* gO, const std::un
         c->initValues(route.c_str(), name, music);
         c->initComponent();
 
-         ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_AUDIO});
-        //compsCreated.push_back(c);
+        ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_AUDIO});
         return c;
     }
-    catch (const std::exception&)
+    catch (...)
     {
-        throw new std::exception("Invalids or incompletes params");
+        std::cerr << "[ERROR Audio Factory]: Key not found" << '\n';
+        exit(1);
     }
 }

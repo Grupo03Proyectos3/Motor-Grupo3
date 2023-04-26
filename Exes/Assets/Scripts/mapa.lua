@@ -1,5 +1,5 @@
 
-entities = {"Sinbad", "Cesped", "Torus", "Arbol"}
+entities = {"Sinbad", "Cesped", "Torus", "Arbol", "Espada"}
 
 Sinbad = {
     Name={
@@ -125,5 +125,36 @@ Arbol = {
     },
     ZAnimator={
         t_name="dragon",
+    }
+}
+
+Espada = {
+    Name={
+        t_name="espadam",
+    },
+    AATransform = {
+        positionX = "-400.0",
+        positionY = "50.0",
+        positionZ = "0.0",
+        scaleX = "250",
+        scaleY = "250",
+        scaleZ = "250",
+        rotationX = "1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0",
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1",
+    },
+    MeshRenderer = {
+        t_model_name = "EspadaMadera.mesh",
+        t_entity_name= "espadam",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= "",
     }
 }
