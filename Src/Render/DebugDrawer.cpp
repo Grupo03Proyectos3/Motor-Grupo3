@@ -11,6 +11,7 @@
 #include <OgreTechnique.h>
 #include <OgreTextureUnitState.h>
 #include <OgreTimer.h>
+#include <FlamingoBase/SceneManager.h>
 
 using namespace Ogre;
 
@@ -32,7 +33,7 @@ void OgreDebugDrawer::drawLine(const btVector3& from, const btVector3& to, const
     line->position(to.x(), to.y(), to.z());
     line->colour(Ogre::ColourValue(color.x(), color.y(), color.z()));
     line->end();
-    m_scn_mngr->getRootSceneNode()->createChildSceneNode()->attachObject(line);
+    Flamingo::SceneMngr().getSceneActive()->getSceneManger()->getRootSceneNode()->createChildSceneNode()->attachObject(line);
     mLines.push_back(line);
 }
 
