@@ -60,6 +60,7 @@ int main(int argc, char* argv[])
      //    return -1;
      //delete fBase;
 
+     // uncomment to check Memory leaks
     //_CrtDumpMemoryLeaks();
 
     return 0;

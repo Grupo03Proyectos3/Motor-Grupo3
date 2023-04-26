@@ -1,9 +1,15 @@
 #ifndef __SCENE_H__
 #define __SCENE_H__
 #pragma once
-#include <OgreSceneManager.h>
+
 #include <unordered_map>
 #include "Ecs/GameObject.h"
+
+namespace Ogre
+{
+    class SceneManager;
+    class SceneNode;
+}
 
 namespace Flamingo{
     class Scene{
@@ -20,9 +26,9 @@ namespace Flamingo{
         void active();
         ecs::GameObject* getObject(std::string t_name);
 
-        inline Ogre::String getName() { return mSceneManager->getName(); };
-        inline Ogre::SceneManager* getSceneManger() { return mSceneManager; };
-        inline Ogre::SceneNode* getSceneRoot() { return mRootNode; };      
+        std::string getName();
+        Ogre::SceneManager* getSceneManger();
+        Ogre::SceneNode* getSceneRoot();      
       private:
         ecs::Manager* m_mngr;
         Ogre::SceneNode* mRootNode;
