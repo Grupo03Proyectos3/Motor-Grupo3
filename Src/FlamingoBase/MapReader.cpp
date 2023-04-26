@@ -4,208 +4,211 @@
 // Include temporal
 #include "FlamingoBase/Scene.h"
 #include "Render/RenderSystem.h"
-
-MapReader::MapReader(Flamingo::RenderSystem* t_renderSystem)
+namespace Flamingo
 {
-    m_renderSystem = t_renderSystem;
-    m_componentFactory = ComponentsFactory::instance();
-    m_mngr = ecs::Manager::instance();
 
-    m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
-    m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(t_renderSystem));
-    m_componentFactory->addFactory("RigidBody", new RigidBodyFactory());
-    m_componentFactory->addFactory("Transform", new TransformFactory());
-    m_componentFactory->addFactory("Light", new LightFactory(t_renderSystem));
-    m_componentFactory->addFactory("Camera", new CameraFactory(t_renderSystem));
-    m_componentFactory->addFactory("Animator", new AnimatorFactory(t_renderSystem));
-}
-
-MapReader::~MapReader()
-{
-}
-
-void MapReader::readMap(std::string filename, Flamingo::Scene* t_scene)
-{
-    createCamera();
-
-    std::unique_ptr<JSONValue> jValueRoot(JSON::ParseFromFile(filename));
-
-    if (jValueRoot == nullptr || !jValueRoot->IsObject())
+    MapReader::MapReader(Flamingo::RenderSystem* t_renderSystem)
     {
-        std::cout << "Something went wrong while load/parsing '" << filename << "'\n";
-        return;
+        m_renderSystem = t_renderSystem;
+        m_componentFactory = ComponentsFactory::instance();
+        m_mngr = ecs::Manager::instance();
+
+        m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
+        m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(t_renderSystem));
+        m_componentFactory->addFactory("RigidBody", new RigidBodyFactory());
+        m_componentFactory->addFactory("Transform", new TransformFactory());
+        m_componentFactory->addFactory("Light", new LightFactory(t_renderSystem));
+        m_componentFactory->addFactory("Camera", new CameraFactory(t_renderSystem));
+        m_componentFactory->addFactory("Animator", new AnimatorFactory(t_renderSystem));
     }
 
-    JSONObject root = jValueRoot->AsObject();
-    JSONValue* jValue = nullptr;
-
-    // Se mete en los datos de los objectos
-    jValue = root["objects"];
-    if (jValue != nullptr)
+    MapReader::~MapReader()
     {
-        if (jValue->IsArray())
+    }
+
+    void MapReader::readMap(std::string filename, Flamingo::Scene* t_scene)
+    {
+        createCamera();
+
+        std::unique_ptr<JSONValue> jValueRoot(JSON::ParseFromFile(filename));
+
+        if (jValueRoot == nullptr || !jValueRoot->IsObject())
         {
-            // Por cada objeto
-            for (auto& v : jValue->AsArray())
+            std::cout << "Something went wrong while load/parsing '" << filename << "'\n";
+            return;
+        }
+
+        JSONObject root = jValueRoot->AsObject();
+        JSONValue* jValue = nullptr;
+
+        // Se mete en los datos de los objectos
+        jValue = root["objects"];
+        if (jValue != nullptr)
+        {
+            if (jValue->IsArray())
             {
-                // Creacion del GO, se puede quitar grupo, hay que ajustar que se borre si no se consigue crear transform
-                ecs::GameObject* gO = m_mngr->addGameObject({ecs::GROUP_EXAMPLE});
-                t_scene->addObjects(gO);
-
-                if (v->IsObject())
+                // Por cada objeto
+                for (auto& v : jValue->AsArray())
                 {
-                    JSONObject vObj = v->AsObject();
+                    // Creacion del GO, se puede quitar grupo, hay que ajustar que se borre si no se consigue crear transform
+                    ecs::GameObject* gO = m_mngr->addGameObject({ecs::GROUP_EXAMPLE});
+                    t_scene->addObjects(gO);
 
-                    // Obtengo el id
-                    try
+                    if (v->IsObject())
                     {
-                        int id = vObj["id"]->AsNumber();
-                    }
-                    catch (const std::exception&)
-                    {
-                        gO->setAlive(false);
-                        throw new std::exception("Id incorrect");
-                    }
+                        JSONObject vObj = v->AsObject();
 
-                    // Obtengo los datos del transform del objeto
-                    try
-                    {
-                        // POSICION
-                        std::string value = vObj["positionX"]->AsString();
-                        m_data.insert({"positionX", value});
-                        m_data.insert({"positionY", vObj["positionY"]->AsString()});
-                        m_data.insert({"positionZ", vObj["positionZ"]->AsString()});
-
-                        // SCALE
-                        m_data.insert({"scaleX", vObj["scaleX"]->AsString()});
-                        m_data.insert({"scaleY", vObj["scaleY"]->AsString()});
-                        m_data.insert({"scaleZ", vObj["scaleZ"]->AsString()});
-
-                        // ROTATION
-                        m_data.insert({"rotationX", vObj["rotationX"]->AsString()});
-                        m_data.insert({"rotationY", vObj["rotationY"]->AsString()});
-                        m_data.insert({"rotationZ", vObj["rotationZ"]->AsString()});
-                        m_data.insert({"rotationW", vObj["rotationW"]->AsString()});
-
-                        // Creacion del componente Transform
-                        m_componentFactory->addComponent(gO, "Transform", m_data);
-                    }
-                    catch (const std::exception&)
-                    {
-                        gO->setAlive(false);
-                        throw new std::exception("Params of Transform are incorrect");
-                    }
-
-                    m_data.clear();
-
-                    // Recorro cada uno de los scripts que tenga
-                    JSONValue* jValueS = nullptr;
-
-                    root = vObj;
-                    jValueS = root["scripts"];
-                    if (jValueS != nullptr)
-                    {
-                        if (jValueS->IsArray())
+                        // Obtengo el id
+                        try
                         {
-                            for (auto& w : jValueS->AsArray())
+                            int id = vObj["id"]->AsNumber();
+                        }
+                        catch (const std::exception&)
+                        {
+                            gO->setAlive(false);
+                            throw new std::exception("Id incorrect");
+                        }
+
+                        // Obtengo los datos del transform del objeto
+                        try
+                        {
+                            // POSICION
+                            std::string value = vObj["positionX"]->AsString();
+                            m_data.insert({"positionX", value});
+                            m_data.insert({"positionY", vObj["positionY"]->AsString()});
+                            m_data.insert({"positionZ", vObj["positionZ"]->AsString()});
+
+                            // SCALE
+                            m_data.insert({"scaleX", vObj["scaleX"]->AsString()});
+                            m_data.insert({"scaleY", vObj["scaleY"]->AsString()});
+                            m_data.insert({"scaleZ", vObj["scaleZ"]->AsString()});
+
+                            // ROTATION
+                            m_data.insert({"rotationX", vObj["rotationX"]->AsString()});
+                            m_data.insert({"rotationY", vObj["rotationY"]->AsString()});
+                            m_data.insert({"rotationZ", vObj["rotationZ"]->AsString()});
+                            m_data.insert({"rotationW", vObj["rotationW"]->AsString()});
+
+                            // Creacion del componente Transform
+                            m_componentFactory->addComponent(gO, "Transform", m_data);
+                        }
+                        catch (const std::exception&)
+                        {
+                            gO->setAlive(false);
+                            throw new std::exception("Params of Transform are incorrect");
+                        }
+
+                        m_data.clear();
+
+                        // Recorro cada uno de los scripts que tenga
+                        JSONValue* jValueS = nullptr;
+
+                        root = vObj;
+                        jValueS = root["scripts"];
+                        if (jValueS != nullptr)
+                        {
+                            if (jValueS->IsArray())
                             {
-                                if (w->IsObject())
+                                for (auto& w : jValueS->AsArray())
                                 {
-                                    // Por cada script obtengo el nombre
-                                    JSONObject vObjS = w->AsObject();
-                                    try
+                                    if (w->IsObject())
                                     {
-                                        std::string scriptType = vObjS["type"]->AsString();
-
-                                        // Parametros de ese script
-                                        JSONValue* jValueSP = nullptr;
-                                        root = vObjS;
-                                        jValueSP = root["allParams"];
-
-                                        if (jValueSP != nullptr)
+                                        // Por cada script obtengo el nombre
+                                        JSONObject vObjS = w->AsObject();
+                                        try
                                         {
-                                            if (jValueSP->IsArray())
+                                            std::string scriptType = vObjS["type"]->AsString();
+
+                                            // Parametros de ese script
+                                            JSONValue* jValueSP = nullptr;
+                                            root = vObjS;
+                                            jValueSP = root["allParams"];
+
+                                            if (jValueSP != nullptr)
                                             {
-                                                for (auto& b : jValueSP->AsArray())
+                                                if (jValueSP->IsArray())
                                                 {
-                                                    if (b->IsObject())
+                                                    for (auto& b : jValueSP->AsArray())
                                                     {
-                                                        JSONObject vObjSP = b->AsObject();
-                                                        try
+                                                        if (b->IsObject())
                                                         {
-                                                            std::string valueName = vObjSP["nameParam"]->AsString();
-                                                            std::string valueParam = vObjSP["valueParam"]->AsString();
-                                                            m_data.insert({valueName, valueParam});
+                                                            JSONObject vObjSP = b->AsObject();
+                                                            try
+                                                            {
+                                                                std::string valueName = vObjSP["nameParam"]->AsString();
+                                                                std::string valueParam = vObjSP["valueParam"]->AsString();
+                                                                m_data.insert({valueName, valueParam});
+                                                            }
+                                                            catch (const std::exception&)
+                                                            {
+                                                                throw new std::exception("Params of script incorrect");
+                                                            }
                                                         }
-                                                        catch (const std::exception&)
+                                                        else
                                                         {
-                                                            throw new std::exception("Params of script incorrect");
+                                                            throw new std::exception("Param of script are are not correct");
                                                         }
-                                                    }
-                                                    else
-                                                    {
-                                                        throw new std::exception("Param of script are are not correct");
                                                     }
                                                 }
                                             }
+                                            else
+                                            {
+                                                throw "'allParams' is null";
+                                            }
+                                            // Se añade al componente
+                                            m_componentFactory->addComponent(gO, scriptType, m_data);
+                                            m_data.clear();
                                         }
-                                        else
+                                        catch (const std::exception&)
                                         {
-                                            throw "'allParams' is null";
+                                            throw new std::exception("Param of script are are not correct");
                                         }
-                                        // Se añade al componente
-                                        m_componentFactory->addComponent(gO, scriptType, m_data);
                                         m_data.clear();
                                     }
-                                    catch (const std::exception&)
+                                    else
                                     {
-                                        throw new std::exception("Param of script are are not correct");
+                                        gO->setAlive(false);
+                                        throw "'scripts' array in '" + filename + "' includes and invalid value";
                                     }
-                                    m_data.clear();
-                                }
-                                else
-                                {
-                                    gO->setAlive(false);
-                                    throw "'scripts' array in '" + filename + "' includes and invalid value";
                                 }
                             }
+                        }
+                        else
+                        {
+                            gO->setAlive(false);
+                            throw "'scripts' are null";
                         }
                     }
                     else
                     {
                         gO->setAlive(false);
-                        throw "'scripts' are null";
+                        throw "'objects' array in '" + filename + "' includes and invalid value";
                     }
-                }
-                else
-                {
-                    gO->setAlive(false);
-                    throw "'objects' array in '" + filename + "' includes and invalid value";
                 }
             }
         }
+        else
+        {
+            throw "'objects' are null";
+        }
     }
-    else
+
+    void MapReader::createCamera()
     {
-        throw "'objects' are null";
+        ecs::GameObject* gO = m_mngr->addGameObject({ecs::GROUP_RENDER});
+
+        m_data.insert({"t_name", "m_camera"});
+        m_data.insert({"t_entity_name", "camera"});
+        m_componentFactory->addComponent(gO, "Camera", m_data);
+
+        m_data.clear();
+
+        // PASAR A FLAMINGOBASE
+        auto m_camera = ecs::getComponent<Camera>(gO);
+        m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
+
+        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
+        m_camera->setNearClipDistance(1);
+        m_camera->setFarClipDistance(10000);
     }
-}
-
-void MapReader::createCamera()
-{
-    ecs::GameObject* gO = m_mngr->addGameObject({ecs::GROUP_RENDER});
-
-    m_data.insert({"t_name", "m_camera"});
-    m_data.insert({"t_entity_name", "camera"});
-    m_componentFactory->addComponent(gO, "Camera", m_data);
-
-    m_data.clear();
-
-    // PASAR A FLAMINGOBASE
-    auto m_camera = ecs::getComponent<Camera>(gO);
-    m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
-
-    m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
-    m_camera->setNearClipDistance(1);
-    m_camera->setFarClipDistance(10000);
-}
+} // namespace Flamingo

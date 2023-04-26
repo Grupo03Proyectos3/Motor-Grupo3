@@ -6,11 +6,15 @@
 /*Clase base para las diferentes factorías de componentes que tendremos en el proyecto.
  *Contiene una lista de todos los componentes creados para eliminarlos al finalziar la ejecución
  */
-class RigidBodyFactory : public Factory
+namespace Flamingo
 {
-  public:
-    RigidBodyFactory() = default;
 
-   ecs::Component* createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
-};
+    class RigidBodyFactory : public Factory
+    {
+      public:
+        RigidBodyFactory() = default;
+
+        ecs::Component* createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
+    };
+} // namespace Flamingo
 #endif

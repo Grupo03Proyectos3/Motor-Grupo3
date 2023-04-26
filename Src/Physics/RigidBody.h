@@ -17,49 +17,49 @@ class btCollisionObject;
 class SVector3;
 class SQuaternion;
 class FlamingoMotionState;
+namespace Flamingo{
+    struct RigidBody : public ecs::Component
+    {
+      public:
+        __SYSTEM_ID_DECL__(ecs::_cmp_RIGID_BODY)
 
-struct RigidBody : public ecs::Component
-{
-  public:
-    __SYSTEM_ID_DECL__(ecs::_cmp_RIGID_BODY)
+        RigidBody();
+        virtual ~RigidBody();
+        virtual void initValues(float t_mass, bool t_trigger, bool t_static);
+        virtual void initComponent();
 
-    RigidBody();
-    virtual ~RigidBody();
-    virtual void initValues(float t_mass, bool t_trigger, bool t_static);
-    virtual void initComponent();
+        void setMass(const float& t_mass);
+        void setTrigger(bool t_trigger);
+        void setStatic(bool t_static);
+        void setKinematic(bool t_kinematic);
+        void setPosition(SVector3 t_pos);
+        void setRotation(SQuaternion t_rot);
+        void setLinearVelocity(const SVector3& t_velocity);
+        void setAngularVelocity(const SVector3& t_velocity);
 
-    void setMass(const float& t_mass);
-    void setTrigger(bool t_trigger);
-    void setStatic(bool t_static);
-    void setKinematic(bool t_kinematic);
-    void setPosition(SVector3 t_pos);
-    void setRotation(SQuaternion t_rot);
-    void setLinearVelocity(const SVector3& t_velocity);
-    void setAngularVelocity(const SVector3& t_velocity);
+        inline btRigidBody* getBtRigidBody() const { return m_rigid_body; };
+        inline float getMass() const { return m_mass; };
+        inline bool isTrigger() const { return m_trigger; };
+        inline bool isStatic() const { return m_static; };
+        inline bool isKinematic() const { return m_kinematic; };
+        SVector3 getPosition() const;
+        SQuaternion getRotation() const;
+        SVector3 getLinearVelocity() const;
+        SVector3 getAngularVelocity() const;
 
-    inline btRigidBody* getBtRigidBody() const { return m_rigid_body; };
-    inline float getMass() const { return m_mass; };
-    inline bool isTrigger() const { return m_trigger; };
-    inline bool isStatic() const { return m_static; };
-    inline bool isKinematic() const { return m_kinematic; };
-    SVector3 getPosition() const;
-    SQuaternion getRotation() const;
-    SVector3 getLinearVelocity() const;
-    SVector3 getAngularVelocity() const;
+      private:
+        btRigidBody* m_rigid_body = nullptr;       // rigidbody de Bullet
+        btTransform* m_bullet_transform = nullptr; // transform de bullet
+        btCollisionShape* m_shape = nullptr;
+        FlamingoMotionState* m_state = nullptr;
 
-  private:
-    btRigidBody* m_rigid_body = nullptr;       // rigidbody de Bullet
-    btTransform* m_bullet_transform = nullptr; // transform de bullet
-    btCollisionShape* m_shape = nullptr; 
-    FlamingoMotionState* m_state = nullptr;
+        float m_mass = 1.0f;
+        bool m_trigger = false;
+        bool m_static = false;
 
-    float m_mass = 1.0f;
-    bool m_trigger = false;
-    bool m_static = false;
+        // la velocidad va en el btRigidBody
 
-    // la velocidad va en el btRigidBody
-
-    bool m_kinematic = false;
-};
-
+        bool m_kinematic = false;
+    };
+} // namespace Flamingo
 #endif
