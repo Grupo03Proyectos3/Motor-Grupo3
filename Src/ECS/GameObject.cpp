@@ -22,7 +22,8 @@ ecs::GameObject::GameObject(std::vector<ecs::groupId_type> t_gId = {GROUP_EXAMPL
 ecs::GameObject::~GameObject()
 {
     for (auto it = m_current_comps.begin(); it != m_current_comps.end(); ++it)
-        delete it->second;
+        if (it->second != nullptr) 
+            delete it->second;
 
     m_current_comps.clear();
 }
