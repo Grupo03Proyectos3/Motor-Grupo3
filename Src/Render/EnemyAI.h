@@ -29,7 +29,9 @@ struct EnemyAI : public BehaviourScript
     void initComponent() override;
     void update(float t_delta_time) override;
     void onCollisionEnter(ecs::GameObject* t_other) override;
-    void enemyMovement(float t_delta_time);
+    void checkDistance(SVector3 t_player_pos);
+    void followPlayer(SVector3 t_player_pos);
+    void attack();
 
   private:
    
@@ -37,8 +39,12 @@ struct EnemyAI : public BehaviourScript
     int m_time_last_dir = 0;
     int m_time_last_move = 0;
     SVector3 m_velocity;
+    SVector3 direction;
     bool m_wandering;
+    bool m_attacking;
     int m_lives;
+
+    void enemyMovement(float t_delta_time);
 };
 
 #endif
