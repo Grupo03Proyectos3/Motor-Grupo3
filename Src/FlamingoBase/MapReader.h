@@ -17,23 +17,24 @@ using Data = std::unordered_map<std::string, std::string>;
 
 class RenderSystem;
 class Flamingo::Scene;
-
-class MapReader
+namespace Flamingo
 {
-  public:
-    MapReader(Flamingo::RenderSystem* t_renderSystem);
-    ~MapReader();
 
-    void readMap(std::string t_filename, Flamingo::Scene* t_scene);
+    class MapReader
+    {
+      public:
+        MapReader(Flamingo::RenderSystem* t_renderSystem);
+        ~MapReader();
 
-    void createCamera();
+        void readMap(std::string t_filename, Flamingo::Scene* t_scene);
 
-  private:
-    ComponentsFactory* m_componentFactory;
-    Data m_data;
-    ecs::Manager* m_mngr;
-    Flamingo::RenderSystem* m_renderSystem;
-   
-};
+        void createCamera();
 
+      private:
+        ComponentsFactory* m_componentFactory;
+        Data m_data;
+        ecs::Manager* m_mngr;
+        Flamingo::RenderSystem* m_renderSystem;
+    };
+} // namespace Flamingo
 #endif

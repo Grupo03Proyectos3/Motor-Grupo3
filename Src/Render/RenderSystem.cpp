@@ -109,16 +109,8 @@ namespace Flamingo
         {
             OGRE_EXCEPT(Ogre::Exception::ERR_FILE_NOT_FOUND, "plugins.cfg", m_app_name + ": createRoot");
         }
-
-        //m_root = new Ogre::Root(pluginsPath, m_fs_layer->getWritablePath("ogre.cfg"), m_fs_layer->getWritablePath("ogre.log"));
         m_root = new Ogre::Root("plugins.cfg", "ogre.cfg", "Ogre.log");
-        m_scene_mngr = new Flamingo::SceneManager(m_app_name + " - SceneManager", m_mngr);
-
-        // mSceneManager = mRoot->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, mAppName);
-
-        // SI NO LO PONGO NO PILLA NINGUN RENDER ACTIVO **NO NECESARIO CON config(), ya lo hace auto **
-        // mRenderSystem = mRoot->getRenderSystemByName("Direct3D11 Rendering Subsystem");
-        // mRoot->setRenderSystem(mRenderSystem);
+        m_scene_mngr = new Flamingo::SceneManager(m_app_name + " - SceneManager", m_mngr);      
     }
 
     void RenderSystem::setUp()
@@ -175,13 +167,7 @@ namespace Flamingo
 
         arch_name = genLocs.front().archive->getName() + "/Essencial";
         type_name = genLocs.front().archive->getType();
-
-        // A�ADIR LOS LENGUAJES DE PROGRAMACION DE LOS SHADERS
-        // Add locations for supported shader languages
-        /*if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles")){
-
-        }*/
-        // Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/GLSLES", type_name, sec_name);
+      
         // if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl"))
         //{
         Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch_name + "/programs/GLSL120", type_name, sec_name);
