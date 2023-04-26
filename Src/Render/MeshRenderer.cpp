@@ -9,8 +9,9 @@
 #include "FlamingoUtils/SVector3.h"
 namespace Flamingo
 {
-    void MeshRenderer::initValues(SVector3 scaleNode, std::string t_model_name, std::string t_entity_name){
-       auto sys= m_mngr->getSystem<RenderSystem>();
+    void MeshRenderer::initValues(SVector3 scaleNode, std::string t_model_name, std::string t_entity_name)
+    {
+        auto sys = m_mngr->getSystem<RenderSystem>();
         m_scene_mngr = sys->getSceneManager()->getSceneActive()->getSceneManger();
         m_entity_name = t_entity_name;
         m_model_name = t_model_name;
@@ -105,9 +106,10 @@ namespace Flamingo
         return m_ent_ogre->getBoundingBox();
     }
 
-MeshRenderer::~MeshRenderer()
-{
-    // delete m_ent_ogre;
-    m_scene_node->detachAllObjects();
-    m_ent_ogre = nullptr;
-}
+    MeshRenderer::~MeshRenderer()
+    {
+        // delete m_ent_ogre;
+        m_scene_node->detachAllObjects();
+        m_ent_ogre = nullptr;
+    }
+} // namespace Flamingo
