@@ -33,11 +33,11 @@ void EnemyAI::update(float t_delta_time)
 
 void EnemyAI::enemyMovement(float t_delta_time)
 {
-    // if (m_lives <= 0)
-    //{
+     if (m_lives <= 0)
+    {
     m_ent->setActive(false);
     m_ent->setAlive(false);
-    //}
+    }
 
     m_time_last_dir += t_delta_time;
     // std::cout << m_timeSinceLastDirectionChange << std::endl;
