@@ -1,5 +1,5 @@
 set EXES=.\..\..\..\Exes
-IF EXIST .\Build RMDIR /S /Q .\Build
+IF EXIST .\Build rd /s /q .\Build
 
 mkdir .\Build
 

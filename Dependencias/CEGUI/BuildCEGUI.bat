@@ -7,7 +7,7 @@ set CMAKEDEP=.\..\..\..\cmake\bin\cmake.exe
 set EXES=.\..\..\..\Exes
 set CEGUI_CONFIG_PATH=.\cegui\include\CEGUI\Config.h
 
-IF EXIST .\dependencies\build RMDIR /S /Q .\dependencies\build
+IF EXIST .\dependencies\build rm /s /q .\dependencies\build
 
 mkdir .\dependencies\build
 cd .\dependencies\build
@@ -20,7 +20,7 @@ mkdir .\..\..\src\dependencies
 xcopy /y /s .\dependencies .\..\..\src\dependencies
 cd .\..\..
 
-IF EXIST .\Build RMDIR /S /Q .\Build
+IF EXIST .\Build rm /s /q .\Build
 mkdir .\Build
 cd .\Build 
 %CMAKE% -DCEGUI_SAMPLES_ENABLED:BOOL="0" -DCEGUI_BUILD_LUA_MODULE:BOOL="0" -DCEGUI_BUILD_LUA_GENERATOR:BOOL="0" -DCEGUI_BUILD_RENDERER_OPENGL3:BOOL="0" -DCEGUI_BUILD_RENDERER_OPENGL:BOOL="0" -DCEGUI_BUILD_XMLPARSER_EXPAT:BOOL="1" -DCEGUI_BUILD_APPLICATION_TEMPLATES:BOOL="0" -DCEGUI_BUILD_RENDERER_OGRE:BOOL="1" -DCEGUI_BUILD_OPENGL:BOOL="0" -DCEGUI_BUILD_IMAGECODEC_SILLY:BOOL="1" -DOGRE_LIB_DBG:FILEPATH="%DEPENDENCIESPATH%\Ogre\Build\lib\Debug\OgreMain_d.lib" -DOGRE_H_PATH:PATH="%DEPENDENCIESPATH%\Ogre\Src\OgreMain\include" -DOGRE_LIB:FILEPATH="%DEPENDENCIESPATH%\Ogre\Build\lib\Release\OgreMain.lib" -DOGRE_H_BUILD_SETTINGS_PATH:PATH="%DEPENDENCIESPATH%\Ogre\Build\include" ..\Src

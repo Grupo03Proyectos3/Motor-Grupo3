@@ -1,7 +1,7 @@
 set CMAKE=.\..\..\cmake\bin\cmake.exe
 set EXES=.\..\..\..\Exes
 
-IF EXIST .\Build RMDIR /S /Q .\Build
+IF EXIST .\Build rm /s /q .\Build
 
 mkdir .\Build
 cd .\Build

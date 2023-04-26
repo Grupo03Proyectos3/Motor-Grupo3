@@ -1,3 +1,5 @@
+call CleanDependencies.bat
+
 cd .\Ogre
 call BuildOgre.bat
 cd ..
