@@ -5,6 +5,7 @@
 
 class Manager;
 class ScriptFactory;
+class ScriptManager;
 // class Component;
 #include "Component.h"
 #include "ecs.h"
@@ -38,6 +39,7 @@ namespace ecs
 
       private:
         friend class Manager;
+        friend class ScriptManager;
         friend class ScriptFactory;
 
         bool m_alive;

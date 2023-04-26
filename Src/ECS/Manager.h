@@ -176,13 +176,13 @@ namespace ecs
         /*Añade un script a un gameObject, la isntancia de la clase del script debe estar ya creada y no comprueba si es necesario borrar
         un duplicado*/
         template <typename T>
-        inline T* addScript(GameObject* t_e, T* t_s)
+        inline T* addScript(GameObject* t_e, T* t_s, std::string t_n)
         {
             // removeScript<T>(t_e, t_scriptIndex);
 
             t_s->setContext(t_e, this);
 
-            t_e->m_current_comps.insert({(typeid(T).name()), t_s});
+            t_e->m_current_comps.insert({t_n, t_s});
 
             return t_s;
         }
