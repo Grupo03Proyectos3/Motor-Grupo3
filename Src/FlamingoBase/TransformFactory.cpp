@@ -9,7 +9,7 @@ ecs::Component* TransformFactory::createComponent(ecs::GameObject* gO, const std
         float p_y = std::stof(args.at("positionY"));
         float p_z = std::stof(args.at("positionZ"));
 
-         float r_x = std::stof(args.at("rotationX"));
+        float r_x = std::stof(args.at("rotationX"));
         float r_y = std::stof(args.at("rotationY"));
         float r_z = std::stof(args.at("rotationZ"));
         float r_w = std::stof(args.at("rotationW"));

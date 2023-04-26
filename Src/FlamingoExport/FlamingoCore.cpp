@@ -123,8 +123,8 @@ namespace Flamingo
         x->setActive(true);
 
         //TO DO: eliminar despues de comprobar las animaciones
-        auto d = mainScene->getObject("dragon");
-        auto a = m_mngr->getComponent<Flamingo::Animator>(d);
+        //auto d = mainScene->getObject("dragon");
+        //auto a = m_mngr->getComponent<Flamingo::Animator>(d);
         //a->setAnimation("idle", true, true);
 
         // enemigos

@@ -22,7 +22,7 @@ namespace Flamingo
         }
         catch (...)
         {
-            std::cerr << "[ERROR Mesh Renderer]: Mesh name if different from .mesh name" << '\n';
+            std::cerr << "[ERROR Mesh Renderer]: Mesh name is different from .mesh name" << '\n';
             exit(1);
         }
 
