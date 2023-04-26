@@ -5,15 +5,17 @@
 #include <OgreSceneManager.h>
 
 #include "ECS/Manager.h"
+#include "RenderSystem.h"
 
 namespace Flamingo
 {
 
     Animator::Animator() {}
 
-    void Animator::initValues(Ogre::SceneManager* t_mng)
+    void Animator::initValues()
     {
-        m_scene_mngr = (t_mng);
+        auto sys = m_mngr->getSystem<RenderSystem>();
+        m_scene_mngr = sys->getSceneManager()->getSceneActive()->getSceneManger();
 
         m_num_animations_active = (0);
 
