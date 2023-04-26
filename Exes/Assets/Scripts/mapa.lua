@@ -1,9 +1,8 @@
-
-entities = {"Sinbad", "Cesped", "Torus", "Arbol", "Espada"}
+entities = {"Sinbad", "Cesped", "Torus", "Arbol", "EspadaMetal", "EspadaMadera", "EspadaEspecial"}
 
 Sinbad = {
     Name={
-        t_name="simbad",
+        t_name="simbad"
     },
    AATransform = {
        positionX = "200.0",
@@ -15,15 +14,15 @@ Sinbad = {
        rotationX="0.0",
        rotationY="0.0",
        rotationZ="0.0",
-       rotationW="1.0",
+       rotationW="1.0"
    },
    PlayerController = {
-       t_speed = "20",
+       t_speed = "20"
    },
    RigidBody = {
        t_mass = "20.0",
        t_trigger = "0",
-       t_static = "0",
+       t_static = "0"
    },
    MeshRenderer = {
        t_model_name = "Sinbad.mesh",
@@ -31,12 +30,12 @@ Sinbad = {
        t_node_x="25.0",
        t_node_y="25.0",
        t_node_z="25.0",
-       t_mat_name= "",
+       t_mat_name= ""
    }
 }
 Cesped = {
     Name={
-        t_name="cesped",
+        t_name="cesped"
     },
     AATransform = {
         positionX = "0.0",
@@ -48,12 +47,12 @@ Cesped = {
         rotationX = "0.0",
         rotationY = "0.0",
         rotationZ = "0.0",
-        rotationW = "1.0",
+        rotationW = "1.0"
     },
     RigidBody = {
         t_mass = "20.0",
         t_trigger = "0",
-        t_static = "1",
+        t_static = "1"
     },
     MeshRenderer = {
         t_model_name = "cube.mesh",
@@ -61,12 +60,12 @@ Cesped = {
         t_node_x=" 100.0",
         t_node_y="0.2",
         t_node_z="100.0",
-        t_mat_name= "Prueba/cesped",
+        t_mat_name= "Prueba/cesped"
     }
 }
 Torus = {
     Name={
-        t_name="torus",
+        t_name="torus"
     },
    AATransform = {
        positionX= "200.0",
@@ -78,12 +77,12 @@ Torus = {
        rotationX="0.0",
        rotationY="0.0",
        rotationZ="0.0",
-       rotationW="1.0",
+       rotationW="1.0"
    },
    RigidBody = {
        t_mass = "20.0",
        t_trigger = "0",
-       t_static = "1",
+       t_static = "1"
    },
    MeshRenderer = {
        t_model_name = "Torus.mesh",
@@ -91,12 +90,12 @@ Torus = {
        t_node_x=" 100.0",
        t_node_y="0.2",
        t_node_z="100.0",
-       t_mat_name= "Prueba/cesped",
+       t_mat_name= "Prueba/cesped"
    }
 }
 Arbol = {
     Name={
-        t_name="dragon",
+        t_name="dragon"
     },
     AATransform = {
         positionX = "0.0",
@@ -108,12 +107,12 @@ Arbol = {
         rotationX = "-1.0",
         rotationY = "0.0",
         rotationZ = "0.0",
-        rotationW = "1.0",
+        rotationW = "1.0"
     },
     RigidBody = {
         t_mass = "20.0",
         t_trigger = "0",
-        t_static = "1",
+        t_static = "1"
     },
     MeshRenderer = {
         t_model_name = "dragon.mesh",
@@ -121,40 +120,100 @@ Arbol = {
         t_node_x="0",
         t_node_y="0",
         t_node_z="0",
-        t_mat_name= "",
+        t_mat_name= ""
     },
     ZAnimator={
-        t_name="dragon",
+        t_name="dragon"
     }
 }
 
-Espada = {
+EspadaMetal = {
     Name={
         t_name="espadam",
+    },
+    AATransform = {
+        positionX = "-500.0",
+        positionY = "50.0",
+        positionZ = "0.0",
+        scaleX = "20",
+        scaleY = "20",
+        scaleZ = "20",
+        rotationX = "1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "EspadaMetal.mesh",
+        t_entity_name= "espadam",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+EspadaMadera = {
+    Name={
+        t_name="espada",
     },
     AATransform = {
         positionX = "-400.0",
         positionY = "50.0",
         positionZ = "0.0",
-        scaleX = "250",
-        scaleY = "250",
-        scaleZ = "250",
+        scaleX = "20",
+        scaleY = "20",
+        scaleZ = "20",
         rotationX = "1.0",
         rotationY = "0.0",
         rotationZ = "0.0",
-        rotationW = "1.0",
+        rotationW = "1.0"
     },
     RigidBody = {
         t_mass = "20.0",
         t_trigger = "0",
-        t_static = "1",
+        t_static = "1"
     },
     MeshRenderer = {
         t_model_name = "EspadaMadera.mesh",
-        t_entity_name= "espadam",
+        t_entity_name= "espada",
         t_node_x="0",
         t_node_y="0",
         t_node_z="0",
-        t_mat_name= "",
+        t_mat_name= ""
+    }
+}
+EspadaEspecial = {
+    Name={
+        t_name="espadae",
+    },
+    AATransform = {
+        positionX = "-300.0",
+        positionY = "50.0",
+        positionZ = "0.0",
+        scaleX = "15",
+        scaleY = "10",
+        scaleZ = "10",
+        rotationX = "0.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "EspadaEspecial.mesh",
+        t_entity_name= "espadae",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
     }
 }
