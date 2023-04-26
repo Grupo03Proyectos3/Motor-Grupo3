@@ -10,6 +10,7 @@
 #include "FlamingoBase/LightFactory.h"
 #include "FlamingoBase/CameraFactory.h"
 #include "FlamingoBase/AnimatorFactory.h"
+#include "FlamingoBase/UIElementFactory.h"
 #include "ECS/Manager.h"
 #include <unordered_map>
 

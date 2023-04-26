@@ -8,13 +8,13 @@ ecs::Component* ScriptFactory::createComponent(ecs::GameObject* gO, const std::u
 {
     try
     {
-        std::string script = (args.at("t_scriptName"));
+        std::string script = ScriptManager::instance()->getScriptName(args.at("t_scriptName"));
 
-        deleteOtherScript(m_scriptsIndex[typeid( m_gameScripts[script]).name()], gO);
+        ScriptManager::instance()->deleteOtherScript(script, gO);
 
-        auto c = ecs::Manager::instance()->addScript<>(gO, m_gameScripts[script]->clone());
+        auto c = ecs::Manager::instance()->addScript<>(gO, ScriptManager::instance()->getScript(script), script);
 
-        //c->initValues();
+        // c->initValues();
         ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_SCRIPTING});
         // compsCreated.push_back(c);
         return c;
@@ -25,21 +25,21 @@ ecs::Component* ScriptFactory::createComponent(ecs::GameObject* gO, const std::u
         exit(1);
     }
 }
-
-void ScriptFactory::deleteOtherScript(int t_scriptIndex, ecs::GameObject* t_gO)
-{
-    auto it = t_gO->m_current_comps.begin();
-
-    while (it != t_gO->m_current_comps.end())
-    {
-        BehaviourScript* other = dynamic_cast<BehaviourScript*>(it->second);
-
-        if (other != nullptr && m_scriptsIndex[typeid(other).name()] == t_scriptIndex)
-        {
-                ecs::Manager::instance()->removeScript(t_gO, it);
-                break;
-        }
-        else
-            it++;
-    }
-}
+//
+// void ScriptFactory::deleteOtherScript(int t_scriptIndex, ecs::GameObject* t_gO)
+//{
+//    auto it = t_gO->m_current_comps.begin();
+//
+//    while (it != t_gO->m_current_comps.end())
+//    {
+//        BehaviourScript* other = dynamic_cast<BehaviourScript*>(it->second);
+//
+//        if (other != nullptr && m_scriptsIndex[typeid(other).name()] == t_scriptIndex)
+//        {
+//                ecs::Manager::instance()->removeScript(t_gO, it);
+//                break;
+//        }
+//        else
+//            it++;
+//    }
+//}

@@ -6,6 +6,7 @@
 #include "FlamingoUtils/SVector3.h"
 #include "FlamingoUtils/SQuaternion.h"
 #include "CEGUI/ImageManager.h"
+
 namespace Flamingo{
     UIElement::UIElement() {
         m_element = nullptr;
@@ -24,6 +25,24 @@ namespace Flamingo{
             exit(1);
         }
         createEmptyWindow("");
+
+        setElementWidget(m_type, m_name);
+
+        auto t = m_mngr->getComponent<Transform>(m_ent);
+        t->setPosition({t->getPosition().getX(), t->getPosition().getY(), 0});
+        t->setScale({t->getScale().getX(), t->getScale().getY(), 0});
+        setText(m_text);
+
+        if (m_image != "")
+        setImage("Image", m_name ,m_image);
+    }
+
+    void UIElement::initValues(std::string type, std::string name, std::string text, const std::string image)
+    {
+        m_type = type;
+        m_name = name;
+        m_text = text;
+        m_image = image;
     }
 
     void UIElement::setText(const std::string& text){

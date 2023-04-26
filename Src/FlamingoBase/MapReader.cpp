@@ -20,6 +20,7 @@ namespace Flamingo
         m_componentFactory->addFactory("Light", new LightFactory(t_renderSystem));
         m_componentFactory->addFactory("Camera", new CameraFactory(t_renderSystem));
         m_componentFactory->addFactory("Animator", new AnimatorFactory(t_renderSystem));
+        m_componentFactory->addFactory("UIElement", new UIElementFactory());
     }
 
     MapReader::~MapReader()
