@@ -1,4 +1,4 @@
-entities = {"Sinbad", "Cesped", "Torus", "Arbol", "EspadaMetal", "EspadaMadera", "EspadaEspecial"}
+entities = {"Sinbad", "Cesped", "Torus", "Arbol", "EspadaMetal", "EspadaMadera", "EspadaEspecial", "Slime"}
 
 Sinbad = {
     Name={
@@ -195,7 +195,7 @@ EspadaEspecial = {
         positionX = "-300.0",
         positionY = "50.0",
         positionZ = "0.0",
-        scaleX = "15",
+        scaleX = "10",
         scaleY = "10",
         scaleZ = "10",
         rotationX = "0.0",
@@ -211,6 +211,36 @@ EspadaEspecial = {
     MeshRenderer = {
         t_model_name = "EspadaEspecial.mesh",
         t_entity_name= "espadae",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+Slime = {
+    Name={
+        t_name="slime02",
+    },
+    AATransform = {
+        positionX = "-300.0",
+        positionY = "50.0",
+        positionZ = "200.0",
+        scaleX = "150",
+        scaleY = "150",
+        scaleZ = "150",
+        rotationX = "0.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "slime07.mesh",
+        t_entity_name= "slime02",
         t_node_x="0",
         t_node_y="0",
         t_node_z="0",
