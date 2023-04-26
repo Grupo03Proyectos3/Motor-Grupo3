@@ -23,7 +23,8 @@ namespace Flamingo{
         __SYSTEM_ID_DECL__(ecs::_cmp_UIELEMENT)
         UIElement();
         virtual ~UIElement();
-        void initComponent() override;
+        virtual void initComponent();
+        virtual void initValues(std::string type, std::string name, std::string text, std::string image);
         void setPosition(SVector3 pos);
         SVector2 GetPosition();
         void setSize(SVector3 size);
@@ -89,6 +90,12 @@ namespace Flamingo{
             CEGUI::Window* m_element;
             UISystem* m_uiSys;
             std::unordered_map<std::string, Flamingo::UIElement*> childs;
+
+            std::string m_type;
+            std::string m_name;
+            std::string m_text;
+            std::string m_image;
+
     };   
 } // namespace Flamingo
 #endif __UIELEMENT_H__
