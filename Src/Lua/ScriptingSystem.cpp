@@ -150,10 +150,12 @@ namespace Flamingo
         {
             return;
         }
-        std::cerr << "[LUA ERROR] " << lua_tostring(lua_state, -1) << std::endl;
-        // remove error message from Lua state
-        lua_pop(lua_state, 1);
-        exit(1);
+        else
+        {       
+            // remove error message from Lua state
+            lua_pop(lua_state, 1);
+            throw std::runtime_error("[LUA ERROR] " + (std::string)lua_tostring(lua_state, -1));
+        }
     }
 
     void Flamingo::ScriptingSystem::callLuaFunction(std::string t_name)

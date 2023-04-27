@@ -24,26 +24,19 @@ namespace Flamingo
         }
         catch (...)
         {
-            std::cerr << "[ERROR Mesh Renderer]: Mesh name is different from .mesh name" << '\n';
-            exit(1);
+            throw std::runtime_error("[ERROR Mesh Renderer]: Mesh name is different from .mesh name");
         }
 
         m_scene_node = FlamingoSceneManager().getSceneActive()->getSceneRoot()->createChildSceneNode();
         m_scale_diff = scaleNode;
 
         auto t = getComponent<Transform>(m_ent);
-        try
+
+        if (t == nullptr)
         {
-            if (t == nullptr)
-            {
-                throw std::exception("Transform is missing");
-            }
+            throw std::exception("Transform is missing");
         }
-        catch (std::exception& excepcion)
-        {
-            std::cerr << "[ERROR Mesh Renderer]: " << excepcion.what() << '\n';
-            exit(1);
-        }
+
         // hay que tener en cuenta m_sclae_diff, hacerlo
         m_scene_node->setScale(t->getScale());
         m_scene_node->setPosition(t->getPosition());

@@ -21,8 +21,7 @@ namespace Flamingo{
         m_uiSys = m_mngr->getSystem<Flamingo::UISystem>();
         m_element = nullptr;
         if (m_mngr->getComponent<Transform>(m_ent) == nullptr){
-            std::cout << m_ent->getName() << "Add Transform component to set uiElement Component\n";
-            exit(1);
+            throw std::runtime_error(m_ent->getName() + "Add Transform component to set uiElement Component\n");
         }
         createEmptyWindow("");
 
@@ -160,8 +159,7 @@ namespace Flamingo{
          }
          catch (const std::exception&)
          {
-             std::cout << "Propiedad no compatible con este elemento\n";
-             exit(1);
+             throw std::runtime_error("Propiedad" + property + "no compatible con este elemento");
          }
      }
 } // namespace Flamingo

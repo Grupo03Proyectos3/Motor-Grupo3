@@ -65,8 +65,7 @@ namespace Flamingo
 
         if (!scripting_sys->loadScene(m_first_scene))
         {
-            std::cout << "No ha sido posible cargar la escena\n\n";
-            return false;
+            throw std::runtime_error("No ha sido posible cargar la escena\n");           
         }
 
         Scene* mainScene = sceneManager.getSceneActive();
@@ -124,8 +123,6 @@ namespace Flamingo
         y->setScale({100, 100, 0});
         x->subscribeEvent(&FlamingoCore::prueba, this);
         x->setActive(true);
-        x = addComponent<Flamingo::UIElement>(UI);
-        x->setElementWidget("FlamingoDefaultUI/Button", "COSOVO");
 
       /*  ScriptManager::instance()->addGameScript("PruebaScript", new PruebaScript());
         Flamingo::GameObject* g = m_mngr->addGameObject();

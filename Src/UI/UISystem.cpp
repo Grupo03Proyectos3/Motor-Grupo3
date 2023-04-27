@@ -194,32 +194,53 @@ namespace Flamingo
 
     CEGUI::Window* UISystem::createWidget(const std::string& type, const std::string& name)
     {
-        CEGUI::Window* newWindow = m_winMngr->createWindow(type, name);
-        FlamingoSceneManager().getSceneActive()->getCeguiRoot()->addChild(newWindow);
-        newWindow->activate();
-        newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0.5), CEGUI::UDim(0.5, 0.5)));
-        newWindow->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0.3), CEGUI::UDim(0.2, 0.5)));
-        return newWindow;
+        try
+        {
+            CEGUI::Window* newWindow = m_winMngr->createWindow(type, name);
+            FlamingoSceneManager().getSceneActive()->getCeguiRoot()->addChild(newWindow);
+            newWindow->activate();
+            newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0.5), CEGUI::UDim(0.5, 0.5)));
+            newWindow->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0.3), CEGUI::UDim(0.2, 0.5)));
+            return newWindow;
+        }
+        catch (CEGUI::Exception e)
+        {
+            throw std::runtime_error(e.what());
+        }
     }
 
     CEGUI::Window* UISystem::createEmptyWindow(const std::string& name)
     {
-        CEGUI::Window* newWindow = m_winMngr->createWindow("DefaultWindow", name);
-        //m_root->addChild(newWindow);
-        FlamingoSceneManager().getSceneActive()->getCeguiRoot()->addChild(newWindow);
-        newWindow->activate();
-        newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0.5), CEGUI::UDim(0.5, 0.5)));
-        newWindow->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0.3), CEGUI::UDim(0.2, 0.5)));
-        return newWindow;
+        try
+        {
+            CEGUI::Window* newWindow = m_winMngr->createWindow("DefaultWindow", name);
+            // m_root->addChild(newWindow);
+            FlamingoSceneManager().getSceneActive()->getCeguiRoot()->addChild(newWindow);
+            newWindow->activate();
+            newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0.5), CEGUI::UDim(0.5, 0.5)));
+            newWindow->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0.3), CEGUI::UDim(0.2, 0.5)));
+            return newWindow;
+        }
+        catch (CEGUI::Exception e)
+        {
+            throw std::runtime_error(e.what());
+        }
     }
 
     CEGUI::Window* UISystem::createRootScene(const std::string& name){
-        CEGUI::Window* newWindow = m_winMngr->createWindow("DefaultWindow", name);
-        m_root->addChild(newWindow);       
-        newWindow->activate();
-        newWindow->setPosition(m_root->getPosition());
-        newWindow->setSize(m_root->getSize());
-        return newWindow;
+        try
+        {
+            CEGUI::Window* newWindow = m_winMngr->createWindow("DefaultWindow", name);
+            m_root->addChild(newWindow);
+            newWindow->activate();
+            newWindow->setPosition(m_root->getPosition());
+            newWindow->setSize(m_root->getSize());
+            return newWindow;
+        }
+        catch (CEGUI::Exception e)
+        {
+            throw std::runtime_error(e.what());
+        }
     }
 
     void UISystem::chageScreenSize(int width, int height)

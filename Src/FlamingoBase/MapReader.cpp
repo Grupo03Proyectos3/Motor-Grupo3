@@ -192,7 +192,7 @@ namespace Flamingo
         }
         else
         {
-            throw throw std::runtime_error("'objects' are null");
+            throw std::runtime_error("'objects' are null");
         }
     }
 

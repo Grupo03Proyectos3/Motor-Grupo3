@@ -13,7 +13,7 @@ namespace Flamingo
         DIR* dir = opendir(t_path); // Abrir el directorio
         if (dir == nullptr)         // Aserguarse que el directorio existe
         {
-            std::cerr << "Error al abrir el directorio " << t_path << std::endl;
+            throw std::runtime_error("Error al abrir el directorio " + (std::string)t_path);
             return;
         }
 

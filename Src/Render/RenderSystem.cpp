@@ -19,9 +19,7 @@ namespace Flamingo
     RenderSystem::RenderSystem(std::string& t_app_name)
         : m_app_name(t_app_name)
     {
-        m_group = GROUP_RENDER;
-        m_fs_layer = new Ogre::FileSystemLayer(m_app_name);
-        
+        m_group = GROUP_RENDER;      
     }
 
     void RenderSystem::recieve(const Message& t_m)
@@ -69,6 +67,15 @@ namespace Flamingo
 
     void RenderSystem::initSystem()
     {
+        try
+        {
+            m_fs_layer = new Ogre::FileSystemLayer(m_app_name);
+        }
+        catch (...)
+        {
+            throw std::runtime_error("Error al crear el FileSytemLayer de Ogre con nombre '" + m_app_name + "'");
+        }
+
         createRoot();
 
         if (config())
@@ -138,11 +145,18 @@ namespace Flamingo
     {
         Ogre::String sec_name, type_name, arch_name;
 
-        sec_name = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME; // miro a ver si ya se han cargado los recursos en el resourceManager
-        const Ogre::ResourceGroupManager::LocationList genLocs2 = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec_name);
+        try
+        {
+            sec_name = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME; // miro a ver si ya se han cargado los recursos en el resourceManager
+            const Ogre::ResourceGroupManager::LocationList genLocs2 = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec_name);
+            if (genLocs2.empty()) // si no estan cargados los cargo
+                bringResources(sec_name, type_name, arch_name);
+        }
+        catch (...)
+        {
+            throw std::runtime_error("Error al cargar los recursos generables de Ogre");
+        }
 
-        if (genLocs2.empty()) // si no estan cargados los cargo
-            bringResources(sec_name, type_name, arch_name);
     }
 
     void RenderSystem::loadResources()
@@ -212,6 +226,7 @@ namespace Flamingo
         return true;
     }
 
+    //TO DO: QUITARLO
     void RenderSystem::manipulateCamera()
     {
         auto& ihldr = ih();
