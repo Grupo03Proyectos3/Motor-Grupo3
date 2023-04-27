@@ -14,6 +14,9 @@ EnemyAI::EnemyAI()
 void EnemyAI::initValues()
 {
     m_tr = m_mngr->getComponent<Transform>(m_ent);
+    auto p = m_mngr->getHandler(ecs::_hdr_player);
+    m_tr_player = m_mngr->getComponent<Transform>(p);
+    m_max_distance = 500.0f;
     m_time_last_dir = 0;
     m_time_last_move = 0;
     m_velocity = SVector3(0, 0, 0);
@@ -28,26 +31,18 @@ void EnemyAI::initComponent()
 
 void EnemyAI::update(float t_delta_time)
 {
+    checkDistance(m_tr_player->getPosition());
     if (m_attacking)
         attack();
     else
-    {
         enemyMovement(t_delta_time);
-        //checkDistance(SVector3(0, 0, 0));
-    }
 }
 
 void EnemyAI::enemyMovement(float t_delta_time)
 {
-    if (m_lives <= 0)
-    {
-        m_ent->setActive(false);
-        m_ent->setAlive(false);
-    }
-
     m_time_last_dir += t_delta_time;
     // std::cout << m_timeSinceLastDirectionChange << std::endl;
-    if (m_wandering)
+    if (m_wandering && !m_attacking)
     {
         //  Si ha pasado suficiente tiempo, cambia la direccion del enemigo
         if (m_time_last_dir >= 5000.0f)
@@ -66,8 +61,6 @@ void EnemyAI::enemyMovement(float t_delta_time)
             // Reinicia el contador de tiempo
             m_time_last_dir = 0;
         }
-        // m_tr->translate(SVector3(m_velocity*t_delta_time));
-        // m_velocity = SVector3(0, 0, 0);
         //   Mueve el enemigo mientras no haya pasado suficiente tiempo
         if (m_time_last_dir < 2000.0f)
         {
@@ -78,12 +71,29 @@ void EnemyAI::enemyMovement(float t_delta_time)
             m_velocity = SVector3(0, 0, 0);
         }
     }
-    else
+    else if (!m_wandering && !m_attacking)
     {
         // Asigna una velocidad constante a lo largo de esta direcci�n
         m_velocity = direction * 0.2f;
         m_tr->translate(SVector3(m_velocity * t_delta_time));
     }
+}
+// Se daña al enemigo
+void EnemyAI::getDamage(int t_damage)
+{
+    if (isAlive())
+    {
+        m_lives--;
+    }
+    else
+    {
+        m_ent->setActive(false);
+        m_ent->setAlive(false);
+    }
+}
+bool EnemyAI::isAlive()
+{
+    return !(m_lives <= 0);
 }
 
 void EnemyAI::onCollisionEnter(ecs::GameObject* t_other)
@@ -91,27 +101,40 @@ void EnemyAI::onCollisionEnter(ecs::GameObject* t_other)
     if (m_mngr->hasComponent<PlayerController>(t_other))
     {
         std::cout << "Choque: Jugador-Enemigo  " << m_lives << std::endl;
-        m_lives--;
+        m_attacking = true;
+        // getDamage(1);
     }
 }
-
+void EnemyAI::onCollisionExit(ecs::GameObject* t_other)
+{
+    if (m_mngr->hasComponent<PlayerController>(t_other))
+    {
+        m_attacking = false;
+    }
+    else
+    {
+        // cambiar de dirrección
+    }
+}
+// Comprueba la distancia a la que esta el player, si esta a menos de un valor lo empieza a perseguir
 void EnemyAI::checkDistance(SVector3 t_player_pos)
 {
     double distancia = SVector3::distance(m_tr->getPosition(), t_player_pos);
-    std::cout << distancia << std::endl;
-    if (distancia >= 500.0)
+    // std::cout << distancia << std::endl;
+    if (distancia >= m_max_distance)
     {
+        m_attacking = false;
         m_wandering = true;
-        m_attacking = false;
     }
-    else if (distancia <= 500.0 && distancia >= 10.0)
+    // Sigue al jugador
+    else if (distancia <= m_max_distance && !m_attacking)
     {
-        m_attacking = false;
-        m_wandering = false;
         followPlayer(t_player_pos);
+        m_wandering = false;
     }
+    // Si esta al lado, no merodea sino ataca
     else
-        m_attacking = true;
+        m_wandering = false;
 }
 void EnemyAI::attack()
 {
@@ -124,7 +147,4 @@ void EnemyAI::followPlayer(SVector3 t_player_pos)
          t_player_pos.getY() - m_tr->getPosition().getY(),
          t_player_pos.getY() - m_tr->getPosition().getZ()};
     direction.normalize();
-    /*t->setPosition({t->getPosition().getX(), t->getPosition().getY(), 0});
-    t->setScale({t->getScale().getX(), t->getScale().getY(), 0});
-    setText(m_text);*/
 }
