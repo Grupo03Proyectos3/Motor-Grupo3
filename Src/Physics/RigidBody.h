@@ -14,10 +14,11 @@ class btGhostObject;
 class btCollisionShape;
 class btCollisionObject;
 
-class SVector3;
-class SQuaternion;
+
 class FlamingoMotionState;
 namespace Flamingo{
+    class SVector3;
+    class SQuaternion;
     struct RigidBody : public Component
     {
       public:
