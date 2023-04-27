@@ -3,9 +3,6 @@
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
-class Manager;
-class ScriptFactory;
-class ScriptManager;
 // class Component;
 #include "Component.h"
 #include "ecs.h"
@@ -17,6 +14,9 @@ class ScriptManager;
 
 namespace Flamingo
 {
+    class Manager;
+    class ScriptFactory;
+    class ScriptManager;
     /**
      *  Clase que representa una Entidad.
      */

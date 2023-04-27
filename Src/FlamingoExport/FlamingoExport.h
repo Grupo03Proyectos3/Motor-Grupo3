@@ -9,8 +9,7 @@
 #else
 #define FLAMINGOEXPORT_API __declspec(dllimport)
 #endif
-namespace Flamingo
-{
+
     // Clase exportada del DLL
     class FLAMINGOEXPORT_API CFlamingoExport
     {
@@ -25,4 +24,3 @@ namespace Flamingo
     extern FLAMINGOEXPORT_API int nFlamingoExport;
 
     FLAMINGOEXPORT_API int fnFlamingoExport(void);
-} // namespace Flamingo

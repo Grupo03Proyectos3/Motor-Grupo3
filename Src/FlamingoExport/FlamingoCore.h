@@ -7,10 +7,11 @@
 
 #include "ECS/SingletonECS.h"
 #include <string>
-class RenderSystem;
+
 
 namespace Flamingo
 {
+    class RenderSystem;
     class FLAMINGOEXPORT_API FlamingoCore : public SingletonECS<FlamingoCore>
     {
         friend SingletonECS<FlamingoCore>;

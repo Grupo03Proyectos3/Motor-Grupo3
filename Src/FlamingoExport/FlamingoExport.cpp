@@ -5,8 +5,7 @@
 #include "framework.h"
 #include "FlamingoExport.h"
 #include <iostream>
-namespace Flamingo
-{
+
     //// Ejemplo de variable exportada
     // FLAMINGOEXPORT_API int nFlamingoExport=0;
     //
@@ -39,4 +38,3 @@ namespace Flamingo
     {
         std::cout << "CFlamingoExport::DoSomething() : " << _instance << "\n";
     }
-} // namespace Flamingo

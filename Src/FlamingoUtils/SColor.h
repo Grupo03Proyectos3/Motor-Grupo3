@@ -1,5 +1,4 @@
 #pragma once
-
 #ifndef __SCOLOR_H__
 #define __SCOLOR_H__
 
