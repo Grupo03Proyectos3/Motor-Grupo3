@@ -1,4 +1,4 @@
-entities = {"Sinbad", "Cesped", "Torus", "Arbol", "EspadaMetal", "EspadaMadera", "EspadaEspecial", "Slime", "EscudoMadera", "PocionRoja"}
+entities = {"Sinbad", "Cesped", "Enemy", "Arbol", "EspadaMetal", "EspadaMadera", "EspadaEspecial", "Slime", "EscudoMadera", "PocionRoja"}
 
 Sinbad = {
     Name={
@@ -63,17 +63,17 @@ Cesped = {
         t_mat_name= "Prueba/cesped"
     }
 }
-Torus = {
+Enemy = {
     Name={
-        t_name="torus"
+        t_name="enemy"
     },
    AATransform = {
        positionX= "200.0",
        positionY="260.0",
        positionZ="50.0",
-       scaleX="50.0",
-       scaleY="50",
-       scaleZ="50.0",
+       scaleX="150.0",
+       scaleY="150",
+       scaleZ="150.0",
        rotationX="0.0",
        rotationY="0.0",
        rotationZ="0.0",
@@ -85,12 +85,12 @@ Torus = {
        t_static = "1"
    },
    MeshRenderer = {
-       t_model_name = "Torus.mesh",
-       t_entity_name= "torus",
-       t_node_x=" 100.0",
-       t_node_y="0.2",
-       t_node_z="100.0",
-       t_mat_name= "Prueba/cesped"
+       t_model_name = "slime06.mesh",
+       t_entity_name= "enemy",
+       t_node_x=" 0.0",
+       t_node_y="0.0",
+       t_node_z="0.0",
+       t_mat_name= ""
    }
 }
 Arbol = {
