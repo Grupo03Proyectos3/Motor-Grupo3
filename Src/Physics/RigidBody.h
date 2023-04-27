@@ -53,7 +53,6 @@ namespace Flamingo{
         btRigidBody* m_rigid_body = nullptr;       // rigidbody de Bullet
         btTransform* m_bullet_transform = nullptr; // transform de bullet
         btCollisionShape* m_shape = nullptr;
-        FlamingoMotionState* m_state = nullptr;
 
         float m_mass = 1.0f;
         bool m_trigger = false;
