@@ -1,7 +1,8 @@
 #include "SVector3.h"
+
 #include <math.h>
-#include <iostream>
 #include <LinearMath/btVector3.h>
+#include <OgreVector3.h>
 //#include <OgreVector3.h>
 
 namespace Flamingo

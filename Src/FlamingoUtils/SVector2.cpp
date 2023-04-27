@@ -1,5 +1,6 @@
 #include "SVector2.h"
 
+#include <OgreVector2.h>
 #include <math.h>
 
 //#include <LinearMath/btVector2.h>

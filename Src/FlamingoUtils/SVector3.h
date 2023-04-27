@@ -3,25 +3,27 @@
 #ifndef __SVECTOR3_H__
 #define __SVECTOR3_H__
 
-#include <OgreVector3.h>
+#include <iostream>
+
+
+namespace Ogre
+{
+    typedef float Real;
+    template <int dims, typename T>
+    class Vector;
+    typedef Vector<3, Real> Vector3;
+} // namespace Ogre
+
 class btVector3;
 //#include <fmod_common.h>
 
-// namespace Ogre
-//{
-//     typedef float Real;
-//     template <int dims, typename T>
-//     class Vector;
-//     typedef Vector<3, Real> Vector3;
-// }; // namespace Ogre
-
-/**
- * Clase base que usaremos como interprete entre todos los demás vector3 presentes en el motor (ogreVector3, FModVector3...)
- * Almacena los valores de un Vector3 y cuenta con setters, getters, conversores a las otras clases Vector3 y métodos que se irán añadiendo
- * relacionados con transformaciones en éste.
- */
 namespace Flamingo
 {
+    /**
+     * Clase base que usaremos como interprete entre todos los demás vector3 presentes en el motor (ogreVector3, FModVector3...)
+     * Almacena los valores de un Vector3 y cuenta con setters, getters, conversores a las otras clases Vector3 y métodos que se irán añadiendo
+     * relacionados con transformaciones en éste.
+     */
     class SVector3
     {
       public:

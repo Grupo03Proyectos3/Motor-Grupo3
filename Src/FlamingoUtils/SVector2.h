@@ -3,9 +3,17 @@
 #ifndef __SVECTOR2_H__
 #define __SVECTOR2_H__
 
-#include <OgreVector2.h>
+
 #include <CEGUI/Vector.h>
 #include <iostream>
+
+namespace Ogre
+{
+    typedef float Real;
+    template <int dims, typename T>
+    class Vector;
+    typedef Vector<2, Real> Vector2;
+}
 
 /**
  * Clase base que usaremos como interprete entre todos los demás vector3 presentes en el motor (ogreVector3, FModVector3...)
