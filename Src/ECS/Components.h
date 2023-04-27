@@ -7,9 +7,9 @@
 #include "Lua/ScriptManager.h"
 #include "ecs.h"
 
-class GameObject;
 namespace Flamingo
 {
+    class GameObject;
     /*Añade al gameObejct dado y devuelve el componente, solicitandolo al manager directamente o pasando por el ScriptManager según 
     * si pertenece al motor o ha sido creado por el ususario del motor */
     template <typename T>

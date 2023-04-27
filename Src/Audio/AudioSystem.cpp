@@ -49,23 +49,14 @@ namespace Flamingo
 
     void AudioSystem::update(float t_delta_time)
     {
-        // Actualiza todos los componentes de audio
-        for (auto game_object : m_mngr->getEntities(m_group))
-        {
-            /*auto aSource = m_mngr->getComponent<AudioSource>(game_object);
-            if (aSource != nullptr)
-            {
-
-            }*/
-        }
-
-        // Liberar los sonidos que no estén siendo reproducidos
-
     }
 
     void AudioSystem::createSound(const char* route, FMOD_MODE mode, FMOD_CREATESOUNDEXINFO* exinfo, FMOD::Sound** sound)
     {
-        checkError(m_system->createSound(route, mode, exinfo, &(*sound)));
+        if (checkError(m_system->createSound(route, mode, exinfo, &(*sound))) == 1)
+        {
+            throw std::runtime_error("Fallo al cargar el audio de ruta" + (std::string)route); 
+        }
     }
 
     FMOD::Sound* AudioSystem::createSound(const char* route, std::string name, bool isMusic)

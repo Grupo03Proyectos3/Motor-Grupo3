@@ -34,8 +34,7 @@ namespace Flamingo
         }
         catch (...)
         {
-            std::cerr << "[ERROR Audio Factory]: Key not found" << '\n';
-            exit(1);
+            throw std::exception("[ERROR Audio Factory]: Key not found");
         }
     }
 } // namespace Flamingo

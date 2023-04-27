@@ -124,6 +124,8 @@ namespace Flamingo
         y->setScale({100, 100, 0});
         x->subscribeEvent(&FlamingoCore::prueba, this);
         x->setActive(true);
+        x = addComponent<Flamingo::UIElement>(UI);
+        x->setElementWidget("FlamingoDefaultUI/Button", "COSOVO");
 
       /*  ScriptManager::instance()->addGameScript("PruebaScript", new PruebaScript());
         Flamingo::GameObject* g = m_mngr->addGameObject();

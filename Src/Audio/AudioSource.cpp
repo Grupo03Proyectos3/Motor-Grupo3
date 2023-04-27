@@ -11,7 +11,7 @@ namespace Flamingo
 
     AudioSource::~AudioSource()
     {
-        // El sistema se encarga de borrar todos los sonidos creados, nosotros solo nos encargamos de poner el puntero a null
+        // El sistema de FMOD se encarga de borrar todos los sonidos creados, nosotros solo nos encargamos de poner el puntero a null
         m_sound = nullptr;
     }
 

@@ -133,7 +133,7 @@ namespace Flamingo
         // Adds a component to the entity 't_e'. It receives the type
         // T (to be created), and the list of arguments (if any) to
         // be passed to the constructor. The component identifier
-        // 'cId' is taken from T::id.
+        // 'cId' is taken from T::id. Component is erased if existed.
         //
         template <typename T>
         inline T* addComponent(GameObject* t_e)

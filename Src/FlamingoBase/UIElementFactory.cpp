@@ -21,8 +21,7 @@ namespace Flamingo
         }
         catch (...)
         {
-            std::cerr << "[ERROR UIElement Factory]: Key does not found" << '\n';
-            exit(1);
+            throw std::exception("[ERROR UI Factory]: Key not found");
         }
     }
 } // namespace Flamingo

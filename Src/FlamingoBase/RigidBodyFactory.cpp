@@ -19,8 +19,7 @@ namespace Flamingo{
         }
         catch (...)
         {
-            std::cerr << "[ERROR RigidBody Factory]: Key not found" << '\n';
-            exit(1);
+            throw std::exception("[ERROR RigidBody Factory]: Key not found");
         }
     }
 } // namespace Flamingo
