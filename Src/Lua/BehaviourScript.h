@@ -6,7 +6,7 @@
 #include "ECS/GameObject.h"
 namespace Flamingo
 {
-    struct BehaviourScript : public Flamingo::Component
+    FLAMINGOEXPORT_API struct BehaviourScript : public Flamingo::Component
     {
       public:
         __SYSTEM_ID_DECL__(Flamingo::_cmp_BEHAVIOUR_SCRIPT)

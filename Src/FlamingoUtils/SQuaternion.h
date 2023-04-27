@@ -4,6 +4,7 @@
 #define __SQUATERNION_H__
 
 #include "SVector3.h"
+#include "FlamingoExport/FlamingoAPI.h"
 
 class btQuaternion;
 
@@ -24,7 +25,7 @@ namespace CEGUI
  */
 namespace Flamingo
 {
-    class SQuaternion
+    FLAMINGOEXPORT_API class SQuaternion
     {
       public:
         SQuaternion();

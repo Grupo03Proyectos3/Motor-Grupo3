@@ -14,7 +14,7 @@ namespace Ogre
 
 namespace Flamingo
 {
-    struct Light : Component
+    FLAMINGOEXPORT_API struct Light : Component
     {
       public:
         __SYSTEM_ID_DECL__(_cmp_LIGHT)

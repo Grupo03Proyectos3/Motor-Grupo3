@@ -15,7 +15,7 @@
 
 namespace Flamingo
 {
-    struct MeshRenderer : public Component
+    FLAMINGOEXPORT_API struct MeshRenderer : public Component
     {
       public:
         __SYSTEM_ID_DECL__(_cmp_MESH_RENDERER)
