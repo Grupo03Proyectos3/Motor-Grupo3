@@ -28,8 +28,7 @@ namespace Flamingo
         }
         catch (...)
         {
-            std::cerr << "[ERROR Transform Factory]: Key not found" << '\n';
-            exit(1);
+            throw std::exception("[ERROR Transform Factory]: Key not found");
         }
     }
 } // namespace Flamingo

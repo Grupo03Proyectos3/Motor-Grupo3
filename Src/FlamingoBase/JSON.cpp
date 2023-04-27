@@ -25,6 +25,7 @@
 #include "JSON.h"
 
 #include <fstream>
+#include <iostream>
 
 /**
  * Blocks off the public constructor
@@ -53,7 +54,7 @@ JSONValue *JSON::ParseFromFile(std::string filename) {
 
 	// assert( !t.fail() );
 	if (in.fail())
-		throw "JSON failed to open '" + filename + "'";
+        throw std::runtime_error("JSON failed to open '" + (std::string)filename + "'");
 
 
 	std::string contents((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());

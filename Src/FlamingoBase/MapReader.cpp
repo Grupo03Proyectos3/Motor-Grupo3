@@ -38,8 +38,7 @@ namespace Flamingo
 
         if (jValueRoot == nullptr || !jValueRoot->IsObject())
         {
-            std::cout << "Something went wrong while load/parsing '" << filename << "'\n";
-            return;
+            throw std::runtime_error("Something went wrong while load/parsing '" + filename + "'\n");
         }
 
         JSONObject root = jValueRoot->AsObject();
@@ -172,7 +171,7 @@ namespace Flamingo
                                     else
                                     {
                                         gO->setAlive(false);
-                                        throw "'scripts' array in '" + filename + "' includes and invalid value";
+                                        throw std::runtime_error("'scripts' array in '" + filename + "' includes and invalid value");
                                     }
                                 }
                             }
@@ -180,20 +179,20 @@ namespace Flamingo
                         else
                         {
                             gO->setAlive(false);
-                            throw "'scripts' are null";
+                            throw  std::runtime_error("'scripts' are null");
                         }
                     }
                     else
                     {
                         gO->setAlive(false);
-                        throw "'objects' array in '" + filename + "' includes and invalid value";
+                        throw std::runtime_error("'objects' array in '" + filename + "' includes and invalid value");
                     }
                 }
             }
         }
         else
         {
-            throw "'objects' are null";
+            throw throw std::runtime_error("'objects' are null");
         }
     }
 

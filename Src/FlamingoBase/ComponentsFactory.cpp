@@ -23,18 +23,12 @@ namespace Flamingo
     Flamingo::Component* ComponentsFactory::addComponent(Flamingo::GameObject* gO, const std::string& type, std::unordered_map<std::string, std::string> args)
     {
         auto comp = componentFactories[type];
-        try
+       
+        if (comp == nullptr)
         {
-            if (comp == nullptr)
-            {
-                throw std::exception("Component name no valid");
-            }
-        }
-        catch (std::exception& excepcion)
-        {
-            std::cerr << "[ERROR Component]: " << excepcion.what() << '\n';
-            exit(1);
-        }
+            throw std::exception("Component name no valid");
+        }       
+       
         Flamingo::Component* c = componentFactories[type]->createComponent(gO, args);
         return c;
     }

@@ -30,8 +30,7 @@ namespace Flamingo
         }
         catch (...)
         {
-            std::cerr << "[ERROR MeshRenderer Factory]: Key not found" << '\n';
-            exit(1);
+            throw std::exception("[ERROR MeshRender Factory]: Key not found");
         }
     }
 } // namespace Flamingo

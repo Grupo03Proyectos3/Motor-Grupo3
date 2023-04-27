@@ -16,8 +16,7 @@ namespace Flamingo
         }
         catch (...)
         {
-            std::cerr << "[ERROR PlayerController Factory]: Key does not found" << '\n';
-            exit(1);
+            throw std::exception("[ERROR PlayerController Factory]: Key not found");
         }
     }
 } // namespace Flamingo

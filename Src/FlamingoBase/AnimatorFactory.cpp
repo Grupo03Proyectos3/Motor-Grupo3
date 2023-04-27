@@ -25,8 +25,7 @@ namespace Flamingo
         }
         catch (...)
         {
-            std::cerr << "[ERROR Animator Factory]: Key not found" << '\n';
-            exit(1);
+            throw std::exception("[ERROR Animator Factory]: Key not found");
         }
     }
 } // namespace Flamingo

@@ -31,8 +31,7 @@ namespace Flamingo
         }
         catch (...)
         {
-            std::cerr << "[ERROR Camera Factory]: Key not found" << '\n';
-            exit(1);
+            throw std::exception("[ERROR Camera Factory]: Key not found");
         }
     }
 } // namespace Flamingo

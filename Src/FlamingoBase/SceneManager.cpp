@@ -55,8 +55,7 @@ namespace Flamingo
             std::cout <<"Scene " << t_SceneName->getName() << " Added\n ";
         }
         else{
-            std::cout << "Already exists a Scene with Name: "<<t_SceneName<<"\n";
-            exit(1);
+            throw std::runtime_error("Already exists a Scene with Name: "+ t_SceneName->getName());        
         }
     }
 
@@ -81,8 +80,7 @@ namespace Flamingo
 
     Scene* SceneManager::getSceneActive(){
         if (m_scenes.empty()){
-            std::cout << "ERROR: There isnt any Scenes Active "<<mName<<"\n";
-            exit(1);
+            throw std::runtime_error("ERROR: There is not any Scenes Active");
         }
         return (*m_scenes.find(mNameSceneActive)).second;
     }

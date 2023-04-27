@@ -30,8 +30,7 @@ namespace Flamingo
         }
         catch (...)
         {
-            std::cerr << "[ERROR Light Factory]: Key not found" << '\n';
-            exit(1);
+             throw std::exception("[ERROR Light Factory]: Key not found");
         }
     }
 } // namespace Flamingo
