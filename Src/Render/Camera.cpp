@@ -7,6 +7,7 @@
 #include <OgreViewport.h>
 
 #include "ECS/Manager.h"
+
 namespace Flamingo
 {
     Camera::Camera() {}

@@ -4,6 +4,9 @@
 #include "ECS/Manager.h"
 #include <iostream>
 
+//Ogre
+#include <OgreSceneNode.h>
+
 namespace Flamingo
 {
     LightFactory::LightFactory(Flamingo::RenderSystem* t_renderSystem)

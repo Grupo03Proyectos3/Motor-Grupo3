@@ -7,6 +7,14 @@
 #include "FlamingoUtils/SVector3.h"
 
 #include <string>
+
+namespace Ogre
+{
+    class Camera;
+    class Viewport;
+    class SceneNode;
+}
+
 namespace Flamingo
 {
     struct Camera : Flamingo::Component

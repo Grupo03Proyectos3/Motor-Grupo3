@@ -1,4 +1,6 @@
 #include "PlayerController.h"
+
+
 namespace Flamingo
 {
     PlayerController::PlayerController()
@@ -43,7 +45,7 @@ namespace Flamingo
     {
         auto& ihldr = Flamingo::ih();
         ihldr.refresh();
-        Ogre::Quaternion quat(Ogre::Degree(90), Ogre::Vector3::UNIT_Y);
+        //Ogre::Quaternion quat(Ogre::Degree(90), Ogre::Vector3::UNIT_Y); TO DO, no debería usar Ogre
         // SQuaternion q = SQuaternion(quat);
         if (ihldr.keyDownEvent())
         {

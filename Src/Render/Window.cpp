@@ -1,11 +1,22 @@
 #include "Window.h"
+
 #include "ECS/InputHandler.h"
+
+
+//SDL
+#include <SDL_syswm.h>
+#include <SDL_video.h>
+
+//Ogre
 #include <OgreConfigFile.h>
+#include <OgreFileSystemLayer.h>
+#include <OgreFrameListener.h>
 #include <OgreGpuProgramManager.h>
 #include <OgreRenderWindow.h>
 #include <OgreRoot.h>
-#include <SDL_syswm.h>
-#include <SDL_video.h>
+#include <OgreRTShaderSystem.h>
+#include "SGTechniqueResolverListener.h"
+
 namespace Flamingo
 {
     Window::Window(const std::string& t_app_name, Ogre::Root* t_root)
@@ -35,7 +46,7 @@ namespace Flamingo
         Ogre::ConfigOptionMap ropts = m_root->getRenderSystem()->getConfigOptions();
        
         std::istringstream mode(ropts["Video Mode"].currentValue);
-        Ogre::String token;
+        std::string token;
         mode >> w;     // width
         mode >> token; // 'x' as seperator between width and height
         mode >> h;     // height
@@ -150,6 +161,16 @@ namespace Flamingo
         //  delete m_root;
         //  m_root = nullptr;
         //  m_scene_mngr = nullptr;
+    }
+
+    Ogre::RenderWindow* Window::getRenderWindow()
+    {       
+        return m_window.render;
+    }
+
+    bool Window::isWindowClosed()
+    {
+        return isClosed; 
     }
 
 } // namespace Flamingo

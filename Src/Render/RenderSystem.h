@@ -4,6 +4,12 @@
 #include "ECS/System.h"
 #include "Camera.h"
 
+namespace Ogre
+{
+    class FileSystemLayer;
+    class Root;
+}
+
 namespace Flamingo
 {
     class Window;
@@ -22,7 +28,7 @@ namespace Flamingo
         void update(float t_delta_time) override;
 
         inline Flamingo::Window* getWindow() { return m_window; } 
-        inline Ogre::Root* getOgreRoot() { return m_root; } //NO EXPORTAR
+        Ogre::Root* getOgreRoot(); // NO EXPORTAR
         
         inline void setMainCamera(Camera* t_camera) { m_camera = t_camera; }
         // en esta funcion se manipula la cámara

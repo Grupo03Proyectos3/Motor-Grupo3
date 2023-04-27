@@ -3,6 +3,7 @@
 #include "ECS/Manager.h"
 #include "Render/Camera.h"
 #include "Render/RenderSystem.h"
+#include <OgreSceneNode.h>
 #include <iostream>
 
 namespace Flamingo

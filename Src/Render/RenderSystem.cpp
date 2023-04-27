@@ -10,6 +10,8 @@
 #include <OgreFileSystemLayer.h>
 #include <OgreGpuProgramManager.h>
 #include <OgreRoot.h>
+#include "SGTechniqueResolverListener.h"
+
 #include <Physics/RigidBody.h>
 
 namespace Flamingo
@@ -99,6 +101,11 @@ namespace Flamingo
         m_root->renderOneFrame();
         m_window->update();
         // manipulateCamera();
+    }
+
+    Ogre::Root* RenderSystem::getOgreRoot()
+    {
+        return m_root;
     }
 
     void RenderSystem::createRoot()
