@@ -153,7 +153,7 @@ namespace Flamingo
 
         auto render_sys = m_mngr->getSystem<RenderSystem>();
 
-        m_debug_drawer = new OgreDebugDrawer(SceneMngr().getSceneActive()->getSceneManger(), render_sys->getOgreRoot());
+        m_debug_drawer = new OgreDebugDrawer(FlamingoSceneManager().getSceneActive()->getSceneManger(), render_sys->getOgreRoot());
         m_debug_drawer->setDebugMode(btIDebugDraw::DBG_DrawWireframe | btIDebugDraw::DBG_DrawAabb);
         m_world->setDebugDrawer(m_debug_drawer);
 

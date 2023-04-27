@@ -11,7 +11,7 @@ namespace Flamingo
     CameraFactory::CameraFactory(Flamingo::RenderSystem* t_renderSystem)
     {
         m_renderSystem = t_renderSystem;
-        root = Flamingo::SceneMngr().getSceneActive()->getSceneRoot();
+        root = Flamingo::FlamingoSceneManager().getSceneActive()->getSceneRoot();
     }
 
     Flamingo::Component* CameraFactory::createComponent(Flamingo::GameObject* gO, const std::unordered_map<std::string, std::string>& args)
@@ -22,7 +22,7 @@ namespace Flamingo
             std::string entityName = (args.at("t_entity_name"));
 
             Camera* c = Flamingo::addComponent<Camera>(gO);
-            c->initValues(Flamingo::SceneMngr().getSceneActive()->getSceneManger(),
+            c->initValues(Flamingo::FlamingoSceneManager().getSceneActive()->getSceneManger(),
                           root->createChildSceneNode(), m_renderSystem->getWindow(), name);
             c->initComponent();
 

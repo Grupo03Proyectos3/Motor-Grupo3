@@ -12,7 +12,7 @@ namespace Flamingo
     LightFactory::LightFactory(Flamingo::RenderSystem* t_renderSystem)
     {
         m_renderSystem = t_renderSystem;
-        root = Flamingo::SceneMngr().getSceneActive()->getSceneRoot();
+        root = Flamingo::FlamingoSceneManager().getSceneActive()->getSceneRoot();
     }
 
     Component* LightFactory::createComponent(GameObject* gO, const std::unordered_map<std::string, std::string>& args)
@@ -22,7 +22,7 @@ namespace Flamingo
             std::string name = (args.at("t_name"));
 
             Light* c = addComponent<Light>(gO);
-            c->initValues(Flamingo::SceneMngr().getSceneActive()->getSceneManger(), root->createChildSceneNode(), name);
+            c->initValues(Flamingo::FlamingoSceneManager().getSceneActive()->getSceneManger(), root->createChildSceneNode(), name);
             c->initComponent();
 
             Manager::instance()->addGameObjectToGroups(gO, {GROUP_RENDER});

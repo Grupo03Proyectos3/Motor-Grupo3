@@ -37,7 +37,7 @@ namespace Flamingo
 {
 
     Flamingo::ScriptingSystem::ScriptingSystem()
-        : m_scene_mngr(SceneMngr())
+        : m_scene_mngr(FlamingoSceneManager())
     {
         m_componentFactory = ComponentsFactory::instance();
         m_mngr = Manager::instance();

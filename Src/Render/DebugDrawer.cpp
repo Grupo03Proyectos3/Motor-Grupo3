@@ -33,7 +33,7 @@ void OgreDebugDrawer::drawLine(const btVector3& from, const btVector3& to, const
     line->position(to.x(), to.y(), to.z());
     line->colour(Ogre::ColourValue(color.x(), color.y(), color.z()));
     line->end();
-    Flamingo::SceneMngr().getSceneActive()->getSceneManger()->getRootSceneNode()->createChildSceneNode()->attachObject(line);
+    Flamingo::FlamingoSceneManager().getSceneActive()->getSceneManger()->getRootSceneNode()->createChildSceneNode()->attachObject(line);
     mLines.push_back(line);
 }
 

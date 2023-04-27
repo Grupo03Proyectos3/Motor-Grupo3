@@ -87,7 +87,7 @@ namespace Flamingo
         return (*m_scenes.find(mNameSceneActive)).second;
     }
 
-    SceneManager& SceneMngr() {
+    SceneManager& FlamingoSceneManager() {
         return *SceneManager::instance();
     }
 

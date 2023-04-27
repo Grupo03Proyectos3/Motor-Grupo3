@@ -53,7 +53,7 @@ namespace Flamingo
         std::string s = "Motor";
         Manager* m_mngr = Manager::instance();
         m_mngr->init();
-        SceneManager& sceneManager = SceneMngr();
+        SceneManager& sceneManager = FlamingoSceneManager();
         Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
         RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
         ui_system->initContext();

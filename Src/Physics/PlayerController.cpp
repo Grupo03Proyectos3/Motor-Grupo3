@@ -1,5 +1,6 @@
 #include "PlayerController.h"
 
+#include "ECS/InputHandlerContainer.h"
 
 namespace Flamingo
 {
@@ -38,33 +39,33 @@ namespace Flamingo
 
     void PlayerController::rotatePlayer(double t_angle, SVector3 t_axis)
     {
-        //m_transform->setRotation(SQuaternion(Ogre::Degree(t_angle), t_axis));
+        m_transform->setRotation(SQuaternion(t_angle, t_axis));
     }
 
     void PlayerController::handleInput()
     {
-        auto& ihldr = Flamingo::ih();
-        ihldr.refresh();
+        auto& ihldr = Flamingo::Input();
+
         //Ogre::Quaternion quat(Ogre::Degree(90), Ogre::Vector3::UNIT_Y); TO DO, no debería usar Ogre
-        // SQuaternion q = SQuaternion(quat);
+        //SQuaternion q = SQuaternion(quat);
         if (ihldr.keyDownEvent())
         {
-            if (ihldr.isKeyDown(SDLK_w))
+            if (ihldr.isKeyDown(FLM_w))
             {
                 movePlayer(m_playerSpeed, 0.0f);
                 rotatePlayer(0.0, SVector3(0, 1, 0));
             }
-            else if (ihldr.isKeyDown(SDLK_s))
+            else if (ihldr.isKeyDown(FLM_s))
             {
                 movePlayer(-m_playerSpeed, 0.0f);
                 rotatePlayer(180.0, SVector3(0, 1, 0));
             }
-            if (ihldr.isKeyDown(SDLK_a))
+            if (ihldr.isKeyDown(FLM_a))
             {
                 movePlayer(0.0f, -m_playerSpeed);
                 rotatePlayer(-90.0, SVector3(0, 1, 0));
             }
-            else if (ihldr.isKeyDown(SDLK_d))
+            else if (ihldr.isKeyDown(FLM_d))
             {
                 movePlayer(0.0f, m_playerSpeed);
                 rotatePlayer(90.0, SVector3(0, 1, 0));

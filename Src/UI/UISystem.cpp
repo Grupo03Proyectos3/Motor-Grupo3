@@ -195,7 +195,7 @@ namespace Flamingo
     CEGUI::Window* UISystem::createWidget(const std::string& type, const std::string& name)
     {
         CEGUI::Window* newWindow = m_winMngr->createWindow(type, name);
-        SceneMngr().getSceneActive()->getCeguiRoot()->addChild(newWindow);
+        FlamingoSceneManager().getSceneActive()->getCeguiRoot()->addChild(newWindow);
         newWindow->activate();
         newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0.5), CEGUI::UDim(0.5, 0.5)));
         newWindow->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0.3), CEGUI::UDim(0.2, 0.5)));
@@ -206,7 +206,7 @@ namespace Flamingo
     {
         CEGUI::Window* newWindow = m_winMngr->createWindow("DefaultWindow", name);
         //m_root->addChild(newWindow);
-        SceneMngr().getSceneActive()->getCeguiRoot()->addChild(newWindow);
+        FlamingoSceneManager().getSceneActive()->getCeguiRoot()->addChild(newWindow);
         newWindow->activate();
         newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0.5), CEGUI::UDim(0.5, 0.5)));
         newWindow->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0.3), CEGUI::UDim(0.2, 0.5)));

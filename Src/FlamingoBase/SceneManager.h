@@ -49,6 +49,6 @@ namespace Flamingo{
     };
     // This macro defines a compact way for using the singleton
     //
-    SceneManager& SceneMngr();
+    SceneManager& FlamingoSceneManager();
 } // namespace OgreScene
 #endif

@@ -6,7 +6,7 @@ namespace Flamingo
     MeshRendererFactory::MeshRendererFactory(Flamingo::RenderSystem* t_renderSystem)
     {
         m_renderSystem = t_renderSystem;
-        root = Flamingo::SceneMngr().getSceneActive()->getSceneRoot();
+        root = Flamingo::FlamingoSceneManager().getSceneActive()->getSceneRoot();
     }
 
     Component* MeshRendererFactory::createComponent(GameObject* gO, const std::unordered_map<std::string, std::string>& args)

@@ -15,7 +15,7 @@ namespace Flamingo
     void Animator::initValues()
     {
         auto sys = m_mngr->getSystem<RenderSystem>();
-        m_scene_mngr = Flamingo::SceneMngr().getSceneActive()->getSceneManger();
+        m_scene_mngr = Flamingo::FlamingoSceneManager().getSceneActive()->getSceneManger();
 
         m_num_animations_active = (0);
 
