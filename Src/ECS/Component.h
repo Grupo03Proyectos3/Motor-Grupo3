@@ -4,10 +4,11 @@
 #define __COMPONENT_H__
 
 #include "ecs.h"
+#include "FlamingoExport/FlamingoAPI.h"
 
 namespace Flamingo
 {
-    struct Component
+    FLAMINGOEXPORT_API struct Component
     {
       public:
         Component();
@@ -27,7 +28,7 @@ namespace Flamingo
         //
         virtual void initComponent();
 
-        GameObject* gameObject();
+        FLAMINGOEXPORT_API GameObject* gameObject();
 
       protected:
         // as mentions above, when using systems these fields are not

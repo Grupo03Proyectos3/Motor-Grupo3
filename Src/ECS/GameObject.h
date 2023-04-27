@@ -20,7 +20,7 @@ namespace Flamingo
      *  Clase que representa una Entidad.
      */
 
-    class GameObject
+    FLAMINGOEXPORT_API class GameObject
     {
       public:
         GameObject();

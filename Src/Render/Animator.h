@@ -9,7 +9,7 @@
 
 namespace Flamingo
 {
-    struct Animator : public Flamingo::Component
+    __declspec(dllexport) class Animator : public Flamingo::Component
     {
       public:
         __SYSTEM_ID_DECL__(Flamingo::_cmp_ANIMATOR)

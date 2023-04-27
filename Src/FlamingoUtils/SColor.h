@@ -3,6 +3,7 @@
 #define __SCOLOR_H__
 
 #include <iostream>
+#include "FlamingoExport/FlamingoAPI.h"
 
 namespace Ogre
 {
@@ -11,7 +12,7 @@ namespace Ogre
 
 namespace Flamingo
 {
-    class SColor
+    FLAMINGOEXPORT_API class SColor
     {
       public:
         SColor(float t_r = 1.0f, float t_g = 1.0f, float t_b = 1.0f, float t_a = 1.0f);

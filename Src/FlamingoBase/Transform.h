@@ -5,6 +5,7 @@
 #include "ECS/Component.h"
 #include <FlamingoUtils/SVector3.h>
 #include <FlamingoUtils/SQuaternion.h>
+#include "FlamingoExport/FlamingoAPI.h"
 
 /**
  *  Componente que se encarga de almacenar y manejar información 
@@ -12,7 +13,7 @@
  */
 namespace Flamingo
 {
-    struct Transform : public Component
+    FLAMINGOEXPORT_API struct Transform : public Component
     {
       public:
         __SYSTEM_ID_DECL__(_cpm_TRANSFORM)

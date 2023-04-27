@@ -2,9 +2,11 @@
 #ifndef __TIMER_H__
 #define __TIMER_H__
 
+#include "FlamingoExport/FlamingoAPI.h"
+
 namespace Flamingo
 {
-    class Timer
+    FLAMINGOEXPORT_API class Timer
     {
     public:
         Timer();

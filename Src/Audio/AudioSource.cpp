@@ -39,4 +39,8 @@ namespace Flamingo
         }
         m_audioName = songName;
     }
+    void AudioSource::playAudio()
+    {
+        m_mngr->getSystem<Flamingo::AudioSystem>()->playAudio(m_audioName);
+    }
 } // namespace Flamingo

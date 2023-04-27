@@ -5,6 +5,7 @@
 
 #include "Component.h"
 #include "Lua/ScriptManager.h"
+#include "FlamingoExport/FlamingoAPI.h"
 #include "ecs.h"
 
 namespace Flamingo
@@ -13,7 +14,7 @@ namespace Flamingo
     /*Añade al gameObejct dado y devuelve el componente, solicitandolo al manager directamente o pasando por el ScriptManager según 
     * si pertenece al motor o ha sido creado por el ususario del motor */
     template <typename T>
-    inline T* addComponent(GameObject* gO)
+    FLAMINGOEXPORT_API inline T* addComponent(GameObject* gO)
     {
         if (!std::is_base_of_v<BehaviourScript, T>)
             return Manager::instance()->addComponent<T>(gO);
@@ -25,7 +26,7 @@ namespace Flamingo
       /*Elimina componente del GameObject si posee, solicitandolo al manager directamente o pasando por el ScriptManager según
      * si pertenece al motor o ha sido creado por el ususario del motor */
     template <typename T>
-    inline void removeComponent(GameObject* gO)
+    FLAMINGOEXPORT_API inline void removeComponent(GameObject* gO)
     {
         if (!std::is_base_of_v<BehaviourScript, T>)
             Manager::instance()->removeComponent<T>(gO);
@@ -36,7 +37,7 @@ namespace Flamingo
       /*Devuelve el componente, solicitandolo al manager directamente o pasando por el ScriptManager según
      * si pertenece al motor o ha sido creado por el ususario del motor */
     template <typename T>
-    inline T* getComponent(GameObject* gO)
+    FLAMINGOEXPORT_API inline T* getComponent(GameObject* gO)
     {
         if (!std::is_base_of_v<BehaviourScript, T>)
             return Manager::instance()->getComponent<T>(gO);
@@ -47,7 +48,7 @@ namespace Flamingo
       /*Comprueba si el gameObject dado contiene el componente, solicitandolo al manager directamente o pasando por el ScriptManager según
      * si pertenece al motor o ha sido creado por el ususario del motor */
     template <typename T>
-    inline bool hasComponent(GameObject* gO)
+    FLAMINGOEXPORT_API inline bool hasComponent(GameObject* gO)
     {
         if (!std::is_base_of_v<BehaviourScript, T>)
             return Manager::instance()->hasComponent<T>(gO);

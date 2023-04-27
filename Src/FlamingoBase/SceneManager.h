@@ -18,7 +18,7 @@ namespace Ogre
 }
 
 namespace Flamingo{
-    class SceneManager : public SingletonECS<Flamingo::SceneManager>
+    FLAMINGOEXPORT_API class SceneManager : public SingletonECS<Flamingo::SceneManager>
     {
         friend PhysicsSystem;
         friend RenderSystem;

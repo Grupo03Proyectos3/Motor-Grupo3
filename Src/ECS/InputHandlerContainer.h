@@ -5,8 +5,10 @@
 
 #include "InputHandler.h"
 #include "FlamingoUtils/FlamingoKeys.h"
+#include "FlamingoExport/FlamingoAPI.h"
+
 namespace Flamingo{
-    class InputHandlerContainer : public SingletonECS<InputHandlerContainer>
+    FLAMINGOEXPORT_API class InputHandlerContainer : public SingletonECS<InputHandlerContainer>
     {
         friend SingletonECS<InputHandlerContainer>;
 
