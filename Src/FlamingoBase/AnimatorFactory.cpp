@@ -15,7 +15,7 @@ namespace Flamingo
         {
             std::string name = (args.at("t_name"));
 
-            Flamingo::Animator* c = Flamingo::AddComponent<Flamingo::Animator>(gO);
+            Flamingo::Animator* c = Flamingo::addComponent<Flamingo::Animator>(gO);
             c->initValues();
             c->initComponent();
 

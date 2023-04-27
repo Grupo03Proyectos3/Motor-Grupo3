@@ -35,19 +35,35 @@ namespace Flamingo
 
     BehaviourScript* ScriptManager::addScript(std::string t_n, GameObject* t_gO)
     {
-        deleteOtherScript(t_n, t_gO);
+        removeScript(t_n, t_gO);
 
         return Manager::instance()->addScript(t_gO, getScript(t_n), t_n);
     }
 
-    void ScriptManager::deleteOtherScript(std::string t_n, GameObject* t_gO)
+    BehaviourScript* ScriptManager::getScript(std::string t_n, GameObject* t_gO)
+    {
+        BehaviourScript* script;
+
+        for (const auto& c : t_gO->m_current_comps)
+        {
+            script = dynamic_cast<BehaviourScript*>(c.second);
+            if (script != nullptr && script->GetScriptName() == t_n)
+            {
+                return dynamic_cast<BehaviourScript*>(c.second);
+            }
+        }
+
+        return nullptr;
+    }
+
+    void ScriptManager::removeScript(std::string t_n, GameObject* t_gO)
     {
         // falta codigo defensivo ya que si se pide uno que no exite se la suda y lo crea
         int scriptIndex = m_scriptsIndex[t_n];
 
-        auto it = t_gO->getCurrentComponents().begin();
+        auto it = t_gO->m_current_comps.begin();
 
-        while (it != t_gO->getCurrentComponents().end())
+        while (it != t_gO->m_current_comps.end())
         {
             BehaviourScript* other = dynamic_cast<BehaviourScript*>(it->second);
 
@@ -59,5 +75,21 @@ namespace Flamingo
             else
                 it++;
         }
+    }
+
+    bool ScriptManager::hasScript(std::string t_n, GameObject* t_gO)
+    {
+        BehaviourScript* script;
+
+        for (const auto& c : t_gO->m_current_comps)
+        {
+            script = dynamic_cast<BehaviourScript*>(c.second);
+            if (script != nullptr && script->GetScriptName() == t_n)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 } // namespace Flamingo

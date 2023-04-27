@@ -19,7 +19,7 @@ namespace Flamingo
             float s_x = std::stof(args.at("t_node_x"));
             float s_y = std::stof(args.at("t_node_y"));
             float s_z = std::stof(args.at("t_node_z"));
-            Flamingo::MeshRenderer* c = AddComponent<Flamingo::MeshRenderer>(gO);
+            Flamingo::MeshRenderer* c = addComponent<Flamingo::MeshRenderer>(gO);
             c->initValues(SVector3(s_x, s_y, s_z), modelName, entityName);
             c->changeMaterial(matName);
             c->initComponent();

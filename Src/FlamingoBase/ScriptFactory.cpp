@@ -13,11 +13,7 @@ namespace Flamingo
         {
             std::string script = ScriptManager::instance()->getScriptName(args.at("t_scriptName"));
 
-            ScriptManager::instance()->deleteOtherScript(script, gO);
-
-            auto c = Manager::instance()->addScript<>(gO, ScriptManager::instance()->getScript(script), script);
-
-            return c;
+            return ScriptManager::instance()->addScript(script, gO);
         }
         catch (...)
         {

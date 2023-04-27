@@ -9,7 +9,7 @@ namespace Flamingo{
             bool trigger = std::stof(args.at("t_trigger"));
             bool is_static = std::stof(args.at("t_static"));
 
-            RigidBody* c = AddComponent<RigidBody>(gO);
+            RigidBody* c = addComponent<RigidBody>(gO);
             c->initValues(mass, trigger, is_static);
             c->initComponent();
 

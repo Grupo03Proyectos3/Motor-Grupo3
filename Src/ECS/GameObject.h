@@ -15,7 +15,6 @@
 namespace Flamingo
 {
     class Manager;
-    class ScriptFactory;
     class ScriptManager;
     /**
      *  Clase que representa una Entidad.
@@ -42,7 +41,6 @@ namespace Flamingo
       private:
         friend class Manager;
         friend class ScriptManager;
-        friend class ScriptFactory;
 
         bool m_alive;
         bool m_active;

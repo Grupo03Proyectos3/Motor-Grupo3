@@ -7,7 +7,7 @@ namespace Flamingo
         try
         {
             float speed = std::stof(args.at("t_speed"));
-            PlayerController* c = AddComponent<PlayerController>(gO);
+            PlayerController* c = addComponent<PlayerController>(gO);
             c->initValues(speed);
             c->initComponent();
 

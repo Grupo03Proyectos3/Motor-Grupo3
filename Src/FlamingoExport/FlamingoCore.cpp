@@ -16,18 +16,18 @@
 #include "ECS/SingletonECS.h"
 
 // TEMPORAL -> TO DO : quitarlos
-#include "Render/Light.h"
-#include "Render/Animator.h"
-#include "Render/MeshRenderer.h"
-#include <FlamingoBase/Transform.h>
-#include <FlamingoUtils/SVector2.h>
-#include <UI/UIElement.h>
-#include <ECS/InputHandlerContainer.h>
-#include <FlamingoUtils/FlamingoKeys.h>
 #include "FlamingoBase/SceneManager.h"
-#include "Lua/ScriptManager.h"
 #include "Lua/PruebaScript.h"
+#include "Lua/ScriptManager.h"
+#include "Render/Animator.h"
+#include "Render/Light.h"
+#include "Render/MeshRenderer.h"
+#include <ECS/InputHandlerContainer.h>
+#include <FlamingoBase/Transform.h>
+#include <FlamingoUtils/FlamingoKeys.h>
+#include <FlamingoUtils/SVector2.h>
 #include <Ogre.h>
+#include <UI/UIElement.h>
 // chapucilla
 #include <Physics/PlayerController.h>
 #include <Render/EnemyAI.h>
@@ -51,7 +51,8 @@ namespace Flamingo
         l.loadDirectories();
 
         std::string s = "Motor";
-        Manager* m_mngr = Manager::instance();m_mngr->init();
+        Manager* m_mngr = Manager::instance();
+        m_mngr->init();
         SceneManager& sceneManager = SceneMngr();
         Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
         RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
@@ -59,9 +60,8 @@ namespace Flamingo
         sceneManager.initManager("SceneManager", m_mngr);
         PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
         AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
-        Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();       
+        Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();
         render_sys->inicializarShaders();
-        
 
         if (!scripting_sys->loadScene(m_first_scene))
         {
@@ -73,7 +73,7 @@ namespace Flamingo
         auto nodo = mainScene->getSceneRoot();
         GameObject* cam_go = m_mngr->addGameObject({GROUP_RENDER});
         cam_go->setName("myCamera");
-        auto m_camera = AddComponent<Camera>(cam_go);
+        auto m_camera = addComponent<Camera>(cam_go);
         m_camera->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
         m_camera->initComponent();
         m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
@@ -86,11 +86,11 @@ namespace Flamingo
 
         GameObject* light_go = m_mngr->addGameObject({GROUP_RENDER});
         light_go->setName("mylight");
-        auto tr_transform = AddComponent<Transform>(light_go);
+        auto tr_transform = addComponent<Transform>(light_go);
         tr_transform->initValues(SVector3(0.0, 350.0, 200.0), SQuaternion(0.0, 0.0, 0.0, 1.0), SVector3(1.0, 1.0, 1.0));
-        //MeshRenderer* cmp_mesh = ecs::AddComponent<MeshRenderer>(light_go);
-        //cmp_mesh->initValues(nodo->createChildSceneNode(), mainScene->getSceneManger(), SVector3(1, 1, 1), "cube.mesh", "cuboluz");
-        Light* cmp_light = AddComponent<Light>(light_go);
+        // MeshRenderer* cmp_mesh = ecs::AddComponent<MeshRenderer>(light_go);
+        // cmp_mesh->initValues(nodo->createChildSceneNode(), mainScene->getSceneManger(), SVector3(1, 1, 1), "cube.mesh", "cuboluz");
+        Light* cmp_light = addComponent<Light>(light_go);
         cmp_light->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), "myLight2");
         cmp_light->initComponent();
         cmp_light->setType(Light::DIRECTIONAL);
@@ -112,9 +112,9 @@ namespace Flamingo
         mainScene->addObjects(light_go);*/
 
         GameObject* UI = m_mngr->addGameObject({GROUP_UI});
-        auto y = AddComponent<Transform>(UI);
+        auto y = addComponent<Transform>(UI);
         y->initValues();
-        auto x = AddComponent<Flamingo::UIElement>(UI);
+        auto x = addComponent<Flamingo::UIElement>(UI);
         x->setElementWidget("FlamingoDefaultUI/Button", "COSO");
         x->setText("ODIO CEGUI");
         x->setImage("NormalImage", "paco", "100.png");
@@ -122,29 +122,32 @@ namespace Flamingo
         x->setImage("HoverImage", "paco3", "esp.png");
         y->setPosition({50, 50, 0});
         y->setScale({100, 100, 0});
-        x->subscribeEvent(&FlamingoCore::prueba, this);    
+        x->subscribeEvent(&FlamingoCore::prueba, this);
         x->setActive(true);
 
-     /*  ScriptManager::instance()->addGameScript("PruebaScript", new PruebaScript());
-        ecs::GameObject* g = m_mngr->addGameObject();
-        ecs::AddComponent<PruebaScript>(g);*/
+      /*  ScriptManager::instance()->addGameScript("PruebaScript", new PruebaScript());
+        Flamingo::GameObject* g = m_mngr->addGameObject();
+        Flamingo::addComponent<Transform>(g);
+        Flamingo::addComponent<PruebaScript>(g);
+        if (Flamingo::hasComponent<PruebaScript>(g) && !Flamingo::hasComponent<EnemyAI>(g))
+            std::cout << "hasComponent \n";*/
 
-        //TO DO: eliminar despues de comprobar las animaciones
-        //auto d = mainScene->getObject("dragon");
-        //auto a = m_mngr->getComponent<Flamingo::Animator>(d);
-        //a->setAnimation("idle", true, true);
+        // TO DO: eliminar despues de comprobar las animaciones
+        // auto d = mainScene->getObject("dragon");
+        // auto a = m_mngr->getComponent<Flamingo::Animator>(d);
+        // a->setAnimation("idle", true, true);
 
         // enemigos
         auto enemigo = m_mngr->getEntities(GROUP_RENDER);
         auto ene = m_mngr->addComponent<EnemyAI>(enemigo[2]);
         ene->initValues();
         m_mngr->addGameObjectToGroups(enemigo[2], {GROUP_SCRIPTING});
-        
-       //ecs::GameObject* p = m_mngr->addGameObject({ecs::GROUP_RENDER});
-       // auto t = ecs::AddComponent<Transform>(p);
-       // t->initValues(SVector3(0 , 100, 0));
-       // auto r = ecs::AddComponent<MeshRenderer>(p);
-       // 
+
+        // ecs::GameObject* p = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        //  auto t = ecs::AddComponent<Transform>(p);
+        //  t->initValues(SVector3(0 , 100, 0));
+        //  auto r = ecs::AddComponent<MeshRenderer>(p);
+        //
 
         return initSuccessful;
     }
@@ -166,7 +169,7 @@ namespace Flamingo
         auto render_sys = m_mngr->getSystem<RenderSystem>();
 
         auto& ihdlr = ih();
-        
+
         while (motor_running && !render_sys->getWindow()->isWindowClosed())
         {
             // Delta time en milisegundos
@@ -174,7 +177,7 @@ namespace Flamingo
             // Tiempo transcurrido desde el inicio del programa en milisegundos
             time = player_timer->getElapsedTime();
 
-            // leer entrada           
+            // leer entrada
             for (auto sys : m_mngr->getSystems())
             {
                 if (sys)
@@ -188,7 +191,6 @@ namespace Flamingo
             auto enemigo = m_mngr->getEntities(GROUP_RENDER);
             auto controller = m_mngr->getComponent<PlayerController>(enemigo[0]);
 
-            
             controller->handleInput();
             render_sys->manipulateCamera();
 
@@ -256,6 +258,5 @@ namespace Flamingo
     void FlamingoCore::prueba()
     {
         std::cout << "PRUEBA\n";
-    }   
-}
-
+    }
+} // namespace Flamingo

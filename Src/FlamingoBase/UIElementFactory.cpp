@@ -12,7 +12,7 @@ namespace Flamingo
             std::string text = (args.at("t_text"));
             std::string image = (args.at("t_image"));
 
-            Flamingo::UIElement* c = AddComponent<Flamingo::UIElement>(gO);
+            Flamingo::UIElement* c = addComponent<Flamingo::UIElement>(gO);
             c->initValues(type, name, text, image);
             c->initComponent();
 

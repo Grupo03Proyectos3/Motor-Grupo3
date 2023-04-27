@@ -28,8 +28,12 @@ namespace Flamingo
 
         BehaviourScript* addScript(std::string t_n, GameObject* t_gO);
 
-        /*Método que localiza en la lista de componentes de un GameObject un script del indice dado y lo elimina llamando al Manager*/
-        void deleteOtherScript(std::string t_n, GameObject* t_gO);
+        BehaviourScript* getScript(std::string t_n, GameObject* t_gO);
+
+         /*Método que localiza en la lista de componentes de un GameObject un script del indice dado y lo elimina llamando al Manager*/
+        void removeScript(std::string t_n, GameObject* t_gO);
+
+        bool hasScript(std::string t_n, GameObject* t_gO);
 
       private:
         friend SingletonECS<Manager>;

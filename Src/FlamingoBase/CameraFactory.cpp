@@ -21,7 +21,7 @@ namespace Flamingo
             std::string name = (args.at("t_name"));
             std::string entityName = (args.at("t_entity_name"));
 
-            Camera* c = Flamingo::AddComponent<Camera>(gO);
+            Camera* c = Flamingo::addComponent<Camera>(gO);
             c->initValues(Flamingo::SceneMngr().getSceneActive()->getSceneManger(),
                           root->createChildSceneNode(), m_renderSystem->getWindow(), name);
             c->initComponent();

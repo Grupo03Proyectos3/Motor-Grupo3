@@ -21,7 +21,7 @@ namespace Flamingo
         {
             std::string name = (args.at("t_name"));
 
-            Light* c = AddComponent<Light>(gO);
+            Light* c = addComponent<Light>(gO);
             c->initValues(Flamingo::SceneMngr().getSceneActive()->getSceneManger(), root->createChildSceneNode(), name);
             c->initComponent();
 
