@@ -3,8 +3,15 @@
 
 #include "ECS/Component.h"
 #include "FlamingoUtils/SVector3.h"
-
 #include <string>
+
+namespace Ogre
+{
+    class SceneNode;
+    class SceneManager;
+    class Light;
+}
+
 namespace Flamingo
 {
     struct Light : Component

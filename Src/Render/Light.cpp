@@ -3,6 +3,7 @@
 #include <OgreLight.h>
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
+#include <OgreVector3.h>
 
 #include "ECS/Manager.h"
 namespace Flamingo
