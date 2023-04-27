@@ -1,7 +1,7 @@
 #include "SVector2.h"
+
 #include <math.h>
-#include <iostream>
-#include <CEGUI/Vector.h>
+
 //#include <LinearMath/btVector2.h>
 //#include <OgreVector3.h>
 
@@ -151,14 +151,13 @@ namespace Flamingo{
         return Ogre::Vector2(/*-*/ (Ogre::Real)m_x, /*-*/ (Ogre::Real)m_y);
     }
 
+    SVector2::operator CEGUI::Vector2<double>() const
+    {
+    }
+
     SVector2::operator CEGUI::Vector2<int>() const
     {
         return CEGUI::Vector2<int>(/*-*/ m_x, /*-*/ m_y);
-    }
-
-    SVector2::operator CEGUI::Vector2<double>() const
-    {
-        return CEGUI::Vector2<double>(/*-*/ m_x, /*-*/ m_y);
     }
 
     SVector2::operator CEGUI::Vector2<float>() const

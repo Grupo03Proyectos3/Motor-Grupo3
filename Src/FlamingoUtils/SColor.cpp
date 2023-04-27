@@ -1,4 +1,6 @@
 #include "SColor.h"
+#include <OgreColourValue.h>
+
 namespace Flamingo
 {
     SColor::SColor(float t_r, float t_g, float t_b, float t_a)

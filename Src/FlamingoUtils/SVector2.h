@@ -5,6 +5,7 @@
 
 #include <OgreVector2.h>
 #include <CEGUI/Vector.h>
+#include <iostream>
 
 /**
  * Clase base que usaremos como interprete entre todos los demás vector3 presentes en el motor (ogreVector3, FModVector3...)

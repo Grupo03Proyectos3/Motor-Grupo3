@@ -2,7 +2,13 @@
 #ifndef __SCOLOR_H__
 #define __SCOLOR_H__
 
-#include <OgreColourValue.h>
+#include <iostream>
+
+namespace Ogre
+{
+    class ColourValue;
+}
+
 namespace Flamingo
 {
     class SColor
