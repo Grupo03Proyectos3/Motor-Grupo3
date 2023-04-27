@@ -66,7 +66,7 @@ namespace Flamingo
         bool scene2 = scripting_sys->loadScene("mapa");
         bool scene1 = scripting_sys->loadScene("menu");
 
-        sceneManager.setSceneActive("menu");
+        sceneManager.setSceneActive("mapa");
 
         if (/*!scripting_sys->loadScene(m_first_scene)*/!scene1 && !scene2)
         {
@@ -84,7 +84,7 @@ namespace Flamingo
 
         m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
         m_camera->setNearClipDistance(1);
-        m_camera->setFarClipDistance(10000);
+        m_camera->setFarClipDistance(100000);
         mainScene->addObjects(cam_go);
         render_sys->setMainCamera(m_camera);
 

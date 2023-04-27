@@ -25,10 +25,10 @@ namespace Flamingo
     void Camera::initComponent()
     {
         m_cam = m_scene_mngr->createCamera(m_name);
-        // m_cam_node = m_scene_node->createChildSceneNode();
         m_cam_node->attachObject(m_cam);
-        m_cam_node->setPosition(500, 500, 1000);
-
+        //m_cam_node->setPosition(500, 500, 1000);
+        m_cam_node->setPosition(0, 70000, 0);
+        m_cam_node->setDirection(0, -1, 0);
         m_vp = m_window->getRenderWindow()->addViewport(m_cam, -m_window->getRenderWindow()->getNumViewports());
         m_vp->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
     }

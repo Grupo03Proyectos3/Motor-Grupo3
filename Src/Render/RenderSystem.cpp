@@ -246,19 +246,23 @@ namespace Flamingo
             }
             if (ihldr.isKeyDown(SDLK_RIGHT))
             {
-                m_camera->translate(10.0f, 0.0f, 0.0f);
+                m_camera->translate(300.0f, 0.0f, 0.0f);
             }
             else if (ihldr.isKeyDown(SDLK_LEFT))
             {
-                m_camera->translate(-10.0f, 0.0f, 0.0f);
+                m_camera->translate(-300.0f, 0.0f, 0.0f);
             }
             else if (ihldr.isKeyDown(SDLK_UP))
             {
-                m_camera->translate(0.0f, 0.0f, -10.0f);
+                m_camera->translate(0.0f, 0.0f, -300.0f);
             }
             else if (ihldr.isKeyDown(SDLK_DOWN))
             {
-                m_camera->translate(0.0f, 0.0f, +10.0f);
+                m_camera->translate(0.0f, 0.0f, +100.0f);
+            }
+            else if (ihldr.isKeyDown(SDLK_PLUS))
+            {
+                m_camera->translate(0.0f, -200.0f, 0.0f);
             }
         }
     }
