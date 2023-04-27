@@ -1,8 +1,6 @@
 // FlamingoExport.cpp : Define las funciones exportadas del archivo DLL.
 //
 
-#include "pch.h"
-#include "framework.h"
 #include "FlamingoExport.h"
 #include <iostream>
 

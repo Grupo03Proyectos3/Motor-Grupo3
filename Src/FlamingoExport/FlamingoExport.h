@@ -10,17 +10,17 @@
 #define FLAMINGOEXPORT_API __declspec(dllimport)
 #endif
 
-    // Clase exportada del DLL
-    class FLAMINGOEXPORT_API CFlamingoExport
-    {
-        static CFlamingoExport* _instance;
+// Clase exportada del DLL
+class FLAMINGOEXPORT_API CFlamingoExport
+{
+    static CFlamingoExport* _instance;
 
-      public:
-        static bool Init();
-        static CFlamingoExport* Instance();
-        void DoSomething();
-        CFlamingoExport(void);
-    };
-    extern FLAMINGOEXPORT_API int nFlamingoExport;
+  public:
+    static bool Init();
+    static CFlamingoExport* Instance();
+    void DoSomething();
+    CFlamingoExport(void);
+};
+extern FLAMINGOEXPORT_API int nFlamingoExport;
 
-    FLAMINGOEXPORT_API int fnFlamingoExport(void);
+FLAMINGOEXPORT_API int fnFlamingoExport(void);

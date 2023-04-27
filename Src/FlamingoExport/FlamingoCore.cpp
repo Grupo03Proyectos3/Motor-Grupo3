@@ -1,5 +1,4 @@
 #include "FlamingoCore.h"
-#include "pch.h"
 
 #include "FlamingoUtils/Timer.h"
 #include "ResourcesLoader/Loader.h"

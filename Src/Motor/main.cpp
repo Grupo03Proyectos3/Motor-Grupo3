@@ -19,9 +19,9 @@ int main(int argc, char* argv[])
 
     // PARA TRABAJAR CON EL JUEGO
 
-    //if (hinstLib != NULL)
+    // if (hinstLib != NULL)
     //{
-    //    std::cout << "Libreria cargada\n";
+    //     std::cout << "Libreria cargada\n";
 
     //    Flamingo::FlamingoCore* core = Flamingo::FlamingoCore::instance();
 
@@ -45,22 +45,23 @@ int main(int argc, char* argv[])
     //    else
     //        std::cout << "No he encontrado InitJuego\n";
     //}
-    //else
+    // else
     //{
     //    std::cout << "No se encuentra la DLL DllJuego\n";
     //}
 
     // PARA TRABAJAR DESDE EL MOTOR
-     Flamingo::FlamingoCore* fBase = new Flamingo::FlamingoCore();
-     if (fBase->FlamingoInit()){
-         fBase->FlamingoLoop();
-         fBase->FlamingoExit();
-     }
-     else
-         return -1;
-     delete fBase;
+    Flamingo::FlamingoCore* fBase = new Flamingo::FlamingoCore();
+    if (fBase->FlamingoInit())
+    {
+        fBase->FlamingoLoop();
+        fBase->FlamingoExit();
+    }
+    else
+        return -1;
+    delete fBase;
 
-     // uncomment to check Memory leaks
+    // uncomment to check Memory leaks
     //_CrtDumpMemoryLeaks();
 
     return 0;
