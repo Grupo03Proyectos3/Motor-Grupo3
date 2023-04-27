@@ -9,8 +9,8 @@
 #include "ECS/GameObject.h"
 #include "ECS/Manager.h"
 #include "FlamingoBase/Transform.h"
-#include "Render/RenderSystem.h"
 #include "Render/DebugDrawer.h"
+#include "Render/RenderSystem.h"
 #include "RigidBody.h"
 
 namespace Flamingo
@@ -123,6 +123,22 @@ namespace Flamingo
                 rb->setRotation(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
                 break;
             }
+            case MSG_GAME_OBJECT_ACTIVE_CHANGED:
+            {
+                auto game_object = t_m.gameObejctChangeActive.object_changed;
+                auto rb = m_mngr->getComponent<RigidBody>(game_object);
+                if (rb)
+                {
+                    if (t_m.gameObejctChangeActive.mode)
+                    {
+                        addRigidBody(rb->getBtRigidBody());
+                    }
+                    else
+                    {
+                        removeRigidBody(rb->getBtRigidBody());
+                    }
+                }
+            }
             default:
                 break;
         }
@@ -162,7 +178,17 @@ namespace Flamingo
 
     void PhysicsSystem::update(float t_delta_time)
     {
-        // TO DO add forces with input/scripts??
+        for (auto game_object : m_mngr->getEntities(GROUP_PHYSICS))
+        {
+            if (game_object != nullptr && game_object->getActive())
+            {
+                auto rb = m_mngr->getComponent<RigidBody>(game_object);
+                if (rb)
+                {
+                    rb->getBtRigidBody()->setDeactivationTime(0);
+                }
+            }
+        }
 
         if (m_world)
         {

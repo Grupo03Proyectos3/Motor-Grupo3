@@ -38,6 +38,13 @@ namespace Flamingo
     void GameObject::setActive(bool to)
     {
         m_active = to;
+
+        Message m;
+        m.id = MSG_GAME_OBJECT_ACTIVE_CHANGED;
+        m.gameObejctChangeActive.object_changed = this;
+        m.gameObejctChangeActive.mode = to;
+        auto mngr = Manager::instance();
+        mngr->send(m);
     }
 
     bool GameObject::getAlive()

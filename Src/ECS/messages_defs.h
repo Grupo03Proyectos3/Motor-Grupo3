@@ -23,7 +23,8 @@ namespace Flamingo
         MSG_COLLISION_ENTER,
         MSG_COLLIISION_EXIT,
         MSG_MOUSE_CLICK,
-        MSG_MOUSE_MOVE
+        MSG_MOUSE_MOVE,
+        MSG_GAME_OBJECT_ACTIVE_CHANGED
     };
 
     /**
@@ -68,6 +69,12 @@ namespace Flamingo
                 float x;
                 float y;
             } moveMouse;
+
+            struct
+            {
+                GameObject* object_changed;
+                bool mode;
+            } gameObejctChangeActive;
         };
     };
 } // namespace Flamingo

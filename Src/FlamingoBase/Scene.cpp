@@ -77,7 +77,7 @@ namespace Flamingo{
         m_CeguiRootNode->setVisible(false);
         // acceder a objectos de la scene en la k esten y desactivarlos
         for (auto obj : m_SceneGameObjects)
-        {
+        {   // TO DO : refactorizar para que la camara reciba el mensaje y se desactive sola
             obj.second->setActive(false);
             if (m_mngr->getComponent<Camera>(obj.second) != nullptr)
             { // es necesario desasociar el viewport de la camara con la camra para k pare de renderizar
@@ -93,7 +93,7 @@ namespace Flamingo{
         m_CeguiRootNode->setVisible(true);
         for (auto it : m_SceneGameObjects)
         {
-            it.second->setActive(false);
+            it.second->setActive(true);
             if (m_mngr->getComponent<Camera>(it.second) != nullptr)
             {
                 m_mngr->getComponent<Camera>(it.second)->active();

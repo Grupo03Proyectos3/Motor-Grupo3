@@ -63,7 +63,12 @@ namespace Flamingo
         Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();
         render_sys->inicializarShaders();
 
-        if (!scripting_sys->loadScene(m_first_scene))
+        bool scene2 = scripting_sys->loadScene("mapa");
+        bool scene1 = scripting_sys->loadScene("menu");
+
+        sceneManager.setSceneActive("menu");
+
+        if (/*!scripting_sys->loadScene(m_first_scene)*/!scene1 && !scene2)
         {
             throw std::runtime_error("No ha sido posible cargar la escena\n");           
         }

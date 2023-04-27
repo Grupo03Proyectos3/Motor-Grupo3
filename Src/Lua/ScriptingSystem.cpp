@@ -170,8 +170,10 @@ namespace Flamingo
         {
             return false;
         }
-        auto myscene = m_scene_mngr.createScene(t_scene, true);
-        m_mngr->getSystem<RenderSystem>()->addShadersScene(myscene);
+
+        auto myScene = m_scene_mngr.createScene(t_scene, true);
+
+        m_mngr->getSystem<RenderSystem>()->addShadersScene(myScene);
         // TO DO : a�adir control de excepciones devolviendo false si algo falla
         // Por ej : no encuentra el fichero
         readScript(t_scene);
@@ -221,7 +223,8 @@ namespace Flamingo
 
                 m_data.clear();
             }
-            m_scene_mngr.getSceneActive()->addObjects(gO);
+            m_scene_mngr.getScene(t_scene)->addObjects(gO);
+            //m_scene_mngr.getSceneActive()->addObjects(gO);
         }
 
         return true;
