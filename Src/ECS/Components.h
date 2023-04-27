@@ -10,6 +10,8 @@
 class GameObject;
 namespace Flamingo
 {
+    /*Añade al gameObejct dado y devuelve el componente, solicitandolo al manager directamente o pasando por el ScriptManager según 
+    * si pertenece al motor o ha sido creado por el ususario del motor */
     template <typename T>
     inline T* addComponent(GameObject* gO)
     {
@@ -20,6 +22,8 @@ namespace Flamingo
             return dynamic_cast<T*>(ScriptManager::instance()->addScript(typeid(T).name(), gO));
     }
 
+      /*Elimina componente del GameObject si posee, solicitandolo al manager directamente o pasando por el ScriptManager según
+     * si pertenece al motor o ha sido creado por el ususario del motor */
     template <typename T>
     inline void removeComponent(GameObject* gO)
     {
@@ -29,6 +33,8 @@ namespace Flamingo
             ScriptManager::instance()->removeScript(typeid(T).name(), gO);
     }
 
+      /*Devuelve el componente, solicitandolo al manager directamente o pasando por el ScriptManager según
+     * si pertenece al motor o ha sido creado por el ususario del motor */
     template <typename T>
     inline T* getComponent(GameObject* gO)
     {
@@ -38,6 +44,8 @@ namespace Flamingo
             return dynamic_cast<T*>(ScriptManager::instance()->getScript(typeid(T).name(), gO));
     }
 
+      /*Comprueba si el gameObject dado contiene el componente, solicitandolo al manager directamente o pasando por el ScriptManager según
+     * si pertenece al motor o ha sido creado por el ususario del motor */
     template <typename T>
     inline bool hasComponent(GameObject* gO)
     {

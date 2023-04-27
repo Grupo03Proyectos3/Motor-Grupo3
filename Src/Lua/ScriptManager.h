@@ -11,6 +11,9 @@ class Manager;
 
 namespace Flamingo
 {
+    /*Clase que se encarga de la gestión de scripts que hereden de BehaviorScript mediante nombres asociados a la clase y referencias a esta.
+    Se usa como capa de abstracción que ,en conjunto con el Manager, realiza las funciones necesarias sobre los componentes que si fueran propios del motor
+    y no creados por el ussuario llevaría a cabo el manager directamente. */
     struct ScriptManager : public SingletonECS<ScriptManager>
     {
       public:
@@ -26,13 +29,16 @@ namespace Flamingo
          * hora de añadir nuevos scripts o eliminarlos*/
         void addGameScript(std::string t_n, BehaviourScript* t_s);
 
+        /*Método que añade a un gameObject dado el script en cuestiñon, eliminando uno similar si lo había, y devolviendolo*/
         BehaviourScript* addScript(std::string t_n, GameObject* t_gO);
 
+         /*Método que devuelve el script si el gameObject lo posee o, en caso contrario, un puntero nulo*/
         BehaviourScript* getScript(std::string t_n, GameObject* t_gO);
 
          /*Método que localiza en la lista de componentes de un GameObject un script del indice dado y lo elimina llamando al Manager*/
         void removeScript(std::string t_n, GameObject* t_gO);
 
+        /*Método que comprueba si el gameObject en cuestion contiene el script en cuestión*/
         bool hasScript(std::string t_n, GameObject* t_gO);
 
       private:
