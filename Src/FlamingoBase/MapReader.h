@@ -27,6 +27,12 @@ namespace Flamingo
         MapReader(Flamingo::RenderSystem* t_renderSystem);
         ~MapReader();
 
+        /**
+        @brief Añadde las factorías necesarias
+        *
+        @return
+        */
+        void initMapReader();
         void readMap(std::string t_filename, Flamingo::Scene* t_scene);
 
         void createCamera();
