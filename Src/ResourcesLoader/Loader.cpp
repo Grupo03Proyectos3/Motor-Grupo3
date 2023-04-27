@@ -59,23 +59,22 @@ namespace Flamingo
     void Loader::loadDirectories()
     {
         const char* directory = "./Assets";    // Directorio donde estan todos los recursos que buscar
+        DIR* dir = opendir("./Assets");
         std::ifstream infile("resources.cfg"); // Archivo de input
         std::string line;                      // Linea donde se guarda cada linea leida
         std::vector<std::string> text;         // Vector donde me guardo todo el texto leido. Cada componente del vector es una linea
 
         // si no puede abrir resources.cfg ERROR
-        try
+        
+        if (!dir)
         {
-            if (!infile)
-            {
-                throw std::ifstream::failure("resources.cfg dont found");
-            }
+            throw std::ifstream::failure("Assets folder not found");
         }
-        catch (std::ifstream::failure& excepcion)
+        if (!infile)
         {
-            std::cerr << "Error: " << excepcion.what() << '\n';
-            exit(1);
+            throw std::ifstream::failure("resources.cfg not found");
         }
+        
 
         while (line != "FileSystem=./Assets") // Leo hasta "FileSystem=./Assets" que es lo que no quiero sobreescribir
         {
