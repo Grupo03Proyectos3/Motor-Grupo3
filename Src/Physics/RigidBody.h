@@ -19,6 +19,7 @@ namespace Flamingo{
 
     class SVector3;
     class SQuaternion;
+    class FlamingoMotionState;
 
     struct RigidBody : public Component
     {
