@@ -203,13 +203,17 @@ bool Flamingo::ScriptingSystem::loadScene(std::string t_scene, bool t_first)
                 if (compName == "Name")
                 {
                     gO->setName(val);
+                    if (val == "player")
+                    {
+                        m_mngr->setHandler(ecs::_hdr_player, gO);
+                    }
                 }
                 else m_data.insert({key, val});
                 lua_pop(component, 1);
             }
             if (compName != "Name")
                 m_componentFactory->addComponent(gO, compName, m_data); // (GameObject, tipo de componente, el map)
-            // lua_pop(entity, 1);
+            
             m_data.clear();
         }
         m_scene_mngr.getSceneActive()->addObjects(gO);

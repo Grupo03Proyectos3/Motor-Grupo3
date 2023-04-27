@@ -2,7 +2,7 @@ entities = {"Sinbad", "Cesped", "Torus", "Arbol", "EspadaMetal", "EspadaMadera",
 
 Sinbad = {
     Name={
-        t_name="simbad"
+        t_name="player"
     },
    AATransform = {
        positionX = "200.0",
@@ -26,7 +26,7 @@ Sinbad = {
    },
    MeshRenderer = {
        t_model_name = "Sinbad.mesh",
-       t_entity_name= "simbad",
+       t_entity_name= "player",
        t_node_x="25.0",
        t_node_y="25.0",
        t_node_z="25.0",

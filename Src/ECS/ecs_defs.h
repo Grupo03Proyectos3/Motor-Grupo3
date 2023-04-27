@@ -32,7 +32,8 @@
 // Lista de Handlers
 //
 #define HANDLERS_LIST \
-    HANDLER_EXAMPLE
+    HANDLER_EXAMPLE,  \
+        _hdr_player
 
 // Lista de sistemas
 //
