@@ -15,11 +15,10 @@
 #include <string>
 namespace Flamingo
 {
-
-    struct ParticleSystem : public ecs::Component
+    struct ParticleSystem : public Component
     {
       public:
-        __SYSTEM_ID_DECL__(ecs::_cpm_PARTICLE_SYSTEM)
+        __SYSTEM_ID_DECL__(_cpm_PARTICLE_SYSTEM)
 
         ParticleSystem();
         ParticleSystem(Ogre::SceneManager* t_mng, Ogre::SceneNode* t_node);

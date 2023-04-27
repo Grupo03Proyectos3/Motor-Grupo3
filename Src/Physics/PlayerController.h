@@ -8,38 +8,39 @@
 #include "ECS/Manager.h"
 #include "FlamingoBase/Transform.h"
 #include "Render/Camera.h"
-
-struct PlayerController : public ecs::Component
+namespace Flamingo
 {
-  public:
-    __SYSTEM_ID_DECL__(ecs::_cmp_PLAYER_CONTROLLER)
+    struct PlayerController : public Component
+    {
+      public:
+        __SYSTEM_ID_DECL__(_cmp_PLAYER_CONTROLLER)
 
-    PlayerController();
-    virtual ~PlayerController();
-    virtual void initValues();
-    virtual void initValues(float t_playerSpeed);
-    virtual void initComponent();
+        PlayerController();
+        virtual ~PlayerController();
+        virtual void initValues();
+        virtual void initValues(float t_playerSpeed);
+        virtual void initComponent();
 
-    void movePlayer(float t_horizontal, float t_vertical);
-    void rotatePlayer(double t_angle, SVector3 t_axis);
+        void movePlayer(float t_horizontal, float t_vertical);
+        void rotatePlayer(double t_angle, SVector3 t_axis);
 
-    // Métodos para el input del jugador
-    void handleInput();
+        // Métodos para el input del jugador
+        void handleInput();
 
-  private:
-    bool m_active;
+      private:
+        bool m_active;
 
-    Transform* m_transform;
-    Ogre::SceneNode* m_player_node;
-    /*
-     * Movimiento del personaje
-     */
-    float m_playerSpeed;
-    /*
-     * Cámara
-     */
-    Camera* m_mainCamera;
-    // SVector3 m_cameraPosition;
-};
-
+        Transform* m_transform;
+        Ogre::SceneNode* m_player_node;
+        /*
+         * Movimiento del personaje
+         */
+        float m_playerSpeed;
+        /*
+         * Cámara
+         */
+        Camera* m_mainCamera;
+        // SVector3 m_cameraPosition;
+    };
+} // namespace Flamingo
 #endif

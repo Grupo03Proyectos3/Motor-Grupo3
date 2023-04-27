@@ -8,10 +8,10 @@ namespace Flamingo
 {
     class Window;
 
-	class RenderSystem : public ecs::System
+	class RenderSystem : public System
     {
       public:
-        __SYSTEM_ID_DECL__(ecs::_sys_RENDER)
+        __SYSTEM_ID_DECL__(_sys_RENDER)
 
         RenderSystem(){};
         RenderSystem(std::string& t_app_name);

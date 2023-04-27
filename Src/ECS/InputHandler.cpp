@@ -143,7 +143,7 @@ namespace Flamingo{
         m.moveMouse.y = t_event.motion.y;
         m.id = MSG_MOUSE_MOVE;
         m.entity_affected = nullptr;
-        ecs::Manager::instance()->send(m);
+        Manager::instance()->send(m);
     }
 
     void InputHandler::onMouseButtonChange(const SDL_Event& t_event, bool t_is_down)
@@ -169,7 +169,7 @@ namespace Flamingo{
         m.ui_input.mouse_states[MIDDLE] = m_mB_state[MIDDLE];
         m.id = MSG_MOUSE_CLICK;
         m.entity_affected = nullptr;
-        ecs::Manager::instance()->send(m);
+        Manager::instance()->send(m);
     }
 
     void InputHandler::handleWindowEvent(const SDL_Event& t_event)
@@ -187,12 +187,12 @@ namespace Flamingo{
         }
     }
 
-     void InputHandler::sendMessageWindowResized()
+    void InputHandler::sendMessageWindowResized()
     {
         Message m;
         m.id = MSG_WINDOW_RESIZED;
         m.entity_affected = nullptr;
-        ecs::Manager::instance()->send(m);
+        Manager::instance()->send(m);
     }
 
     InputHandler& ih()

@@ -18,10 +18,10 @@ class SVector3;
 class SQuaternion;
 class FlamingoMotionState;
 namespace Flamingo{
-    struct RigidBody : public ecs::Component
+    struct RigidBody : public Component
     {
       public:
-        __SYSTEM_ID_DECL__(ecs::_cmp_RIGID_BODY)
+        __SYSTEM_ID_DECL__(_cmp_RIGID_BODY)
 
         RigidBody();
         virtual ~RigidBody();

@@ -23,7 +23,7 @@ namespace Flamingo
       public:
         AnimatorFactory(Flamingo::RenderSystem* t_renderSystem);
 
-        ecs::Component* createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
+        Flamingo::Component* createComponent(Flamingo::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
     };
 } // namespace Flamingo
 #endif

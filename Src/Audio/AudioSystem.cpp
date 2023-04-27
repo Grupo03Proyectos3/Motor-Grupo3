@@ -30,7 +30,7 @@ namespace Flamingo
 
     void AudioSystem::initSystem()
     {
-        m_group = ecs::GROUP_AUDIO;
+        m_group = Flamingo::GROUP_AUDIO;
         checkError(FMOD::System_Create(&m_system));
 
         m_soundMap = new SoundMap();

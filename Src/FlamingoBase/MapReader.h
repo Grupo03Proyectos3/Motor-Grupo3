@@ -34,7 +34,7 @@ namespace Flamingo
       private:
         ComponentsFactory* m_componentFactory;
         Data m_data;
-        ecs::Manager* m_mngr;
+        Manager* m_mngr;
         Flamingo::RenderSystem* m_renderSystem;
     };
 } // namespace Flamingo

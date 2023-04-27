@@ -9,10 +9,10 @@
 
 namespace Flamingo
 {
-    struct Animator : public ecs::Component
+    struct Animator : public Flamingo::Component
     {
       public:
-        __SYSTEM_ID_DECL__(ecs::_cmp_ANIMATOR)
+        __SYSTEM_ID_DECL__(Flamingo::_cmp_ANIMATOR)
         Animator();
         virtual ~Animator(){};
         virtual void initValues();

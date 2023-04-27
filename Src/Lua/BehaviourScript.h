@@ -4,55 +4,55 @@
 
 #include "ECS/Component.h"
 #include "ECS/GameObject.h"
-
-struct BehaviourScript : public ecs::Component
+namespace Flamingo
 {
-  public:
-    __SYSTEM_ID_DECL__(ecs::_cmp_BEHAVIOUR_SCRIPT)
+    struct BehaviourScript : public Flamingo::Component
+    {
+      public:
+        __SYSTEM_ID_DECL__(Flamingo::_cmp_BEHAVIOUR_SCRIPT)
 
-    BehaviourScript();
-    virtual ~BehaviourScript();
+        BehaviourScript();
+        virtual ~BehaviourScript();
 
-    virtual BehaviourScript* clone();
+        virtual BehaviourScript* clone();
 
-    std::string GetScriptName();
+        std::string GetScriptName();
 
-    // Clases que podrán ser overrideadas por el desarrollador, para definir a su gusto
-    virtual void initValues();
-    virtual void initComponent(); // == start() ?
+        // Clases que podrán ser overrideadas por el desarrollador, para definir a su gusto
+        virtual void initValues();
+        virtual void initComponent(); // == start() ?
 
-    virtual void update(float t_delta_time);
+        virtual void update(float t_delta_time);
 
-    /**
-     * @brief Se llama una vez al comienzo de collisionar con otro cuerpo 
-     *
-     * 
-     *
-     * @param[in] t_other GameObject* GameObject del cuerpo contra el que ha colisionado
-     * @return
-     */
-    virtual void onCollisionEnter(ecs::GameObject* t_other);
+        /**
+         * @brief Se llama una vez al comienzo de collisionar con otro cuerpo
+         *
+         *
+         *
+         * @param[in] t_other GameObject* GameObject del cuerpo contra el que ha colisionado
+         * @return
+         */
+        virtual void onCollisionEnter(Flamingo::GameObject* t_other);
 
-    /**
-     * @brief Se llama continuamente al collisionar con otro cuerpo
-     *
-     *
-     * @param[in] t_other GameObject* GameObject del cuerpo contra el que colisiona
-     * @return
-     */
-    virtual void onCollisionStay(ecs::GameObject* t_other);
+        /**
+         * @brief Se llama continuamente al collisionar con otro cuerpo
+         *
+         *
+         * @param[in] t_other GameObject* GameObject del cuerpo contra el que colisiona
+         * @return
+         */
+        virtual void onCollisionStay(Flamingo::GameObject* t_other);
 
-    /**
-     * @brief Se llama al salir de la colision con otro cuerpo
-     *
-     *
-     * @param[in] t_other GameObject* GameObject del cuerpo con el que ha terminado la colision
-     * @return
-     */
-    virtual void onCollisionExit(ecs::GameObject* t_other);
+        /**
+         * @brief Se llama al salir de la colision con otro cuerpo
+         *
+         *
+         * @param[in] t_other GameObject* GameObject del cuerpo con el que ha terminado la colision
+         * @return
+         */
+        virtual void onCollisionExit(Flamingo::GameObject* t_other);
 
-    private:
-
-};
-
+      private:
+    };
+} // namespace Flamingo
 #endif // !define __BEHAVIOUR_SCRIPT_H__

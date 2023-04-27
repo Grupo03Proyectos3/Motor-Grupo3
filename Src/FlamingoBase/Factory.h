@@ -12,17 +12,20 @@
 /*Clase base para las diferentes factorías de componentes que tendremos en el proyecto.
  *Contiene una lista de todos los componentes creados para eliminarlos al finalziar la ejecución
  */
-class Factory
+namespace Flamingo
 {
-  public:
-    Factory() = default;
-    ~Factory();
+    class Factory
+    {
+      public:
+        Factory() = default;
+        ~Factory();
 
-   virtual ecs::Component* createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args);
+        virtual Flamingo::Component* createComponent(Flamingo::GameObject* gO, const std::unordered_map<std::string, std::string>& args);
 
-   void deleteComponents();
+        void deleteComponents();
 
-   protected:
-  //std::vector<ecs::Component*> compsCreated;
-};
+      protected:
+        // std::vector<ecs::Component*> compsCreated;
+    };
+} // namespace Flamingo
 #endif

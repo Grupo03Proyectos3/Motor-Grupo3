@@ -7,10 +7,10 @@
 #include <OgreEntity.h>
 #include "FlamingoUtils/SVector3.h"
 namespace Flamingo{
-    struct MeshRenderer : public ecs::Component
+    struct MeshRenderer : public Component
     {
       public:
-        __SYSTEM_ID_DECL__(ecs::_cmp_MESH_RENDERER)
+        __SYSTEM_ID_DECL__(_cmp_MESH_RENDERER)
 
         MeshRenderer(){};
         virtual ~MeshRenderer();

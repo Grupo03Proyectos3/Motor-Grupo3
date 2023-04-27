@@ -11,7 +11,7 @@ namespace Flamingo
     {
         m_renderSystem = t_renderSystem;
         m_componentFactory = ComponentsFactory::instance();
-        m_mngr = ecs::Manager::instance();
+        m_mngr = Manager::instance();
 
         m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
         m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(t_renderSystem));
@@ -52,7 +52,7 @@ namespace Flamingo
                 for (auto& v : jValue->AsArray())
                 {
                     // Creacion del GO, se puede quitar grupo, hay que ajustar que se borre si no se consigue crear transform
-                    ecs::GameObject* gO = m_mngr->addGameObject({ecs::GROUP_EXAMPLE});
+                    GameObject* gO = m_mngr->addGameObject({GROUP_EXAMPLE});
                     t_scene->addObjects(gO);
 
                     if (v->IsObject())
@@ -196,7 +196,7 @@ namespace Flamingo
 
     void MapReader::createCamera()
     {
-        ecs::GameObject* gO = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        GameObject* gO = m_mngr->addGameObject({GROUP_RENDER});
 
         m_data.insert({"t_name", "m_camera"});
         m_data.insert({"t_entity_name", "camera"});
@@ -205,7 +205,7 @@ namespace Flamingo
         m_data.clear();
 
         // PASAR A FLAMINGOBASE
-        auto m_camera = ecs::getComponent<Camera>(gO);
+        auto m_camera = getComponent<Camera>(gO);
         m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
 
         m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);

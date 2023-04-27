@@ -6,7 +6,7 @@
 #include "ecs.h"
 #include "messages_defs.h"
 
-namespace ecs
+namespace Flamingo
 {
     /**
      *  Clase que representa un Sistema.

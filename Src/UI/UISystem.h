@@ -10,9 +10,9 @@
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 
 namespace Flamingo{
-    class UISystem : public ecs::System{
+    class UISystem : public System{
       public:
-        __SYSTEM_ID_DECL__(ecs::_sys_UI)
+        __SYSTEM_ID_DECL__(_sys_UI)
         UISystem();
         virtual ~UISystem();
         void recieve(const Message&) override;

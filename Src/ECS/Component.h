@@ -5,7 +5,7 @@
 
 #include "ecs.h"
 
-namespace ecs
+namespace Flamingo
 {
     struct Component
     {
@@ -37,6 +37,6 @@ namespace ecs
         GameObject* m_ent;   // a reference to the entity, should not be deleted on destruction
         Manager* m_mngr; //  a pointer to the manager, should not be deleted on destruction
     };
-} // namespace ecs
+} // namespace Flamingo
 
 #endif

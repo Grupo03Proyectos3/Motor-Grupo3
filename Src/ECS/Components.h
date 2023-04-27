@@ -8,7 +8,7 @@
 #include "ecs.h"
 
 class GameObject;
-namespace ecs
+namespace Flamingo
 {
     template <typename T>
     inline T* AddComponent(GameObject* gO)
@@ -38,6 +38,6 @@ namespace ecs
     {
         return Manager::instance()->hasComponent<T>(gO);
     }
-} // namespace ecs
+} // namespace Flamingo
 
 #endif

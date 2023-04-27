@@ -21,7 +21,7 @@ namespace Flamingo
         m_OgreRoot = nullptr;
     }
 
-    void SceneManager::initManager(std::string t_Name, ecs::Manager* m_mng){
+    void SceneManager::initManager(std::string t_Name, Manager* m_mng){
         mName = t_Name;
         m_mngr = m_mng;
         auto syse = m_mngr->getSystem<RenderSystem>();

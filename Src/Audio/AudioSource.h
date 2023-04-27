@@ -9,22 +9,23 @@ namespace FMOD
 {
     class Sound;
 }
-
-class AudioSource : public ecs::Component
+namespace Flamingo
 {
-    public:
-    __SYSTEM_ID_DECL__(ecs::_cmp_AUDIO_SOURCE)
+    class AudioSource : public Flamingo::Component
+    {
+      public:
+        __SYSTEM_ID_DECL__(Flamingo::_cmp_AUDIO_SOURCE)
 
-    AudioSource();
-    ~AudioSource();
-    virtual void initComponent() override;
-    void initValues(const char* songRoute, std::string songName, bool isMusic);
+        AudioSource();
+        ~AudioSource();
+        virtual void initComponent() override;
+        void initValues(const char* songRoute, std::string songName, bool isMusic);
 
-    protected:
-    std::string m_audioName;
-    bool m_playing;
-    FMOD::Sound* m_sound;
-};
-
+      protected:
+        std::string m_audioName;
+        bool m_playing;
+        FMOD::Sound* m_sound;
+    };
+} // namespace Flamingo
 
 #endif

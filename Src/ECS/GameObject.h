@@ -15,7 +15,7 @@ class ScriptManager;
 #include <vector>
 #include <unordered_map>
 
-namespace ecs
+namespace Flamingo
 {
     /**
      *  Clase que representa una Entidad.
@@ -46,7 +46,7 @@ namespace ecs
         bool m_active;
         std::unordered_map<std::string, Component*> m_current_comps;
         //std::array<Component*, maxComponentId> m_comps;
-        std::vector<ecs::groupId_type> m_gIds;
+        std::vector<groupId_type> m_gIds;
 
         std::string m_name;
     };

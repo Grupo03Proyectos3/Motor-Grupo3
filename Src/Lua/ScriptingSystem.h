@@ -46,10 +46,10 @@ namespace luabridge
 
 namespace Flamingo
 {
-    class ScriptingSystem : public ecs::System
+    class ScriptingSystem : public System
     {
       public:
-        __SYSTEM_ID_DECL__(ecs::_sys_LUA)
+        __SYSTEM_ID_DECL__(_sys_LUA)
 
         ScriptingSystem();
         virtual ~ScriptingSystem();
@@ -81,7 +81,7 @@ namespace Flamingo
         ComponentsFactory* m_componentFactory;
         SceneManager& m_scene_mngr;
         Data m_data;
-        ecs::Manager* m_mngr;
+        Manager* m_mngr;
 
         void createSystemFuntions();
         luabridge::LuaRef getFromLua(std::string t_name);

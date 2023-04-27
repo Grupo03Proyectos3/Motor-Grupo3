@@ -10,25 +10,28 @@
  * Para añadir tipos de scripts:
  *   <PunteroAInstanciaDeEstaClase>->addGameScript("NombreRelacionado", new ScriptHeredaBehaviourScript());
  */
-class ScriptFactory : public Factory
+namespace Flamingo
 {
-  public:
-    ScriptFactory();
+    class ScriptFactory : public Factory
+    {
+      public:
+        ScriptFactory();
 
-    ecs::Component* createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
+        Component* createComponent(GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
 
-  private:
-    const std::string m_baseNameScript = "struct ";
-};
+      private:
+        const std::string m_baseNameScript = "struct ";
+    };
 
-/*Para realizar pruebas:
-*   auto sF = new ScriptFactory();
-        ScriptManager::instance()->addGameScript("PruebaScript", new PruebaScript());
-        ecs::GameObject* g = m_mngr->addGameObject();
-        ecs::AddComponent<Transform>(g);
-        ecs::AddComponent<BehaviourScript>(g);
-        std::unordered_map<std::string, std::string> m;
-        m.insert({"t_scriptName", "PruebaScript"});
-        auto v = sF->createComponent(g, m);
-*/
+    /*Para realizar pruebas:
+    *   auto sF = new ScriptFactory();
+            ScriptManager::instance()->addGameScript("PruebaScript", new PruebaScript());
+            ecs::GameObject* g = m_mngr->addGameObject();
+            ecs::AddComponent<Transform>(g);
+            ecs::AddComponent<BehaviourScript>(g);
+            std::unordered_map<std::string, std::string> m;
+            m.insert({"t_scriptName", "PruebaScript"});
+            auto v = sF->createComponent(g, m);
+    */
+} // namespace Flamingo
 #endif

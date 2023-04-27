@@ -17,7 +17,7 @@ namespace Flamingo
 {
     PhysicsSystem::PhysicsSystem()
     {
-        m_group = ecs::GROUP_PHYSICS;
+        m_group = GROUP_PHYSICS;
     }
 
     PhysicsSystem::~PhysicsSystem()
@@ -153,7 +153,7 @@ namespace Flamingo
 
         auto render_sys = m_mngr->getSystem<RenderSystem>();
 
-        m_debug_drawer = new OgreDebugDrawer(Flamingo::SceneMngr().getSceneActive()->getSceneManger(), render_sys->getOgreRoot());
+        m_debug_drawer = new OgreDebugDrawer(SceneMngr().getSceneActive()->getSceneManger(), render_sys->getOgreRoot());
         m_debug_drawer->setDebugMode(btIDebugDraw::DBG_DrawWireframe | btIDebugDraw::DBG_DrawAabb);
         m_world->setDebugDrawer(m_debug_drawer);
 
@@ -221,7 +221,7 @@ namespace Flamingo
 
             m.collision.obj1 = rb1->gameObject();
             m.collision.obj2 = rb2->gameObject();
-            ecs::Manager::instance()->send(m);
+            Manager::instance()->send(m);
         }
     }
 
@@ -236,7 +236,7 @@ namespace Flamingo
 
             m.collision.obj1 = rb1->gameObject();
             m.collision.obj2 = rb2->gameObject();
-            ecs::Manager::instance()->send(m);
+            Manager::instance()->send(m);
         }
     }
 
@@ -269,7 +269,7 @@ namespace Flamingo
 
             m.collision.obj1 = rigidBody1->gameObject();
             m.collision.obj2 = rigidBody1->gameObject();
-            ecs::Manager::instance()->send(m);
+            Manager::instance()->send(m);
         }
 
         return true;

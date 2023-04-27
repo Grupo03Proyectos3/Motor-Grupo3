@@ -6,11 +6,14 @@
 /*Clase base para las diferentes factorías de componentes que tendremos en el proyecto.
  *Contiene una lista de todos los componentes creados para eliminarlos al finalziar la ejecución
  */
-class PlayerControllerFactory : public Factory
+namespace Flamingo
 {
-  public:
-    PlayerControllerFactory() = default;
+    class PlayerControllerFactory : public Factory
+    {
+      public:
+        PlayerControllerFactory() = default;
 
-   ecs::Component* createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
-};
+        Component* createComponent(GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
+    };
+} // namespace Flamingo
 #endif

@@ -27,10 +27,10 @@ class btAlignedObjectArray;
 
 namespace Flamingo
 {
-    class PhysicsSystem : public ecs::System
+    class PhysicsSystem : public System
     {
       public:
-        __SYSTEM_ID_DECL__(ecs::_sys_PHYSICS)
+        __SYSTEM_ID_DECL__(_sys_PHYSICS)
 
         PhysicsSystem();
         virtual ~PhysicsSystem();

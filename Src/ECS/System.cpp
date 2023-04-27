@@ -1,28 +1,31 @@
 #include "System.h"
-
-ecs::System::System()
-    : m_mngr(nullptr)
-    , m_group(GROUP_EXAMPLE)
+namespace Flamingo
 {
-}
 
-ecs::System::~System()
-{
-}
+    System::System()
+        : m_mngr(nullptr)
+        , m_group(GROUP_EXAMPLE)
+    {
+    }
 
-void ecs::System::setContext(Manager* t_mngr)
-{
-    m_mngr = t_mngr;
-}
+    System::~System()
+    {
+    }
 
-void ecs::System::initSystem()
-{
-}
+    void System::setContext(Manager* t_mngr)
+    {
+        m_mngr = t_mngr;
+    }
 
-void ecs::System::update(float t_delta_time)
-{
-}
+    void System::initSystem()
+    {
+    }
 
-void ecs::System::recieve(const Message&)
-{
-}
+    void System::update(float t_delta_time)
+    {
+    }
+
+    void System::recieve(const Message&)
+    {
+    }
+} // namespace Flamingo

@@ -9,7 +9,7 @@
 #include "ecs_defs.h"
 
 #endif
-namespace ecs
+namespace Flamingo
 {
 
     struct Component;
@@ -66,15 +66,15 @@ namespace ecs
 
 
 //
-#define __COMP_ID_DECL__(cId) constexpr static ecs::compId_type id = cId;
+#define __COMP_ID_DECL__(cId) constexpr static Flamingo::compId_type id = cId;
 
 // a macro for system identifier declaration, e.g., __SYSID_DECL__(ecs::_sys_ASTEROIDS)
 // expands to:
 //
 //   constexpr static ecs::sysId_type id = ecs::_sys_ASTEROIDS;
 //
-#define __SYSTEM_ID_DECL__(cId) constexpr static ecs::systemId_type id = cId;
+#define __SYSTEM_ID_DECL__(cId) constexpr static Flamingo::systemId_type id = cId;
 
-} // namespace ecs
+} // namespace Flamingo
 
 #endif

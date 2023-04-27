@@ -1,29 +1,31 @@
 #include "LightFactory.h"
 #include "Render/Light.h"
 #include "SceneManager.h"
-LightFactory::LightFactory(Flamingo::RenderSystem* t_renderSystem)
+namespace Flamingo
 {
-    m_renderSystem = t_renderSystem;
-    root = Flamingo::SceneMngr().getSceneActive()->getSceneRoot();
-}
-
-ecs::Component* LightFactory::createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args)
-{
-    try
+    LightFactory::LightFactory(Flamingo::RenderSystem* t_renderSystem)
     {
-        std::string name = (args.at("t_name"));
-
-        Light* c = ecs::AddComponent<Light>(gO);
-        c->initValues(Flamingo::SceneMngr().getSceneActive()->getSceneManger(), root->createChildSceneNode(), name);
-        c->initComponent();
-
-        ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_RENDER});
-        return c;
-       
+        m_renderSystem = t_renderSystem;
+        root = Flamingo::SceneMngr().getSceneActive()->getSceneRoot();
     }
-    catch (...)
+
+    Component* LightFactory::createComponent(GameObject* gO, const std::unordered_map<std::string, std::string>& args)
     {
-        std::cerr << "[ERROR Light Factory]: Key not found" << '\n';
-        exit(1);
+        try
+        {
+            std::string name = (args.at("t_name"));
+
+            Light* c = AddComponent<Light>(gO);
+            c->initValues(Flamingo::SceneMngr().getSceneActive()->getSceneManger(), root->createChildSceneNode(), name);
+            c->initComponent();
+
+            Manager::instance()->addGameObjectToGroups(gO, {GROUP_RENDER});
+            return c;
+        }
+        catch (...)
+        {
+            std::cerr << "[ERROR Light Factory]: Key not found" << '\n';
+            exit(1);
+        }
     }
-}
+} // namespace Flamingo

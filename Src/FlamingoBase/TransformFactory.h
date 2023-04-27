@@ -6,11 +6,14 @@
 /*Clase base para las diferentes factorías de componentes que tendremos en el proyecto.
  *Contiene una lista de todos los componentes creados para eliminarlos al finalziar la ejecución
  */
-class TransformFactory : public Factory
+namespace Flamingo
 {
-  public:
-    TransformFactory() = default;
+    class TransformFactory : public Factory
+    {
+      public:
+        TransformFactory() = default;
 
-   ecs::Component* createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
-};
+        Component* createComponent(GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
+    };
+} // namespace Flamingo
 #endif

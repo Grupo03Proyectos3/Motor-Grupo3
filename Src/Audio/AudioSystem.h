@@ -21,14 +21,14 @@ typedef unsigned int FMOD_MODE;
 
 namespace Flamingo
 {
-    class AudioSystem : public ecs::System
+    class AudioSystem : public Flamingo::System
     {
         typedef std::unordered_map<std::string, FMOD::Sound*> SoundMap;
         typedef std::unordered_map<std::string, FMOD::Sound*> MusicMap;
         typedef std::unordered_map<std::string, FMOD::Channel*> ChannelMap;
 
       public:
-        __SYSTEM_ID_DECL__(ecs::_sys_AUDIO)
+        __SYSTEM_ID_DECL__(Flamingo::_sys_AUDIO)
 
         AudioSystem();
         ~AudioSystem();

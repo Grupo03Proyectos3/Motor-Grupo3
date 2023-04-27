@@ -11,7 +11,7 @@ namespace Flamingo{
         m_SceneManager = nullptr;
         m_OgreRootNode = nullptr;
         m_CeguiRootNode = nullptr;
-        m_SceneGameObjects = std::unordered_map<Ogre::String, ecs::GameObject*>();
+        m_SceneGameObjects = std::unordered_map<Ogre::String, GameObject*>();
         mDebug = false;
     }
 
@@ -22,7 +22,7 @@ namespace Flamingo{
         m_OgreRootNode = nullptr;
     }
 
-    void Scene::initScene(Ogre::SceneManager* t_SceneManager,CEGUI::Window* root ,ecs::Manager* mng)
+    void Scene::initScene(Ogre::SceneManager* t_SceneManager,CEGUI::Window* root ,Manager* mng)
     {
         m_SceneManager = t_SceneManager;
         m_OgreRootNode = m_SceneManager->getRootSceneNode();
@@ -30,7 +30,7 @@ namespace Flamingo{
         m_mngr = mng;
     }
 
-    void Scene::addObjects(ecs::GameObject* t_GameObject)
+    void Scene::addObjects(GameObject* t_GameObject)
     {
         // DEJARLO ASI O K SUDE Y SE CAMBIE POR SI ENTRA OTRO CON EL MISMO NOMBRE
         if (m_SceneGameObjects.find(t_GameObject->getName()) == m_SceneGameObjects.end())
@@ -102,7 +102,7 @@ namespace Flamingo{
         std::cout << "Scene Name: " << m_SceneManager->getName() << " Activated\n";
     }
 
-    ecs::GameObject* Scene::getObject(std::string t_name)
+    GameObject* Scene::getObject(std::string t_name)
     {
         for (auto it : m_SceneGameObjects)
         {

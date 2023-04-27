@@ -18,7 +18,7 @@
 #include "ecs.h"
 #include "messages_defs.h"
 
-namespace ecs
+namespace Flamingo
 {
 
     /*
@@ -184,7 +184,7 @@ namespace ecs
 
             t_e->m_current_comps.insert({t_n, t_s});
 
-            addGameObjectToGroups(t_e, {ecs::GROUP_SCRIPTING});
+            addGameObjectToGroups(t_e, {GROUP_SCRIPTING});
 
             return t_s;
         }

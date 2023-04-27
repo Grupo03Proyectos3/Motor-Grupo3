@@ -2,30 +2,33 @@
 #include "Render/Camera.h"
 #include "Render/RenderSystem.h"
 #include "SceneManager.h"
-CameraFactory::CameraFactory(Flamingo::RenderSystem* t_renderSystem)
+namespace Flamingo
 {
-    m_renderSystem = t_renderSystem;
-    root = Flamingo::SceneMngr().getSceneActive()->getSceneRoot();
-}
-
-ecs::Component* CameraFactory::createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args)
-{
-    try
+    CameraFactory::CameraFactory(Flamingo::RenderSystem* t_renderSystem)
     {
-        std::string name = (args.at("t_name"));
-        std::string entityName = (args.at("t_entity_name"));
-
-        Camera* c = ecs::AddComponent<Camera>(gO);
-        c->initValues(Flamingo::SceneMngr().getSceneActive()->getSceneManger(), 
-            root->createChildSceneNode(), m_renderSystem->getWindow(), name);
-        c->initComponent();
-
-        ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_RENDER});
-        return c;
+        m_renderSystem = t_renderSystem;
+        root = Flamingo::SceneMngr().getSceneActive()->getSceneRoot();
     }
-    catch (...)
+
+    Flamingo::Component* CameraFactory::createComponent(Flamingo::GameObject* gO, const std::unordered_map<std::string, std::string>& args)
     {
-        std::cerr << "[ERROR Camera Factory]: Key not found" << '\n';
-        exit(1);
+        try
+        {
+            std::string name = (args.at("t_name"));
+            std::string entityName = (args.at("t_entity_name"));
+
+            Camera* c = Flamingo::AddComponent<Camera>(gO);
+            c->initValues(Flamingo::SceneMngr().getSceneActive()->getSceneManger(),
+                          root->createChildSceneNode(), m_renderSystem->getWindow(), name);
+            c->initComponent();
+
+            Flamingo::Manager::instance()->addGameObjectToGroups(gO, {Flamingo::GROUP_RENDER});
+            return c;
+        }
+        catch (...)
+        {
+            std::cerr << "[ERROR Camera Factory]: Key not found" << '\n';
+            exit(1);
+        }
     }
-}
+} // namespace Flamingo

@@ -1,42 +1,44 @@
 #include "ComponentsFactory.h"
-
-ComponentsFactory::ComponentsFactory()
+namespace Flamingo
 {
-    componentFactories = std::map<std::string, Factory*>();
-}
-
-ComponentsFactory::~ComponentsFactory()
-{
-    for (auto f : componentFactories)
+    ComponentsFactory::ComponentsFactory()
     {
-        if (f.second != nullptr)
+        componentFactories = std::map<std::string, Factory*>();
+    }
+
+    ComponentsFactory::~ComponentsFactory()
+    {
+        for (auto f : componentFactories)
         {
-            delete f.second;
-            f.second = nullptr;
+            if (f.second != nullptr)
+            {
+                delete f.second;
+                f.second = nullptr;
+            }
         }
     }
-}
 
-ecs::Component* ComponentsFactory::addComponent(ecs::GameObject* gO, const std::string& type, std::unordered_map<std::string, std::string> args)
-{
-    auto comp = componentFactories[type];
-    try
+    Flamingo::Component* ComponentsFactory::addComponent(Flamingo::GameObject* gO, const std::string& type, std::unordered_map<std::string, std::string> args)
     {
-        if (comp == nullptr)
+        auto comp = componentFactories[type];
+        try
         {
-            throw std::exception("Component name no valid");
+            if (comp == nullptr)
+            {
+                throw std::exception("Component name no valid");
+            }
         }
+        catch (std::exception& excepcion)
+        {
+            std::cerr << "[ERROR Component]: " << excepcion.what() << '\n';
+            exit(1);
+        }
+        Flamingo::Component* c = componentFactories[type]->createComponent(gO, args);
+        return c;
     }
-    catch (std::exception& excepcion)
-    {
-        std::cerr << "[ERROR Component]: " << excepcion.what() << '\n';
-        exit(1);
-    } 
-    ecs::Component* c = componentFactories[type]->createComponent(gO, args);
-    return c;
-}
 
-void ComponentsFactory::addFactory(std::string type, Factory* f)
-{
-    componentFactories.emplace(type, f);
-}
+    void ComponentsFactory::addFactory(std::string type, Factory* f)
+    {
+        componentFactories.emplace(type, f);
+    }
+} // namespace Flamingo

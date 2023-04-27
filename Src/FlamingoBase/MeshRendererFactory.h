@@ -8,15 +8,19 @@
 /*Clase base para las diferentes factorías de componentes que tendremos en el proyecto.
  *Contiene una lista de todos los componentes creados para eliminarlos al finalziar la ejecución
  */
-class MeshRendererFactory : public Factory
+namespace Flamingo
 {
-  public:
-    MeshRendererFactory(Flamingo::RenderSystem* t_renderSystem);
 
-    ecs::Component* createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
+    class MeshRendererFactory : public Factory
+    {
+      public:
+        MeshRendererFactory(Flamingo::RenderSystem* t_renderSystem);
 
-  private:
-    Flamingo::RenderSystem* m_renderSystem;
-    Ogre::SceneNode* root;
-};
+        Component* createComponent(GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
+
+      private:
+        Flamingo::RenderSystem* m_renderSystem;
+        Ogre::SceneNode* root;
+    };
+} // namespace Flamingo
 #endif

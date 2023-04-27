@@ -18,9 +18,6 @@
     <ClCompile Include="..\..\Src\ECS\Component.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\ECS\Manager.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\ECS\System.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>

@@ -36,58 +36,60 @@
  * }
  *
  */
-
-template <typename T>
-class SingletonECS
+namespace Flamingo
 {
-  protected:
-    SingletonECS()
+    template <typename T>
+    class SingletonECS
     {
-    }
-
-  public:
-    // no se pueden copiar objetos de este tipo
-    SingletonECS<T>& operator=(const SingletonECS<T>& t_o) = delete;
-    SingletonECS(const SingletonECS<T>& t_o) = delete;
-
-    virtual ~SingletonECS()
-    {
-    }
-
-    /// NO PODEMOS INICIALIZARLO EN EL CPP PORQUE SE NECESITAN 2 TEMPLATES
-    // some singletons need to be initialised with some parameters, we
-    // can call this method at the beginning of the program.
-    template <typename... Targs>
-    inline static T* init(Targs&&... args)
-    {
-        assert(m_instance.get() == nullptr);
-        m_instance.reset(new T(std::forward<Targs>(args)...));
-        return m_instance.get();
-    }
-
-    // in some cases, when singletons depend on each other, you have
-    // to close them in a specific order, This is why we have this close
-    // method
-    inline static void close()
-    {
-        m_instance.reset();
-    }
-    // get the singleton instance as a pointer
-    //
-
-    inline static T* instance()
-    {
-        if (m_instance.get() == nullptr)
+      protected:
+        SingletonECS()
         {
-            init();
         }
-        return m_instance.get();
-    }
 
-  private:
-    static std::unique_ptr<T> m_instance;
-};
+      public:
+        // no se pueden copiar objetos de este tipo
+        SingletonECS<T>& operator=(const SingletonECS<T>& t_o) = delete;
+        SingletonECS(const SingletonECS<T>& t_o) = delete;
 
-template <typename T>
-std::unique_ptr<T> SingletonECS<T>::m_instance;
+        virtual ~SingletonECS()
+        {
+        }
+
+        /// NO PODEMOS INICIALIZARLO EN EL CPP PORQUE SE NECESITAN 2 TEMPLATES
+        // some singletons need to be initialised with some parameters, we
+        // can call this method at the beginning of the program.
+        template <typename... Targs>
+        inline static T* init(Targs&&... args)
+        {
+            assert(m_instance.get() == nullptr);
+            m_instance.reset(new T(std::forward<Targs>(args)...));
+            return m_instance.get();
+        }
+
+        // in some cases, when singletons depend on each other, you have
+        // to close them in a specific order, This is why we have this close
+        // method
+        inline static void close()
+        {
+            m_instance.reset();
+        }
+        // get the singleton instance as a pointer
+        //
+
+        inline static T* instance()
+        {
+            if (m_instance.get() == nullptr)
+            {
+                init();
+            }
+            return m_instance.get();
+        }
+
+      private:
+        static std::unique_ptr<T> m_instance;
+    };
+
+    template <typename T>
+    std::unique_ptr<T> SingletonECS<T>::m_instance;
+} // namespace Flamingo
 #endif

@@ -51,7 +51,7 @@ namespace Flamingo
         l.loadDirectories();
 
         std::string s = "Motor";
-        ecs::Manager* m_mngr = ecs::Manager::instance();m_mngr->init();
+        Manager* m_mngr = Manager::instance();m_mngr->init();
         SceneManager& sceneManager = SceneMngr();
         Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
         RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
@@ -71,9 +71,9 @@ namespace Flamingo
 
         Scene* mainScene = sceneManager.getSceneActive();
         auto nodo = mainScene->getSceneRoot();
-        ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        GameObject* cam_go = m_mngr->addGameObject({GROUP_RENDER});
         cam_go->setName("myCamera");
-        auto m_camera = ecs::AddComponent<Camera>(cam_go);
+        auto m_camera = AddComponent<Camera>(cam_go);
         m_camera->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
         m_camera->initComponent();
         m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
@@ -84,13 +84,13 @@ namespace Flamingo
         mainScene->addObjects(cam_go);
         render_sys->setMainCamera(m_camera);
 
-        ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        GameObject* light_go = m_mngr->addGameObject({GROUP_RENDER});
         light_go->setName("mylight");
-        auto tr_transform = ecs::AddComponent<Transform>(light_go);
+        auto tr_transform = AddComponent<Transform>(light_go);
         tr_transform->initValues(SVector3(0.0, 350.0, 200.0), SQuaternion(0.0, 0.0, 0.0, 1.0), SVector3(1.0, 1.0, 1.0));
         //MeshRenderer* cmp_mesh = ecs::AddComponent<MeshRenderer>(light_go);
         //cmp_mesh->initValues(nodo->createChildSceneNode(), mainScene->getSceneManger(), SVector3(1, 1, 1), "cube.mesh", "cuboluz");
-        Light* cmp_light = ecs::AddComponent<Light>(light_go);
+        Light* cmp_light = AddComponent<Light>(light_go);
         cmp_light->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), "myLight2");
         cmp_light->initComponent();
         cmp_light->setType(Light::DIRECTIONAL);
@@ -111,10 +111,10 @@ namespace Flamingo
         cmp_light->setDiffuseColour();
         mainScene->addObjects(light_go);*/
 
-        ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
-        auto y = ecs::AddComponent<Transform>(UI);
+        GameObject* UI = m_mngr->addGameObject({GROUP_UI});
+        auto y = AddComponent<Transform>(UI);
         y->initValues();
-        auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
+        auto x = AddComponent<Flamingo::UIElement>(UI);
         x->setElementWidget("FlamingoDefaultUI/Button", "COSO");
         x->setText("ODIO CEGUI");
         x->setImage("NormalImage", "paco", "100.png");
@@ -135,10 +135,10 @@ namespace Flamingo
         //a->setAnimation("idle", true, true);
 
         // enemigos
-        auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER);
+        auto enemigo = m_mngr->getEntities(GROUP_RENDER);
         auto ene = m_mngr->addComponent<EnemyAI>(enemigo[2]);
         ene->initValues();
-        m_mngr->addGameObjectToGroups(enemigo[2], {ecs::GROUP_SCRIPTING});
+        m_mngr->addGameObjectToGroups(enemigo[2], {GROUP_SCRIPTING});
         
        //ecs::GameObject* p = m_mngr->addGameObject({ecs::GROUP_RENDER});
        // auto t = ecs::AddComponent<Transform>(p);
@@ -161,7 +161,7 @@ namespace Flamingo
         auto time = player_timer->getElapsedTime();
         auto dt = player_timer->getElapsedTime() - time;
 
-        ecs::Manager* m_mngr = ecs::Manager::instance();
+        Manager* m_mngr = Manager::instance();
         auto ui_system = m_mngr->getSystem<Flamingo::UISystem>();
         auto render_sys = m_mngr->getSystem<RenderSystem>();
 
@@ -185,7 +185,7 @@ namespace Flamingo
             // m_controller->handleInput();
             // pruebas de enemigos
 
-            auto enemigo = m_mngr->getEntities(ecs::GROUP_RENDER);
+            auto enemigo = m_mngr->getEntities(GROUP_RENDER);
             auto controller = m_mngr->getComponent<PlayerController>(enemigo[0]);
 
             

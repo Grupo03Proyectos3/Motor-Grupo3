@@ -27,7 +27,7 @@ namespace Flamingo{
       public:
         SceneManager();
         ~SceneManager();       
-        void initManager(std::string t_Name, ecs::Manager* m_mng);
+        void initManager(std::string t_Name, Manager* m_mng);
 
         Scene* createScene(std::string t_SceneName,bool setActive=false);
         void delScene(std::string t_SceneName);
@@ -40,7 +40,7 @@ namespace Flamingo{
         inline Ogre::Root* getOgreRoot() { return m_OgreRoot; }
 
       private:
-        ecs::Manager* m_mngr;
+        Manager* m_mngr;
         Ogre::Root* m_OgreRoot;
       
         std::unordered_map<std::string, Scene*> m_scenes;

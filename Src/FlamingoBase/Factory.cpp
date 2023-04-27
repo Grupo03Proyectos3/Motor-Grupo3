@@ -1,23 +1,25 @@
 #include "Factory.h"
-
-Factory::~Factory()
+namespace Flamingo
 {
-    deleteComponents();
-}
-
-ecs::Component* Factory::createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args)
-{
-    return nullptr;
-}
-
-void Factory::deleteComponents()
-{
-    /*for (ecs::Component* comp : compsCreated)
+    Factory::~Factory()
     {
-        if (comp != nullptr)
+        deleteComponents();
+    }
+
+    Flamingo::Component* Factory::createComponent(Flamingo::GameObject* gO, const std::unordered_map<std::string, std::string>& args)
+    {
+        return nullptr;
+    }
+
+    void Factory::deleteComponents()
+    {
+        /*for (ecs::Component* comp : compsCreated)
         {
-            delete comp;
-            comp = nullptr;
-        }
-    }*/
-}
+            if (comp != nullptr)
+            {
+                delete comp;
+                comp = nullptr;
+            }
+        }*/
+    }
+} // namespace Flamingo

@@ -9,11 +9,11 @@
 #include "FlamingoUtils/SVector3.h"
 #include "Render/MeshRenderer.h"
 #include "FlamingoBase/Transform.h"
-
+#include "FlamingoUtils/SQuaternion.h"
+#include "FlamingoUtils/SVector3.h"
 #include "Ogre.h"
 namespace Flamingo
 {
-
     RigidBody::RigidBody()
     {
     }

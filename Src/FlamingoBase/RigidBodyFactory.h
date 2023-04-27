@@ -14,7 +14,7 @@ namespace Flamingo
       public:
         RigidBodyFactory() = default;
 
-        ecs::Component* createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
+        Component* createComponent(GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
     };
 } // namespace Flamingo
 #endif

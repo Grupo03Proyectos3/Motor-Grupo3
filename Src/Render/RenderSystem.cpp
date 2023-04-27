@@ -17,7 +17,7 @@ namespace Flamingo
     RenderSystem::RenderSystem(std::string& t_app_name)
         : m_app_name(t_app_name)
     {
-        m_group = ecs::GROUP_RENDER;
+        m_group = GROUP_RENDER;
         m_fs_layer = new Ogre::FileSystemLayer(m_app_name);
         
     }
@@ -77,7 +77,7 @@ namespace Flamingo
     
     void RenderSystem::update(float t_delta_time)
     {
-        for (auto game_object : m_mngr->getEntities(ecs::GROUP_RENDER))
+        for (auto game_object : m_mngr->getEntities(GROUP_RENDER))
         {
             if (game_object != nullptr && game_object->getActive())
             {

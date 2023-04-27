@@ -29,7 +29,7 @@ namespace Flamingo
         m_scene_node = SceneMngr().getSceneActive()->getSceneRoot()->createChildSceneNode();
         m_scale_diff = scaleNode;
 
-        auto t = ecs::getComponent<Transform>(m_ent);
+        auto t = getComponent<Transform>(m_ent);
         try
         {
             if (t == nullptr)

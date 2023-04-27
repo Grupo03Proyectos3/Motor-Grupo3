@@ -1,7 +1,7 @@
 #include "RigidBodyFactory.h"
 #include "Physics/RigidBody.h"
 namespace Flamingo{
-    ecs::Component* RigidBodyFactory::createComponent(ecs::GameObject* gO, const std::unordered_map<std::string, std::string>& args)
+    Component* RigidBodyFactory::createComponent(GameObject* gO, const std::unordered_map<std::string, std::string>& args)
     {
         try
         {
@@ -9,11 +9,11 @@ namespace Flamingo{
             bool trigger = std::stof(args.at("t_trigger"));
             bool is_static = std::stof(args.at("t_static"));
 
-            RigidBody* c = ecs::AddComponent<RigidBody>(gO);
+            RigidBody* c = AddComponent<RigidBody>(gO);
             c->initValues(mass, trigger, is_static);
             c->initComponent();
 
-            ecs::Manager::instance()->addGameObjectToGroups(gO, {ecs::GROUP_PHYSICS});
+            Manager::instance()->addGameObjectToGroups(gO, {GROUP_PHYSICS});
             // compsCreated.push_back(c);
             return c;
         }
