@@ -24,7 +24,8 @@ namespace OgreSGTechique
 
 
 #include "FlamingoBase/SceneManager.h"
-#include <SDL.h>
+
+class SDL_Window;
 
 namespace Flamingo{
     typedef SDL_Window NativeWindowType;

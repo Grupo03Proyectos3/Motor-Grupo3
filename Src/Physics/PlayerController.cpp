@@ -38,7 +38,7 @@ namespace Flamingo
 
     void PlayerController::rotatePlayer(double t_angle, SVector3 t_axis)
     {
-        m_transform->setRotation(SQuaternion(Ogre::Degree(t_angle), t_axis));
+        //m_transform->setRotation(SQuaternion(Ogre::Degree(t_angle), t_axis));
     }
 
     void PlayerController::handleInput()

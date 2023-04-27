@@ -1,8 +1,17 @@
 #include "SQuaternion.h"
-#include <btBulletCollisionCommon.h>
+
 #include <iostream>
 #include <math.h>
+
+//Bullet
+#include <btBulletCollisionCommon.h>
+
+//CEGUI
 #include <CEGUI/Quaternion.h>
+
+//Ogre
+#include <OgreQuaternion.h>
+
 #define M_PI 3.14159265358979323846
 namespace Flamingo
 {

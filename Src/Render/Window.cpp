@@ -6,6 +6,7 @@
 //SDL
 #include <SDL_syswm.h>
 #include <SDL_video.h>
+#include <SDL.h>
 
 //Ogre
 #include <OgreConfigFile.h>

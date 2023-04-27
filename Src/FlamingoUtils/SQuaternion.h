@@ -3,10 +3,20 @@
 #ifndef __SQUATERNION_H__
 #define __SQUATERNION_H__
 
-#include   <OgreQuaternion.h>
 #include "SVector3.h"
-#include <CEGUI/Quaternion.h>
+
 class btQuaternion;
+
+namespace Ogre
+{
+    class Degree;
+    class Quaternion;
+} // namespace Ogre
+namespace CEGUI
+{
+    class Quaternion;
+}
+
 /**
  * Clase base que usaremos como interprete entre todos los demás quaterniones presentes en el motor (ogreQuaternion, bulletQuaternion...)
  * Almacena los valores de un Quaternion y cuenta con setters, getters, conversores a las otras clases Quaternion y métodos que se irán añadiendo
