@@ -36,6 +36,8 @@ namespace Flamingo
 
         std::string getName();
         void setName(std::string t_name);
+        
+        std::unordered_map<std::string, Component*> getCurrentComponents();
 
       private:
         friend class Manager;

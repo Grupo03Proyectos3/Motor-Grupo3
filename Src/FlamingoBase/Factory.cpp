@@ -1,4 +1,5 @@
 #include "Factory.h"
+
 namespace Flamingo
 {
     Factory::~Factory()

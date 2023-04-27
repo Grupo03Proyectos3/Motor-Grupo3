@@ -1,6 +1,9 @@
 #include "LightFactory.h"
 #include "Render/Light.h"
 #include "SceneManager.h"
+#include "ECS/Manager.h"
+#include <iostream>
+
 namespace Flamingo
 {
     LightFactory::LightFactory(Flamingo::RenderSystem* t_renderSystem)

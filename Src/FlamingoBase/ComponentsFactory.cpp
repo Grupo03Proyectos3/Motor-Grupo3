@@ -1,4 +1,6 @@
 #include "ComponentsFactory.h"
+#include <iostream>
+
 namespace Flamingo
 {
     ComponentsFactory::ComponentsFactory()

@@ -12,6 +12,7 @@
 #include "FlamingoUtils/SQuaternion.h"
 #include "FlamingoUtils/SVector3.h"
 #include "Ogre.h"
+
 namespace Flamingo
 {
     RigidBody::RigidBody()
@@ -130,6 +131,31 @@ namespace Flamingo
         m_rigid_body->setAngularVelocity(t_velocity);
     }
 
+    btRigidBody* RigidBody::getBtRigidBody() const
+    {
+        return m_rigid_body;
+    }
+
+    float RigidBody::getMass() const
+    {
+        return 0.0f;
+    }
+
+    bool RigidBody::isTrigger() const
+    {
+        return m_trigger;
+    }
+
+    bool RigidBody::isStatic() const
+    {
+        return m_static;
+    }
+
+    bool RigidBody::isKinematic() const
+    {
+        return m_kinematic;
+    }
+
     SVector3 RigidBody::getPosition() const
     {
         return SVector3::bulletToSVector3(m_rigid_body->getWorldTransform().getOrigin());
@@ -146,6 +172,7 @@ namespace Flamingo
     }
 
     SVector3 RigidBody::getAngularVelocity() const
+
     {
         return SVector3::bulletToSVector3(m_rigid_body->getAngularVelocity());
     }

@@ -1,8 +1,10 @@
 #include "ScriptManager.h"
 
+#include "ECS/Manager.h"
+#include "ECS/GameObject.h"
+
 namespace Flamingo
 {
-
     ScriptManager::ScriptManager()
     {
     }
@@ -31,14 +33,21 @@ namespace Flamingo
         m_gameScripts.emplace(t_s->GetScriptName(), t_s);
     }
 
+    BehaviourScript* ScriptManager::addScript(std::string t_n, GameObject* t_gO)
+    {
+        deleteOtherScript(t_n, t_gO);
+
+        return Manager::instance()->addScript(t_gO, getScript(t_n), t_n);
+    }
+
     void ScriptManager::deleteOtherScript(std::string t_n, GameObject* t_gO)
     {
         // falta codigo defensivo ya que si se pide uno que no exite se la suda y lo crea
         int scriptIndex = m_scriptsIndex[t_n];
 
-        auto it = t_gO->m_current_comps.begin();
+        auto it = t_gO->getCurrentComponents().begin();
 
-        while (it != t_gO->m_current_comps.end())
+        while (it != t_gO->getCurrentComponents().end())
         {
             BehaviourScript* other = dynamic_cast<BehaviourScript*>(it->second);
 

@@ -2,9 +2,13 @@
 #ifndef __SCRIPT_MANAGER_H__
 #define __SCRIPT_MANAGER_H__
 
-#include "BehaviourScript.h"
-#include "ECS/Manager.h"
 #include <map>
+#include <string>
+#include "ECS/SingletonECS.h"
+#include "BehaviourScript.h"
+
+class Manager;
+
 namespace Flamingo
 {
     struct ScriptManager : public SingletonECS<ScriptManager>
@@ -22,12 +26,7 @@ namespace Flamingo
          * hora de añadir nuevos scripts o eliminarlos*/
         void addGameScript(std::string t_n, BehaviourScript* t_s);
 
-        BehaviourScript* addScript(std::string t_n, GameObject* t_gO)
-        {
-            deleteOtherScript(t_n, t_gO);
-
-            return Manager::instance()->addScript(t_gO, getScript(t_n), t_n);
-        }
+        BehaviourScript* addScript(std::string t_n, GameObject* t_gO);
 
         /*Método que localiza en la lista de componentes de un GameObject un script del indice dado y lo elimina llamando al Manager*/
         void deleteOtherScript(std::string t_n, GameObject* t_gO);

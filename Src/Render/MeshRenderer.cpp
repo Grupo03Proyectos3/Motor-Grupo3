@@ -1,12 +1,14 @@
 #include "MeshRenderer.h"
 
+#include "RenderSystem.h"
 #include "ECS/Components.h"
+#include "ECS/Manager.h"
 #include "FlamingoBase/Transform.h"
+#include "FlamingoUtils/SVector3.h"
 
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
-#include "RenderSystem.h"
-#include "FlamingoUtils/SVector3.h"
+
 namespace Flamingo
 {
     void MeshRenderer::initValues(SVector3 scaleNode, std::string t_model_name, std::string t_entity_name)

@@ -1,5 +1,6 @@
 #include "TransformFactory.h"
 #include "Transform.h"
+#include <iostream>
 namespace Flamingo
 {
     Component* TransformFactory::createComponent(GameObject* gO, const std::unordered_map<std::string, std::string>& args)

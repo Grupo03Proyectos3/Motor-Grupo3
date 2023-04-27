@@ -1,5 +1,6 @@
 #include "UIElementFactory.h"
 #include "UI/UIElement.h"
+#include <iostream>
 namespace Flamingo
 {
     Component* UIElementFactory::createComponent(GameObject* gO, const std::unordered_map<std::string, std::string>& args)

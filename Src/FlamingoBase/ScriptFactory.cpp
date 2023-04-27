@@ -1,4 +1,6 @@
-#include "ScriptFactory.h"
+#include "ScriptFactory.h" 
+#include <iostream>
+
 namespace Flamingo
 {
     ScriptFactory::ScriptFactory()

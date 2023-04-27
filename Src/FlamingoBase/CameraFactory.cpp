@@ -1,7 +1,10 @@
 #include "CameraFactory.h"
+#include "SceneManager.h"
+#include "ECS/Manager.h"
 #include "Render/Camera.h"
 #include "Render/RenderSystem.h"
-#include "SceneManager.h"
+#include <iostream>
+
 namespace Flamingo
 {
     CameraFactory::CameraFactory(Flamingo::RenderSystem* t_renderSystem)

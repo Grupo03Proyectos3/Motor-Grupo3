@@ -15,10 +15,11 @@ class btCollisionShape;
 class btCollisionObject;
 
 
-class FlamingoMotionState;
 namespace Flamingo{
+
     class SVector3;
     class SQuaternion;
+
     struct RigidBody : public Component
     {
       public:
@@ -38,11 +39,11 @@ namespace Flamingo{
         void setLinearVelocity(const SVector3& t_velocity);
         void setAngularVelocity(const SVector3& t_velocity);
 
-        inline btRigidBody* getBtRigidBody() const { return m_rigid_body; };
-        inline float getMass() const { return m_mass; };
-        inline bool isTrigger() const { return m_trigger; };
-        inline bool isStatic() const { return m_static; };
-        inline bool isKinematic() const { return m_kinematic; };
+        btRigidBody* getBtRigidBody() const;
+        float getMass() const;
+        bool isTrigger() const;
+        bool isStatic() const;
+        bool isKinematic() const;
         SVector3 getPosition() const;
         SQuaternion getRotation() const;
         SVector3 getLinearVelocity() const;

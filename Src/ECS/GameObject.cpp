@@ -59,4 +59,8 @@ namespace Flamingo
     {
         m_name = t_name;
     }
+
+    std::unordered_map<std::string, Component*> GameObject::getCurrentComponents() {
+        return m_current_comps;
+    }
 } // namespace Flamingo

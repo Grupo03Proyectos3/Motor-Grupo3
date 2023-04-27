@@ -5,6 +5,7 @@
 #include "ECS/Component.h"
 #include "ECS/Components.h"
 #include "ECS/GameObject.h"
+#include "ECS/Manager.h"
 #include <map>
 #include <string>
 #include <vector>

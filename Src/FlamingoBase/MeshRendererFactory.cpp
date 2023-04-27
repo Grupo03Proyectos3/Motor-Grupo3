@@ -1,5 +1,6 @@
 #include "MeshRendererFactory.h"
 #include "Render/MeshRenderer.h"
+#include <iostream>
 namespace Flamingo
 {
     MeshRendererFactory::MeshRendererFactory(Flamingo::RenderSystem* t_renderSystem)
