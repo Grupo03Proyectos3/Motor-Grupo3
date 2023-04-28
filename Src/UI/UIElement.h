@@ -19,7 +19,8 @@ namespace Flamingo{
     /*
     * ES NECESARIO PARA EL CORRECTO FUNCIONAMIENTO DE ESTE COMPONENTE Q EL GAMEOBJECT QUE LO CONTIENE ESTA ESTE EN EL GRUPO DE ENTIDADES DE UI
     */
-    struct UIElement : Component{
+    __declspec(dllexport) struct UIElement : Component
+    {
         public:
         __SYSTEM_ID_DECL__(_cmp_UIELEMENT)
         UIElement();

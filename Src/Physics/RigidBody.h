@@ -20,7 +20,7 @@ namespace Flamingo{
     class SVector3;
     class SQuaternion;
 
-    FLAMINGOEXPORT_API struct RigidBody : public Component
+     __declspec(dllexport) struct RigidBody : public Component
     {
       public:
         __SYSTEM_ID_DECL__(_cmp_RIGID_BODY)

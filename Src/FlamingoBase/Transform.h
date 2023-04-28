@@ -13,7 +13,7 @@
  */
 namespace Flamingo
 {
-    FLAMINGOEXPORT_API struct Transform : public Component
+    __declspec(dllexport) struct Transform : public Component
     {
       public:
         __SYSTEM_ID_DECL__(_cpm_TRANSFORM)

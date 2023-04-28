@@ -10,7 +10,7 @@
 #include "Render/Camera.h"
 namespace Flamingo
 {
-    FLAMINGOEXPORT_API struct PlayerController : public Component
+    __declspec(dllexport) struct PlayerController : public Component
     {
       public:
         __SYSTEM_ID_DECL__(_cmp_PLAYER_CONTROLLER)
