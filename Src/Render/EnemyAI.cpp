@@ -113,10 +113,6 @@ namespace Flamingo
         {
             m_attacking = false;
         }
-        else
-        {
-            // cambiar de dirrección
-        }
     }
     // Comprueba la distancia a la que esta el player, si esta a menos de un valor lo empieza a perseguir
     void EnemyAI::checkDistance(SVector3 t_player_pos)
@@ -140,7 +136,7 @@ namespace Flamingo
     }
     void EnemyAI::attack()
     {
-        std::cout << "ATAQUE" << std::endl;
+        //std::cout << "ATAQUE" << std::endl;
     }
     void EnemyAI::followPlayer(SVector3 t_player_pos)
     {

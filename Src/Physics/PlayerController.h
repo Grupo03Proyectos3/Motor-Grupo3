@@ -21,7 +21,7 @@ namespace Flamingo
         virtual void initComponent();
 
         void movePlayer(float t_horizontal, float t_vertical);
-        void rotatePlayer(double t_angle, SVector3 t_axis);
+        void rotatePlayer(SQuaternion t_angle);
 
         // Métodos para el input del jugador
         void handleInput();

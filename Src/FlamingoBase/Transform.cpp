@@ -60,7 +60,7 @@ namespace Flamingo
         m.quaternion.x = m_rotation.getX();
         m.quaternion.y = m_rotation.getY();
         m.quaternion.z = m_rotation.getZ();
-        m.quaternion.w = m.quaternion.z = m_rotation.getW();
+        m.quaternion.w = m_rotation.getW();
         // m.v = &m_scale;
         m_mngr->send(m);
     }
