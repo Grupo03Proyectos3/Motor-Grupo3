@@ -1,5 +1,5 @@
 #include "ScriptManager.h"
-
+#include "BehaviourScript.h"
 #include "ECS/GameObject.h"
 #include "ECS/Manager.h"
 

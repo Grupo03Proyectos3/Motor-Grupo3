@@ -5,12 +5,14 @@
 #include <map>
 #include <string>
 #include "ECS/SingletonECS.h"
-#include "BehaviourScript.h"
 
 class Manager;
 
+
 namespace Flamingo
 {
+    class BehaviourScript;
+    class GameObject;
     /*Clase que se encarga de la gestión de scripts que hereden de BehaviorScript mediante nombres asociados a la clase y referencias a esta.
     Se usa como capa de abstracción que ,en conjunto con el Manager, realiza las funciones necesarias sobre los componentes que si fueran propios del motor
     y no creados por el ussuario llevaría a cabo el manager directamente. */
