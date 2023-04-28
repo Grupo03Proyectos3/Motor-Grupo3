@@ -11,10 +11,9 @@ namespace Flamingo{
 
             RigidBody* c = addComponent<RigidBody>(gO);
             c->initValues(mass, trigger, is_static);
-            c->initComponent();
 
             Manager::instance()->addGameObjectToGroups(gO, {GROUP_PHYSICS});
-            // compsCreated.push_back(c);
+
             return c;
         }
         catch (...)

@@ -27,7 +27,6 @@ namespace Flamingo
 
             AudioSource* c = Flamingo::addComponent<AudioSource>(gO);
             c->initValues(route.c_str(), name, music);
-            c->initComponent();
 
             Flamingo::Manager::instance()->addGameObjectToGroups(gO, {Flamingo::GROUP_AUDIO});
             return c;

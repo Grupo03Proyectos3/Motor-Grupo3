@@ -8,8 +8,8 @@ namespace Flamingo
         {
             float speed = std::stof(args.at("t_speed"));
             PlayerController* c = addComponent<PlayerController>(gO);
+
             c->initValues(speed);
-            c->initComponent();
 
             Manager::instance()->addGameObjectToGroups(gO, {GROUP_PHYSICS});
             return c;

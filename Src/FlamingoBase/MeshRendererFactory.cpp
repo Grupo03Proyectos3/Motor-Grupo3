@@ -22,7 +22,6 @@ namespace Flamingo
             Flamingo::MeshRenderer* c = addComponent<Flamingo::MeshRenderer>(gO);
             c->initValues(SVector3(s_x, s_y, s_z), modelName, entityName);
             c->changeMaterial(matName);
-            c->initComponent();
 
             Manager::instance()->addGameObjectToGroups(gO, {GROUP_RENDER});
             // compsCreated.push_back(c);

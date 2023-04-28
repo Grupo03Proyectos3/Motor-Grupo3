@@ -174,6 +174,19 @@ namespace Flamingo
                                         throw std::runtime_error("'scripts' array in '" + filename + "' includes and invalid value");
                                     }
                                 }
+
+                                try
+                                {
+                                    for (auto c : gO->getCurrentComponents())
+                                    {
+                                        c.second->initComponent();
+                                    }
+                                }
+                                catch (const std::exception&)
+                                {
+                                    throw std::runtime_error("failed to initialize components");
+                                }
+                              
                             }
                         }
                         else

@@ -14,7 +14,6 @@ namespace Flamingo
 
             Flamingo::UIElement* c = addComponent<Flamingo::UIElement>(gO);
             c->initValues(type, name, text, image);
-            c->initComponent();
 
             Manager::instance()->addGameObjectToGroups(gO, {GROUP_UI});
             return c;

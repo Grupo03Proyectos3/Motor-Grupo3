@@ -23,7 +23,6 @@ namespace Flamingo
 
             Light* c = addComponent<Light>(gO);
             c->initValues(Flamingo::FlamingoSceneManager().getSceneActive()->getSceneManger(), root->createChildSceneNode(), name);
-            c->initComponent();
 
             Manager::instance()->addGameObjectToGroups(gO, {GROUP_RENDER});
             return c;

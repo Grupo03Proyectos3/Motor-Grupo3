@@ -24,7 +24,6 @@ namespace Flamingo
             Camera* c = Flamingo::addComponent<Camera>(gO);
             c->initValues(Flamingo::FlamingoSceneManager().getSceneActive()->getSceneManger(),
                           root->createChildSceneNode(), m_renderSystem->getWindow(), name);
-            c->initComponent();
 
             Flamingo::Manager::instance()->addGameObjectToGroups(gO, {Flamingo::GROUP_RENDER});
             return c;

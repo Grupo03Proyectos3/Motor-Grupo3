@@ -17,7 +17,6 @@ namespace Flamingo
 
             Flamingo::Animator* c = Flamingo::addComponent<Flamingo::Animator>(gO);
             c->initValues(name);
-            c->initComponent();
 
             Flamingo::Manager::instance()->addGameObjectToGroups(gO, {Flamingo::GROUP_RENDER});
 

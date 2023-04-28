@@ -5,13 +5,11 @@
 
 #include "PhysicsSystem.h"
 
-#include "FlamingoUtils/SQuaternion.h"
-#include "FlamingoUtils/SVector3.h"
-#include "Render/MeshRenderer.h"
 #include "FlamingoBase/Transform.h"
 #include "FlamingoUtils/SQuaternion.h"
 #include "FlamingoUtils/SVector3.h"
 #include "Ogre.h"
+#include "Render/MeshRenderer.h"
 
 namespace Flamingo
 {
@@ -109,16 +107,25 @@ namespace Flamingo
 
     void RigidBody::setPosition(SVector3 t_pos)
     {
+        if (m_rigid_body == nullptr)
+            return;
+
         btTransform transform = m_rigid_body->getWorldTransform();
         transform.setOrigin(btVector3(t_pos));
         m_rigid_body->setWorldTransform(transform);
+
+        // m_bullet_transform->setOrigin(btVector3(t_pos));
     }
 
     void RigidBody::setRotation(SQuaternion t_rot)
     {
+        if (m_rigid_body == nullptr)
+            return;
+
         btTransform transform = m_rigid_body->getWorldTransform();
         transform.setRotation(btQuaternion(t_rot));
         m_rigid_body->setWorldTransform(transform);
+        // m_bullet_transform->setRotation(btQuaternion(t_rot));
     }
 
     void RigidBody::setLinearVelocity(const SVector3& t_velocity)

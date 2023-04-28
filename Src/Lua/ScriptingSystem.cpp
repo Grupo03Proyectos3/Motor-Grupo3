@@ -223,6 +223,12 @@ namespace Flamingo
 
                 m_data.clear();
             }
+           
+            for (auto c : gO->getCurrentComponents())
+            {
+                c.second->initComponent();
+            }
+
             m_scene_mngr.getScene(t_scene)->addObjects(gO);
             //m_scene_mngr.getSceneActive()->addObjects(gO);
         }
