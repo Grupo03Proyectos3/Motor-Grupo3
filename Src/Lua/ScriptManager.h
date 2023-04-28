@@ -2,25 +2,34 @@
 #ifndef __SCRIPT_MANAGER_H__
 #define __SCRIPT_MANAGER_H__
 
+#include "ECS/SingletonECS.h"
 #include <map>
 #include <string>
-#include "ECS/SingletonECS.h"
-
-class Manager;
-
 
 namespace Flamingo
 {
     class BehaviourScript;
     class GameObject;
+    class Manager;
+
     /*Clase que se encarga de la gestión de scripts que hereden de BehaviorScript mediante nombres asociados a la clase y referencias a esta.
     Se usa como capa de abstracción que ,en conjunto con el Manager, realiza las funciones necesarias sobre los componentes que si fueran propios del motor
     y no creados por el ussuario llevaría a cabo el manager directamente. */
-    __declspec(dllexport) struct ScriptManager : public SingletonECS<ScriptManager>
+    class ScriptManager : public SingletonECS<ScriptManager>
     {
       public:
-        ScriptManager();
-        virtual ~ScriptManager();
+        /* la constructora y destructora de las clases que hereden de singleton deben estar en el .h para que funcionen en el juego */
+        ScriptManager()
+        {
+        }
+        virtual ~ScriptManager()
+        {
+            for (auto it = m_gameScripts.begin(); it != m_gameScripts.end(); ++it)
+                if (it->second != nullptr)
+                    delete it->second;
+
+            m_gameScripts.clear();
+        }
 
         /*Método para obtener un script del tipo dado por un nombre */
         BehaviourScript* getScript(std::string t_n);
@@ -34,10 +43,10 @@ namespace Flamingo
         /*Método que añade a un gameObject dado el script en cuestiñon, eliminando uno similar si lo había, y devolviendolo*/
         BehaviourScript* addScript(std::string t_n, GameObject* t_gO);
 
-         /*Método que devuelve el script si el gameObject lo posee o, en caso contrario, un puntero nulo*/
+        /*Método que devuelve el script si el gameObject lo posee o, en caso contrario, un puntero nulo*/
         BehaviourScript* getScript(std::string t_n, GameObject* t_gO);
 
-         /*Método que localiza en la lista de componentes de un GameObject un script del indice dado y lo elimina llamando al Manager*/
+        /*Método que localiza en la lista de componentes de un GameObject un script del indice dado y lo elimina llamando al Manager*/
         void removeScript(std::string t_n, GameObject* t_gO);
 
         /*Método que comprueba si el gameObject en cuestion contiene el script en cuestión*/
@@ -52,4 +61,4 @@ namespace Flamingo
         std::map<std::string, std::string> m_nameScripts;
     };
 } // namespace Flamingo
-#endif // !define __BEHAVIOUR_SCRIPT_H__
+#endif
