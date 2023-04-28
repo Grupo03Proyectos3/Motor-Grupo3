@@ -4,7 +4,6 @@
 #include "OgreMaterialManager.h"
 #include <OgreRTShaderSystem.h>
 
-
 /** Default implementation of a Listener to use with the Ogre::RTShader system.
     When a target scheme callback is invoked with the shader generator scheme it tries to create an equivalent shader
     based technique based on the default technique of the given material.

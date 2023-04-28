@@ -2,12 +2,18 @@
 #define __UISYSTEM_H__
 #pragma once
 
-#include <CEGUI/CEGUI.h>
 #include "ECS/System.h"
 
 #include <ECS/Manager.h>
 #include <Render/RenderSystem.h>
-#include <CEGUI/RendererModules/Ogre/Renderer.h>
+
+namespace CEGUI
+{
+    class Window;
+    class OgreRenderer;
+    class GUIContext;
+    class WindowManager;
+}
 
 namespace Flamingo{
     class UISystem : public System{

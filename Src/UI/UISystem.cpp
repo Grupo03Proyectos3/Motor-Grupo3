@@ -1,15 +1,19 @@
 #include "UISystem.h"
 #include "UIElement.h"
-#include <CEGUI/Base.h>
-#include <CEGUI/RendererModules/Ogre/ResourceProvider.h>
-#include <CEGUI/System.h>
-#include <CEGUI/Window.h>
 #include <OgreRenderWindow.h>
 #include <iostream>
 #include <ECS/Manager.h>
 #include <functional>
 #include <iostream>
 #include "ECS/InputHandlerContainer.h"
+
+//CEGUI
+#include <CEGUI/Base.h>
+#include <CEGUI/RendererModules/Ogre/ResourceProvider.h>
+#include <CEGUI/System.h>
+#include <CEGUI/Window.h>
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
 
 namespace Flamingo
 {
