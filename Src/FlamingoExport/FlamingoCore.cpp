@@ -162,7 +162,6 @@ namespace Flamingo
         SVector3 m_velocity;
         // var pruebas
         int m_timeSinceLastDirectionChange = 0;
-        //
 
         Flamingo::Timer* player_timer = new Flamingo::Timer();
         auto time = player_timer->getElapsedTime();
@@ -189,7 +188,7 @@ namespace Flamingo
                     sys->update(dt);
                 }
             }
-            // m_controller->handleInput();
+
             // pruebas de enemigos
 
             auto enemigo = m_mngr->getEntities(GROUP_RENDER);
@@ -197,36 +196,6 @@ namespace Flamingo
 
             controller->handleInput();
             render_sys->manipulateCamera();
-
-            /// MOVIMIENTO RANDOM ENEMIGOS COMENTADO
-            // m_timeSinceLastDirectionChange += dt;
-            //// SVector3 m_velocity;
-            ////  Si ha pasado suficiente tiempo, cambia la direcci�n del enemigo
-            // if (m_timeSinceLastDirectionChange >= 1000.0f)
-            //{
-            //     float x = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
-            //     float y = 0;
-            //     float z = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
-
-            //    //std::cout << "MARACUY�!!!!!!!!!!!! x: " << x << " y: " << y << " z: " << z << std::endl;
-
-            //    // Crea un vector con estos valores y normal�zalo
-            //    SVector3 direction(x, y, z);
-            //    direction.normalize();
-            //    //std::cout << "Normalice!!!!!!!!!!!! x: " << direction.getX() << " y: " << direction.getY() << " z: " << direction.getZ() << std::endl;
-
-            //    // Genera una direcci�n aleatoria
-            //    SVector3 randomDirection = direction;
-
-            //    // Asigna una velocidad constante a lo largo de esta direcci�n
-            //    m_velocity = randomDirection * 0.2f;
-
-            //    // Reinicia el contador de tiempo
-            //    m_timeSinceLastDirectionChange = 0;
-            //}
-            // test->translate(m_velocity * dt);
-
-            // acaban pruebas
 
             ihdlr.refresh();
 

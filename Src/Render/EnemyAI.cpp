@@ -40,6 +40,28 @@ namespace Flamingo
             enemyMovement(t_delta_time);
     }
 
+    /*
+     * PSEUDOCÓDIGO PARA EL MERODEO DE MILLINGTON
+     *
+     * class KinematicWander:
+     * character: Static
+     * maxSpeed: float
+     *
+     * # The maximum rotation speed we’d like, probably should be smaller
+     * # than the maximum possible, for a leisurely change in direction.
+     * maxRotation: float
+     *
+     * function getSteering() -> KinematicSteeringOutput:
+     * result = new KinematicSteeringOutput()
+     *
+     * # Get velocity from the vector form of the orientation.
+     * result.velocity = maxSpeed * character.orientation.asVector()
+     *
+     * # Change our orientation randomly.
+     * result.rotation = randomBinomial() * maxRotation
+     *
+     * return result
+     */
     void EnemyAI::enemyMovement(float t_delta_time)
     {
         m_time_last_dir += t_delta_time;
@@ -136,7 +158,7 @@ namespace Flamingo
     }
     void EnemyAI::attack()
     {
-        //std::cout << "ATAQUE" << std::endl;
+        // std::cout << "ATAQUE" << std::endl;
     }
     void EnemyAI::followPlayer(SVector3 t_player_pos)
     {

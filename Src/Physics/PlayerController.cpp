@@ -37,8 +37,7 @@ namespace Flamingo
     void PlayerController::handleInput()
     {
         auto& ihldr = Flamingo::Input();
-        // Ogre::Quaternion quat(Ogre::Degree(90), Ogre::Vector3::UNIT_Y); TO DO, no debería usar Ogre
-        // SQuaternion q = SQuaternion(quat);
+        
         if (ihldr.keyDownEvent())
         {
             if (ihldr.isKeyDown(FLM_w))
