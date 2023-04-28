@@ -13,11 +13,12 @@ namespace Flamingo
 {
     void MeshRenderer::initValues(SVector3 scaleNode, std::string t_model_name, std::string t_entity_name)
     {
-        auto sys = m_mngr->getSystem<RenderSystem>();
+       
         m_scene_mngr = FlamingoSceneManager().getSceneActive()->getSceneManger();
         m_entity_name = t_entity_name;
         m_model_name = t_model_name;
         m_material_name = "";
+
         try
         {
             m_ent_ogre = m_scene_mngr->createEntity(m_entity_name, m_model_name);
@@ -29,6 +30,11 @@ namespace Flamingo
 
         m_scene_node = FlamingoSceneManager().getSceneActive()->getSceneRoot()->createChildSceneNode();
         m_scale_diff = scaleNode;
+    }
+
+    void MeshRenderer::initComponent()
+    {
+        //auto sys = m_mngr->getSystem<RenderSystem>();
 
         auto t = getComponent<Transform>(m_ent);
 
@@ -42,10 +48,7 @@ namespace Flamingo
         m_scene_node->setPosition(t->getPosition());
         m_scene_node->setOrientation(t->getRotation());
         m_scene_node->attachObject(m_ent_ogre);
-    }
 
-    void MeshRenderer::initComponent()
-    {
         if (m_material_name != "")
             m_ent_ogre->setMaterialName(m_material_name);
     }

@@ -13,13 +13,6 @@ namespace Flamingo
         delete m_mainCamera;
     }
 
-    void PlayerController::initValues()
-    {
-        m_playerSpeed = (3.0f);
-        m_active = (true);
-        m_mainCamera = (new Camera());
-    }
-
     void PlayerController::initValues(float t_playerSpeed)
     {
         m_playerSpeed = (t_playerSpeed);

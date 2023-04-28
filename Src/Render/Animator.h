@@ -15,7 +15,7 @@ namespace Flamingo
         __SYSTEM_ID_DECL__(Flamingo::_cmp_ANIMATOR)
         Animator();
         virtual ~Animator(){};
-        virtual void initValues();
+        virtual void initValues(std::string name);
         virtual void initComponent();
 
         void createAnimation(std::string t_name, double t_duration);
@@ -35,6 +35,7 @@ namespace Flamingo
         Transform* m_transform;
         MeshRenderer* m_meshRenderer;
         int m_num_animations_active;
+        std::string m_name;
     };
 } // namespace Flamingo
 #endif

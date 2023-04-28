@@ -16,7 +16,7 @@ namespace Flamingo
             std::string name = (args.at("t_name"));
 
             Flamingo::Animator* c = Flamingo::addComponent<Flamingo::Animator>(gO);
-            c->initValues();
+            c->initValues(name);
             c->initComponent();
 
             Flamingo::Manager::instance()->addGameObjectToGroups(gO, {Flamingo::GROUP_RENDER});

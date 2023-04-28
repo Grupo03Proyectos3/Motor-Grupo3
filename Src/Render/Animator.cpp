@@ -12,13 +12,11 @@ namespace Flamingo
 
     Animator::Animator() {}
 
-    void Animator::initValues()
+    void Animator::initValues(std::string name)
     {
-        auto sys = m_mngr->getSystem<RenderSystem>();
         m_scene_mngr = Flamingo::FlamingoSceneManager().getSceneActive()->getSceneManger();
-
+        m_name = name;
         m_num_animations_active = (0);
-
         m_transform = nullptr;
         m_meshRenderer = nullptr;
     }

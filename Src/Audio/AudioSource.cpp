@@ -20,24 +20,28 @@ namespace Flamingo
     /// </summary>
     void AudioSource::initComponent()
     {
-        m_playing = false;
+        auto audioSystem = m_mngr->getSystem<Flamingo::AudioSystem>();
+        FMOD_RESULT result;
+        if (m_isMusic)
+        {
+            audioSystem->createSound(m_songRoute, FMOD_3D | FMOD_LOOP_NORMAL, nullptr, &m_sound);
+            audioSystem->addMusic(m_sound, m_songName);
+        }
+        else
+        {
+            audioSystem->createSound(m_songRoute, FMOD_3D | FMOD_DEFAULT, nullptr, &m_sound);
+            audioSystem->addSoundEffect(m_sound, m_songName);
+        }
+        m_audioName = m_songName;
     }
 
     void AudioSource::initValues(const char* songRoute, std::string songName, bool isMusic)
     {
-        auto audioSystem = m_mngr->getSystem<Flamingo::AudioSystem>();
-        FMOD_RESULT result;
-        if (isMusic)
-        {
-            audioSystem->createSound(songRoute, FMOD_3D | FMOD_LOOP_NORMAL, nullptr, &m_sound);
-            audioSystem->addMusic(m_sound, songName);
-        }
-        else
-        {
-            audioSystem->createSound(songRoute, FMOD_3D | FMOD_DEFAULT, nullptr, &m_sound);
-            audioSystem->addSoundEffect(m_sound, songName);
-        }
-        m_audioName = songName;
+        m_playing = false;
+        strcpy_s(m_songRoute, sizeof(m_songRoute), songRoute);
+        //m_songRoute = songRoute;
+        m_songName = songName;
+        m_isMusic = isMusic;
     }
     void AudioSource::playAudio()
     {

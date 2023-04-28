@@ -17,7 +17,6 @@ namespace Flamingo
 
         PlayerController();
         virtual ~PlayerController();
-        virtual void initValues();
         virtual void initValues(float t_playerSpeed);
         virtual void initComponent();
 
