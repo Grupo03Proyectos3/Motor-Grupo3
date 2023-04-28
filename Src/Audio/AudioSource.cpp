@@ -13,6 +13,7 @@ namespace Flamingo
     {
         // El sistema de FMOD se encarga de borrar todos los sonidos creados, nosotros solo nos encargamos de poner el puntero a null
         m_sound = nullptr;
+        m_songRoute = nullptr;
     }
 
     /// <summary>
@@ -39,7 +40,6 @@ namespace Flamingo
     {
         m_playing = false;
         strcpy_s(m_songRoute, sizeof(m_songRoute), songRoute);
-        //m_songRoute = songRoute;
         m_songName = songName;
         m_isMusic = isMusic;
     }
