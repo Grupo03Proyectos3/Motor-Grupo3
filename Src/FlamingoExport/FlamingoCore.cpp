@@ -82,7 +82,7 @@ namespace Flamingo
         m_camera->initComponent();
         m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
 
-        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
+        m_camera->lookAt(SVector3(0, 0, 0), Camera::LOCAL);
         m_camera->setNearClipDistance(1);
         m_camera->setFarClipDistance(100000);
         mainScene->addObjects(cam_go);
@@ -115,7 +115,7 @@ namespace Flamingo
         cmp_light->setDiffuseColour();
         mainScene->addObjects(light_go);*/
 
-        GameObject* UI = m_mngr->addGameObject({GROUP_UI});
+        /*GameObject* UI = m_mngr->addGameObject({GROUP_UI});
         auto y = addComponent<Transform>(UI);
         y->initValues();
         auto x = addComponent<Flamingo::UIElement>(UI);
@@ -127,7 +127,7 @@ namespace Flamingo
         y->setPosition({50, 50, 0});
         y->setScale({100, 100, 0});
         x->subscribeEvent(&FlamingoCore::prueba, this);
-        x->setActive(true);
+        x->setActive(true);*/
 
       /*  ScriptManager::instance()->addGameScript("PruebaScript", new PruebaScript());
         Flamingo::GameObject* g = m_mngr->addGameObject();

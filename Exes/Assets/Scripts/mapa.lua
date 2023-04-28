@@ -129,7 +129,6 @@ Arbol = {
         t_name="dragon"
     }
 }
-
 EspadaMetal = {
     Name={
         t_name="espadam",
@@ -436,7 +435,7 @@ M5 = {
     },
     AATransform = {
         positionX = "-2000.0",
-        positionY = "1000.0",
+        positionY = "200.0",
         positionZ = "12000.0",
         scaleX = "2.5",
         scaleY = "2.5",
@@ -916,7 +915,7 @@ M21 = {
     },
     AATransform = {
         positionX = "20000.0",
-        positionY = "2000.0",
+        positionY = "1500.0",
         positionZ = "-16000.0",
         scaleX = "2.5",
         scaleY = "2.5",
@@ -946,7 +945,7 @@ M22 = {
     },
     AATransform = {
         positionX = "29000.0",
-        positionY = "2000.0",
+        positionY = "1500.0",
         positionZ = "-13000.0",
         scaleX = "2.5",
         scaleY = "2.5",
