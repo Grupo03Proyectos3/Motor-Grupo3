@@ -7,10 +7,13 @@
 #include <FlamingoUtils/SQuaternion.h>
 #include <FlamingoUtils/SVector3.h>
 #include <FlamingoUtils/Timer.h>
-#include <OgreSceneNode.h>
-#include <OgreSceneManager.h>
-#include <OgreParticleSystem.h>
-#include <OgreTechnique.h>
+
+namespace Ogre
+{
+    class ParticleSystem;
+    class SceneManager;
+    class SceneNode;
+}
 
 #include <string>
 namespace Flamingo

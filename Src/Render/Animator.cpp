@@ -3,6 +3,7 @@
 #include <OgreAnimation.h>
 #include <OgreKeyFrame.h>
 #include <OgreSceneManager.h>
+#include <OgreEntity.h>
 
 #include "ECS/Manager.h"
 #include "RenderSystem.h"

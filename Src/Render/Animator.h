@@ -6,6 +6,13 @@
 #include "FlamingoUtils/SVector3.h"
 #include "FlamingoBase/Transform.h"
 #include "MeshRenderer.h"
+#include <unordered_map>
+
+namespace Ogre
+{
+    class AnimationState;
+    class SceneManager;
+}
 
 namespace Flamingo
 {

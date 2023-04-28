@@ -6,8 +6,11 @@
 #include "FlamingoBase/Transform.h"
 #include "FlamingoUtils/SVector3.h"
 
+
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
+#include <OgreAxisAlignedBox.h>
+#include <OgreEntity.h>
 
 namespace Flamingo
 {
@@ -102,6 +105,16 @@ namespace Flamingo
     Ogre::AxisAlignedBox MeshRenderer::getBoundingBox()
     {
         return m_ent_ogre->getBoundingBox();
+    }
+
+    Ogre::Entity* MeshRenderer::getEntity()
+    {
+        return m_ent_ogre; 
+    }
+
+    Ogre::SceneNode* MeshRenderer::getNode()
+    {
+        return m_scene_node;
     }
 
     MeshRenderer::~MeshRenderer()

@@ -1,5 +1,10 @@
 #include "ParticleSystem.h"
 
+#include <OgreSceneNode.h>
+#include <OgreSceneManager.h>
+#include <OgreParticleSystem.h>
+#include <OgreTechnique.h>
+
 Flamingo::ParticleSystem::ParticleSystem()
 {
 }

@@ -4,14 +4,16 @@
 #include "ECS/Component.h"
 #include "FlamingoUtils/SVector3.h"
 
-//namespace Ogre
-//{
-//    class OgreAxisAlignedBox;
-//    class OgreEntity;
-//} // namespace Ogre
+namespace Ogre
+{
+    class AxisAlignedBox;
+    class OgreEntity;
+    class Entity;
+    class SceneNode;
+    class Entity;
+    class SceneManager;
+} // namespace Ogre
 
-#include <OgreAxisAlignedBox.h>
-#include <OgreEntity.h>
 
 namespace Flamingo
 {
@@ -35,9 +37,9 @@ namespace Flamingo
         void detachObjectFromBone(Ogre::Entity* t_ent);                        // NO EXPORTAR
         void detachObjectFromBone(std::string t_bone);
 
-        Ogre::AxisAlignedBox getBoundingBox();                      // NO EXPORTAR
-        inline Ogre::Entity* getEntity() { return m_ent_ogre; };    // NO EXPORTAR
-        inline Ogre::SceneNode* getNode() { return m_scene_node; }; // NO EXPORTAR
+        Ogre::AxisAlignedBox getBoundingBox(); // NO EXPORTAR
+        Ogre::Entity* getEntity();    // NO EXPORTAR
+        Ogre::SceneNode* getNode(); // NO EXPORTAR
 
       protected:
         Ogre::Entity* m_ent_ogre;
