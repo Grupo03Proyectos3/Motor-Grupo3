@@ -7,6 +7,7 @@
 #include "UISystem.h"
 #include <iostream>
 #include "CEGUI/Window.h"
+#include "CEGUI/WindowRenderer.h"
 #include "CEGUI/widgets/PushButton.h"
 #include "CEGUI/Event.h"
 #include "CEGUI/EventArgs.h"

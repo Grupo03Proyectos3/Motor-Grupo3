@@ -4,6 +4,8 @@
 #include <UI/UIElement.h>
 #include <iostream>
 #include <OgreSceneManager.h>
+#include "CEGUI/WindowRenderer.h"
+
 
 namespace Flamingo{
     Scene::Scene()

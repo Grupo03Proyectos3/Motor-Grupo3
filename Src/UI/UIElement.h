@@ -4,16 +4,19 @@
 #define __UIELEMENT_H__
 
 #include "ECS/Component.h"
-#include <CEGUI/WindowRenderer.h>
 #include <string>
 #include "FlamingoBase/Transform.h"
-#include <CEGUI/EventArgs.h>
 #include <unordered_map>
 
 namespace Flamingo{
     class SVector2;
     class UISystem;
     class BehaviourScript;
+}
+
+namespace CEGUI
+{
+    class Window;
 }
 
 namespace Flamingo{
