@@ -22,6 +22,7 @@ MapReader::MapReader(Flamingo::RenderSystem* t_renderSystem)
 
 MapReader::~MapReader()
 {
+    delete m_componentFactory;
 }
 
 void MapReader::readMap(std::string filename, Flamingo::Scene* t_scene)

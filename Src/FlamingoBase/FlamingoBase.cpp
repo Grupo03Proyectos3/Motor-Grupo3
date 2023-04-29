@@ -102,16 +102,16 @@ namespace Flamingo
         mainScene->addObjects(light_go);
 
         // PRUEBAS DE UI
-        ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
-        auto y = ecs::AddComponent<Transform>(UI);
-        y->initValues();
-        y->setPosition({75, 75, 0});
-        auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
-        x->setElementWidget("FlamingoDefaultUI/Button", "COSO");
-        x->setText("ODIO CEGUI");
-        //x->setImage("NormalImage", "paco", "100.png");
-        y->setPosition({50, 30, 0});
-        y->setScale({50, 50, 0});
+        //ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
+        //auto y = ecs::AddComponent<Transform>(UI);
+        //y->initValues();
+        //y->setPosition({75, 75, 0});
+        //auto x = ecs::AddComponent<Flamingo::UIElement>(UI);
+        //x->setElementWidget("FlamingoDefaultUI/Button", "COSO");
+        //x->setText("ODIO CEGUI");
+        ////x->setImage("NormalImage", "paco", "100.png");
+        //y->setPosition({50, 30, 0});
+        //y->setScale({50, 50, 0});
 
         //mainScene->destroySceneObjects();
 
@@ -220,12 +220,16 @@ namespace Flamingo
         //ui_system->eraseContext();
         render_sys->getWindow()->closeWindow();
         delete player_timer;
-
-        //_CrtDumpMemoryLeaks();
     }
 
     bool FlamingoBase::FlamingoExit()
     {
+        ecs::Manager* mngr = ecs::Manager::instance();
+        delete mngr;
+
+        auto ihdlr = InputHandler::instance();
+        delete ihdlr;
+
         return false;
     }
 

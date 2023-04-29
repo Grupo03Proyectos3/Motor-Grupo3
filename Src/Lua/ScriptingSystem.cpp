@@ -39,6 +39,9 @@ Flamingo::ScriptingSystem::ScriptingSystem()
 
 Flamingo::ScriptingSystem::~ScriptingSystem()
 {
+    if (m_componentFactory != nullptr)
+        delete m_componentFactory;
+
     lua_close(lua_state);
 }
 
