@@ -15,7 +15,8 @@ namespace CEGUI
     class Window;
 }
 namespace Flamingo{
-    class Scene{
+    class __declspec(dllexport)  Scene
+    {
       public:
         Scene();
         ~Scene();

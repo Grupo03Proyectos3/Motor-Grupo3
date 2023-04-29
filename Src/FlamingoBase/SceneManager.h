@@ -20,7 +20,7 @@ namespace Ogre
 
 namespace Flamingo
 {
-    __declspec(dllexport) class SceneManager : public SingletonECS<Flamingo::SceneManager>
+    class __declspec(dllexport) SceneManager : public SingletonECS<Flamingo::SceneManager>
     {
         friend PhysicsSystem;
         friend RenderSystem;

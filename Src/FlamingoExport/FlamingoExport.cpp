@@ -4,6 +4,9 @@
 #include "FlamingoExport.h"
 #include "Lua/ScriptManager.h"
 #include "Lua/BehaviourScript.h"
+#include "UI/UIElement.h"
+#include "FlamingoBase/Scene.h"
+#include "FlamingoBase/SceneManager.h"
 #include <iostream>
 
     //// Ejemplo de variable exportada
