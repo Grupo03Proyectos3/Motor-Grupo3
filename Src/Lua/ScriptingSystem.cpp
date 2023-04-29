@@ -54,10 +54,10 @@ namespace Flamingo
         m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
         m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(renderSystem));
         m_componentFactory->addFactory("RigidBody", new RigidBodyFactory());
-        m_componentFactory->addFactory("AATransform", new TransformFactory());
+        m_componentFactory->addFactory("Transform", new TransformFactory());
         m_componentFactory->addFactory("Light", new LightFactory(renderSystem));
         m_componentFactory->addFactory("Camera", new CameraFactory(renderSystem));
-        m_componentFactory->addFactory("ZAnimator", new AnimatorFactory(renderSystem));
+        m_componentFactory->addFactory("Animator", new AnimatorFactory(renderSystem));
         m_componentFactory->addFactory("Scripts", new ScriptFactory());
         m_componentFactory->addFactory("UIElement", new UIElementFactory());
 
@@ -188,7 +188,9 @@ namespace Flamingo
             // Ordenar componentes de la entidad
             std::vector<std::string> componentNames;
             lua_pushnil(entity);
-            while (lua_next(entity, 0) != 0) // Recorro los componentes que hay la entidad
+            if (entity.isNil())
+                throw std::exception("ERROR loading the scene");
+            while (!entity.isNil() && lua_next(entity, 0) != 0) // Recorro los componentes que hay la entidad
             {
                 std::string compName = lua_tostring(entity, -2); // Tipo de componente
                 componentNames.push_back(compName);

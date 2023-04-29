@@ -4,7 +4,7 @@ ButtonGame = {
     Name={
         t_name="button"
     },
-    AATransform = {
+    Transform = {
         positionX = "39.0",
         positionY = "55.0",
         positionZ = "0.0",
@@ -27,7 +27,7 @@ Title = {
     Name={
         t_name="title"
     },
-    AATransform = {
+    Transform = {
         positionX = "30.0",
         positionY = "10.0",
         positionZ = "0.0",

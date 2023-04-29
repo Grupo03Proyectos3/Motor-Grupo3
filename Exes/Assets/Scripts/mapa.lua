@@ -7,7 +7,7 @@ Sinbad = {
     Name={
         t_name="player"
     },
-   AATransform = {
+   Transform = {
        positionX = "200.0",
        positionY="200.0",
        positionZ="0.0",
@@ -40,7 +40,7 @@ Mapa = {
     Name={
         t_name="mapa"
     },
-    AATransform = {
+    Transform = {
         positionX = "0.0",
         positionY = "0.0",
         positionZ = "0.0",
@@ -70,7 +70,7 @@ Enemy = {
     Name={
         t_name="enemy"
     },
-   AATransform = {
+   Transform = {
        positionX= "200.0",
        positionY="260.0",
        positionZ="50.0",
@@ -100,7 +100,7 @@ Arbol = {
     Name={
         t_name="dragon"
     },
-    AATransform = {
+    Transform = {
         positionX = "0.0",
         positionY = "100.0",
         positionZ = "0.0",
@@ -125,7 +125,7 @@ Arbol = {
         t_node_z="0",
         t_mat_name= ""
     },
-    ZAnimator={
+    Animator={
         t_name="dragon"
     }
 }
@@ -133,7 +133,7 @@ EspadaMetal = {
     Name={
         t_name="espadam",
     },
-    AATransform = {
+    Transform = {
         positionX = "-500.0",
         positionY = "50.0",
         positionZ = "0.0",
@@ -163,7 +163,7 @@ EspadaMadera = {
     Name={
         t_name="espada",
     },
-    AATransform = {
+    Transform = {
         positionX = "-400.0",
         positionY = "50.0",
         positionZ = "0.0",
@@ -193,7 +193,7 @@ EspadaEspecial = {
     Name={
         t_name="espadae",
     },
-    AATransform = {
+    Transform = {
         positionX = "-300.0",
         positionY = "50.0",
         positionZ = "0.0",
@@ -223,7 +223,7 @@ Slime = {
     Name={
         t_name="slime02",
     },
-    AATransform = {
+    Transform = {
         positionX = "-300.0",
         positionY = "50.0",
         positionZ = "200.0",
@@ -253,7 +253,7 @@ EscudoMadera = {
     Name={
         t_name="escudom",
     },
-    AATransform = {
+    Transform = {
         positionX = "-500.0",
         positionY = "50.0",
         positionZ = "200.0",
@@ -283,7 +283,7 @@ PocionRoja = {
     Name={
         t_name="pocionr",
     },
-    AATransform = {
+    Transform = {
         positionX = "500.0",
         positionY = "50.0",
         positionZ = "200.0",
@@ -313,7 +313,7 @@ M1 = {
     Name={
         t_name="m1"
     },
-    AATransform = {
+    Transform = {
         positionX = "-25000.0",
         positionY = "200.0",
         positionZ = "17000.0",
@@ -343,7 +343,7 @@ M2 = {
     Name={
         t_name="m2"
     },
-    AATransform = {
+    Transform = {
         positionX = "-38000.0",
         positionY = "2000.0",
         positionZ = "17000.0",
@@ -373,7 +373,7 @@ M3 = {
     Name={
         t_name="m3"
     },
-    AATransform = {
+    Transform = {
         positionX = "-16500.0",
         positionY = "2000.0",
         positionZ = "17000.0",
@@ -403,7 +403,7 @@ M4 = {
     Name={
         t_name="m4"
     },
-    AATransform = {
+    Transform = {
         positionX = "-9500.0",
         positionY = "1000.0",
         positionZ = "14000.0",
@@ -433,7 +433,7 @@ M5 = {
     Name={
         t_name="m5"
     },
-    AATransform = {
+    Transform = {
         positionX = "-2000.0",
         positionY = "200.0",
         positionZ = "12000.0",
@@ -463,7 +463,7 @@ M6 = {
     Name={
         t_name="m6"
     },
-    AATransform = {
+    Transform = {
         positionX = "6000.0",
         positionY = "1500.0",
         positionZ = "16500.0",
@@ -493,7 +493,7 @@ M7 = {
     Name={
         t_name="m7"
     },
-    AATransform = {
+    Transform = {
         positionX = "5500.0",
         positionY = "1500.0",
         positionZ = "24000.0",
@@ -523,7 +523,7 @@ M8 = {
     Name={
         t_name="m8"
     },
-    AATransform = {
+    Transform = {
         positionX = "-49000.0",
         positionY = "200.0",
         positionZ = "20000.0",
@@ -553,7 +553,7 @@ M9 = {
     Name={
         t_name="m9"
     },
-    AATransform = {
+    Transform = {
         positionX = "-58500.0",
         positionY = "1500.0",
         positionZ = "14500.0",
@@ -583,7 +583,7 @@ M10 = {
     Name={
         t_name="m10"
     },
-    AATransform = {
+    Transform = {
         positionX = "-62000.0",
         positionY = "500.0",
         positionZ = "6500.0",
@@ -613,7 +613,7 @@ M11 = {
     Name={
         t_name="m11"
     },
-    AATransform = {
+    Transform = {
         positionX = "-64000.0",
         positionY = "2000.0",
         positionZ = "-3500.0",
@@ -643,7 +643,7 @@ M12 = {
     Name={
         t_name="m12"
     },
-    AATransform = {
+    Transform = {
         positionX = "-68000.0",
         positionY = "500.0",
         positionZ = "-12500.0",
@@ -673,7 +673,7 @@ M13 = {
     Name={
         t_name="m13"
     },
-    AATransform = {
+    Transform = {
         positionX = "-57000.0",
         positionY = "1000.0",
         positionZ = "-17000.0",
@@ -703,7 +703,7 @@ M14 = {
     Name={
         t_name="m14"
     },
-    AATransform = {
+    Transform = {
         positionX = "-48000.0",
         positionY = "500.0",
         positionZ = "-20000.0",
@@ -733,7 +733,7 @@ M15 = {
     Name={
         t_name="m15"
     },
-    AATransform = {
+    Transform = {
         positionX = "-37000.0",
         positionY = "2000.0",
         positionZ = "-23500.0",
@@ -763,7 +763,7 @@ M16 = {
     Name={
         t_name="m16"
     },
-    AATransform = {
+    Transform = {
         positionX = "-22000.0",
         positionY = "2000.0",
         positionZ = "-28000.0",
@@ -793,7 +793,7 @@ M17 = {
     Name={
         t_name="m17"
     },
-    AATransform = {
+    Transform = {
         positionX = "-5000.0",
         positionY = "2000.0",
         positionZ = "-32000.0",
@@ -823,7 +823,7 @@ M18 = {
     Name={
         t_name="m18"
     },
-    AATransform = {
+    Transform = {
         positionX = "7500.0",
         positionY = "2000.0",
         positionZ = "-31000.0",
@@ -853,7 +853,7 @@ M19 = {
     Name={
         t_name="m19"
     },
-    AATransform = {
+    Transform = {
         positionX = "13000.0",
         positionY = "2000.0",
         positionZ = "-28000.0",
@@ -883,7 +883,7 @@ M20 = {
     Name={
         t_name="m20"
     },
-    AATransform = {
+    Transform = {
         positionX = "15000.0",
         positionY = "2000.0",
         positionZ = "-22000.0",
@@ -913,7 +913,7 @@ M21 = {
     Name={
         t_name="m21"
     },
-    AATransform = {
+    Transform = {
         positionX = "20000.0",
         positionY = "1500.0",
         positionZ = "-16000.0",
@@ -943,7 +943,7 @@ M22 = {
     Name={
         t_name="m22"
     },
-    AATransform = {
+    Transform = {
         positionX = "29000.0",
         positionY = "1500.0",
         positionZ = "-13000.0",
