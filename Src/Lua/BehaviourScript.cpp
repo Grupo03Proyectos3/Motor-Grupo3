@@ -11,6 +11,7 @@
 namespace Flamingo
 {
     BehaviourScript::BehaviourScript()
+        : Component()
     {
     }
 
@@ -33,10 +34,10 @@ namespace Flamingo
         std::cout << "BehaviourScript: initializing values " << m_ent->getName() << "\n";
     }
 
-    void BehaviourScript::initComponent()
+ /*   void BehaviourScript::initComponent()
     {
         std::cout << "BehaviourScript: initializing component " << m_ent->getName() << "\n";
-    }
+    }*/
 
     void BehaviourScript::update(float t_delta_time)
     {

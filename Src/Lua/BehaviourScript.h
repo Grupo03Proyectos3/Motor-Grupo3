@@ -6,13 +6,13 @@
 #include "ECS/GameObject.h"
 namespace Flamingo
 {
-    __declspec(dllexport) struct BehaviourScript : public Flamingo::Component
+    struct __declspec(dllexport) BehaviourScript : public Flamingo::Component
     {
       public:
         __SYSTEM_ID_DECL__(Flamingo::_cmp_BEHAVIOUR_SCRIPT)
 
         BehaviourScript();
-        virtual ~BehaviourScript();
+        ~BehaviourScript();
 
         virtual BehaviourScript* clone();
 
@@ -20,7 +20,7 @@ namespace Flamingo
 
         // Clases que podrán ser overrideadas por el desarrollador, para definir a su gusto
         virtual void initValues();
-        virtual void initComponent(); // == start() ?
+        //virtual void initComponent() override; // == start() ?
 
         virtual void update(float t_delta_time);
 
