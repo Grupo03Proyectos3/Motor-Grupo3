@@ -13,6 +13,7 @@
 namespace Flamingo{
     class SVector2;
     class UISystem;
+    class BehaviourScript;
 }
 
 namespace Flamingo{
@@ -46,9 +47,10 @@ namespace Flamingo{
 
         void setImage(const std::string& property, const std::string& name, const std::string& file);   
         void setProperty(const std::string& property,  const std::string& file);
-                 
 
-        template <class T> 
+        void subsEvent(BehaviourScript* t_s);
+                 
+       /* template <class T> 
         void subscribeEvent(void (T::*func)(), T* comp)
         {
             if (m_element != nullptr)
@@ -83,7 +85,7 @@ namespace Flamingo{
                 m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
             }
         }   
-     
+     */
         protected:
             CEGUI::Window* getWindowElement();
             void setElement(CEGUI::Window* element);

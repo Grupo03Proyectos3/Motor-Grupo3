@@ -6,6 +6,14 @@
 #include "FlamingoUtils/SVector3.h"
 #include "UISystem.h"
 #include <iostream>
+#include "CEGUI/Window.h"
+#include "CEGUI/widgets/PushButton.h"
+#include "CEGUI/Event.h"
+#include "CEGUI/EventArgs.h"
+#include "CEGUI/CEGUI.h"
+
+#include "Lua/BehaviourScript.h"
+
 
 namespace Flamingo
 {
@@ -191,4 +199,18 @@ namespace Flamingo
             throw std::runtime_error("Propiedad" + property + "no compatible con este elemento");
         }
     }
+
+    void UIElement::subsEvent(BehaviourScript* t_s)
+    {
+        //BehaviourScript* i = new B();
+        
+
+        if (m_element != nullptr)
+        {
+            m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&BehaviourScript::clickFuntion, t_s));
+        }
+    }
+
+  
+  
 } // namespace Flamingo

@@ -52,6 +52,8 @@ namespace Flamingo
          */
         virtual void onCollisionExit(Flamingo::GameObject* t_other){};
 
+        virtual void clickFuntion(){};
+
       private:
     };
 } // namespace Flamingo
