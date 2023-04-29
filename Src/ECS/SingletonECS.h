@@ -39,7 +39,7 @@
 namespace Flamingo
 {
     template <typename T>
-    class __declspec(dllexport) SingletonECS
+    class SingletonECS
     {
       protected:
         SingletonECS()

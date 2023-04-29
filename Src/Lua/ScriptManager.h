@@ -8,28 +8,21 @@
 
 namespace Flamingo
 {
-    class BehaviourScript;
+ 
     class GameObject;
     class Manager;
+    class BehaviourScript;
 
     /*Clase que se encarga de la gestión de scripts que hereden de BehaviorScript mediante nombres asociados a la clase y referencias a esta.
     Se usa como capa de abstracción que ,en conjunto con el Manager, realiza las funciones necesarias sobre los componentes que si fueran propios del motor
     y no creados por el ussuario llevaría a cabo el manager directamente. */
-    class ScriptManager : public SingletonECS<ScriptManager>
+    class __declspec(dllexport) ScriptManager : public SingletonECS<ScriptManager>
     {
       public:
         /* la constructora y destructora de las clases que hereden de singleton deben estar en el .h para que funcionen en el juego */
-        ScriptManager()
-        {
-        }
-        virtual ~ScriptManager()
-        {
-            for (auto it = m_gameScripts.begin(); it != m_gameScripts.end(); ++it)
-                if (it->second != nullptr)
-                    delete it->second;
-
-            m_gameScripts.clear();
-        }
+        ScriptManager();
+        virtual ~ScriptManager();
+       
 
         /*Método para obtener un script del tipo dado por un nombre */
         BehaviourScript* getScript(std::string t_n);

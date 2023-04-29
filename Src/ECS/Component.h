@@ -7,7 +7,7 @@
 
 namespace Flamingo
 {
-    __declspec(dllexport) struct Component
+    struct __declspec(dllexport) Component
     {
       public:
         Component();
@@ -15,7 +15,7 @@ namespace Flamingo
         // Destroys the component.
         // Careful! ent_ and mngr_ should not be destroyed
         //
-        virtual ~Component();
+        ~Component();
         // This method is used to set the context, which is a
         // reference to the entity in which the component is
         // installed and a reference to the manager. It will
@@ -25,7 +25,7 @@ namespace Flamingo
         // We assume that initComponent will be called when adding a
         // component to an entity, immediately after setContext.
         //
-        virtual void initComponent();
+        virtual void initComponent(){};
 
         GameObject* gameObject();
 

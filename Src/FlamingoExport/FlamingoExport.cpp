@@ -2,6 +2,8 @@
 //
 
 #include "FlamingoExport.h"
+#include "Lua/ScriptManager.h"
+#include "Lua/BehaviourScript.h"
 #include <iostream>
 
     //// Ejemplo de variable exportada
