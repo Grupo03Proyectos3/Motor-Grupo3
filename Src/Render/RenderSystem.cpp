@@ -269,11 +269,14 @@ namespace Flamingo
 
     RenderSystem::~RenderSystem()
     {
-        m_window->destroyRTShaderSystem();
+        if (m_window)
+        {
+            m_window->destroyRTShaderSystem();
 
-        m_window->shutdown();
-        delete m_window;
-        m_window = nullptr;
+            m_window->shutdown();
+            delete m_window;
+            m_window = nullptr;
+        }
 
         //if (m_camera != nullptr)
         //{
@@ -281,8 +284,11 @@ namespace Flamingo
         //    m_camera = nullptr;
         //}
 
-        delete m_fs_layer;
-        m_fs_layer = nullptr;
+        if (m_fs_layer)
+        {
+            delete m_fs_layer;
+            m_fs_layer = nullptr;
+        }
 
         if (m_root != nullptr)
         {

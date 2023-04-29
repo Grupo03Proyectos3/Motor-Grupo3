@@ -213,10 +213,6 @@ namespace Flamingo
 
     bool Flamingo::FlamingoCore::FlamingoExit()
     {
-        Manager::close();
-        InputHandler::close();
-        InputHandlerContainer::close();
-
         return false;
     }
 
