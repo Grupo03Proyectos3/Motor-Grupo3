@@ -45,6 +45,11 @@ namespace Flamingo
 
     Flamingo::ScriptingSystem::~ScriptingSystem()
     {
+        if (m_componentFactory != nullptr)
+        {
+            m_componentFactory->close();
+        }
+
         lua_close(lua_state);
     }
 

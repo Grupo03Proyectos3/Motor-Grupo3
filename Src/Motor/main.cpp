@@ -11,6 +11,10 @@ typedef bool(__cdecl* GameEntryPoint)(void);
 int main(int argc, char* argv[])
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    _CrtMemState sOld;
+    _CrtMemState sNew;
+    _CrtMemState sDiff;
+    _CrtMemCheckpoint(&sOld); // take a snapshot
 
 #ifdef _DEBUG
     HMODULE hinstLib = LoadLibrary(TEXT("GameExport_d"));
@@ -54,6 +58,7 @@ int main(int argc, char* argv[])
         //}
 
         // PARA TRABAJAR DESDE EL MOTOR
+        FreeLibrary(hinstLib);
         Flamingo::FlamingoCore* fBase = new Flamingo::FlamingoCore();
         if (fBase->FlamingoInit())
         {
@@ -63,6 +68,7 @@ int main(int argc, char* argv[])
         else
             return -1;
         delete fBase;
+
     }
     catch (std::exception & excepcion)
     {
@@ -74,8 +80,16 @@ int main(int argc, char* argv[])
     }
 
     // uncomment to check Memory leaks
-    int* i = new int();
-    //_CrtDumpMemoryLeaks();
+    // int* i = new int();
+    // _CrtDumpMemoryLeaks();
+    //_CrtMemCheckpoint(&sNew);                    // take a snapshot
+    //if (_CrtMemDifference(&sDiff, &sOld, &sNew)) // if there is a difference
+    //{
+    //    OutputDebugString(L"-----------_CrtMemDumpStatistics ---------");
+    //    _CrtMemDumpStatistics(&sDiff);
+    //    OutputDebugString(L"-----------_CrtDumpMemoryLeaks ---------");
+    //    _CrtDumpMemoryLeaks();
+    //}
 
     return 0;
 }

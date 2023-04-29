@@ -67,10 +67,10 @@ namespace Flamingo
         bool scene1 = scripting_sys->loadScene("menu");
 
         sceneManager.setSceneActive("mapa");
-
-        if (/*!scripting_sys->loadScene(m_first_scene)*/!scene1 && !scene2)
+        
+        if (/*!scripting_sys->loadScene(m_first_scene)*/ !scene1 && !scene2)
         {
-            throw std::runtime_error("No ha sido posible cargar la escena\n");           
+            throw std::runtime_error("No ha sido posible cargar la escena\n");
         }
 
         Scene* mainScene = sceneManager.getSceneActive();
@@ -129,12 +129,12 @@ namespace Flamingo
         x->subscribeEvent(&FlamingoCore::prueba, this);
         x->setActive(true);*/
 
-      /*  ScriptManager::instance()->addGameScript("PruebaScript", new PruebaScript());
-        Flamingo::GameObject* g = m_mngr->addGameObject();
-        Flamingo::addComponent<Transform>(g);
-        Flamingo::addComponent<PruebaScript>(g);
-        if (Flamingo::hasComponent<PruebaScript>(g) && !Flamingo::hasComponent<EnemyAI>(g))
-            std::cout << "hasComponent \n";*/
+        /*  ScriptManager::instance()->addGameScript("PruebaScript", new PruebaScript());
+          Flamingo::GameObject* g = m_mngr->addGameObject();
+          Flamingo::addComponent<Transform>(g);
+          Flamingo::addComponent<PruebaScript>(g);
+          if (Flamingo::hasComponent<PruebaScript>(g) && !Flamingo::hasComponent<EnemyAI>(g))
+              std::cout << "hasComponent \n";*/
 
         // TO DO: eliminar despues de comprobar las animaciones
         // auto d = mainScene->getObject("dragon");
@@ -142,10 +142,10 @@ namespace Flamingo
         // a->setAnimation("idle", true, true);
 
         // enemigos
-        auto enemigo = m_mngr->getEntities(GROUP_RENDER);
-        auto ene = m_mngr->addComponent<EnemyAI>(enemigo[2]);
-        ene->initValues();
-        m_mngr->addGameObjectToGroups(enemigo[2], {GROUP_SCRIPTING});
+        //auto enemigo = m_mngr->getEntities(GROUP_RENDER);
+        //auto ene = m_mngr->addComponent<EnemyAI>(enemigo[2]);
+        //ene->initValues();
+        //m_mngr->addGameObjectToGroups(enemigo[2], {GROUP_SCRIPTING});
 
         // ecs::GameObject* p = m_mngr->addGameObject({ecs::GROUP_RENDER});
         //  auto t = ecs::AddComponent<Transform>(p);
@@ -212,11 +212,11 @@ namespace Flamingo
         auto mngr = Manager::instance();
         mngr->close();
 
-        //auto ihdlr = InputHandler::instance();
-        //ihdlr->close();
+        auto ihdlr = InputHandler::instance();
+        ihdlr->close();
 
-        //auto ihdlrC = InputHandlerContainer::instance();
-        //ihdlrC->close();
+        auto ihdlrC = InputHandlerContainer::instance();
+        ihdlrC->close();
 
         return false;
     }

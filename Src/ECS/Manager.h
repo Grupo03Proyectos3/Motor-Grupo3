@@ -53,7 +53,7 @@ namespace Flamingo
                     if (gameObjectMarked(toDestroy, ents[i]))
                         ents[i] = nullptr;
 
-                    else if (ents[i] != nullptr && ents[i]->m_alive == false)
+                    else if (ents[i] != nullptr)
                     {
                         toDestroy.push_back(ents[i]);
                         ents[i] = nullptr;

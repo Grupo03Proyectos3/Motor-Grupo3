@@ -1,19 +1,19 @@
 #include "UISystem.h"
+#include "ECS/InputHandlerContainer.h"
 #include "UIElement.h"
-#include <OgreRenderWindow.h>
-#include <iostream>
 #include <ECS/Manager.h>
+#include <OgreRenderWindow.h>
 #include <functional>
 #include <iostream>
-#include "ECS/InputHandlerContainer.h"
 
-//CEGUI
+// CEGUI
 #include <CEGUI/Base.h>
-#include <CEGUI/RendererModules/Ogre/ResourceProvider.h>
-#include <CEGUI/System.h>
-#include <CEGUI/Window.h>
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
+#include <CEGUI/RendererModules/Ogre/ResourceProvider.h>
+#include <CEGUI/SchemeManager.h>
+#include <CEGUI/System.h>
+#include <CEGUI/Window.h>
 
 namespace Flamingo
 {
@@ -23,30 +23,32 @@ namespace Flamingo
 
     UISystem::~UISystem()
     {
-        m_winMngr->destroyAllWindows();
+        //CEGUI::System::getSingleton().destroy();
     }
 
-    void UISystem::recieve(const Message& m){
-
-        if (!(m.id == MSG_WINDOW_RESIZED || m.id == MSG_TRANSFORM_MOVE || m.id == MSG_TRANSFORM_ROTATE || 
-            m.id == MSG_TRANSFORM_SCALING || m.id == MSG_MOUSE_CLICK || m.id == MSG_MOUSE_MOVE))
+    void UISystem::recieve(const Message& m)
+    {
+        if (!(m.id == MSG_WINDOW_RESIZED || m.id == MSG_TRANSFORM_MOVE || m.id == MSG_TRANSFORM_ROTATE ||
+              m.id == MSG_TRANSFORM_SCALING || m.id == MSG_MOUSE_CLICK || m.id == MSG_MOUSE_MOVE))
         {
             return;
         }
 
         UIElement* element = nullptr;
         Transform* transform = nullptr;
-        if (m.id == MSG_MOUSE_MOVE){
-
+        if (m.id == MSG_MOUSE_MOVE)
+        {
             m_guiContext->injectMousePosition(m.moveMouse.x, m.moveMouse.y);
-            
-            //std::cout << "x: " << m.moveMouse.x << " ,y: " << m.moveMouse.y << "\n";
-            //std::cout << "x2: " << guiContext->getMouseCursor().getPosition().d_x << " ,y2: " << guiContext->getMouseCursor().getPosition().d_y << "\n";
+
+            // std::cout << "x: " << m.moveMouse.x << " ,y: " << m.moveMouse.y << "\n";
+            // std::cout << "x2: " << guiContext->getMouseCursor().getPosition().d_x << " ,y2: " << guiContext->getMouseCursor().getPosition().d_y << "\n";
         }
-        else  if (m.id == MSG_MOUSE_CLICK){
-               // injectMouseButtonClick(CEGUI::MouseButton::LeftButton);
-           
-            if (m.ui_input.mouse_states[0] != m_estadoBotones[0]){
+        else if (m.id == MSG_MOUSE_CLICK)
+        {
+            // injectMouseButtonClick(CEGUI::MouseButton::LeftButton);
+
+            if (m.ui_input.mouse_states[0] != m_estadoBotones[0])
+            {
                 if (m.ui_input.mouse_states[0])
                 {
                     if (m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::LeftButton))
@@ -80,27 +82,26 @@ namespace Flamingo
                     std::cout << "RIGHT UP\n";
                 m_estadoBotones[2] = m.ui_input.mouse_states[2];
             }
-            //if (guiContext->injectMouseButtonClick(CEGUI::MouseButton::LeftButton))
-            //   std::cout << "lima\n";
+            // if (guiContext->injectMouseButtonClick(CEGUI::MouseButton::LeftButton))
+            //    std::cout << "lima\n";
 
-            //CEGUI::System::getSingletonPtr()->injectTimePulse(10.0f);
-            
+            // CEGUI::System::getSingletonPtr()->injectTimePulse(10.0f);
         }
-        else if (m.id != MSG_WINDOW_RESIZED){
+        else if (m.id != MSG_WINDOW_RESIZED)
+        {
             element = m_mngr->getComponent<UIElement>(m.entity_affected);
             transform = m_mngr->getComponent<Transform>(m.entity_affected);
-            if (element == nullptr)           
+            if (element == nullptr)
                 return;
-            
-        } 
-        switch (m.id) 
+        }
+        switch (m.id)
         {
             case MSG_WINDOW_RESIZED:
                 chageScreenSize(m_mngr->getSystem<RenderSystem>()->getWindow()->getRenderWindow()->getWidth(), m_mngr->getSystem<RenderSystem>()->getWindow()->getRenderWindow()->getHeight());
                 break;
             case MSG_TRANSFORM_MOVE:
             {
-                element->setPosition(transform->getPosition()/100);
+                element->setPosition(transform->getPosition() / 100);
                 break;
             }
             case MSG_TRANSFORM_ROTATE:
@@ -123,14 +124,13 @@ namespace Flamingo
         initUIResources();
     }
 
-    void UISystem::update(float t_delta_time){
-
-
+    void UISystem::update(float t_delta_time)
+    {
         m_renderer->beginRendering();
         m_guiContext->draw();
         m_renderer->endRendering();
 
-        //CEGUI::System::getSingletonPtr()->injectTimePulse(t_delta_time);
+        // CEGUI::System::getSingletonPtr()->injectTimePulse(t_delta_time);
     }
 
     void UISystem::initContext()
@@ -151,12 +151,11 @@ namespace Flamingo
     {
         eraseMainRoot();
         m_root = m_winMngr->createWindow("DefaultWindow", "Root");
-        m_root->setSize(CEGUI::USize(CEGUI::UDim(0, m_renderer->getDisplaySize().d_width*2), 
-            CEGUI::UDim(0, m_renderer->getDisplaySize().d_height*2)));
+        m_root->setSize(CEGUI::USize(CEGUI::UDim(0, m_renderer->getDisplaySize().d_width * 2),
+                                     CEGUI::UDim(0, m_renderer->getDisplaySize().d_height * 2)));
 
         m_root->setUsingAutoRenderingSurface(true);
         m_guiContext->setRootWindow(m_root);
-
     }
 
     void UISystem::initUIResources()
@@ -170,16 +169,28 @@ namespace Flamingo
 
     void UISystem::eraseContext()
     {
-        m_renderer->setUsingShaders(false);
+        m_winMngr->destroyAllWindows();
+        
+        for (auto scheme : m_schemes)
+        {
+            CEGUI::SchemeManager::getSingleton().destroy(scheme);
+        }
+        m_schemes.clear();
+        
         eraseMainRoot();
+        m_renderer->setUsingShaders(false);
         CEGUI::System::getSingleton().destroyGUIContext(*m_guiContext);
+        CEGUI::System::destroy();
+
         m_renderer->destroySystem();
     }
 
     void UISystem::eraseMainRoot()
     {
         if (m_root != nullptr)
+        {
             m_root->destroy();
+        }
 
         m_root = nullptr;
     }
@@ -188,6 +199,7 @@ namespace Flamingo
     {
         auto x = CEGUI::SchemeManager::getSingletonPtr();
         x->createFromFile(schemeFile);
+        m_schemes.push_back(schemeFile);
     }
 
     void UISystem::setFont(const std::string& fontFile)
@@ -231,7 +243,8 @@ namespace Flamingo
         }
     }
 
-    CEGUI::Window* UISystem::createRootScene(const std::string& name){
+    CEGUI::Window* UISystem::createRootScene(const std::string& name)
+    {
         try
         {
             CEGUI::Window* newWindow = m_winMngr->createWindow("DefaultWindow", name);
@@ -252,7 +265,9 @@ namespace Flamingo
         m_renderer->setDisplaySize(CEGUI::Size<float>(width, height));
         CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Size<float>(width, height));
     }
-    void UISystem::setSceneManager(SceneManager* sceneManager){
+
+    void UISystem::setSceneManager(SceneManager* sceneManager)
+    {
         m_SceneManager = sceneManager;
     }
 } // namespace Flamingo

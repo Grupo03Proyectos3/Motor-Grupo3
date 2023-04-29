@@ -51,6 +51,7 @@ namespace Flamingo{
         CEGUI::Window* m_root = nullptr;
         CEGUI::GUIContext* m_guiContext;
         std::array<bool, 3> m_estadoBotones;
+        std::list<std::string> m_schemes;
     };
 } // namespace Flamingo
 #endif
