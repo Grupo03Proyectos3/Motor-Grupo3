@@ -27,7 +27,7 @@ namespace Flamingo
         };
 
         Light(){};
-        virtual ~Light(){};
+        virtual ~Light();
 
         virtual void initValues(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, std::string t_name);
         virtual void initComponent();
@@ -53,8 +53,6 @@ namespace Flamingo
         // Maxima distancia a la que se van a ver las sombras
         void setShadowFarDistance(float t_distance);
         void setShadowNearClipDistance(float t_nearClip);
-
-        Ogre::SceneNode* getLightNode();
 
       private:
         Ogre::Light* m_light = nullptr;

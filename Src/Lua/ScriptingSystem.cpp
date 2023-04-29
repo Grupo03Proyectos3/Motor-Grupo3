@@ -47,7 +47,12 @@ namespace Flamingo
     {
         if (m_componentFactory != nullptr)
         {
-            m_componentFactory->close();
+            ComponentsFactory::close();
+        }
+
+        if (&m_scene_mngr != nullptr)
+        {
+            SceneManager::close();
         }
 
         lua_close(lua_state);

@@ -63,12 +63,13 @@ namespace Flamingo
         Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();
         render_sys->inicializarShaders();
 
-        bool scene2 = scripting_sys->loadScene("mapa");
-        bool scene1 = scripting_sys->loadScene("menu");
+        // bool scene2 = scripting_sys->loadScene("mapa");
+        // bool scene1 = scripting_sys->loadScene("menu");
 
-        sceneManager.setSceneActive("mapa");
-        
-        if (/*!scripting_sys->loadScene(m_first_scene)*/ !scene1 && !scene2)
+        // sceneManager.setSceneActive("mapa");
+
+        bool scene2 = true;
+        if (/*!scripting_sys->loadScene(m_first_scene)*/ /* !scene1 && */ !scene2)
         {
             throw std::runtime_error("No ha sido posible cargar la escena\n");
         }
@@ -88,12 +89,15 @@ namespace Flamingo
         mainScene->addObjects(cam_go);
         render_sys->setMainCamera(m_camera);
 
+        //GameObject* AAAAAAAA = m_mngr->addGameObject({GROUP_RENDER});
+        //mainScene->addObjects(AAAAAAAA);
+        //auto TRAAA = addComponent<Transform>(AAAAAAAA);
+
         GameObject* light_go = m_mngr->addGameObject({GROUP_RENDER});
         light_go->setName("mylight");
         auto tr_transform = addComponent<Transform>(light_go);
         tr_transform->initValues(SVector3(0.0, 350.0, 200.0), SQuaternion(0.0, 0.0, 0.0, 1.0), SVector3(1.0, 1.0, 1.0));
-        // MeshRenderer* cmp_mesh = ecs::AddComponent<MeshRenderer>(light_go);
-        // cmp_mesh->initValues(nodo->createChildSceneNode(), mainScene->getSceneManger(), SVector3(1, 1, 1), "cube.mesh", "cuboluz");
+        
         Light* cmp_light = addComponent<Light>(light_go);
         cmp_light->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), "myLight2");
         cmp_light->initComponent();
@@ -102,6 +106,7 @@ namespace Flamingo
         cmp_light->setSpecularColour();
         cmp_light->setDiffuseColour();
         mainScene->addObjects(light_go);
+
         /*ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
         light_go->setName("mylight");
         auto tr_transform = ecs::AddComponent<Transform>(light_go);
@@ -142,10 +147,10 @@ namespace Flamingo
         // a->setAnimation("idle", true, true);
 
         // enemigos
-        //auto enemigo = m_mngr->getEntities(GROUP_RENDER);
-        //auto ene = m_mngr->addComponent<EnemyAI>(enemigo[2]);
-        //ene->initValues();
-        //m_mngr->addGameObjectToGroups(enemigo[2], {GROUP_SCRIPTING});
+        // auto enemigo = m_mngr->getEntities(GROUP_RENDER);
+        // auto ene = m_mngr->addComponent<EnemyAI>(enemigo[2]);
+        // ene->initValues();
+        // m_mngr->addGameObjectToGroups(enemigo[2], {GROUP_SCRIPTING});
 
         // ecs::GameObject* p = m_mngr->addGameObject({ecs::GROUP_RENDER});
         //  auto t = ecs::AddComponent<Transform>(p);
@@ -209,14 +214,11 @@ namespace Flamingo
 
     bool Flamingo::FlamingoCore::FlamingoExit()
     {
-        auto mngr = Manager::instance();
-        mngr->close();
+        Manager::close();
 
-        auto ihdlr = InputHandler::instance();
-        ihdlr->close();
+        InputHandler::close();
 
-        auto ihdlrC = InputHandlerContainer::instance();
-        ihdlrC->close();
+        InputHandlerContainer::close();
 
         return false;
     }

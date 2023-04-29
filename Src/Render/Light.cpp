@@ -15,6 +15,17 @@ namespace Flamingo
         m_name = t_name;
     }
 
+    Light::~Light()
+    {
+        if (m_light != nullptr)
+        {
+            delete m_light;
+            m_light = nullptr;
+        }
+        m_sceneMgr = nullptr;
+        m_light_node = nullptr;
+    }
+
     void Light::initComponent()
     {
         m_light = m_sceneMgr->createLight(m_name);
@@ -110,10 +121,5 @@ namespace Flamingo
     void Light::setShadowNearClipDistance(float t_nearClip)
     {
         m_light->setShadowNearClipDistance(t_nearClip);
-    }
-
-    Ogre::SceneNode* Light::getLightNode()
-    {
-        return m_light_node;
     }
 } // namespace Flamingo

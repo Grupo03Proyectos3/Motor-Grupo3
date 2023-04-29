@@ -170,19 +170,19 @@ namespace Flamingo
     void UISystem::eraseContext()
     {
         m_winMngr->destroyAllWindows();
-        
+
         for (auto scheme : m_schemes)
         {
             CEGUI::SchemeManager::getSingleton().destroy(scheme);
         }
         m_schemes.clear();
-        
-        eraseMainRoot();
+
+        //eraseMainRoot();
         m_renderer->setUsingShaders(false);
         CEGUI::System::getSingleton().destroyGUIContext(*m_guiContext);
-        CEGUI::System::destroy();
 
         m_renderer->destroySystem();
+        CEGUI::System::destroy();
     }
 
     void UISystem::eraseMainRoot()
