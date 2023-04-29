@@ -19,10 +19,10 @@ namespace Flamingo
         std::string GetScriptName();
 
         // Clases que podrán ser overrideadas por el desarrollador, para definir a su gusto
-        virtual void initValues();
+        virtual void initValues(){};
         //virtual void initComponent() override; // == start() ?
 
-        virtual void update(float t_delta_time);
+        virtual void update(float t_delta_time){};
 
         /**
          * @brief Se llama una vez al comienzo de collisionar con otro cuerpo
@@ -32,7 +32,7 @@ namespace Flamingo
          * @param[in] t_other GameObject* GameObject del cuerpo contra el que ha colisionado
          * @return
          */
-        virtual void onCollisionEnter(Flamingo::GameObject* t_other);
+        virtual void onCollisionEnter(Flamingo::GameObject* t_other){};
 
         /**
          * @brief Se llama continuamente al collisionar con otro cuerpo
@@ -41,7 +41,7 @@ namespace Flamingo
          * @param[in] t_other GameObject* GameObject del cuerpo contra el que colisiona
          * @return
          */
-        virtual void onCollisionStay(Flamingo::GameObject* t_other);
+        virtual void onCollisionStay(Flamingo::GameObject* t_other){};
 
         /**
          * @brief Se llama al salir de la colision con otro cuerpo
@@ -50,7 +50,7 @@ namespace Flamingo
          * @param[in] t_other GameObject* GameObject del cuerpo con el que ha terminado la colision
          * @return
          */
-        virtual void onCollisionExit(Flamingo::GameObject* t_other);
+        virtual void onCollisionExit(Flamingo::GameObject* t_other){};
 
       private:
     };
