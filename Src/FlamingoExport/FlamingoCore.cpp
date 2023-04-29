@@ -63,12 +63,11 @@ namespace Flamingo
         Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();
         render_sys->inicializarShaders();
 
-        // bool scene2 = scripting_sys->loadScene("mapa");
+        bool scene2 = scripting_sys->loadScene("mapa");
         // bool scene1 = scripting_sys->loadScene("menu");
 
-        // sceneManager.setSceneActive("mapa");
+        sceneManager.setSceneActive("mapa");
 
-        bool scene2 = true;
         if (/*!scripting_sys->loadScene(m_first_scene)*/ /* !scene1 && */ !scene2)
         {
             throw std::runtime_error("No ha sido posible cargar la escena\n");
@@ -89,15 +88,15 @@ namespace Flamingo
         mainScene->addObjects(cam_go);
         render_sys->setMainCamera(m_camera);
 
-        //GameObject* AAAAAAAA = m_mngr->addGameObject({GROUP_RENDER});
-        //mainScene->addObjects(AAAAAAAA);
-        //auto TRAAA = addComponent<Transform>(AAAAAAAA);
+        // GameObject* AAAAAAAA = m_mngr->addGameObject({GROUP_RENDER});
+        // mainScene->addObjects(AAAAAAAA);
+        // auto TRAAA = addComponent<Transform>(AAAAAAAA);
 
         GameObject* light_go = m_mngr->addGameObject({GROUP_RENDER});
         light_go->setName("mylight");
         auto tr_transform = addComponent<Transform>(light_go);
         tr_transform->initValues(SVector3(0.0, 350.0, 200.0), SQuaternion(0.0, 0.0, 0.0, 1.0), SVector3(1.0, 1.0, 1.0));
-        
+
         Light* cmp_light = addComponent<Light>(light_go);
         cmp_light->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), "myLight2");
         cmp_light->initComponent();
