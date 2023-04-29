@@ -74,6 +74,7 @@ int main(int argc, char* argv[])
     }
 
     // uncomment to check Memory leaks
+    int* i = new int();
     //_CrtDumpMemoryLeaks();
 
     return 0;

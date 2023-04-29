@@ -209,6 +209,15 @@ namespace Flamingo
 
     bool Flamingo::FlamingoCore::FlamingoExit()
     {
+        auto mngr = Manager::instance();
+        mngr->close();
+
+        //auto ihdlr = InputHandler::instance();
+        //ihdlr->close();
+
+        //auto ihdlrC = InputHandlerContainer::instance();
+        //ihdlrC->close();
+
         return false;
     }
 
