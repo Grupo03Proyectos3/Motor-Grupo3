@@ -19,11 +19,11 @@ namespace Flamingo
     {
         if (m_light != nullptr)
         {
-            delete m_light;
+            m_sceneMgr->destroyLight(m_light);
+            //delete m_light;
             m_light = nullptr;
         }
         m_sceneMgr = nullptr;
-        m_light_node = nullptr;
     }
 
     void Light::initComponent()

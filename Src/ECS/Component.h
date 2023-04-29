@@ -15,7 +15,7 @@ namespace Flamingo
         // Destroys the component.
         // Careful! ent_ and mngr_ should not be destroyed
         //
-        ~Component();
+        virtual ~Component();
         // This method is used to set the context, which is a
         // reference to the entity in which the component is
         // installed and a reference to the manager. It will

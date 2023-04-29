@@ -106,18 +106,18 @@ namespace Flamingo
         cmp_light->setDiffuseColour();
         mainScene->addObjects(light_go);
 
-        /*ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
-        light_go->setName("mylight");
-        auto tr_transform = ecs::AddComponent<Transform>(light_go);
-        tr_transform->initValues(SVector3(0.0, 0.0, 0.0), SQuaternion(0.0, 0.0, 0.0, 1.0), SVector3(1.0, 1.0, 1.0));
-        Light* cmp_light = ecs::AddComponent<Light>(light_go);
-        cmp_light->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), "myLight");
-        cmp_light->initComponent();
-        cmp_light->setType(Light::DIRECTIONAL);
-        cmp_light->setDirection(SVector3(0, -1, 0));
-        cmp_light->setSpecularColour();
-        cmp_light->setDiffuseColour();
-        mainScene->addObjects(light_go);*/
+        ///*ecs::gameobject* light_go = m_mngr->addgameobject({ecs::group_render});
+        //light_go->setname("mylight");
+        //auto tr_transform = ecs::addcomponent<transform>(light_go);
+        //tr_transform->initvalues(svector3(0.0, 0.0, 0.0), squaternion(0.0, 0.0, 0.0, 1.0), svector3(1.0, 1.0, 1.0));
+        //light* cmp_light = ecs::addcomponent<light>(light_go);
+        //cmp_light->initvalues(mainscene->getscenemanger(), nodo->createchildscenenode(), "mylight");
+        //cmp_light->initcomponent();
+        //cmp_light->settype(light::directional);
+        //cmp_light->setdirection(svector3(0, -1, 0));
+        //cmp_light->setspecularcolour();
+        //cmp_light->setdiffusecolour();
+        //mainscene->addobjects(light_go);*/
 
         /*GameObject* UI = m_mngr->addGameObject({GROUP_UI});
         auto y = addComponent<Transform>(UI);
@@ -214,9 +214,7 @@ namespace Flamingo
     bool Flamingo::FlamingoCore::FlamingoExit()
     {
         Manager::close();
-
         InputHandler::close();
-
         InputHandlerContainer::close();
 
         return false;

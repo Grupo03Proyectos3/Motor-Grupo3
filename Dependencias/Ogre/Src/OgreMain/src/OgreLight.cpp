@@ -208,7 +208,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Light::setSpecularColour(const ColourValue& colour)
     {
-        mSpecular = colour;
+        //mSpecular = colour;
     }
     //-----------------------------------------------------------------------
     const ColourValue& Light::getSpecularColour(void) const

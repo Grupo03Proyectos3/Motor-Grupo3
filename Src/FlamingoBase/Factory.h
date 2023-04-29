@@ -19,7 +19,7 @@ namespace Flamingo
     {
       public:
         Factory() = default;
-        ~Factory();
+        virtual ~Factory();
 
         virtual Flamingo::Component* createComponent(Flamingo::GameObject* gO, const std::unordered_map<std::string, std::string>& args);
 
