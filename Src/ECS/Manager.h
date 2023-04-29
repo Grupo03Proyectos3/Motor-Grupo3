@@ -43,18 +43,26 @@ namespace ecs
 
         virtual ~Manager()
         {
+            std::vector<GameObject*> toDestroy;
+
             for (auto& ents : m_ents_by_group)
             {
-                for (auto e : ents)
+                for (auto i = 0; i < ents.size(); i++)
                 {
-                    // TODO comprobar que esto elimina bien
-                    if (e != nullptr && e->m_alive == true)
+                    if (gameObjectMarked(toDestroy, ents[i]))
                     {
-                        delete e;
-                        e = nullptr;
+                        ents[i] = nullptr;
+                    }
+                    else if (ents[i] != nullptr)
+                    {
+                        toDestroy.push_back(ents[i]);
+                        ents[i] = nullptr;
                     }
                 }
             }
+
+            for (auto i = 0; i < toDestroy.size(); i++)
+                delete toDestroy[i];
 
             for (auto i = 0u; i < maxSystemId; i++)
             {
@@ -64,6 +72,17 @@ namespace ecs
                     m_systems[i] = nullptr;
                 }
             }
+        }
+
+        inline bool gameObjectMarked(const std::vector<GameObject*>& v, GameObject* gO)
+        {
+            for (auto i = 0; i < v.size(); i++)
+            {
+                if (v[i] == gO)
+                    return true;
+            }
+
+            return false;
         }
 
         void init()

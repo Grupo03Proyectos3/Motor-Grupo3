@@ -48,8 +48,6 @@ namespace Flamingo
 
     bool FlamingoBase::FlamingoInit()
     {
-        _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
         Loader l;
         l.loadDirectories();
 
@@ -57,49 +55,49 @@ namespace Flamingo
         ecs::Manager* m_mngr = ecs::Manager::instance();
         m_mngr->init();
 
-        //Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
-        Flamingo::RenderSystem* render_sys = m_mngr->addSystem<Flamingo::RenderSystem>(s);
-        Flamingo::PhysicsSystem* physics_sys = m_mngr->addSystem<Flamingo::PhysicsSystem>();
-        Flamingo::AudioSystem* audio_sys = m_mngr->addSystem<Flamingo::AudioSystem>();
+        ////Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
+        //Flamingo::RenderSystem* render_sys = m_mngr->addSystem<Flamingo::RenderSystem>(s);
+        //Flamingo::PhysicsSystem* physics_sys = m_mngr->addSystem<Flamingo::PhysicsSystem>();
+        //Flamingo::AudioSystem* audio_sys = m_mngr->addSystem<Flamingo::AudioSystem>();
         Flamingo::ScriptingSystem* lua_system = m_mngr->addSystem<Flamingo::ScriptingSystem>();
 
-        //ui_system->initContext();
+        ////ui_system->initContext();
 
-        SceneManager* sceneManager = render_sys->getSceneManager();
-        Scene* mainScene = sceneManager->getSceneActive();
+        //SceneManager* sceneManager = render_sys->getSceneManager();
+        //Scene* mainScene = sceneManager->getSceneActive();
 
-        //if (!loadScene(render_sys, mainScene))
-        //{
-        //    std::cout << "No ha sido posible cargar la escena";
-        //    return false;
-        //}
+        ////if (!loadScene(render_sys, mainScene))
+        ////{
+        ////    std::cout << "No ha sido posible cargar la escena";
+        ////    return false;
+        ////}
 
-        lua_system->loadScene();
+        //lua_system->loadScene();
 
-        auto nodo = mainScene->getSceneRoot();
+        //auto nodo = mainScene->getSceneRoot();
 
-        ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
-        cam_go->setName("myCamera");
-        auto m_camera = ecs::AddComponent<Camera>(cam_go);
-        m_camera->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
-        m_camera->initComponent();
-        m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
+        //ecs::GameObject* cam_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        //cam_go->setName("myCamera");
+        //auto m_camera = ecs::AddComponent<Camera>(cam_go);
+        //m_camera->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
+        //m_camera->initComponent();
+        //m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
 
-        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
-        m_camera->setNearClipDistance(1);
-        m_camera->setFarClipDistance(10000);
-        mainScene->addObjects(cam_go);
+        //m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
+        //m_camera->setNearClipDistance(1);
+        //m_camera->setFarClipDistance(10000);
+        //mainScene->addObjects(cam_go);
 
-        ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
-        light_go->setName("mylight");
-        Light* cmp_light = ecs::AddComponent<Light>(light_go);
-        cmp_light->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), "myLight");
-        cmp_light->initComponent();
-        cmp_light->setType(Light::DIRECTIONAL);
-        cmp_light->setDirection(SVector3(-1, -1, 0));
-        cmp_light->setSpecularColour();
-        cmp_light->setDiffuseColour();
-        mainScene->addObjects(light_go);
+        //ecs::GameObject* light_go = m_mngr->addGameObject({ecs::GROUP_RENDER});
+        //light_go->setName("mylight");
+        //Light* cmp_light = ecs::AddComponent<Light>(light_go);
+        //cmp_light->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), "myLight");
+        //cmp_light->initComponent();
+        //cmp_light->setType(Light::DIRECTIONAL);
+        //cmp_light->setDirection(SVector3(-1, -1, 0));
+        //cmp_light->setSpecularColour();
+        //cmp_light->setDiffuseColour();
+        //mainScene->addObjects(light_go);
 
         // PRUEBAS DE UI
         //ecs::GameObject* UI = m_mngr->addGameObject({ecs::GROUP_UI});
@@ -177,7 +175,7 @@ namespace Flamingo
         cmp2->changeMaterial("Prueba/MichaelScott");
         mainScene->addObjects(cube_go);*/
 
-        return true;
+        return false;
     }
 
     void FlamingoBase::FlamingoLoop()
@@ -225,10 +223,10 @@ namespace Flamingo
     bool FlamingoBase::FlamingoExit()
     {
         ecs::Manager* mngr = ecs::Manager::instance();
-        delete mngr;
+        mngr->close();
 
         auto ihdlr = InputHandler::instance();
-        delete ihdlr;
+        ihdlr->close();
 
         return false;
     }

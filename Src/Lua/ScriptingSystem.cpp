@@ -40,21 +40,23 @@ Flamingo::ScriptingSystem::ScriptingSystem()
 Flamingo::ScriptingSystem::~ScriptingSystem()
 {
     if (m_componentFactory != nullptr)
-        delete m_componentFactory;
+    {
+        m_componentFactory->close();
+    }
 
     lua_close(lua_state);
 }
 
 void Flamingo::ScriptingSystem::initSystem()
 {
-    auto renderSystem = m_mngr->getSystem<Flamingo::RenderSystem>();
-    m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
-    m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(renderSystem));
-    m_componentFactory->addFactory("RigidBody", new RigidBodyFactory());
-    m_componentFactory->addFactory("AATransform", new TransformFactory());
-    m_componentFactory->addFactory("Light", new LightFactory(renderSystem));
-    m_componentFactory->addFactory("Camera", new CameraFactory(renderSystem));
-    m_componentFactory->addFactory("Animator", new AnimatorFactory(renderSystem));
+    //auto renderSystem = m_mngr->getSystem<Flamingo::RenderSystem>();
+    //m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
+    //m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(renderSystem));
+    //m_componentFactory->addFactory("RigidBody", new RigidBodyFactory());
+    //m_componentFactory->addFactory("AATransform", new TransformFactory());
+    //m_componentFactory->addFactory("Light", new LightFactory(renderSystem));
+    //m_componentFactory->addFactory("Camera", new CameraFactory(renderSystem));
+    //m_componentFactory->addFactory("Animator", new AnimatorFactory(renderSystem));
 
     // crear un Lua state
     lua_state = luaL_newstate();

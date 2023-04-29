@@ -59,10 +59,9 @@ int main(int argc, char* argv[])
     if (fBase->FlamingoInit())
     {
         fBase->FlamingoLoop();
-        fBase->FlamingoExit();
     }
-    else
-        return -1;
+
+    fBase->FlamingoExit();
     delete fBase;
 
     // int* i = new int();
