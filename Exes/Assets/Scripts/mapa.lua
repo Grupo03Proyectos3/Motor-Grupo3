@@ -1,6 +1,7 @@
 
 entities = {"Sinbad", "Mapa", "Enemy", "Arbol", "EspadaMetal", "EspadaMadera", "EspadaEspecial", "Slime", "EscudoMadera", "PocionRoja", "M1", "M2", "M3", "M4", "M5", "M6", 
-"M7", "M8", "M9", "M10", "M11", "M12", "M13", "M14", "M15", "M16", "M17", "M18", "M19", "M20", "M21", "M22"}
+"M7", "M8", "M9", "M10", "M11", "M12", "M13", "M14", "M15", "M16", "M17", "M18", "M19", "M20", "M21", "M22", "A1", "A91", "A92", "A93", "A94", "A95", "A96", "A97", "A98",
+"A99", "A910", "A911", "A912", "A913", "A914", "A915", "A916", "A917", "A918", "A919", "A920", "A921", "A922", "A923", "A924", "A925"}
 
 
 Sinbad = {
@@ -101,7 +102,7 @@ Arbol = {
         t_name="dragon"
     },
     Transform = {
-        positionX = "0.0",
+        positionX = "1000.0",
         positionY = "100.0",
         positionZ = "0.0",
         scaleX = "20",
@@ -675,7 +676,7 @@ M13 = {
     },
     Transform = {
         positionX = "-57000.0",
-        positionY = "1000.0",
+        positionY = "1500.0",
         positionZ = "-17000.0",
         scaleX = "6.0",
         scaleY = "2.0",
@@ -966,6 +967,786 @@ M22 = {
         t_node_x=" 1.0",
         t_node_y="1.0",
         t_node_z="1.0",
+        t_mat_name= ""
+    }
+}
+A1 = {
+    Name={
+        t_name="a1"
+    },
+    Transform = {
+        positionX = "0.0",
+        positionY = "390.0",
+        positionZ = "0.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol02.mesh",
+        t_entity_name= "a1",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A91 = {
+    Name={
+        t_name="a91"
+    },
+    Transform = {
+        positionX = "-50000.0",
+        positionY = "560.0",
+        positionZ = "500.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a91",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A92 = {
+    Name={
+        t_name="a92"
+    },
+    Transform = {
+        positionX = "-43000.0",
+        positionY = "560.0",
+        positionZ = "4000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a92",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A93 = {
+    Name={
+        t_name="a93"
+    },
+    Transform = {
+        positionX = "-46500.0",
+        positionY = "560.0",
+        positionZ = "10000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a93",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A94 = {
+    Name={
+        t_name="a94"
+    },
+    Transform = {
+        positionX = "-54000.0",
+        positionY = "560.0",
+        positionZ = "-8000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a94",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A95 = {
+    Name={
+        t_name="a95"
+    },
+    Transform = {
+        positionX = "-49000.0",
+        positionY = "560.0",
+        positionZ = "-10000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a95",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A96 = {
+    Name={
+        t_name="a96"
+    },
+    Transform = {
+        positionX = "-42000.0",
+        positionY = "560.0",
+        positionZ = "-7000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a96",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A97 = {
+    Name={
+        t_name="a97"
+    },
+    Transform = {
+        positionX = "-51000.0",
+        positionY = "560.0",
+        positionZ = "8700.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a97",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A98 = {
+    Name={
+        t_name="a98"
+    },
+    Transform = {
+        positionX = "-58000.0",
+        positionY = "560.0",
+        positionZ = "7000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a98",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A99 = {
+    Name={
+        t_name="a99"
+    },
+    Transform = {
+        positionX = "-45000.0",
+        positionY = "560.0",
+        positionZ = "-3000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a99",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A910 = {
+    Name={
+        t_name="a910"
+    },
+    Transform = {
+        positionX = "-41000.0",
+        positionY = "560.0",
+        positionZ = "-15000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a910",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A911 = {
+    Name={
+        t_name="a911"
+    },
+    Transform = {
+        positionX = "-52000.0",
+        positionY = "560.0",
+        positionZ = "-3000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a911",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A912 = {
+    Name={
+        t_name="a912"
+    },
+    Transform = {
+        positionX = "-48000.0",
+        positionY = "560.0",
+        positionZ = "15000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a912",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A913 = {
+    Name={
+        t_name="a913"
+    },
+    Transform = {
+        positionX = "-48000.0",
+        positionY = "560.0",
+        positionZ = "4000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a913",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A914 = {
+    Name={
+        t_name="a914"
+    },
+    Transform = {
+        positionX = "-60000.0",
+        positionY = "560.0",
+        positionZ = "-9000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a914",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A915 = {
+    Name={
+        t_name="a915"
+    },
+    Transform = {
+        positionX = "-56000.0",
+        positionY = "560.0",
+        positionZ = "-5000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a915",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A916 = {
+    Name={
+        t_name="a916"
+    },
+    Transform = {
+        positionX = "-55700.0",
+        positionY = "560.0",
+        positionZ = "000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a916",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A917 = {
+    Name={
+        t_name="a917"
+    },
+    Transform = {
+        positionX = "-40000.0",
+        positionY = "560.0",
+        positionZ = "000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a917",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A918 = {
+    Name={
+        t_name="a918"
+    },
+    Transform = {
+        positionX = "-40000.0",
+        positionY = "560.0",
+        positionZ = "8000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a918",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A919 = {
+    Name={
+        t_name="a919"
+    },
+    Transform = {
+        positionX = "-33000.0",
+        positionY = "560.0",
+        positionZ = "10000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a919",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A920 = {
+    Name={
+        t_name="a920"
+    },
+    Transform = {
+        positionX = "-46000.0",
+        positionY = "560.0",
+        positionZ = "-14500.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a920",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A921 = {
+    Name={
+        t_name="a921"
+    },
+    Transform = {
+        positionX = "-53000.0",
+        positionY = "560.0",
+        positionZ = "-13000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a921",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A922 = {
+    Name={
+        t_name="a922"
+    },
+    Transform = {
+        positionX = "-42000.0",
+        positionY = "560.0",
+        positionZ = "-12000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a922",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A923 = {
+    Name={
+        t_name="a923"
+    },
+    Transform = {
+        positionX = "-57000.0",
+        positionY = "560.0",
+        positionZ = "-11000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a923",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A924 = {
+    Name={
+        t_name="a924"
+    },
+    Transform = {
+        positionX = "-57000.0",
+        positionY = "560.0",
+        positionZ = "4000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a924",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
+        t_mat_name= ""
+    }
+}
+A925 = {
+    Name={
+        t_name="a925"
+    },
+    Transform = {
+        positionX = "-52000.0",
+        positionY = "560.0",
+        positionZ = "5000.0",
+        scaleX = "0.2",
+        scaleY = "0.2",
+        scaleZ = "0.2",
+        rotationX = "-1.0",
+        rotationY = "0.0",
+        rotationZ = "0.0",
+        rotationW = "1.0"
+    },
+    RigidBody = {
+        t_mass = "20.0",
+        t_trigger = "0",
+        t_static = "1"
+    },
+    MeshRenderer = {
+        t_model_name = "Arbol08.mesh",
+        t_entity_name= "a925",
+        t_node_x="0",
+        t_node_y="0",
+        t_node_z="0",
         t_mat_name= ""
     }
 }

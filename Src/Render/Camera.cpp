@@ -26,8 +26,8 @@ namespace Flamingo
     {
         m_cam = m_scene_mngr->createCamera(m_name);
         m_cam_node->attachObject(m_cam);
-        m_cam_node->setPosition(500, 1000, 500);
-        //m_cam_node->setPosition(0, 70000, 0);
+        m_cam_node->setPosition(100, 500, 100);
+        //m_cam_node->setPosition(0, 48000, 0);
         //m_cam_node->setDirection(-1, 0, 0);
         m_vp = m_window->getRenderWindow()->addViewport(m_cam, -m_window->getRenderWindow()->getNumViewports());
         m_vp->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
@@ -53,7 +53,7 @@ namespace Flamingo
 
     void Camera::translate(float t_x, float t_y, float t_z)
     {
-        m_cam_node->translate(t_x, t_y, t_z);
+        m_cam_node->translate(t_x, t_y, t_z, Ogre::Node::TransformSpace::TS_LOCAL);
     }
 
     void Camera::roll(float t_d)
