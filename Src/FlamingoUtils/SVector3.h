@@ -69,6 +69,8 @@ namespace Flamingo
         static SVector3 bulletToSVector3(const btVector3& t_bulletVector);
         // static SVector3 fmodToSVector3(const FMOD_VECTOR& fModVector);
 
+        double lenght();
+
       private:
         double m_x;
         double m_y;
