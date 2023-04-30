@@ -5,10 +5,6 @@ Flamingo::Component::Component()
 {
 }
 
-Flamingo::Component::~Component()
-{
-}
-
 void Flamingo::Component::setContext(GameObject* t_ent, Manager* t_mngr)
 {
     m_ent = t_ent;
