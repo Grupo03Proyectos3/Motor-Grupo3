@@ -6,12 +6,14 @@
 #include <OgreVector3.h>
 
 #include "ECS/Manager.h"
+#include "RenderSystem.h"
 namespace Flamingo
 {
-    void Light::initValues(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, std::string t_name)
+    void Light::initValues( std::string t_name)
     {
-        m_sceneMgr = t_sceneMgr;
-        m_light_node = t_scene_node;
+        auto sys = m_mngr->getSystem<RenderSystem>();
+        m_sceneMgr = FlamingoSceneManager().getSceneActive()->getSceneManger();
+        m_light_node = FlamingoSceneManager().getSceneActive()->getSceneRoot()->createChildSceneNode();
         m_name = t_name;
     }
 

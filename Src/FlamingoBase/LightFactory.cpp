@@ -22,7 +22,7 @@ namespace Flamingo
             std::string name = (args.at("t_name"));
 
             Light* c = addComponent<Light>(gO);
-            c->initValues(Flamingo::FlamingoSceneManager().getSceneActive()->getSceneManger(), root->createChildSceneNode(), name);
+            c->initValues(name);
 
             Manager::instance()->addGameObjectToGroups(gO, {GROUP_RENDER});
             return c;

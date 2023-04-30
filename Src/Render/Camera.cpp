@@ -1,5 +1,5 @@
 #include "Camera.h"
-
+#include "RenderSystem.h"
 #include <OgreCamera.h>
 #include <OgreRenderWindow.h>
 #include <OgreSceneManager.h>
@@ -12,13 +12,14 @@ namespace Flamingo
 {
     Camera::Camera() {}
 
-    void Camera::initValues(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, Flamingo::Window* t_window, std::string t_name)
+    void Camera::initValues(std::string t_name)
     {
-        m_scene_mngr = t_sceneMgr;
+        auto sys = m_mngr->getSystem<RenderSystem>();
+        m_scene_mngr = FlamingoSceneManager().getSceneActive()->getSceneManger();
         m_cam = nullptr;
         m_vp = nullptr;
-        m_window = t_window;
-        m_cam_node = t_scene_node;
+        m_window = sys->getWindow();
+        m_cam_node = FlamingoSceneManager().getSceneActive()->getSceneRoot()->createChildSceneNode();
         m_name = t_name;
     }
 

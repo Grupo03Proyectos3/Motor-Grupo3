@@ -226,6 +226,10 @@ namespace Flamingo
         return true;
     }
 
+    Ogre::SceneManager* RenderSystem::createSceneManager(std::string name){
+        return m_root->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, name);;
+    }
+
     //TO DO: QUITARLO
     void RenderSystem::manipulateCamera()
     {

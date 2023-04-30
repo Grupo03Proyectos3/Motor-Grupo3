@@ -37,7 +37,7 @@ namespace Flamingo
         };
         Camera();
         virtual ~Camera(){};
-        virtual void initValues(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, Flamingo::Window* t_window, std::string t_name);
+        virtual void initValues(std::string t_name);
         virtual void initComponent();
 
         // void lookAt(SVector3 t_pos, transformSpace t_trs = WORLD);

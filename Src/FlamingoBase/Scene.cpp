@@ -5,7 +5,7 @@
 #include <iostream>
 #include <OgreSceneManager.h>
 #include "CEGUI/WindowRenderer.h"
-
+#include "UI/UISystem.h"
 
 namespace Flamingo{
     Scene::Scene()
@@ -24,12 +24,14 @@ namespace Flamingo{
         m_OgreRootNode = nullptr;
     }
 
-    void Scene::initScene(Ogre::SceneManager* t_SceneManager,CEGUI::Window* root ,Manager* mng)
+    void Scene::initScene(std::string name)
     {
-        m_SceneManager = t_SceneManager;
+        m_mngr = Manager::instance();
+        auto sysR = m_mngr->getSystem<RenderSystem>();
+        auto sysu = m_mngr->getSystem<UISystem>();
+        m_SceneManager = sysR->createSceneManager(name);
         m_OgreRootNode = m_SceneManager->getRootSceneNode();
-        m_CeguiRootNode = root;
-        m_mngr = mng;
+        m_CeguiRootNode = sysu->createRootScene(name);
     }
 
     void Scene::addObjects(GameObject* t_GameObject)

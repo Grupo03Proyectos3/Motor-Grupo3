@@ -18,6 +18,7 @@ namespace Flamingo
 
 	class RenderSystem : public System
     {
+        friend Scene;
       public:
         __SYSTEM_ID_DECL__(_sys_RENDER)
 
@@ -50,6 +51,7 @@ namespace Flamingo
         void locateResources();
         void bringResources(std::string& sec_name, std::string& type_name, std::string& arch_name);
         bool config();
+        Ogre::SceneManager* createSceneManager(std::string name);
     };
 }
 

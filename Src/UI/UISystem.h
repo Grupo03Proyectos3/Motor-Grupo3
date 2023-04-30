@@ -41,13 +41,11 @@ namespace Flamingo{
         CEGUI::Window* createRootScene(const std::string& name = " "); //NO EXPORTAR
 
         void chageScreenSize(int widht,int height);
-        void setSceneManager(SceneManager* sceneManager);
 
       private:
         
         CEGUI::WindowManager* m_winMngr;
         CEGUI::OgreRenderer* m_renderer;
-        SceneManager* m_SceneManager;
         CEGUI::Window* m_root = nullptr;
         CEGUI::GUIContext* m_guiContext;
         std::array<bool, 3> m_estadoBotones;

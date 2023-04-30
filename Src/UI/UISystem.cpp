@@ -266,8 +266,4 @@ namespace Flamingo
         CEGUI::System::getSingleton().notifyDisplaySizeChanged(CEGUI::Size<float>(width, height));
     }
 
-    void UISystem::setSceneManager(SceneManager* sceneManager)
-    {
-        m_SceneManager = sceneManager;
-    }
 } // namespace Flamingo

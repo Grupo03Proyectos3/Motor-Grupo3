@@ -78,7 +78,7 @@ namespace Flamingo
         GameObject* cam_go = m_mngr->addGameObject({GROUP_RENDER});
         cam_go->setName("myCamera");
         auto m_camera = addComponent<Camera>(cam_go);
-        m_camera->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), render_sys->getWindow(), "myCamera");
+        m_camera->initValues("myCamera");
         m_camera->initComponent();
         m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
 
@@ -98,7 +98,7 @@ namespace Flamingo
         tr_transform->initValues(SVector3(0.0, 350.0, 200.0), SQuaternion(0.0, 0.0, 0.0, 1.0), SVector3(1.0, 1.0, 1.0));
 
         Light* cmp_light = addComponent<Light>(light_go);
-        cmp_light->initValues(mainScene->getSceneManger(), nodo->createChildSceneNode(), "myLight2");
+        cmp_light->initValues("myLight2");
         cmp_light->initComponent();
         cmp_light->setType(Light::DIRECTIONAL);
         cmp_light->setDirection(SVector3(0, -1, -1));

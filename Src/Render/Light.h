@@ -29,7 +29,7 @@ namespace Flamingo
         Light(){};
         virtual ~Light();
 
-        virtual void initValues(Ogre::SceneManager* t_sceneMgr, Ogre::SceneNode* t_scene_node, std::string t_name);
+        virtual void initValues(std::string t_name);
         virtual void initComponent();
 
         void setDirection(SVector3 t_direction);

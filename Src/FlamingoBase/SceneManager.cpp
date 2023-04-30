@@ -20,8 +20,6 @@ namespace Flamingo
             delete it->second;
         }
         m_scenes.clear();
-
-        m_OgreRoot = nullptr;
     }
 
     void SceneManager::initManager(std::string t_Name, Manager* m_mng)
@@ -29,17 +27,14 @@ namespace Flamingo
         mName = t_Name;
         m_mngr = m_mng;
         auto syse = m_mngr->getSystem<RenderSystem>();
-        m_OgreRoot = syse->getOgreRoot();
 
         createScene("DefaultScene", true);
     }
 
     Scene* SceneManager::createScene(std::string t_SceneName, bool setActive)
     {
-        Scene* scene = new Scene();
-        auto m_scene_manager = m_OgreRoot->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, t_SceneName);
-        auto sysu = m_mngr->getSystem<UISystem>();
-        scene->initScene(m_scene_manager, sysu->createRootScene(t_SceneName), m_mngr);
+        Scene* scene = new Scene();      
+        scene->initScene(t_SceneName);
         addScene(scene);
         if (setActive)
         {
