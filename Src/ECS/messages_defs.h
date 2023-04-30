@@ -9,7 +9,6 @@
 #include "ecs.h"
 #include <cstdint>
 #include <array>
-
 namespace Flamingo
 {
     using msgId_type = uint8_t;
@@ -66,8 +65,10 @@ namespace Flamingo
 
             struct
             {
-                float x;
-                float y;
+                double mouseX;
+                double mouseY;
+                double motionX;
+                double motionY;
             } moveMouse;
 
             struct

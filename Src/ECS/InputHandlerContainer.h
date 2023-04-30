@@ -42,6 +42,8 @@ namespace Flamingo{
 
         const std::pair<Sint32, Sint32>& getMousePos();
 
+        const std::pair<Sint32, Sint32>& getMouseMotionPos();
+
         int getMouseButtonState(MOUSEBUTTON t_b);
 
       private:

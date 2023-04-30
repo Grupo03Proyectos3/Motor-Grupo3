@@ -111,6 +111,11 @@ namespace Flamingo{
         return m_mouse_pos;
     }
 
+    const std::pair<Sint32, Sint32>& InputHandler::getMouseMotionPos()
+    {
+        return m_mouse_MotionPos;
+    }
+
     int InputHandler::getMouseButtonState(MOUSEBUTTON t_b)
     {
         return m_mB_state[t_b];
@@ -138,9 +143,16 @@ namespace Flamingo{
         m_mouse_pos.first = t_event.motion.x;
         m_mouse_pos.second = t_event.motion.y;
 
+        m_mouse_MotionPos.first = t_event.motion.xrel;
+        m_mouse_MotionPos.first = t_event.motion.yrel;
+
         Message m;
-        m.moveMouse.x = t_event.motion.x;
-        m.moveMouse.y = t_event.motion.y;
+
+        m.moveMouse.mouseX = t_event.motion.x;
+        m.moveMouse.mouseY = t_event.motion.y;
+
+        m.moveMouse.motionX = t_event.motion.x;
+        m.moveMouse.motionY = t_event.motion.y;
         m.id = MSG_MOUSE_MOVE;
         m.entity_affected = nullptr;
         Manager::instance()->send(m);

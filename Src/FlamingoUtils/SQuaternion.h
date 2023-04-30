@@ -56,8 +56,9 @@ namespace Flamingo
         SQuaternion inverse();
         double lenght();
         double dot(const SQuaternion& qother);
-        double angle(const SQuaternion& other);
+        double angle(const SQuaternion& other);      
 
+        SVector3 Rotate(SVector3 angle);
       private:
         double m_x;
         double m_y;

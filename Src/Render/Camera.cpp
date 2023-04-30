@@ -7,6 +7,7 @@
 #include <OgreViewport.h>
 
 #include "ECS/Manager.h"
+#include <FlamingoBase/Transform.h>
 
 namespace Flamingo
 {
@@ -18,6 +19,7 @@ namespace Flamingo
         m_scene_mngr = FlamingoSceneManager().getSceneActive()->getSceneManger();
         m_cam = nullptr;
         m_vp = nullptr;
+        m_target = nullptr;
         m_window = sys->getWindow();
         m_cam_node = FlamingoSceneManager().getSceneActive()->getSceneRoot()->createChildSceneNode();
         m_name = t_name;
@@ -127,8 +129,22 @@ namespace Flamingo
     {
         m_vp->setCamera(m_cam);
     }
-    Ogre::SceneNode* Camera::getCamNode()
+
+    void Camera::setTarget(GameObject* go){
+        m_target = go;
+    }
+    void Camera::setOffset(SVector3 offset)
     {
-        return m_cam_node;
+        m_offset = offset;
+    }
+    void Camera::FollowTarget(){
+        if (m_target != nullptr){
+            auto trpTarget = m_mngr->getComponent<Transform>(m_target);
+            auto mtrp = m_mngr->getComponent<Transform>(m_ent);
+
+            SVector3 newOffset = trpTarget->getRotation().Rotate(m_offset);
+            mtrp->setPosition(trpTarget->getPosition()+newOffset);
+            mtrp->setRotation(trpTarget->getRotation());
+        }
     }
 } // namespace Flamingo

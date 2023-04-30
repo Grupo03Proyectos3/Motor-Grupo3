@@ -87,6 +87,14 @@ namespace Flamingo
         return btQuaternion((btScalar)m_x, (btScalar)m_y, (btScalar)m_z, (btScalar)m_w).angle(btQuaternion((btScalar)other.m_x, (btScalar)other.m_y, (btScalar)other.m_z, (btScalar)other.m_w));
     }
 
+    SVector3 SQuaternion::Rotate(SVector3 angle){
+        SQuaternion aux(0, angle.getX(), angle.getY(), angle.getZ());
+        SQuaternion me = SQuaternion(m_x,m_y,m_z,m_w);
+        me *= aux;
+        me *= SQuaternion(m_w, -m_x, -m_y, -m_z);       
+        return SVector3(me.getX(), me.getY(), me.getZ());
+    }
+
     double SQuaternion::getX()
     {
         return m_x;

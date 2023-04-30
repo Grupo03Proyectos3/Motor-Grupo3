@@ -39,7 +39,7 @@ namespace Flamingo
         Transform* transform = nullptr;
         if (m.id == MSG_MOUSE_MOVE)
         {
-            m_guiContext->injectMousePosition(m.moveMouse.x, m.moveMouse.y);
+            m_guiContext->injectMousePosition(m.moveMouse.mouseX, m.moveMouse.mouseY);
 
             // std::cout << "x: " << m.moveMouse.x << " ,y: " << m.moveMouse.y << "\n";
             // std::cout << "x2: " << guiContext->getMouseCursor().getPosition().d_x << " ,y2: " << guiContext->getMouseCursor().getPosition().d_y << "\n";
