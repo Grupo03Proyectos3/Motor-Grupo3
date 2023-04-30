@@ -3,11 +3,13 @@
 #ifndef __INPUT_HANDLER_CONTAINER_H__
 #define __INPUT_HANDLER_CONTAINER_H__
 
-#include "InputHandler.h"
+
 #include "FlamingoUtils/FlamingoKeys.h"
 #include "FlamingoExport/FlamingoAPI.h"
-
+#include <ECS/SingletonECS.h>
 namespace Flamingo{
+    class InputHandler;
+
     FLAMINGOEXPORT_API class InputHandlerContainer : public SingletonECS<InputHandlerContainer>
     {
         friend SingletonECS<InputHandlerContainer>;
