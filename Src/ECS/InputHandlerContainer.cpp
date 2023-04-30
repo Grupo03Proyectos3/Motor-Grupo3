@@ -1,4 +1,5 @@
 #include "InputHandlerContainer.h"
+#include "InputHandler.h"
 namespace Flamingo{
     InputHandlerContainer::InputHandlerContainer()
         : m_inputHandler(ih())  // inicializa el objeto InputHandler

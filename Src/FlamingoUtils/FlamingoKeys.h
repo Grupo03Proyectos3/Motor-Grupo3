@@ -1,7 +1,9 @@
 #pragma once
+
 #ifndef __FLAMINGO_KEYS_H__
 #define __FLAMINGO_KEYS_H__
-
+#include <cstdint>
+#include <SDL_keycode.h>
 namespace Flamingo{
 
     typedef int32_t FLM_Keycode;
