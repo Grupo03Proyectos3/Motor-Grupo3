@@ -44,35 +44,35 @@ namespace Flamingo
 
         virtual ~Manager()
         {
-            // std::vector<GameObject*> toDestroy;
+             std::vector<GameObject*> toDestroy;
 
-            // for (auto& ents : m_ents_by_group)
-            //{
-            //     for (auto i = 0; i < ents.size(); i++)
-            //     {
-            //         if (gameObjectMarked(toDestroy, ents[i]))
-            //         {
-            //             ents[i] = nullptr;
-            //         }
-            //         else if (ents[i] != nullptr /*&& ents[i]->m_alive == false*/)
-            //         {
-            //             toDestroy.push_back(ents[i]);
-            //             ents[i] = nullptr;
-            //         }
-            //     }
-            // }
-            //
-            // for (auto i = 0; i < toDestroy.size(); i++)
-            //    delete toDestroy[i];
+             for (auto& ents : m_ents_by_group)
+            {
+                 for (auto i = 0; i < ents.size(); i++)
+                 {
+                     if (gameObjectMarked(toDestroy, ents[i]))
+                     {
+                         ents[i] = nullptr;
+                     }
+                     else if (ents[i] != nullptr /*&& ents[i]->m_alive == false*/)
+                     {
+                         toDestroy.push_back(ents[i]);
+                         ents[i] = nullptr;
+                     }
+                 }
+             }
+            
+             for (auto i = 0; i < toDestroy.size(); i++)
+                delete toDestroy[i];
 
-            for (auto& ent : m_ents_by_group[GROUP_ALL])
+           /* for (auto& ent : m_ents_by_group[GROUP_ALL])
             {
                 for (auto& comp : ent->m_current_comps)
                 {
                     delete comp.second;
                     comp.second = nullptr;
                 }
-            };
+            };*/
 
             for (auto i = 0u; i < maxSystemId; i++)
                 if (m_systems[i] != nullptr)

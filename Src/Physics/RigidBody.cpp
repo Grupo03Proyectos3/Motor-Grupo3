@@ -42,33 +42,13 @@ namespace Flamingo
             m_mass = 0.0f;
         else
             m_mass = (t_mass);
-    }
 
-    void RigidBody::initComponent()
-    {
-        // TO DO a�adir try catch por si no tiene transform
+                auto transform = m_mngr->getComponent<Transform>(m_ent);
 
-        auto transform = m_mngr->getComponent<Transform>(m_ent);
 
-        if (auto mr = m_mngr->getComponent<MeshRenderer>(m_ent))
-        {
-            const Ogre::AxisAlignedBox& meshBoundingBox = mr->getBoundingBox();
-            // Calculate the dimensions of the box collider
-            btVector3 halfExtents(meshBoundingBox.getSize().x * 0.5f, meshBoundingBox.getSize().y * 0.5f, meshBoundingBox.getSize().z * 0.5f);
-            halfExtents *= transform->getScale();
-            m_shape = new btBoxShape(halfExtents);
-        }
-        else // TODO a�adir else: collider a un tama�o por defecto
-        {
-            m_shape = new btBoxShape({1.0f, 1.0f, 1.0f});
-        }
-
-        m_bullet_transform = new btTransform(transform->getRotation(), transform->getPosition());
-
-        // TODO meter diferentes formas para el RB
-        //   m_shape = new btBoxShape(transform->getScale());
-
-        //   m_state = new FlamingoMotionState(*m_bullet_transform, transform);
+        m_shape = new btBoxShape({1.0f, 1.0f, 1.0f});
+        
+        m_bullet_transform = new btTransform({0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f});
 
         m_rigid_body = m_mngr->getSystem<Flamingo::PhysicsSystem>()->createRigidBody(m_bullet_transform, m_shape, m_mass);
 
@@ -83,6 +63,24 @@ namespace Flamingo
         }
 
         m_mngr->getSystem<Flamingo::PhysicsSystem>()->addRigidBody(m_rigid_body);
+    }
+
+    void RigidBody::initComponent()
+    {
+        // TO DO a�adir control por si no tiene transform
+        auto transform = m_mngr->getComponent<Transform>(m_ent);
+
+        if (auto mr = m_mngr->getComponent<MeshRenderer>(m_ent))
+        {
+            const Ogre::AxisAlignedBox& meshBoundingBox = mr->getBoundingBox();
+            // Calculate the dimensions of the box collider
+            btVector3 halfExtents(meshBoundingBox.getSize().x * 0.5f, meshBoundingBox.getSize().y * 0.5f, meshBoundingBox.getSize().z * 0.5f);
+            halfExtents *= transform->getScale();
+            m_shape->setLocalScaling(halfExtents);
+        }
+
+        m_bullet_transform->setOrigin(transform->getPosition());
+        m_bullet_transform->setRotation(transform->getRotation());
     }
 
     void RigidBody::setMass(const float& t_mass)

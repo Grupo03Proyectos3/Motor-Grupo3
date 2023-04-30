@@ -63,10 +63,10 @@ namespace Flamingo
         Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();
         render_sys->inicializarShaders();
 
-        bool scene2 = scripting_sys->loadScene("mapa");
         bool scene1 = scripting_sys->loadScene("menu");
+        bool scene2 = scripting_sys->loadScene("mapa");
 
-        // sceneManager.setSceneActive("mapa");
+        sceneManager.setSceneActive("menu");
 
         // if (/*!scripting_sys->loadScene(m_first_scene)*/ /* !scene1 && */ !scene2)
         //{

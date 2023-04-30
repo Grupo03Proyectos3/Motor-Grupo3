@@ -173,7 +173,7 @@ namespace Flamingo
         m_debug_drawer->setDebugMode(btIDebugDraw::DBG_DrawWireframe | btIDebugDraw::DBG_DrawAabb);
         m_world->setDebugDrawer(m_debug_drawer);
 
-        SetDebugMode(false);
+        SetDebugMode(true);
     }
 
     void PhysicsSystem::update(float t_delta_time)
