@@ -82,7 +82,7 @@ namespace Flamingo
         m_camera->initComponent();
         m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
 
-        m_camera->lookAt(SVector3(0, 0, 0), Camera::LOCAL);
+        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
         m_camera->setNearClipDistance(1);
         m_camera->setFarClipDistance(100000);
         mainScene->addObjects(cam_go);
