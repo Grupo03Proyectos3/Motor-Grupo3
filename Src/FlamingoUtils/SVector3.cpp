@@ -195,6 +195,10 @@ namespace Flamingo
         return SVector3(t_bullet_vector.x(), t_bullet_vector.y(), t_bullet_vector.z());
     }
 
+    double SVector3::lenght(){
+        return std::sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
+    }
+
     // SVector3 SVector3::fmodToSVector3(const FMOD_VECTOR& fModVector)
     //{
     //     return SVector3(fModVector.x, fModVector.y, fModVector.z);

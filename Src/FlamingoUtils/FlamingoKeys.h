@@ -1,11 +1,11 @@
 #pragma once
 #ifndef __FLAMINGO_KEYS_H__
 #define __FLAMINGO_KEYS_H__
-#include <SDL_keycode.h>
+
 namespace Flamingo{
 
     typedef Sint32 FLM_Keycode;
-
+    class SDL_keycode;
     typedef enum
     {
         FLM_UNKNOWN = SDLK_UNKNOWN,
