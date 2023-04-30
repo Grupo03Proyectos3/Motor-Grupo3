@@ -44,26 +44,35 @@ namespace Flamingo
 
         virtual ~Manager()
         {
-            std::vector<GameObject*> toDestroy;
+            // std::vector<GameObject*> toDestroy;
 
-            for (auto& ents : m_ents_by_group)
+            // for (auto& ents : m_ents_by_group)
+            //{
+            //     for (auto i = 0; i < ents.size(); i++)
+            //     {
+            //         if (gameObjectMarked(toDestroy, ents[i]))
+            //         {
+            //             ents[i] = nullptr;
+            //         }
+            //         else if (ents[i] != nullptr /*&& ents[i]->m_alive == false*/)
+            //         {
+            //             toDestroy.push_back(ents[i]);
+            //             ents[i] = nullptr;
+            //         }
+            //     }
+            // }
+            //
+            // for (auto i = 0; i < toDestroy.size(); i++)
+            //    delete toDestroy[i];
+
+            for (auto& ent : m_ents_by_group[GROUP_ALL])
             {
-                for (auto i = 0; i < ents.size(); i++)
+                for (auto& comp : ent->m_current_comps)
                 {
-                    if (gameObjectMarked(toDestroy, ents[i]))
-                    {
-                        ents[i] = nullptr;
-                    }
-                    else if (ents[i] != nullptr /*&& ents[i]->m_alive == false*/)
-                    {
-                        toDestroy.push_back(ents[i]);
-                        ents[i] = nullptr;
-                    }
+                    delete comp.second;
+                    comp.second = nullptr;
                 }
-            }
-
-            for (auto i = 0; i < toDestroy.size(); i++)
-                delete toDestroy[i];
+            };
 
             for (auto i = 0u; i < maxSystemId; i++)
                 if (m_systems[i] != nullptr)
@@ -88,6 +97,18 @@ namespace Flamingo
         Manager& operator=(Manager&) = delete;
         Manager& operator=(Manager&&) = delete;
 
+        /*Inicializa todos los componentes existentes*/
+        void initComponents()
+        {
+            for (auto& ent : m_ents_by_group[GROUP_ALL])
+            {
+                for (auto& comp : ent->m_current_comps)
+                {
+                    comp.second->initComponent();
+                }
+            }
+        }
+
         // Adding an entity simply creates an instance of Entity, adds
         // it to the list of the given group and returns it to the caller.
         // se puede eliminar los grupos de aqui ya que van a ser añadidos segun que componente contengan
@@ -101,6 +122,7 @@ namespace Flamingo
                 // create and initialise the entity
                 m_ents_by_group[grp].push_back(e);
             }
+            m_ents_by_group[GROUP_ALL].push_back(e);
 
             return e;
         }
@@ -490,5 +512,5 @@ namespace Flamingo
         bool reajustG = false;
     };
 
-} // namespace ecs
+} // namespace Flamingo
 #endif

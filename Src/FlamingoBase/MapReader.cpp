@@ -175,7 +175,7 @@ namespace Flamingo
                                     }
                                 }
 
-                                try
+                              /*  try
                                 {
                                     for (auto c : gO->getCurrentComponents())
                                     {
@@ -185,7 +185,7 @@ namespace Flamingo
                                 catch (const std::exception&)
                                 {
                                     throw std::runtime_error("failed to initialize components");
-                                }
+                                }*/
                               
                             }
                         }

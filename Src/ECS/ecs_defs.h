@@ -27,7 +27,8 @@
         GROUP_PHYSICS, \
         GROUP_AUDIO,   \
         GROUP_UI,      \
-        GROUP_SCRIPTING
+        GROUP_SCRIPTING, \
+        GROUP_ALL
 
 // Lista de Handlers
 //
