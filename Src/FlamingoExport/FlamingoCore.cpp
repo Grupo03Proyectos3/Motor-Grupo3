@@ -174,6 +174,9 @@ namespace Flamingo
         Manager* m_mngr = Manager::instance();
         auto ui_system = m_mngr->getSystem<Flamingo::UISystem>();
         auto render_sys = m_mngr->getSystem<RenderSystem>();
+        auto physic_sys = m_mngr->getSystem<PhysicsSystem>();
+        auto script_sys = m_mngr->getSystem<ScriptingSystem>();
+        auto audio_sys = m_mngr->getSystem<AudioSystem>();
 
         auto& ihdlr = ih();
 
@@ -184,14 +187,12 @@ namespace Flamingo
             // Tiempo transcurrido desde el inicio del programa en milisegundos
             time = player_timer->getElapsedTime();
 
-            // leer entrada
-            for (auto sys : m_mngr->getSystems())
-            {
-                if (sys)
-                {
-                    sys->update(dt);
-                }
-            }
+            //Update de los sistemas
+            script_sys->update(dt);
+            physic_sys->update(dt);
+            audio_sys->update(dt);
+            render_sys->update(dt);
+            ui_system->update(dt);
 
             // pruebas de enemigos
 
