@@ -14,6 +14,7 @@
 #include <CEGUI/SchemeManager.h>
 #include <CEGUI/System.h>
 #include <CEGUI/Window.h>
+#include "FlamingoUtils/SVector2.h"
 
 namespace Flamingo
 {
@@ -170,7 +171,6 @@ namespace Flamingo
     void UISystem::eraseContext()
     {
         m_winMngr->destroyAllWindows();
-
         for (auto scheme : m_schemes)
         {
             CEGUI::SchemeManager::getSingleton().destroy(scheme);
@@ -182,6 +182,7 @@ namespace Flamingo
         CEGUI::System::getSingleton().destroyGUIContext(*m_guiContext);
 
         m_renderer->destroySystem();
+        
         CEGUI::System::destroy();
     }
 

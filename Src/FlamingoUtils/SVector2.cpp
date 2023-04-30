@@ -2,7 +2,7 @@
 
 #include <OgreVector2.h>
 #include <math.h>
-
+#include <CEGUI/Vector.h>
 //#include <LinearMath/btVector2.h>
 //#include <OgreVector3.h>
 

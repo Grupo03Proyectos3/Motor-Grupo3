@@ -4,7 +4,7 @@
 #define __SVECTOR2_H__
 
 
-#include <CEGUI/Vector.h>
+
 #include <iostream>
 
 namespace Ogre
@@ -13,8 +13,15 @@ namespace Ogre
     template <int dims, typename T>
     class Vector;
     typedef Vector<2, Real> Vector2;
-}
+} // namespace Ogre
+namespace CEGUI
+{
+    template<typename T>
+    class Vector2;
 
+    template<typename T>
+    using Vector2_value_type = typename Vector2<T>::value_type;
+}
 /**
  * Clase base que usaremos como interprete entre todos los demás vector3 presentes en el motor (ogreVector3, FModVector3...)
  * Almacena los valores de un Vector3 y cuenta con setters, getters, conversores a las otras clases Vector3 y métodos que se irán añadiendo
