@@ -4,7 +4,7 @@
 
 namespace Flamingo{
 
-    typedef Sint32 FLM_Keycode;
+    typedef int32_t FLM_Keycode;
     class SDL_keycode;
     typedef enum
     {

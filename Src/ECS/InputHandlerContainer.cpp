@@ -54,12 +54,12 @@ namespace Flamingo{
         return m_inputHandler.mouseButtonEvent();
     }
 
-    const std::pair<Sint32, Sint32>& InputHandlerContainer::getMousePos()
+    const std::pair<int32_t, int32_t>& InputHandlerContainer::getMousePos()
     {
         return m_inputHandler.getMousePos();
     }
 
-    const std::pair<Sint32, Sint32>& InputHandlerContainer::getMouseMotionPos()
+    const std::pair<int32_t, int32_t>& InputHandlerContainer::getMouseMotionPos()
     {
         return m_inputHandler.getMouseMotionPos();
     }
