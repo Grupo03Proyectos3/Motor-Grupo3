@@ -1,7 +1,9 @@
 // FlamingoExport.cpp : Define las funciones exportadas del archivo DLL.
 //
 
+#include "FlamingoCore.h"
 #include "FlamingoExport.h"
+
 #include "Lua/ScriptManager.h"
 #include "Lua/BehaviourScript.h"
 #include "UI/UIElement.h"

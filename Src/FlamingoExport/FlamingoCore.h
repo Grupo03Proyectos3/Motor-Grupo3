@@ -3,20 +3,19 @@
 #define __FLAMINGO_CORE_H__
 
 #include "FlamingoAPI.h"
-#include <string>
-#include <list>
-
-#include "ECS/SingletonECS.h"
+#include <vector>
 #include <string>
 
+#include <Lua/BehaviourScript.h>
 
 namespace Flamingo
 {
+    class Manager;
+    class SceneManager;
     class RenderSystem;
-    class FLAMINGOEXPORT_API FlamingoCore : public SingletonECS<FlamingoCore>
-    {
-        friend SingletonECS<FlamingoCore>;
 
+    class FLAMINGOEXPORT_API FlamingoCore
+    {
       public:
         FlamingoCore();
         ~FlamingoCore();
@@ -30,20 +29,26 @@ namespace Flamingo
         void FlamingoLoop();
         bool FlamingoExit();
 
-        void setFirstScene(const std::string& t_name);
-        void addSceneToLoad(const std::string& t_name);
+        void setFirstScene(std::string t_name);
+        void addSceneToLoad(std::string t_name);
         std::string getFirstScene();
 
-        void prueba();
+        void addGameScript(std::string t_n, BehaviourScript* t_s);
+
+        static FlamingoCore* instance();
+        static Manager* getManager();
+        static SceneManager* getSceneManager();
 
       private:
 
+        static FlamingoCore* m_instance;
+
         std::string m_first_scene = "mapa"; // TO DO : poner un nombre por defecto? para una escena por defecto?
-        std::list<std::string> m_scenes_to_load;
-      
+        std::vector<std::string> m_scenes_to_load;
     };
 
-    extern "C" FLAMINGOEXPORT_API void setFirstScene(const std::string& t_scene_name);
-    extern "C" FLAMINGOEXPORT_API void addScene(const std::string& t_scene_name);
+    //extern "C" FLAMINGOEXPORT_API void setFirstScene(std::string t_scene_name);
+    //extern "C" FLAMINGOEXPORT_API void addScene(std::string t_scene_name);
+
 } // namespace Flamingo
 #endif

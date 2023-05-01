@@ -6,7 +6,7 @@
 
 #include "FlamingoExport/FlamingoCore.h"
 
-typedef bool(__cdecl* GameEntryPoint)(Flamingo::FlamingoCore*);
+typedef bool(__cdecl* GameEntryPoint)(void);
 
 int main(int argc, char* argv[])
 {
@@ -31,12 +31,11 @@ int main(int argc, char* argv[])
         if (hinstLib != NULL)
         {
             std::cout << "Libreria cargada\n";
-
             // Ejecución de una función
             GameEntryPoint initJuego = (GameEntryPoint)GetProcAddress(hinstLib, "InitJuego");
             if (initJuego)
             {
-                initJuego(core);
+                initJuego();
 
                 if (core->FlamingoInit())
                 {
@@ -78,7 +77,7 @@ int main(int argc, char* argv[])
 
     if (core != nullptr)
     {
-        core->close();
+        delete core;
     }
 
     // PARA TRABAJAR DESDE EL MOTOR

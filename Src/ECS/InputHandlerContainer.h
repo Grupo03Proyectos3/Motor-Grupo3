@@ -10,7 +10,7 @@
 namespace Flamingo{
     class InputHandler;
 
-    FLAMINGOEXPORT_API class InputHandlerContainer : public SingletonECS<InputHandlerContainer>
+    __declspec(dllexport) class InputHandlerContainer : public SingletonECS<InputHandlerContainer>
     {
         friend SingletonECS<InputHandlerContainer>;
 

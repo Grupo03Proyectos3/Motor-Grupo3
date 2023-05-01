@@ -13,8 +13,6 @@
 #include "Render/RenderSystem.h"
 #include "UI/UISystem.h"
 
-#include "ECS/SingletonECS.h"
-
 // TEMPORAL -> TO DO : quitarlos
 #include "FlamingoBase/SceneManager.h"
 #include "Lua/PruebaScript.h"
@@ -35,8 +33,11 @@
 namespace Flamingo
 {
 
+    FlamingoCore* FlamingoCore::m_instance = nullptr;
+
     Flamingo::FlamingoCore::FlamingoCore()
     {
+        m_scenes_to_load.clear();
     }
 
     Flamingo::FlamingoCore::~FlamingoCore()
@@ -58,11 +59,11 @@ namespace Flamingo
         std::string s = "Motor";
         Manager* m_mngr = Manager::instance();
         m_mngr->init();
-        SceneManager& sceneManager = FlamingoSceneManager();
+        SceneManager* sceneManager = getSceneManager();
         Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
         RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
         ui_system->initContext();
-        sceneManager.initManager("SceneManager", m_mngr);
+        sceneManager->initManager("SceneManager", m_mngr);
         PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
         AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
         Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();
@@ -81,9 +82,9 @@ namespace Flamingo
             throw std::runtime_error("ERROR: Failed loading scene " + loading_scene + "\n");
         }
 
-        sceneManager.setSceneActive(m_first_scene);
+        sceneManager->setSceneActive(m_first_scene);
 
-        Scene* mainScene = sceneManager.getSceneActive();
+        Scene* mainScene = sceneManager->getSceneActive();
         auto nodo = mainScene->getSceneRoot();
         GameObject* cam_go = m_mngr->addGameObject({GROUP_RENDER});
         cam_go->setName("myCamera");
@@ -228,12 +229,12 @@ namespace Flamingo
         return false;
     }
 
-    void FlamingoCore::setFirstScene(const std::string& t_name)
+    void FlamingoCore::setFirstScene(std::string t_name)
     {
         m_first_scene = t_name;
     }
 
-    void FlamingoCore::addSceneToLoad(const std::string& t_name)
+    void FlamingoCore::addSceneToLoad(std::string t_name)
     {
         m_scenes_to_load.push_back(t_name);
     }
@@ -243,19 +244,28 @@ namespace Flamingo
         return m_first_scene;
     }
 
-    void setFirstScene(const std::string& t_scene_name)
+    FlamingoCore* FlamingoCore::instance()
     {
-        auto core = Flamingo::FlamingoCore::instance();
-        core->setFirstScene(t_scene_name);
+        if (m_instance == nullptr)
+        {
+            m_instance = new FlamingoCore();
+        }
+        return m_instance;
     }
 
-    void addScene(const std::string& t_scene_name)
+    Manager* FlamingoCore::getManager()
     {
-        Flamingo::FlamingoCore::instance()->addSceneToLoad(t_scene_name);
+        return Manager::instance();
     }
 
-    void FlamingoCore::prueba()
+    SceneManager* FlamingoCore::getSceneManager()
     {
-        std::cout << "PRUEBA\n";
+        return SceneManager::instance();
+    }
+
+    void FlamingoCore::addGameScript(std::string t_n, BehaviourScript* t_s)
+    {
+        auto fCore = Flamingo::ScriptManager::instance();
+        fCore->addGameScript(t_n, t_s);
     }
 } // namespace Flamingo
