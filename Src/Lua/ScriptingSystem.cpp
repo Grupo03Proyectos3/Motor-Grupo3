@@ -243,8 +243,6 @@ namespace Flamingo
                 c.second->initComponent();
             }
 
-            ScriptManager::instance()->startComponents();
-
             // m_scene_mngr.getSceneActive()->addObjects(gO);
         }
 

@@ -89,7 +89,7 @@ namespace Flamingo
                 }
                 (*t_aux).second->active();
                 mNameSceneActive = t_SceneName;
-                Flamingo::ScriptManager::instance()->startComponents();
+               // Flamingo::ScriptManager::instance()->startComponents();
             }
         }
     }

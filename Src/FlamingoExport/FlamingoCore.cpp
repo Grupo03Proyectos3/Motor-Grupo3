@@ -75,6 +75,7 @@ namespace Flamingo
         {
             loading_scene = scene;
             load_success = scripting_sys->loadScene(scene);
+            ScriptManager::instance()->startComponents();
         }
 
         if (!load_success)
@@ -115,6 +116,7 @@ namespace Flamingo
 
         /*GameObject* UI = m_mngr->addGameObject({GROUP_UI});
         auto y = addComponent<Transform>(UI);
+        
         y->initValues();
         auto x = addComponent<Flamingo::UIElement>(UI);
         x->setElementWidget("FlamingoDefaultUI/Button", "COSO");
@@ -156,9 +158,11 @@ namespace Flamingo
         m_camera->lookAt(SVector3(0, 0, 0), STransformSpace::WORLD);
         m_camera->setNearClipDistance(1);
         m_camera->setFarClipDistance(100000);
+       // m_camera->setTarget(mainScene->getObject("Arbol"));
+        t->translate({-15000, 0, 0}, LOCAL);
         mainScene->addObjects(cam_go);
         render_sys->setMainCamera(m_camera);
-        t->translate({-15000, 0, 0}, LOCAL);
+
         cmp_light->initComponent();
         cmp_light->setType(Light::DIRECTIONAL);
         cmp_light->setDirection(SVector3(0, -1, -1));
@@ -189,7 +193,7 @@ namespace Flamingo
 
         auto& ihdlr = ih();
 
-        ScriptManager::instance()->startComponents();
+        //ScriptManager::instance()->startComponents();
         while (motor_running && !render_sys->getWindow()->isWindowClosed())
         {
             // Delta time en milisegundos
