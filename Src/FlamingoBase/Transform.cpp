@@ -107,15 +107,15 @@ namespace Flamingo
         m_mngr->send(m);
     }
 
-    void Transform::translate(SVector3 distance)
+    void Transform::translate(SVector3 distance, STransformSpace t_trs)
     {
-        m_position += distance;
         Message m;
-        m.id = MSG_TRANSFORM_MOVE;
+        m.id = MSG_TRANSFORM_TRANSLATE;
         m.entity_affected = m_ent;
-        m.vector.x = m_position.getX();
-        m.vector.y = m_position.getY();
-        m.vector.z = m_position.getZ();
+        m.vector.x = distance.getX();
+        m.vector.y = distance.getY();
+        m.vector.z = distance.getZ();
+        m.tr_space = t_trs;
         m_mngr->send(m);
     }
 } // namespace Flamingo

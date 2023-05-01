@@ -97,6 +97,8 @@ namespace Flamingo
         Light* cmp_light = addComponent<Light>(light_go);
         cmp_light->initValues("myLight2");
 
+        auto t = m_mngr->addComponent<Transform>(cam_go);
+        t->setPosition({0, 48000, 0});
         ///*ecs::gameobject* light_go = m_mngr->addgameobject({ecs::group_render});
         // light_go->setname("mylight");
         // auto tr_transform = ecs::addcomponent<transform>(light_go);
@@ -149,15 +151,13 @@ namespace Flamingo
         //
 
         m_mngr->initComponents();
-
         m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
-
-        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
+        m_camera->lookAt(SVector3(0, 0, 0), STransformSpace::WORLD);
         m_camera->setNearClipDistance(1);
         m_camera->setFarClipDistance(100000);
         mainScene->addObjects(cam_go);
         render_sys->setMainCamera(m_camera);
-
+        t->translate({-15000, 0, 0}, LOCAL);
         cmp_light->setType(Light::DIRECTIONAL);
         cmp_light->setDirection(SVector3(0, -1, -1));
         cmp_light->setSpecularColour();

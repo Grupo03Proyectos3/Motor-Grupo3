@@ -13,6 +13,12 @@
  */
 namespace Flamingo
 {
+    enum STransformSpace
+    {
+        WORLD,
+        LOCAL,
+        PARENT
+    };
     __declspec(dllexport) struct Transform : public Component
     {
       public:
@@ -63,7 +69,7 @@ namespace Flamingo
          * @param[in] t_translate SVector3 dirección en la que se desea mover.
          * @return
          */
-        void translate(SVector3 t_translate);
+        void translate(SVector3 t_translate, STransformSpace t_trs = STransformSpace::PARENT);
 
       private:
         SVector3 m_position;

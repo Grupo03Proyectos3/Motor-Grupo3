@@ -223,7 +223,7 @@ namespace Flamingo
         auto m_camera = getComponent<Camera>(gO);
         m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
 
-        m_camera->lookAt(SVector3(0, 0, 0), Camera::WORLD);
+        m_camera->lookAt(SVector3(0, 0, 0), STransformSpace::WORLD);
         m_camera->setNearClipDistance(1);
         m_camera->setFarClipDistance(10000);
     }

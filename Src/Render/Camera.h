@@ -5,7 +5,7 @@
 #include "Render/Window.h"
 #include "FlamingoUtils/SColor.h"
 #include "FlamingoUtils/SVector3.h"
-
+#include "FlamingoBase/Transform.h"
 #include <string>
 
 namespace Ogre
@@ -29,19 +29,12 @@ namespace Flamingo
             WIREFRAME
         };
 
-        enum transformSpace
-        {
-            WORLD,
-            LOCAL,
-            PARENT
-        };
         Camera();
         virtual ~Camera(){};
         virtual void initValues(std::string t_name);
         virtual void initComponent();
 
-        // void lookAt(SVector3 t_pos, transformSpace t_trs = WORLD);
-        void lookAt(SVector3 t_pos, transformSpace t_trs);
+        void lookAt(SVector3 t_pos, STransformSpace t_trs);
         void translate(float t_x, float t_y, float t_z);
 
         void roll(float t_d);

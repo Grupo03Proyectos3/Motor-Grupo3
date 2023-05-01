@@ -9,12 +9,15 @@
 #include "ecs.h"
 #include <cstdint>
 #include <array>
+#include "FlamingoBase/Transform.h"
+
 namespace Flamingo
 {
     using msgId_type = uint8_t;
     enum msgId : msgId_type
     {
         MSG_TRANSFORM_MOVE,
+        MSG_TRANSFORM_TRANSLATE,
         MSG_TRANSFORM_ROTATE,
         MSG_TRANSFORM_SCALING,
         MSG_WINDOW_RESIZED,
@@ -34,6 +37,7 @@ namespace Flamingo
     {
         msgId_type id;
         GameObject* entity_affected;
+        STransformSpace tr_space;
 
         union
         {

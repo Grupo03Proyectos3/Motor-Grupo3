@@ -5,14 +5,13 @@
 #include "FlamingoBase/SceneManager.h"
 #include "MeshRenderer.h"
 #include "Window.h"
-
+#include <OgreNode.h>
 #include <OgreConfigFile.h>
 #include <OgreFileSystemLayer.h>
 #include <OgreGpuProgramManager.h>
 #include <OgreRoot.h>
 #include "SGTechniqueResolverListener.h"
 #include "Light.h"
-#include "Camera.h"
 
 #include <Physics/RigidBody.h>
 
@@ -29,6 +28,31 @@ namespace Flamingo
         // TO DO :  limpiar para reutilizar código -> mover a una función externa?
         switch (t_m.id)
         {
+            case MSG_TRANSFORM_TRANSLATE:
+            {
+                if (t_m.entity_affected == nullptr)
+                    return;
+                auto trs = Ogre::Node::TransformSpace::TS_PARENT;
+                switch (t_m.tr_space)
+                {
+                    case LOCAL:
+                        trs = Ogre::Node::TransformSpace::TS_LOCAL;
+                    case WORLD:
+                        trs = Ogre::Node::TransformSpace::TS_WORLD;
+                    default:
+                        break;
+                }
+                auto mesh = m_mngr->getComponent<MeshRenderer>(t_m.entity_affected);
+                auto light = m_mngr->getComponent<Light>(t_m.entity_affected);
+                auto cam = m_mngr->getComponent<Camera>(t_m.entity_affected);
+                if (mesh != nullptr)
+                    mesh->getNode()->translate(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z), trs);
+                if (light != nullptr)
+                    light->getNode()->translate(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z), trs);
+                if (cam != nullptr)
+                    cam->getNode()->translate(t_m.vector.x, t_m.vector.y, t_m.vector.z, trs);
+                break;
+            }
             case MSG_TRANSFORM_MOVE:
             {
                 if (t_m.entity_affected == nullptr)
@@ -42,7 +66,6 @@ namespace Flamingo
                     light->getNode()->setPosition(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
                 if (cam != nullptr)
                     cam->getNode()->setPosition(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
-                break;
                 break;
             }
             case MSG_TRANSFORM_ROTATE:
