@@ -68,10 +68,12 @@ namespace Flamingo
         
         if (!dir)
         {
+            closedir(dir);
             throw std::ifstream::failure("Assets folder not found");
         }
         if (!infile)
         {
+            closedir(dir);
             throw std::ifstream::failure("resources.cfg not found");
         }
         
