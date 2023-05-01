@@ -98,9 +98,10 @@ namespace Flamingo
         {
             for (auto c : gO->getCurrentComponents())
             {
-                if (!std::is_base_of_v<BehaviourScript, decltype(c.second)>)
+                auto s = dynamic_cast<BehaviourScript*>(c.second);
+                if (s != nullptr)
                 {
-                    dynamic_cast<BehaviourScript*>(c.second)->start();
+                    s->start();
                 }
             }
         }
