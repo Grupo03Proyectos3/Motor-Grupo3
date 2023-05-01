@@ -11,6 +11,8 @@
 #include <OgreGpuProgramManager.h>
 #include <OgreRoot.h>
 #include "SGTechniqueResolverListener.h"
+#include "Light.h"
+#include "Camera.h"
 
 #include <Physics/RigidBody.h>
 
@@ -32,10 +34,15 @@ namespace Flamingo
                 if (t_m.entity_affected == nullptr)
                     return;
                 auto mesh = m_mngr->getComponent<MeshRenderer>(t_m.entity_affected);
-
-                if (mesh == NULL)
-                    return;
-                mesh->getNode()->setPosition(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
+                auto light = m_mngr->getComponent<Light>(t_m.entity_affected);
+                auto cam = m_mngr->getComponent<Camera>(t_m.entity_affected);
+                if (mesh !=nullptr)
+                    mesh->getNode()->setPosition(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
+                if (light != nullptr)
+                    light->getNode()->setPosition(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
+                if (cam != nullptr)
+                    cam->getNode()->setPosition(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
+                break;
                 break;
             }
             case MSG_TRANSFORM_ROTATE:
@@ -43,10 +50,14 @@ namespace Flamingo
                 if (t_m.entity_affected == nullptr)
                     return;
                 auto mesh = m_mngr->getComponent<MeshRenderer>(t_m.entity_affected);
-
-                if (mesh == NULL)
-                    return;
-                mesh->getNode()->setOrientation(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
+                auto light = m_mngr->getComponent<Light>(t_m.entity_affected);
+                auto cam = m_mngr->getComponent<Camera>(t_m.entity_affected);
+                if (mesh!=nullptr)
+                    mesh->getNode()->setOrientation(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
+                if (light!=nullptr)
+                    light->getNode()->setOrientation(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
+                if (cam != nullptr)
+                    cam->getNode()->setOrientation(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
                 break;
             }
             case MSG_TRANSFORM_SCALING:
@@ -54,10 +65,14 @@ namespace Flamingo
                 if (t_m.entity_affected == nullptr)
                     return;
                 auto mesh = m_mngr->getComponent<MeshRenderer>(t_m.entity_affected);
-
-                if (mesh == NULL)
-                    return;
-                mesh->getNode()->setScale(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
+                auto light = m_mngr->getComponent<Light>(t_m.entity_affected);
+                auto cam = m_mngr->getComponent<Camera>(t_m.entity_affected);
+                if (mesh!=nullptr)
+                    mesh->getNode()->setScale(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
+                if (light != nullptr)
+                    light->getNode()->setScale(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
+                if (cam != nullptr)
+                    cam->getNode()->setScale(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
                 break;
             }
             default:

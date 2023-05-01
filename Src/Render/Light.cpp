@@ -6,6 +6,8 @@
 #include <OgreVector3.h>
 
 #include "ECS/Manager.h"
+#include "ECS/Components.h"
+#include "FlamingoBase/Transform.h"
 #include "RenderSystem.h"
 namespace Flamingo
 {
@@ -30,10 +32,15 @@ namespace Flamingo
 
     void Light::initComponent()
     {
+        auto t = getComponent<Transform>(m_ent);
+        if (t == nullptr)
+            throw std::exception("Transform is missing");
+        
         m_light = m_sceneMgr->createLight(m_name);
-        // m_light_node = m_scene_node->createChildSceneNode();
-        // m_light_node->setPosition(Ogre::Vector3(0, 50, 0));
         // m_sceneMgr->setAmbientLight(Ogre::ColourValue::White);
+        m_light_node->setScale(t->getScale());
+        m_light_node->setPosition(t->getPosition());
+        m_light_node->setOrientation(t->getRotation());
         m_light_node->attachObject(m_light);
     }
 
@@ -123,5 +130,10 @@ namespace Flamingo
     void Light::setShadowNearClipDistance(float t_nearClip)
     {
         m_light->setShadowNearClipDistance(t_nearClip);
+    }
+
+    Ogre::SceneNode* Light::getNode()
+    {
+        return m_light_node;
     }
 } // namespace Flamingo

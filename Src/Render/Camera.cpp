@@ -1,5 +1,7 @@
 #include "Camera.h"
 #include "RenderSystem.h"
+#include "ECS/Components.h"
+#include "FlamingoBase/Transform.h"
 #include <OgreCamera.h>
 #include <OgreRenderWindow.h>
 #include <OgreSceneManager.h>
@@ -7,7 +9,6 @@
 #include <OgreViewport.h>
 
 #include "ECS/Manager.h"
-#include <FlamingoBase/Transform.h>
 
 namespace Flamingo
 {
@@ -27,7 +28,14 @@ namespace Flamingo
 
     void Camera::initComponent()
     {
+        auto t = getComponent<Transform>(m_ent);
+        if (t == nullptr)
+        {
+            throw std::exception("Transform is missing");
+        }
         m_cam = m_scene_mngr->createCamera(m_name);
+        m_cam_node->setScale(t->getScale());
+        m_cam_node->setPosition(t->getPosition());
         m_cam_node->attachObject(m_cam);
         //m_cam_node->setPosition(100, 500, 100);
         m_cam_node->setPosition(0, 48000, 0);
@@ -124,6 +132,11 @@ namespace Flamingo
     void Camera::desactive()
     {
         m_vp->setCamera(nullptr);
+    }
+
+    Ogre::SceneNode* Camera::getNode()
+    {
+        return m_cam_node;
     }
     void Camera::active()
     {

@@ -59,6 +59,8 @@ namespace Flamingo
         void desactive();
         void active();
 
+        Ogre::SceneNode* getNode(); // NO EXPORTAR
+
         void setTarget(GameObject* go);
         void setOffset(SVector3 offset);
         void FollowTarget();
@@ -66,7 +68,6 @@ namespace Flamingo
         Ogre::Camera* m_cam;
         Ogre::Viewport* m_vp;
         Ogre::SceneManager* m_scene_mngr;
-        // Ogre::SceneNode* m_scene_node;
         Ogre::SceneNode* m_cam_node;
         Flamingo::Window* m_window;
 

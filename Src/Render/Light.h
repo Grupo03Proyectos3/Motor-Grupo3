@@ -54,10 +54,11 @@ namespace Flamingo
         void setShadowFarDistance(float t_distance);
         void setShadowNearClipDistance(float t_nearClip);
 
+        Ogre::SceneNode* getNode(); // NO EXPORTAR
+
       private:
         Ogre::Light* m_light = nullptr;
         Ogre::SceneManager* m_sceneMgr = nullptr;
-        // Ogre::SceneNode* m_scene_node = nullptr;
         Ogre::SceneNode* m_light_node = nullptr;
 
         std::string m_name;
