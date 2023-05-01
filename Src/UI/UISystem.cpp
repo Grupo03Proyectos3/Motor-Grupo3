@@ -7,6 +7,7 @@
 #include <iostream>
 
 // CEGUI
+#include "FlamingoUtils/SVector2.h"
 #include <CEGUI/Base.h>
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
@@ -14,7 +15,6 @@
 #include <CEGUI/SchemeManager.h>
 #include <CEGUI/System.h>
 #include <CEGUI/Window.h>
-#include "FlamingoUtils/SVector2.h"
 
 namespace Flamingo
 {
@@ -24,7 +24,7 @@ namespace Flamingo
 
     UISystem::~UISystem()
     {
-        //CEGUI::System::getSingleton().destroy();
+        // CEGUI::System::getSingleton().destroy();
     }
 
     void UISystem::recieve(const Message& m)
@@ -53,10 +53,15 @@ namespace Flamingo
                 if (m.ui_input.mouse_states[0])
                 {
                     if (m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::LeftButton))
+                    {
                         std::cout << "LEFT DOWN\n";
+                    }
                 }
                 else if (m_guiContext->injectMouseButtonUp(CEGUI::MouseButton::LeftButton))
+                {
                     std::cout << "LEFT UP\n";
+                }
+
                 m_estadoBotones[0] = m.ui_input.mouse_states[0];
             }
 
@@ -65,10 +70,14 @@ namespace Flamingo
                 if (m.ui_input.mouse_states[1])
                 {
                     if (m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::MiddleButton))
+                    {
                         std::cout << "MIDDLE DOWN\n";
+                    }
                 }
                 else if (m_guiContext->injectMouseButtonUp(CEGUI::MouseButton::MiddleButton))
+                {
                     std::cout << "MIDDLE UP\n";
+                }
                 m_estadoBotones[1] = m.ui_input.mouse_states[1];
             }
 
@@ -77,10 +86,14 @@ namespace Flamingo
                 if (m.ui_input.mouse_states[2])
                 {
                     if (m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::RightButton))
+                    {
                         std::cout << "RIGHT DOWN\n";
+                    }
                 }
                 else if (m_guiContext->injectMouseButtonUp(CEGUI::MouseButton::RightButton))
+                {
                     std::cout << "RIGHT UP\n";
+                }
                 m_estadoBotones[2] = m.ui_input.mouse_states[2];
             }
             // if (guiContext->injectMouseButtonClick(CEGUI::MouseButton::LeftButton))
@@ -177,12 +190,12 @@ namespace Flamingo
         }
         m_schemes.clear();
 
-        //eraseMainRoot();
+        // eraseMainRoot();
         m_renderer->setUsingShaders(false);
         CEGUI::System::getSingleton().destroyGUIContext(*m_guiContext);
 
         m_renderer->destroySystem();
-        
+
         CEGUI::System::destroy();
     }
 

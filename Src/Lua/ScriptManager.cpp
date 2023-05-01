@@ -10,10 +10,6 @@ namespace Flamingo
     }
     ScriptManager::~ScriptManager()
     {
-        for (auto it = m_gameScripts.begin(); it != m_gameScripts.end(); ++it)
-            if (it->second != nullptr)
-                delete it->second;
-
         m_gameScripts.clear();
     }
     BehaviourScript* ScriptManager::getScript(std::string t_n)
