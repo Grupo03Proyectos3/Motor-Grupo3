@@ -236,12 +236,15 @@ namespace Flamingo
                 m_data.clear();
             }
 
-            /*  for (auto c : gO->getCurrentComponents())
-              {
-                  c.second->initComponent();
-              }*/
-
             m_scene_mngr.getScene(t_scene)->addObjects(gO);
+
+            for (auto c : gO->getCurrentComponents())
+            {
+                c.second->initComponent();
+            }
+
+            ScriptManager::instance()->startComponents();
+
             // m_scene_mngr.getSceneActive()->addObjects(gO);
         }
 

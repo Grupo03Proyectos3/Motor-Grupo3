@@ -99,7 +99,7 @@ namespace Flamingo
             for (auto c : gO->getCurrentComponents())
             {
                 auto s = dynamic_cast<BehaviourScript*>(c.second);
-                if (s != nullptr)
+                if (s != nullptr && s->gameObject()->getActive() && s->gameObject()->getAlive())
                 {
                     s->start();
                 }

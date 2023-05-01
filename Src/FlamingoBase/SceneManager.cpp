@@ -1,11 +1,15 @@
 #include "SceneManager.h"
+#include "Scene.h"
 #include "ECS/Manager.h"
 #include "Render/RenderSystem.h"
-#include "Scene.h"
 #include "UI/UISystem.h"
+#include "Lua/ScriptManager.h"
+
 #include <OgreRoot.h>
 #include <OgreSceneManagerEnumerator.h>
+
 #include <iostream>
+
 namespace Flamingo
 {
     SceneManager::SceneManager()
@@ -74,15 +78,19 @@ namespace Flamingo
 
     void SceneManager::setSceneActive(std::string t_SceneName)
     {
-        auto t_aux = m_scenes.find(t_SceneName);
-        if (t_aux != m_scenes.end())
+        if (mNameSceneActive != t_SceneName)
         {
-            if (mNameSceneActive != "")
+            auto t_aux = m_scenes.find(t_SceneName);
+            if (t_aux != m_scenes.end())
             {
-                (*m_scenes.find(mNameSceneActive)).second->desactive();
+                if (mNameSceneActive != "")
+                {
+                    (*m_scenes.find(mNameSceneActive)).second->desactive();
+                }
+                (*t_aux).second->active();
+                mNameSceneActive = t_SceneName;
+                Flamingo::ScriptManager::instance()->startComponents();
             }
-            (*t_aux).second->active();
-            mNameSceneActive = t_SceneName;
         }
     }
 

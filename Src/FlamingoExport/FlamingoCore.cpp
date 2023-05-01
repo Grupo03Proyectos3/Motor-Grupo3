@@ -150,8 +150,8 @@ namespace Flamingo
         //  t->initValues(SVector3(0 , 100, 0));
         //  auto r = ecs::AddComponent<MeshRenderer>(p);
         //
-
-        m_mngr->initComponents();
+       /// m_mngr->initComponents();
+        m_camera->initComponent();
         m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
         m_camera->lookAt(SVector3(0, 0, 0), STransformSpace::WORLD);
         m_camera->setNearClipDistance(1);
@@ -159,6 +159,7 @@ namespace Flamingo
         mainScene->addObjects(cam_go);
         render_sys->setMainCamera(m_camera);
         t->translate({-15000, 0, 0}, LOCAL);
+        cmp_light->initComponent();
         cmp_light->setType(Light::DIRECTIONAL);
         cmp_light->setDirection(SVector3(0, -1, -1));
         cmp_light->setSpecularColour();

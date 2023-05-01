@@ -80,6 +80,8 @@ int main(int argc, char* argv[])
         delete core;
     }
 
+    FreeLibrary(hinstLib);
+
     // PARA TRABAJAR DESDE EL MOTOR
     // FreeLibrary(hinstLib);
     // Flamingo::FlamingoCore* fBase = new Flamingo::FlamingoCore();
