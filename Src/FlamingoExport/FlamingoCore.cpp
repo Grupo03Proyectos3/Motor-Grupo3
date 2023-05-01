@@ -66,7 +66,7 @@ namespace Flamingo
         bool scene1 = scripting_sys->loadScene("menu");
         bool scene2 = scripting_sys->loadScene("mapa");
 
-        sceneManager.setSceneActive("menu");
+        sceneManager.setSceneActive("mapa");
 
         // if (/*!scripting_sys->loadScene(m_first_scene)*/ /* !scene1 && */ !scene2)
         //{

@@ -161,7 +161,7 @@ namespace Flamingo
             return;
         }
         else
-        {       
+        {
             // remove error message from Lua state
             lua_pop(lua_state, 1);
             throw std::runtime_error("[LUA ERROR] " + (std::string)lua_tostring(lua_state, -1));
@@ -235,14 +235,14 @@ namespace Flamingo
 
                 m_data.clear();
             }
-           
-          /*  for (auto c : gO->getCurrentComponents())
-            {
-                c.second->initComponent();
-            }*/
+
+            /*  for (auto c : gO->getCurrentComponents())
+              {
+                  c.second->initComponent();
+              }*/
 
             m_scene_mngr.getScene(t_scene)->addObjects(gO);
-            //m_scene_mngr.getSceneActive()->addObjects(gO);
+            // m_scene_mngr.getSceneActive()->addObjects(gO);
         }
 
         return true;
