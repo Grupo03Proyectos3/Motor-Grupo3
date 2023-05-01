@@ -94,9 +94,15 @@ namespace Flamingo
 
     void ScriptManager::startComponents()
     {
-        for (auto c : m_gameScripts)
+        for (auto gO : Manager::instance()->getEntities(GROUP_SCRIPTING))
         {
-            c.second->start();
+            for (auto c : gO->getCurrentComponents())
+            {
+                if (!std::is_base_of_v<BehaviourScript, decltype(c.second)>)
+                {
+                    dynamic_cast<BehaviourScript*>(c.second)->start();
+                }
+            }
         }
     }
 } // namespace Flamingo
