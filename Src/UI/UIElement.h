@@ -20,9 +20,7 @@ namespace CEGUI
 }
 
 namespace Flamingo{
-    /*
-    * ES NECESARIO PARA EL CORRECTO FUNCIONAMIENTO DE ESTE COMPONENTE Q EL GAMEOBJECT QUE LO CONTIENE ESTA ESTE EN EL GRUPO DE ENTIDADES DE UI
-    */
+   
     __declspec(dllexport) struct UIElement : Component
     {
         public:
@@ -52,43 +50,7 @@ namespace Flamingo{
         void setProperty(const std::string& property,  const std::string& file);
 
         void subsEvent(BehaviourScript* t_s);
-                 
-       /* template <class T> 
-        void subscribeEvent(void (T::*func)(), T* comp)
-        {
-            if (m_element != nullptr)
-            {
-                m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
-            }
-        }        
-       
-        template <class T>
-        void subscribeEvent(void (T::*func)(const CEGUI::EventArgs& e), T* comp)
-        {
-            if (m_element != nullptr)
-            {
-                m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
-            }
-        }   
-
-        template <class T>
-        void subscribeEvent(bool (T::*func)(), T* comp)
-        {
-            if (m_element != nullptr)
-            {
-                m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
-            }
-        }
-
-        template <class T>
-        void subscribeEvent(bool (T::*func)(const CEGUI::EventArgs& e), T* comp)
-        {
-            if (m_element != nullptr)
-            {
-                m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(func, comp));
-            }
-        }   
-     */
+                       
         protected:
             CEGUI::Window* getWindowElement();
             void setElement(CEGUI::Window* element);
