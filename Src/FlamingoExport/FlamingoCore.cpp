@@ -45,6 +45,11 @@ namespace Flamingo
 
     bool Flamingo::FlamingoCore::FlamingoInit()
     {
+        if (m_scenes_to_load.empty())
+        {
+            throw std::runtime_error("ERROR: No scenes set to load.\n");
+        }
+
         bool initSuccessful = true;
 
         Loader l;
@@ -63,15 +68,20 @@ namespace Flamingo
         Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();
         render_sys->inicializarShaders();
 
-        bool scene1 = scripting_sys->loadScene("menu");
-        bool scene2 = scripting_sys->loadScene("mapa");
+        bool load_success = false;
+        std::string loading_scene = "";
+        for (auto scene : m_scenes_to_load)
+        {
+            loading_scene = scene;
+            load_success = scripting_sys->loadScene(scene);
+        }
 
-        sceneManager.setSceneActive("mapa");
+        if (!load_success)
+        {
+            throw std::runtime_error("ERROR: Failed loading scene " + loading_scene + "\n");
+        }
 
-        // if (/*!scripting_sys->loadScene(m_first_scene)*/ /* !scene1 && */ !scene2)
-        //{
-        //     throw std::runtime_error("No ha sido posible cargar la escena\n");
-        // }
+        sceneManager.setSceneActive(m_first_scene);
 
         Scene* mainScene = sceneManager.getSceneActive();
         auto nodo = mainScene->getSceneRoot();
@@ -155,7 +165,6 @@ namespace Flamingo
         mainScene->addObjects(light_go);
 
         return initSuccessful;
-       
     }
 
     void Flamingo::FlamingoCore::FlamingoLoop()
@@ -185,7 +194,7 @@ namespace Flamingo
             // Tiempo transcurrido desde el inicio del programa en milisegundos
             time = player_timer->getElapsedTime();
 
-            //Update de los sistemas
+            // Update de los sistemas
             script_sys->update(dt);
             physic_sys->update(dt);
             audio_sys->update(dt);
@@ -224,15 +233,26 @@ namespace Flamingo
         m_first_scene = t_name;
     }
 
+    void FlamingoCore::addSceneToLoad(const std::string& t_name)
+    {
+        m_scenes_to_load.push_back(t_name);
+    }
+
     std::string FlamingoCore::getFirstScene()
     {
         return m_first_scene;
     }
 
-    void SetFirstScene(const std::string& t_scene_name)
+    void setFirstScene(const std::string& t_scene_name)
     {
         Flamingo::FlamingoCore* core = Flamingo::FlamingoCore::instance();
         core->setFirstScene(t_scene_name);
+    }
+
+    FLAMINGOEXPORT_API void addScene(const std::string& t_scene_name)
+    {
+        Flamingo::FlamingoCore* core = Flamingo::FlamingoCore::instance();
+        core->addSceneToLoad(t_scene_name);
     }
 
     void FlamingoCore::prueba()
