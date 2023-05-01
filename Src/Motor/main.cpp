@@ -6,7 +6,7 @@
 
 #include "FlamingoExport/FlamingoCore.h"
 
-typedef bool(__cdecl* GameEntryPoint)(void);
+typedef bool(__cdecl* GameEntryPoint)(Flamingo::FlamingoCore*);
 
 int main(int argc, char* argv[])
 {
@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     HMODULE hinstLib = LoadLibrary(TEXT("GameExport"));
 #endif
 
-    Flamingo::FlamingoCore* fBase = new Flamingo::FlamingoCore();
+    auto core = Flamingo::FlamingoCore::instance();
 
     try
     {
@@ -32,13 +32,11 @@ int main(int argc, char* argv[])
         {
             std::cout << "Libreria cargada\n";
 
-            Flamingo::FlamingoCore* core = Flamingo::FlamingoCore::instance();
-
             // Ejecución de una función
             GameEntryPoint initJuego = (GameEntryPoint)GetProcAddress(hinstLib, "InitJuego");
             if (initJuego)
             {
-                initJuego();
+                initJuego(core);
 
                 if (core->FlamingoInit())
                 {
@@ -78,9 +76,9 @@ int main(int argc, char* argv[])
         std::cout << "Error al ejecutar el motor\n";
     }
 
-    if (fBase != nullptr)
+    if (core != nullptr)
     {
-        delete fBase;
+        core->close();
     }
 
     // PARA TRABAJAR DESDE EL MOTOR

@@ -245,14 +245,13 @@ namespace Flamingo
 
     void setFirstScene(const std::string& t_scene_name)
     {
-        Flamingo::FlamingoCore* core = Flamingo::FlamingoCore::instance();
+        auto core = Flamingo::FlamingoCore::instance();
         core->setFirstScene(t_scene_name);
     }
 
-    FLAMINGOEXPORT_API void addScene(const std::string& t_scene_name)
+    void addScene(const std::string& t_scene_name)
     {
-        Flamingo::FlamingoCore* core = Flamingo::FlamingoCore::instance();
-        core->addSceneToLoad(t_scene_name);
+        Flamingo::FlamingoCore::instance()->addSceneToLoad(t_scene_name);
     }
 
     void FlamingoCore::prueba()
