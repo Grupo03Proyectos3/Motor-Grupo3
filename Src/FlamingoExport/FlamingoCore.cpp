@@ -188,6 +188,7 @@ namespace Flamingo
 
         auto& ihdlr = ih();
 
+        ScriptManager::instance()->startComponents();
         while (motor_running && !render_sys->getWindow()->isWindowClosed())
         {
             // Delta time en milisegundos

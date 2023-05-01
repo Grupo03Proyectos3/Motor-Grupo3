@@ -91,4 +91,12 @@ namespace Flamingo
 
         return false;
     }
+
+    void ScriptManager::startComponents()
+    {
+        for (auto c : m_gameScripts)
+        {
+            c.second->start();
+        }
+    }
 } // namespace Flamingo

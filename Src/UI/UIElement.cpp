@@ -205,7 +205,6 @@ namespace Flamingo
     {
         //BehaviourScript* i = new B();
         
-
         if (m_element != nullptr)
         {
             m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&BehaviourScript::clickFuntion, t_s));

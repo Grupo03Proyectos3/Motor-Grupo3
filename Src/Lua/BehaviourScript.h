@@ -20,7 +20,8 @@ namespace Flamingo
 
         // Clases que podrán ser overrideadas por el desarrollador, para definir a su gusto
         virtual void initValues(){};
-        //virtual void initComponent() override; // == start() ?
+
+        virtual void start(){};
 
         virtual void update(float t_delta_time){};
 

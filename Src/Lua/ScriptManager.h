@@ -45,6 +45,9 @@ namespace Flamingo
         /*Método que comprueba si el gameObject en cuestion contiene el script en cuestión*/
         bool hasScript(std::string t_n, GameObject* t_gO);
 
+        //Llama al star() de los componentes de juego
+        void startComponents();
+
       private:
         friend SingletonECS<Manager>;
 
