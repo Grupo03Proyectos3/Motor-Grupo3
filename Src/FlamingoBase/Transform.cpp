@@ -57,10 +57,10 @@ namespace Flamingo
         Message m;
         m.id = MSG_TRANSFORM_ROTATE;
         m.entity_affected = m_ent;
-        m.quaternion.x = m_rotation.getX();
-        m.quaternion.y = m_rotation.getY();
-        m.quaternion.z = m_rotation.getZ();
-        m.quaternion.w = m_rotation.getW();
+        m.quaternion.x = t_rotation.getX();
+        m.quaternion.y = t_rotation.getY();
+        m.quaternion.z = t_rotation.getZ();
+        m.quaternion.w = t_rotation.getW();
         m.tr_space = t_trs;
         m_mngr->send(m);
     }

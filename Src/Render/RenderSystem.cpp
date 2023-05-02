@@ -86,11 +86,11 @@ namespace Flamingo
                 auto light = m_mngr->getComponent<Light>(t_m.entity_affected);
                 auto cam = m_mngr->getComponent<Camera>(t_m.entity_affected);
                 if (mesh!=nullptr)
-                    mesh->getNode()->rotate(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w),trs);
+                    mesh->getNode()->rotate(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
                 if (light!=nullptr)
-                    light->getNode()->rotate(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w),trs);
+                    light->getNode()->setOrientation(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
                 if (cam != nullptr)
-                    cam->getNode()->rotate(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w),trs);
+                    cam->getNode()->setOrientation(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
                 break;
             }
             case MSG_TRANSFORM_SCALING:
