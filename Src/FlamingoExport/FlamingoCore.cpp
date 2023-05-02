@@ -35,6 +35,7 @@ namespace Flamingo
     Flamingo::FlamingoCore::FlamingoCore()
     {
         m_scenes_to_load.clear();
+        initialized = false;
     }
 
     Flamingo::FlamingoCore::~FlamingoCore()
@@ -49,7 +50,6 @@ namespace Flamingo
         }
 
         bool initSuccessful = true;
-
         Loader l;
         l.loadDirectories();
 
@@ -83,47 +83,8 @@ namespace Flamingo
         sceneManager->setSceneActive(m_first_scene);
 
         Scene* mainScene = sceneManager->getSceneActive();
-        auto nodo = mainScene->getSceneRoot();
-        
-        /*GameObject* UI = m_mngr->addGameObject({GROUP_UI});
-        auto y = addComponent<Transform>(UI);
-        
-        y->initValues();
-        auto x = addComponent<Flamingo::UIElement>(UI);
-        x->setElementWidget("FlamingoDefaultUI/Button", "COSO");
-        x->setText("ODIO CEGUI");
-        x->setImage("NormalImage", "paco", "100.png");
-        x->setImage("PushedImage", "paco2", "alonso1.png");
-        x->setImage("HoverImage", "paco3", "esp.png");
-        y->setPosition({50, 50, 0});
-        y->setScale({100, 100, 0});
-        x->subscribeEvent(&FlamingoCore::prueba, this);
-        x->setActive(true);*/
 
-        /*  ScriptManager::instance()->addGameScript("PruebaScript", new PruebaScript());
-          Flamingo::GameObject* g = m_mngr->addGameObject();
-          Flamingo::addComponent<Transform>(g);
-          Flamingo::addComponent<PruebaScript>(g);
-          if (Flamingo::hasComponent<PruebaScript>(g) && !Flamingo::hasComponent<EnemyAI>(g))
-              std::cout << "hasComponent \n";*/
-
-        // TO DO: eliminar despues de comprobar las animaciones
-        // auto d = mainScene->getObject("dragon");
-        // auto a = m_mngr->getComponent<Flamingo::Animator>(d);
-        // a->setAnimation("idle", true, true);
-
-        // enemigos
-        // auto enemigo = m_mngr->getEntities(GROUP_RENDER);
-        // auto ene = m_mngr->addComponent<EnemyAI>(enemigo[2]);
-        // ene->initValues();
-        // m_mngr->addGameObjectToGroups(enemigo[2], {GROUP_SCRIPTING});
-
-        // ecs::GameObject* p = m_mngr->addGameObject({ecs::GROUP_RENDER});
-        //  auto t = ecs::AddComponent<Transform>(p);
-        //  t->initValues(SVector3(0 , 100, 0));
-        //  auto r = ecs::AddComponent<MeshRenderer>(p);
-        //
-       
+        //Cámara y Luces iniciales       
         auto cam = mainScene->getObject("myCamera");
         auto m_camera = m_mngr->getComponent<Flamingo::Camera>(cam);
         
@@ -142,7 +103,8 @@ namespace Flamingo
         cmp_light->setSpecularColour();
         cmp_light->setDiffuseColour();
        
-        return initSuccessful;
+        initialized = true;
+        return initialized;
     }
 
     void Flamingo::FlamingoCore::FlamingoLoop()
@@ -198,11 +160,16 @@ namespace Flamingo
 
     bool Flamingo::FlamingoCore::FlamingoExit()
     {
+        if (!initialized)
+        {
+            return false;
+        }
+
         Manager::close();
         InputHandler::close();
         InputHandlerContainer::close();
-
-        return false;
+        initialized = false;
+        return true;
     }
 
     void FlamingoCore::setFirstScene(std::string t_name)

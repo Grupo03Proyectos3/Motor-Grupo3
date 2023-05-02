@@ -23,10 +23,21 @@ namespace Flamingo
         /**
         @brief Inicializa los sistemas y carga la escena inicial
         *
-        @return
+        @return bool True si  se logró inicializar el motor correctamente
         */
         bool FlamingoInit();
+
+        /**
+        @brief Bucle principal del motor donde se actualizan los sistemas que gestionan los componentes
+        *
+        */
         void FlamingoLoop();
+
+        /**
+        @brief Libera los recursos del motor, comprobando 
+        *
+        @return bool Devuelve false si no estaba inicializado el motor. True si elimina los recursos del motor con éxito.
+        */
         bool FlamingoExit();
 
         void setFirstScene(std::string t_name);
@@ -45,6 +56,8 @@ namespace Flamingo
 
         std::string m_first_scene = "mapa"; // TO DO : poner un nombre por defecto? para una escena por defecto?
         std::vector<std::string> m_scenes_to_load;
+
+        bool initialized;
     };
 
     //extern "C" FLAMINGOEXPORT_API void setFirstScene(std::string t_scene_name);

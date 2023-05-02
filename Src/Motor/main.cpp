@@ -27,7 +27,6 @@ int main(int argc, char* argv[])
     try
     {
         // PARA TRABAJAR CON EL JUEGO
-
         if (hinstLib != NULL)
         {
             std::cout << "Libreria cargada\n";
@@ -36,7 +35,7 @@ int main(int argc, char* argv[])
             if (initJuego)
             {
                 initJuego();
-
+                
                 if (core->FlamingoInit())
                 {
                     core->FlamingoLoop();
@@ -55,24 +54,10 @@ int main(int argc, char* argv[])
         {
             std::cout << "No se encuentra la DLL DllJuego\n";
         }
-
-        // PARA TRABAJAR DESDE EL MOTOR
-        /*FreeLibrary(hinstLib);
-        if (fBase->FlamingoInit())
-        {
-            fBase->FlamingoLoop();
-            fBase->FlamingoExit();
-        }
-
-        delete fBase;*/
     }
     catch (std::exception& excepcion)
     {
         std::cout << excepcion.what() << '\n';
-    }
-    catch (...)
-    {
-        std::cout << "Error al ejecutar el motor\n";
     }
 
     if (core != nullptr)
