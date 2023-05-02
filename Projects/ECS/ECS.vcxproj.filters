@@ -59,10 +59,10 @@
     <ClInclude Include="..\..\Src\ECS\GameObject.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\ECS\Components.h">
+    <ClInclude Include="..\..\Src\ECS\InputHandlerContainer.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\ECS\InputHandlerContainer.h">
+    <ClInclude Include="..\..\Src\ECS\ManagerFunctions.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

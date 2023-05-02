@@ -27,13 +27,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\ECS\Component.h" />
-    <ClInclude Include="..\..\Src\ECS\Components.h" />
     <ClInclude Include="..\..\Src\ECS\ecs.h" />
     <ClInclude Include="..\..\Src\ECS\ecs_defs.h" />
     <ClInclude Include="..\..\Src\ECS\GameObject.h" />
     <ClInclude Include="..\..\Src\ECS\InputHandler.h" />
     <ClInclude Include="..\..\Src\ECS\InputHandlerContainer.h" />
     <ClInclude Include="..\..\Src\ECS\Manager.h" />
+    <ClInclude Include="..\..\Src\ECS\ManagerFunctions.h" />
     <ClInclude Include="..\..\Src\ECS\messages_defs.h" />
     <ClInclude Include="..\..\Src\ECS\SingletonECS.h" />
     <ClInclude Include="..\..\Src\ECS\System.h" />
