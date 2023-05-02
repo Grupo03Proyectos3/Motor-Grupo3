@@ -168,6 +168,7 @@ namespace Flamingo
         Manager::close();
         InputHandler::close();
         InputHandlerContainer::close();
+        ScriptManager::close();
         initialized = false;
         return true;
     }
