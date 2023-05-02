@@ -238,7 +238,10 @@ namespace Flamingo
     void PhysicsSystem::removeRigidBody(btRigidBody* t_rb)
     {
         if (t_rb != nullptr)
+        {
             m_world->removeRigidBody(t_rb);
+            m_collision_shapes->remove(t_rb->getCollisionShape());
+        }
     }
 
     btRigidBody* PhysicsSystem::createRigidBody(btTransform* t_transform, btCollisionShape* t_shape, const float& t_mass)

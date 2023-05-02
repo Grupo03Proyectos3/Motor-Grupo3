@@ -43,11 +43,10 @@ namespace Flamingo
         else
             m_mass = (t_mass);
 
-                auto transform = m_mngr->getComponent<Transform>(m_ent);
-
+        auto transform = m_mngr->getComponent<Transform>(m_ent);
 
         m_shape = new btBoxShape({1.0f, 1.0f, 1.0f});
-        
+
         m_bullet_transform = new btTransform({0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f});
 
         m_rigid_body = m_mngr->getSystem<Flamingo::PhysicsSystem>()->createRigidBody(m_bullet_transform, m_shape, m_mass);
@@ -76,11 +75,17 @@ namespace Flamingo
             // Calculate the dimensions of the box collider
             btVector3 halfExtents(meshBoundingBox.getSize().x * 0.5f, meshBoundingBox.getSize().y * 0.5f, meshBoundingBox.getSize().z * 0.5f);
             halfExtents *= transform->getScale();
+
             m_shape->setLocalScaling(halfExtents);
         }
 
         m_bullet_transform->setOrigin(transform->getPosition());
         m_bullet_transform->setRotation(transform->getRotation());
+
+        m_mngr->getSystem<Flamingo::PhysicsSystem>()->removeRigidBody(m_rigid_body);
+        delete m_rigid_body;
+        m_rigid_body = m_mngr->getSystem<Flamingo::PhysicsSystem>()->createRigidBody(m_bullet_transform, m_shape, m_mass);
+        m_mngr->getSystem<Flamingo::PhysicsSystem>()->addRigidBody(m_rigid_body);
     }
 
     void RigidBody::setMass(const float& t_mass)
@@ -92,6 +97,7 @@ namespace Flamingo
     {
         if (m_shape == nullptr)
             return;
+
         m_shape->setLocalScaling(m_shape->getLocalScaling() * t_scale);
     }
 
