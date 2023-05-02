@@ -10,7 +10,7 @@
 namespace Flamingo{
     class InputHandler;
 
-    __declspec(dllexport) class InputHandlerContainer : public SingletonECS<InputHandlerContainer>
+    class FLAMINGOEXPORT_API InputHandlerContainer : public SingletonECS<InputHandlerContainer>
     {
         friend SingletonECS<InputHandlerContainer>;
 
@@ -53,6 +53,6 @@ namespace Flamingo{
     };
     // This macro defines a compact way for using the singleton InputHandler
     //
-    InputHandlerContainer& Input();
+    FLAMINGOEXPORT_API InputHandlerContainer& Input();
 } // namespace Flamingo
 #endif

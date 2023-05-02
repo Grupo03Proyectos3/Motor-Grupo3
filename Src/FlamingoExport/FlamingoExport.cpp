@@ -15,6 +15,8 @@
 #include "FlamingoBase/SceneManager.h"
 #include "FlamingoUtils/SVector3.h"
 #include "FlamingoBase/Transform.h"
+#include "ECS/InputHandlerContainer.h"
+#include "FlamingoUtils/FlamingoKeys.h"
 #include <iostream>
 
     //// Ejemplo de variable exportada
