@@ -17,22 +17,22 @@ namespace Ogre
 
 namespace Flamingo
 {
-     struct MeshRenderer : public Component
+    struct  MeshRenderer : public Component
     {
       public:
         __SYSTEM_ID_DECL__(_cmp_MESH_RENDERER)
 
         MeshRenderer(){};
         virtual ~MeshRenderer();
-        __declspec(dllexport) virtual void initValues(SVector3 scaleNode, std::string t_model_name, std::string t_entity_name);
-        __declspec(dllexport) virtual void initComponent();
+        FLAMINGOEXPORT_API virtual void initValues(SVector3 scaleNode, std::string t_model_name, std::string t_entity_name);
+        FLAMINGOEXPORT_API virtual void initComponent();
 
-        __declspec(dllexport) void changeMaterial(std::string t_materialName);
-        __declspec(dllexport) void onDisable();
-        __declspec(dllexport) void onEnable();
-        __declspec(dllexport) void setRenderingDistance(float t_d);
-        __declspec(dllexport) void setDebugVisibility(bool t_b);
-        __declspec(dllexport) void setCastShadows(bool t_b);
+        FLAMINGOEXPORT_API void changeMaterial(std::string t_materialName);
+        FLAMINGOEXPORT_API void onDisable();
+        FLAMINGOEXPORT_API void onEnable();
+        FLAMINGOEXPORT_API void setRenderingDistance(float t_d);
+        FLAMINGOEXPORT_API void setDebugVisibility(bool t_b);
+        FLAMINGOEXPORT_API void setCastShadows(bool t_b);
         void attachObjectToBone(std::string t_bone_name, Ogre::Entity* t_ent); // NO EXPORTAR
         void detachObjectFromBone(Ogre::Entity* t_ent);                        // NO EXPORTAR
         void detachObjectFromBone(std::string t_bone);

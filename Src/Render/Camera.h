@@ -17,7 +17,7 @@ namespace Ogre
 
 namespace Flamingo
 {
-    __declspec(dllexport) struct Camera : Flamingo::Component
+    struct FLAMINGOEXPORT_API Camera : Flamingo::Component
     {
       public:
         __SYSTEM_ID_DECL__(Flamingo::_cpm_CAMERA)

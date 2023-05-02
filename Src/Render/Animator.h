@@ -16,7 +16,7 @@ namespace Ogre
 
 namespace Flamingo
 {
-    class __declspec(dllexport) Animator : public Flamingo::Component
+    class FLAMINGOEXPORT_API Animator : public Flamingo::Component
     {
       public:
         __SYSTEM_ID_DECL__(Flamingo::_cmp_ANIMATOR)

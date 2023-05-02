@@ -13,7 +13,7 @@ namespace FMOD
 }
 namespace Flamingo
 {
-    FLAMINGOEXPORT_API class AudioSource : public Flamingo::Component
+    class FLAMINGOEXPORT_API AudioSource : public Flamingo::Component
     {
       public:
         __SYSTEM_ID_DECL__(Flamingo::_cmp_AUDIO_SOURCE)

@@ -19,7 +19,7 @@ namespace Flamingo
         LOCAL,
         PARENT
     };
-    __declspec(dllexport) struct Transform : public Component
+    struct __declspec(dllexport) Transform : public Component
     {
       public:
         __SYSTEM_ID_DECL__(_cpm_TRANSFORM)

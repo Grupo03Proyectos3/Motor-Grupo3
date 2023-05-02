@@ -6,6 +6,7 @@
 
 
 #include <iostream>
+#include "FlamingoExport/FlamingoAPI.h" 
 
 namespace Ogre
 {
@@ -30,7 +31,7 @@ namespace CEGUI
 namespace Flamingo
 {
 
-    class SVector2
+    class FLAMINGOEXPORT_API SVector2
     {
       public:
         SVector2();

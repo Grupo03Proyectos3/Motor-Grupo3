@@ -18,7 +18,7 @@ namespace Ogre
 #include <string>
 namespace Flamingo
 {
-    FLAMINGOEXPORT_API struct ParticleSystem : public Component
+    struct FLAMINGOEXPORT_API ParticleSystem : public Component
     {
       public:
         __SYSTEM_ID_DECL__(_cpm_PARTICLE_SYSTEM)

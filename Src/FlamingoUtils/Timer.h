@@ -6,7 +6,7 @@
 
 namespace Flamingo
 {
-    FLAMINGOEXPORT_API class Timer
+    class FLAMINGOEXPORT_API Timer
     {
     public:
         Timer();

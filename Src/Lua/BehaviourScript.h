@@ -4,9 +4,10 @@
 
 #include "ECS/Component.h"
 #include "ECS/GameObject.h"
+#include "FlamingoExport/FlamingoAPI.h"
 namespace Flamingo
 {
-    struct __declspec(dllexport) BehaviourScript : public Flamingo::Component
+    struct FLAMINGOEXPORT_API BehaviourScript : public Flamingo::Component
     {
       public:
         __SYSTEM_ID_DECL__(Flamingo::_cmp_BEHAVIOUR_SCRIPT)

@@ -13,7 +13,7 @@
 
 #include "FlamingoBase/Scene.h"
 #include "FlamingoBase/SceneManager.h"
-
+#include "FlamingoUtils/SVector3.h"
 #include <iostream>
 
     //// Ejemplo de variable exportada

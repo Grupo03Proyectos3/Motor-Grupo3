@@ -25,7 +25,7 @@ namespace CEGUI
  */
 namespace Flamingo
 {
-    FLAMINGOEXPORT_API class SQuaternion
+    class FLAMINGOEXPORT_API SQuaternion
     {
       public:
         SQuaternion();

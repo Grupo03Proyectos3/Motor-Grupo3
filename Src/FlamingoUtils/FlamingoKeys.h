@@ -3,9 +3,10 @@
 #ifndef __FLAMINGO_KEYS_H__
 #define __FLAMINGO_KEYS_H__
 #include <cstdint>
+#include "FlamingoExport/FlamingoAPI.h"
 namespace Flamingo{
     typedef int32_t FLM_Keycode;    
-    typedef enum
+    typedef enum FLAMINGOEXPORT_API
     {
         FLM_UNKNOWN,
         FLM_RETURN,

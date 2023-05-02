@@ -12,7 +12,7 @@ namespace Ogre
 
 namespace Flamingo
 {
-    FLAMINGOEXPORT_API class SColor
+    class FLAMINGOEXPORT_API SColor
     {
       public:
         SColor(float t_r = 1.0f, float t_g = 1.0f, float t_b = 1.0f, float t_a = 1.0f);
