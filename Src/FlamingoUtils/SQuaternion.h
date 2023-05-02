@@ -42,6 +42,8 @@ namespace Flamingo
         double getW();
 
         void operator*=(const SQuaternion& other);
+        SQuaternion operator+(const SQuaternion& other);
+        SQuaternion operator-(const SQuaternion& other);
 
         friend std::ostream& operator<<(std::ostream& out, const SQuaternion& q);
         friend std::istream& operator>>(std::istream& in, SQuaternion& q);

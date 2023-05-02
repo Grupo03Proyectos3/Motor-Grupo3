@@ -14,6 +14,7 @@
 #include "FlamingoBase/Scene.h"
 #include "FlamingoBase/SceneManager.h"
 #include "FlamingoUtils/SVector3.h"
+#include "FlamingoUtils/SQuaternion.h"
 #include "FlamingoBase/Transform.h"
 #include "ECS/InputHandlerContainer.h"
 #include "FlamingoUtils/FlamingoKeys.h"

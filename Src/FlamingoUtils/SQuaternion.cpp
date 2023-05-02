@@ -124,6 +124,16 @@ namespace Flamingo
         m_w = v.getW();
     }
 
+    SQuaternion SQuaternion::operator+(const SQuaternion& other)
+    {
+        return SQuaternion(this->m_x + other.m_x, this->m_y + other.m_y, this->m_z + other.m_z, this->m_w + other.m_w);
+    }
+
+    SQuaternion SQuaternion::operator-(const SQuaternion& other)
+    {
+        return SQuaternion(this->m_x - other.m_x, this->m_y - other.m_y, this->m_z - other.m_z, this->m_w - other.m_w);
+    }
+
     std::ostream& operator<<(std::ostream& out, const SQuaternion& q)
     {
         out << q.m_x << " "
