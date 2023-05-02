@@ -184,7 +184,6 @@ namespace Flamingo
         {
             return false;
         }
-
         auto myScene = m_scene_mngr.createScene(t_scene, true);
 
         m_mngr->getSystem<RenderSystem>()->addShadersScene(myScene);
@@ -199,29 +198,33 @@ namespace Flamingo
             luabridge::LuaRef entity = getFromLua(allEnts[i]);
             GameObject* gO = m_mngr->addGameObject({GROUP_EXAMPLE});
 
-            // Ordenar componentes de la entidad
-            std::vector<std::string> componentNames;
             lua_pushnil(entity);
             if (entity.isNil())
                 throw std::exception("ERROR loading the scene");
-            while (!entity.isNil() && lua_next(entity, 0) != 0) // Recorro los componentes que hay la entidad
+           
+            while (!entity.isNil() && lua_next(entity, 0) != 0)
             {
                 std::string compName = lua_tostring(entity, -2); // Tipo de componente
-                componentNames.push_back(compName);
-                lua_pop(entity, 1);
-            }
-
-            // Ordenar atributos de cada componente
-            std::sort(componentNames.begin(), componentNames.end());
-            for (const auto& compName : componentNames)
-            {
                 luabridge::LuaRef component = entity[compName];
                 lua_pushnil(component);
 
                 while (lua_next(component, 0) != 0) // Recorro los atributos del componente
                 {
-                    std::string key = lua_tostring(entity, -2); // Nombre del atributo
-                    std::string val = lua_tostring(entity, -1); // Valor del atributo
+                    std::string key, val;
+                    if (compName == "Scripts")
+                    {
+                        key = "t_scriptName";
+                        val = lua_tostring(entity, -1); // Valor del atributo
+                        m_data.insert({key, val});
+                        m_componentFactory->addComponent(gO, compName, m_data);
+                        m_data.clear();
+                    }
+                    else
+                    {
+                        key = lua_tostring(entity, -2); // Nombre del atributo
+                        val = lua_tostring(entity, -1); // Valor del atributo
+                    }
+                    
                     if (compName == "Name")
                     {
                         gO->setName(val);
@@ -230,13 +233,15 @@ namespace Flamingo
                             m_mngr->setHandler(_hdr_player, gO);
                         }
                     }
+                    
                     else
                         m_data.insert({key, val});
                     lua_pop(component, 1);
                 }
-                if (compName != "Name")
+                if (compName != "Name" && compName != "Scripts")
                     m_componentFactory->addComponent(gO, compName, m_data); // (GameObject, tipo de componente, el map)
 
+                lua_pop(entity, 1);
                 m_data.clear();
             }
             m_scene_mngr.getScene(t_scene)->addObjects(gO); //Añadir el objeto a la escena
