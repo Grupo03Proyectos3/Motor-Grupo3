@@ -3,7 +3,7 @@
 #define __FACTORY_H__
 
 #include "ECS/Component.h"
-#include "ECS/Components.h"
+#include "ECS/ManagerFunctions.h"
 #include "ECS/GameObject.h"
 #include "ECS/Manager.h"
 #include <map>

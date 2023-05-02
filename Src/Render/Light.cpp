@@ -6,7 +6,7 @@
 #include <OgreVector3.h>
 
 #include "ECS/Manager.h"
-#include "ECS/Components.h"
+#include "ECS/ManagerFunctions.h"
 #include "FlamingoBase/Transform.h"
 #include "RenderSystem.h"
 namespace Flamingo

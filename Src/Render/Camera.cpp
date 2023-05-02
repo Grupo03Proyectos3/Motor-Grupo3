@@ -1,6 +1,6 @@
 #include "Camera.h"
 #include "RenderSystem.h"
-#include "ECS/Components.h"
+#include "ECS/ManagerFunctions.h"
 
 #include <OgreCamera.h>
 #include <OgreRenderWindow.h>

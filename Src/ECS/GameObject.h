@@ -20,7 +20,7 @@ namespace Flamingo
      *  Clase que representa una Entidad.
      */
 
-     __declspec(dllexport) class GameObject
+     class __declspec(dllexport) GameObject
     {
       public:
         GameObject();

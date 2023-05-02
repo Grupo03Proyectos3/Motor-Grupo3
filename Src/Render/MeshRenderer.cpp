@@ -1,7 +1,7 @@
 #include "MeshRenderer.h"
 
 #include "RenderSystem.h"
-#include "ECS/Components.h"
+#include "ECS/ManagerFunctions.h"
 #include "ECS/Manager.h"
 #include "FlamingoBase/Transform.h"
 #include "FlamingoUtils/SVector3.h"

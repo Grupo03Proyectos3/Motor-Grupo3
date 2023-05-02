@@ -12,7 +12,7 @@
 #include "UI/UIElement.h"
 
 #include "ECS/InputHandlerContainer.h"
-#include "ECS/Components.h"
+#include "ECS/ManagerFunctions.h"
 
 #include "FlamingoBase/Scene.h"
 #include "FlamingoBase/SceneManager.h"

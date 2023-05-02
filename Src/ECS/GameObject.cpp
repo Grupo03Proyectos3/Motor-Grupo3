@@ -12,7 +12,7 @@ namespace Flamingo
         m_current_comps.reserve(maxComponentId);
     }
 
-    GameObject::GameObject(std::vector<Flamingo::groupId_type> t_gId = {GROUP_EXAMPLE})
+    GameObject::GameObject(std::vector<Flamingo::groupId_type> t_gId)
         : m_current_comps()
         , m_alive()
         , m_active(true)
