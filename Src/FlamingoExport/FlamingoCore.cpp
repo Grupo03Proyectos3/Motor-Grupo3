@@ -81,66 +81,6 @@ namespace Flamingo
         }
 
         sceneManager->setSceneActive(m_first_scene);
-
-        Scene* mainScene = sceneManager->getSceneActive();
-        auto nodo = mainScene->getSceneRoot();
-        
-        /*GameObject* UI = m_mngr->addGameObject({GROUP_UI});
-        auto y = addComponent<Transform>(UI);
-        
-        y->initValues();
-        auto x = addComponent<Flamingo::UIElement>(UI);
-        x->setElementWidget("FlamingoDefaultUI/Button", "COSO");
-        x->setText("ODIO CEGUI");
-        x->setImage("NormalImage", "paco", "100.png");
-        x->setImage("PushedImage", "paco2", "alonso1.png");
-        x->setImage("HoverImage", "paco3", "esp.png");
-        y->setPosition({50, 50, 0});
-        y->setScale({100, 100, 0});
-        x->subscribeEvent(&FlamingoCore::prueba, this);
-        x->setActive(true);*/
-
-        /*  ScriptManager::instance()->addGameScript("PruebaScript", new PruebaScript());
-          Flamingo::GameObject* g = m_mngr->addGameObject();
-          Flamingo::addComponent<Transform>(g);
-          Flamingo::addComponent<PruebaScript>(g);
-          if (Flamingo::hasComponent<PruebaScript>(g) && !Flamingo::hasComponent<EnemyAI>(g))
-              std::cout << "hasComponent \n";*/
-
-        // TO DO: eliminar despues de comprobar las animaciones
-        // auto d = mainScene->getObject("dragon");
-        // auto a = m_mngr->getComponent<Flamingo::Animator>(d);
-        // a->setAnimation("idle", true, true);
-
-        // enemigos
-        // auto enemigo = m_mngr->getEntities(GROUP_RENDER);
-        // auto ene = m_mngr->addComponent<EnemyAI>(enemigo[2]);
-        // ene->initValues();
-        // m_mngr->addGameObjectToGroups(enemigo[2], {GROUP_SCRIPTING});
-
-        // ecs::GameObject* p = m_mngr->addGameObject({ecs::GROUP_RENDER});
-        //  auto t = ecs::AddComponent<Transform>(p);
-        //  t->initValues(SVector3(0 , 100, 0));
-        //  auto r = ecs::AddComponent<MeshRenderer>(p);
-        //
-       
-        auto cam = mainScene->getObject("myCamera");
-        auto m_camera = m_mngr->getComponent<Flamingo::Camera>(cam);
-        
-        m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
-        m_camera->lookAt(SVector3(0, 0, 0), STransformSpace::LOCAL);
-        m_camera->setNearClipDistance(1);
-        m_camera->setFarClipDistance(100000);
-       // m_camera->setTarget(mainScene->getObject("Arbol"));
-        //t->translate({-15000, 0, 0}, LOCAL);
-        render_sys->setMainCamera(m_camera);
-
-        auto light = mainScene->getObject("mylight");
-        auto cmp_light = m_mngr->getComponent<Flamingo::Light>(light);
-        cmp_light->setType(Light::DIRECTIONAL);
-        cmp_light->setDirection(SVector3(0, -1, -1));
-        cmp_light->setSpecularColour();
-        cmp_light->setDiffuseColour();
        
         return initSuccessful;
     }

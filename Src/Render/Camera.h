@@ -65,7 +65,7 @@ namespace Flamingo
         Flamingo::Window* m_window;
 
         GameObject* m_target;
-        SVector3 m_offset;
+        SVector3 m_offset=SVector3(0,100,0);
 
         std::string m_name;
     };
