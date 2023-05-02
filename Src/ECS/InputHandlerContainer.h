@@ -3,24 +3,23 @@
 #ifndef __INPUT_HANDLER_CONTAINER_H__
 #define __INPUT_HANDLER_CONTAINER_H__
 
-
 #include "FlamingoUtils/FlamingoKeys.h"
-#include "FlamingoExport/FlamingoAPI.h"
 #include <ECS/SingletonECS.h>
-namespace Flamingo{
+
+namespace Flamingo
+{
     class InputHandler;
 
-    class FLAMINGOEXPORT_API InputHandlerContainer : public SingletonECS<InputHandlerContainer>
+    class __declspec(dllexport) InputHandlerContainer : public SingletonECS<InputHandlerContainer>
     {
         friend SingletonECS<InputHandlerContainer>;
 
       public:
-
         InputHandlerContainer();
 
         virtual ~InputHandlerContainer();
 
-        void clearState();       
+        void clearState();
 
         // close window event
         bool closeWindowEvent();
@@ -33,7 +32,7 @@ namespace Flamingo{
 
         bool keyUpEvent();
 
-        bool isKeyDown(FLM_KeyCode t_key);      
+        bool isKeyDown(FLM_KeyCode t_key);
 
         bool isKeyUp(FLM_KeyCode t_key);
 
@@ -53,6 +52,10 @@ namespace Flamingo{
     };
     // This macro defines a compact way for using the singleton InputHandler
     //
-    FLAMINGOEXPORT_API InputHandlerContainer& Input();
+    __declspec(dllexport)InputHandlerContainer& Input();
+
+    // Export the InputHandlerContainer class
+    template class __declspec(dllexport) SingletonECS<InputHandlerContainer>;
+
 } // namespace Flamingo
 #endif
