@@ -8,6 +8,7 @@
 
 typedef bool(__cdecl* GameEntryPoint)(void);
 
+#ifdef _DEBUG
 int main(int argc, char* argv[])
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -16,9 +17,11 @@ int main(int argc, char* argv[])
     _CrtMemState sDiff;
     _CrtMemCheckpoint(&sOld); // take a snapshot
 
-#ifdef _DEBUG
     HMODULE hinstLib = LoadLibrary(TEXT("GameExport_d"));
 #else
+
+int WINAPI wWinMain(HINSTANCE hInstance,  HINSTANCE  hPrevInstance, PWSTR pCmdLine, int nCmdShow)
+{
     HMODULE hinstLib = LoadLibrary(TEXT("GameExport"));
 #endif
 
