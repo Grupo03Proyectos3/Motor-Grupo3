@@ -24,7 +24,7 @@ namespace Flamingo
      * Almacena los valores de un Vector3 y cuenta con setters, getters, conversores a las otras clases Vector3 y métodos que se irán añadiendo
      * relacionados con transformaciones en éste.
      */
-    FLAMINGOEXPORT_API class SVector3
+    class FLAMINGOEXPORT_API SVector3
     {
       public:
         SVector3();
