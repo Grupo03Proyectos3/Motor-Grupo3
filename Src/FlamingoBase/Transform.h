@@ -51,7 +51,7 @@ namespace Flamingo
          * @param[in] t_rotation SQuaternion rotación en la que se desea colocar
          * @return
          */
-        void setRotation(SQuaternion t_rotation);
+        void setRotation(SQuaternion t_rotation, STransformSpace t_trs = STransformSpace::LOCAL);
         void setPositionPerPhysics(SVector3 t_pos);
         void setRotationPerPhysics(SQuaternion t_rotation);
         /**

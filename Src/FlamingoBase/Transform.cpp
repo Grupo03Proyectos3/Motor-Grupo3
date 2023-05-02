@@ -51,7 +51,7 @@ namespace Flamingo
         m_mngr->send(m);
     }
 
-    void Transform::setRotation(SQuaternion t_rotation)
+    void Transform::setRotation(SQuaternion t_rotation, STransformSpace t_trs)
     {
         m_rotation = t_rotation;
         Message m;
@@ -61,7 +61,7 @@ namespace Flamingo
         m.quaternion.y = m_rotation.getY();
         m.quaternion.z = m_rotation.getZ();
         m.quaternion.w = m_rotation.getW();
-        // m.v = &m_scale;
+        m.tr_space = t_trs;
         m_mngr->send(m);
     }
 

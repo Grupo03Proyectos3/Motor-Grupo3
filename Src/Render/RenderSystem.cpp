@@ -72,15 +72,25 @@ namespace Flamingo
             {
                 if (t_m.entity_affected == nullptr)
                     return;
+                auto trs = Ogre::Node::TransformSpace::TS_LOCAL;
+                switch (t_m.tr_space)
+                {
+                    case PARENT:
+                        trs = Ogre::Node::TransformSpace::TS_PARENT;
+                    case WORLD:
+                        trs = Ogre::Node::TransformSpace::TS_WORLD;
+                    default:
+                        break;
+                }
                 auto mesh = m_mngr->getComponent<MeshRenderer>(t_m.entity_affected);
                 auto light = m_mngr->getComponent<Light>(t_m.entity_affected);
                 auto cam = m_mngr->getComponent<Camera>(t_m.entity_affected);
                 if (mesh!=nullptr)
-                    mesh->getNode()->setOrientation(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
+                    mesh->getNode()->rotate(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w),trs);
                 if (light!=nullptr)
-                    light->getNode()->setOrientation(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
+                    light->getNode()->rotate(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w),trs);
                 if (cam != nullptr)
-                    cam->getNode()->setOrientation(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w));
+                    cam->getNode()->rotate(SQuaternion(t_m.quaternion.x, t_m.quaternion.y, t_m.quaternion.z, t_m.quaternion.w),trs);
                 break;
             }
             case MSG_TRANSFORM_SCALING:
