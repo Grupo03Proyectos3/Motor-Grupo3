@@ -109,6 +109,7 @@ namespace Flamingo
 
     void Transform::translate(SVector3 distance, STransformSpace t_trs)
     {
+        m_position += distance;
         Message m;
         m.id = MSG_TRANSFORM_TRANSLATE;
         m.entity_affected = m_ent;

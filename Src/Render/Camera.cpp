@@ -159,7 +159,9 @@ namespace Flamingo
             mtrp->setPosition(trpTarget->getPosition() - newOffset);                     
             mtrp->setRotation(trpTarget->getRotation());
 
-            lookAt({-trpTarget->getPosition().getX(), trpTarget->getPosition().getY(), -trpTarget->getPosition().getZ()}, WORLD);
+            lookAt({trpTarget->getPosition().getX(), trpTarget->getPosition().getY(), trpTarget->getPosition().getZ()}, WORLD);
+            roll(180);
+            //std::cout << trpTarget->getPosition() << "\n";
         }
     }
 } // namespace Flamingo
