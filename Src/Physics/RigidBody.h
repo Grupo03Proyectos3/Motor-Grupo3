@@ -31,6 +31,7 @@ namespace Flamingo{
         virtual void initComponent();
 
         void setMass(const float& t_mass);
+        void setScale(const SVector3 t_scale);
         void setTrigger(bool t_trigger);
         void setStatic(bool t_static);
         void setKinematic(bool t_kinematic);

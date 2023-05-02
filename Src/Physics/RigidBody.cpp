@@ -88,6 +88,14 @@ namespace Flamingo
         m_mass = t_mass;
     }
 
+    void RigidBody::setScale(const SVector3 t_scale)
+    {
+        if (m_shape == nullptr)
+            return;
+
+        m_shape->setLocalScaling(t_scale);
+    }
+
     void RigidBody::setTrigger(bool t_trigger)
     {
         m_trigger = t_trigger;
