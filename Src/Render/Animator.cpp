@@ -42,11 +42,13 @@ namespace Flamingo
         if (m_meshRenderer->getEntity()->getAllAnimationStates() != nullptr)
         {
             Ogre::AnimationStateMap mapa = m_meshRenderer->getEntity()->getAllAnimationStates()->getAnimationStates();
+            std::cout << m_name << " My Animations: ";
             for (auto it = mapa.begin(); it != mapa.end(); it++)
             {
                 m_animations.insert({it->first, it->second});
                 std::cout << it->first << "\n";
             }
+            std::cout << "\n";
         }
     }
 
@@ -90,8 +92,9 @@ namespace Flamingo
         {
             it->second->setEnabled(t_active);
             it->second->setLoop(t_loop);
+            m_num_animations_active += t_active ? +1 : -1;
         }
-        m_num_animations_active += t_active ? +1 : -1;
+       
     }
 
     void Animator::updateAnimations(double time)
