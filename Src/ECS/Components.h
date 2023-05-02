@@ -4,17 +4,18 @@
 #define __COMPONENTS_H__
 
 #include "Component.h"
+#include "Manager.h"
 #include "Lua/ScriptManager.h"
-#include "FlamingoExport/FlamingoAPI.h"
 #include "ecs.h"
 
 namespace Flamingo
 {
     class GameObject;
+
     /*Añade al gameObejct dado y devuelve el componente, solicitandolo al manager directamente o pasando por el ScriptManager según 
     * si pertenece al motor o ha sido creado por el ususario del motor */
     template <typename T>
-    FLAMINGOEXPORT_API inline T* addComponent(GameObject* gO)
+    __declspec(dllexport) inline T* addComponent(GameObject* gO)
     {
         if (!std::is_base_of_v<BehaviourScript, T>)
             return Manager::instance()->addComponent<T>(gO);
@@ -26,7 +27,7 @@ namespace Flamingo
       /*Elimina componente del GameObject si posee, solicitandolo al manager directamente o pasando por el ScriptManager según
      * si pertenece al motor o ha sido creado por el ususario del motor */
     template <typename T>
-    FLAMINGOEXPORT_API inline void removeComponent(GameObject* gO)
+    __declspec(dllexport) inline void removeComponent(GameObject* gO)
     {
         if (!std::is_base_of_v<BehaviourScript, T>)
             Manager::instance()->removeComponent<T>(gO);
@@ -37,7 +38,7 @@ namespace Flamingo
       /*Devuelve el componente, solicitandolo al manager directamente o pasando por el ScriptManager según
      * si pertenece al motor o ha sido creado por el ususario del motor */
     template <typename T>
-    FLAMINGOEXPORT_API inline T* getComponent(GameObject* gO)
+    __declspec(dllexport) inline T* getComponent(GameObject* gO)
     {
         if (!std::is_base_of_v<BehaviourScript, T>)
             return Manager::instance()->getComponent<T>(gO);
@@ -48,7 +49,7 @@ namespace Flamingo
       /*Comprueba si el gameObject dado contiene el componente, solicitandolo al manager directamente o pasando por el ScriptManager según
      * si pertenece al motor o ha sido creado por el ususario del motor */
     template <typename T>
-    FLAMINGOEXPORT_API inline bool hasComponent(GameObject* gO)
+    __declspec(dllexport) inline bool hasComponent(GameObject* gO)
     {
         if (!std::is_base_of_v<BehaviourScript, T>)
             return Manager::instance()->hasComponent<T>(gO);
