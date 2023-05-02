@@ -110,6 +110,20 @@ namespace Flamingo
                 rb->setPosition(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
                 break;
             }
+            case MSG_TRANSFORM_TRANSLATE:
+            {
+                if (t_m.entity_affected == nullptr)
+                    return;
+
+                auto rb = m_mngr->getComponent<RigidBody>(t_m.entity_affected);
+
+                if (rb == NULL)
+                    return;
+
+                rb->setPosition(rb->getPosition() + SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
+                break;
+
+            }
             case MSG_TRANSFORM_ROTATE:
             {
                 if (t_m.entity_affected == nullptr)
@@ -138,6 +152,19 @@ namespace Flamingo
                         removeRigidBody(rb->getBtRigidBody());
                     }
                 }
+            }
+            case MSG_TRANSFORM_SCALING:
+            {
+                if (t_m.entity_affected == nullptr)
+                    return;
+
+                auto rb = m_mngr->getComponent<RigidBody>(t_m.entity_affected);
+
+                if (rb == NULL)
+                    return;
+
+                //rb->setScale({t_m.vector.x, t_m.vector.y, t_m.vector.z});
+                break;
             }
             default:
                 break;

@@ -92,8 +92,7 @@ namespace Flamingo
     {
         if (m_shape == nullptr)
             return;
-
-        m_shape->setLocalScaling(t_scale);
+        m_shape->setLocalScaling(m_shape->getLocalScaling() * t_scale);
     }
 
     void RigidBody::setTrigger(bool t_trigger)
