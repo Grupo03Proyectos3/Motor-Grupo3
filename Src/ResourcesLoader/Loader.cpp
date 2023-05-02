@@ -54,6 +54,11 @@ namespace Flamingo
         }
 
         closedir(dir); // Cerrar el directorio abierto anteriormente
+        //delete entry;
+        //if (dir != nullptr)
+        //    delete dir;
+        ////delete dir;
+        
     }
 
     void Loader::loadDirectories()
@@ -95,5 +100,6 @@ namespace Flamingo
         findDir(directory, output);
         // Cierro el archivo ���IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
         output.close();
+        delete dir;
     }
 } // namespace Flamingo
