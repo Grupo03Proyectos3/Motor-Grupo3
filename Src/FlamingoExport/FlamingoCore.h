@@ -40,6 +40,12 @@ namespace Flamingo
         */
         bool FlamingoExit();
 
+        //Exportables
+
+        /**
+        @brief Indica el nombre de la primera escena a ejecutarse
+        *
+        */
         void setFirstScene(std::string t_name);
         void addSceneToLoad(std::string t_name);
         std::string getFirstScene();
@@ -50,6 +56,8 @@ namespace Flamingo
         static Manager* getManager();
         static SceneManager* getSceneManager();
 
+        void endRunning();
+
       private:
 
         static FlamingoCore* m_instance;
@@ -58,6 +66,7 @@ namespace Flamingo
         std::vector<std::string> m_scenes_to_load;
 
         bool initialized;
+        bool m_motor_running;
     };
 
     //extern "C" FLAMINGOEXPORT_API void setFirstScene(std::string t_scene_name);

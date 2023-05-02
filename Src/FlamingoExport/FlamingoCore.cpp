@@ -36,6 +36,7 @@ namespace Flamingo
     {
         m_scenes_to_load.clear();
         initialized = false;
+        m_motor_running = false;
     }
 
     Flamingo::FlamingoCore::~FlamingoCore()
@@ -109,7 +110,6 @@ namespace Flamingo
 
     void Flamingo::FlamingoCore::FlamingoLoop()
     {
-        bool motor_running = true;
         SVector3 m_velocity;
         // var pruebas
         int m_timeSinceLastDirectionChange = 0;
@@ -127,8 +127,9 @@ namespace Flamingo
 
         auto& ihdlr = ih();
 
+        m_motor_running = true;
         //ScriptManager::instance()->startComponents();
-        while (motor_running && !render_sys->getWindow()->isWindowClosed())
+        while (m_motor_running && !render_sys->getWindow()->isWindowClosed())
         {
             // Delta time en milisegundos
             dt = player_timer->getElapsedTime() - time;
@@ -205,6 +206,11 @@ namespace Flamingo
     SceneManager* FlamingoCore::getSceneManager()
     {
         return SceneManager::instance();
+    }
+
+    void FlamingoCore::endRunning()
+    {
+        m_motor_running = false;
     }
 
     void FlamingoCore::addGameScript(std::string t_n, BehaviourScript* t_s)
