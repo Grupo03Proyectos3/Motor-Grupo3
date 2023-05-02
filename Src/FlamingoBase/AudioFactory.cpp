@@ -25,7 +25,7 @@ namespace Flamingo
             else
                 throw new std::exception("Invalids or incompletes params");
 
-            AudioSource* c = Flamingo::addComponent<AudioSource>(gO);
+            AudioSource* c = Manager::instance()->addComponent<AudioSource>(gO);
             c->initValues(route.c_str(), name, music);
 
             Flamingo::Manager::instance()->addGameObjectToGroups(gO, {Flamingo::GROUP_AUDIO});

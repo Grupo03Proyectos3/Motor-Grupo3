@@ -20,7 +20,7 @@ namespace Flamingo
             float s_y = std::stof(args.at("scaleY"));
             float s_z = std::stof(args.at("scaleZ"));
 
-            Transform* c = addComponent<Transform>(gO);
+            Transform* c = Manager::instance()->addComponent<Transform>(gO);
             c->initValues(SVector3(p_x, p_y, p_z), SQuaternion(r_x, r_y, r_z, r_w), SVector3(s_x, s_y, s_z));
 
             return c;

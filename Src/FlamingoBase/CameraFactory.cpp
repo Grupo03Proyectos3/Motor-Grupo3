@@ -21,7 +21,7 @@ namespace Flamingo
             std::string name = (args.at("t_name"));
             std::string entityName = (args.at("t_entity_name"));
 
-            Camera* c = Flamingo::addComponent<Camera>(gO);
+            Camera* c = Manager::instance()->addComponent<Camera>(gO);
             c->initValues(name);
 
             Flamingo::Manager::instance()->addGameObjectToGroups(gO, {Flamingo::GROUP_RENDER});

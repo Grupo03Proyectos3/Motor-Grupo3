@@ -21,7 +21,7 @@ namespace Flamingo
         {
             std::string name = (args.at("t_name"));
 
-            Light* c = addComponent<Light>(gO);
+            Light* c = Manager::instance()->addComponent<Light>(gO);
             c->initValues(name);
 
             Manager::instance()->addGameObjectToGroups(gO, {GROUP_RENDER});
