@@ -158,7 +158,7 @@ namespace Flamingo
             SVector3 newOffset = trpTarget->getRotation().Rotate(m_offset);
             mtrp->setPosition(trpTarget->getPosition() - newOffset);                     
             mtrp->setRotation(trpTarget->getRotation());
-            
+
             lookAt({-trpTarget->getPosition().getX(), trpTarget->getPosition().getY(), -trpTarget->getPosition().getZ()}, WORLD);
         }
     }
