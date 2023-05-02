@@ -88,7 +88,14 @@ namespace Flamingo
         {
             if (game_object != nullptr && game_object->getActive())
                 // se llama a los update de los componentes que heredan de BehaviourScript
-                m_mngr->getBehaviourComponent<BehaviourScript>(game_object)->update(t_delta_time);
+                for (auto c : game_object->getCurrentComponents())
+                {
+                    auto s = dynamic_cast<BehaviourScript*>(c.second);
+                    if (s != nullptr)
+                    {
+                        s->update(t_delta_time);
+                    }
+                }
         }
     }
 
