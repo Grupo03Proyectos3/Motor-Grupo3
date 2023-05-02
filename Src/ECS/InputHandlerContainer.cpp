@@ -1,5 +1,6 @@
 #include "InputHandlerContainer.h"
 #include "InputHandler.h"
+#include "FlamingoUtils/ConversionFlamingoKeys.h"
 namespace Flamingo{
     InputHandlerContainer::InputHandlerContainer()
         : m_inputHandler(ih())  // inicializa el objeto InputHandler
@@ -37,12 +38,12 @@ namespace Flamingo{
 
     bool InputHandlerContainer::isKeyDown(FLM_KeyCode t_key)
     {
-        return m_inputHandler.isKeyDown(t_key);
+        return m_inputHandler.isKeyDown(ConversorFlamingoKeys(t_key));
     }
 
     bool InputHandlerContainer::isKeyUp(FLM_KeyCode t_key)
     {
-        return m_inputHandler.isKeyUp(t_key);
+        return m_inputHandler.isKeyUp(ConversorFlamingoKeys(t_key));
     }
 
     bool InputHandlerContainer::mouseMotionEvent()

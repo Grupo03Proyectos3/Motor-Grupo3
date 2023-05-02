@@ -181,6 +181,7 @@
     <ClCompile Include="..\..\Src\FlamingoUtils\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Src\FlamingoUtils\ConversionFlamingoKeys.h" />
     <ClInclude Include="..\..\Src\FlamingoUtils\FlamingoKeys.h" />
     <ClInclude Include="..\..\Src\FlamingoUtils\SColor.h" />
     <ClInclude Include="..\..\Src\FlamingoUtils\SQuaternion.h" />
