@@ -152,6 +152,7 @@ namespace Flamingo
                         removeRigidBody(rb->getBtRigidBody());
                     }
                 }
+                break;
             }
             case MSG_TRANSFORM_SCALING:
             {
