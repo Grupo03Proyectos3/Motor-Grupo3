@@ -84,18 +84,16 @@ namespace Flamingo
     void Flamingo::ScriptingSystem::update(float t_delta_time)
     {
         // TO DO : CHANGE TO SCRIPT GROUP
-        for (auto game_object : m_mngr->getEntities(GROUP_SCRIPTING))
+        for (auto gO : Manager::instance()->getEntities(GROUP_SCRIPTING))
         {
-            if (game_object != nullptr && game_object->getActive())
-                // se llama a los update de los componentes que heredan de BehaviourScript
-                for (auto c : game_object->getCurrentComponents())
+            for (auto c : gO->getCurrentComponents())
+            {
+                auto s = dynamic_cast<BehaviourScript*>(c.second);
+                if (s != nullptr && s->gameObject()->getActive() && s->gameObject()->getAlive())
                 {
-                    auto s = dynamic_cast<BehaviourScript*>(c.second);
-                    if (s != nullptr)
-                    {
-                        s->update(t_delta_time);
-                    }
+                    s->update(t_delta_time);
                 }
+            }
         }
     }
 
