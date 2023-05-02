@@ -26,9 +26,6 @@
 #include <FlamingoUtils/SVector2.h>
 #include <Ogre.h>
 #include <UI/UIElement.h>
-// chapucilla
-#include <Physics/PlayerController.h>
-#include <Render/EnemyAI.h>
 
 namespace Flamingo
 {
@@ -186,9 +183,7 @@ namespace Flamingo
             // pruebas de enemigos
 
             auto enemigo = m_mngr->getEntities(GROUP_RENDER);
-            auto controller = m_mngr->getComponent<PlayerController>(enemigo[0]);
 
-            controller->handleInput();
             render_sys->manipulateCamera();
 
             ihdlr.refresh();

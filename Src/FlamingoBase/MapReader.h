@@ -3,7 +3,6 @@
 #pragma once
 
 #include "FlamingoBase/ComponentsFactory.h"
-#include "FlamingoBase/PlayerControllerFactory.h"
 #include "FlamingoBase/MeshRendererFactory.h"
 #include "FlamingoBase/RigidbodyFactory.h"
 #include "FlamingoBase/TransformFactory.h"

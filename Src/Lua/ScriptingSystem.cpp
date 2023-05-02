@@ -28,8 +28,6 @@ extern "C"
 #include "BehaviourScript.h"
 
 #include "FlamingoBase/Transform.h"
-// PLAYER CONTROLLER
-#include "Physics/PlayerController.h"
 // SCRIPTING
 #include "BehaviourScript.h"
 #include "FlamingoBase/SceneManager.h"
@@ -61,7 +59,6 @@ namespace Flamingo
     void Flamingo::ScriptingSystem::initSystem()
     {
         auto renderSystem = m_mngr->getSystem<Flamingo::RenderSystem>();
-        m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
         m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(renderSystem));
         m_componentFactory->addFactory("RigidBody", new RigidBodyFactory());
         m_componentFactory->addFactory("Transform", new TransformFactory());
@@ -299,7 +296,6 @@ namespace Flamingo
             .addFunction("addComponent", (&Manager::addComponent<MeshRenderer>))
             .addFunction("addComponent", (&Manager::addComponent<Transform>))
             .addFunction("addComponent", (&Manager::addComponent<RigidBody>))
-            .addFunction("addComponent", (&Manager::addComponent<PlayerController>))
             .addFunction("addSystem", (&Manager::addSystem<RenderSystem>))
             .addFunction("addSystem", (&Manager::addSystem<PhysicsSystem>))
             //.addFunction("addSystem", (&ecs::Manager::addSystem<Flamingo::ParticleSystem>))
@@ -310,7 +306,6 @@ namespace Flamingo
             .addFunction("getComponent", (&Manager::getComponent<MeshRenderer>))
             .addFunction("getComponent", (&Manager::getComponent<Transform>))
             .addFunction("getComponent", (&Manager::getComponent<RigidBody>))
-            .addFunction("getComponent", (&Manager::getComponent<PlayerController>))
             .addFunction("getEntities", (&Manager::getEntities))
             .addFunction("getHandler", (&Manager::getHandler))
             .addFunction("getSystem", (&Manager::getSystem<AudioSystem>))
@@ -323,7 +318,6 @@ namespace Flamingo
             .addFunction("hasComponent", (&Manager::hasComponent<Light>))
             .addFunction("hasComponent", (&Manager::hasComponent<Transform>))
             .addFunction("hasComponent", (&Manager::hasComponent<RigidBody>))
-            .addFunction("hasComponent", (&Manager::hasComponent<PlayerController>))
             .addFunction("isAlive", (&Manager::isAlive))
             .addFunction("setAlive", (&Manager::setAlive))
             .addFunction("removeComponent", (&Manager::removeComponent<Camera>))
@@ -331,7 +325,6 @@ namespace Flamingo
             .addFunction("removeComponent", (&Manager::removeComponent<MeshRenderer>))
             .addFunction("removeComponent", (&Manager::removeComponent<Transform>))
             .addFunction("removeComponent", (&Manager::removeComponent<RigidBody>))
-            .addFunction("removeComponent", (&Manager::removeComponent<PlayerController>))
             .addFunction("removeSystem", (&Manager::removeSystem<AudioSystem>))
             .addFunction("removeSystem", (&Manager::removeSystem<UISystem>))
             .addFunction("removeSystem", (&Manager::removeSystem<RenderSystem>))

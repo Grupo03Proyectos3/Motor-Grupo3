@@ -20,7 +20,6 @@ namespace Flamingo
 
     void MapReader::initMapReader()
     {
-        m_componentFactory->addFactory("PlayerController", new PlayerControllerFactory());
         m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(m_renderSystem));
         m_componentFactory->addFactory("RigidBody", new RigidBodyFactory());
         m_componentFactory->addFactory("Transform", new TransformFactory());

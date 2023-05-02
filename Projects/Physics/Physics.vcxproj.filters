@@ -21,9 +21,6 @@
     <ClCompile Include="..\..\Src\Physics\RigidBody.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Physics\PlayerController.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Render\DebugDrawer.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -33,9 +30,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Physics\RigidBody.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Physics\PlayerController.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Render\DebugDrawer.h">

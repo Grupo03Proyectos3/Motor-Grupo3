@@ -60,9 +60,6 @@
     <ClCompile Include="..\..\Src\FlamingoBase\Factory.cpp">
       <Filter>Archivos de origen\Factories</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\FlamingoBase\PlayerControllerFactory.cpp">
-      <Filter>Archivos de origen\Factories</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\FlamingoBase\JSON.cpp">
       <Filter>Archivos de origen\json</Filter>
     </ClCompile>
@@ -114,9 +111,6 @@
       <Filter>Archivos de encabezado\Factories</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\FlamingoBase\Factory.h">
-      <Filter>Archivos de encabezado\Factories</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\FlamingoBase\PlayerControllerFactory.h">
       <Filter>Archivos de encabezado\Factories</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\FlamingoBase\JSON.h">
