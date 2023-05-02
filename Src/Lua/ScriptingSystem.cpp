@@ -235,15 +235,12 @@ namespace Flamingo
 
                 m_data.clear();
             }
-
-            m_scene_mngr.getScene(t_scene)->addObjects(gO);
+            m_scene_mngr.getScene(t_scene)->addObjects(gO); //Añadir el objeto a la escena
 
             for (auto c : gO->getCurrentComponents())
             {
                 c.second->initComponent();
             }
-
-            // m_scene_mngr.getSceneActive()->addObjects(gO);
         }
 
         return true;
