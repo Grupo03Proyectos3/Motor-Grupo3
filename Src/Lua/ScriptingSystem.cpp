@@ -9,7 +9,9 @@ extern "C"
 
 #include "ECS/GameObject.h"
 #include "ECS/Manager.h"
-#include <ECS/ManagerFunctions.h>
+
+#include "ECS/ManagerFunctions.h"
+
 #include <LuaBridge\LuaBridge.h>
 // AUDIO
 #include "Audio/AudioSystem.h"

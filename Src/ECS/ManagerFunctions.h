@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef __COMPONENTS_H__
-#define __COMPONENTS_H__
+#ifndef __MANAGER_FUNCTIONS_H__
+#define __MANAGER_FUNCTIONS_H__
 
 #include "Component.h"
 #include "FlamingoBase/Transform.h"
@@ -70,7 +70,7 @@ namespace Flamingo
     __declspec(dllexport) inline bool hasComponent(GameObject* gO)
     {
         if (!std::is_base_of_v<Component, T>)
-            return nullptr;
+            return false;
 
         if (!std::is_base_of_v<BehaviourScript, T>)
             return Manager::instance()->hasComponent<T>(gO);
