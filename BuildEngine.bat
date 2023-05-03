@@ -1,5 +1,5 @@
 
-cd .\Dependencies
+cd .\Dependencias
 call BuildDependencies.bat
 cd ..
 
