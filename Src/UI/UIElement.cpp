@@ -45,15 +45,28 @@ namespace Flamingo
         t->setScale({t->getScale().getX(), t->getScale().getY(), 0});
         setText(m_text);
 
-      if (m_type == "FlamingoDefaultUI/StaticImage")
+        if (m_type == "FlamingoDefaultUI/StaticImage")
+        {
+            //// Obtener la capa Widgets y la capa Top
+            // CEGUI::Window* widgetsLayer = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("Widgets");
+            // CEGUI::Window* topLayer = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("Top");
+
+            //// Mover MyWidget de Widgets a Top
+            // widgetsLayer->removeChild(m_element);
+            // topLayer->addChild(m_element);
+            m_element->moveToBack();
+
             setImage("Image", m_name, m_image);
-       else if (m_type == "FlamingoDefaultUI/Button")
-       {
-           setImage("NormalImage", m_name , m_image);
-           setImage("HoverImage", m_name , m_image);
-           setImage("PushedImage", m_name , m_image);
-           setImage("DisabledImage", m_name , m_image);
-       }
+        }
+        else if (m_type == "FlamingoDefaultUI/Button")
+        {
+            setImage("NormalImage", m_name, m_image);
+            setImage("HoverImage", m_name, m_image);
+            setImage("PushedImage", m_name, m_image);
+            setImage("DisabledImage", m_name, m_image);
+
+            m_element->moveToFront();
+        }
 
     }
 
