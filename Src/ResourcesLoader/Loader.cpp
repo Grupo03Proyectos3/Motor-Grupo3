@@ -11,12 +11,14 @@ namespace Flamingo
     void Loader::findDir(const char* t_path, std::ofstream& t_output)
     {
         DIR* dir = opendir(t_path); // Abrir el directorio
+
         if (dir == nullptr)         // Aserguarse que el directorio existe
         {
             throw std::runtime_error("Error al abrir el directorio " + (std::string)t_path);
             return;
         }
 
+      
         dirent* entry = readdir(dir); // Me guardo el archivo
         while (entry != nullptr)      // Mientras haya encontrado algo
         {
@@ -52,8 +54,9 @@ namespace Flamingo
             }
             entry = readdir(dir); // Actualizo la entrada
         }
-
-        closedir(dir); // Cerrar el directorio abierto anteriormente
+        
+        closedir(dir);
+        //closedir(dir); // Cerrar el directorio abierto anteriormente
         //delete entry;
         //if (dir != nullptr)
         //    delete dir;
@@ -100,6 +103,6 @@ namespace Flamingo
         findDir(directory, output);
         // Cierro el archivo ���IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
         output.close();
-        delete dir;
+        closedir(dir);
     }
 } // namespace Flamingo

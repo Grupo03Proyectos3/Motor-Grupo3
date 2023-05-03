@@ -205,6 +205,7 @@ namespace Flamingo
     {
         if (!CEGUI::ImageManager::getSingleton().isDefined(name))
         {
+            //memory leaks procedentes de CEGUI al añadir una imagen a su banco, llamamos los destroy mas tarde pero nada
             CEGUI::ImageManager::getSingleton().addFromImageFile(name, file);
         }
         setProperty(property, name);
