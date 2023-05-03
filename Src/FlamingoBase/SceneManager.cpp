@@ -3,7 +3,7 @@
 #include "ECS/Manager.h"
 #include "Render/RenderSystem.h"
 #include "UI/UISystem.h"
-#include "Lua/ScriptManager.h"
+#include "Scripting/ScriptManager.h"
 
 #include <OgreRoot.h>
 #include <OgreSceneManagerEnumerator.h>

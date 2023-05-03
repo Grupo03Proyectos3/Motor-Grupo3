@@ -8,15 +8,15 @@
 
 #include "Audio/AudioSystem.h"
 #include "FlamingoBase/MapReader.h"
-#include "Lua/ScriptingSystem.h"
+#include "Scripting/ScriptingSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Render/RenderSystem.h"
 #include "UI/UISystem.h"
 
 // TEMPORAL -> TO DO : quitarlos
 #include "FlamingoBase/SceneManager.h"
-#include "Lua/PruebaScript.h"
-#include "Lua/ScriptManager.h"
+#include "Scripting/PruebaScript.h"
+#include "Scripting/ScriptManager.h"
 #include "Render/Animator.h"
 #include "Render/Light.h"
 #include "Render/MeshRenderer.h"

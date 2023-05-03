@@ -198,6 +198,9 @@
     <ProjectReference Include="..\ResourcesLoader\ResourcesLoader.vcxproj">
       <Project>{6b7a60dd-427f-4b39-8db6-aeddb92a4501}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Scripting\Scripting.vcxproj">
+      <Project>{6391f5fc-475b-495c-aaf1-438a9e93f877}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\UI\UI.vcxproj">
       <Project>{5a08cd47-c455-4c79-bafd-d836786779ae}</Project>
     </ProjectReference>

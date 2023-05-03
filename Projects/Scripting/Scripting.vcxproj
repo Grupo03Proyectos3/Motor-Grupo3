@@ -19,17 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\Lua\BehaviourScript.h" />
-    <ClInclude Include="..\..\Src\Lua\PruebaScript.h" />
-    <ClInclude Include="..\..\Src\Lua\ScriptingSystem.h" />
-    <ClInclude Include="..\..\Src\Lua\ScriptManager.h" />
+    <ClCompile Include="..\..\Src\Scripting\BehaviourScript.cpp" />
+    <ClCompile Include="..\..\Src\Scripting\LuaVariables.cpp" />
+    <ClCompile Include="..\..\Src\Scripting\PruebaScript.cpp" />
+    <ClCompile Include="..\..\Src\Scripting\ScriptingSystem.cpp" />
+    <ClCompile Include="..\..\Src\Scripting\ScriptManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\Lua\BehaviourScript.cpp" />
-    <ClCompile Include="..\..\Src\Lua\LuaVariables.cpp" />
-    <ClCompile Include="..\..\Src\Lua\PruebaScript.cpp" />
-    <ClCompile Include="..\..\Src\Lua\ScriptingSystem.cpp" />
-    <ClCompile Include="..\..\Src\Lua\ScriptManager.cpp" />
+    <ClInclude Include="..\..\Src\Scripting\BehaviourScript.h" />
+    <ClInclude Include="..\..\Src\Scripting\PruebaScript.h" />
+    <ClInclude Include="..\..\Src\Scripting\ScriptingSystem.h" />
+    <ClInclude Include="..\..\Src\Scripting\ScriptManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

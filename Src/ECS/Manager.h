@@ -12,7 +12,7 @@
 
 #include "Component.h"
 #include "GameObject.h"
-#include "Lua/BehaviourScript.h"
+#include "Scripting/BehaviourScript.h"
 #include "SingletonECS.h"
 #include "System.h"
 #include "ecs.h"

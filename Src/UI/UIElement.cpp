@@ -13,7 +13,7 @@
 #include "CEGUI/EventArgs.h"
 #include "CEGUI/CEGUI.h"
 
-#include "Lua/BehaviourScript.h"
+#include "Scripting/BehaviourScript.h"
 
 
 namespace Flamingo

@@ -3,7 +3,7 @@
 #define __SCRIPTFACTORY_H__
 
 #include "Factory.h"
-#include "Lua/ScriptManager.h"
+#include "Scripting/ScriptManager.h"
 #include <map>
 /*Factoria para crear todos los scripts del proyecto.
  *Factoria que genera script que hereden de Behaviour script mediante el Manager y el ScriptManager

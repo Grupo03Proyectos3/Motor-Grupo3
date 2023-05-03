@@ -4,8 +4,8 @@
 #include "FlamingoExport.h"
 #include "FlamingoCore.h"
 
-#include "Lua/BehaviourScript.h"
-#include "Lua/ScriptManager.h"
+#include "Scripting/BehaviourScript.h"
+#include "Scripting/ScriptManager.h"
 
 #include "Render/Animator.h"
 

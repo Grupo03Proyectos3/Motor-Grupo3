@@ -5,7 +5,7 @@
 
 #include "Component.h"
 #include "FlamingoBase/Transform.h"
-#include "Lua/ScriptManager.h"
+#include "Scripting/ScriptManager.h"
 #include "Manager.h"
 #include "ecs.h"
 

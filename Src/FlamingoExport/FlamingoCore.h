@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 
-#include <Lua/BehaviourScript.h>
+#include <Scripting/BehaviourScript.h>
 
 namespace Flamingo
 {
