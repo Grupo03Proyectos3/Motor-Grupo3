@@ -12,10 +12,10 @@ typedef bool(__cdecl* GameEntryPoint)(void);
 int main(int argc, char* argv[])
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    _CrtMemState sOld;
-    _CrtMemState sNew;
-    _CrtMemState sDiff;
-    _CrtMemCheckpoint(&sOld); // take a snapshot
+    //_CrtMemState sOld;
+    //_CrtMemState sNew;
+    //_CrtMemState sDiff;
+    //_CrtMemCheckpoint(&sOld); // take a snapshot
 
     HMODULE hinstLib = LoadLibrary(TEXT("GameExport_d"));
 #else
@@ -45,10 +45,9 @@ int WINAPI wWinMain(HINSTANCE hInstance,  HINSTANCE  hPrevInstance, PWSTR pCmdLi
                 }
                 else
                     std::cout << "No se ha podido inicializar el motor\n";
-
-                core->FlamingoExit();
-
-                FreeLibrary(hinstLib); // OJO! Si cargo una DLL DEBO LIBERARLA -> debe hacerse al cerrar el juego
+             
+                 // core->FlamingoExit();
+               // FreeLibrary(hinstLib); // OJO! Si cargo una DLL DEBO LIBERARLA -> debe hacerse al cerrar el juego
             }
             else
                 std::cout << "No he encontrado InitJuego\n";
@@ -65,6 +64,7 @@ int WINAPI wWinMain(HINSTANCE hInstance,  HINSTANCE  hPrevInstance, PWSTR pCmdLi
 
     if (core != nullptr)
     {
+        core->FlamingoExit();
         delete core;
     }
 

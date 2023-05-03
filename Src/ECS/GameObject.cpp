@@ -23,11 +23,14 @@ namespace Flamingo
 
     GameObject::~GameObject()
     {
-        for (auto it = m_current_comps.begin(); it != m_current_comps.end(); ++it)
-            if (it->second != nullptr)
-                delete it->second;
+        if (m_current_comps.size() > 0)
+        {
+            for (auto it = m_current_comps.begin(); it != m_current_comps.end(); ++it)
+                if (it->second != nullptr)
+                    delete it->second;
 
-        m_current_comps.clear();
+            m_current_comps.clear();
+        }
     }
 
     void GameObject::setAlive(bool to)

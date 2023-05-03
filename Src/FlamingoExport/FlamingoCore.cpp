@@ -8,18 +8,18 @@
 
 #include "Audio/AudioSystem.h"
 #include "FlamingoBase/MapReader.h"
-#include "Scripting/ScriptingSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Render/RenderSystem.h"
+#include "Scripting/ScriptingSystem.h"
 #include "UI/UISystem.h"
 
 // TEMPORAL -> TO DO : quitarlos
 #include "FlamingoBase/SceneManager.h"
-#include "Scripting/PruebaScript.h"
-#include "Scripting/ScriptManager.h"
 #include "Render/Animator.h"
 #include "Render/Light.h"
 #include "Render/MeshRenderer.h"
+#include "Scripting/PruebaScript.h"
+#include "Scripting/ScriptManager.h"
 #include <ECS/InputHandlerContainer.h>
 #include <FlamingoBase/Transform.h>
 #include <FlamingoUtils/FlamingoKeys.h>
@@ -83,29 +83,29 @@ namespace Flamingo
 
         sceneManager->setSceneActive(m_first_scene);
 
-        Scene* mainScene = sceneManager->getSceneActive();
+        // Scene* mainScene = sceneManager->getSceneActive();
 
-        //Cámara y Luces iniciales       
-        auto cam = mainScene->getObject("myCamera");
-        auto m_camera = m_mngr->getComponent<Flamingo::Camera>(cam);
-        
-        m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
-        m_camera->lookAt(SVector3(0, 0, 0), STransformSpace::LOCAL);
-        m_camera->setNearClipDistance(1);
-        m_camera->setFarClipDistance(100000);
-       // m_camera->setTarget(mainScene->getObject("Arbol"));
-        //t->translate({-15000, 0, 0}, LOCAL);
-        render_sys->setMainCamera(m_camera);
+        // //Cámara y Luces iniciales
+        // auto cam = mainScene->getObject("myCamera");
+        // auto m_camera = m_mngr->getComponent<Flamingo::Camera>(cam);
+        //
+        // m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
+        // m_camera->lookAt(SVector3(0, 0, 0), STransformSpace::LOCAL);
+        // m_camera->setNearClipDistance(1);
+        // m_camera->setFarClipDistance(100000);
+        //// m_camera->setTarget(mainScene->getObject("Arbol"));
+        // //t->translate({-15000, 0, 0}, LOCAL);
+        // render_sys->setMainCamera(m_camera);
 
-        auto light = mainScene->getObject("mylight");
-        auto cmp_light = m_mngr->getComponent<Flamingo::Light>(light);
-        cmp_light->setType(Light::DIRECTIONAL);
-        cmp_light->setDirection(SVector3(0, -1, -1));
-        cmp_light->setSpecularColour();
-        cmp_light->setDiffuseColour();
-       
-        initialized = true;
-        return initialized;
+        // auto light = mainScene->getObject("mylight");
+        // auto cmp_light = m_mngr->getComponent<Flamingo::Light>(light);
+        // cmp_light->setType(Light::DIRECTIONAL);
+        // cmp_light->setDirection(SVector3(0, -1, -1));
+        // cmp_light->setSpecularColour();
+        // cmp_light->setDiffuseColour();
+        //
+        // initialized = true;
+        return true;
     }
 
     void Flamingo::FlamingoCore::FlamingoLoop()
@@ -128,7 +128,7 @@ namespace Flamingo
         auto& ihdlr = ih();
 
         m_motor_running = true;
-        //ScriptManager::instance()->startComponents();
+        // ScriptManager::instance()->startComponents();
         while (m_motor_running && !render_sys->getWindow()->isWindowClosed())
         {
             // Delta time en milisegundos
@@ -154,22 +154,26 @@ namespace Flamingo
             m_mngr->refresh();
             m_mngr->flushMessages();
         }
-        ui_system->eraseContext();
-        render_sys->getWindow()->closeWindow();
+    
         delete player_timer;
     }
 
     bool Flamingo::FlamingoCore::FlamingoExit()
     {
+        Manager::instance()->getSystem<RenderSystem>()->getWindow()->closeWindow();
+        Manager::instance()->getSystem<UISystem>()->eraseContext();
+
+        Manager::close();
+        InputHandler::close();
+        InputHandlerContainer::close();
+        ScriptManager::instance()->deleteScriptsTemplates();
+        ScriptManager::close();
+
         if (!initialized)
         {
             return false;
         }
 
-        Manager::close();
-        InputHandler::close();
-        InputHandlerContainer::close();
-        ScriptManager::close();
         initialized = false;
         return true;
     }

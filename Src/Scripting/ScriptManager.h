@@ -48,6 +48,8 @@ namespace Flamingo
         //Llama al star() de los componentes de juego
         void startComponents();
 
+        void deleteScriptsTemplates();
+
       private:
         friend SingletonECS<Manager>;
 
