@@ -4,8 +4,6 @@
 
 #include "ECS/Component.h"
 #include <string>
-#include "FlamingoExport/FlamingoAPI.h"
-
 
 namespace FMOD
 {
@@ -13,7 +11,7 @@ namespace FMOD
 }
 namespace Flamingo
 {
-    class FLAMINGOEXPORT_API AudioSource : public Flamingo::Component
+    class __declspec(dllexport) AudioSource : public Flamingo::Component
     {
       public:
         __SYSTEM_ID_DECL__(Flamingo::_cmp_AUDIO_SOURCE)
@@ -23,6 +21,7 @@ namespace Flamingo
         virtual void initComponent() override;
         void initValues(const char* songRoute, std::string songName, bool isMusic);
         void playAudio();
+        void stopAudio();
 
       protected:
         std::string m_audioName;

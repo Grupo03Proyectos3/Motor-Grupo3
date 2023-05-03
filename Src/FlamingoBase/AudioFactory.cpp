@@ -27,13 +27,13 @@ namespace Flamingo
 
             AudioSource* c = Manager::instance()->addComponent<AudioSource>(gO);
             c->initValues(route.c_str(), name, music);
-
+           
             Flamingo::Manager::instance()->addGameObjectToGroups(gO, {Flamingo::GROUP_AUDIO});
             return c;
         }
         catch (...)
         {
-            throw std::exception("[ERROR Audio Factory]: Key not found");
+            throw std::exception("[ERROR Audio Factory]: Key broken or not found");
         }
     }
 } // namespace Flamingo

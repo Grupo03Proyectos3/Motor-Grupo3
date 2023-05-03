@@ -41,7 +41,6 @@ namespace Flamingo
         /**
          * @brief Crea el sonido y lo asigna al grupo correspondiente
          *
-         * @param[in] t_audioName string Nombre del audio
          * 
          */
         void createSound(const char* route, FMOD_MODE mode, FMOD_CREATESOUNDEXINFO* exinfo, FMOD::Sound** sound);
@@ -80,6 +79,7 @@ namespace Flamingo
          * @return
          */
         void playAudio(std::string t_audioName);
+        void stopAudio(std::string t_audioName);
         void setMusicVolume(float f);
         void setSoundEffectsVolume(float f);
 

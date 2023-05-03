@@ -41,7 +41,7 @@ namespace Flamingo
         /**
          * @brief Método que recibe los mensajes enviados desde cualquier sistema
          *
-         * @param[in] t_audioName Message Mensaje a recibir
+         * @param[in] Message Mensaje a recibir
          */
         virtual void recieve(const Message&);
 

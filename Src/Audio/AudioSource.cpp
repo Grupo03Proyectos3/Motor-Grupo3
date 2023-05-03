@@ -47,4 +47,9 @@ namespace Flamingo
     {
         m_mngr->getSystem<Flamingo::AudioSystem>()->playAudio(m_audioName);
     }
+
+    void AudioSource::stopAudio()
+    {
+        m_mngr->getSystem<Flamingo::AudioSystem>()->stopAudio(m_audioName);
+    }
 } // namespace Flamingo

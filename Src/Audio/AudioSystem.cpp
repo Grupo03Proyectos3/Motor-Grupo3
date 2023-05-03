@@ -113,6 +113,20 @@ namespace Flamingo
         m_channelMap->emplace(t_audioName, auxChannel);
     }
 
+    void AudioSystem::stopAudio(std::string t_audioName)
+    {
+        FMOD::Channel* auxChannel = nullptr;
+        if (m_channelMap->at(t_audioName))
+        {
+            auxChannel = m_channelMap->find(t_audioName)->second;
+        }
+        else
+        {
+            return;
+        }
+        auxChannel->stop();
+    }
+
     /// <summary>
     /// Volumen de 0 a 1 donde 1 es el máximo.
     /// </summary>
