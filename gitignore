@@ -1,0 +1,64 @@
+# DIRECTORIOS
+.vs/
+
+Temp/
+Lib/
+
+Dependencies/Ogre/Build
+Dependencies/Bullet/Build
+Dependencies/CEGUI/src/dependencies
+Dependencies/CEGUI/dependencies/build
+Dependencies/CEGUI/build
+Dependencies/Lua/Build
+Exes/*
+!Exes/Assets/
+
+# ARCHIVOS
+desktop.ini
+Exes/Motor_d.lib
+Exes/Motor.lib
+
+# TIPOS DE ARCHIVOS
+*.vcxproj.user
+
+*.pdb
+*.log
+*.ik
+*.idb
+*.obj
+*.exe
+*.exe.recipe
+*.lib.recipe
+*.lastbuildstate
+*.exp
+
+# NO IGNORAR
+!Dependencies/CMake/bin/cmake.exe
+!Dependencies/Bullet/Src
+!Dependencies/Ogre/Src
+
+# # #
+
+# Ignore CLion project directory and iml files
+.idea/
+*.iml
+
+# Ignore build directories
+cmake-build-*/
+/build/
+/installed/
+/android-build/
+/embuild/
+/eminstall/
+/mingw/
+
+# Meta data of macOS's Finder.app
+.DS_Store
+
+/Samples/Media/RTShaderLib/cache/
+
+# Ignore vim files
+*.swp
+Dependencies/CEGUI/dependencies/src/pcre-8.12/pcre.h
+Dependencies/CEGUI/dependencies/src/pcre-8.12/config.h
+Dependencies/CEGUI/dependencies/src/jpeg-8c/jconfig.h
