@@ -239,8 +239,9 @@ namespace Flamingo
     {
         if (t_rb != nullptr)
         {
-            m_world->removeRigidBody(t_rb);
-            m_collision_shapes->remove(t_rb->getCollisionShape());
+           removeShape(t_rb->getCollisionShape());
+
+           m_world->removeRigidBody(t_rb);
         }
     }
 
@@ -306,6 +307,16 @@ namespace Flamingo
     bool PhysicsSystem::GetDebugMode()
     {
         return m_debug_enabled;
+    }
+
+    void PhysicsSystem::removeShape(btCollisionShape* t_shape)
+    {
+        int index = m_collision_shapes->findLinearSearch(t_shape);
+        if (index >= 0)
+        {
+            m_collision_shapes->removeAtIndex(index);
+        }
+        delete t_shape;
     }
 
     bool PhysicsSystem::onCollisionStay(btManifoldPoint& cp, void* body0, void* body1)

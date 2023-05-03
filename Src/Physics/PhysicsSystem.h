@@ -90,6 +90,8 @@ namespace Flamingo
         FLAMINGOEXPORT_API void SetDebugMode(bool t_mode);
         FLAMINGOEXPORT_API bool GetDebugMode();
 
+        void removeShape(btCollisionShape* t_shape);
+
       private:
         btDiscreteDynamicsWorld* m_world = nullptr;
         btCollisionDispatcher* m_dispatcher = nullptr;

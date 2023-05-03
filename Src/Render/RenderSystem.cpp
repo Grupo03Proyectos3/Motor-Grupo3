@@ -138,14 +138,13 @@ namespace Flamingo
         {
             if (game_object != nullptr && game_object->getActive())
             {
-                //auto rb = m_mngr->getComponent<RigidBody>(game_object);
-                //if (rb && !rb->isKinematic())
-                //{
-                //    //auto t = m_mngr->getComponent<Transform>(game_object);
-                //    //t->setPositionPerPhysics(rb->getPosition());
-                //    //t->setRotationPerPhysics(rb->getRotation());
-                //    //t->setRotationPerPhysics(rb->getRotation());
-                //}
+                auto rb = m_mngr->getComponent<RigidBody>(game_object);
+                if (rb)
+                {
+                    auto t = m_mngr->getComponent<Transform>(game_object);
+                    t->setPositionPerPhysics(rb->getPosition());
+                    t->setRotationPerPhysics(rb->getRotation());
+                }
                 auto animator = m_mngr->getComponent<Flamingo::Animator>(game_object);
 
                 if (animator != nullptr)
