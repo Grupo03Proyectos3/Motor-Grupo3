@@ -144,7 +144,7 @@ namespace Flamingo{
         m_mouse_pos.second = t_event.motion.y;
 
         m_mouse_MotionPos.first = t_event.motion.xrel;
-        m_mouse_MotionPos.first = t_event.motion.yrel;
+        m_mouse_MotionPos.second = t_event.motion.yrel;
 
         Message m;
 
