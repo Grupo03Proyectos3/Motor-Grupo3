@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>C:\Users\Usuario\Documents\ELDERSBANE-Grupo03\Eldersbane\Motor-Grupo3\Dependencies\Bullet\Build\x64\Release\ZERO_CHECK</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\Usuario\Documents\ELDERSBANE-Grupo03\Eldersbane\Motor-Grupo3\Dependencies\Bullet\Build\Extras\obj2sdf\Release\App_obj2sdf.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\Usuario\Documents\ELDERSBANE-Grupo03\Eldersbane\Motor-Grupo3\Dependencies\Bullet\Build\x64\Release\ALL_BUILD</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles />
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>
