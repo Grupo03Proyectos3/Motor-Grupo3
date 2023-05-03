@@ -58,7 +58,7 @@ namespace Flamingo
 
             setImage("Image", m_name, m_image);
         }
-        else if (m_type == "FlamingoDefaultUI/Button")
+        else if (m_type == "FlamingoDefaultUI/ImageButton")
         {
             setImage("NormalImage", m_name, m_image);
             setImage("HoverImage", m_name, m_image);
