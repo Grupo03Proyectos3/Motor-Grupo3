@@ -45,8 +45,16 @@ namespace Flamingo
         t->setScale({t->getScale().getX(), t->getScale().getY(), 0});
         setText(m_text);
 
-        if (m_image != "")
+      if (m_type == "FlamingoDefaultUI/StaticImage")
             setImage("Image", m_name, m_image);
+       else if (m_type == "FlamingoDefaultUI/Button")
+       {
+           setImage("NormalImage", m_name , m_image);
+           setImage("HoverImage", m_name , m_image);
+           setImage("PushedImage", m_name , m_image);
+           setImage("DisabledImage", m_name , m_image);
+       }
+
     }
 
     void UIElement::initValues(std::string type, std::string name, std::string text, const std::string image)
@@ -182,11 +190,11 @@ namespace Flamingo
     }
     void UIElement::setImage(const std::string& property, const std::string& name, const std::string& file)
     {
-        if (!CEGUI::ImageManager::getSingleton().isDefined(file))
+        if (!CEGUI::ImageManager::getSingleton().isDefined(name))
         {
             CEGUI::ImageManager::getSingleton().addFromImageFile(name, file);
-            setProperty(property, name);
         }
+        setProperty(property, name);
     }
 
     void UIElement::setProperty(const std::string& property, const std::string& file)

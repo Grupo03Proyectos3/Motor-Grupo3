@@ -279,9 +279,9 @@ namespace Flamingo
             .beginClass<RenderSystem>("RenderSystem")
             .endClass();
         // ParticleSystem
-        luabridge::getGlobalNamespace(lua_state)
+     /*   luabridge::getGlobalNamespace(lua_state)
             .beginClass<Flamingo::ParticleSystem>("ParticleSystem")
-            .endClass();
+            .endClass();*/
         // PhysicsSystem
         luabridge::getGlobalNamespace(lua_state)
             .beginClass<PhysicsSystem>("PhysicsSystem")
