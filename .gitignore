@@ -4,12 +4,12 @@
 Temp/
 Lib/
 
-Dependencias/Ogre/Build
-Dependencias/Bullet/Build
-Dependencias/CEGUI/src/dependencies
-Dependencias/CEGUI/dependencies/build
-Dependencias/CEGUI/build
-Dependencias/Lua/Build
+Dependencies/Ogre/Build
+Dependencies/Bullet/Build
+Dependencies/CEGUI/src/dependencies
+Dependencies/CEGUI/dependencies/build
+Dependencies/CEGUI/build
+Dependencies/Lua/Build
 Exes/*
 !Exes/Assets/
 
@@ -33,9 +33,9 @@ Exes/Motor.lib
 *.exp
 
 # NO IGNORAR
-!Dependencias/CMake/bin/cmake.exe
-!Dependencias/Bullet/Src
-!Dependencias/Ogre/Src
+!Dependencies/CMake/bin/cmake.exe
+!Dependencies/Bullet/Src
+!Dependencies/Ogre/Src
 
 # # #
 
@@ -59,6 +59,6 @@ cmake-build-*/
 
 # Ignore vim files
 *.swp
-Dependencias/CEGUI/dependencies/src/pcre-8.12/pcre.h
-Dependencias/CEGUI/dependencies/src/pcre-8.12/config.h
-Dependencias/CEGUI/dependencies/src/jpeg-8c/jconfig.h
+Dependencies/CEGUI/dependencies/src/pcre-8.12/pcre.h
+Dependencies/CEGUI/dependencies/src/pcre-8.12/config.h
+Dependencies/CEGUI/dependencies/src/jpeg-8c/jconfig.h
