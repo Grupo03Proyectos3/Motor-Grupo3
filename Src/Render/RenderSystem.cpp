@@ -139,7 +139,7 @@ namespace Flamingo
             if (game_object != nullptr && game_object->getActive())
             {
                 auto rb = m_mngr->getComponent<RigidBody>(game_object);
-                if (rb)
+                if (rb && !rb->isStatic())
                 {
                     auto t = m_mngr->getComponent<Transform>(game_object);
                     t->setPositionPerPhysics(rb->getPosition());

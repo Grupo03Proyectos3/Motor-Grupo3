@@ -122,7 +122,6 @@ namespace Flamingo
 
                 rb->setPosition(rb->getPosition() + SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
                 break;
-
             }
             case MSG_TRANSFORM_ROTATE:
             {
@@ -164,7 +163,7 @@ namespace Flamingo
                 if (rb == NULL)
                     return;
 
-                //rb->setScale({t_m.vector.x, t_m.vector.y, t_m.vector.z});
+                // rb->setScale({t_m.vector.x, t_m.vector.y, t_m.vector.z});
                 break;
             }
             default:
@@ -239,9 +238,9 @@ namespace Flamingo
     {
         if (t_rb != nullptr)
         {
-           removeShape(t_rb->getCollisionShape());
+            removeShape(t_rb->getCollisionShape());
 
-           m_world->removeRigidBody(t_rb);
+            m_world->removeRigidBody(t_rb);
         }
     }
 
@@ -315,8 +314,8 @@ namespace Flamingo
         if (index >= 0)
         {
             m_collision_shapes->removeAtIndex(index);
+            //delete t_shape;
         }
-        delete t_shape;
     }
 
     bool PhysicsSystem::onCollisionStay(btManifoldPoint& cp, void* body0, void* body1)

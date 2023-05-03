@@ -32,6 +32,9 @@ namespace Flamingo
 
         delete m_rigid_body;
         m_rigid_body = nullptr;
+
+        delete m_shape;
+        m_shape = nullptr;
     }
 
     void RigidBody::initValues(float t_mass, bool t_trigger, bool t_static)
@@ -84,7 +87,7 @@ namespace Flamingo
             phys_sys->removeRigidBody(m_rigid_body);
             delete m_rigid_body;
 
-            //delete m_shape; // already done
+            delete m_shape; // already done
             const Ogre::AxisAlignedBox& meshBoundingBox = mr->getBoundingBox();
             // Calculate the dimensions of the box collider
             btVector3 halfExtents(meshBoundingBox.getSize().x * 0.5f, meshBoundingBox.getSize().y * 0.5f, meshBoundingBox.getSize().z * 0.5f);
