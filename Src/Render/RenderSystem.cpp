@@ -289,7 +289,7 @@ namespace Flamingo
             }
             else if (ihldr.isKeyDown(SDLK_y))
             {
-                m_camera->yaw(1.0f);
+                m_camera->yaw(2.0f);
             }
             else if (ihldr.isKeyDown(SDLK_p))
             {
@@ -312,6 +312,10 @@ namespace Flamingo
                 m_camera->translate(0.0f, 0.0f, +900.0f);
             }
             else if (ihldr.isKeyDown(SDLK_PLUS))
+            {
+                m_camera->translate(0.0f, 900.0f, 0.0f);
+            }
+            else if (ihldr.isKeyDown(SDLK_MINUS))
             {
                 m_camera->translate(0.0f, -900.0f, 0.0f);
             }
