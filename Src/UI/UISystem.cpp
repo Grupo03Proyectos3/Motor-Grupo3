@@ -186,6 +186,8 @@ namespace Flamingo
         m_winMngr->destroyAllWindows();
         for (auto scheme : m_schemes)
         {
+            //detectado memory leaks en CEGUI(2), aunque llamemos a destruir el scheme no borra correctamente y deja memory leaks residuales. 
+            //(~56b && ~262144b)
             CEGUI::SchemeManager::getSingleton().destroy(scheme);
         }
         m_schemes.clear();
