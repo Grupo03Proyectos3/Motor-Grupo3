@@ -140,7 +140,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\FMOD\api\core\libs\$(PlatformName)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FMOD\api\core\libs\$(PlatformName)</AdditionalLibraryDirectories>
       <AdditionalDependencies>fmodL_vc.lib;fmodstudioL_vc.lib;fsbank_vc.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
@@ -161,7 +161,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencias\FMOD\api\core\libs\$(PlatformName)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FMOD\api\core\libs\$(PlatformName)</AdditionalLibraryDirectories>
       <AdditionalDependencies>fmod_vc.lib;fmodstudio_vc.lib;fsbank_vc.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
