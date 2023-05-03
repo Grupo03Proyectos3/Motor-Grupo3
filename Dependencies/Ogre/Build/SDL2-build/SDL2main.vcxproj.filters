@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Usuario\Documents\ELDERSBANE-Grupo03\Eldersbane\Motor-Grupo3\Dependencies\Ogre\Build\SDL2-2.24.1\src\main\windows\SDL_windows_main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Usuario\Documents\ELDERSBANE-Grupo03\Eldersbane\Motor-Grupo3\Dependencies\Ogre\Build\SDL2-2.24.1\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{14653513-05DE-37B9-9C39-71F9B3FAE31B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

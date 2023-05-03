@@ -1,0 +1,10 @@
+^C:\USERS\USUARIO\DOCUMENTS\ELDERSBANE-GRUPO03\ELDERSBANE\MOTOR-GRUPO3\DEPENDENCIES\OGRE\BUILD\PUGIXML-1.12\CMAKELISTS.TXT
+setlocal
+C:\Users\Usuario\Documents\ELDERSBANE-Grupo03\Eldersbane\Motor-Grupo3\Dependencies\CMake\bin\cmake.exe -SC:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/pugixml-1.12 -BC:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/pugixml-1.12 --check-stamp-file C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/pugixml-1.12/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

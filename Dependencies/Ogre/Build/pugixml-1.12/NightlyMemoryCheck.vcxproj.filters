@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Usuario\Documents\ELDERSBANE-Grupo03\Eldersbane\Motor-Grupo3\Dependencies\Ogre\Build\pugixml-1.12\CMakeFiles\34391636dee40a3004461b59a5d37549\NightlyMemoryCheck.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Usuario\Documents\ELDERSBANE-Grupo03\Eldersbane\Motor-Grupo3\Dependencies\Ogre\Build\pugixml-1.12\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Usuario\Documents\ELDERSBANE-Grupo03\Eldersbane\Motor-Grupo3\Dependencies\Ogre\Build\pugixml-1.12\CMakeFiles\NightlyMemoryCheck" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{51967F59-CC04-3D18-A42A-F8A8035B1542}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

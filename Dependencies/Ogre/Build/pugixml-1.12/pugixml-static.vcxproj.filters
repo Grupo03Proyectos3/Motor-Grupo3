@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Usuario\Documents\ELDERSBANE-Grupo03\Eldersbane\Motor-Grupo3\Dependencies\Ogre\Build\pugixml-1.12\src\pugixml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Usuario\Documents\ELDERSBANE-Grupo03\Eldersbane\Motor-Grupo3\Dependencies\Ogre\Build\pugixml-1.12\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{AE45AE94-1208-3D85-96AB-8E6510A9CC36}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,8 @@
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/Dependencies/lib/pugixml.lib
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/Dependencies/lib/cmake/pugixml/pugixml-targets.cmake
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/Dependencies/lib/cmake/pugixml/pugixml-targets-relwithdebinfo.cmake
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/Dependencies/lib/cmake/pugixml/pugixml-config-version.cmake
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/Dependencies/lib/cmake/pugixml/pugixml-config.cmake
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/Dependencies/lib/pkgconfig/pugixml.pc
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/Dependencies/include/pugiconfig.hpp
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/Dependencies/include/pugixml.hpp

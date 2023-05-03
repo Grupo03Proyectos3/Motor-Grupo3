@@ -1,0 +1,9 @@
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/pugixml-1.12/CMakeFiles/Experimental.dir
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/pugixml-1.12/CMakeFiles/Nightly.dir
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/pugixml-1.12/CMakeFiles/Continuous.dir
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/pugixml-1.12/CMakeFiles/NightlyMemoryCheck.dir
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/pugixml-1.12/CMakeFiles/pugixml-static.dir
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/pugixml-1.12/CMakeFiles/RUN_TESTS.dir
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/pugixml-1.12/CMakeFiles/INSTALL.dir
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/pugixml-1.12/CMakeFiles/ALL_BUILD.dir
+C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/pugixml-1.12/CMakeFiles/ZERO_CHECK.dir

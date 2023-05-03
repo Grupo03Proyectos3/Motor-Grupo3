@@ -1,0 +1,420 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/CMake/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:204 (message)"
+      - "CMakeLists.txt:4 (project)"
+    message: |
+      The system is: Windows - 10.0.22621 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/CMake/share/cmake-3.26/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:4 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.4.1+9a89d02ff for .NET Framework
+      Compilación iniciada a las 03/05/2023 10:05:43.
+      Proyecto "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\3.26.0\\CompilerIdC\\CompilerIdC.vcxproj" en nodo 1 (destinos predeterminados).
+      PrepareForBuild:
+        Creando directorio "Debug\\".
+        Creando directorio "Debug\\CompilerIdC.tlog\\".
+      InitializeBuildStatus:
+        Se creará "Debug\\CompilerIdC.tlog\\unsuccessfulbuild" porque se especificó "AlwaysCreate".
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\3.26.0\\CompilerIdC\\CompilerIdC.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Se eliminará el archivo "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+        Aplicando tarea Touch a "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
+      Compilación del proyecto terminada "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\3.26.0\\CompilerIdC\\CompilerIdC.vcxproj" (destinos predeterminados).
+      
+      Compilación correcta.
+          0 Advertencia(s)
+          0 Errores
+      
+      Tiempo transcurrido 00:00:00.64
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/3.26.0/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/CMake/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:4 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-22xwi3"
+      binary: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-22xwi3"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-22xwi3
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_1d36d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.4.1+9a89d02ff for .NET Framework
+        Compilación iniciada a las 03/05/2023 10:05:44.
+        Proyecto "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-22xwi3\\cmTC_1d36d.vcxproj" en nodo 1 (destinos predeterminados).
+        PrepareForBuild:
+          Creando directorio "cmTC_1d36d.dir\\Debug\\".
+          Creando directorio "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-22xwi3\\Debug\\".
+          Creando directorio "cmTC_1d36d.dir\\Debug\\cmTC_1d36d.tlog\\".
+        InitializeBuildStatus:
+          Se creará "cmTC_1d36d.dir\\Debug\\cmTC_1d36d.tlog\\unsuccessfulbuild" porque se especificó "AlwaysCreate".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_1d36d.dir\\Debug\\\\" /Fd"cmTC_1d36d.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+          Compilador de optimización de C/C++ de Microsoft (R) versión 19.34.31937 para x64
+          CMakeCCompilerABI.c
+          (C) Microsoft Corporation. Todos los derechos reservados.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_1d36d.dir\\Debug\\\\" /Fd"cmTC_1d36d.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-22xwi3\\Debug\\cmTC_1d36d.exe" /INCREMENTAL /ILK:"cmTC_1d36d.dir\\Debug\\cmTC_1d36d.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-22xwi3/Debug/cmTC_1d36d.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-22xwi3/Debug/cmTC_1d36d.lib" /MACHINE:X64  /machine:x64 cmTC_1d36d.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_1d36d.vcxproj -> C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-22xwi3\\Debug\\cmTC_1d36d.exe
+        FinalizeBuildStatus:
+          Se eliminará el archivo "cmTC_1d36d.dir\\Debug\\cmTC_1d36d.tlog\\unsuccessfulbuild".
+          Aplicando tarea Touch a "cmTC_1d36d.dir\\Debug\\cmTC_1d36d.tlog\\cmTC_1d36d.lastbuildstate".
+        Compilación del proyecto terminada "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-22xwi3\\cmTC_1d36d.vcxproj" (destinos predeterminados).
+        
+        Compilación correcta.
+            0 Advertencia(s)
+            0 Errores
+        
+        Tiempo transcurrido 00:00:00.71
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/CMake/share/cmake-3.26/Modules/CheckIncludeFile.cmake:95 (try_compile)"
+      - "CMakeLists.txt:20 (check_include_file)"
+    checks:
+      - "Looking for sys/types.h"
+    directories:
+      source: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-lhoyh3"
+      binary: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-lhoyh3"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+    buildResult:
+      variable: "HAVE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-lhoyh3
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_10fbc.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.4.1+9a89d02ff for .NET Framework
+        Compilación iniciada a las 03/05/2023 10:05:45.
+        Proyecto "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-lhoyh3\\cmTC_10fbc.vcxproj" en nodo 1 (destinos predeterminados).
+        PrepareForBuild:
+          Creando directorio "cmTC_10fbc.dir\\Debug\\".
+          Creando directorio "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-lhoyh3\\Debug\\".
+          Creando directorio "cmTC_10fbc.dir\\Debug\\cmTC_10fbc.tlog\\".
+        InitializeBuildStatus:
+          Se creará "cmTC_10fbc.dir\\Debug\\cmTC_10fbc.tlog\\unsuccessfulbuild" porque se especificó "AlwaysCreate".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_10fbc.dir\\Debug\\\\" /Fd"cmTC_10fbc.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-lhoyh3\\CheckIncludeFile.c"
+          Compilador de optimización de C/C++ de Microsoft (R) versión 19.34.31937 para x64
+          CheckIncludeFile.c
+          (C) Microsoft Corporation. Todos los derechos reservados.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_10fbc.dir\\Debug\\\\" /Fd"cmTC_10fbc.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-lhoyh3\\CheckIncludeFile.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-lhoyh3\\Debug\\cmTC_10fbc.exe" /INCREMENTAL /ILK:"cmTC_10fbc.dir\\Debug\\cmTC_10fbc.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-lhoyh3/Debug/cmTC_10fbc.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-lhoyh3/Debug/cmTC_10fbc.lib" /MACHINE:X64  /machine:x64 cmTC_10fbc.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_10fbc.vcxproj -> C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-lhoyh3\\Debug\\cmTC_10fbc.exe
+        FinalizeBuildStatus:
+          Se eliminará el archivo "cmTC_10fbc.dir\\Debug\\cmTC_10fbc.tlog\\unsuccessfulbuild".
+          Aplicando tarea Touch a "cmTC_10fbc.dir\\Debug\\cmTC_10fbc.tlog\\cmTC_10fbc.lastbuildstate".
+        Compilación del proyecto terminada "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-lhoyh3\\cmTC_10fbc.vcxproj" (destinos predeterminados).
+        
+        Compilación correcta.
+            0 Advertencia(s)
+            0 Errores
+        
+        Tiempo transcurrido 00:00:00.66
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/CMake/share/cmake-3.26/Modules/CheckIncludeFile.cmake:95 (try_compile)"
+      - "CMakeLists.txt:21 (check_include_file)"
+    checks:
+      - "Looking for stdint.h"
+    directories:
+      source: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-ehelp6"
+      binary: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-ehelp6"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+    buildResult:
+      variable: "HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-ehelp6
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_6ec01.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.4.1+9a89d02ff for .NET Framework
+        Compilación iniciada a las 03/05/2023 10:05:45.
+        Proyecto "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-ehelp6\\cmTC_6ec01.vcxproj" en nodo 1 (destinos predeterminados).
+        PrepareForBuild:
+          Creando directorio "cmTC_6ec01.dir\\Debug\\".
+          Creando directorio "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-ehelp6\\Debug\\".
+          Creando directorio "cmTC_6ec01.dir\\Debug\\cmTC_6ec01.tlog\\".
+        InitializeBuildStatus:
+          Se creará "cmTC_6ec01.dir\\Debug\\cmTC_6ec01.tlog\\unsuccessfulbuild" porque se especificó "AlwaysCreate".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6ec01.dir\\Debug\\\\" /Fd"cmTC_6ec01.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-ehelp6\\CheckIncludeFile.c"
+          Compilador de optimización de C/C++ de Microsoft (R) versión 19.34.31937 para x64
+          CheckIncludeFile.c
+          (C) Microsoft Corporation. Todos los derechos reservados.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6ec01.dir\\Debug\\\\" /Fd"cmTC_6ec01.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-ehelp6\\CheckIncludeFile.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-ehelp6\\Debug\\cmTC_6ec01.exe" /INCREMENTAL /ILK:"cmTC_6ec01.dir\\Debug\\cmTC_6ec01.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-ehelp6/Debug/cmTC_6ec01.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-ehelp6/Debug/cmTC_6ec01.lib" /MACHINE:X64  /machine:x64 cmTC_6ec01.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_6ec01.vcxproj -> C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-ehelp6\\Debug\\cmTC_6ec01.exe
+        FinalizeBuildStatus:
+          Se eliminará el archivo "cmTC_6ec01.dir\\Debug\\cmTC_6ec01.tlog\\unsuccessfulbuild".
+          Aplicando tarea Touch a "cmTC_6ec01.dir\\Debug\\cmTC_6ec01.tlog\\cmTC_6ec01.lastbuildstate".
+        Compilación del proyecto terminada "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-ehelp6\\cmTC_6ec01.vcxproj" (destinos predeterminados).
+        
+        Compilación correcta.
+            0 Advertencia(s)
+            0 Errores
+        
+        Tiempo transcurrido 00:00:00.70
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/CMake/share/cmake-3.26/Modules/CheckIncludeFile.cmake:95 (try_compile)"
+      - "CMakeLists.txt:22 (check_include_file)"
+    checks:
+      - "Looking for stddef.h"
+    directories:
+      source: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-2gr5su"
+      binary: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-2gr5su"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+    buildResult:
+      variable: "HAVE_STDDEF_H"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-2gr5su
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_08c3f.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.4.1+9a89d02ff for .NET Framework
+        Compilación iniciada a las 03/05/2023 10:05:46.
+        Proyecto "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-2gr5su\\cmTC_08c3f.vcxproj" en nodo 1 (destinos predeterminados).
+        PrepareForBuild:
+          Creando directorio "cmTC_08c3f.dir\\Debug\\".
+          Creando directorio "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-2gr5su\\Debug\\".
+          Creando directorio "cmTC_08c3f.dir\\Debug\\cmTC_08c3f.tlog\\".
+        InitializeBuildStatus:
+          Se creará "cmTC_08c3f.dir\\Debug\\cmTC_08c3f.tlog\\unsuccessfulbuild" porque se especificó "AlwaysCreate".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_08c3f.dir\\Debug\\\\" /Fd"cmTC_08c3f.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-2gr5su\\CheckIncludeFile.c"
+          Compilador de optimización de C/C++ de Microsoft (R) versión 19.34.31937 para x64
+          CheckIncludeFile.c
+          (C) Microsoft Corporation. Todos los derechos reservados.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_08c3f.dir\\Debug\\\\" /Fd"cmTC_08c3f.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-2gr5su\\CheckIncludeFile.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-2gr5su\\Debug\\cmTC_08c3f.exe" /INCREMENTAL /ILK:"cmTC_08c3f.dir\\Debug\\cmTC_08c3f.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-2gr5su/Debug/cmTC_08c3f.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-2gr5su/Debug/cmTC_08c3f.lib" /MACHINE:X64  /machine:x64 cmTC_08c3f.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_08c3f.vcxproj -> C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-2gr5su\\Debug\\cmTC_08c3f.exe
+        FinalizeBuildStatus:
+          Se eliminará el archivo "cmTC_08c3f.dir\\Debug\\cmTC_08c3f.tlog\\unsuccessfulbuild".
+          Aplicando tarea Touch a "cmTC_08c3f.dir\\Debug\\cmTC_08c3f.tlog\\cmTC_08c3f.lastbuildstate".
+        Compilación del proyecto terminada "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-2gr5su\\cmTC_08c3f.vcxproj" (destinos predeterminados).
+        
+        Compilación correcta.
+            0 Advertencia(s)
+            0 Errores
+        
+        Tiempo transcurrido 00:00:00.71
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/CMake/share/cmake-3.26/Modules/CheckTypeSize.cmake:148 (try_compile)"
+      - "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/CMake/share/cmake-3.26/Modules/CheckTypeSize.cmake:273 (__check_type_size_impl)"
+      - "CMakeLists.txt:40 (check_type_size)"
+    checks:
+      - "Check size of off64_t"
+    directories:
+      source: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-7u4nxg"
+      binary: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-7u4nxg"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+    buildResult:
+      variable: "HAVE_OFF64_T"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-7u4nxg
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_0e003.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.4.1+9a89d02ff for .NET Framework
+        Compilación iniciada a las 03/05/2023 10:05:47.
+        Proyecto "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\cmTC_0e003.vcxproj" en nodo 1 (destinos predeterminados).
+        PrepareForBuild:
+          Creando directorio "cmTC_0e003.dir\\Debug\\".
+          Creando directorio "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\Debug\\".
+          Creando directorio "cmTC_0e003.dir\\Debug\\cmTC_0e003.tlog\\".
+        InitializeBuildStatus:
+          Se creará "cmTC_0e003.dir\\Debug\\cmTC_0e003.tlog\\unsuccessfulbuild" porque se especificó "AlwaysCreate".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _LARGEFILE64_SOURCE=1 /D HAVE_SYS_TYPES_H /D HAVE_STDINT_H /D HAVE_STDDEF_H /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_0e003.dir\\Debug\\\\" /Fd"cmTC_0e003.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\OFF64_T.c"
+          Compilador de optimización de C/C++ de Microsoft (R) versión 19.34.31937 para x64
+          OFF64_T.c
+        C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\OFF64_T.c(29,12): error C2065: 'off64_t': identificador no declarado [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\cmTC_0e003.vcxproj]
+        C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\OFF64_T.c(30,12): error C2065: 'off64_t': identificador no declarado [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\cmTC_0e003.vcxproj]
+        C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\OFF64_T.c(31,12): error C2065: 'off64_t': identificador no declarado [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\cmTC_0e003.vcxproj]
+        C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\OFF64_T.c(32,12): error C2065: 'off64_t': identificador no declarado [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\cmTC_0e003.vcxproj]
+        C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\OFF64_T.c(33,12): error C2065: 'off64_t': identificador no declarado [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\cmTC_0e003.vcxproj]
+          (C) Microsoft Corporation. Todos los derechos reservados.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _LARGEFILE64_SOURCE=1 /D HAVE_SYS_TYPES_H /D HAVE_STDINT_H /D HAVE_STDDEF_H /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_0e003.dir\\Debug\\\\" /Fd"cmTC_0e003.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\OFF64_T.c"
+        Compilación del proyecto terminada "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\cmTC_0e003.vcxproj" (destinos predeterminados) -- ERROR.
+        
+        ERROR al compilar.
+        
+        "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\cmTC_0e003.vcxproj" (destino predeterminado) (1) ->
+        (ClCompile destino) -> 
+          C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\OFF64_T.c(29,12): error C2065: 'off64_t': identificador no declarado [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\cmTC_0e003.vcxproj]
+          C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\OFF64_T.c(30,12): error C2065: 'off64_t': identificador no declarado [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\cmTC_0e003.vcxproj]
+          C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\OFF64_T.c(31,12): error C2065: 'off64_t': identificador no declarado [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\cmTC_0e003.vcxproj]
+          C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\OFF64_T.c(32,12): error C2065: 'off64_t': identificador no declarado [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\cmTC_0e003.vcxproj]
+          C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\OFF64_T.c(33,12): error C2065: 'off64_t': identificador no declarado [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-7u4nxg\\cmTC_0e003.vcxproj]
+        
+            0 Advertencia(s)
+            5 Errores
+        
+        Tiempo transcurrido 00:00:00.42
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/CMake/share/cmake-3.26/Modules/CheckFunctionExists.cmake:91 (try_compile)"
+      - "CMakeLists.txt:49 (check_function_exists)"
+    checks:
+      - "Looking for fseeko"
+    directories:
+      source: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-rqz4gy"
+      binary: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-rqz4gy"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+    buildResult:
+      variable: "HAVE_FSEEKO"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-rqz4gy
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_d66dd.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.4.1+9a89d02ff for .NET Framework
+        Compilación iniciada a las 03/05/2023 10:05:48.
+        Proyecto "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-rqz4gy\\cmTC_d66dd.vcxproj" en nodo 1 (destinos predeterminados).
+        PrepareForBuild:
+          Creando directorio "cmTC_d66dd.dir\\Debug\\".
+          Creando directorio "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-rqz4gy\\Debug\\".
+          Creando directorio "cmTC_d66dd.dir\\Debug\\cmTC_d66dd.tlog\\".
+        InitializeBuildStatus:
+          Se creará "cmTC_d66dd.dir\\Debug\\cmTC_d66dd.tlog\\unsuccessfulbuild" porque se especificó "AlwaysCreate".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=fseeko /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d66dd.dir\\Debug\\\\" /Fd"cmTC_d66dd.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-rqz4gy\\CheckFunctionExists.c"
+          Compilador de optimización de C/C++ de Microsoft (R) versión 19.34.31937 para x64
+          CheckFunctionExists.c
+          (C) Microsoft Corporation. Todos los derechos reservados.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=fseeko /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d66dd.dir\\Debug\\\\" /Fd"cmTC_d66dd.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-rqz4gy\\CheckFunctionExists.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-rqz4gy\\Debug\\cmTC_d66dd.exe" /INCREMENTAL /ILK:"cmTC_d66dd.dir\\Debug\\cmTC_d66dd.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-rqz4gy/Debug/cmTC_d66dd.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-rqz4gy/Debug/cmTC_d66dd.lib" /MACHINE:X64  /machine:x64 cmTC_d66dd.dir\\Debug\\CheckFunctionExists.obj
+        CheckFunctionExists.obj : error LNK2019: símbolo externo fseeko sin resolver al que se hace referencia en la función main [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-rqz4gy\\cmTC_d66dd.vcxproj]
+        C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-rqz4gy\\Debug\\cmTC_d66dd.exe : fatal error LNK1120: 1 externos sin resolver [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-rqz4gy\\cmTC_d66dd.vcxproj]
+        Compilación del proyecto terminada "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-rqz4gy\\cmTC_d66dd.vcxproj" (destinos predeterminados) -- ERROR.
+        
+        ERROR al compilar.
+        
+        "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-rqz4gy\\cmTC_d66dd.vcxproj" (destino predeterminado) (1) ->
+        (Link destino) -> 
+          CheckFunctionExists.obj : error LNK2019: símbolo externo fseeko sin resolver al que se hace referencia en la función main [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-rqz4gy\\cmTC_d66dd.vcxproj]
+          C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-rqz4gy\\Debug\\cmTC_d66dd.exe : fatal error LNK1120: 1 externos sin resolver [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-rqz4gy\\cmTC_d66dd.vcxproj]
+        
+            0 Advertencia(s)
+            2 Errores
+        
+        Tiempo transcurrido 00:00:00.70
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/CMake/share/cmake-3.26/Modules/CheckIncludeFile.cmake:95 (try_compile)"
+      - "CMakeLists.txt:57 (check_include_file)"
+    checks:
+      - "Looking for unistd.h"
+    directories:
+      source: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-55xht8"
+      binary: "C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-55xht8"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+    buildResult:
+      variable: "Z_HAVE_UNISTD_H"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/Usuario/Documents/ELDERSBANE-Grupo03/Eldersbane/Motor-Grupo3/Dependencies/Ogre/Build/zlib-1.2.13/CMakeFiles/CMakeScratch/TryCompile-55xht8
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_ea603.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.4.1+9a89d02ff for .NET Framework
+        Compilación iniciada a las 03/05/2023 10:05:49.
+        Proyecto "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-55xht8\\cmTC_ea603.vcxproj" en nodo 1 (destinos predeterminados).
+        PrepareForBuild:
+          Creando directorio "cmTC_ea603.dir\\Debug\\".
+          Creando directorio "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-55xht8\\Debug\\".
+          Creando directorio "cmTC_ea603.dir\\Debug\\cmTC_ea603.tlog\\".
+        InitializeBuildStatus:
+          Se creará "cmTC_ea603.dir\\Debug\\cmTC_ea603.tlog\\unsuccessfulbuild" porque se especificó "AlwaysCreate".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_ea603.dir\\Debug\\\\" /Fd"cmTC_ea603.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-55xht8\\CheckIncludeFile.c"
+          Compilador de optimización de C/C++ de Microsoft (R) versión 19.34.31937 para x64
+          CheckIncludeFile.c
+          (C) Microsoft Corporation. Todos los derechos reservados.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_ea603.dir\\Debug\\\\" /Fd"cmTC_ea603.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-55xht8\\CheckIncludeFile.c"
+        C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-55xht8\\CheckIncludeFile.c(1,10): fatal  error C1083: No se puede abrir el archivo incluir: 'unistd.h': No such file or directory [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-55xht8\\cmTC_ea603.vcxproj]
+        Compilación del proyecto terminada "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-55xht8\\cmTC_ea603.vcxproj" (destinos predeterminados) -- ERROR.
+        
+        ERROR al compilar.
+        
+        "C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-55xht8\\cmTC_ea603.vcxproj" (destino predeterminado) (1) ->
+        (ClCompile destino) -> 
+          C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-55xht8\\CheckIncludeFile.c(1,10): fatal  error C1083: No se puede abrir el archivo incluir: 'unistd.h': No such file or directory [C:\\Users\\Usuario\\Documents\\ELDERSBANE-Grupo03\\Eldersbane\\Motor-Grupo3\\Dependencies\\Ogre\\Build\\zlib-1.2.13\\CMakeFiles\\CMakeScratch\\TryCompile-55xht8\\cmTC_ea603.vcxproj]
+        
+            0 Advertencia(s)
+            1 Errores
+        
+        Tiempo transcurrido 00:00:00.40
+        
+      exitCode: 1
+...
