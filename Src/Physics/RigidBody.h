@@ -20,35 +20,35 @@ namespace Flamingo{
     class SVector3;
     class SQuaternion;
 
-    struct FLAMINGOEXPORT_API RigidBody : public Component
+    struct RigidBody : public Component
     {
       public:
         __SYSTEM_ID_DECL__(_cmp_RIGID_BODY)
 
         RigidBody();
         virtual ~RigidBody();
-        virtual void initValues(float t_mass, bool t_trigger, bool t_static);
-        virtual void initComponent();
+        FLAMINGOEXPORT_API virtual void initValues(float t_mass, bool t_trigger, bool t_static);
+        FLAMINGOEXPORT_API virtual void initComponent();
 
-        void setMass(const float& t_mass);
-        void setScale(const SVector3 t_scale);
-        void setTrigger(bool t_trigger);
-        void setStatic(bool t_static);
-        void setKinematic(bool t_kinematic);
-        void setPosition(SVector3 t_pos);
-        void setRotation(SQuaternion t_rot);
-        void setLinearVelocity(const SVector3& t_velocity);
-        void setAngularVelocity(const SVector3& t_velocity);
+        FLAMINGOEXPORT_API void setMass(const float& t_mass);
+        FLAMINGOEXPORT_API void setScale(const SVector3 t_scale);
+        FLAMINGOEXPORT_API void setTrigger(bool t_trigger);
+        FLAMINGOEXPORT_API void setStatic(bool t_static);
+        FLAMINGOEXPORT_API void setKinematic(bool t_kinematic);
+        FLAMINGOEXPORT_API void setPosition(SVector3 t_pos);
+        FLAMINGOEXPORT_API void setRotation(SQuaternion t_rot);
+        FLAMINGOEXPORT_API void setLinearVelocity(const SVector3& t_velocity);
+        FLAMINGOEXPORT_API void setAngularVelocity(const SVector3& t_velocity);
 
         btRigidBody* getBtRigidBody() const;
-        float getMass() const;
-        bool isTrigger() const;
-        bool isStatic() const;
-        bool isKinematic() const;
-        SVector3 getPosition() const;
-        SQuaternion getRotation() const;
-        SVector3 getLinearVelocity() const;
-        SVector3 getAngularVelocity() const;
+        FLAMINGOEXPORT_API float getMass() const;
+        FLAMINGOEXPORT_API bool isTrigger() const;
+        FLAMINGOEXPORT_API bool isStatic() const;
+        FLAMINGOEXPORT_API bool isKinematic() const;
+        FLAMINGOEXPORT_API SVector3 getPosition() const;
+        FLAMINGOEXPORT_API SQuaternion getRotation() const;
+        FLAMINGOEXPORT_API SVector3 getLinearVelocity() const;
+        FLAMINGOEXPORT_API SVector3 getAngularVelocity() const;
 
       private:
         btRigidBody* m_rigid_body = nullptr;       // rigidbody de Bullet

@@ -5,7 +5,7 @@
 #include "ECS/SingletonECS.h"
 #include <map>
 #include <string>
-
+#include "FlamingoExport/FlamingoAPI.h"
 namespace Flamingo
 {
  
@@ -16,7 +16,7 @@ namespace Flamingo
     /*Clase que se encarga de la gestión de scripts que hereden de BehaviorScript mediante nombres asociados a la clase y referencias a esta.
     Se usa como capa de abstracción que ,en conjunto con el Manager, realiza las funciones necesarias sobre los componentes que si fueran propios del motor
     y no creados por el ussuario llevaría a cabo el manager directamente. */
-    class __declspec(dllexport) ScriptManager : public SingletonECS<ScriptManager>
+    class FLAMINGOEXPORT_API ScriptManager : public SingletonECS<ScriptManager>
     {
       public:
         /* la constructora y destructora de las clases que hereden de singleton deben estar en el .h para que funcionen en el juego */

@@ -12,32 +12,32 @@ namespace Ogre
 
 namespace Flamingo
 {
-    class FLAMINGOEXPORT_API SColor
+    class  SColor
     {
       public:
-        SColor(float t_r = 1.0f, float t_g = 1.0f, float t_b = 1.0f, float t_a = 1.0f);
-        ~SColor() = default;
+        FLAMINGOEXPORT_API SColor(float t_r = 1.0f, float t_g = 1.0f, float t_b = 1.0f, float t_a = 1.0f);
+        FLAMINGOEXPORT_API ~SColor() = default;
 
-        void setColor(float t_r, float t_g, float t_b, float t_a = 1.0f);
+        FLAMINGOEXPORT_API void setColor(float t_r, float t_g, float t_b, float t_a = 1.0f);
 
-        bool operator==(const SColor& other);
-        bool operator!=(const SColor& other);
+        FLAMINGOEXPORT_API bool operator==(const SColor& other);
+        FLAMINGOEXPORT_API bool operator!=(const SColor& other);
 
-        SColor operator+(const SColor& other);
-        SColor operator-(const SColor& other);
-        SColor operator*(const float& t_scalar);
-        SColor operator*(const SColor& other);
-        SColor operator/(const float& t_scalar);
-        SColor operator/(const SColor& other);
+        FLAMINGOEXPORT_API SColor operator+(const SColor& other);
+        FLAMINGOEXPORT_API SColor operator-(const SColor& other);
+        FLAMINGOEXPORT_API SColor operator*(const float& t_scalar);
+        FLAMINGOEXPORT_API SColor operator*(const SColor& other);
+        FLAMINGOEXPORT_API SColor operator/(const float& t_scalar);
+        FLAMINGOEXPORT_API SColor operator/(const SColor& other);
 
-        void operator+=(const SColor& other);
-        void operator-=(const SColor& other);
-        void operator*=(const float& t_scalar);
-        void operator/=(const float& t_scalar);
+        FLAMINGOEXPORT_API void operator+=(const SColor& other);
+        FLAMINGOEXPORT_API void operator-=(const SColor& other);
+        FLAMINGOEXPORT_API void operator*=(const float& t_scalar);
+        FLAMINGOEXPORT_API void operator/=(const float& t_scalar);
 
-        friend std::ostream& operator<<(std::ostream& out, const SColor& v);
+        FLAMINGOEXPORT_API friend std::ostream& operator<<(std::ostream& out, const SColor& v);
 
-        operator Ogre::ColourValue() const;
+        FLAMINGOEXPORT_API operator Ogre::ColourValue() const;
         static SColor ogreToSColor(const Ogre::ColourValue& t_ogre_color);
 
       private:

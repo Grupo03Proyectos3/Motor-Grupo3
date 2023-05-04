@@ -24,42 +24,42 @@ namespace Flamingo
      * Almacena los valores de un Vector3 y cuenta con setters, getters, conversores a las otras clases Vector3 y métodos que se irán añadiendo
      * relacionados con transformaciones en éste.
      */
-    class FLAMINGOEXPORT_API SVector3
+    class SVector3
     {
       public:
-        SVector3();
-        SVector3(double t_x, double t_y, double t_z);
-        ~SVector3() = default;
-        void setVector3(double t_x, double t_y, double t_z);
+        FLAMINGOEXPORT_API SVector3();
+        FLAMINGOEXPORT_API SVector3(double t_x, double t_y, double t_z);
+        FLAMINGOEXPORT_API ~SVector3() = default;
+        FLAMINGOEXPORT_API void setVector3(double t_x, double t_y, double t_z);
 
-        double getX();
-        double getY();
-        double getZ();
+        FLAMINGOEXPORT_API double getX();
+        FLAMINGOEXPORT_API double getY();
+        FLAMINGOEXPORT_API double getZ();
 
-        void operator+=(const SVector3& other);
-        void operator-=(const SVector3& other);
+        FLAMINGOEXPORT_API void operator+=(const SVector3& other);
+        FLAMINGOEXPORT_API void operator-=(const SVector3& other);
 
-        void operator*=(float v);
-        void operator/=(float v);
+        FLAMINGOEXPORT_API void operator*=(float v);
+        FLAMINGOEXPORT_API void operator/=(float v);
 
-        bool operator==(const SVector3& other);
-        bool operator!=(const SVector3& other);
+        FLAMINGOEXPORT_API bool operator==(const SVector3& other);
+        FLAMINGOEXPORT_API bool operator!=(const SVector3& other);
 
-        SVector3 operator+(const SVector3& other);
-        SVector3 operator-(const SVector3& other);
-        SVector3 operator*(const float& v);
-        SVector3 operator/(const float& v);
+        FLAMINGOEXPORT_API SVector3 operator+(const SVector3& other);
+        FLAMINGOEXPORT_API SVector3 operator-(const SVector3& other);
+        FLAMINGOEXPORT_API SVector3 operator*(const float& v);
+        FLAMINGOEXPORT_API SVector3 operator/(const float& v);
 
-        friend std::ostream& operator<<(std::ostream& out, const SVector3& v);
-        friend std::istream& operator>>(std::istream& in, SVector3& v);
+        FLAMINGOEXPORT_API friend std::ostream& operator<<(std::ostream& out, const SVector3& v);
+        FLAMINGOEXPORT_API friend std::istream& operator>>(std::istream& in, SVector3& v);
 
-        double magnitude();
-        double sqrMagnitude();
-        SVector3 normalized();
-        void normalize();
+        FLAMINGOEXPORT_API double magnitude();
+        FLAMINGOEXPORT_API double sqrMagnitude();
+        FLAMINGOEXPORT_API SVector3 normalized();
+        FLAMINGOEXPORT_API void normalize();
 
-        static double distance(const SVector3& a, const SVector3& b);
-        static double angle(const SVector3& a, const SVector3& b);
+        FLAMINGOEXPORT_API static double distance(const SVector3& a, const SVector3& b);
+        FLAMINGOEXPORT_API static double angle(const SVector3& a, const SVector3& b);
 
         // static Ogre::Vector3 sVectorToOgre(const SVector3& sVector);
         operator Ogre::Vector3() const;
@@ -69,7 +69,7 @@ namespace Flamingo
         static SVector3 bulletToSVector3(const btVector3& t_bulletVector);
         // static SVector3 fmodToSVector3(const FMOD_VECTOR& fModVector);
 
-        double lenght();
+        FLAMINGOEXPORT_API double lenght();
 
       private:
         double m_x;

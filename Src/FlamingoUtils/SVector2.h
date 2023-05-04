@@ -31,41 +31,41 @@ namespace CEGUI
 namespace Flamingo
 {
 
-    class FLAMINGOEXPORT_API SVector2
+    class SVector2
     {
       public:
-        SVector2();
-        SVector2(double t_x, double t_y);
-        ~SVector2() = default;
-        void setVector2(double t_x, double t_y);
+        FLAMINGOEXPORT_API SVector2();
+        FLAMINGOEXPORT_API SVector2(double t_x, double t_y);
+        FLAMINGOEXPORT_API ~SVector2() = default;
+        FLAMINGOEXPORT_API void setVector2(double t_x, double t_y);
 
-        double getX();
-        double getY();
+        FLAMINGOEXPORT_API double getX();
+        FLAMINGOEXPORT_API double getY();
 
-        void operator+=(const SVector2& other);
-        void operator-=(const SVector2& other);
+        FLAMINGOEXPORT_API void operator+=(const SVector2& other);
+        FLAMINGOEXPORT_API void operator-=(const SVector2& other);
 
-        void operator*=(float v);
-        void operator/=(float v);
+        FLAMINGOEXPORT_API void operator*=(float v);
+        FLAMINGOEXPORT_API void operator/=(float v);
 
-        bool operator==(const SVector2& other);
-        bool operator!=(const SVector2& other);
+        FLAMINGOEXPORT_API bool operator==(const SVector2& other);
+        FLAMINGOEXPORT_API bool operator!=(const SVector2& other);
 
-        SVector2 operator+(const SVector2& other);
-        SVector2 operator-(const SVector2& other);
-        SVector2 operator*(const float& v);
-        SVector2 operator/(const float& v);
+        FLAMINGOEXPORT_API SVector2 operator+(const SVector2& other);
+        FLAMINGOEXPORT_API SVector2 operator-(const SVector2& other);
+        FLAMINGOEXPORT_API SVector2 operator*(const float& v);
+        FLAMINGOEXPORT_API SVector2 operator/(const float& v);
 
-        friend std::ostream& operator<<(std::ostream& out, const SVector2& v);
-        friend std::istream& operator>>(std::istream& in, SVector2& v);
+        FLAMINGOEXPORT_API friend std::ostream& operator<<(std::ostream& out, const SVector2& v);
+        FLAMINGOEXPORT_API friend std::istream& operator>>(std::istream& in, SVector2& v);
 
-        double magnitude();
-        double sqrMagnitude();
-        SVector2 normalized();
-        void normalize();
+        FLAMINGOEXPORT_API double magnitude();
+        FLAMINGOEXPORT_API double sqrMagnitude();
+        FLAMINGOEXPORT_API SVector2 normalized();
+        FLAMINGOEXPORT_API void normalize();
 
-        static double distance(const SVector2& a, const SVector2& b);
-        static double angle(const SVector2& a, const SVector2& b);
+        FLAMINGOEXPORT_API static double distance(const SVector2& a, const SVector2& b);
+        FLAMINGOEXPORT_API static double angle(const SVector2& a, const SVector2& b);
 
         // static Ogre::Vector3 sVectorToOgre(const SVector3& sVector);
         operator Ogre::Vector2() const;

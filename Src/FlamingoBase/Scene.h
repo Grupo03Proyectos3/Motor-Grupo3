@@ -4,7 +4,7 @@
 
 #include <unordered_map>
 #include "Ecs/GameObject.h"
-
+#include "FlamingoExport/FlamingoAPI.h"
 namespace Ogre
 {
     class SceneManager;
@@ -15,22 +15,22 @@ namespace CEGUI
     class Window;
 }
 namespace Flamingo{
-    class __declspec(dllexport)  Scene
+    class Scene
     {
       public:
-        Scene();
-        ~Scene();
-        void initScene(std::string name);
-        void addObjects(GameObject* t_GameObject);
-        void delObject(std::string t_nameObject);
-        void setDebug(bool t_active);
+        FLAMINGOEXPORT_API Scene();
+        FLAMINGOEXPORT_API  ~Scene();
+        FLAMINGOEXPORT_API void initScene(std::string name);
+        FLAMINGOEXPORT_API void addObjects(GameObject* t_GameObject);
+        FLAMINGOEXPORT_API void delObject(std::string t_nameObject);
+        FLAMINGOEXPORT_API void setDebug(bool t_active);
 
-        void destroySceneObjects();
-        void desactive();
-        void active();
-        GameObject* getObject(std::string t_name);
+        FLAMINGOEXPORT_API void destroySceneObjects();
+        FLAMINGOEXPORT_API void desactive();
+        FLAMINGOEXPORT_API void active();
+        FLAMINGOEXPORT_API GameObject* getObject(std::string t_name);
 
-        std::string getName();
+        FLAMINGOEXPORT_API std::string getName();
         Ogre::SceneManager* getSceneManger();//NO EXPORTAR
         Ogre::SceneNode* getSceneRoot();     //NO EXPORTAR 
         CEGUI::Window* getCeguiRoot();       //NO EXPORTAR
