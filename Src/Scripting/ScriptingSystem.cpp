@@ -104,44 +104,76 @@ namespace Flamingo
             {
                 // Si alguno de los GameObjects implicados en la colisi�n tiene BehaviourScript,
                 // se llama a su OnCollisionStay() para ejecutar la acci�n determinada por el usuario.
-                if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj1))
+                for (auto c : t_m.collision.obj1->getCurrentComponents())
                 {
-                    bsCmp->onCollisionStay(t_m.collision.obj2);
+                    auto s = dynamic_cast<BehaviourScript*>(c.second);
+                    if (s != nullptr && s->gameObject()->getActive() && s->gameObject()->getAlive())
+                    {
+                        s->onCollisionStay(t_m.collision.obj2);
+                    }
                 }
 
-                if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj2))
+                for (auto c : t_m.collision.obj2->getCurrentComponents())
                 {
-                    bsCmp->onCollisionStay(t_m.collision.obj1);
+                    auto s = dynamic_cast<BehaviourScript*>(c.second);
+                    if (s != nullptr && s->gameObject()->getActive() && s->gameObject()->getAlive())
+                    {
+                        s->onCollisionStay(t_m.collision.obj1);
+                    }
                 }
 
                 break;
             }
             case MSG_COLLISION_ENTER:
             {
-                if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj1))
+                for (auto c : t_m.collision.obj1->getCurrentComponents())
                 {
-                    bsCmp->onCollisionEnter(t_m.collision.obj2);
+                    auto s = dynamic_cast<BehaviourScript*>(c.second);
+                    if (s != nullptr && s->gameObject()->getActive() && s->gameObject()->getAlive())
+                    {
+                        s->onCollisionEnter(t_m.collision.obj2);
+                    }
                 }
 
-                if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj2))
+                for (auto c : t_m.collision.obj2->getCurrentComponents())
                 {
-                    bsCmp->onCollisionEnter(t_m.collision.obj1);
+                    auto s = dynamic_cast<BehaviourScript*>(c.second);
+                    if (s != nullptr && s->gameObject()->getActive() && s->gameObject()->getAlive())
+                    {
+                        s->onCollisionEnter(t_m.collision.obj1);
+                    }
                 }
+                //if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj1))
+                //{
+                //    bsCmp->onCollisionEnter(t_m.collision.obj2);
+                //}
+
+                //if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj2))
+                //{
+                //    bsCmp->onCollisionEnter(t_m.collision.obj1);
+                //}
 
                 break;
             }
             case MSG_COLLIISION_EXIT:
             {
-                if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj1))
+                for (auto c : t_m.collision.obj1->getCurrentComponents())
                 {
-                    bsCmp->onCollisionExit(t_m.collision.obj2);
+                    auto s = dynamic_cast<BehaviourScript*>(c.second);
+                    if (s != nullptr && s->gameObject()->getActive() && s->gameObject()->getAlive())
+                    {
+                        s->onCollisionExit(t_m.collision.obj2);
+                    }
                 }
 
-                if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj2))
+                for (auto c : t_m.collision.obj2->getCurrentComponents())
                 {
-                    bsCmp->onCollisionExit(t_m.collision.obj1);
+                    auto s = dynamic_cast<BehaviourScript*>(c.second);
+                    if (s != nullptr && s->gameObject()->getActive() && s->gameObject()->getAlive())
+                    {
+                        s->onCollisionExit(t_m.collision.obj1);
+                    }
                 }
-
                 break;
             }
             default:
@@ -219,23 +251,23 @@ namespace Flamingo
                         m_componentFactory->addComponent(gO, compName, m_data);
                         m_data.clear();
                     }
-                    else
+                    else if (compName == "Name")
                     {
                         key = lua_tostring(entity, -2); // Nombre del atributo
                         val = lua_tostring(entity, -1); // Valor del atributo
-                    }
-                    
-                    if (compName == "Name")
-                    {
                         gO->setName(val);
                         if (val == "player")
                         {
                             m_mngr->setHandler(_hdr_player, gO);
                         }
                     }
-                    
                     else
+                    {
+                        key = lua_tostring(entity, -2); // Nombre del atributo
+                        val = lua_tostring(entity, -1); // Valor del atributo
                         m_data.insert({key, val});
+                    }
+
                     lua_pop(component, 1);
                 }
                 if (compName != "Name" && compName != "Scripts")
