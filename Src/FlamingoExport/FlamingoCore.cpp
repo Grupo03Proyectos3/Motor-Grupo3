@@ -83,7 +83,7 @@ namespace Flamingo
 
         sceneManager->setSceneActive(m_first_scene);
 
-         Scene* mainScene = sceneManager->getSceneActive();
+        //Scene* mainScene = sceneManager->getSceneActive();
 
         // //Cámara y Luces iniciales
          //auto cam = mainScene->getObject("myCamera");
@@ -97,12 +97,12 @@ namespace Flamingo
         // //t->translate({-15000, 0, 0}, LOCAL);
          //render_sys->setMainCamera(m_camera);
 
-         auto light = mainScene->getObject("mylight");
+        /* auto light = mainScene->getObject("mylight");
          auto cmp_light = m_mngr->getComponent<Flamingo::Light>(light);
          cmp_light->setType(Light::DIRECTIONAL);
          cmp_light->setDirection(SVector3(0, -1, -1));
          cmp_light->setSpecularColour();
-         cmp_light->setDiffuseColour();
+         cmp_light->setDiffuseColour();*/
         //
         // initialized = true;
         return true;
