@@ -86,8 +86,8 @@ namespace Flamingo
          Scene* mainScene = sceneManager->getSceneActive();
 
         // //Cámara y Luces iniciales
-         auto cam = mainScene->getObject("myCamera");
-         auto m_camera = m_mngr->getComponent<Flamingo::Camera>(cam);
+         //auto cam = mainScene->getObject("myCamera");
+         //auto m_camera = m_mngr->getComponent<Flamingo::Camera>(cam);
         //
         // m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
         // m_camera->lookAt(SVector3(0, 0, 0), STransformSpace::LOCAL);
@@ -95,7 +95,7 @@ namespace Flamingo
         // m_camera->setFarClipDistance(100000);
         //// m_camera->setTarget(mainScene->getObject("Arbol"));
         // //t->translate({-15000, 0, 0}, LOCAL);
-         render_sys->setMainCamera(m_camera);
+         //render_sys->setMainCamera(m_camera);
 
          auto light = mainScene->getObject("mylight");
          auto cmp_light = m_mngr->getComponent<Flamingo::Light>(light);
