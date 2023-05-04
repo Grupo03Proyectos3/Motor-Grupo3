@@ -32,14 +32,14 @@ namespace Flamingo
      * they just have a reference to it.
      *
      *  */
-    class Manager : public SingletonECS<Manager>
+    class FLAMINGOEXPORT_API Manager
     {
-        // Acceso a los construtores privados
-        friend SingletonECS<Manager>;
+       
 
       public:
         Manager()
         {
+            init();
         }
 
         virtual ~Manager()
@@ -485,6 +485,23 @@ namespace Flamingo
             return false;
         }
 
+        static Manager* instance()
+        {
+            if (m_instance == nullptr)
+            {
+                m_instance = new Manager();
+            }
+            return m_instance;
+        }
+
+        static void close()
+        {
+            if (m_instance != nullptr)
+            {
+                delete m_instance;
+            }
+        }
+
       private:
         inline void reajustSizeGroups()
         {
@@ -510,7 +527,11 @@ namespace Flamingo
         std::vector<Message> m_msgs_aux;
 
         bool reajustG = false;
+
+        static Manager* m_instance;
     };
+
+  
 
 } // namespace Flamingo
 #endif

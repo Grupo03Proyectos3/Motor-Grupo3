@@ -23,6 +23,7 @@
     <ClCompile Include="..\..\Src\ECS\GameObject.cpp" />
     <ClCompile Include="..\..\Src\ECS\InputHandler.cpp" />
     <ClCompile Include="..\..\Src\ECS\InputHandlerContainer.cpp" />
+    <ClCompile Include="..\..\Src\ECS\Manager.cpp" />
     <ClCompile Include="..\..\Src\ECS\System.cpp" />
   </ItemGroup>
   <ItemGroup>

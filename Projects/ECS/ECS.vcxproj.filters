@@ -30,6 +30,9 @@
     <ClCompile Include="..\..\Src\ECS\InputHandlerContainer.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\ECS\Manager.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\ECS\Component.h">
