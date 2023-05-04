@@ -173,7 +173,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)Lib\FlamingoExport\$(Platform)\$(Configuration);$(SolutionDir)Dependencies\CEGUI\Build\lib\;$(SolutionDir)Dependencies\FMOD\api\studio\libs\x64;$(SolutionDir)Dependencies\FMOD\api\core\libs\x64;$(SolutionDir)Dependencies\Ogre\Build\lib\$(ConfigurationName);$(SolutionDir)Exes\;$(SolutionDir)Dependencies\Bullet\Build\lib\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>FlamingoExport.lib;</AdditionalDependencies>
+      <AdditionalDependencies>FlamingoExport.lib;user32.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
