@@ -24,8 +24,26 @@ namespace Flamingo
         delete m_channelMap;
     }
 
-    void AudioSystem::recieve(const Message&)
+    void AudioSystem::recieve(const Message& t_m)
     {
+        switch (t_m.id)
+        {
+            case MSG_GAME_OBJECT_ACTIVE_CHANGED:
+            {
+                auto game_object = t_m.gameObejctChangeActive.object_changed;
+                auto audioSrc = m_mngr->getComponent<AudioSource>(game_object);
+                if (audioSrc)
+                {
+                    if (!t_m.gameObejctChangeActive.mode)
+                    {
+                        audioSrc->stopAudio();
+                    }
+                }
+                break;
+            }
+            default:
+                break;
+        }
     }
 
     void AudioSystem::initSystem()

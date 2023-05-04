@@ -33,7 +33,7 @@ namespace Flamingo
         AudioSystem();
         ~AudioSystem();
 
-        void recieve(const Message&) override;
+        void recieve(const Message& t_m) override;
         void initSystem() override;
         void update(float t_delta_time) override;
 
