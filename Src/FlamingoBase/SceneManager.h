@@ -17,7 +17,6 @@ namespace Ogre
     class SceneManager;
 } // namespace Ogre
 
-
 namespace Flamingo
 {
     class FLAMINGOEXPORT_API SceneManager : public SingletonECS<Flamingo::SceneManager>
@@ -39,7 +38,13 @@ namespace Flamingo
         Scene* getSceneActive();
         Scene* getScene(std::string t_scene_name);
 
-        void addScene(Scene* t_Scene);     
+        void addScene(Scene* t_Scene);
+
+        void reloadScenePetition(Scene* t_Scene);
+
+        void reloadScene();
+
+        void startScene(std::string t_sceneName);
 
       private:
         Manager* m_mngr;
@@ -47,6 +52,9 @@ namespace Flamingo
         std::unordered_map<std::string, Scene*> m_scenes;
         std::string mNameSceneActive = "";
         std::string mName;
+
+        bool m_reloadScene = false;
+        Scene* m_sceneToReload;
     };
     // This macro defines a compact way for using the singleton
     //

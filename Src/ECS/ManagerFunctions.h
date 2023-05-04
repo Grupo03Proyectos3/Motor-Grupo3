@@ -5,6 +5,8 @@
 
 #include "Component.h"
 #include "FlamingoBase/Transform.h"
+#include "FlamingoExport/FlamingoCore.h"
+#include "FlamingoBase/SceneManager.h"
 #include "Scripting/ScriptManager.h"
 #include "Manager.h"
 #include "ecs.h"
@@ -86,6 +88,7 @@ namespace Flamingo
         auto t =addComponent<Transform>(gO);
         t->initValues();
         t->initComponent();
+        FlamingoCore::instance()->getSceneManager()->getSceneActive()->addObjects(gO);
         return gO;
     }
 } // namespace Flamingo

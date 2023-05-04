@@ -22,7 +22,7 @@ namespace Flamingo
 
         try
         {
-            m_ent_ogre = m_scene_mngr->createEntity(m_entity_name, m_model_name);
+            m_ent_ogre = m_scene_mngr->createEntity(m_model_name);
         }
         catch (...)
         {

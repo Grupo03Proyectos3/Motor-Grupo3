@@ -30,7 +30,7 @@ namespace Flamingo
         };
 
         Camera();
-        virtual ~Camera(){};
+        virtual ~Camera();
         virtual void initValues(std::string t_name, float t_color_x, float t_color_y, float t_color_z);
         virtual void initComponent();
 

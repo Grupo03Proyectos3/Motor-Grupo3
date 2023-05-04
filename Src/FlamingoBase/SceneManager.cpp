@@ -1,9 +1,10 @@
 #include "SceneManager.h"
-#include "Scene.h"
 #include "ECS/Manager.h"
 #include "Render/RenderSystem.h"
-#include "UI/UISystem.h"
+#include "Scene.h"
 #include "Scripting/ScriptManager.h"
+#include "Scripting/ScriptingSystem.h"
+#include "UI/UISystem.h"
 
 #include <OgreRoot.h>
 #include <OgreSceneManagerEnumerator.h>
@@ -37,7 +38,7 @@ namespace Flamingo
 
     Scene* SceneManager::createScene(std::string t_SceneName, bool setActive)
     {
-        Scene* scene = new Scene();      
+        Scene* scene = new Scene();
         scene->initScene(t_SceneName);
         addScene(scene);
         if (setActive)
@@ -63,6 +64,50 @@ namespace Flamingo
         else
         {
             throw std::runtime_error("Already exists a Scene with Name: " + t_SceneName->getName());
+        }
+    }
+
+    void SceneManager::reloadScenePetition(Scene* t_scene)
+    {
+        std::string name = t_scene->getName();
+        auto s = m_scenes.find(name);
+
+        if (s != m_scenes.end())
+        {
+            if (true)
+            {
+                m_reloadScene = true;
+                m_sceneToReload = t_scene;
+            }
+            else
+            {
+            }
+        }
+        else
+        {
+            createScene(name, true);
+        }
+    }
+
+    void SceneManager::reloadScene()
+    {
+        if (!m_reloadScene)
+            return;
+
+        m_reloadScene = false;
+
+        std::string name = m_sceneToReload->getName();
+        m_sceneToReload->destroySceneObjects();
+        m_mngr->getSystem<ScriptingSystem>()->loadObjects(name);
+    }
+
+    void SceneManager::startScene(std::string t_sceneName)
+    {
+        auto t_aux = m_scenes.find(t_sceneName);
+        if (t_aux != m_scenes.end())
+        {
+            setSceneActive(t_sceneName);
+            t_aux->second->startScene();
         }
     }
 

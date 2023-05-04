@@ -26,6 +26,8 @@ namespace Flamingo
 
     UIElement::~UIElement()
     {
+        //SceneManager::instance()->getSceneActive()->getCeguiRoot()->destroyChild(m_element);
+        //m_element->destroy();
     }
 
     void UIElement::initComponent()

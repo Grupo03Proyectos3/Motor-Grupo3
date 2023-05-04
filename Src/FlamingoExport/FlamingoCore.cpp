@@ -100,6 +100,7 @@ namespace Flamingo
         }
      
         sceneManager->setSceneActive(m_first_scene);
+        sceneManager->startScene(m_first_scene);
 
         //Scene* mainScene = sceneManager->getSceneActive();
 
@@ -163,13 +164,14 @@ namespace Flamingo
 
             // pruebas de enemigos
 
-            auto enemigo = m_mngr->getEntities(GROUP_RENDER);
+            //auto enemigo = m_mngr->getEntities(GROUP_RENDER);
 
             render_sys->manipulateCamera();
 
             ihdlr.refresh();
 
             m_mngr->refresh();
+            SceneManager::instance()->reloadScene();
             m_mngr->flushMessages();
         }
     

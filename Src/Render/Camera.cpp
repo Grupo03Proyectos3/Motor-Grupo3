@@ -14,6 +14,11 @@ namespace Flamingo
 {
     Camera::Camera() {}
 
+    Camera::~Camera()
+    {
+        m_scene_mngr->destroyCamera(m_cam);
+    }
+
     void Camera::initValues(std::string t_name, float t_color_x, float t_color_y, float t_color_z)
     {
         auto sys = m_mngr->getSystem<RenderSystem>();

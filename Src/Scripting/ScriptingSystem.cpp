@@ -87,10 +87,13 @@ namespace Flamingo
         // TO DO : CHANGE TO SCRIPT GROUP
         for (auto gO : Manager::instance()->getEntities(GROUP_SCRIPTING))
         {
+            if (!gO->getAlive() || !gO->getActive())
+                continue;
+
             for (auto c : gO->getCurrentComponents())
             {
                 auto s = dynamic_cast<BehaviourScript*>(c.second);
-                if (s != nullptr && s->gameObject()->getActive() && s->gameObject()->getAlive())
+                if (s != nullptr)
                 {
                     s->update(t_delta_time);
                 }
@@ -183,46 +186,8 @@ namespace Flamingo
         }
     }
 
-    lua_State* Flamingo::ScriptingSystem::getLuaState()
+    void ScriptingSystem::loadObjects(std::string t_scene)
     {
-        return lua_state;
-    }
-
-    void Flamingo::ScriptingSystem::readScript(const std::string& t_name)
-    {
-        std::string path = PATH_PREFIX + t_name + FILE_EXTENSION;
-        // Cargar el script de lua
-        int fd = luaL_dofile(lua_state, path.c_str());
-        // Comprobar si ha fallado
-        if (fd == 0)
-        {
-            return;
-        }
-        else
-        {
-            // remove error message from Lua state
-            lua_pop(lua_state, 1);
-            throw std::runtime_error("[LUA ERROR]: Invalid map" /*(std::string)lua_tostring(lua_state, -1)*/);
-        }
-    }
-
-    void Flamingo::ScriptingSystem::callLuaFunction(std::string t_name)
-    {
-        luabridge::LuaRef fun = getFromLua(t_name);
-        fun();
-    }
-
-    bool Flamingo::ScriptingSystem::loadScene(std::string t_scene, bool t_first)
-    {
-        if (t_scene.empty())
-        {
-            return false;
-        }
-        auto myScene = m_scene_mngr.createScene(t_scene, true);
-
-        m_mngr->getSystem<RenderSystem>()->addShadersScene(myScene);
-        // TO DO : a�adir control de excepciones devolviendo false si algo falla
-        // Por ej : no encuentra el fichero
         readScript(t_scene);
         luabridge::LuaRef allEnts = getFromLua("entities");
         int n = allEnts.length();
@@ -235,7 +200,7 @@ namespace Flamingo
             lua_pushnil(entity);
             if (entity.isNil())
                 throw std::exception("ERROR loading the scene");
-           
+
             while (!entity.isNil() && lua_next(entity, 0) != 0)
             {
                 std::string compName = lua_tostring(entity, -2); // Tipo de componente
@@ -278,13 +243,58 @@ namespace Flamingo
                 lua_pop(entity, 1);
                 m_data.clear();
             }
-            m_scene_mngr.getScene(t_scene)->addObjects(gO); //Añadir el objeto a la escena
+            m_scene_mngr.getScene(t_scene)->addObjects(gO); // Añadir el objeto a la escena
 
             for (auto c : gO->getCurrentComponents())
             {
                 c.second->initComponent();
             }
         }
+    }
+
+    lua_State* Flamingo::ScriptingSystem::getLuaState()
+    {
+        return lua_state;
+    }
+
+    void Flamingo::ScriptingSystem::readScript(const std::string& t_name)
+    {
+        std::string path = PATH_PREFIX + t_name + FILE_EXTENSION;
+        // Cargar el script de lua
+        int fd = luaL_dofile(lua_state, path.c_str());
+        // Comprobar si ha fallado
+        if (fd == 0)
+        {
+            return;
+        }
+        else
+        {
+            // remove error message from Lua state
+            lua_pop(lua_state, 1);
+            throw std::runtime_error("[LUA ERROR]: Invalid map" /*(std::string)lua_tostring(lua_state, -1)*/);
+        }
+    }
+
+    void Flamingo::ScriptingSystem::callLuaFunction(std::string t_name)
+    {
+        luabridge::LuaRef fun = getFromLua(t_name);
+        fun();
+    }
+
+    bool Flamingo::ScriptingSystem::loadScene(std::string t_scene, bool t_first)
+    {
+        if (t_scene.empty())
+        {
+            return false;
+        }
+        auto myScene = m_scene_mngr.createScene(t_scene, true);
+
+        m_mngr->getSystem<RenderSystem>()->addShadersScene(myScene);
+        // TO DO : a�adir control de excepciones devolviendo false si algo falla
+        // Por ej : no encuentra el fichero
+
+        loadObjects(t_scene);
+      
 
         return true;
     }

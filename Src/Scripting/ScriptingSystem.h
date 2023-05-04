@@ -57,6 +57,8 @@ namespace Flamingo
         void update(float t_delta_time) override;
         void recieve(const Message& t_m) override;
 
+        void loadObjects(std::string t_scene);
+
         lua_State* getLuaState();
 
         void readScript(const std::string& t_name);

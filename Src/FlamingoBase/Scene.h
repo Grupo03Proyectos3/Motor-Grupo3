@@ -18,16 +18,17 @@ namespace Flamingo{
     class Scene
     {
       public:
-        FLAMINGOEXPORT_API Scene();
-        FLAMINGOEXPORT_API  ~Scene();
+        Scene();
+         ~Scene();
         FLAMINGOEXPORT_API void initScene(std::string name);
         FLAMINGOEXPORT_API void addObjects(GameObject* t_GameObject);
         FLAMINGOEXPORT_API void delObject(std::string t_nameObject);
         FLAMINGOEXPORT_API void setDebug(bool t_active);
 
-        FLAMINGOEXPORT_API void destroySceneObjects();
-        FLAMINGOEXPORT_API void desactive();
-        FLAMINGOEXPORT_API void active();
+        void destroySceneObjects();
+        void desactive();
+        void active();
+        void startScene();
         FLAMINGOEXPORT_API GameObject* getObject(std::string t_name);
 
         FLAMINGOEXPORT_API std::string getName();
@@ -42,6 +43,7 @@ namespace Flamingo{
         std::unordered_map<std::string, GameObject*> m_SceneGameObjects;
         std::string m_name;
         bool mDebug;
+        bool m_initialized = false;
     }; 
 } // namespace OgreScene
 #endif

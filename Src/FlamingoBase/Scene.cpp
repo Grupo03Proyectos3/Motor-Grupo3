@@ -73,7 +73,10 @@ namespace Flamingo{
 
             obj.second->setAlive(false);
         }
+
+        
         m_mngr->reajustGroups();
+        m_mngr->refresh();
     }
 
     void Scene::desactive()
@@ -105,8 +108,18 @@ namespace Flamingo{
                 m_mngr->getComponent<Camera>(it.second)->active();
             }
         }
-        ScriptManager::instance()->startComponents();
+      
         std::cout << "Scene Name: " << m_SceneManager->getName() << " Activated\n";
+    }
+
+    void Scene::startScene()
+    {
+        if (!m_initialized)
+        {
+            m_initialized = true;
+            ScriptManager::instance()->startComponents();
+        }
+
     }
 
     GameObject* Scene::getObject(std::string t_name)
