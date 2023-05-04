@@ -47,6 +47,7 @@ namespace Flamingo
 
         FLAMINGOEXPORT_API SVector3 operator+(const SVector3& other);
         FLAMINGOEXPORT_API SVector3 operator-(const SVector3& other);
+        FLAMINGOEXPORT_API SVector3 operator*(const SVector3& other);
         FLAMINGOEXPORT_API SVector3 operator*(const float& v);
         FLAMINGOEXPORT_API SVector3 operator*(const double& v);
         FLAMINGOEXPORT_API SVector3 operator/(const float& v);

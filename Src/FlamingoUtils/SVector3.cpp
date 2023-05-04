@@ -91,6 +91,11 @@ namespace Flamingo
         return SVector3(m_x - other.m_x, m_y - other.m_y, m_z - other.m_z);
     }
 
+    SVector3 SVector3::operator*(const SVector3& other)
+    {
+        return SVector3(m_x * other.m_x, m_y * other.m_y, m_z * other.m_z);
+    }
+
     SVector3 SVector3::operator*(const float& v)
     {
         return SVector3(m_x * v, m_y * v, m_z * v);
