@@ -29,7 +29,7 @@ namespace Flamingo
         }
         catch (...)
         {
-             throw std::exception("[ERROR Light Factory]: Key not found");
+             throw std::exception("[ERROR Light Factory]: Key not found or valid");
         }
     }
 } // namespace Flamingo

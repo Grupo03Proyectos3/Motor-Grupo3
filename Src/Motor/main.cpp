@@ -60,6 +60,14 @@ int WINAPI wWinMain(HINSTANCE hInstance,  HINSTANCE  hPrevInstance, PWSTR pCmdLi
     catch (std::exception& excepcion)
     {
         std::cout << excepcion.what() << '\n';
+
+        const char* cadena = excepcion.what();
+        int tamano = MultiByteToWideChar(CP_UTF8, 0, cadena, -1, NULL, 0);
+        std::wstring wstr(tamano, 0);
+        MultiByteToWideChar(CP_UTF8, 0, cadena, -1, &wstr[0], tamano);
+        LPCWSTR lpcwstr = wstr.c_str();
+        MessageBox(NULL, lpcwstr, L"ERROR", MB_OK);
+       
     }
 
     if (core != nullptr)

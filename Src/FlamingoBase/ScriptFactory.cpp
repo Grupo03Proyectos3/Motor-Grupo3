@@ -20,7 +20,7 @@ namespace Flamingo
         }
         catch (...)
         {
-            throw std::exception("[ERROR BehaviourScript Factory]: Key not found");
+            throw std::exception("[ERROR BehaviourScript Factory]: Key not found or valid");
         }
     }
     //
