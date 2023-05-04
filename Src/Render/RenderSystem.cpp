@@ -110,15 +110,16 @@ namespace Flamingo
             }
             case MSG_GAME_OBJECT_ACTIVE_CHANGED:
             {
-                auto game_object = t_m.gameObejctChangeActive.object_changed;
+                /*auto game_object = t_m.gameObejctChangeActive.object_changed;
                 auto mesh = m_mngr->getComponent<MeshRenderer>(game_object);
-                if (mesh)
+                if (mesh!=nullptr)
                 {                  
                     mesh->getNode()->setVisible(t_m.gameObejctChangeActive.mode);
                     auto anim = m_mngr->getComponent<Animator>(game_object);
-                   if(anim) anim->allAnimations(false);
+                    if (anim!=nullptr)
+                        anim->allAnimations(t_m.gameObejctChangeActive.mode);
                 }
-                break;
+                break;*/
             }
             default:
                 break;
