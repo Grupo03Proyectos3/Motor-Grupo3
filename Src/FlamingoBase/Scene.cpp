@@ -6,6 +6,7 @@
 #include <OgreSceneManager.h>
 #include "CEGUI/WindowRenderer.h"
 #include "UI/UISystem.h"
+#include "Scripting/ScriptManager.h"
 
 namespace Flamingo{
     Scene::Scene()
@@ -98,11 +99,13 @@ namespace Flamingo{
         for (auto it : m_SceneGameObjects)
         {
             it.second->setActive(true);
+            
             if (m_mngr->getComponent<Camera>(it.second) != nullptr)
             {
                 m_mngr->getComponent<Camera>(it.second)->active();
             }
         }
+        ScriptManager::instance()->startComponents();
         std::cout << "Scene Name: " << m_SceneManager->getName() << " Activated\n";
     }
 

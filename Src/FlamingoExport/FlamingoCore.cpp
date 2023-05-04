@@ -66,9 +66,7 @@ namespace Flamingo
         PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
         AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
         Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();
-        render_sys->inicializarShaders();
-
-        
+        render_sys->inicializarShaders();       
 
         if (readLua)
         {
@@ -78,7 +76,7 @@ namespace Flamingo
             {
                 loading_scene = scene;
                 load_success = scripting_sys->loadScene(scene);
-                ScriptManager::instance()->startComponents();
+     
             }
 
             if (!load_success)
