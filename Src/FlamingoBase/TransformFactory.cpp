@@ -20,7 +20,7 @@ namespace Flamingo
             float s_y = std::stof(args.at("scaleY"));
             float s_z = std::stof(args.at("scaleZ"));
 
-            if (s_x < 0 || s_y < 0 || s_z < 0)
+            if (s_x <= 0 || s_y <= 0 || s_z <= 0)
                 throw std::exception();
 
             Transform* c = Manager::instance()->addComponent<Transform>(gO);

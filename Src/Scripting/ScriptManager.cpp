@@ -18,6 +18,9 @@ namespace Flamingo
 
     std::string ScriptManager::getScriptName(std::string t_n)
     {
+        if (m_nameScripts.find(t_n) == m_nameScripts.end())
+            throw std::exception();
+
         return m_nameScripts[t_n];
     }
 

@@ -200,7 +200,7 @@ namespace Flamingo
         {
             // remove error message from Lua state
             lua_pop(lua_state, 1);
-            throw std::runtime_error("[LUA ERROR] " + (std::string)lua_tostring(lua_state, -1));
+            throw std::runtime_error("[LUA ERROR]: Invalid map" /*(std::string)lua_tostring(lua_state, -1)*/);
         }
     }
 

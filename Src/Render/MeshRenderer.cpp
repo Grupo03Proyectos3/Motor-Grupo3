@@ -1,22 +1,20 @@
 #include "MeshRenderer.h"
 
-#include "RenderSystem.h"
-#include "ECS/ManagerFunctions.h"
 #include "ECS/Manager.h"
+#include "ECS/ManagerFunctions.h"
 #include "FlamingoBase/Transform.h"
 #include "FlamingoUtils/SVector3.h"
+#include "RenderSystem.h"
 
-
-#include <OgreSceneManager.h>
-#include <OgreSceneNode.h>
 #include <OgreAxisAlignedBox.h>
 #include <OgreEntity.h>
+#include <OgreSceneManager.h>
+#include <OgreSceneNode.h>
 
 namespace Flamingo
 {
     void MeshRenderer::initValues(SVector3 scaleNode, std::string t_model_name, std::string t_entity_name)
     {
-       
         m_scene_mngr = FlamingoSceneManager().getSceneActive()->getSceneManger();
         m_entity_name = t_entity_name;
         m_model_name = t_model_name;
@@ -28,6 +26,7 @@ namespace Flamingo
         }
         catch (...)
         {
+            m_scene_node = nullptr;
             throw std::runtime_error("[ERROR Mesh Renderer]: Mesh name is different from .mesh name");
         }
 
@@ -37,7 +36,7 @@ namespace Flamingo
 
     void MeshRenderer::initComponent()
     {
-        //auto sys = m_mngr->getSystem<RenderSystem>();
+        // auto sys = m_mngr->getSystem<RenderSystem>();
 
         auto t = getComponent<Transform>(m_ent);
 
@@ -109,7 +108,7 @@ namespace Flamingo
 
     Ogre::Entity* MeshRenderer::getEntity()
     {
-        return m_ent_ogre; 
+        return m_ent_ogre;
     }
 
     Ogre::SceneNode* MeshRenderer::getNode()
@@ -119,8 +118,9 @@ namespace Flamingo
 
     MeshRenderer::~MeshRenderer()
     {
-        // delete m_ent_ogre;
-        m_scene_node->detachAllObjects();
+        // delete m_ent_ore;
+        if (m_scene_node != nullptr)
+            m_scene_node->detachAllObjects();
         m_ent_ogre = nullptr;
     }
 } // namespace Flamingo

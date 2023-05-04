@@ -30,44 +30,51 @@ namespace Flamingo
 
     void UIElement::initComponent()
     {
-        m_uiSys = m_mngr->getSystem<Flamingo::UISystem>();
-        m_element = nullptr;
-        if (m_mngr->getComponent<Transform>(m_ent) == nullptr)
+        try
         {
-            throw std::runtime_error(m_ent->getName() + "Add Transform component to set uiElement Component\n");
-        }
-        createEmptyWindow("");
+            m_uiSys = m_mngr->getSystem<Flamingo::UISystem>();
+            m_element = nullptr;
+            if (m_mngr->getComponent<Transform>(m_ent) == nullptr)
+            {
+                throw std::runtime_error(m_ent->getName() + "Add Transform component to set uiElement Component\n");
+            }
+            createEmptyWindow("");
 
-        setElementWidget(m_type, m_name);
+            setElementWidget(m_type, m_name);
 
-        auto t = m_mngr->getComponent<Transform>(m_ent);
-        t->setPosition({t->getPosition().getX(), t->getPosition().getY(), 0});
-        t->setScale({t->getScale().getX(), t->getScale().getY(), 0});
-        setText(m_text);
+            auto t = m_mngr->getComponent<Transform>(m_ent);
+            t->setPosition({t->getPosition().getX(), t->getPosition().getY(), 0});
+            t->setScale({t->getScale().getX(), t->getScale().getY(), 0});
+            setText(m_text);
 
-        if (m_type == "FlamingoDefaultUI/StaticImage")
+            if (m_type == "FlamingoDefaultUI/StaticImage")
+            {
+                //// Obtener la capa Widgets y la capa Top
+                // CEGUI::Window* widgetsLayer = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("Widgets");
+                // CEGUI::Window* topLayer = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("Top");
+
+                //// Mover MyWidget de Widgets a Top
+                // widgetsLayer->removeChild(m_element);
+                // topLayer->addChild(m_element);
+                m_element->moveToBack();
+
+                setImage("Image", m_name, m_image);
+            }
+            else if (m_type == "FlamingoDefaultUI/ImageButton")
+            {
+                setImage("NormalImage", m_name, m_image);
+                setImage("HoverImage", m_name, m_image);
+                setImage("PushedImage", m_name, m_image);
+                setImage("DisabledImage", m_name, m_image);
+
+                m_element->moveToFront();
+            }
+
+        } catch(...)
         {
-            //// Obtener la capa Widgets y la capa Top
-            // CEGUI::Window* widgetsLayer = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("Widgets");
-            // CEGUI::Window* topLayer = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("Top");
-
-            //// Mover MyWidget de Widgets a Top
-            // widgetsLayer->removeChild(m_element);
-            // topLayer->addChild(m_element);
-            m_element->moveToBack();
-
-            setImage("Image", m_name, m_image);
+            throw std::exception("[UI ERROR]: Invalid params in element");
         }
-        else if (m_type == "FlamingoDefaultUI/ImageButton")
-        {
-            setImage("NormalImage", m_name, m_image);
-            setImage("HoverImage", m_name, m_image);
-            setImage("PushedImage", m_name, m_image);
-            setImage("DisabledImage", m_name, m_image);
-
-            m_element->moveToFront();
-        }
-
+       
     }
 
     void UIElement::initValues(std::string type, std::string name, std::string text, const std::string image)
