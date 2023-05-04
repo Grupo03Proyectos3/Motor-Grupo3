@@ -23,7 +23,7 @@ namespace Flamingo
         if (!std::is_base_of_v<BehaviourScript, T>)
         {
             auto c = Manager::instance()->addComponent<T>(gO);
-            dynamic_cast<Component*>(c)->initComponent();
+            //dynamic_cast<Component*>(c)->initComponent();
             return c;
         }
         else
