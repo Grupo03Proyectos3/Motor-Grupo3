@@ -42,7 +42,7 @@ namespace Flamingo
         m_light_node->setPosition(t->getPosition());
         m_light_node->setOrientation(t->getRotation());
         m_light_node->attachObject(m_light);
-        setType(DIRECTIONAL);
+        setType(POINT);
         setDirection(SVector3(0, -1, -1));
         setSpecularColour();
         setDiffuseColour();

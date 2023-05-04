@@ -14,7 +14,7 @@ namespace Flamingo
 {
     Camera::Camera() {}
 
-    void Camera::initValues(std::string t_name)
+    void Camera::initValues(std::string t_name, float t_color_x, float t_color_y, float t_color_z)
     {
         auto sys = m_mngr->getSystem<RenderSystem>();
         m_scene_mngr = FlamingoSceneManager().getSceneActive()->getSceneManger();
@@ -24,6 +24,7 @@ namespace Flamingo
         m_window = sys->getWindow();
         m_cam_node = FlamingoSceneManager().getSceneActive()->getSceneRoot()->createChildSceneNode();
         m_name = t_name;
+        m_color = {t_color_x, t_color_y, t_color_z};
     }
 
     void Camera::initComponent()
@@ -37,11 +38,14 @@ namespace Flamingo
         m_cam_node->setScale(t->getScale());
         m_cam_node->setPosition(t->getPosition());
         m_cam_node->attachObject(m_cam);
+
+        //m_cam_node->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
         //m_cam_node->setPosition(100, 500, 100);
         //m_cam_node->setPosition(0, 48000, 0);
         //m_cam_node->setDirection(-1, 0, 0);
         m_vp = m_window->getRenderWindow()->addViewport(m_cam, -m_window->getRenderWindow()->getNumViewports());
         m_vp->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
+        m_vp->setBackgroundColour(m_color);
     }
 
      void Camera::lookAt(SVector3 t_pos, STransformSpace t_trs)
