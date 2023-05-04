@@ -32,9 +32,9 @@ namespace Flamingo
     {
         try
         {
-            m_uiSys = m_mngr->getSystem<Flamingo::UISystem>();
+            m_uiSys = Manager::instance()->getSystem<Flamingo::UISystem>();
             m_element = nullptr;
-            if (m_mngr->getComponent<Transform>(m_ent) == nullptr)
+            if (Manager::instance()->getComponent<Transform>(m_ent) == nullptr)
             {
                 throw std::runtime_error(m_ent->getName() + "Add Transform component to set uiElement Component\n");
             }
