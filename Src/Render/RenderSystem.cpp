@@ -108,6 +108,18 @@ namespace Flamingo
                     cam->getNode()->setScale(SVector3(t_m.vector.x, t_m.vector.y, t_m.vector.z));
                 break;
             }
+            case MSG_GAME_OBJECT_ACTIVE_CHANGED:
+            {
+                auto game_object = t_m.gameObejctChangeActive.object_changed;
+                auto mesh = m_mngr->getComponent<MeshRenderer>(game_object);
+                if (mesh)
+                {                  
+                    mesh->getNode()->setVisible(t_m.gameObejctChangeActive.mode);
+                    auto anim = m_mngr->getComponent<Animator>(game_object);
+                   if(anim) anim->allAnimations(false);
+                }
+                break;
+            }
             default:
                 break;
         }
