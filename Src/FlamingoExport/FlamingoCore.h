@@ -13,7 +13,7 @@ namespace Flamingo
     class Manager;
     class SceneManager;
     class RenderSystem;
-
+    class MapReader;
     class FLAMINGOEXPORT_API FlamingoCore
     {
       public:
@@ -67,6 +67,7 @@ namespace Flamingo
 
         bool initialized;
         bool m_motor_running;
+        MapReader* mapReader;
     };
 
     //extern "C" FLAMINGOEXPORT_API void setFirstScene(std::string t_scene_name);

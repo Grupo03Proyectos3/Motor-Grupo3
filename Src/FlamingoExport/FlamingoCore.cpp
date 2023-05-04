@@ -81,6 +81,12 @@ namespace Flamingo
             throw std::runtime_error("ERROR: Failed loading scene " + loading_scene + "\n");
         }
 
+    /*    mapReader = new MapReader(render_sys);
+        std::string loading_scene = "";
+        
+        auto p = sceneManager->createScene("escenaJ", true);
+        mapReader->readMap("./Assets/Scripts/prueba.json", p);
+       */
         sceneManager->setSceneActive(m_first_scene);
 
         //Scene* mainScene = sceneManager->getSceneActive();

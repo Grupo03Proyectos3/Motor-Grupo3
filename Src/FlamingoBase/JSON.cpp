@@ -26,6 +26,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <filesystem>
 
 /**
  * Blocks off the public constructor
@@ -50,7 +51,9 @@ JSON::JSON()
  */
 JSONValue *JSON::ParseFromFile(std::string filename) {
 
+
 	std::ifstream in(filename);
+   
 
 	// assert( !t.fail() );
 	if (in.fail())

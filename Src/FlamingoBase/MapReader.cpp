@@ -31,7 +31,7 @@ namespace Flamingo
 
     void MapReader::readMap(std::string filename, Flamingo::Scene* t_scene)
     {
-        createCamera();
+        //createCamera();
 
         std::unique_ptr<JSONValue> jValueRoot(JSON::ParseFromFile(filename));
 
