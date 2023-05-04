@@ -57,6 +57,7 @@ namespace Flamingo
         std::string s = "Motor";
         Manager* m_mngr = Manager::instance();
         m_mngr->init();
+        initialized = true;
         SceneManager* sceneManager = getSceneManager();
         Flamingo::UISystem* ui_system = m_mngr->addSystem<Flamingo::UISystem>();
         RenderSystem* render_sys = m_mngr->addSystem<RenderSystem>(s);
@@ -166,8 +167,11 @@ namespace Flamingo
 
     bool Flamingo::FlamingoCore::FlamingoExit()
     {
-        Manager::instance()->getSystem<RenderSystem>()->getWindow()->closeWindow();
-        Manager::instance()->getSystem<UISystem>()->eraseContext();
+        if (initialized)
+        {
+            Manager::instance()->getSystem<RenderSystem>()->getWindow()->closeWindow();
+            Manager::instance()->getSystem<UISystem>()->eraseContext();
+        }
 
         Manager::close();
         InputHandler::close();
@@ -175,12 +179,6 @@ namespace Flamingo
         ScriptManager::instance()->deleteScriptsTemplates();
         ScriptManager::close();
 
-        if (!initialized)
-        {
-            return false;
-        }
-
-        initialized = false;
         return true;
     }
 
