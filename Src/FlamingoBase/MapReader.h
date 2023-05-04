@@ -32,14 +32,15 @@ namespace Flamingo
         @return
         */
         void initMapReader();
-        void readMap(std::string t_filename, Flamingo::Scene* t_scene);
-
-        void createCamera();
+        bool readMap(std::string t_filename, Flamingo::Scene* t_scene);
 
       private:
         ComponentsFactory* m_componentFactory;
         Data m_data;
         Manager* m_mngr;
+        GameObject* gO;
+
+       
         Flamingo::RenderSystem* m_renderSystem;
     };
 } // namespace Flamingo

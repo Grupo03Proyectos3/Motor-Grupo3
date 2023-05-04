@@ -56,6 +56,8 @@ namespace Flamingo
         static Manager* getManager();
         static SceneManager* getSceneManager();
 
+        void setLUA(bool lua);
+
         void endRunning();
 
       private:
@@ -68,6 +70,9 @@ namespace Flamingo
         bool initialized;
         bool m_motor_running;
         MapReader* mapReader;
+
+        bool readLua = true;
+
     };
 
     //extern "C" FLAMINGOEXPORT_API void setFirstScene(std::string t_scene_name);

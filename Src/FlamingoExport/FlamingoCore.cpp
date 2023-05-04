@@ -68,31 +68,44 @@ namespace Flamingo
         Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();
         render_sys->inicializarShaders();
 
-        bool load_success = false;
-        std::string loading_scene = "";
-        for (auto scene : m_scenes_to_load)
-        {
-            loading_scene = scene;
-            load_success = scripting_sys->loadScene(scene);
-            ScriptManager::instance()->startComponents();
-        }
-
-        if (!load_success)
-        {
-            throw std::runtime_error("ERROR: Failed loading scene " + loading_scene + "\n");
-        }
-
-    /*    mapReader = new MapReader(render_sys);
-        std::string loading_scene = "";
         
-        auto p = sceneManager->createScene("escenaJ", true);
-        mapReader->readMap("./Assets/Scripts/prueba.json", p);
-       */
+
+        if (readLua)
+        {
+            bool load_success = false;
+            std::string loading_scene = "";
+            for (auto scene : m_scenes_to_load)
+            {
+                loading_scene = scene;
+                load_success = scripting_sys->loadScene(scene);
+                ScriptManager::instance()->startComponents();
+            }
+
+            if (!load_success)
+            {
+                throw std::runtime_error("ERROR: Failed loading scene " + loading_scene + "\n");
+            }
+
+        }else
+        {
+            std::string loading_scene = "";
+            int index = 0;
+            mapReader = new MapReader(render_sys);
+
+            for (auto scene : m_scenes_to_load)
+            {
+                auto p = sceneManager->createScene("escenaJ" + std::to_string(index), true);
+                index++;
+                mapReader->readMap(scene, p);
+            }
+          
+        }
+     
         sceneManager->setSceneActive(m_first_scene);
 
         //Scene* mainScene = sceneManager->getSceneActive();
 
-        // //Cámara y Luces iniciales
+        // //Cï¿½mara y Luces iniciales
          //auto cam = mainScene->getObject("myCamera");
          //auto m_camera = m_mngr->getComponent<Flamingo::Camera>(cam);
         //
@@ -179,6 +192,17 @@ namespace Flamingo
         ScriptManager::instance()->deleteScriptsTemplates();
         ScriptManager::close();
 
+
+         if (mapReader != nullptr)
+            delete mapReader;
+
+        if (!initialized)
+        {
+            return false;
+        }
+
+        initialized = false;
+
         return true;
     }
 
@@ -214,6 +238,11 @@ namespace Flamingo
     SceneManager* FlamingoCore::getSceneManager()
     {
         return SceneManager::instance();
+    }
+
+    void FlamingoCore::setLUA(bool lua)
+    {
+        readLua = lua;
     }
 
     void FlamingoCore::endRunning()

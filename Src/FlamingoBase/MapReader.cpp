@@ -16,6 +16,10 @@ namespace Flamingo
 
     MapReader::~MapReader()
     {
+        if (m_componentFactory != nullptr)
+        {
+            ComponentsFactory::close();
+        }
     }
 
     void MapReader::initMapReader()
@@ -29,10 +33,8 @@ namespace Flamingo
         m_componentFactory->addFactory("UIElement", new UIElementFactory());
     }
 
-    void MapReader::readMap(std::string filename, Flamingo::Scene* t_scene)
+    bool MapReader::readMap(std::string filename, Flamingo::Scene* t_scene)
     {
-        //createCamera();
-
         std::unique_ptr<JSONValue> jValueRoot(JSON::ParseFromFile(filename));
 
         if (jValueRoot == nullptr || !jValueRoot->IsObject())
@@ -53,7 +55,7 @@ namespace Flamingo
                 for (auto& v : jValue->AsArray())
                 {
                     // Creacion del GO, se puede quitar grupo, hay que ajustar que se borre si no se consigue crear transform
-                    GameObject* gO = m_mngr->addGameObject({GROUP_EXAMPLE});
+                    gO = m_mngr->addGameObject({GROUP_EXAMPLE});
                     t_scene->addObjects(gO);
 
                     if (v->IsObject())
@@ -65,10 +67,10 @@ namespace Flamingo
                         {
                             int id = vObj["id"]->AsNumber();
                         }
-                        catch (const std::exception&)
+                        catch (...)
                         {
                             gO->setAlive(false);
-                            throw new std::exception("Id incorrect");
+                            throw  std::exception("Id incorrect");
                         }
 
                         // Obtengo los datos del transform del objeto
@@ -94,10 +96,10 @@ namespace Flamingo
                             // Creacion del componente Transform
                             m_componentFactory->addComponent(gO, "Transform", m_data);
                         }
-                        catch (const std::exception&)
+                        catch (...)
                         {
                             gO->setAlive(false);
-                            throw new std::exception("Params of Transform are incorrect");
+                            throw std::exception("Params of Transform are incorrect");
                         }
 
                         m_data.clear();
@@ -161,9 +163,9 @@ namespace Flamingo
                                             m_componentFactory->addComponent(gO, scriptType, m_data);
                                             m_data.clear();
                                         }
-                                        catch (const std::exception&)
+                                        catch (...)
                                         {
-                                            throw new std::exception("Param of script are are not correct");
+                                            throw std::exception("Param of script are are not correct");
                                         }
                                         m_data.clear();
                                     }
@@ -173,19 +175,6 @@ namespace Flamingo
                                         throw std::runtime_error("'scripts' array in '" + filename + "' includes and invalid value");
                                     }
                                 }
-
-                              /*  try
-                                {
-                                    for (auto c : gO->getCurrentComponents())
-                                    {
-                                        c.second->initComponent();
-                                    }
-                                }
-                                catch (const std::exception&)
-                                {
-                                    throw std::runtime_error("failed to initialize components");
-                                }*/
-                              
                             }
                         }
                         else
@@ -206,24 +195,8 @@ namespace Flamingo
         {
             throw std::runtime_error("'objects' are null");
         }
+
+        return true;
     }
 
-    void MapReader::createCamera()
-    {
-        GameObject* gO = m_mngr->addGameObject({GROUP_RENDER});
-
-        m_data.insert({"t_name", "m_camera"});
-        m_data.insert({"t_entity_name", "camera"});
-        m_componentFactory->addComponent(gO, "Camera", m_data);
-
-        m_data.clear();
-
-        // PASAR A FLAMINGOBASE
-        auto m_camera = getComponent<Camera>(gO);
-        m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
-
-        m_camera->lookAt(SVector3(0, 0, 0), STransformSpace::WORLD);
-        m_camera->setNearClipDistance(1);
-        m_camera->setFarClipDistance(10000);
-    }
 } // namespace Flamingo
