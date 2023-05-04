@@ -22,12 +22,13 @@ namespace Flamingo
         FLAMINGOEXPORT_API void initValues(const char* songRoute, std::string songName, bool isMusic);
         FLAMINGOEXPORT_API void playAudio();
         FLAMINGOEXPORT_API void stopAudio();
+        FLAMINGOEXPORT_API void setVolume(float f);
 
       protected:
         std::string m_audioName;
         bool m_playing;
         FMOD::Sound* m_sound;
-        char* m_songRoute;
+        std::string m_songRoute;
         std::string m_songName;
         bool m_isMusic;
 

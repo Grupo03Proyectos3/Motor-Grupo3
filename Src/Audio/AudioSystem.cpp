@@ -141,6 +141,20 @@ namespace Flamingo
         m_soundGroup->setVolume(f);
     }
 
+    void AudioSystem::setChannelVolume(float t_volume, std::string t_audio)
+    {
+        FMOD::Channel* auxChannel = nullptr;
+        if (m_channelMap->at(t_audio))
+        {
+            auxChannel = m_channelMap->find(t_audio)->second;
+        }
+        else
+        {
+            return;
+        }
+        auxChannel->setVolume(t_volume);
+    }
+
     int AudioSystem::checkError(FMOD_RESULT result)
     {
         if (result != FMOD_OK)

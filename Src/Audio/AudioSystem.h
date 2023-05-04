@@ -80,9 +80,9 @@ namespace Flamingo
          */
         void playAudio(std::string t_audioName);
         void stopAudio(std::string t_audioName);
-        void setMusicVolume(float f);
-        void setSoundEffectsVolume(float f);
-
+        void __declspec(dllexport) setMusicVolume(float f);
+        void __declspec(dllexport) setSoundEffectsVolume(float f);
+        void setChannelVolume(float t_vol, std::string audioName);
 
       protected:
 

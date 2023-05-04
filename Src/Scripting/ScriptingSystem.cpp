@@ -15,6 +15,7 @@ extern "C"
 #include <LuaBridge\LuaBridge.h>
 // AUDIO
 #include "Audio/AudioSystem.h"
+#include "FlamingoBase/AudioFactory.h"
 // UI
 #include "UI/UISystem.h"
 // RENDER
@@ -68,6 +69,7 @@ namespace Flamingo
         m_componentFactory->addFactory("Camera", new CameraFactory(renderSystem));
         m_componentFactory->addFactory("Animator", new AnimatorFactory(renderSystem));
         m_componentFactory->addFactory("Scripts", new ScriptFactory());
+        m_componentFactory->addFactory("AudioSource", new AudioFactory());
         m_componentFactory->addFactory("UIElement", new UIElementFactory());
 
         // crear un Lua state
