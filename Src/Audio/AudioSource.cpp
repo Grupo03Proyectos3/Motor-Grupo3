@@ -53,6 +53,6 @@ namespace Flamingo
     }
     void AudioSource::setVolume(float f)
     {
-        m_mngr->getSystem<Flamingo::AudioSystem>()->stopAudio(m_audioName);
+        m_mngr->getSystem<Flamingo::AudioSystem>()->setChannelVolume(f, m_audioName);
     }
 } // namespace Flamingo
