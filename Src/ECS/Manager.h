@@ -21,20 +21,10 @@ namespace Flamingo
 {
 
     /*
-     * A class for managing the list of entities, groups, etc.
-     *
-     * In this version the manager is responsible on several things
-     * that used to be done by the class Entity (like addComponent), just
-     * to make it easier to develop the memory management later.
-     *
-     * Note that no outside the classes of ECS can access an Entity directly,
-     * they just have a reference to it.
-     *
+     * Clase para manejar las listas de GameObjects, grupos, etc.
      *  */
     class FLAMINGOEXPORT_API Manager
     {
-       
-
       public:
         Manager()
         {
@@ -53,7 +43,7 @@ namespace Flamingo
                     {
                         ents[i] = nullptr;
                     }
-                    else if (ents[i] != nullptr /*&& ents[i]->m_alive == false*/)
+                    else if (ents[i] != nullptr)
                     {
                         toDestroy.push_back(ents[i]);
                         ents[i] = nullptr;
@@ -63,15 +53,6 @@ namespace Flamingo
 
             for (auto i = 0; i < toDestroy.size(); i++)
                 delete toDestroy[i];
-
-            /* for (auto& ent : m_ents_by_group[GROUP_ALL])
-             {
-                 for (auto& comp : ent->m_current_comps)
-                 {
-                     delete comp.second;
-                     comp.second = nullptr;
-                 }
-             };*/
 
             for (auto i = 0u; i < maxSystemId; i++)
                 if (m_systems[i] != nullptr)
@@ -232,7 +213,7 @@ namespace Flamingo
             {
                 if (t_e->m_current_comps.size() == 0)
                     return nullptr;
-              
+
                 auto c = t_e->m_current_comps.at(typeid(T).name());
                 return static_cast<T*>(c);
             }
@@ -242,7 +223,6 @@ namespace Flamingo
             }
         }
 
-      
         // returns true if there is a component with identifier T::id
         // in the entity 't_e'
         //
@@ -266,16 +246,26 @@ namespace Flamingo
             return m_ents_by_group[t_gId];
         }
 
-        // associates the entity 't_e' to the handler 't_hId'
-        //
+        /**
+         * @brief Asocia el GameObject al handler
+         *
+         * @param[in] t_hId handlerId_type handler
+         * @param[in] t_e GameObject* GameObject 
+         * 
+         * @return void
+         */
         void setHandler(handlerId_type t_hId, GameObject* t_e)
         {
             assert(t_hId < maxHandlerId);
             m_handlers[t_hId] = t_e;
         }
 
-        // returns the entity associated to the handler 't_hId'
-        //
+        /**
+         * @brief Devuelve la entidad asociada al handler
+         *
+         * @param[in] t_hId handlerId_type handler
+         * @return GameObject*
+         */
         GameObject* getHandler(handlerId_type t_hId)
         {
             assert(t_hId < maxHandlerId);
@@ -499,8 +489,6 @@ namespace Flamingo
 
         static Manager* m_instance;
     };
-
-  
 
 } // namespace Flamingo
 #endif
