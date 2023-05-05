@@ -18,12 +18,12 @@ namespace Flamingo
             float s_x = std::stof(args.at("t_node_x"));
             float s_y = std::stof(args.at("t_node_y"));
             float s_z = std::stof(args.at("t_node_z"));
+
             Flamingo::MeshRenderer* c = Manager::instance()->addComponent<Flamingo::MeshRenderer>(gO);
             c->initValues(SVector3(s_x, s_y, s_z), modelName, entityName);
             c->changeMaterial(matName);
 
             Manager::instance()->addGameObjectToGroups(gO, {GROUP_RENDER});
-            // compsCreated.push_back(c);
             return c;
         }
         catch (...)

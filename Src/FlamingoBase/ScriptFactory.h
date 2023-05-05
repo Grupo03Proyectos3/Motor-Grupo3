@@ -23,15 +23,5 @@ namespace Flamingo
         const std::string m_baseNameScript = "struct ";
     };
 
-    /*Para realizar pruebas:
-    *   auto sF = new ScriptFactory();
-            ScriptManager::instance()->addGameScript("PruebaScript", new PruebaScript());
-            ecs::GameObject* g = m_mngr->addGameObject();
-            ecs::AddComponent<Transform>(g);
-            ecs::AddComponent<BehaviourScript>(g);
-            std::unordered_map<std::string, std::string> m;
-            m.insert({"t_scriptName", "PruebaScript"});
-            auto v = sF->createComponent(g, m);
-    */
 } // namespace Flamingo
 #endif

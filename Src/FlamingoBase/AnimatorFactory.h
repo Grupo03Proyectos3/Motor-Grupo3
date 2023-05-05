@@ -12,8 +12,8 @@ namespace Ogre
     class SceneNode;
 }
 
-/*Clase base para las diferentes factorías de componentes que tendremos en el proyecto.
- *Contiene una lista de todos los componentes creados para eliminarlos al finalziar la ejecución
+/*  Clase base para las diferentes factorías de componentes que tendremos en el proyecto.
+ *  Contiene una lista de todos los componentes creados para eliminarlos al finalziar la ejecución
  */
 namespace Flamingo
 {

@@ -39,7 +39,6 @@ namespace Flamingo
         /**
          * @brief Se llama para colocar el Transform en la posición deseada.
          *
-         *
          * @param[in] t_pos SVector3 posición en la que se desea colocar
          * @return
          */

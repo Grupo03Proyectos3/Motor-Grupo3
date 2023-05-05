@@ -44,7 +44,6 @@ namespace Flamingo
         Message m;
         m.id = MSG_TRANSFORM_MOVE;
         m.entity_affected = m_ent;
-        // m.v = &m_position;
         m.vector.x = m_position.getX();
         m.vector.y = m_position.getY();
         m.vector.z = m_position.getZ();
@@ -71,7 +70,6 @@ namespace Flamingo
         Message m;
         m.id = MSG_TRANSFORM_MOVE;
         m.entity_affected = m_ent;
-        // m.v = &m_position;
         m.vector.x = m_position.getX();
         m.vector.y = m_position.getY();
         m.vector.z = m_position.getZ();
@@ -90,7 +88,6 @@ namespace Flamingo
         m.quaternion.y = m_rotation.getY();
         m.quaternion.z = m_rotation.getZ();
         m.quaternion.w = m_rotation.getW();
-        // m.v = &m_scale;
         m_mngr->getSystem<Flamingo::RenderSystem>()->recieve(m);
     }
 
@@ -103,7 +100,6 @@ namespace Flamingo
         m.vector.x = m_scale.getX();
         m.vector.y = m_scale.getY();
         m.vector.z = m_scale.getZ();
-        // m.v = &m_scale;
         m_mngr->send(m);
     }
 

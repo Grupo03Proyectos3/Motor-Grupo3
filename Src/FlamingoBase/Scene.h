@@ -36,9 +36,9 @@ namespace Flamingo{
         FLAMINGOEXPORT_API GameObject* getObject(std::string t_name);
 
         FLAMINGOEXPORT_API std::string getName();
-        Ogre::SceneManager* getSceneManger();//NO EXPORTAR
-        Ogre::SceneNode* getSceneRoot();     //NO EXPORTAR 
-        CEGUI::Window* getCeguiRoot();       //NO EXPORTAR
+        Ogre::SceneManager* getSceneManger();
+        Ogre::SceneNode* getSceneRoot();     
+        CEGUI::Window* getCeguiRoot();       
       private:
         Manager* m_mngr;
         Ogre::SceneNode* m_OgreRootNode;

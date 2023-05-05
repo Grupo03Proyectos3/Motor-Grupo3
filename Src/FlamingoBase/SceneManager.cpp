@@ -59,7 +59,6 @@ namespace Flamingo
         {
             m_scenes.insert({t_SceneName->getName(), t_SceneName});
             t_SceneName->getSceneManger();
-            std::cout << "Scene " << t_SceneName->getName() << " Added\n ";
         }
         else
         {
@@ -115,7 +114,6 @@ namespace Flamingo
         if (t_aux != m_scenes.end())
         {
             m_scenes.erase(t_aux);
-            std::cout << mName << "Scene " << t_SceneName << " Deleted\n ";
         }
     }
 

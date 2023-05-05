@@ -37,7 +37,6 @@ namespace Flamingo{
 
     void Scene::addObjects(GameObject* t_GameObject)
     {
-        // DEJARLO ASI O K SUDE Y SE CAMBIE POR SI ENTRA OTRO CON EL MISMO NOMBRE
         if (m_SceneGameObjects.find(t_GameObject->getName()) == m_SceneGameObjects.end())
         {
             m_SceneGameObjects.insert({t_GameObject->getName(), t_GameObject});
@@ -87,20 +86,10 @@ namespace Flamingo{
         {
             auto c = m_mngr->getComponent<Camera>(obj.second);
             if (c != nullptr)
-            { // es necesario desasociar el viewport de la camara con la camra para k pare de renderizar
+            { 
                c->desactive();
             }
 
-            //auto ui = m_mngr->getComponent<UIElement>(obj.second);
-            //if (ui != nullptr)
-            //{
-
-            //    //delete ui->getWindowElement();
-            //    m_CeguiRootNode->removeChild(ui->getWindowElement());
-            //    ;
-            //}
-
-         
             obj.second->setAlive(false);
         }
 
@@ -124,10 +113,10 @@ namespace Flamingo{
         m_CeguiRootNode->setVisible(false);
         // acceder a objectos de la scene en la k esten y desactivarlos
         for (auto obj : m_SceneGameObjects)
-        {   // TO DO : refactorizar para que la camara reciba el mensaje y se desactive sola
+        {  
             obj.second->setActive(false);
             if (m_mngr->getComponent<Camera>(obj.second) != nullptr)
-            { // es necesario desasociar el viewport de la camara con la camra para k pare de renderizar
+            { 
                 m_mngr->getComponent<Camera>(obj.second)->desactive();
             }
         }

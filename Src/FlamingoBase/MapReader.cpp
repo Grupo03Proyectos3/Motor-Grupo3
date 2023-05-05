@@ -1,7 +1,7 @@
 #include "MapReader.h"
 #include "ECS/GameObject.h"
 #include "FlamingoBase/JSON.h"
-// Include temporal
+
 #include "FlamingoBase/Scene.h"
 #include "Render/RenderSystem.h"
 namespace Flamingo

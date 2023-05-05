@@ -17,6 +17,7 @@ using Data = std::unordered_map<std::string, std::string>;
 
 class RenderSystem;
 class Flamingo::Scene;
+
 namespace Flamingo
 {
 
@@ -27,7 +28,7 @@ namespace Flamingo
         ~MapReader();
 
         /**
-        @brief Añadde las factorías necesarias
+        @brief Añade las factorías necesarias
         *
         @return
         */
@@ -40,7 +41,6 @@ namespace Flamingo
         Manager* m_mngr;
         GameObject* gO;
 
-       
         Flamingo::RenderSystem* m_renderSystem;
     };
 } // namespace Flamingo

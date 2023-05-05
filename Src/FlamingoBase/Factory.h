@@ -22,11 +22,6 @@ namespace Flamingo
         virtual ~Factory();
 
         virtual Flamingo::Component* createComponent(Flamingo::GameObject* gO, const std::unordered_map<std::string, std::string>& args);
-
-        void deleteComponents();
-
-      protected:
-        // std::vector<ecs::Component*> compsCreated;
     };
 } // namespace Flamingo
 #endif

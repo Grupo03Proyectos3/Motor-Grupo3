@@ -23,22 +23,5 @@ namespace Flamingo
             throw std::exception("[ERROR BehaviourScript Factory]: Key not found or valid");
         }
     }
-    //
-    // void ScriptFactory::deleteOtherScript(int t_scriptIndex, ecs::GameObject* t_gO)
-    //{
-    //    auto it = t_gO->m_current_comps.begin();
-    //
-    //    while (it != t_gO->m_current_comps.end())
-    //    {
-    //        BehaviourScript* other = dynamic_cast<BehaviourScript*>(it->second);
-    //
-    //        if (other != nullptr && m_scriptsIndex[typeid(other).name()] == t_scriptIndex)
-    //        {
-    //                ecs::Manager::instance()->removeScript(t_gO, it);
-    //                break;
-    //        }
-    //        else
-    //            it++;
-    //    }
-    //}
+  
 } // namespace Flamingo
