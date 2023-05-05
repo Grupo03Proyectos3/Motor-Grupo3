@@ -26,7 +26,6 @@ namespace Flamingo
 
       protected:
         std::string m_audioName;
-        bool m_playing;
         FMOD::Sound* m_sound;
         std::string m_songRoute;
         std::string m_songName;

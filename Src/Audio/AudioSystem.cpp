@@ -26,7 +26,7 @@ namespace Flamingo
 
     void AudioSystem::recieve(const Message& t_m)
     {
-        /*switch (t_m.id)
+        switch (t_m.id)
         {
             case MSG_GAME_OBJECT_ACTIVE_CHANGED:
             {
@@ -43,7 +43,7 @@ namespace Flamingo
             }
             default:
                 break;
-        }*/
+        }
     }
 
     void AudioSystem::initSystem()
@@ -131,9 +131,12 @@ namespace Flamingo
         m_channelMap->emplace(t_audioName, auxChannel);
     }
 
-    void AudioSystem::stopAudio(std::string t_audioName)
+    void AudioSystem::stopAudio(std::string const t_audioName)
     {
+        if (m_channelMap->empty())
+            return;
         FMOD::Channel* auxChannel = nullptr;
+        
         if (m_channelMap->at(t_audioName))
         {
             auxChannel = m_channelMap->find(t_audioName)->second;

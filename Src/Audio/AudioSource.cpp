@@ -37,7 +37,6 @@ namespace Flamingo
 
     void AudioSource::initValues(const char* songRoute, std::string songName, bool isMusic)
     {
-        m_playing = false;
         m_songRoute = songRoute;
         m_songName = songName;
         m_isMusic = isMusic;
@@ -49,7 +48,9 @@ namespace Flamingo
 
     void AudioSource::stopAudio()
     {
-        m_mngr->getSystem<Flamingo::AudioSystem>()->stopAudio(m_audioName);
+        auto aSys = m_mngr->getSystem<Flamingo::AudioSystem>();
+        std::string s = m_audioName;
+        aSys->stopAudio(s);
     }
     void AudioSource::setVolume(float f)
     {
