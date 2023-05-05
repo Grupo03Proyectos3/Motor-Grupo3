@@ -1,13 +1,21 @@
 # Motor
 ## Autores
-- Simona Antonova Mihaylova [(Usuario GitHub: ssimoanto)](https://github.com/ssimoanto)
 - Javier Comas de Frutos [(Usuario GitHub: javixxu)](https://github.com/javixxu)
-- Sara Isabel García Moral [(Usuario GitHub: sarais02)](https://github.com/sarais02)
-- Miguel González Pérez [(Usuario GitHub: miggon23)](https://github.com/miggon23)
-- Adrián Montero Castrillo [(Usuario GitHub: admont02)](https://github.com/admont02)
-- Antonio Povedano Ortiz [(Usuario GitHub: AntonioPove)](https://github.com/AntonioPove)
-- Raúl Saavedra de la Riera [(Usuario GitHub: RaulSaavedraRiera)](https://github.com/RaulSaavedraRiera)
 - Elisa Todd Rodríguez [(Usuario GitHub: elisatodd)](https://github.com/elisatodd)
+- Miguel González Pérez [(Usuario GitHub: miggon23)](https://github.com/miggon23)
+- Raúl Saavedra de la Riera [(Usuario GitHub: RaulSaavedraRiera)](https://github.com/RaulSaavedraRiera)
+- Sara Isabel García Moral [(Usuario GitHub: sarais02)](https://github.com/sarais02)
+- Antonio Povedano Ortiz [(Usuario GitHub: AntonioPove)](https://github.com/AntonioPove)
+- Adrián Montero Castrillo [(Usuario GitHub: admont02)](https://github.com/admont02)
+- Simona Antonova Mihaylova [(Usuario GitHub: ssimoanto)](https://github.com/ssimoanto)
+
+
+# PROBLEMAS CONOCIDOS
+## Memory Leaks
+Por el uso de la librería CEGUI, obtenemos una serie de memory leaks que nos es imposible eliminar. 
+Estos memory leaks consisten en:
+- 2 leaks por la inicialización de FlamingoDefaultUI.scheme, para obtener los elementos que crearemos de UI. Aun eliminando su contenido en el método eraseContext() del UISystem, éste sigue provocando fugas de memoria.
+- 2 leaks por cada vez que se añade una imagen como propiedad a un elemento de UI. La imagen es añadida usando addFromImageFile() del ImageManager de CEGUI. Cuando hacemos su destrucción en el eraseContext() del UISystem, no borra sus elementos correctamente, provocando 2 fugas por cada imagen que ha sido añadida.
 
 # DOCUMENTO DE GUÍAS DE ESTILO DE CÓDIGO 
 
