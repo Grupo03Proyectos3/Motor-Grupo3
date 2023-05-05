@@ -49,6 +49,7 @@ namespace Flamingo
         std::vector<groupId_type> m_gIds;
 
         std::string m_name;
+        std::string m_sceneName;
     };
 } // namespace ecs
 

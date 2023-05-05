@@ -1,5 +1,7 @@
 #include "GameObject.h"
 #include "Manager.h"
+#include "FlamingoExport/FlamingoCore.h"
+#include "FlamingoBase/SceneManager.h"
 namespace Flamingo
 {
 
@@ -10,6 +12,8 @@ namespace Flamingo
         , m_gIds({GROUP_EXAMPLE})
     {
         m_current_comps.reserve(maxComponentId);
+        m_sceneName = FlamingoCore::instance()->getSceneManager()->getSceneToAttach()->getName();
+       
     }
 
     GameObject::GameObject(std::vector<Flamingo::groupId_type> t_gId)
@@ -19,10 +23,13 @@ namespace Flamingo
         , m_gIds(t_gId)
     {
         m_current_comps.reserve(maxComponentId);
+        m_sceneName = FlamingoCore::instance()->getSceneManager()->getSceneToAttach()->getName();
     }
 
     GameObject::~GameObject()
     {
+        Flamingo::SceneManager::instance()->getScene(m_sceneName)->destroySceneObject(m_name);
+
         if (m_current_comps.size() > 0)
         {
             for (auto it = m_current_comps.begin(); it != m_current_comps.end(); ++it)
@@ -30,6 +37,7 @@ namespace Flamingo
                     delete it->second;
 
             m_current_comps.clear();
+            m_current_comps.reserve(0);
         }
     }
 
@@ -47,6 +55,7 @@ namespace Flamingo
         m.gameObejctChangeActive.object_changed = this;
         m.gameObejctChangeActive.mode = to;
         auto mngr = Manager::instance();
+
         mngr->send(m);
     }
 

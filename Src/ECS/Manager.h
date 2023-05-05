@@ -230,10 +230,13 @@ namespace Flamingo
         {
             try
             {
+                if (t_e->m_current_comps.size() == 0)
+                    return nullptr;
+              
                 auto c = t_e->m_current_comps.at(typeid(T).name());
                 return static_cast<T*>(c);
             }
-            catch (const std::exception&)
+            catch (...)
             {
                 return nullptr;
             }

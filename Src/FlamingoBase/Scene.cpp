@@ -44,6 +44,13 @@ namespace Flamingo{
             if (mDebug)
                 std::cout << "Object Name: " << t_GameObject->getName() << " Added\n";
         }
+        else
+        {
+            std::cout << t_GameObject->getName() + "\n";
+            t_GameObject->setAlive(false);
+            throw std::exception("[ERROR loading the scene]");
+        }
+            
     }
 
     void Scene::delObject(std::string t_nameObject)
@@ -60,6 +67,14 @@ namespace Flamingo{
     void Scene::setDebug(bool t_active)
     {
         mDebug = t_active;
+    }
+
+    void Scene::destroySceneObject(std::string t_n)
+    {
+        auto t_aux = m_SceneGameObjects.find(t_n);
+        if (t_aux != m_SceneGameObjects.end())
+            m_SceneGameObjects.erase(t_aux);
+        
     }
 
     void Scene::destroySceneObjects()

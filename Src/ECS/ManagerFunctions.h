@@ -82,9 +82,10 @@ namespace Flamingo
 
     /*Solicita al manager que se cree un gameObject y se le añada a los grupos proporcionados; asi como se le añada un componente
     transform por defecto*/
-    __declspec(dllexport) inline GameObject* createGameObject(std::vector<groupId_type> t_vect_gId = {})
+    __declspec(dllexport) inline GameObject* createGameObject(std::string t_n, std::vector<groupId_type> t_vect_gId = {})
     {
         auto gO = Manager::instance()->addGameObject(t_vect_gId);
+        gO->setName(t_n);
         auto t =addComponent<Transform>(gO);
         t->initValues();
         t->initComponent();

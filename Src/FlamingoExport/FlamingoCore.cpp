@@ -66,7 +66,7 @@ namespace Flamingo
         PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
         AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
         Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();
-        render_sys->inicializarShaders();       
+        render_sys->inicializarShaders();
 
         if (readLua)
         {
@@ -76,15 +76,14 @@ namespace Flamingo
             {
                 loading_scene = scene;
                 load_success = scripting_sys->loadScene(scene);
-     
             }
 
             if (!load_success)
             {
                 throw std::runtime_error("ERROR: Failed loading scene " + loading_scene + "\n");
             }
-
-        }else
+        }
+        else
         {
             std::string loading_scene = "";
             int index = 0;
@@ -96,17 +95,16 @@ namespace Flamingo
                 index++;
                 mapReader->readMap(scene, p);
             }
-          
         }
-     
+
         sceneManager->setSceneActive(m_first_scene);
         sceneManager->startScene(m_first_scene);
 
-        //Scene* mainScene = sceneManager->getSceneActive();
+        // Scene* mainScene = sceneManager->getSceneActive();
 
         // //C�mara y Luces iniciales
-         //auto cam = mainScene->getObject("myCamera");
-         //auto m_camera = m_mngr->getComponent<Flamingo::Camera>(cam);
+        // auto cam = mainScene->getObject("myCamera");
+        // auto m_camera = m_mngr->getComponent<Flamingo::Camera>(cam);
         //
         // m_camera->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
         // m_camera->lookAt(SVector3(0, 0, 0), STransformSpace::LOCAL);
@@ -114,7 +112,7 @@ namespace Flamingo
         // m_camera->setFarClipDistance(100000);
         //// m_camera->setTarget(mainScene->getObject("Arbol"));
         // //t->translate({-15000, 0, 0}, LOCAL);
-         //render_sys->setMainCamera(m_camera);
+        // render_sys->setMainCamera(m_camera);
 
         /* auto light = mainScene->getObject("mylight");
          auto cmp_light = m_mngr->getComponent<Flamingo::Light>(light);
@@ -162,22 +160,22 @@ namespace Flamingo
             render_sys->update(dt);
             ui_system->update(dt);
 
-
+          
 
             // pruebas de enemigos
 
-            //auto enemigo = m_mngr->getEntities(GROUP_RENDER);
+            // auto enemigo = m_mngr->getEntities(GROUP_RENDER);
 
             render_sys->manipulateCamera();
 
             ihdlr.refresh();
 
-            SceneManager::instance()->reloadScene();
-
             m_mngr->refresh();
             m_mngr->flushMessages();
+
+              SceneManager::instance()->reloadScene();
         }
-    
+
         delete player_timer;
     }
 
@@ -195,8 +193,7 @@ namespace Flamingo
         ScriptManager::instance()->deleteScriptsTemplates();
         ScriptManager::close();
 
-
-         if (mapReader != nullptr)
+        if (mapReader != nullptr)
             delete mapReader;
 
         if (!initialized)

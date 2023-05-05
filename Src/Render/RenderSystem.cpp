@@ -120,6 +120,7 @@ namespace Flamingo
                         anim->allAnimations(t_m.gameObejctChangeActive.mode);
                 }
                 break;*/
+                break;
             }
             default:
                 break;
