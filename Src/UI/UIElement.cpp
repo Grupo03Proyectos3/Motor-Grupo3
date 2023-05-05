@@ -1,20 +1,19 @@
 #include "UIElement.h"
+#include "CEGUI/CEGUI.h"
+#include "CEGUI/Event.h"
+#include "CEGUI/EventArgs.h"
 #include "CEGUI/ImageManager.h"
+#include "CEGUI/Window.h"
+#include "CEGUI/WindowRenderer.h"
+#include "CEGUI/widgets/PushButton.h"
 #include "ECS/Manager.h"
 #include "FlamingoUtils/SQuaternion.h"
 #include "FlamingoUtils/SVector2.h"
 #include "FlamingoUtils/SVector3.h"
 #include "UISystem.h"
 #include <iostream>
-#include "CEGUI/Window.h"
-#include "CEGUI/WindowRenderer.h"
-#include "CEGUI/widgets/PushButton.h"
-#include "CEGUI/Event.h"
-#include "CEGUI/EventArgs.h"
-#include "CEGUI/CEGUI.h"
 
 #include "Scripting/BehaviourScript.h"
-
 
 namespace Flamingo
 {
@@ -26,7 +25,6 @@ namespace Flamingo
 
     UIElement::~UIElement()
     {
-      
     }
 
     void UIElement::initComponent()
@@ -64,12 +62,11 @@ namespace Flamingo
 
                 m_element->moveToFront();
             }
-
-        } catch(...)
+        }
+        catch (...)
         {
             throw std::exception("[UI ERROR]: Invalid params in element");
         }
-       
     }
 
     void UIElement::initValues(std::string type, std::string name, std::string text, const std::string image)
@@ -205,7 +202,7 @@ namespace Flamingo
     {
         if (!CEGUI::ImageManager::getSingleton().isDefined(name))
         {
-            //memory leaks procedentes de CEGUI al añadir una imagen a su banco, llamamos los destroy mas tarde pero nada
+            // memory leaks procedentes de CEGUI al añadir una imagen a su banco, llamamos los destroy mas tarde pero nada
             CEGUI::ImageManager::getSingleton().addFromImageFile(name, file);
         }
         setProperty(property, name);

@@ -3,12 +3,12 @@
 #define __TRANSFORM_H__
 
 #include "ECS/Component.h"
-#include <FlamingoUtils/SVector3.h>
-#include <FlamingoUtils/SQuaternion.h>
 #include "FlamingoExport/FlamingoAPI.h"
+#include <FlamingoUtils/SQuaternion.h>
+#include <FlamingoUtils/SVector3.h>
 
 /**
- *  Componente que se encarga de almacenar y manejar información 
+ *  Componente que se encarga de almacenar y manejar información
  *  sobre la posición, rotación y escala de un GameObject
  */
 namespace Flamingo

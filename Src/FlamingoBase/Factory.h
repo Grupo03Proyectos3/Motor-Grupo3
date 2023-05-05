@@ -10,8 +10,10 @@
 #include <string>
 #include <vector>
 
-/*Clase base para las diferentes factorías de componentes que tendremos en el proyecto.
- *Contiene una lista de todos los componentes creados para eliminarlos al finalziar la ejecución
+/*
+ * Clase base para las diferentes factorías de componentes que tendremos en el proyecto.
+ * Contiene una lista de todos los componentes creados para eliminarlos al finalziar la ejecución
+ * 
  */
 namespace Flamingo
 {
@@ -21,6 +23,15 @@ namespace Flamingo
         Factory() = default;
         virtual ~Factory();
 
+          /**
+         * @brief Crea el component y comprueba que los datos que se pasan en este sean los 
+         * correctos
+         *         * @param[in] GameObject* gO gO al que se va a meter la propiedad
+         * @param[in] unordered_map<std::string, std::string>& args donde se guardan los valores y el nombre de estos para
+         * poder mandarlos en el initValues del dicho componente
+         * 
+         * @return void
+         */
         virtual Flamingo::Component* createComponent(Flamingo::GameObject* gO, const std::unordered_map<std::string, std::string>& args);
     };
 } // namespace Flamingo

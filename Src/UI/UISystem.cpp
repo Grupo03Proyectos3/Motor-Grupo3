@@ -24,7 +24,6 @@ namespace Flamingo
 
     UISystem::~UISystem()
     {
-        
     }
 
     void UISystem::recieve(const Message& m)
@@ -42,7 +41,7 @@ namespace Flamingo
             m_guiContext->injectMousePosition(m.moveMouse.mouseX, m.moveMouse.mouseY);
         }
         else if (m.id == MSG_MOUSE_CLICK)
-        {  
+        {
             if (m.ui_input.mouse_states[0] != m_estadoBotones[0])
             {
                 if (m.ui_input.mouse_states[0])
@@ -61,7 +60,7 @@ namespace Flamingo
                 {
                     m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::MiddleButton);
                 }
-                else 
+                else
                     m_guiContext->injectMouseButtonUp(CEGUI::MouseButton::MiddleButton);
 
                 m_estadoBotones[1] = m.ui_input.mouse_states[1];

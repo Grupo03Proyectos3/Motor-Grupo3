@@ -13,10 +13,12 @@ namespace CEGUI
     class OgreRenderer;
     class GUIContext;
     class WindowManager;
-}
+} // namespace CEGUI
 
-namespace Flamingo{
-    class UISystem : public System{
+namespace Flamingo
+{
+    class UISystem : public System
+    {
       public:
         __SYSTEM_ID_DECL__(_sys_UI)
         UISystem();
@@ -27,15 +29,15 @@ namespace Flamingo{
 
         void initContext();
 
-          /**
-         * @brief Crea una window inicial en la que se 
+        /**
+         * @brief Crea una window inicial en la que se
          * encontrara el elemento
          *
          * @return void
          */
         void initRoot();
 
-          /**
+        /**
          * @brief Crea los principales recursos que nececita
          * CEGUI
          *
@@ -43,7 +45,7 @@ namespace Flamingo{
          */
         void initUIResources();
 
-         /**
+        /**
          * @brief Elimina los principales recursos que nececita
          * CEGUI y los recursos que hayan guardado y utilizado
          * estos
@@ -62,14 +64,13 @@ namespace Flamingo{
         void loadScheme(const std::string& schemeFile);
         void setFont(const std::string& fontFile);
 
-        CEGUI::Window* createWidget(const std::string& type, const std::string& name = " "); 
-        CEGUI::Window* createEmptyWindow(const std::string& name = " "); 
-        CEGUI::Window* createRootScene(const std::string& name = " "); 
+        CEGUI::Window* createWidget(const std::string& type, const std::string& name = " ");
+        CEGUI::Window* createEmptyWindow(const std::string& name = " ");
+        CEGUI::Window* createRootScene(const std::string& name = " ");
 
-        void chageScreenSize(int widht,int height);
+        void chageScreenSize(int widht, int height);
 
       private:
-        
         CEGUI::WindowManager* m_winMngr;
         CEGUI::OgreRenderer* m_renderer;
         CEGUI::Window* m_root = nullptr;

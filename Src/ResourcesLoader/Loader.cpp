@@ -1,24 +1,22 @@
 ﻿#include "Loader.h"
-
-#include <string>
-#include <vector>
+#include "dirent.h"
 #include <filesystem>
 #include <iostream>
+#include <string>
+#include <vector>
 
-#include "dirent.h"
 namespace Flamingo
 {
     void Loader::findDir(const char* t_path, std::ofstream& t_output)
     {
         DIR* dir = opendir(t_path); // Abrir el directorio
 
-        if (dir == nullptr)         // Aserguarse que el directorio existe
+        if (dir == nullptr) // Aserguarse que el directorio existe
         {
             throw std::runtime_error("Error al abrir el directorio " + (std::string)t_path);
             return;
         }
 
-      
         dirent* entry = readdir(dir); // Me guardo el archivo
         while (entry != nullptr)      // Mientras haya encontrado algo
         {
@@ -54,26 +52,20 @@ namespace Flamingo
             }
             entry = readdir(dir); // Actualizo la entrada
         }
-        
+
         closedir(dir);
-        //closedir(dir); // Cerrar el directorio abierto anteriormente
-        //delete entry;
-        //if (dir != nullptr)
-        //    delete dir;
-        ////delete dir;
-        
     }
 
     void Loader::loadDirectories()
     {
-        const char* directory = "./Assets";    // Directorio donde estan todos los recursos que buscar
+        const char* directory = "./Assets"; // Directorio donde estan todos los recursos que buscar
         DIR* dir = opendir("./Assets");
         std::ifstream infile("resources.cfg"); // Archivo de input
         std::string line;                      // Linea donde se guarda cada linea leida
         std::vector<std::string> text;         // Vector donde me guardo todo el texto leido. Cada componente del vector es una linea
 
         // si no puede abrir resources.cfg ERROR
-        
+
         if (!dir)
         {
             closedir(dir);
@@ -84,7 +76,6 @@ namespace Flamingo
             closedir(dir);
             throw std::ifstream::failure("resources.cfg not found");
         }
-        
 
         while (line != "FileSystem=./Assets") // Leo hasta "FileSystem=./Assets" que es lo que no quiero sobreescribir
         {
@@ -101,7 +92,7 @@ namespace Flamingo
         }
         // Metodo recursivo para buscar todos los directorios
         findDir(directory, output);
-        // Cierro el archivo ���IMPORTANTE PARA QUE SE HAGA BIEN LA LECTURA Y ESCRITURA!!!
+        // Cierro el archivo
         output.close();
         closedir(dir);
     }
