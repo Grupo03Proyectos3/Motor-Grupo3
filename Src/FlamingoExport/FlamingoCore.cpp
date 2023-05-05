@@ -18,7 +18,6 @@
 #include "Render/Animator.h"
 #include "Render/Light.h"
 #include "Render/MeshRenderer.h"
-#include "Scripting/PruebaScript.h"
 #include "Scripting/ScriptManager.h"
 #include <ECS/InputHandlerContainer.h>
 #include <FlamingoBase/Transform.h>

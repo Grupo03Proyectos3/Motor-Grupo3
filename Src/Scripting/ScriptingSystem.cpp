@@ -6,45 +6,36 @@ extern "C"
 #include "lua.h"
 #include "lualib.h"
 }
+#include <LuaBridge\LuaBridge.h>
 
 #include "ECS/GameObject.h"
 #include "ECS/Manager.h"
-
 #include "ECS/ManagerFunctions.h"
+#include "Render/RenderSystem.h"
 
-#include <LuaBridge\LuaBridge.h>
-// AUDIO
-#include "Audio/AudioSystem.h"
+//FACTORIAS
 #include "FlamingoBase/AudioFactory.h"
-// UI
-#include "UI/UISystem.h"
-// RENDER
-#include "Render/Animator.h"
-#include "Render/ParticleSystem.h"
+#include "FlamingoBase/ComponentsFactory.h"
+#include "FlamingoBase/MeshRendererFactory.h"
+#include "FlamingoBase/RigidbodyFactory.h"
+#include "FlamingoBase/TransformFactory.h"
+#include "FlamingoBase/LightFactory.h"
+#include "FlamingoBase/UIElementFactory.h"
+#include "FlamingoBase/CameraFactory.h"
+#include "FlamingoBase/AnimatorFactory.h"
+#include "FlamingoBase/ScriptFactory.h"
 
-#include "Render/Camera.h"
-#include "Render/Light.h"
-// PHYSICS
-#include "Physics/PhysicsSystem.h"
-#include "Physics/RigidBody.h"
-// BASE
-#include "BehaviourScript.h"
-
-#include "FlamingoBase/Transform.h"
-// SCRIPTING
-#include "BehaviourScript.h"
-#include "FlamingoBase/SceneManager.h"
 namespace Flamingo
 {
 
-    Flamingo::ScriptingSystem::ScriptingSystem()
+    ScriptingSystem::ScriptingSystem()
         : m_scene_mngr(FlamingoSceneManager())
     {
         m_componentFactory = ComponentsFactory::instance();
         m_mngr = Manager::instance();
     }
 
-    Flamingo::ScriptingSystem::~ScriptingSystem()
+    ScriptingSystem::~ScriptingSystem()
     {
         if (m_componentFactory != nullptr)
         {
@@ -58,8 +49,7 @@ namespace Flamingo
 
         lua_close(lua_state);
     }
-
-    void Flamingo::ScriptingSystem::initSystem()
+    void ScriptingSystem::addFactories()
     {
         auto renderSystem = m_mngr->getSystem<Flamingo::RenderSystem>();
         m_componentFactory->addFactory("MeshRenderer", new MeshRendererFactory(renderSystem));
@@ -71,20 +61,20 @@ namespace Flamingo
         m_componentFactory->addFactory("Scripts", new ScriptFactory());
         m_componentFactory->addFactory("AudioSource", new AudioFactory());
         m_componentFactory->addFactory("UIElement", new UIElementFactory());
+    }
 
+    void ScriptingSystem::initSystem()
+    {
+        addFactories();
         // crear un Lua state
         lua_state = luaL_newstate();
         // cargar las standard libs
         luaL_openlibs(lua_state);
-        // guardarme en Lua las funciones internas de Flamingo
-        createSystemFuntions();
-        // readScript("camara");
-        // loadScene();
     }
 
-    void Flamingo::ScriptingSystem::update(float t_delta_time)
+    void ScriptingSystem::update(float t_delta_time)
     {
-        // TO DO : CHANGE TO SCRIPT GROUP
+        //Gestiona solo las entidades del grupo scripting
         for (auto gO : Manager::instance()->getEntities(GROUP_SCRIPTING))
         {
             if (gO == nullptr || !gO->getAlive() || !gO->getActive())
@@ -101,14 +91,14 @@ namespace Flamingo
         }
     }
 
-    void Flamingo::ScriptingSystem::recieve(const Message& t_m)
+    void ScriptingSystem::recieve(const Message& t_m)
     {
         switch (t_m.id)
         {
             case MSG_COLLISION_STAY:
             {
-                // Si alguno de los GameObjects implicados en la colisi�n tiene BehaviourScript,
-                // se llama a su OnCollisionStay() para ejecutar la acci�n determinada por el usuario.
+                // Si alguno de los GameObjects implicados en la colision tiene BehaviourScript,
+                // se llama a su OnCollisionStay() para ejecutar la accion determinada por el usuario.
                 for (auto c : t_m.collision.obj1->getCurrentComponents())
                 {
                     auto s = dynamic_cast<BehaviourScript*>(c.second);
@@ -117,7 +107,6 @@ namespace Flamingo
                         s->onCollisionStay(t_m.collision.obj2);
                     }
                 }
-
                 for (auto c : t_m.collision.obj2->getCurrentComponents())
                 {
                     auto s = dynamic_cast<BehaviourScript*>(c.second);
@@ -126,7 +115,6 @@ namespace Flamingo
                         s->onCollisionStay(t_m.collision.obj1);
                     }
                 }
-
                 break;
             }
             case MSG_COLLISION_ENTER:
@@ -139,7 +127,6 @@ namespace Flamingo
                         s->onCollisionEnter(t_m.collision.obj2);
                     }
                 }
-
                 for (auto c : t_m.collision.obj2->getCurrentComponents())
                 {
                     auto s = dynamic_cast<BehaviourScript*>(c.second);
@@ -148,16 +135,6 @@ namespace Flamingo
                         s->onCollisionEnter(t_m.collision.obj1);
                     }
                 }
-                //if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj1))
-                //{
-                //    bsCmp->onCollisionEnter(t_m.collision.obj2);
-                //}
-
-                //if (auto bsCmp = m_mngr->getBehaviourComponent<BehaviourScript>(t_m.collision.obj2))
-                //{
-                //    bsCmp->onCollisionEnter(t_m.collision.obj1);
-                //}
-
                 break;
             }
             case MSG_COLLIISION_EXIT:
@@ -170,7 +147,6 @@ namespace Flamingo
                         s->onCollisionExit(t_m.collision.obj2);
                     }
                 }
-
                 for (auto c : t_m.collision.obj2->getCurrentComponents())
                 {
                     auto s = dynamic_cast<BehaviourScript*>(c.second);
@@ -256,12 +232,12 @@ namespace Flamingo
         }
     }
 
-    lua_State* Flamingo::ScriptingSystem::getLuaState()
+    lua_State* ScriptingSystem::getLuaState()
     {
         return lua_state;
     }
 
-    void Flamingo::ScriptingSystem::readScript(const std::string& t_name)
+    void ScriptingSystem::readScript(const std::string& t_name)
     {
         std::string path = PATH_PREFIX + t_name + FILE_EXTENSION;
         // Cargar el script de lua
@@ -273,19 +249,19 @@ namespace Flamingo
         }
         else
         {
-            // remove error message from Lua state
+            // Quita el mensage de error de lua
             lua_pop(lua_state, 1);
-            throw std::runtime_error("[LUA ERROR]: Invalid map" /*(std::string)lua_tostring(lua_state, -1)*/);
+            throw std::runtime_error("[LUA ERROR] Invalid map: " + (std::string)lua_tostring(lua_state, -1));
         }
     }
 
-    void Flamingo::ScriptingSystem::callLuaFunction(std::string t_name)
+    void ScriptingSystem::callLuaFunction(std::string t_name)
     {
         luabridge::LuaRef fun = getFromLua(t_name);
         fun();
     }
 
-    bool Flamingo::ScriptingSystem::loadScene(std::string t_scene, bool t_first)
+    bool ScriptingSystem::loadScene(std::string t_scene, bool t_first)
     {
         if (t_scene.empty())
         {
@@ -294,105 +270,15 @@ namespace Flamingo
         auto myScene = m_scene_mngr.createScene(t_scene, true);
 
         m_mngr->getSystem<RenderSystem>()->addShadersScene(myScene);
-        // TO DO : a�adir control de excepciones devolviendo false si algo falla
-        // Por ej : no encuentra el fichero
-
+       
         SceneManager::instance()->setSceneToAttach(myScene);
 
-        loadObjects(t_scene);
-      
+        loadObjects(t_scene); //Carga todos los oobjetos desde un script de lua
 
-        return true;
+        return true; //Si todo va bien devuelve true
     }
 
-    void Flamingo::ScriptingSystem::createSystemFuntions()
-    {
-        // SceneManager
-        luabridge::getGlobalNamespace(lua_state)
-            .beginClass<Flamingo::SceneManager>("SceneManager")
-            /*.addStaticFunction("getSceneManager", &SceneManager::getInstance)*/
-            .addFunction("createScene", (&Flamingo::SceneManager::createScene))
-            .addFunction("deleteScene", (&Flamingo::SceneManager::delScene))
-            .addFunction("getCurrentScene", (&Flamingo::SceneManager::getSceneActive))
-            .addFunction("setCurrentScene", (&Flamingo::SceneManager::setSceneActive))
-            .endClass();
-
-        // AudioSystem
-        luabridge::getGlobalNamespace(lua_state)
-            .beginClass<AudioSystem>("AudioSystem")
-            .addFunction("play", (&AudioSystem::playAudio))
-            .addFunction("setMusicVolume", (&AudioSystem::setMusicVolume))
-            .addFunction("setFxVolume", (&AudioSystem::setSoundEffectsVolume))
-            .endClass();
-        // RenderSystem
-        luabridge::getGlobalNamespace(lua_state)
-            .beginClass<RenderSystem>("RenderSystem")
-            .endClass();
-        // ParticleSystem
-     /*   luabridge::getGlobalNamespace(lua_state)
-            .beginClass<Flamingo::ParticleSystem>("ParticleSystem")
-            .endClass();*/
-        // PhysicsSystem
-        luabridge::getGlobalNamespace(lua_state)
-            .beginClass<PhysicsSystem>("PhysicsSystem")
-            .addFunction("addRigidBody", (&PhysicsSystem::addRigidBody))
-            .addFunction("removeRigidBody", (&PhysicsSystem::removeRigidBody))
-            .endClass();
-        // UISystem
-        luabridge::getGlobalNamespace(lua_state)
-            .beginClass<Flamingo::UISystem>("UISystem")
-            .addFunction("changeScreenSize", (&UISystem::chageScreenSize))
-            .endClass();
-        // Manager
-        luabridge::getGlobalNamespace(lua_state)
-            .beginClass<Manager>("Manager")
-            .addStaticFunction("getSceneManager", &Manager::instance)
-            .addFunction("addGameObject", (&Manager::addGameObject))
-            .addFunction("addComponent", (&Manager::addComponent<Camera>))
-            .addFunction("addComponent", (&Manager::addComponent<Light>))
-            .addFunction("addComponent", (&Manager::addComponent<MeshRenderer>))
-            .addFunction("addComponent", (&Manager::addComponent<Transform>))
-            .addFunction("addComponent", (&Manager::addComponent<RigidBody>))
-            .addFunction("addSystem", (&Manager::addSystem<RenderSystem>))
-            .addFunction("addSystem", (&Manager::addSystem<PhysicsSystem>))
-            //.addFunction("addSystem", (&ecs::Manager::addSystem<Flamingo::ParticleSystem>))
-            .addFunction("addSystem", (&Manager::addSystem<AudioSystem>))
-            .addFunction("addSystem", (&Manager::addSystem<UISystem>))
-            .addFunction("getComponent", (&Manager::getComponent<Camera>))
-            .addFunction("getComponent", (&Manager::getComponent<Light>))
-            .addFunction("getComponent", (&Manager::getComponent<MeshRenderer>))
-            .addFunction("getComponent", (&Manager::getComponent<Transform>))
-            .addFunction("getComponent", (&Manager::getComponent<RigidBody>))
-            .addFunction("getEntities", (&Manager::getEntities))
-            .addFunction("getHandler", (&Manager::getHandler))
-            .addFunction("getSystem", (&Manager::getSystem<AudioSystem>))
-            .addFunction("getSystem", (&Manager::getSystem<RenderSystem>))
-            //.addFunction("getSystem", (&ecs::Manager::getSystem<Flamingo::ParticleSystem>))
-            .addFunction("getSystem", (&Manager::getSystem<PhysicsSystem>))
-            .addFunction("getSystem", (&Manager::getSystem<UISystem>))
-            .addFunction("hasComponent", (&Manager::hasComponent<Camera>))
-            .addFunction("hasComponent", (&Manager::hasComponent<MeshRenderer>))
-            .addFunction("hasComponent", (&Manager::hasComponent<Light>))
-            .addFunction("hasComponent", (&Manager::hasComponent<Transform>))
-            .addFunction("hasComponent", (&Manager::hasComponent<RigidBody>))
-            .addFunction("isAlive", (&Manager::isAlive))
-            .addFunction("setAlive", (&Manager::setAlive))
-            .addFunction("removeComponent", (&Manager::removeComponent<Camera>))
-            .addFunction("removeComponent", (&Manager::removeComponent<Light>))
-            .addFunction("removeComponent", (&Manager::removeComponent<MeshRenderer>))
-            .addFunction("removeComponent", (&Manager::removeComponent<Transform>))
-            .addFunction("removeComponent", (&Manager::removeComponent<RigidBody>))
-            .addFunction("removeSystem", (&Manager::removeSystem<AudioSystem>))
-            .addFunction("removeSystem", (&Manager::removeSystem<UISystem>))
-            .addFunction("removeSystem", (&Manager::removeSystem<RenderSystem>))
-            //.addFunction("removeSystem", (&ecs::Manager::removeSystem<Flamingo::ParticleSystem>))
-            .addFunction("removeSystem", (&Manager::removeSystem<PhysicsSystem>))
-            .addFunction("setAlive", (&Manager::setAlive))
-            .addFunction("setHandler", (&Manager::setHandler))
-            .endClass();
-    }
-
-    luabridge::LuaRef Flamingo::ScriptingSystem::getFromLua(std::string t_name)
+    luabridge::LuaRef ScriptingSystem::getFromLua(std::string t_name)
     {
         return luabridge::getGlobal(lua_state, t_name.c_str());
     }

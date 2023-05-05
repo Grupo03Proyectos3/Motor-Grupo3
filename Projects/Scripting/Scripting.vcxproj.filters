@@ -21,9 +21,6 @@
     <ClCompile Include="..\..\Src\Scripting\LuaVariables.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Scripting\PruebaScript.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\Scripting\ScriptingSystem.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -33,9 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Scripting\BehaviourScript.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Scripting\PruebaScript.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Scripting\ScriptingSystem.h">

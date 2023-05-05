@@ -8,7 +8,6 @@
 #include "FlamingoExport/FlamingoAPI.h"
 namespace Flamingo
 {
- 
     class GameObject;
     class Manager;
     class BehaviourScript;

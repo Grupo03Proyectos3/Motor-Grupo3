@@ -21,13 +21,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\Scripting\BehaviourScript.cpp" />
     <ClCompile Include="..\..\Src\Scripting\LuaVariables.cpp" />
-    <ClCompile Include="..\..\Src\Scripting\PruebaScript.cpp" />
     <ClCompile Include="..\..\Src\Scripting\ScriptingSystem.cpp" />
     <ClCompile Include="..\..\Src\Scripting\ScriptManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\Scripting\BehaviourScript.h" />
-    <ClInclude Include="..\..\Src\Scripting\PruebaScript.h" />
     <ClInclude Include="..\..\Src\Scripting\ScriptingSystem.h" />
     <ClInclude Include="..\..\Src\Scripting\ScriptManager.h" />
   </ItemGroup>

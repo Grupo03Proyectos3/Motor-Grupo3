@@ -29,8 +29,6 @@ namespace Flamingo
         /**
          * @brief Se llama una vez al comienzo de collisionar con otro cuerpo
          *
-         *
-         *
          * @param[in] t_other GameObject* GameObject del cuerpo contra el que ha colisionado
          * @return
          */
@@ -39,7 +37,6 @@ namespace Flamingo
         /**
          * @brief Se llama continuamente al collisionar con otro cuerpo
          *
-         *
          * @param[in] t_other GameObject* GameObject del cuerpo contra el que colisiona
          * @return
          */
@@ -47,7 +44,6 @@ namespace Flamingo
 
         /**
          * @brief Se llama al salir de la colision con otro cuerpo
-         *
          *
          * @param[in] t_other GameObject* GameObject del cuerpo con el que ha terminado la colision
          * @return
