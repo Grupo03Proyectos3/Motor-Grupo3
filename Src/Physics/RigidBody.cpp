@@ -87,18 +87,23 @@ namespace Flamingo
             phys_sys->removeRigidBody(m_rigid_body);
             delete m_rigid_body;
 
-            delete m_shape; // already done
+            //delete m_shape; // already done
             const Ogre::AxisAlignedBox& meshBoundingBox = mr->getBoundingBox();
             // Calculate the dimensions of the box collider
             btVector3 halfExtents(meshBoundingBox.getSize().x * 0.5f, meshBoundingBox.getSize().y * 0.5f, meshBoundingBox.getSize().z * 0.5f);
             halfExtents *= transform->getScale();
-            m_shape = new btBoxShape(halfExtents);
-            // shape->setLocalScaling(halfExtents);
+            //m_shape = new btBoxShape(halfExtents);
+            m_shape->setLocalScaling(halfExtents);
 
             m_rigid_body = m_mngr->getSystem<Flamingo::PhysicsSystem>()->createRigidBody(m_bullet_transform, m_shape, m_mass);
 
             // Guardamosla referencia en un void* de bullet para recuperarlo en el callback de colisiones
             m_rigid_body->setUserPointer(this);
+        }
+        else
+        {
+            btVector3 halfExtents = transform->getScale();
+            m_shape->setLocalScaling(halfExtents);
         }
 
         m_mngr->getSystem<Flamingo::PhysicsSystem>()->addRigidBody(m_rigid_body);
