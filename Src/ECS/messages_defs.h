@@ -2,9 +2,7 @@
 
 #ifndef __MESSAGES_DEFS_H__
 #define __MESSAGES_DEFS_H__
-//
-//#include "FlamingoUtils/SQuaternion.h"
-//#include "FlamingoUtils/SVector3.h"
+
 #include "ecs.h"
 #include <cstdint>
 #include <array>
