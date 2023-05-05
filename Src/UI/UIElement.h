@@ -55,8 +55,9 @@ namespace Flamingo
 
         void subsEvent(BehaviourScript* t_s);
 
+       CEGUI::Window* getWindowElement();
       protected:
-        CEGUI::Window* getWindowElement();
+      
         void setElement(CEGUI::Window* element);
         void setToInitComponent();
         void setNewParent(CEGUI::Window* wnd);

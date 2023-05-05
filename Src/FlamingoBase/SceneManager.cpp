@@ -67,25 +67,12 @@ namespace Flamingo
         }
     }
 
-    void SceneManager::reloadScenePetition(Scene* t_scene)
+    void SceneManager::reloadScenePetition()
     {
-        std::string name = t_scene->getName();
-        auto s = m_scenes.find(name);
-
-        if (s != m_scenes.end())
+        if (getSceneActive() != nullptr)
         {
-            if (true)
-            {
-                m_reloadScene = true;
-                m_sceneToReload = t_scene;
-            }
-            else
-            {
-            }
-        }
-        else
-        {
-            createScene(name, true);
+            m_reloadScene = true;
+            m_sceneToReload = getSceneActive();
         }
     }
 
@@ -98,7 +85,18 @@ namespace Flamingo
 
         std::string name = m_sceneToReload->getName();
         m_sceneToReload->destroySceneObjects();
+        m_sceneToAsociated = m_sceneToReload;
         m_mngr->getSystem<ScriptingSystem>()->loadObjects(name);
+    }
+
+    Scene* SceneManager::getSceneToAttach()
+    {
+        return m_sceneToAsociated;
+    }
+
+    void SceneManager::setSceneToAttach(Scene* t_sceneToAttach)
+    {
+        m_sceneToAsociated = t_sceneToAttach;
     }
 
     void SceneManager::startScene(std::string t_sceneName)

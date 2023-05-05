@@ -15,7 +15,7 @@ namespace Flamingo
 {
     void MeshRenderer::initValues(SVector3 scaleNode, std::string t_model_name, std::string t_entity_name)
     {
-        m_scene_mngr = FlamingoSceneManager().getSceneActive()->getSceneManger();
+        m_scene_mngr = FlamingoSceneManager().getSceneToAttach()->getSceneManger();
         m_entity_name = t_entity_name;
         m_model_name = t_model_name;
         m_material_name = "";
@@ -30,7 +30,7 @@ namespace Flamingo
             throw std::runtime_error("[ERROR Mesh Renderer]: Mesh name is different from .mesh name");
         }
 
-        m_scene_node = FlamingoSceneManager().getSceneActive()->getSceneRoot()->createChildSceneNode();
+        m_scene_node = FlamingoSceneManager().getSceneToAttach()->getSceneRoot()->createChildSceneNode();
         m_scale_diff = scaleNode;
     }
 

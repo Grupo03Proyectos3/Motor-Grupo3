@@ -14,8 +14,8 @@ namespace Flamingo
     void Light::initValues( std::string t_name)
     {
         auto sys = m_mngr->getSystem<RenderSystem>();
-        m_sceneMgr = FlamingoSceneManager().getSceneActive()->getSceneManger();
-        m_light_node = FlamingoSceneManager().getSceneActive()->getSceneRoot()->createChildSceneNode();
+        m_sceneMgr = FlamingoSceneManager().getSceneToAttach()->getSceneManger();
+        m_light_node = FlamingoSceneManager().getSceneToAttach()->getSceneRoot()->createChildSceneNode();
         m_name = t_name;
     }
 

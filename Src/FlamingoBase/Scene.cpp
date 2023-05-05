@@ -64,23 +64,47 @@ namespace Flamingo{
 
     void Scene::destroySceneObjects()
     {
+       
+
+        m_initialized = false;
+
         for (auto obj : m_SceneGameObjects)
         {
-            if (m_mngr->getComponent<Camera>(obj.second) != nullptr)
+            auto c = m_mngr->getComponent<Camera>(obj.second);
+            if (c != nullptr)
             { // es necesario desasociar el viewport de la camara con la camra para k pare de renderizar
-                m_mngr->getComponent<Camera>(obj.second)->desactive();
+               c->desactive();
             }
 
+            //auto ui = m_mngr->getComponent<UIElement>(obj.second);
+            //if (ui != nullptr)
+            //{
+
+            //    //delete ui->getWindowElement();
+            //    m_CeguiRootNode->removeChild(ui->getWindowElement());
+            //    ;
+            //}
+
+         
             obj.second->setAlive(false);
         }
 
-        
+           while (m_CeguiRootNode->getChildCount() > 0)
+        {
+            CEGUI::Window* child = m_CeguiRootNode->getChildAtIdx(0);
+
+            m_CeguiRootNode->removeChild(child);
+        }
+
+
+        m_SceneGameObjects.clear();
         m_mngr->reajustGroups();
         m_mngr->refresh();
     }
 
     void Scene::desactive()
     {
+        m_active = false;
         m_OgreRootNode->setVisible(false);
         m_CeguiRootNode->setVisible(false);
         // acceder a objectos de la scene en la k esten y desactivarlos
@@ -97,6 +121,7 @@ namespace Flamingo{
 
     void Scene::active()
     {
+        m_active = true;
         m_OgreRootNode->setVisible(true);
         m_CeguiRootNode->setVisible(true);
         for (auto it : m_SceneGameObjects)
@@ -120,6 +145,11 @@ namespace Flamingo{
             ScriptManager::instance()->startComponents();
         }
 
+    }
+
+    bool Scene::isSceneActive()
+    {
+        return m_active;
     }
 
     GameObject* Scene::getObject(std::string t_name)

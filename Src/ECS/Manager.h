@@ -12,7 +12,6 @@
 
 #include "Component.h"
 #include "GameObject.h"
-#include "Scripting/BehaviourScript.h"
 #include "SingletonECS.h"
 #include "System.h"
 #include "ecs.h"
@@ -240,40 +239,7 @@ namespace Flamingo
             }
         }
 
-        // Devuelve un componente que herede de BehaviourScript
-        //
-        template <typename T>
-        inline T* getBehaviourComponent(GameObject* t_e)
-        {
-            try
-            {
-                for (auto it = t_e->m_current_comps.begin(); it != t_e->m_current_comps.end(); ++it)
-                {
-                    auto& name = it->first;
-                    auto& comp = it->second;
-                    if constexpr (std::is_base_of_v<BehaviourScript, T>)
-                    {
-                        if (dynamic_cast<T*>(comp))
-                        {
-                            return static_cast<T*>(comp);
-                        }
-                    }
-                    else
-                    {
-                        if (std::is_same_v<T, decltype(*comp)>)
-                        {
-                            return static_cast<T*>(comp);
-                        }
-                    }
-                }
-                return nullptr;
-            }
-            catch (const std::exception&)
-            {
-                return nullptr;
-            }
-        }
-
+      
         // returns true if there is a component with identifier T::id
         // in the entity 't_e'
         //

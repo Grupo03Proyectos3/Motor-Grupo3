@@ -40,13 +40,17 @@ namespace Flamingo
 
         void addScene(Scene* t_Scene);
 
-        void reloadScenePetition(Scene* t_Scene);
-
-        void reloadScene();
+        void reloadScenePetition();
 
         void startScene(std::string t_sceneName);
 
+         void reloadScene();
+
+         Scene* getSceneToAttach();
+         void setSceneToAttach(Scene* t_sceneToAttach);
+
       private:
+
         Manager* m_mngr;
 
         std::unordered_map<std::string, Scene*> m_scenes;
@@ -55,6 +59,7 @@ namespace Flamingo
 
         bool m_reloadScene = false;
         Scene* m_sceneToReload;
+        Scene* m_sceneToAsociated = nullptr;
     };
     // This macro defines a compact way for using the singleton
     //

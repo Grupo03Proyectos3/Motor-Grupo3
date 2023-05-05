@@ -20,7 +20,6 @@ namespace Flamingo
 
       private:
         Flamingo::RenderSystem* m_renderSystem;
-        Ogre::SceneNode* root;
     };
 } // namespace Flamingo
 #endif

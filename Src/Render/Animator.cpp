@@ -15,7 +15,7 @@ namespace Flamingo
 
     void Animator::initValues(std::string name)
     {
-        m_scene_mngr = Flamingo::FlamingoSceneManager().getSceneActive()->getSceneManger();
+        m_scene_mngr = Flamingo::FlamingoSceneManager().getSceneToAttach()->getSceneManger();
         m_name = name;
         m_num_animations_active = (0);
         m_transform = nullptr;

@@ -162,6 +162,8 @@ namespace Flamingo
             render_sys->update(dt);
             ui_system->update(dt);
 
+
+
             // pruebas de enemigos
 
             //auto enemigo = m_mngr->getEntities(GROUP_RENDER);
@@ -170,8 +172,9 @@ namespace Flamingo
 
             ihdlr.refresh();
 
-            m_mngr->refresh();
             SceneManager::instance()->reloadScene();
+
+            m_mngr->refresh();
             m_mngr->flushMessages();
         }
     

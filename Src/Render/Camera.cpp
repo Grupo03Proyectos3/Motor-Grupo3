@@ -22,12 +22,12 @@ namespace Flamingo
     void Camera::initValues(std::string t_name, float t_color_x, float t_color_y, float t_color_z)
     {
         auto sys = m_mngr->getSystem<RenderSystem>();
-        m_scene_mngr = FlamingoSceneManager().getSceneActive()->getSceneManger();
+        m_scene_mngr = FlamingoSceneManager().getSceneToAttach()->getSceneManger();
         m_cam = nullptr;
         m_vp = nullptr;
         m_target = nullptr;
         m_window = sys->getWindow();
-        m_cam_node = FlamingoSceneManager().getSceneActive()->getSceneRoot()->createChildSceneNode();
+        m_cam_node = FlamingoSceneManager().getSceneToAttach()->getSceneRoot()->createChildSceneNode();
         m_name = t_name;
         m_color = {t_color_x, t_color_y, t_color_z};
     }

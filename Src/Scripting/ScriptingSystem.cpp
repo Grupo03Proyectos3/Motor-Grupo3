@@ -244,11 +244,15 @@ namespace Flamingo
                 m_data.clear();
             }
             m_scene_mngr.getScene(t_scene)->addObjects(gO); // Añadir el objeto a la escena
+          
 
             for (auto c : gO->getCurrentComponents())
             {
                 c.second->initComponent();
             }
+
+              if (!m_scene_mngr.getScene(t_scene)->isSceneActive())
+                gO->setActive(false);
         }
     }
 
@@ -292,6 +296,8 @@ namespace Flamingo
         m_mngr->getSystem<RenderSystem>()->addShadersScene(myScene);
         // TO DO : a�adir control de excepciones devolviendo false si algo falla
         // Por ej : no encuentra el fichero
+
+        SceneManager::instance()->setSceneToAttach(myScene);
 
         loadObjects(t_scene);
       

@@ -29,6 +29,9 @@ namespace Flamingo{
         void desactive();
         void active();
         void startScene();
+
+
+        bool isSceneActive();
         FLAMINGOEXPORT_API GameObject* getObject(std::string t_name);
 
         FLAMINGOEXPORT_API std::string getName();
@@ -44,6 +47,7 @@ namespace Flamingo{
         std::string m_name;
         bool mDebug;
         bool m_initialized = false;
+        bool m_active = false;
     }; 
 } // namespace OgreScene
 #endif

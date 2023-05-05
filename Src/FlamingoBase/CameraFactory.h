@@ -25,7 +25,6 @@ namespace Flamingo
         Flamingo::Component* createComponent(Flamingo::GameObject* gO, const std::unordered_map<std::string, std::string>& args) override;
 
       private:
-        Ogre::SceneNode* root;
         RenderSystem* m_renderSystem;
     };
 } // namespace Flamingo
