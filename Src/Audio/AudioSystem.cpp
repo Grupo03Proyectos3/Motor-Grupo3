@@ -26,7 +26,7 @@ namespace Flamingo
 
     void AudioSystem::recieve(const Message& t_m)
     {
-        switch (t_m.id)
+        /*switch (t_m.id)
         {
             case MSG_GAME_OBJECT_ACTIVE_CHANGED:
             {
@@ -43,7 +43,7 @@ namespace Flamingo
             }
             default:
                 break;
-        }
+        }*/
     }
 
     void AudioSystem::initSystem()
