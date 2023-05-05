@@ -40,34 +40,35 @@ namespace Flamingo
         void update(float t_delta_time) override;
 
         /**
-         * @brief Adds t_rb to bullet's physics world
+         * @brief Añade un t_rb al mundo de fisica
          *
-         * The parameter is added to the physics world for it to be updated every frame
-         * within the game.
+         * El parametro se añade al mundo físico y será actualizado en cada update 
+         * del juego
          *
-         * @param[in] t_rb btRigidBody* to be added to the game
+         * @param[in] t_rb btRigidBody* que se añadira al juego
          * @return
          */
         void addRigidBody(btRigidBody* t_rb);
 
         /**
-         * @brief Removes t_rb from bullet's physics world
+         * @brief Quitar un t_rb del mundo de fisica
          *
-         * The parameter is removed from the physics world
+         * El parametro se quita del mundo físico y será actualizado en cada update 
+         * del juego
          *
-         * @param[in] t_rb btRigidBody* to be removed from the game
+         * @param[in] t_rb btRigidBody* que se quitara dell juego
          * @return
          */
         void removeRigidBody(btRigidBody* t_rb);
 
         /**
-         * @brief Create a Bullet RigidBody
+         * @brief Crea un Bullet RigidBody
          *
-         * With the given parameters, it creates a Bullet RigidBody object
+         * A partir de los parametros crea un Bullet RigidBody
          *
-         * @param[in] t_transform Position, location and rotation of the body
-         * @param[in] t_shape Collision shape of the body
-         * @param[in] t_mass Mass value of the body
+         * @param[in] t_transform Posicion, escala y rotacion del cuerpo
+         * @param[in] t_shape Forma de colision del cuerpo
+         * @param[in] t_mass Masa
          * @return btRigidBody* object
          */
         btRigidBody* createRigidBody(btTransform* t_transform, btCollisionShape* t_shape, const float& t_mass);
@@ -82,6 +83,7 @@ namespace Flamingo
          * @param[in] t_collisionPair
          * @param[in] t_dispatcher
          * @param[in] t_dispatchInfo
+         * @return bool
          */
         static bool onCollisionStay(btManifoldPoint& cp, void* body0, void* body1);
         static void onCollisionEnter(btPersistentManifold* const& manifold);

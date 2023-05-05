@@ -24,7 +24,7 @@ namespace Flamingo
 
     UISystem::~UISystem()
     {
-        // CEGUI::System::getSingleton().destroy();
+        
     }
 
     void UISystem::recieve(const Message& m)
@@ -40,27 +40,17 @@ namespace Flamingo
         if (m.id == MSG_MOUSE_MOVE)
         {
             m_guiContext->injectMousePosition(m.moveMouse.mouseX, m.moveMouse.mouseY);
-
-            // std::cout << "x: " << m.moveMouse.x << " ,y: " << m.moveMouse.y << "\n";
-            // std::cout << "x2: " << guiContext->getMouseCursor().getPosition().d_x << " ,y2: " << guiContext->getMouseCursor().getPosition().d_y << "\n";
         }
         else if (m.id == MSG_MOUSE_CLICK)
-        {
-            // injectMouseButtonClick(CEGUI::MouseButton::LeftButton);
-
+        {  
             if (m.ui_input.mouse_states[0] != m_estadoBotones[0])
             {
                 if (m.ui_input.mouse_states[0])
                 {
-                    if (m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::LeftButton))
-                    {
-                        std::cout << "LEFT DOWN\n";
-                    }
+                    m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::LeftButton);
                 }
-                else if (m_guiContext->injectMouseButtonUp(CEGUI::MouseButton::LeftButton))
-                {
-                    std::cout << "LEFT UP\n";
-                }
+                else
+                    m_guiContext->injectMouseButtonUp(CEGUI::MouseButton::LeftButton);
 
                 m_estadoBotones[0] = m.ui_input.mouse_states[0];
             }
@@ -69,15 +59,11 @@ namespace Flamingo
             {
                 if (m.ui_input.mouse_states[1])
                 {
-                    if (m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::MiddleButton))
-                    {
-                        std::cout << "MIDDLE DOWN\n";
-                    }
+                    m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::MiddleButton);
                 }
-                else if (m_guiContext->injectMouseButtonUp(CEGUI::MouseButton::MiddleButton))
-                {
-                    std::cout << "MIDDLE UP\n";
-                }
+                else 
+                    m_guiContext->injectMouseButtonUp(CEGUI::MouseButton::MiddleButton);
+
                 m_estadoBotones[1] = m.ui_input.mouse_states[1];
             }
 
@@ -85,21 +71,13 @@ namespace Flamingo
             {
                 if (m.ui_input.mouse_states[2])
                 {
-                    if (m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::RightButton))
-                    {
-                        std::cout << "RIGHT DOWN\n";
-                    }
+                    m_guiContext->injectMouseButtonDown(CEGUI::MouseButton::RightButton);
                 }
-                else if (m_guiContext->injectMouseButtonUp(CEGUI::MouseButton::RightButton))
-                {
-                    std::cout << "RIGHT UP\n";
-                }
+                else
+                    m_guiContext->injectMouseButtonUp(CEGUI::MouseButton::RightButton);
+
                 m_estadoBotones[2] = m.ui_input.mouse_states[2];
             }
-            // if (guiContext->injectMouseButtonClick(CEGUI::MouseButton::LeftButton))
-            //    std::cout << "lima\n";
-
-            // CEGUI::System::getSingletonPtr()->injectTimePulse(10.0f);
         }
         else if (m.id != MSG_WINDOW_RESIZED)
         {
@@ -143,13 +121,12 @@ namespace Flamingo
         m_renderer->beginRendering();
         m_guiContext->draw();
         m_renderer->endRendering();
-
-        // CEGUI::System::getSingletonPtr()->injectTimePulse(t_delta_time);
     }
 
     void UISystem::initContext()
     {
         auto sys = m_mngr->getSystem<RenderSystem>();
+
         // Seleccionamos el RenderTarget que usamos de ogre que usamos de Root de Renderizado
         m_renderer = &CEGUI::OgreRenderer::bootstrapSystem(*sys->getWindow()->getRenderWindow());
         m_renderer->setUsingShaders(true);
@@ -186,13 +163,10 @@ namespace Flamingo
         m_winMngr->destroyAllWindows();
         for (auto scheme : m_schemes)
         {
-            //detectado memory leaks en CEGUI(2), aunque llamemos a destruir el scheme no borra correctamente y deja memory leaks residuales. 
-            //(~56b && ~262144b)
             CEGUI::SchemeManager::getSingleton().destroy(scheme);
         }
         m_schemes.clear();
 
-        // eraseMainRoot();
         m_renderer->setUsingShaders(false);
         CEGUI::System::getSingleton().destroyGUIContext(*m_guiContext);
 
@@ -246,7 +220,6 @@ namespace Flamingo
         try
         {
             CEGUI::Window* newWindow = m_winMngr->createWindow("DefaultWindow", name);
-            // m_root->addChild(newWindow);
             FlamingoSceneManager().getSceneToAttach()->getCeguiRoot()->addChild(newWindow);
             newWindow->activate();
             newWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0.5), CEGUI::UDim(0.5, 0.5)));

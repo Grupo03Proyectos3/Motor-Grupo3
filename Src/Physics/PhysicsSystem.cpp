@@ -24,8 +24,6 @@ namespace Flamingo
     {
         if (m_world != nullptr)
         {
-            // cleanup in the reverse order of creation/initialization
-
             // Borrar constraints (si hubiera)
             int numConstraints = m_world->getNumConstraints();
             for (int i = 0; i < numConstraints; i++)
@@ -47,12 +45,6 @@ namespace Flamingo
                 delete obj;
             }
 
-            /*      for (auto rb : m_rigid_bodies)
-                  {
-                      delete rb;
-                  }*/
-
-            // delete collision shapes
             for (unsigned int j = 0; j < m_collision_shapes->size(); j++)
             {
                 btCollisionShape* shape = (*m_collision_shapes)[j];
@@ -162,8 +154,6 @@ namespace Flamingo
 
                 if (rb == NULL)
                     return;
-
-                // rb->setScale({t_m.vector.x, t_m.vector.y, t_m.vector.z});
                 break;
             }
             default:
@@ -178,7 +168,6 @@ namespace Flamingo
         m_dispatcher = new btCollisionDispatcher(m_collision_config);
 
         // Callbacks de las colisiones
-        // m_dispatcher->setNearCallback(onCollisionStay);
         gContactStartedCallback = onCollisionEnter;
         gContactEndedCallback = onCollisionExit;
         gContactProcessedCallback = onCollisionStay;
@@ -190,9 +179,6 @@ namespace Flamingo
         m_solver = sol;
 
         m_world = new btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_solver, m_collision_config);
-
-        // Optional : set gravity to a certain value, plus other characteristics we need
-        // m_world->setGravity();
 
         auto render_sys = m_mngr->getSystem<RenderSystem>();
 
@@ -251,12 +237,10 @@ namespace Flamingo
         // Crea el Rigidbody a partir de:
         //- Un MotionState (interno de Bullet)
         //- Un ConstructionInfo (interno de Bullet)
-
         btDefaultMotionState* state = new btDefaultMotionState(*t_transform);
 
         btVector3 localInertia(0, 0, 0);
 
-        // TO DO Poner masa 0 a los cinemáticos
         if (t_mass != 0.0f)
             t_shape->calculateLocalInertia(t_mass, localInertia);
 
@@ -314,7 +298,6 @@ namespace Flamingo
         if (index >= 0)
         {
             m_collision_shapes->removeAtIndex(index);
-            //delete t_shape;
         }
     }
 
@@ -323,18 +306,16 @@ namespace Flamingo
         // Obtener los dos objetos implicados en la colisión
         btCollisionObject* obj1 = static_cast<btCollisionObject*>(body0);
         btCollisionObject* obj2 = static_cast<btCollisionObject*>(body1);
+
         // Comprobar si los dos objetos son rigid bodies
         RigidBody* rigidBody1 = static_cast<RigidBody*>(obj1->getUserPointer());
         RigidBody* rigidBody2 = static_cast<RigidBody*>(obj2->getUserPointer());
 
         if (rigidBody1 && rigidBody2)
         {
-            //   std::cout << "Colision entre " << rigidBody1 << " y " << rigidBody2 << "\n ";
 
             Message m;
             m.id = MSG_COLLISION_STAY;
-            // TO DO : cambiar a Grupo físico
-
             m.collision.obj1 = rigidBody1->gameObject();
             m.collision.obj2 = rigidBody1->gameObject();
             Manager::instance()->send(m);

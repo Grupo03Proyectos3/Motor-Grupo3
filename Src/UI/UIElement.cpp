@@ -26,8 +26,7 @@ namespace Flamingo
 
     UIElement::~UIElement()
     {
-        //SceneManager::instance()->getSceneActive()->getCeguiRoot()->destroyChild(m_element);
-        //m_element->destroy();
+      
     }
 
     void UIElement::initComponent()
@@ -51,16 +50,10 @@ namespace Flamingo
 
             if (m_type == "FlamingoDefaultUI/StaticImage")
             {
-                //// Obtener la capa Widgets y la capa Top
-                // CEGUI::Window* widgetsLayer = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("Widgets");
-                // CEGUI::Window* topLayer = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("Top");
-
-                //// Mover MyWidget de Widgets a Top
-                // widgetsLayer->removeChild(m_element);
-                // topLayer->addChild(m_element);
                 m_element->moveToBack();
 
                 setImage("Image", m_name, m_image);
+                m_element->setDisabled(true);
             }
             else if (m_image != "" && m_type == "FlamingoDefaultUI/ImageButton")
             {
@@ -172,7 +165,6 @@ namespace Flamingo
 
     void UIElement::setToInitComponent()
     {
-        // seteo los datos de transform
         auto transform = m_mngr->getComponent<Transform>(m_ent);
         setPosition(transform->getPosition());
         setSize(transform->getScale());
@@ -191,7 +183,6 @@ namespace Flamingo
 
     void UIElement::setElementWidget(const std::string& widget, const std::string& name)
     {
-        // solucionar lo de k no se llmae al init
         if (m_uiSys == nullptr)
             m_uiSys = m_mngr->getSystem<Flamingo::UISystem>();
         setNewParent(m_uiSys->createWidget(widget, name));
@@ -234,14 +225,9 @@ namespace Flamingo
 
     void UIElement::subsEvent(BehaviourScript* t_s)
     {
-        //BehaviourScript* i = new B();
-        
         if (m_element != nullptr)
         {
             m_element->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&BehaviourScript::clickFuntion, t_s));
         }
     }
-
-  
-  
 } // namespace Flamingo

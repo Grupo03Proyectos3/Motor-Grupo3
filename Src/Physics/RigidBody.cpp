@@ -4,11 +4,11 @@
 #include <LinearMath/btTransform.h>
 
 #include "PhysicsSystem.h"
+#include "Ogre.h"
 
 #include "FlamingoBase/Transform.h"
 #include "FlamingoUtils/SQuaternion.h"
 #include "FlamingoUtils/SVector3.h"
-#include "Ogre.h"
 #include "Render/MeshRenderer.h"
 
 namespace Flamingo
@@ -20,7 +20,6 @@ namespace Flamingo
     RigidBody::~RigidBody()
     {
         delete m_rigid_body->getMotionState();
-        // delete m_rigid_body->getCollisionShape(); // lo hace el sistema
         m_rigid_body->setUserPointer(nullptr);
 
         m_mngr->getSystem<Flamingo::PhysicsSystem>()->removeRigidBody(m_rigid_body);
@@ -46,8 +45,6 @@ namespace Flamingo
         else
             m_mass = (t_mass);
 
-        //  auto transform = m_mngr->getComponent<Transform>(m_ent);
-
         m_shape = new btBoxShape({1.0f, 1.0f, 1.0f});
 
         m_bullet_transform = new btTransform({0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f});
@@ -61,20 +58,16 @@ namespace Flamingo
         {
             m_rigid_body->setCollisionFlags(btCollisionObject::CF_STATIC_OBJECT);
             m_rigid_body->setGravity(btVector3(0.0, 0.0, 0.0));
-            //m_rigid_body->setActivationState(DISABLE_DEACTIVATION);
         }
         else
         {
             m_rigid_body->setCollisionFlags(btCollisionObject::CF_DYNAMIC_OBJECT);
             m_rigid_body->setGravity(btVector3(0.0, -9.8, 0.0));
         }
-
-        // m_mngr->getSystem<Flamingo::PhysicsSystem>()->addRigidBody(m_rigid_body);
     }
 
     void RigidBody::initComponent()
     {
-        // TO DO a�adir control por si no tiene transform
         auto transform = m_mngr->getComponent<Transform>(m_ent);
         auto phys_sys = m_mngr->getSystem<PhysicsSystem>();
 
@@ -87,14 +80,12 @@ namespace Flamingo
             phys_sys->removeRigidBody(m_rigid_body);
             delete m_rigid_body;
 
-            //delete m_shape; // already done
             const Ogre::AxisAlignedBox& meshBoundingBox = mr->getBoundingBox();
+
             // Calculate the dimensions of the box collider
             btVector3 halfExtents(meshBoundingBox.getSize().x * 0.5f, meshBoundingBox.getSize().y * 0.5f, meshBoundingBox.getSize().z * 0.5f);
             halfExtents *= transform->getScale();
-            //m_shape = new btBoxShape(halfExtents);
             m_shape->setLocalScaling(halfExtents);
-
             m_rigid_body = m_mngr->getSystem<Flamingo::PhysicsSystem>()->createRigidBody(m_bullet_transform, m_shape, m_mass);
 
             // Guardamosla referencia en un void* de bullet para recuperarlo en el callback de colisiones
@@ -145,8 +136,6 @@ namespace Flamingo
         btTransform transform = m_rigid_body->getWorldTransform();
         transform.setOrigin(btVector3(t_pos));
         m_rigid_body->setWorldTransform(transform);
-
-        // m_bullet_transform->setOrigin(btVector3(t_pos));
     }
 
     void RigidBody::setRotation(SQuaternion t_rot)
@@ -157,7 +146,6 @@ namespace Flamingo
         btTransform transform = m_rigid_body->getWorldTransform();
         transform.setRotation(btQuaternion(t_rot));
         m_rigid_body->setWorldTransform(transform);
-        // m_bullet_transform->setRotation(btQuaternion(t_rot));
     }
 
     void RigidBody::setLinearVelocity(const SVector3& t_velocity)
