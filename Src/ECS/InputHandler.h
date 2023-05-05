@@ -1,18 +1,19 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
+
 
 #pragma once
 
 #ifndef __INPUT_HANDLER_H__
 #define __INPUT_HANDLER_H__
 
+#include "FlamingoUtils/FlamingoKeys.h"
 #include "SingletonECS.h"
 #include <SDL.h>
 #include <array>
 #include <iostream>
 #include <vector>
-#include "FlamingoUtils/FlamingoKeys.h"
 
-namespace Flamingo{
+namespace Flamingo
+{
     class InputHandler : public SingletonECS<InputHandler>
     {
         friend SingletonECS<InputHandler>;
@@ -24,7 +25,11 @@ namespace Flamingo{
 
         void clearState();
 
-        // update the state with a new event
+        /**
+         * @brief Actualiza el estado con un nuevo evento
+         *
+         * @param[in]  t_event const SDL_Event& evento a recibir
+         */
         void update(const SDL_Event& t_event);
 
         // refresh
@@ -57,6 +62,7 @@ namespace Flamingo{
         int getMouseButtonState(MOUSEBUTTON t_b);
 
       private:
+        // pulsar/levantar tecla
         bool isKeyDown(SDL_Scancode t_key);
 
         bool isKeyUp(SDL_Scancode t_key);
@@ -85,9 +91,6 @@ namespace Flamingo{
         const Uint8* m_kB_state;
     };
 
-    // This macro defines a compact way for using the singleton InputHandler, instead of
-    // writing InputHandler::instance()->method() we write ih().method()
-    //
     InputHandler& ih();
 } // namespace Flamingo
 #endif

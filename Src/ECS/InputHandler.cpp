@@ -8,7 +8,7 @@ namespace Flamingo{
 
     void InputHandler::clearState()
     {
-        // no hace falta reseteear el bool de windowclose pq si se cierra se cierra
+        
         m_is_key_down = false;
         m_is_key_up = false;
         m_is_mouse_button = false;
@@ -78,7 +78,7 @@ namespace Flamingo{
 
     bool InputHandler::isKeyDown(SDL_Scancode t_key)
     {
-        return /*keyDownEvent() &&*/ m_kB_state[t_key] == 1;
+        return  m_kB_state[t_key] == 1;
     }
 
     bool InputHandler::isKeyDown(SDL_Keycode t_key)
@@ -88,7 +88,7 @@ namespace Flamingo{
 
     bool InputHandler::isKeyUp(SDL_Scancode t_key)
     {
-        return /*keyUpEvent() &&*/ m_kB_state[t_key] == 0;
+        return  m_kB_state[t_key] == 0;
     }
 
     bool InputHandler::isKeyUp(SDL_Keycode t_key)
