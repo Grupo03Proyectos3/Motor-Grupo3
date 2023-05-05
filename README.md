@@ -17,6 +17,9 @@ Estos memory leaks consisten en:
 - 2 leaks por la inicialización de FlamingoDefaultUI.scheme, para obtener los elementos que crearemos de UI. Aun eliminando su contenido en el método eraseContext() del UISystem, éste sigue provocando fugas de memoria.
 - 2 leaks por cada vez que se añade una imagen como propiedad a un elemento de UI. La imagen es añadida usando addFromImageFile() del ImageManager de CEGUI. Cuando hacemos su destrucción en el eraseContext() del UISystem, no borra sus elementos correctamente, provocando 2 fugas por cada imagen que ha sido añadida.
 
+# DOCUMENTO DE ARQUITECTURA DE LA APLICACIÓN
+Disponible en el siguiente [enlace](https://docs.google.com/document/d/1QyVL74zdQPN7MQIYyo73qdJAATZfBXgCr_v5fXanyeg/edit?usp=sharing).
+
 # DOCUMENTO DE GUÍAS DE ESTILO DE CÓDIGO 
 
 Reglas sacadas de : https://lefticus.gitbooks.io/cpp-best-practices/content/03-Style.html

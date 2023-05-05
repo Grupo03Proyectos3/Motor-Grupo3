@@ -64,7 +64,7 @@ namespace Flamingo
 
         static FlamingoCore* m_instance;
 
-        std::string m_first_scene = "mapa"; // TO DO : poner un nombre por defecto? para una escena por defecto?
+        std::string m_first_scene;
         std::vector<std::string> m_scenes_to_load;
 
         bool initialized;

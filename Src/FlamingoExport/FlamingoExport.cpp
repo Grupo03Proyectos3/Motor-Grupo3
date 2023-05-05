@@ -24,15 +24,6 @@
 
 #include <iostream>
 
-//// Ejemplo de variable exportada
-// FLAMINGOEXPORT_API int nFlamingoExport=0;
-//
-//// Ejemplo de funciÃ³n exportada.
-// FLAMINGOEXPORT_API int fnFlamingoExport(void)
-//{
-//     return 0;
-// }
-
 CFlamingoExport* CFlamingoExport::_instance = nullptr;
 
 bool CFlamingoExport::Init()
