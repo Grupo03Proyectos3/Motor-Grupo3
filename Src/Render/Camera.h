@@ -2,10 +2,10 @@
 #define __CAMERA_H__
 
 #include "ECS/Component.h"
-#include "Render/Window.h"
+#include "FlamingoBase/Transform.h"
 #include "FlamingoUtils/SColor.h"
 #include "FlamingoUtils/SVector3.h"
-#include "FlamingoBase/Transform.h"
+#include "Render/Window.h"
 #include <string>
 
 namespace Ogre
@@ -13,11 +13,11 @@ namespace Ogre
     class Camera;
     class Viewport;
     class SceneNode;
-}
+} // namespace Ogre
 
 namespace Flamingo
 {
-    struct FLAMINGOEXPORT_API Camera : Flamingo::Component
+    struct Camera : Flamingo::Component
     {
       public:
         __SYSTEM_ID_DECL__(Flamingo::_cpm_CAMERA)
@@ -34,29 +34,30 @@ namespace Flamingo
         virtual void initValues(std::string t_name, float t_color_x, float t_color_y, float t_color_z);
         virtual void initComponent();
 
-        void lookAt(SVector3 t_pos, STransformSpace t_trs);
-        void translate(float t_x, float t_y, float t_z);
+        FLAMINGOEXPORT_API void lookAt(SVector3 t_pos, STransformSpace t_trs);
+        FLAMINGOEXPORT_API void translate(float t_x, float t_y, float t_z);
 
-        void roll(float t_d);
-        void yaw(float t_d);
-        void pitch(float t_d);
+        FLAMINGOEXPORT_API void roll(float t_d);
+        FLAMINGOEXPORT_API void yaw(float t_d);
+        FLAMINGOEXPORT_API void pitch(float t_d);
 
-        void setPolygonMode(polygonMode t_p);
-        void setAutoAspectRatio(bool t_b);
-        void setNearClipDistance(float t_clip);
-        void setFarClipDistance(float t_clip);
+        FLAMINGOEXPORT_API void setPolygonMode(polygonMode t_p);
+        FLAMINGOEXPORT_API void setAutoAspectRatio(bool t_b);
+        FLAMINGOEXPORT_API void setNearClipDistance(float t_clip);
+        FLAMINGOEXPORT_API void setFarClipDistance(float t_clip);
 
-        void setViewPortBackgroundColour(SColor t_vp_color);
+        FLAMINGOEXPORT_API void setViewPortBackgroundColour(SColor t_vp_color);
         void desactiveViewport();
         void activeViewport();
         void desactive();
         void active();
 
-        Ogre::SceneNode* getNode(); // NO EXPORTAR
+        Ogre::SceneNode* getNode();
 
-        void setTarget(GameObject* go);
-        void setOffset(SVector3 offset);
-        void FollowTarget();
+        FLAMINGOEXPORT_API void setTarget(GameObject* go);
+        FLAMINGOEXPORT_API void setOffset(SVector3 offset);
+        FLAMINGOEXPORT_API void FollowTarget();
+
       private:
         Ogre::Camera* m_cam;
         Ogre::Viewport* m_vp;

@@ -162,10 +162,9 @@ namespace Flamingo
                 auto animator = m_mngr->getComponent<Flamingo::Animator>(game_object);
 
                 if (animator != nullptr)
-                    animator->updateAnimations(t_delta_time * 0.001); // PQ HAY Q PASARLO A MILISEGUNDOS
+                    animator->updateAnimations(t_delta_time * 0.001);
             }
         }
-        // TODO actualizar Transform con input/scripts
         m_root->renderOneFrame();
         m_window->update();
         // manipulateCamera();

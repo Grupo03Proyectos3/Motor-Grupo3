@@ -24,7 +24,6 @@ namespace Flamingo
         virtual ~Animator(){};
         virtual void initValues(std::string name);
         virtual void initComponent();
-
         void createAnimation(std::string t_name, double t_duration);
         void setFrameAnimation(std::string t_nameAnimation, double t_duration,
                                SVector3 t_translate, SQuaternion t_rotacion, SVector3 t_scale);

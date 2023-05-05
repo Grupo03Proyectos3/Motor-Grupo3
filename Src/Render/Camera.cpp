@@ -1,6 +1,6 @@
 #include "Camera.h"
-#include "RenderSystem.h"
 #include "ECS/ManagerFunctions.h"
+#include "RenderSystem.h"
 
 #include <OgreCamera.h>
 #include <OgreRenderWindow.h>
@@ -44,17 +44,13 @@ namespace Flamingo
         m_cam_node->setPosition(t->getPosition());
         m_cam_node->attachObject(m_cam);
 
-        //m_cam_node->setViewPortBackgroundColour(SColor(0.3f, 0.2f, 0.6f));
-        //m_cam_node->setPosition(100, 500, 100);
-        //m_cam_node->setPosition(0, 48000, 0);
-        //m_cam_node->setDirection(-1, 0, 0);
         m_vp = m_window->getRenderWindow()->addViewport(m_cam, -m_window->getRenderWindow()->getNumViewports());
         m_vp->setDimensions(0, 0, 1, 1); // Tamaño completo de la ventana
         m_vp->setBackgroundColour(m_color);
     }
 
-     void Camera::lookAt(SVector3 t_pos, STransformSpace t_trs)
-     {
+    void Camera::lookAt(SVector3 t_pos, STransformSpace t_trs)
+    {
         switch (t_trs)
         {
             case WORLD:
@@ -152,25 +148,27 @@ namespace Flamingo
         m_vp->setCamera(m_cam);
     }
 
-    void Camera::setTarget(GameObject* go){
+    void Camera::setTarget(GameObject* go)
+    {
         m_target = go;
     }
     void Camera::setOffset(SVector3 offset)
     {
         m_offset = offset;
     }
-    void Camera::FollowTarget(){
-        if (m_target != nullptr){
+    void Camera::FollowTarget()
+    {
+        if (m_target != nullptr)
+        {
             auto trpTarget = m_mngr->getComponent<Transform>(m_target);
             auto mtrp = m_mngr->getComponent<Transform>(m_ent);
 
             SVector3 newOffset = trpTarget->getRotation().Rotate(m_offset);
-            mtrp->setPosition(trpTarget->getPosition() - newOffset);                     
-            mtrp->setRotation(trpTarget->getRotation(),WORLD);
+            mtrp->setPosition(trpTarget->getPosition() - newOffset);
+            mtrp->setRotation(trpTarget->getRotation(), WORLD);
 
             lookAt({trpTarget->getPosition().getX(), trpTarget->getPosition().getY(), trpTarget->getPosition().getZ()}, WORLD);
             roll(180);
-            //std::cout << trpTarget->getPosition() << "\n";
         }
     }
 } // namespace Flamingo
