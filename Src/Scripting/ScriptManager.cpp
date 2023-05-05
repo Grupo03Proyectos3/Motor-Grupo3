@@ -98,6 +98,9 @@ namespace Flamingo
     {
         for (auto gO : Manager::instance()->getEntities(GROUP_SCRIPTING))
         {
+            if (gO == nullptr)
+                continue;
+
             for (auto c : gO->getCurrentComponents())
             {
                 auto s = dynamic_cast<BehaviourScript*>(c.second);
