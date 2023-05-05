@@ -290,51 +290,6 @@ namespace Flamingo
         return m_root->createSceneManager(Ogre::DefaultSceneManagerFactory::FACTORY_TYPE_NAME, name);;
     }
 
-    //TO DO: QUITARLO
-    void RenderSystem::manipulateCamera()
-    {
-        auto& ihldr = ih();
-        if (ihldr.keyDownEvent())
-        {
-            if (ihldr.isKeyDown(SDLK_r))
-            {
-                m_camera->roll(1.0f);
-            }
-            else if (ihldr.isKeyDown(SDLK_y))
-            {
-                m_camera->yaw(2.0f);
-            }
-            else if (ihldr.isKeyDown(SDLK_p))
-            {
-                m_camera->pitch(1.0f);
-            }
-            if (ihldr.isKeyDown(SDLK_RIGHT))
-            {
-                m_camera->translate(900.0f, 0.0f, 0.0f);
-            }
-            else if (ihldr.isKeyDown(SDLK_LEFT))
-            {
-                m_camera->translate(-900.0f, 0.0f, 0.0f);
-            }
-            else if (ihldr.isKeyDown(SDLK_UP))
-            {
-                m_camera->translate(0.0f, 0.0f, -900.0f);
-            }
-            else if (ihldr.isKeyDown(SDLK_DOWN))
-            {
-                m_camera->translate(0.0f, 0.0f, +900.0f);
-            }
-            else if (ihldr.isKeyDown(SDLK_PLUS))
-            {
-                m_camera->translate(0.0f, 900.0f, 0.0f);
-            }
-            else if (ihldr.isKeyDown(SDLK_MINUS))
-            {
-                m_camera->translate(0.0f, -900.0f, 0.0f);
-            }
-        }
-    }
-
     RenderSystem::~RenderSystem()
     {
         if (m_window)

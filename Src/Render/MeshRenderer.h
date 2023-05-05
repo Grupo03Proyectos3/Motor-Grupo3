@@ -26,20 +26,25 @@ namespace Flamingo
         virtual ~MeshRenderer();
         FLAMINGOEXPORT_API virtual void initValues(SVector3 scaleNode, std::string t_model_name, std::string t_entity_name);
         FLAMINGOEXPORT_API virtual void initComponent();
-
         FLAMINGOEXPORT_API void changeMaterial(std::string t_materialName);
         FLAMINGOEXPORT_API void onDisable();
         FLAMINGOEXPORT_API void onEnable();
+        /**
+        @brief Establece la distancia a la que ya no se renderiza el objeto.
+        **/       
         FLAMINGOEXPORT_API void setRenderingDistance(float t_d);
+        /**
+       @brief Establece si la visualización de depuración de este objeto está habilitada o no.
+       **/  
         FLAMINGOEXPORT_API void setDebugVisibility(bool t_b);
+        /**
+        @brief Establece si este objeto proyectará o no sombras.
+        **/  
         FLAMINGOEXPORT_API void setCastShadows(bool t_b);
-        void attachObjectToBone(std::string t_bone_name, Ogre::Entity* t_ent); // NO EXPORTAR
-        void detachObjectFromBone(Ogre::Entity* t_ent);                        // NO EXPORTAR
-        void detachObjectFromBone(std::string t_bone);
 
         Ogre::AxisAlignedBox getBoundingBox(); // NO EXPORTAR
-        Ogre::Entity* getEntity();    // NO EXPORTAR
-        Ogre::SceneNode* getNode(); // NO EXPORTAR
+        Ogre::Entity* getEntity();   
+        Ogre::SceneNode* getNode();
 
       protected:
         Ogre::Entity* m_ent_ogre;

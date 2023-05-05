@@ -90,7 +90,7 @@ namespace Flamingo
 
             if (!mMaterialMgrListener)
             {
-                mMaterialMgrListener = new OgreSGTechique::SGTechniqueResolverListener(mShaderGenerator);
+                mMaterialMgrListener = new Flamingo::SGTechniqueResolverListener(mShaderGenerator);
                 Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
                 mShaderGenerator->addSceneManager(Flamingo::FlamingoSceneManager().getSceneActive()->getSceneManger());
             }

@@ -29,11 +29,8 @@ namespace Flamingo
         void update(float t_delta_time) override;
 
         inline Flamingo::Window* getWindow() { return m_window; } 
-        Ogre::Root* getOgreRoot(); // NO EXPORTAR
-        
-        inline void setMainCamera(Camera* t_camera) { m_camera = t_camera; }
-        // en esta funcion se manipula la cámara
-        void manipulateCamera();
+        Ogre::Root* getOgreRoot();
+
         void inicializarShaders();
         void addShadersScene(Scene* scene);
       private:
@@ -41,14 +38,35 @@ namespace Flamingo
         Ogre::FileSystemLayer* m_fs_layer = nullptr; // Fichero de recursos
         Flamingo::Window* m_window = nullptr;        
         std::string m_app_name;     // Nombre de la app
-        Camera* m_camera = nullptr; // cámara
-
+        /**
+        @brief Crea la raiz
+        **/
         void createRoot();
+        /**
+        @brief Crea, inilicializa la ventana y llama a inicializar los recursos
+        **/
         void setUp();
+        /**
+        @brief Inicializa los recursos
+        **/
         void loadResources();
+        /**
+        @brief Carga los recursos en el sistema si estos no han sido inicilizados
+        **/
         void locateResources();
+        /**
+        @brief Trae los recursos al sistema y inicializa el pipeline de renderizado
+        **/
         void bringResources(std::string& sec_name, std::string& type_name, std::string& arch_name);
+        /**
+        @brief Comprueba la configuración guardada de video/sonido/etc
+        *
+        @return bool Devuelve true si habia configuracion.
+        */
         bool config();
+        /**
+        @brief Crea un SceneManager de Ogre
+        **/
         Ogre::SceneManager* createSceneManager(std::string name);
     };
 }

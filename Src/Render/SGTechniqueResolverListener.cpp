@@ -1,7 +1,7 @@
 #include "SGTechniqueResolverListener.h"
 #include "OgreTechnique.h"
 
-namespace OgreSGTechique
+namespace Flamingo
 {
     SGTechniqueResolverListener::SGTechniqueResolverListener(Ogre::RTShader::ShaderGenerator* pShaderGenerator)
     {
@@ -69,4 +69,4 @@ namespace OgreSGTechique
         }
         return false;
     }
-} // namespace OgreSGTechique
+} // namespace Flamingo

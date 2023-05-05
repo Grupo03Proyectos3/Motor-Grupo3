@@ -86,21 +86,6 @@ namespace Flamingo
         m_ent_ogre->setCastShadows(t_shadow);
     }
 
-    void MeshRenderer::attachObjectToBone(std::string t_bone_name, Ogre::Entity* t_ent)
-    {
-        m_ent_ogre->attachObjectToBone(t_bone_name, t_ent);
-    }
-
-    void MeshRenderer::detachObjectFromBone(Ogre::Entity* t_ent)
-    {
-        m_ent_ogre->detachObjectFromBone(t_ent);
-    }
-
-    void MeshRenderer::detachObjectFromBone(std::string t_bone)
-    {
-        m_ent_ogre->detachObjectFromBone(t_bone);
-    }
-
     Ogre::AxisAlignedBox MeshRenderer::getBoundingBox()
     {
         return m_ent_ogre->getBoundingBox();

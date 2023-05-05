@@ -141,22 +141,14 @@ namespace Flamingo
             physic_sys->update(dt);
             audio_sys->update(dt);
             render_sys->update(dt);
-            ui_system->update(dt);
-
-          
-
-            // pruebas de enemigos
-
-            // auto enemigo = m_mngr->getEntities(GROUP_RENDER);
-
-            render_sys->manipulateCamera();
-
+            ui_system->update(dt);        
+         
             ihdlr.refresh();
 
             m_mngr->refresh();
             m_mngr->flushMessages();
 
-              SceneManager::instance()->reloadScene();
+            SceneManager::instance()->reloadScene();
         }
 
         delete player_timer;

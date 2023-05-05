@@ -17,7 +17,7 @@ namespace Ogre
         class ShaderGenerator;
     }
 } // namespace Ogre
-namespace OgreSGTechique
+namespace Flamingo
 {
     class SGTechniqueResolverListener;
 }
@@ -66,7 +66,7 @@ namespace Flamingo{
         //Pipeline
         std::string mRTShaderLibPath;
         Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The Shader generator instance.
-        OgreSGTechique::SGTechniqueResolverListener* mMaterialMgrListener;
+        SGTechniqueResolverListener* mMaterialMgrListener;
     };
 } // namespace OgreWindow
 #endif
