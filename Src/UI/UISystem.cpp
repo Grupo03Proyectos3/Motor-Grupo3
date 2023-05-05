@@ -160,6 +160,8 @@ namespace Flamingo
 
     void UISystem::eraseContext()
     {
+        CEGUI::ImageManager::getSingleton().destroyAll();
+
         m_winMngr->destroyAllWindows();
         for (auto scheme : m_schemes)
         {

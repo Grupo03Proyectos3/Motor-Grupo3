@@ -27,12 +27,38 @@ namespace Flamingo{
 
         void initContext();
 
+          /**
+         * @brief Crea una window inicial en la que se 
+         * encontrara el elemento
+         *
+         * @return void
+         */
         void initRoot();
+
+          /**
+         * @brief Crea los principales recursos que nececita
+         * CEGUI
+         *
+         * @return void
+         */
         void initUIResources();
 
+         /**
+         * @brief Elimina los principales recursos que nececita
+         * CEGUI y los recursos que hayan guardado y utilizado
+         * estos
+         *
+         * @return void
+         */
         void eraseContext();
         void eraseMainRoot();
 
+        /**
+         * @brief Carga un .scheme en el que se guardan la informacion
+         * predefinida de los UIElement que queramos crear
+         *
+         * @return void
+         */
         void loadScheme(const std::string& schemeFile);
         void setFont(const std::string& fontFile);
 
