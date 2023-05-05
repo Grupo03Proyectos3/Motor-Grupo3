@@ -87,7 +87,7 @@ namespace Flamingo
         // TO DO : CHANGE TO SCRIPT GROUP
         for (auto gO : Manager::instance()->getEntities(GROUP_SCRIPTING))
         {
-            if (!gO->getAlive() || !gO->getActive())
+            if (gO == nullptr || !gO->getAlive() || !gO->getActive())
                 continue;
 
             for (auto c : gO->getCurrentComponents())
