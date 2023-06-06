@@ -11,7 +11,7 @@ Dependencies/CEGUI/dependencies/build
 Dependencies/CEGUI/build
 Dependencies/Lua/Build
 Exes/*
-!Exes/Assets/
+!Exes/Assets
 
 # ARCHIVOS
 desktop.ini

@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<GUIScheme version="5" name="FlamingoDefaultUI">
+	<Imageset filename="FlamingoDefaultUI.imageset" />
+	<Font filename="DejaVuSans-12.font" />
+	<LookNFeel filename="FlamingoDefaultUI.looknfeel" />
+	<WindowRendererSet filename="CEGUICoreWindowRendererSet" />
+
+	<FalagardMapping windowType="FlamingoDefaultUI/Label"       targetType="DefaultWindow"     renderer="Core/Default"      lookNFeel="FlamingoDefaultUI/Label" />
+	<FalagardMapping windowType="FlamingoDefaultUI/Button"      targetType="CEGUI/PushButton"  renderer="Core/Button"       lookNFeel="FlamingoDefaultUI/Button" />
+	<FalagardMapping windowType="FlamingoDefaultUI/Checkbox"    targetType="CEGUI/ToggleButton"    renderer="Core/ToggleButton" lookNFeel="FlamingoDefaultUI/Checkbox" />
+	<FalagardMapping windowType="FlamingoDefaultUI/ImageButton" targetType="CEGUI/PushButton"  renderer="Core/Button"       lookNFeel="FlamingoDefaultUI/ImageButton" />
+	<FalagardMapping windowType="FlamingoDefaultUI/RadioButton" targetType="CEGUI/RadioButton" renderer="Core/ToggleButton" lookNFeel="FlamingoDefaultUI/RadioButton" />
+	<FalagardMapping windowType="FlamingoDefaultUI/FrameWindow"  targetType="CEGUI/FrameWindow" renderer="Core/FrameWindow"  lookNFeel="FlamingoDefaultUI/FrameWindow" />
+	<FalagardMapping windowType="FlamingoDefaultUI/Titlebar"     targetType="CEGUI/Titlebar"    renderer="Core/Titlebar"     lookNFeel="FlamingoDefaultUI/Titlebar" />
+	<FalagardMapping windowType="FlamingoDefaultUI/Editbox"          targetType="CEGUI/Editbox"          renderer="Core/Editbox"          lookNFeel="FlamingoDefaultUI/Editbox" />
+	<FalagardMapping windowType="FlamingoDefaultUI/MultiLineEditbox" targetType="CEGUI/MultiLineEditbox" renderer="Core/MultiLineEditbox" lookNFeel="FlamingoDefaultUI/MultiLineEditbox" />
+	<FalagardMapping windowType="FlamingoDefaultUI/Menubar"   targetType="CEGUI/Menubar"   renderer="Core/Menubar"   lookNFeel="FlamingoDefaultUI/Menubar" />
+	<FalagardMapping windowType="FlamingoDefaultUI/PopupMenu" targetType="CEGUI/PopupMenu" renderer="Core/PopupMenu" lookNFeel="FlamingoDefaultUI/PopupMenu" />
+	<FalagardMapping windowType="FlamingoDefaultUI/MenuItem"  targetType="CEGUI/MenuItem"  renderer="Core/MenuItem"  lookNFeel="FlamingoDefaultUI/MenuItem" />
+	<FalagardMapping windowType="FlamingoDefaultUI/AlternateProgressBar" targetType="CEGUI/ProgressBar" renderer="Core/ProgressBar" lookNFeel="FlamingoDefaultUI/AltProgressBar" />
+	<FalagardMapping windowType="FlamingoDefaultUI/ProgressBar"          targetType="CEGUI/ProgressBar" renderer="Core/ProgressBar" lookNFeel="FlamingoDefaultUI/ProgressBar" />
+	<FalagardMapping windowType="FlamingoDefaultUI/VUMeter"              targetType="CEGUI/ProgressBar" renderer="Core/ProgressBar" lookNFeel="FlamingoDefaultUI/VUMeter" />
+	<FalagardMapping windowType="FlamingoDefaultUI/VerticalScrollbar"   targetType="CEGUI/Scrollbar" renderer="Core/Scrollbar" lookNFeel="FlamingoDefaultUI/VerticalScrollbar" />
+	<FalagardMapping windowType="FlamingoDefaultUI/HorizontalScrollbar" targetType="CEGUI/Scrollbar" renderer="Core/Scrollbar" lookNFeel="FlamingoDefaultUI/HorizontalScrollbar" />
+	<FalagardMapping windowType="FlamingoDefaultUI/VerticalScrollbarThumb"   targetType="CEGUI/Thumb" renderer="Core/Button" lookNFeel="FlamingoDefaultUI/VerticalScrollbarThumb" />
+	<FalagardMapping windowType="FlamingoDefaultUI/HorizontalScrollbarThumb" targetType="CEGUI/Thumb" renderer="Core/Button" lookNFeel="FlamingoDefaultUI/HorizontalScrollbarThumb" />
+	<FalagardMapping windowType="FlamingoDefaultUI/LargeVerticalScrollbar"      targetType="CEGUI/Scrollbar" renderer="Core/Scrollbar" lookNFeel="FlamingoDefaultUI/LargeVerticalScrollbar" />
+	<FalagardMapping windowType="FlamingoDefaultUI/LargeVerticalScrollbarThumb" targetType="CEGUI/Thumb"     renderer="Core/Button"    lookNFeel="FlamingoDefaultUI/LargeVerticalScrollbarThumb" />
+	<FalagardMapping windowType="FlamingoDefaultUI/TabButton"  targetType="CEGUI/TabButton"  renderer="Core/TabButton"  lookNFeel="FlamingoDefaultUI/TabButton" />
+	<FalagardMapping windowType="FlamingoDefaultUI/TabControl" targetType="CEGUI/TabControl" renderer="Core/TabControl" lookNFeel="FlamingoDefaultUI/TabControl" />
+	<FalagardMapping windowType="FlamingoDefaultUI/TabContentPane"    targetType="DefaultWindow"    renderer="Core/Default"    lookNFeel="FlamingoDefaultUI/TabContentPane" />
+	<FalagardMapping windowType="FlamingoDefaultUI/TabButtonPane"    targetType="DefaultWindow"    renderer="Core/Default"    lookNFeel="FlamingoDefaultUI/TabButtonPane" />
+	<FalagardMapping windowType="FlamingoDefaultUI/ComboDropList" targetType="CEGUI/ComboDropList" renderer="Core/Listbox" lookNFeel="FlamingoDefaultUI/ComboDropList" />
+	<FalagardMapping windowType="FlamingoDefaultUI/ComboEditbox"  targetType="CEGUI/Editbox"	 renderer="Core/Editbox" lookNFeel="FlamingoDefaultUI/ComboEditbox" />
+	<FalagardMapping windowType="FlamingoDefaultUI/Combobox" targetType="CEGUI/Combobox"	 renderer="Core/Default" lookNFeel="FlamingoDefaultUI/Combobox" />
+	<FalagardMapping windowType="FlamingoDefaultUI/Listbox"           targetType="CEGUI/Listbox"           renderer="Core/Listbox"           lookNFeel="FlamingoDefaultUI/Listbox" />
+	<FalagardMapping windowType="FlamingoDefaultUI/ListHeader"        targetType="CEGUI/ListHeader"        renderer="Core/ListHeader"        lookNFeel="FlamingoDefaultUI/ListHeader" />
+	<FalagardMapping windowType="FlamingoDefaultUI/ListHeaderSegment" targetType="CEGUI/ListHeaderSegment" renderer="Core/ListHeaderSegment" lookNFeel="FlamingoDefaultUI/ListHeaderSegment" />
+	<FalagardMapping windowType="FlamingoDefaultUI/MultiColumnList"   targetType="CEGUI/MultiColumnList"   renderer="Core/MultiColumnList"   lookNFeel="FlamingoDefaultUI/MultiColumnList" />
+	<FalagardMapping windowType="FlamingoDefaultUI/Slider"      targetType="CEGUI/Slider"      renderer="Core/Slider"  lookNFeel="FlamingoDefaultUI/Slider" />
+	<FalagardMapping windowType="FlamingoDefaultUI/SliderThumb" targetType="CEGUI/Thumb" renderer="Core/Button"  lookNFeel="FlamingoDefaultUI/SliderThumb" />
+	<FalagardMapping windowType="FlamingoDefaultUI/ScrollablePane" targetType="CEGUI/ScrollablePane" renderer="Core/ScrollablePane" lookNFeel="FlamingoDefaultUI/ScrollablePane" />
+	<FalagardMapping windowType="FlamingoDefaultUI/Spinner" targetType="CEGUI/Spinner" renderer="Core/Default" lookNFeel="FlamingoDefaultUI/Spinner" />
+	<FalagardMapping windowType="FlamingoDefaultUI/Tooltip" targetType="CEGUI/Tooltip" renderer="Core/Tooltip" lookNFeel="FlamingoDefaultUI/Tooltip" />
+	<FalagardMapping windowType="FlamingoDefaultUI/StaticImage" targetType="DefaultWindow" renderer="Core/StaticImage" lookNFeel="FlamingoDefaultUI/StaticImage" />
+	<FalagardMapping windowType="FlamingoDefaultUI/StaticText"  targetType="DefaultWindow" renderer="Core/StaticText"  lookNFeel="FlamingoDefaultUI/StaticText" />
+	<FalagardMapping windowType="FlamingoDefaultUI/ItemListbox" targetType="CEGUI/ItemListbox" renderer="Core/ItemListbox" lookNFeel="FlamingoDefaultUI/ItemListbox" />
+	<FalagardMapping windowType="FlamingoDefaultUI/ListboxItem" targetType="CEGUI/ItemEntry"   renderer="Core/ItemEntry"   lookNFeel="FlamingoDefaultUI/ListboxItem" />
+	<FalagardMapping windowType="FlamingoDefaultUI/GroupBox" targetType="DefaultWindow"   renderer="Core/Default"   lookNFeel="FlamingoDefaultUI/GroupBox" />
+      <FalagardMapping windowType="FlamingoDefaultUI/Tree" targetType="CEGUI/Tree"   renderer="Core/Tree"   lookNFeel="FlamingoDefaultUI/Tree" />
+</GUIScheme>
+
