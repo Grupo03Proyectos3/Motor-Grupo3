@@ -16,29 +16,18 @@ namespace Flamingo
     }
 
     /// <summary>
-    /// Genera un audio a partir de una ruta
+    /// Genera un audio a partir de una ruta y lo guarda a través de un nombre
     /// </summary>
     void AudioSource::initComponent()
     {
         auto audioSystem = m_mngr->getSystem<Flamingo::AudioSystem>();
-        FMOD_RESULT result;
-        if (m_isMusic)
-        {
-            audioSystem->createSound(m_songRoute.c_str(), FMOD_3D | FMOD_LOOP_NORMAL, nullptr, &m_sound);
-            audioSystem->addMusic(m_sound, m_songName);
-        }
-        else
-        {
-            audioSystem->createSound(m_songRoute.c_str(), FMOD_3D | FMOD_DEFAULT, nullptr, &m_sound);
-            audioSystem->addSoundEffect(m_sound, m_songName);
-        }
-        m_audioName = m_songName;
+        audioSystem->createSound(m_songRoute.c_str(), m_audioName, m_isMusic);
     }
 
     void AudioSource::initValues(const char* songRoute, std::string songName, bool isMusic)
     {
         m_songRoute = songRoute;
-        m_songName = songName;
+        m_audioName = songName;
         m_isMusic = isMusic;
     }
     void AudioSource::playAudio()

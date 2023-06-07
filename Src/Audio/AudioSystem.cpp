@@ -60,7 +60,7 @@ namespace Flamingo
         }
     }
 
-    FMOD::Sound* AudioSystem::createSound(const char* route, std::string name, bool isMusic)
+    void AudioSystem::createSound(const char* route, std::string name, bool isMusic)
     {
         FMOD::Sound* sound = nullptr;
 
@@ -74,7 +74,6 @@ namespace Flamingo
             createSound(route, FMOD_3D | FMOD_DEFAULT, nullptr, &sound);
             addSoundEffect(sound, name);
         }
-        return sound;
     }
 
     void AudioSystem::addMusic(FMOD::Sound* sound, std::string soundName)

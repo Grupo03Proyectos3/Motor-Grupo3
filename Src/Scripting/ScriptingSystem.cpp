@@ -273,7 +273,7 @@ namespace Flamingo
        
         SceneManager::instance()->setSceneToAttach(myScene);
 
-        loadObjects(t_scene); //Carga todos los oobjetos desde un script de lua
+        loadObjects(t_scene); //Carga todos los objetos desde un script de lua
 
         return true; //Si todo va bien devuelve true
     }
