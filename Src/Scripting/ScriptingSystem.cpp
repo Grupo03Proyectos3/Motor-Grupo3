@@ -188,11 +188,30 @@ namespace Flamingo
                     std::string key, val;
                     if (compName == "Scripts")
                     {
-                        key = "t_scriptName";
-                        val = lua_tostring(entity, -1); // Valor del atributo
-                        m_data.insert({key, val});
-                        m_componentFactory->addComponent(gO, compName, m_data);
-                        m_data.clear();
+                        luabridge::LuaRef scripts = entity[compName];
+                        lua_pushnil(scripts);
+
+                        while (lua_next(scripts, 0) != 0)
+                        {
+                            std::string scriptName = lua_tostring(scripts, -2); // Nombre del script
+                            luabridge::LuaRef scriptData = scripts[scriptName];
+                            m_data.insert({"t_scriptName", scriptName});
+                            lua_pushnil(scriptData);
+
+                            while (lua_next(scriptData, 0) != 0)
+                            {
+                                key = lua_tostring(scriptData, -2); // Nombre del atributo
+                                val = lua_tostring(scriptData, -1); // Valor del atributo
+                                m_data.insert({key, val});
+
+                                lua_pop(scriptData, 1);
+                            }
+
+                            m_componentFactory->addComponent(gO, compName, m_data); // (GameObject, tipo de componente, el map)
+                            m_data.clear();
+
+                            lua_pop(scripts, 1);
+                        }
                     }
                     else if (compName == "Name")
                     {

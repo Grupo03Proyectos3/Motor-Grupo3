@@ -14,7 +14,7 @@ namespace Flamingo
             std::string scriptN = ScriptManager::instance()->getScriptName(args.at("t_scriptName"));
 
             auto script = ScriptManager::instance()->addScript(scriptN, gO);
-            script->initValues();
+            script->initValues(args);
 
             return script;
         }
