@@ -14,7 +14,9 @@ namespace Flamingo
             std::string scriptN = ScriptManager::instance()->getScriptName(args.at("t_scriptName"));
 
             auto script = ScriptManager::instance()->addScript(scriptN, gO);
-            script->initValues(args);
+
+            if(!script->initValues(args))
+                throw std::exception("[ERROR BehaviourScript Factory]: Scripts values not valid");
 
             return script;
         }
