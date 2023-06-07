@@ -11,10 +11,10 @@
 #include <array>
 #include <iostream>
 #include <vector>
-
+#include "System.h"
 namespace Flamingo
 {
-    class InputHandler : public SingletonECS<InputHandler>
+    class InputHandler : public SingletonECS<InputHandler>, public System
     {
         friend SingletonECS<InputHandler>;
 
@@ -30,10 +30,10 @@ namespace Flamingo
          *
          * @param[in]  t_event const SDL_Event& evento a recibir
          */
-        void update(const SDL_Event& t_event);
+        void updateKeys(const SDL_Event& t_event);
 
         // refresh
-        void refresh();
+        void update(float t_delta_time) override;
 
         // close window event
         bool closeWindowEvent();

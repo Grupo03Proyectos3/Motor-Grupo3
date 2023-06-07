@@ -19,7 +19,7 @@ namespace Flamingo{
         }
     }
 
-    void InputHandler::update(const SDL_Event& t_event)
+    void InputHandler::updateKeys(const SDL_Event& t_event)
     {
         int whichOne;
         switch (t_event.type)
@@ -47,13 +47,13 @@ namespace Flamingo{
         }
     }
 
-    void InputHandler::refresh()
+    void InputHandler::update(float t_delta_time)
     {
         SDL_Event event;
 
         clearState();
         while (SDL_PollEvent(&event))
-            update(event);
+            updateKeys(event);
     }
 
     bool InputHandler::closeWindowEvent()

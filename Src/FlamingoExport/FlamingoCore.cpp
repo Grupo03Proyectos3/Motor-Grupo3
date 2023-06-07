@@ -142,7 +142,7 @@ namespace Flamingo
             render_sys->update(dt);
             ui_system->update(dt);        
          
-            ihdlr.refresh();
+            ihdlr.update(dt);
 
             m_mngr->refresh();
             m_mngr->flushMessages();
