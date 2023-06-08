@@ -50,7 +50,7 @@ namespace Flamingo
         void addSceneToLoad(std::string t_name);
         std::string getFirstScene();
 
-        void addGameScript(std::string t_n, BehaviourScript* t_s);
+        bool addGameScript(std::string t_n, BehaviourScript* t_s);
 
         static FlamingoCore* instance();
         static Manager* getManager();

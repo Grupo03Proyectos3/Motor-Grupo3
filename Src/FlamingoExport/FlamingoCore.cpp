@@ -224,9 +224,9 @@ namespace Flamingo
         m_motor_running = false;
     }
 
-    void FlamingoCore::addGameScript(std::string t_n, BehaviourScript* t_s)
+    bool FlamingoCore::addGameScript(std::string t_n, BehaviourScript* t_s)
     {
         auto fCore = Flamingo::ScriptManager::instance();
-        fCore->addGameScript(t_n, t_s);
+        return fCore->addGameScript(t_n, t_s);
     }
 } // namespace Flamingo

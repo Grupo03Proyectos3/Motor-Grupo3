@@ -37,20 +37,25 @@ int WINAPI wWinMain(HINSTANCE hInstance,  HINSTANCE  hPrevInstance, PWSTR pCmdLi
             GameEntryPoint initJuego = (GameEntryPoint)GetProcAddress(hinstLib, "InitJuego");
             if (initJuego)
             {
-                initJuego();
-                
-                if (core->FlamingoInit())
+                if (initJuego())
                 {
-                    core->FlamingoLoop();
+                    if (core->FlamingoInit())
+                    {
+                        core->FlamingoLoop();
+                    }
+                    else
+                        std::cout << "No se ha podido inicializar el motor\n";
                 }
                 else
-                    std::cout << "No se ha podido inicializar el motor\n";
+                {
+                    std::cout << "Ha ocurrido un error en initJuego\n";
+                }
+                
              
-                 // core->FlamingoExit();
                // FreeLibrary(hinstLib); // OJO! Si cargo una DLL DEBO LIBERARLA -> debe hacerse al cerrar el juego
             }
             else
-                std::cout << "No he encontrado InitJuego\n";
+                std::cout << "No se ha encontrado initJuego\n";
         }
         else
         {

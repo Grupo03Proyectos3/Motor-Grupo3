@@ -30,7 +30,7 @@ namespace Flamingo
 
         /*Método que añade un nuevo tipo de script a la lista de scripts, así como almacena su indice de script para poder realizar comprobaciones a la
          * hora de añadir nuevos scripts o eliminarlos*/
-        void addGameScript(std::string t_n, BehaviourScript* t_s);
+        bool addGameScript(std::string t_n, BehaviourScript* t_s);
 
         /*Método que añade a un gameObject dado el script en cuestiñon, eliminando uno similar si lo había, y devolviendolo*/
         BehaviourScript* addScript(std::string t_n, GameObject* t_gO);

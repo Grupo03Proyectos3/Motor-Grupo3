@@ -24,14 +24,16 @@ namespace Flamingo
         return m_nameScripts[t_n];
     }
 
-    void ScriptManager::addGameScript(std::string t_n, BehaviourScript* t_s)
+    bool ScriptManager::addGameScript(std::string t_n, BehaviourScript* t_s)
     {
         if (m_scriptsIndex.count(t_n))
-            return;
+            return false;
 
         m_nameScripts.emplace(t_n, t_s->GetScriptName());
         m_scriptsIndex.insert({t_s->GetScriptName(), m_scriptsIndex.size() + 1});
         m_gameScripts.emplace(t_s->GetScriptName(), t_s);
+
+        return true;
     }
 
     BehaviourScript* ScriptManager::addScript(std::string t_n, GameObject* t_gO)
