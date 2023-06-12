@@ -102,6 +102,7 @@ namespace Flamingo
         Manager* m_mngr;
 
         void addFactories();
+        bool isComponent(std::string t_name);
         //Metodo interno para obtener variables guardadas en lua
         luabridge::LuaRef getFromLua(std::string t_name);
     };

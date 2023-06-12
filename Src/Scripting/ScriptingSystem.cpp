@@ -63,6 +63,15 @@ namespace Flamingo
         m_componentFactory->addFactory("UIElement", new UIElementFactory());
     }
 
+    bool ScriptingSystem::isComponent(std::string t_name)
+    {
+        if (t_name == "MeshRenderer" || t_name == "RigidBody" || t_name == "Transform" || t_name == "Light" || t_name == "Camera" ||
+                t_name == "Animator"|| t_name == "Scripts" || t_name == "AudioSource" || t_name == "UIElement")
+            return true;
+        else
+            return false;
+    }
+
     void ScriptingSystem::initSystem()
     {
         addFactories();
@@ -183,57 +192,31 @@ namespace Flamingo
                 luabridge::LuaRef component = entity[compName];
                 lua_pushnil(component);
 
+                if (!isComponent(compName) && compName != "Name")
+                    m_data.insert({"t_scriptName", compName});
+
                 while (lua_next(component, 0) != 0) // Recorro los atributos del componente
                 {
                     std::string key, val;
-                    if (compName == "Scripts")
-                    {
-                        luabridge::LuaRef scripts = entity[compName];
-                        lua_pushnil(scripts);
+                    key = lua_tostring(entity, -2); // Nombre del atributo
+                    val = lua_tostring(entity, -1); // Valor del atributo
 
-                        while (lua_next(scripts, 0) != 0)
-                        {
-                            std::string scriptName = lua_tostring(scripts, -2); // Nombre del script
-                            luabridge::LuaRef scriptData = scripts[scriptName];
-                            m_data.insert({"t_scriptName", scriptName});
-                            lua_pushnil(scriptData);
-
-                            while (lua_next(scriptData, 0) != 0)
-                            {
-                                key = lua_tostring(scriptData, -2); // Nombre del atributo
-                                val = lua_tostring(scriptData, -1); // Valor del atributo
-                                m_data.insert({key, val});
-
-                                lua_pop(scriptData, 1);
-                            }
-
-                            m_componentFactory->addComponent(gO, compName, m_data); // (GameObject, tipo de componente, el map)
-                            m_data.clear();
-
-                            lua_pop(scripts, 1);
-                        }
-                    }
-                    else if (compName == "Name")
-                    {
-                        key = lua_tostring(entity, -2); // Nombre del atributo
-                        val = lua_tostring(entity, -1); // Valor del atributo
+                    if (compName == "Name")
                         gO->setName(val);
-                        if (val == "player")
-                        {
-                            m_mngr->setHandler(_hdr_player, gO);
-                        }
-                    }
-                    else
-                    {
-                        key = lua_tostring(entity, -2); // Nombre del atributo
-                        val = lua_tostring(entity, -1); // Valor del atributo
+                    
+                    else if (!isComponent(compName)) //Scripts
                         m_data.insert({key, val});
-                    }
+                    
+                    else
+                        m_data.insert({key, val});
 
                     lua_pop(component, 1);
                 }
-                if (compName != "Name" && compName != "Scripts")
+
+                if (compName != "Name" && isComponent(compName))
                     m_componentFactory->addComponent(gO, compName, m_data); // (GameObject, tipo de componente, el map)
+                else if (compName != "Name" && !isComponent(compName))
+                    m_componentFactory->addComponent(gO, "Scripts", m_data);
 
                 lua_pop(entity, 1);
                 m_data.clear();
