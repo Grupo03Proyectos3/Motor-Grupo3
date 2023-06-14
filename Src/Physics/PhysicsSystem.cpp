@@ -22,6 +22,11 @@ namespace Flamingo
 
     PhysicsSystem::~PhysicsSystem()
     {
+        if (m_debug_drawer != nullptr)
+        {
+            delete m_debug_drawer;
+            m_debug_drawer = nullptr;
+        }
         if (m_world != nullptr)
         {
             // Borrar constraints (si hubiera)
@@ -50,9 +55,6 @@ namespace Flamingo
                 btCollisionShape* shape = (*m_collision_shapes)[j];
                 delete shape;
             }
-            m_collision_shapes->clear();
-            delete m_collision_shapes;
-            m_collision_shapes = nullptr;
 
             delete m_world;
             m_world = nullptr;
@@ -77,12 +79,13 @@ namespace Flamingo
             delete m_collision_config;
             m_collision_config = nullptr;
         }
-
-        if (m_debug_drawer != nullptr)
+        if (m_collision_shapes != nullptr)
         {
-            delete m_debug_drawer;
-            m_debug_drawer = nullptr;
-        }
+            m_collision_shapes->clear();
+            delete m_collision_shapes;
+            m_collision_shapes = nullptr;
+        }         
+        
     }
 
     void PhysicsSystem::recieve(const Message& t_m)

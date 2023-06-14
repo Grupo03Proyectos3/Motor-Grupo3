@@ -11,6 +11,19 @@ namespace Flamingo
 
     Manager::~Manager()
     {
+        freeAllGameObjects();
+
+        //Sistems are deleted in reverse order was created
+        for (auto i = maxSystemId - 1; i >= 0; i--)
+            if (m_systems[i] != nullptr)
+            {
+                delete m_systems[i];
+                m_systems[i] = nullptr;
+            }
+    };
+
+    void Manager::freeAllGameObjects()
+    {
         std::vector<GameObject*> toDestroy;
 
         for (auto& ents : m_ents_by_group)
@@ -31,14 +44,6 @@ namespace Flamingo
 
         for (auto i = 0; i < toDestroy.size(); i++)
             delete toDestroy[i];
-
-        //Sistems are deleted in reverse order was created
-        for (auto i = maxSystemId - 1; i >= 0; i--)
-            if (m_systems[i] != nullptr)
-            {
-                delete m_systems[i];
-                m_systems[i] = nullptr;
-            }
     };
 
     void Manager::init()

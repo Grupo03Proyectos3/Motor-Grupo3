@@ -73,6 +73,8 @@ namespace Flamingo
          */
         bool isAlive(GameObject* t_e);
 
+        void freeAllGameObjects();
+
         /**
          * @brief Añade un componente a la entidad
          *

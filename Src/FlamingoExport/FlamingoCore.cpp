@@ -161,6 +161,8 @@ namespace Flamingo
         {
             return false;
         }
+
+        Manager::instance()->freeAllGameObjects();
       
         InputHandler::close();
         InputHandlerContainer::close();
@@ -173,6 +175,7 @@ namespace Flamingo
 
         initialized = false;
 
+        SceneManager::close();
         Manager::instance()->getSystem<RenderSystem>()->getWindow()->closeWindow();
         Manager::instance()->getSystem<UISystem>()->eraseContext();    
         Manager::close();

@@ -17,11 +17,12 @@ namespace Flamingo
 
     AudioSystem::~AudioSystem()
     {
-        m_system->release();
 
-        delete m_soundMap;
-        delete m_musicMap;
         delete m_channelMap;
+        delete m_musicMap;
+        delete m_soundMap;
+
+        m_system->release();
     }
 
     void AudioSystem::recieve(const Message& t_m)
