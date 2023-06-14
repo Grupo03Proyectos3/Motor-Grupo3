@@ -316,6 +316,9 @@ namespace Flamingo
     }
     void RenderSystem::inicializarShaders()
     {
+        if (m_shaders_init) // avoid double initialization
+            return;
+
         m_window->initialiseRTShaderSystem();
         m_shaders_init = true;
     }

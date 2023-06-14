@@ -103,9 +103,8 @@ namespace Flamingo
         sceneManager->startScene(m_first_scene);
         initialized = true;
         
-        //Initialize visual debugging and shaders after creating scenes
+        //Initialize visual debugging after creating scenes
         physics_sys->initDebugMode();
-        render_sys->inicializarShaders();
 
         return true;
     }
