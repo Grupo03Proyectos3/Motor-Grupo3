@@ -32,7 +32,8 @@ namespace Flamingo
         for (auto i = 0; i < toDestroy.size(); i++)
             delete toDestroy[i];
 
-        for (auto i = 0u; i < maxSystemId; i++)
+        //Sistems are deleted in reverse order was created
+        for (auto i = maxSystemId - 1; i >= 0; i--)
             if (m_systems[i] != nullptr)
             {
                 delete m_systems[i];

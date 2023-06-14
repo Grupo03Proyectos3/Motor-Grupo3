@@ -55,7 +55,7 @@ namespace Flamingo
         void addGameObjectToGroups(GameObject* t_e, std::vector<groupId_type> t_vect_gId = {});
 
         /**
-         * @brief Establece si el gameobject esta vido o muerto
+         * @brief Establece si el gameobject esta vivo o muerto
          *
          * @param[in] t_e gameobject al que se quiere cambiar el atributo
          * @param[in] t_alive estado al que se va a cambiar

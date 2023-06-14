@@ -301,11 +301,11 @@ namespace Flamingo
             m_window = nullptr;
         }
 
-        //if (m_camera != nullptr)
-        //{
-        //    delete m_camera;
-        //    m_camera = nullptr;
-        //}
+        if (m_root != nullptr)
+        {
+            delete m_root;
+            m_root = nullptr;
+        }
 
         if (m_fs_layer)
         {
@@ -313,11 +313,6 @@ namespace Flamingo
             m_fs_layer = nullptr;
         }
 
-        if (m_root != nullptr)
-        {
-            delete m_root;
-            m_root = nullptr;
-        }
     }
     void RenderSystem::inicializarShaders()
     {
