@@ -129,7 +129,7 @@ namespace Flamingo
         // Seleccionamos el RenderTarget que usamos de ogre que usamos de Root de Renderizado
         m_renderer = &CEGUI::OgreRenderer::bootstrapSystem(*sys->getWindow()->getRenderWindow());
         m_renderer->setUsingShaders(true);
-        m_guiContext = &CEGUI::System::getSingleton().createGUIContext(m_renderer->getDefaultRenderTarget());
+        m_guiContext = &CEGUI::System::getSingleton().getDefaultGUIContext();
         m_winMngr = CEGUI::WindowManager::getSingletonPtr();
         m_renderer->setRenderingEnabled(true);
 
