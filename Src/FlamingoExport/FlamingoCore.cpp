@@ -64,7 +64,6 @@ namespace Flamingo
         PhysicsSystem* physics_sys = m_mngr->addSystem<PhysicsSystem>();
         AudioSystem* audio_sys = m_mngr->addSystem<AudioSystem>();
         Flamingo::ScriptingSystem* scripting_sys = m_mngr->addSystem<Flamingo::ScriptingSystem>();
-        render_sys->inicializarShaders();
 
         if (readLua)
         {
@@ -103,6 +102,10 @@ namespace Flamingo
         sceneManager->setSceneActive(m_first_scene);
         sceneManager->startScene(m_first_scene);
         initialized = true;
+        
+        //Initialize visual debugging and shaders after creating scenes
+        physics_sys->initDebugMode();
+        render_sys->inicializarShaders();
 
         return true;
     }

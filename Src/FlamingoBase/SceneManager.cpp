@@ -33,7 +33,7 @@ namespace Flamingo
         m_mngr = m_mng;
         auto syse = m_mngr->getSystem<RenderSystem>();
 
-        createScene("DefaultScene", true);
+        //createScene("DefaultScene", true);
     }
 
     Scene* SceneManager::createScene(std::string t_SceneName, bool setActive)

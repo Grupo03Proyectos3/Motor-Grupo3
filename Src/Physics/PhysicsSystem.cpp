@@ -180,12 +180,7 @@ namespace Flamingo
 
         m_world = new btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_solver, m_collision_config);
 
-        auto render_sys = m_mngr->getSystem<RenderSystem>();
-
-        m_debug_drawer = new OgreDebugDrawer(FlamingoSceneManager().getSceneActive()->getSceneManger(), render_sys->getOgreRoot());
-        m_debug_drawer->setDebugMode(btIDebugDraw::DBG_DrawWireframe | btIDebugDraw::DBG_DrawAabb);
-        m_world->setDebugDrawer(m_debug_drawer);
-
+        m_debug_drawer = nullptr;
         SetDebugMode(false);
     }
 
@@ -207,7 +202,7 @@ namespace Flamingo
         {
             m_world->stepSimulation(t_delta_time);
 
-            if (m_debug_enabled)
+            if (m_debug_enabled && m_debug_drawer != nullptr)
             {
                 m_world->getDebugDrawer()->clearLines();
                 m_world->debugDrawWorld();
@@ -279,6 +274,19 @@ namespace Flamingo
             m.collision.obj1 = rb1->gameObject();
             m.collision.obj2 = rb2->gameObject();
             Manager::instance()->send(m);
+        }
+    }
+
+    void PhysicsSystem::initDebugMode()
+    {
+        auto render_sys = m_mngr->getSystem<RenderSystem>();
+        auto scene_mngr = FlamingoSceneManager().getSceneActive()->getSceneManger();
+
+        if (scene_mngr != nullptr)
+        {
+            m_debug_drawer = new OgreDebugDrawer(scene_mngr, render_sys->getOgreRoot());
+            m_debug_drawer->setDebugMode(btIDebugDraw::DBG_DrawWireframe | btIDebugDraw::DBG_DrawAabb);
+            m_world->setDebugDrawer(m_debug_drawer);
         }
     }
 

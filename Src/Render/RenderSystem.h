@@ -38,6 +38,8 @@ namespace Flamingo
         Ogre::FileSystemLayer* m_fs_layer = nullptr; // Fichero de recursos
         Flamingo::Window* m_window = nullptr;        
         std::string m_app_name;     // Nombre de la app
+        bool m_shaders_init = false;
+
         /**
         @brief Crea la raiz
         **/

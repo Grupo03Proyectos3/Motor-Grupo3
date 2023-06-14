@@ -42,7 +42,7 @@ namespace Flamingo
         /**
          * @brief Añade un t_rb al mundo de fisica
          *
-         * El parametro se añade al mundo físico y será actualizado en cada update 
+         * El parametro se añade al mundo físico y será actualizado en cada update
          * del juego
          *
          * @param[in] t_rb btRigidBody* que se añadira al juego
@@ -53,7 +53,7 @@ namespace Flamingo
         /**
          * @brief Quitar un t_rb del mundo de fisica
          *
-         * El parametro se quita del mundo físico y será actualizado en cada update 
+         * El parametro se quita del mundo físico y será actualizado en cada update
          * del juego
          *
          * @param[in] t_rb btRigidBody* que se quitara dell juego
@@ -89,6 +89,14 @@ namespace Flamingo
         static void onCollisionEnter(btPersistentManifold* const& manifold);
         static void onCollisionExit(btPersistentManifold* const& manifold);
 
+        /**
+         * @brief Inicializa el modo debug visual, que se podrá activar o desactivar
+         *
+         * Se debe llamar tras leer las escenas e inicializar el resto de sistemas, y se encarga de la creación
+         * del debug drawer asociado al mundo físico de bullet
+         */
+        void initDebugMode();
+
         FLAMINGOEXPORT_API void SetDebugMode(bool t_mode);
         FLAMINGOEXPORT_API bool GetDebugMode();
 
@@ -107,6 +115,6 @@ namespace Flamingo
         OgreDebugDrawer* m_debug_drawer = nullptr;
         bool m_debug_enabled = false;
     };
-}
+} // namespace Flamingo
 
 #endif

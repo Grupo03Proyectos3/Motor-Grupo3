@@ -317,8 +317,15 @@ namespace Flamingo
     void RenderSystem::inicializarShaders()
     {
         m_window->initialiseRTShaderSystem();
+        m_shaders_init = true;
     }
     void RenderSystem::addShadersScene(Scene* scene) {
+
+        if (!m_shaders_init)
+        {
+            inicializarShaders();
+        }
+
         Ogre::RTShader::ShaderGenerator::getSingletonPtr()->addSceneManager(scene->getSceneManger());
     }
 }
