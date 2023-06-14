@@ -37,7 +37,7 @@ namespace Flamingo
             {
                 throw std::runtime_error(m_ent->getName() + "Add Transform component to set uiElement Component\n");
             }
-            createEmptyWindow("");
+            //createEmptyWindow("");
 
             setElementWidget(m_type, m_name);
 
@@ -79,16 +79,20 @@ namespace Flamingo
 
     void UIElement::setText(const std::string& text)
     {
+        if (m_element == nullptr)return;
         m_element->setText(text);
     }
 
     void UIElement::setAlpha(float alpha)
     {
+        if (m_element == nullptr)return;
         m_element->setAlpha(alpha);
     }
 
     void UIElement::setActive(bool valor)
     {
+        if (m_element == nullptr) return;
+
         if (valor)
             m_element->activate();
         else
@@ -97,11 +101,15 @@ namespace Flamingo
 
     bool UIElement::isActive()
     {
+        if (m_element == nullptr)return false;
+
         return m_element->isActive();
     }
 
     void UIElement::addChild(Flamingo::UIElement* element)
     {
+        if (m_element == nullptr)return;
+
         m_element->addChild(element->getWindowElement());
         childs[element->m_element->getName().c_str()] = element;
     }
@@ -122,6 +130,8 @@ namespace Flamingo
 
     SVector2 UIElement::GetPosition()
     {
+        if (m_element == nullptr)return SVector2();
+
         return SVector2(m_element->getPosition().d_x.d_scale, m_element->getPosition().d_y.d_scale);
     }
 
@@ -139,6 +149,8 @@ namespace Flamingo
 
     Flamingo::SVector2 UIElement::getPivotCenter()
     {
+        if (m_element == nullptr)return SVector2();
+
         float i = m_element->getOuterRectClipper().d_min.d_x;
         float j = m_element->getOuterRectClipper().d_max.d_x;
 
@@ -196,10 +208,15 @@ namespace Flamingo
 
     void UIElement::setAxisAligment(bool set)
     {
+        if (m_element == nullptr)return;
+
         m_element->setPixelAligned(set);
     }
+
     void UIElement::setImage(const std::string& property, const std::string& name, const std::string& file)
     {
+        if (m_element == nullptr)return;
+
         if (!CEGUI::ImageManager::getSingleton().isDefined(name))
         {
             // memory leaks procedentes de CEGUI al añadir una imagen a su banco, llamamos los destroy mas tarde pero nada
@@ -210,6 +227,7 @@ namespace Flamingo
 
     void UIElement::setProperty(const std::string& property, const std::string& file)
     {
+        if (m_element == nullptr)return;
         try
         {
             m_element->setProperty(property, file);
