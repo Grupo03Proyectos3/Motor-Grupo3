@@ -86,6 +86,9 @@ namespace Flamingo
         m_sceneToReload->destroySceneObjects();
         m_sceneToAsociated = m_sceneToReload;
         m_mngr->getSystem<ScriptingSystem>()->loadObjects(name);
+
+        setSceneActive(m_sceneToReload->getName());
+        m_sceneToReload->startScene();
     }
 
     Scene* SceneManager::getSceneToAttach()
@@ -100,11 +103,17 @@ namespace Flamingo
 
     void SceneManager::startScene(std::string t_sceneName)
     {
+        // Cambio convocatoria extraordinaria : no cambiar la escena al instante:
+
         auto t_aux = m_scenes.find(t_sceneName);
         if (t_aux != m_scenes.end())
         {
-            setSceneActive(t_sceneName);
-            t_aux->second->startScene();
+            m_reloadScene = true;
+
+            m_sceneToReload = (*t_aux).second;
+
+            //setSceneActive(t_sceneName);
+            //t_aux->second->startScene();
         }
     }
 
