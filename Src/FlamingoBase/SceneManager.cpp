@@ -135,10 +135,11 @@ namespace Flamingo
             {
                 if (mNameSceneActive != "")
                 {
-                    (*m_scenes.find(mNameSceneActive)).second->desactive();
+                    (*itScene).second->desactive();
                 }
                 mNameSceneActive = t_SceneName;
                 (*t_aux).second->active();
+                itScene = t_aux;
             }
         }
     }

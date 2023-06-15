@@ -156,11 +156,7 @@ namespace Flamingo
 
     void Manager::flushMessages()
     {
-        // we traverse until msgs_.size(), so if new message
-        // we added we don't send them now. If you wish to send
-        // them as will you should write this loop in a different way
-        // and maybe using std::list would be better.
-        //
+     
         auto size = m_msgs.size();
         for (auto i = 0u; i < size; i++)
         {
@@ -171,13 +167,6 @@ namespace Flamingo
                     s->recieve(m);
             }
         }
-
-        // delete all message that we have sent. This might be expensive
-        // since it has to shift all remaining elements to the left. A better
-        // solution would be to keep two vectors 'v1' and 'v2', when sending a
-        // message we always add it to 'v1' and in flush we swap them and send
-        // all messages in v2. After flush we simply clear v2
-        //
         m_msgs.erase(m_msgs.begin(), m_msgs.begin() + size);
     }
 
