@@ -20,7 +20,7 @@ namespace Flamingo
         std::string GetScriptName();
 
         // Clases que podrán ser overrideadas por el desarrollador, para definir a su gusto
-        virtual void initValues(){};
+        virtual bool initValues(std::unordered_map<std::string, std::string> = {}) {return true;}
 
         virtual void start(){};
 

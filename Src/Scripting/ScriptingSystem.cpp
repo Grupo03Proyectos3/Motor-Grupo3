@@ -13,17 +13,17 @@ extern "C"
 #include "ECS/ManagerFunctions.h"
 #include "Render/RenderSystem.h"
 
-//FACTORIAS
+// FACTORIAS
+#include "FlamingoBase/AnimatorFactory.h"
 #include "FlamingoBase/AudioFactory.h"
+#include "FlamingoBase/CameraFactory.h"
 #include "FlamingoBase/ComponentsFactory.h"
+#include "FlamingoBase/LightFactory.h"
 #include "FlamingoBase/MeshRendererFactory.h"
 #include "FlamingoBase/RigidbodyFactory.h"
-#include "FlamingoBase/TransformFactory.h"
-#include "FlamingoBase/LightFactory.h"
-#include "FlamingoBase/UIElementFactory.h"
-#include "FlamingoBase/CameraFactory.h"
-#include "FlamingoBase/AnimatorFactory.h"
 #include "FlamingoBase/ScriptFactory.h"
+#include "FlamingoBase/TransformFactory.h"
+#include "FlamingoBase/UIElementFactory.h"
 
 namespace Flamingo
 {
@@ -74,7 +74,7 @@ namespace Flamingo
 
     void ScriptingSystem::update(float t_delta_time)
     {
-        //Gestiona solo las entidades del grupo scripting
+        // Gestiona solo las entidades del grupo scripting
         for (auto gO : Manager::instance()->getEntities(GROUP_SCRIPTING))
         {
             if (gO == nullptr || !gO->getAlive() || !gO->getActive())
@@ -161,7 +161,6 @@ namespace Flamingo
                 break;
         }
     }
-
     void ScriptingSystem::loadObjects(std::string t_scene)
     {
         readScript(t_scene);
@@ -183,55 +182,50 @@ namespace Flamingo
                 luabridge::LuaRef component = entity[compName];
                 lua_pushnil(component);
 
+                if (!isComponent(compName) && compName != "Name")
+                    m_data.insert({"t_scriptName", compName});
+
                 while (lua_next(component, 0) != 0) // Recorro los atributos del componente
                 {
                     std::string key, val;
-                    if (compName == "Scripts")
-                    {
-                        key = "t_scriptName";
-                        val = lua_tostring(entity, -1); // Valor del atributo
-                        m_data.insert({key, val});
-                        m_componentFactory->addComponent(gO, compName, m_data);
-                        m_data.clear();
-                    }
-                    else if (compName == "Name")
-                    {
-                        key = lua_tostring(entity, -2); // Nombre del atributo
-                        val = lua_tostring(entity, -1); // Valor del atributo
+                    key = lua_tostring(component, -2); // Nombre del atributo
+                    val = lua_tostring(component, -1); // Valor del atributo
+
+                    if (compName == "Name")
                         gO->setName(val);
-                        if (val == "player")
-                        {
-                            m_mngr->setHandler(_hdr_player, gO);
-                        }
-                    }
                     else
-                    {
-                        key = lua_tostring(entity, -2); // Nombre del atributo
-                        val = lua_tostring(entity, -1); // Valor del atributo
                         m_data.insert({key, val});
-                    }
 
                     lua_pop(component, 1);
                 }
-                if (compName != "Name" && compName != "Scripts")
-                    m_componentFactory->addComponent(gO, compName, m_data); // (GameObject, tipo de componente, el map)
+
+                if (compName != "Name")
+                {
+                    std::string componentType = isComponent(compName) ? compName : "Scripts";
+                    m_componentFactory->addComponent(gO, componentType, m_data);
+                }
 
                 lua_pop(entity, 1);
                 m_data.clear();
             }
+
             m_scene_mngr.getScene(t_scene)->addObjects(gO); // Añadir el objeto a la escena
-          
 
             for (auto c : gO->getCurrentComponents())
             {
                 c.second->initComponent();
             }
 
-              if (!m_scene_mngr.getScene(t_scene)->isSceneActive())
+            if (!m_scene_mngr.getScene(t_scene)->isSceneActive())
                 gO->setActive(false);
         }
     }
-
+    bool ScriptingSystem::isComponent(const std::string& t_name)
+    {
+        return (t_name == "Animator" || t_name == "AudioSource" || t_name == "Camera" || t_name == "Light" ||
+                t_name == "MeshRenderer" || t_name == "RigidBody" || t_name == "Scripts" || t_name == "Transform" ||
+                t_name == "UIElement");
+    }
     lua_State* ScriptingSystem::getLuaState()
     {
         return lua_state;
@@ -270,12 +264,12 @@ namespace Flamingo
         auto myScene = m_scene_mngr.createScene(t_scene, true);
 
         m_mngr->getSystem<RenderSystem>()->addShadersScene(myScene);
-       
+
         SceneManager::instance()->setSceneToAttach(myScene);
 
-        loadObjects(t_scene); //Carga todos los oobjetos desde un script de lua
+        loadObjects(t_scene); // Carga todos los oobjetos desde un script de lua
 
-        return true; //Si todo va bien devuelve true
+        return true; // Si todo va bien devuelve true
     }
 
     luabridge::LuaRef ScriptingSystem::getFromLua(std::string t_name)

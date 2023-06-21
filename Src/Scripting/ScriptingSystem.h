@@ -2,23 +2,23 @@
 #ifndef __LUA_SYSTEM_H__
 #define __LUA_SYSTEM_H__
 
-#include "ECS/System.h"
 #include "ECS/Manager.h"
+#include "ECS/System.h"
 #include "FlamingoBase/ComponentsFactory.h"
 #include "FlamingoBase/SceneManager.h"
 
-//LUA
+// LUA
 extern "C"
 {
-    #include "lua.h"
-    #include "lauxlib.h"
-    #include "lualib.h"
+#include "lauxlib.h"
+#include "lua.h"
+#include "lualib.h"
 }
 
 #include <LuaBridge\LuaBridge.h>
 
-#include <unordered_map>
 #include <string>
+#include <unordered_map>
 
 #define PATH_PREFIX "Assets/Scripts/"
 #define FILE_EXTENSION ".lua"
@@ -74,7 +74,7 @@ namespace Flamingo
          */
         bool loadScene(std::string t_scene, bool t_first = true);
 
-         /**
+        /**
          * @brief Añade a lua una variable
          *
          * @param[in] t_var Tipo de variable
@@ -82,7 +82,7 @@ namespace Flamingo
          * @return
          */
         template <typename T>
-        void addVarToLua(T t_var, std::string t_name) 
+        void addVarToLua(T t_var, std::string t_name)
         {
             luabridge::push(lua_state, t_var);
             lua_setglobal(lua_state, t_name.c_str());
@@ -94,18 +94,19 @@ namespace Flamingo
          * @return
          */
         void loadObjects(std::string t_scene);
+
       private:
         lua_State* lua_state;
         ComponentsFactory* m_componentFactory;
         SceneManager& m_scene_mngr;
         Data m_data;
         Manager* m_mngr;
+        bool isComponent(const std::string& t_name);
 
         void addFactories();
-        //Metodo interno para obtener variables guardadas en lua
+        // Metodo interno para obtener variables guardadas en lua
         luabridge::LuaRef getFromLua(std::string t_name);
     };
 } // namespace Flamingo
-
 
 #endif
