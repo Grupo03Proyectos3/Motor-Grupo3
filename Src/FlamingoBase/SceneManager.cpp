@@ -128,18 +128,23 @@ namespace Flamingo
 
     void SceneManager::setSceneActive(std::string t_SceneName)
     {
-        if (mNameSceneActive != t_SceneName)
+        if (m_activeScene == nullptr)
+        {
+            if (m_scenes.count(t_SceneName))
+            {
+                m_activeScene = (*m_scenes.find(t_SceneName)).second;
+                m_activeScene->active();
+            }
+        }
+        else if (m_activeScene->getName() != t_SceneName)
         {
             auto t_aux = m_scenes.find(t_SceneName);
             if (t_aux != m_scenes.end())
             {
-                if (mNameSceneActive != "")
-                {
-                    (*itScene).second->desactive();
-                }
-                mNameSceneActive = t_SceneName;
-                (*t_aux).second->active();
-                itScene = t_aux;
+                //Desactivate previous Scene if exists
+                m_activeScene->desactive();
+                m_activeScene = (*t_aux).second;
+                m_activeScene->active();
             }
         }
     }
@@ -150,7 +155,7 @@ namespace Flamingo
         {
             throw std::runtime_error("ERROR: There is not any Scenes Active");
         }
-        return (*m_scenes.find(mNameSceneActive)).second;
+        return m_activeScene;
     }
 
     Scene* SceneManager::getScene(std::string t_scene_name)

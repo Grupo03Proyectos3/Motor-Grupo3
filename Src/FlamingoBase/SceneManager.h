@@ -122,8 +122,7 @@ namespace Flamingo
         Manager* m_mngr;
 
         std::unordered_map<std::string, Scene*> m_scenes;
-        std::unordered_map<std::string, Scene*>::iterator itScene = m_scenes.end();
-        std::string mNameSceneActive = "";
+        Scene* m_activeScene = nullptr;
         std::string mName;
 
         bool m_reloadScene = false;
