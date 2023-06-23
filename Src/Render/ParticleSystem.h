@@ -24,10 +24,11 @@ namespace Flamingo
         __SYSTEM_ID_DECL__(_cpm_PARTICLE_SYSTEM)
 
         ParticleSystem();
-        ParticleSystem(Ogre::SceneManager* t_mng, Ogre::SceneNode* t_node);
+       
         ~ParticleSystem();
-        void initComponent();
-        void emit();
+        void initComponent() override;
+        void initValues(const std::string& t_name, const std::string& t_template);
+        void emit(bool t_state);
 
       private:
         Ogre::ParticleSystem* m_particle_system = nullptr;
@@ -39,6 +40,8 @@ namespace Flamingo
         bool m_loop;
         float m_duration;
         int m_particles;
+
+        bool m_active;
     };
 } // namespace Flamingo
 #endif
