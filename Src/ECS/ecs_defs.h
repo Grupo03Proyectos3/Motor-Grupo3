@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __ECS_DEFS_H__
-#define __ECS_DEFS_H__
+#ifndef ECS_DEFS_H
+#define ECS_DEFS_H
 
 // Lista de componentes
 //
@@ -21,13 +21,14 @@
 
 // Lista de grupos
 //
-#define GROUPS_LIST    \
-    GROUP_EXAMPLE,     \
-        GROUP_RENDER,  \
-        GROUP_PHYSICS, \
-        GROUP_AUDIO,   \
-        GROUP_UI,      \
+#define GROUPS_LIST      \
+    GROUP_EXAMPLE,       \
+        GROUP_RENDER,    \
+        GROUP_PHYSICS,   \
+        GROUP_AUDIO,     \
+        GROUP_UI,        \
         GROUP_SCRIPTING, \
+        GROUP_PARTICLES, \
         GROUP_ALL
 
 // Lista de Handlers
@@ -46,4 +47,4 @@
         _sys_LUA,     \
         _sys_AUDIO
 
-#endif // !__ECS_DEFS__
+#endif // !ECS_DEFS

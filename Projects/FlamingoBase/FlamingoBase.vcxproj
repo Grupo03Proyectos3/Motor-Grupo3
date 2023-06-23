@@ -176,6 +176,7 @@
     <ClCompile Include="..\..\Src\FlamingoBase\LightFactory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\MapReader.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\MeshRendererFactory.cpp" />
+    <ClCompile Include="..\..\Src\FlamingoBase\ParticlesFactory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\RigidBodyFactory.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\Scene.cpp" />
     <ClCompile Include="..\..\Src\FlamingoBase\SceneManager.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="..\..\Src\FlamingoBase\LightFactory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\MapReader.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\MeshRendererFactory.h" />
+    <ClInclude Include="..\..\Src\FlamingoBase\ParticlesFactory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\RigidBodyFactory.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\Scene.h" />
     <ClInclude Include="..\..\Src\FlamingoBase\SceneManager.h" />

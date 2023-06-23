@@ -20,6 +20,7 @@ extern "C"
 #include "FlamingoBase/ComponentsFactory.h"
 #include "FlamingoBase/LightFactory.h"
 #include "FlamingoBase/MeshRendererFactory.h"
+#include "FlamingoBase/ParticlesFactory.h"
 #include "FlamingoBase/RigidbodyFactory.h"
 #include "FlamingoBase/ScriptFactory.h"
 #include "FlamingoBase/TransformFactory.h"
@@ -61,6 +62,7 @@ namespace Flamingo
         m_componentFactory->addFactory("Scripts", new ScriptFactory());
         m_componentFactory->addFactory("AudioSource", new AudioFactory());
         m_componentFactory->addFactory("UIElement", new UIElementFactory());
+        m_componentFactory->addFactory("ParticleSystem", new ParticlesFactory());
     }
 
     void ScriptingSystem::initSystem()
@@ -224,7 +226,7 @@ namespace Flamingo
     {
         return (t_name == "Animator" || t_name == "AudioSource" || t_name == "Camera" || t_name == "Light" ||
                 t_name == "MeshRenderer" || t_name == "RigidBody" || t_name == "Scripts" || t_name == "Transform" ||
-                t_name == "UIElement");
+                t_name == "UIElement" || t_name == "ParticleSystem");
     }
     lua_State* ScriptingSystem::getLuaState()
     {
