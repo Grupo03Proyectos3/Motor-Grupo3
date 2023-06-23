@@ -27,8 +27,9 @@ namespace Flamingo
        
         ~ParticleSystem();
         void initComponent() override;
-        void initValues(const std::string& t_name, const std::string& t_template);
+        void initValues(const std::string& t_name, const std::string& t_template, bool t_static);
         void emit(bool t_state);
+        void updatePosition() ;
 
       private:
         Ogre::ParticleSystem* m_particle_system = nullptr;
@@ -37,7 +38,7 @@ namespace Flamingo
        
 
         std::string m_name;
-        bool m_loop;
+        bool m_static;
        
 
         bool m_active;

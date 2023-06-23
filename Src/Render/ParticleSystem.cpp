@@ -36,16 +36,26 @@ void Flamingo::ParticleSystem::initComponent()
     m_node->attachObject(m_particle_system);
 }
 
-void Flamingo::ParticleSystem::initValues(const std::string& t_name, const std::string& t_template)
+void Flamingo::ParticleSystem::initValues(const std::string& t_name, const std::string& t_template,bool t_static)
 {
     m_scene_mngr = FlamingoSceneManager().getSceneToAttach()->getSceneManger();
     m_particle_system = m_scene_mngr->createParticleSystem(t_name, t_template);
     m_node = FlamingoSceneManager().getSceneToAttach()->getSceneRoot()->createChildSceneNode();
-
+    m_static = t_static;
     emit(true);
 }
 
 void Flamingo::ParticleSystem::emit(bool t_state)
 {
     m_particle_system->setEmitting(t_state);
+}
+
+void Flamingo::ParticleSystem::updatePosition()
+{
+    if (!m_static)
+    {
+        auto t = getComponent<Transform>(m_ent);
+        
+        m_node->setPosition(t->getPosition());
+    }
 }
