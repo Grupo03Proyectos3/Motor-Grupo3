@@ -34,12 +34,11 @@ namespace Flamingo
         Ogre::ParticleSystem* m_particle_system = nullptr;
         Ogre::SceneManager* m_scene_mngr;
         Ogre::SceneNode* m_node;
-        Flamingo::Timer* m_time;
+       
 
         std::string m_name;
         bool m_loop;
-        float m_duration;
-        int m_particles;
+       
 
         bool m_active;
     };

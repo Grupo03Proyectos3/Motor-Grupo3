@@ -14,6 +14,8 @@ Flamingo::ParticleSystem::ParticleSystem()
 
 Flamingo::ParticleSystem::~ParticleSystem()
 {
+    m_scene_mngr->destroyParticleSystem(m_particle_system);
+    m_scene_mngr->destroySceneNode(m_node);
 }
 
 void Flamingo::ParticleSystem::initComponent()
