@@ -40,6 +40,8 @@ void Flamingo::ParticleSystem::initValues(const std::string& t_name, const std::
 
     if (m_static)
         emit(true);
+    else
+        emit(false);
 }
 
 void Flamingo::ParticleSystem::emit(bool t_state)
